@@ -1,0 +1,166 @@
+\ProvidesPackage{mla13}
+%\usepackage{fullpage}
+\usepackage[letterpaper]{geometry}
+%\usepackage[style=mla,backend=biber]{biblatex}
+%\usepackage{biblatex}
+\usepackage[american]{babel}
+\usepackage{csquotes}
+\usepackage{setspace}
+\setlength{\parindent}{0.5in}
+\usepackage[style=mla,mladraft=true,annotation=true]{biblatex}
+\usepackage{color}
+\newcommand{\sources}[1]{
+  \def\@sources{#1}
+  \bibliography{#1}
+}
+
+%Formatting Commands
+\renewcommand \thesection {\@arabic\c@section.}
+\renewcommand\thesubsection   {\thesection\@arabic\c@subsection}
+\renewcommand\section{\@startsection{section}{1}{\z@}%
+                                    {\z@}%
+                                    {\lineskip}%
+                                    {\normalfont}}
+\renewcommand\subsection{\@startsection{subsection}{2}{\z@}%
+                                       {\z@}%
+                                       {\lineskip}%
+                                       {\normalfont}}
+\renewcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+                                          {\z@}%
+                                          {\lineskip}%
+                                          {\normalfont}}
+\renewcommand\paragraph{\@startsection{paragraph}{4}{\z@}%
+                                      {\z@}%
+                                      {\lineskip}%
+                                      {\normalfont}}
+\renewcommand\subparagraph{\@startsection{subparagraph}{5}{\parindent}%
+                                         {\z@}%
+                                         {\lineskip}%
+                                         {\normalfont}}
+
+
+%Bibliography Commands
+\DeclareFieldFormat{ibidpostnote}{#1}%
+\newbibmacro*{cite:idem}{%
+  \ifsingletitle%
+    {\iffieldundef{postnote}%
+      {\usebibmacro{cite:name}}%
+      {\unspace\global\boolfalse{cbx@named}}}%
+    {\addspace\global\boolfalse{cbx@named}}}
+\newbibmacro*{cite:mla:title:internal}{% 0.7.1 new internal macro
+  \ifbool{cbx@named}%
+    {\unspace\addcomma\addspace}%
+    {}%
+  \iffieldundef{title}%
+    {\iffieldequalstr{entrytype}{review}%
+      {\printtext[bibhyperref]{\printtext{\bibstring{reviewof}%
+       \addspace\printfield{booktitle}}}}%
+      {\ifthenelse{\iffieldequalstr{entrytype}{suppbook}% 0.7.1
+         \OR\iffieldequalstr{entrytype}{suppcollection}}%
+        {\printtext[bibhyperref]{%
+         \printfield[mla:capital]{entrysubtype}}}%
+        {}}}%
+    {\printtext[bibhyperref]{%
+       \printfield[citetitle:\strfield{entrytype}]{labeltitle}}}}%
+\newbibmacro*{cite:mla:title}{% 0.7.1 tidied up
+  \unspace%
+  \ifnameundef{labelname}%
+    {\unspace%
+     \printtext[bibhyperref]{%
+       \printfield[citetitle:\strfield{entrytype}]{labeltitle}}%
+     \iffieldundef{postnote}%
+       {}%
+       {\addspace}}%
+    {\ifsingletitle%
+      {}%
+      {\usebibmacro{cite:mla:title:internal}\addspace}}%
+  \ifthenelse{\iffieldequalstr{entrytype}{review}%
+      \and\ifnameundef{author}%
+      \and\iffieldundef{title}}%
+    {\printtext[bibhyperref]%
+      {\unspace\printtext{\bibcpstring{reviewof}%
+       \addspace\printfield{booktitle}}}}%
+    {}}%
+\DeclareCiteCommand{\cite}[\mkbibparens]
+  {\usebibmacro{prenote}}%
+  {\usebibmacro{citeindex}%
+   \usebibmacro{cite:mla}}{}
+  {\usebibmacro{postnote}}
+\defbibheading{apa}[\refname]{}
+
+%Annotations for the Bibliography
+\renewbibmacro{finentry}{%Renew the annotation macro
+   \finentry
+   \iffieldundef{annotation}%
+     {}%
+     {\ifbool{bbx@annotation}%
+       {\begin{quotation}\noindent%Make the annotation look like a quotation and remove the indent
+          \printfield{annotation}%
+        \end{quotation}}%
+       {}}%
+}
+%End Annotation Section
+
+% Formatting Section Headings
+\def\section{\@startsection{section}{1}{\z@}{-5.25ex plus -1ex minus
+-.2ex}{1.5ex plus .2ex}{\center}}
+\def\thesection{\arabic{section}.}
+% End Formatting Section Headings
+
+%End Bibliography Commands
+%remove parenthesis from bibliography
+%\renewbibmacro*{issue+date}{%
+%  \setunit{\addcomma\space}% NEW
+%  \printtext[parens]{% DELETED
+%    \iffieldundef{issue}
+%      {\usebibmacro{date}}
+%      {\printfield{issue}%
+%       \setunit*{\addspace}%
+%       \usebibmacro{date}}}% DELETED
+%       \usebibmacro{date}}% NEW
+%  \newunit}
+%end section
+
+\geometry{top=1.0in,bottom=1.0in,left=1.0in,right=1.0in}
+\usepackage{datetime}
+\usepackage{fancyhdr}
+\linespread{2}
+\def\@firstname{ }
+\newcommand{\firstname}[1]{
+  \def\@firstname{#1}
+}
+\def\@lastname{ }
+\newcommand{\lastname}[1]{
+  \def\@lastname{#1}
+}
+\newcommand{\professor}[1]{
+  \def\@professor{#1}
+}
+\newcommand{\class}[1]{
+  \def\@class{#1}
+}
+\pagestyle{empty}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0pt}
+\rhead{\@lastname\ \thepage}
+\newdateformat{datef}{\THEDAY\ \monthname[\THEMONTH] \THEYEAR}
+\newcommand*{\makeheader}{\begingroup
+\rmfamily
+\fontsize{12}{2}
+\noindent \@firstname\ \@lastname\\
+\@professor\\
+\@class\\
+\datef\@date
+\begin{center}
+\@title
+\end{center}
+\endgroup}
+\newcommand*{\makeworkscited}{\begingroup
+\pagebreak
+\begin{center}
+Works Cited
+\end{center}
+\printbibliography[heading=apa]
+\endgroup}

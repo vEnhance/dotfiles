@@ -1,0 +1,38 @@
+;;;; General things I keep copy-pasting
+
+(defun output (a &rest s) (format t "~a~{ ~a~}~%" a s) a)
+
+(defun range-0 (n)
+  (loop for i from 0 to (1- n) collect i))
+(defun range-1 (n)
+  (loop for i from 1 to n collect i))
+
+;; Number Theory
+(defun divides (p n) (if (zerop (mod n p)) p nil))
+(defun expt-mod (n k m)
+  (cond
+    ((= k 0) 1)
+    ((evenp k) (mod (expt (expt-mod n (/ k 2) m) 2) m))
+    ((oddp k) (mod (* n (expt-mod n (1- k) m)) m))))
+(defun get-digit (n i p)
+  (mod (truncate n (expt p i)) p))
+(defun is-prime (p)
+  (if (> p 2) (loop for d from 2 to (isqrt p) never (divides d p))))
+(defun is-kth-power (n k)
+  (if (< n 0)
+    (if (evenp k) nil (is-kth-power (- n) k))
+    (let ((a (round (expt n (/ 1 k)))))
+    (eql (expt a k) n))))
+
+;; Cartesian Product
+(defun mappend (fn the-list)
+  (apply #'append (mapcar fn the-list)))
+(defun cartesian-product (&rest lists)
+  (if (null lists)
+      '(())
+      (mappend (lambda (x)
+                 (mapcar (lambda (lst) (cons x lst))
+                         (apply #'cartesian-product (cdr lists))))
+               (car lists))))
+
+;; vim: ft=lisp

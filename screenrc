@@ -1,0 +1,7 @@
+# Here comes the pain...
+caption always "%{=b dw}:%{-b dw}:%{=b dk}[ %{-b dw}%{-b dg}$USER%{-b dw}@%{-b dg}%H %{=b dk}] [ %= %?%{-b dg}%-Lw%?%{+b dk}(%{+b dw}%n:%t%{+b dk})%?(%u)%?%{-b dw}%?%{-b dg}%+Lw%? %{=b dk}]%{-b dw}:%{+b dw}:"
+
+hardstatus alwayslastline "%{+b dw}:%{-b dw}:%{+b dk}[%{-b dg} %0C %a %{=b dk}]-[   %{-b dw}Load%{+b dk}:%{-b dg}%l %{+b dk}] [%{-b dg}%1`%{+b dk}] %=[ %{-b dg}%1`%{=b dk} ]%{-b dw}:%{+b dw}:%<"
+
+# Open new window in current dir.
+bind ^c stuff "screen -X chdir \$PWD;screen^M"

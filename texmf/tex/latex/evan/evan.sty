@@ -1,0 +1,464 @@
+\ProvidesPackage{evan}
+% Last updated November 26, 2015
+\usepackage{amsmath,amssymb,amsthm}
+
+% Default Arguments
+% We include "Evan" in all of these to make sure
+% that they don't collide with anything in external packages
+\newif\ifevanfancy\evanfancytrue
+\newif\ifevanhdr\evanhdrtrue
+\newif\ifevanhref\evanhreftrue
+\newif\ifevansetup\evansetuptrue
+\newif\ifevanthm\evanthmtrue
+\newif\ifevansecthm\evansecthmfalse
+\newif\ifevanht\evanhtfalse
+\newif\ifevanpkg\evanpkgtrue
+\newif\ifevanpdf\evanpdftrue
+\newif\ifevantitling\evantitlingtrue
+\newif\ifevanauthor\evanauthortrue
+\newif\ifevanchinese\evanchinesefalse
+\newif\ifevanmdthm\evanmdthmfalse
+\newif\ifevandiagrams\evandiagramsfalse
+\newif\ifevanpatchasy\evanpatchasyfalse
+\newif\ifevanhints\evanhintsfalse
+\newif\ifevanasy\evanasytrue
+
+%Receive Arguments
+\DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
+% allow href to override this one
+
+\DeclareOption{fancy}{\evanfancytrue}
+\DeclareOption{nofancy}{\evanfancyfalse}
+\DeclareOption{hdr}{\evanhdrtrue}
+\DeclareOption{nohdr}{\evanhdrfalse}
+\DeclareOption{href}{\evanhreftrue}
+\DeclareOption{nohref}{\evanhreffalse}
+
+\DeclareOption{nosetup}{\evansetupfalse}
+\DeclareOption{thm}{\evanthmtrue}
+\DeclareOption{nothm}{\evanthmfalse}
+\DeclareOption{secthm}{\evansecthmtrue}
+\DeclareOption{ht}{\evanhttrue}
+\DeclareOption{nopdf}{\evanpdffalse}
+\DeclareOption{nopkg}{\evanpkgfalse}
+\DeclareOption{oldtitle}{\evantitlingfalse}
+\DeclareOption{newtitle}{\evantitlingtrue}
+\DeclareOption{noauthor}{\evanauthorfalse}
+
+\DeclareOption{mdthm}{\evanmdthmtrue}
+\DeclareOption{nomdthm}{\evanmdthmfalse}
+\DeclareOption{diagrams}{\evandiagramstrue}
+\DeclareOption{nodiagrams}{\evandiagramsfalse}
+
+\DeclareOption{patchasy}{\evanpatchasytrue}
+\DeclareOption{noasy}{\evanasyfalse}
+
+\DeclareOption{hints}{\evanhintstrue}
+
+\ProcessOptions\relax
+
+% if packages not loaded, turn off mdthm and asy
+\ifevanpkg\else\evanmdthmfalse\fi
+\ifevanpkg\else\evanasyfalse\fi
+
+%Small commands
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\mailto}[1]{\href{mailto:#1}{\texttt{#1}}}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\eps}{\varepsilon}
+%\renewcommand{\iff}{\Leftrightarrow}
+%\renewcommand{\implies}{\Rightarrow}
+\newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
+\newcommand{\hrulebar}{
+  \par\hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
+  \par\nointerlineskip \vspace{\baselineskip}
+}
+\newcommand{\half}{\frac{1}{2}}
+
+%For use in author command
+\newcommand{\plusemail}[1]{\\ \normalfont \texttt{\mailto{#1}}}
+
+%More commands and math operators
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator{\lcm}{lcm}
+
+%Convenient Environments
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
+\newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
+
+%Inequalities
+\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
+\newcommand{\symsum}{\sum_{\mathrm{sym}}}
+\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
+\newcommand{\symprod}{\prod_{\mathrm{sym}}}
+
+%From H113 "Introduction to Abstract Algebra" at UC Berkeley
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\charin}{\text{ char }}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\GL}{GL} % General linear group
+\DeclareMathOperator{\SL}{SL} % Special linear group
+
+%From Kiran Kedlaya's "Geometry Unbound"
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\dang}{\measuredangle} %% Directed angle
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\wideparen{#1}}
+
+%From M275 "Topology" at SJSU
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\taking}[1]{\xrightarrow{#1}}
+\newcommand{\inv}{^{-1}}
+
+%From M170 "Introduction to Graph Theory" at SJSU
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+
+%From the USAMO .tex filse
+\newcommand{\st}{^{\text{st}}}
+\newcommand{\nd}{^{\text{nd}}}
+\renewcommand{\th}{^{\text{th}}}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+
+% From Math 55 and Math 145 at Harvard
+\newenvironment{subproof}[1][Proof]{%
+\begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
+{\end{proof}}
+
+\newcommand{\PP}{\opname{\mathcal P}} % power set
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\On}{\mathrm{On}} % ordinals
+\DeclareMathOperator{\img}{im} % Image
+\DeclareMathOperator{\Img}{Im} % Image
+\DeclareMathOperator{\coker}{coker} % Cokernel
+\DeclareMathOperator{\Coker}{Coker} % Cokernel
+\DeclareMathOperator{\Ker}{Ker} % Kernel
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec} % spectrum
+\DeclareMathOperator{\Tr}{Tr} % trace
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\ext}{ext} % extension
+\DeclareMathOperator{\pred}{pred} % predecessor
+\DeclareMathOperator{\dom}{dom} % domain
+\DeclareMathOperator{\ran}{ran} % range
+\DeclareMathOperator{\Hom}{Hom} % homomorphism
+\DeclareMathOperator{\End}{End} % endomorphism
+
+
+%Asy commands
+\ifevanasy
+	\ifevanpatchasy
+		\usepackage{patch-asy}
+	\else
+		\usepackage{asymptote}
+	\fi
+	\begin{asydef}
+		import olympiad;
+		import cse5;
+		pointpen = black;
+		pathpen = black;
+		pathfontpen = black;
+		anglepen = black;
+		anglefontpen = black;
+		pointfontsize = 10;
+		defaultpen(fontsize(10pt));
+		size(6cm); // set a reasonable default
+		usepackage("amsmath");
+		usepackage("amssymb");
+	\end{asydef}
+\fi
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifevansetup
+	%Setup Title/Auth/Date
+	\ifevanauthor
+		\AtBeginDocument{%
+			\author{Evan Chen}
+			\date{\today}
+		}
+	\fi
+	%Href
+	\ifevanpkg
+		\ifevanhref
+			\usepackage{hyperref}
+		\fi
+		\usepackage[nameinlink]{cleveref}
+	\fi
+
+
+	%New Theorem Styles -- mdbluebox, mdrecbox
+	\ifevanmdthm
+		\usepackage{thmtools}
+		\usepackage[framemethod=TikZ]{mdframed}
+
+		\mdfdefinestyle{mdbluebox}{%
+			roundcorner = 10pt,
+			linewidth=1pt,
+			skipabove=12pt,
+			innerbottommargin=9pt,
+			skipbelow=2pt,
+			linecolor=blue,
+			nobreak=true
+		}
+		\declaretheoremstyle[
+			headfont=\sffamily\bfseries,
+			mdframed={style=mdbluebox},
+			headpunct={\\[3pt]},
+			postheadspace={0pt}
+		]{thmbluebox}
+
+		\mdfdefinestyle{mdrecbox}{%
+			linewidth=0.5pt,
+			skipabove=12pt,
+			frametitleaboveskip=5pt,
+			frametitlebelowskip=0pt,
+			skipbelow=2pt,
+			frametitlefont=\bfseries,
+			innertopmargin=4pt,
+			innerbottommargin=8pt,
+			nobreak=true,
+		}
+		\declaretheoremstyle[
+			headfont=\bfseries,
+			mdframed={style=mdrecbox},
+			headpunct={\\[3pt]},
+			postheadspace={0pt},
+		]{thmrecbox}
+		\newcommand{\listhack}{$\empty$\vspace{-2em}}
+	\fi
+
+
+	\ifevanthm
+		\theoremstyle{plain}
+		%Braching here: the option secthm changes theorems to be labelled by section
+		\ifevanmdthm
+			\ifevansecthm
+				\declaretheorem[%
+				style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+			\else
+				\declaretheorem[%
+				style=thmbluebox,name=Theorem]{theorem}
+			\fi
+			\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+			\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
+			\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+			\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+			\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+			\declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
+			\declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
+		\else
+			\ifevansecthm
+				\newtheorem{theorem}{Theorem}[section]
+			\else
+				\newtheorem{theorem}{Theorem}
+			\fi
+			\newtheorem{lemma}[theorem]{Lemma}
+			\newtheorem{proposition}[theorem]{Proposition}
+			\newtheorem{corollary}[theorem]{Corollary}
+			\newtheorem*{theorem*}{Theorem}
+			\newtheorem*{lemma*}{Lemma}
+			\newtheorem*{proposition*}{Proposition}
+			\newtheorem*{corollary*}{Corollary}
+		\fi
+			
+		%Def-style theorems
+		\theoremstyle{definition}
+
+		% This ought to be a real theorem, but would be too much italics
+		\ifevanmdthm
+			\declaretheorem[style=thmbluebox,name=Algorithm,sibling=theorem]{algorithm}
+		\else
+			\newtheorem{algorithm}[theorem]{Algorithm}
+			\newtheorem*{algorithm*}{Algorithm}
+		\fi
+
+		\newtheorem{claim}[theorem]{Claim}
+		\newtheorem{conjecture}[theorem]{Conjecture}
+		\newtheorem{definition}[theorem]{Definition}
+		\newtheorem{fact}[theorem]{Fact}
+
+		\newtheorem{answer}[theorem]{Answer}
+		\newtheorem{case}[theorem]{Case}
+		\newtheorem{ques}[theorem]{Question}
+		\newtheorem{exercise}[theorem]{Exercise}
+		\newtheorem{problem}[theorem]{Problem}
+
+		\newtheorem*{answer*}{Answer}
+		\newtheorem*{case*}{Case}
+		\newtheorem*{claim*}{Claim}
+		\newtheorem*{conjecture*}{Conjecture}
+		\newtheorem*{definition*}{Definition}
+		\newtheorem*{fact*}{Fact}
+		\newtheorem*{joke*}{Joke}
+		\newtheorem*{ques*}{Question}
+		\newtheorem*{exercise*}{Exercise}
+		\newtheorem*{problem*}{Problem}
+
+
+		\ifevanmdthm
+			\declaretheorem[style=thmrecbox,name=Example,sibling=theorem]{example}
+			\declaretheorem[style=thmrecbox,name=Example,numbered=no]{example*}
+		\else
+			\newtheorem{example}[theorem]{Example}
+			\newtheorem*{example*}{Example}
+		\fi
+
+		% Remark-style theorems
+		%\theoremstyle{remark}
+		\newtheorem{note}[theorem]{Note}
+		\newtheorem{remark}[theorem]{Remark}
+		\newtheorem*{note*}{Note}
+		\newtheorem*{remark*}{Remark}
+		\newtheorem{abuse}[theorem]{Abuse of Notation}
+		\newtheorem*{abuse*}{Abuse of Notation}
+	\fi
+
+	%Loads a bunch of useful packages
+	\ifevanpkg
+		\usepackage{listings}
+		\lstset{basicstyle=\footnotesize\ttfamily,
+			numbers=left,
+			numbersep=5pt,
+			numberstyle=\tiny,
+			keywordstyle=\bfseries,
+			% title=\lstname,
+			showstringspaces=false,
+			tabsize=4,
+			frame=single,
+			keywordstyle=\bfseries\color{blue},
+			commentstyle=\color{green!70!black},
+			identifierstyle=\color{green!20!black},
+			stringstyle=\color{orange},
+			breaklines=true,
+		}
+		\usepackage{paralist}
+		\usepackage[obeyFinal]{todonotes}
+		% Tiny tiny optimizations:
+		\usepackage{mathtools}
+		\usepackage{microtype}
+	\fi
+
+	\ifevantitling
+	%If we have titling...
+		\usepackage{titling}
+		\@ifundefined{KOMAClassName}{}{
+			\newcommand{\thesubtitle}{}
+			\renewcommand{\subtitle}[1]{%
+				\renewcommand{\thesubtitle}{#1}
+				\posttitle{\\ {\normalsize \thesubtitle} \end{center}\vspace{\posttitledrop}}
+			}
+		}
+		\newlength{\posttitledrop}
+		\setlength{\posttitledrop}{-0.7em}
+		\newlength{\postauthordrop}
+		\setlength{\postauthordrop}{-1.2em}
+		\pretitle{\begin{center}\bfseries \sffamily \Large}
+		\posttitle{\end{center}\vspace{\posttitledrop}}
+		\preauthor{\begin{center} \scshape}
+		\postauthor{\end{center}\vspace{\postauthordrop}}
+		\predate{\begin{center}\small}
+		\postdate{\end{center}}
+	\fi
+
+	% Commutative diagrams support
+	\ifevandiagrams
+		\usepackage{diagrams}
+		\newarrow{Inj}C--->
+		\newarrow{Surj}----{>>}
+		\newarrow{Proj}----{>>}
+		\newarrow{Embed}>--->
+		\newarrow{Incl}C--->
+		\newarrow{Mapsto}|--->
+		\newarrow{Isom}<--->
+		\newarrow{Dotted}....>
+		\newarrow{Dashed}{}{dash}{}{dash}>
+		\newarrow{Line}-----
+	\fi
+
+	%Page Setup
+	\ifevanfancy
+		\usepackage{fancyhdr}
+		\@ifundefined{KOMAClassName}
+		{
+			\setlength{\headheight}{0.75in}
+			\setlength{\oddsidemargin}{0in}
+			\setlength{\evensidemargin}{0in}
+			\setlength{\voffset}{-1.0in}
+			\setlength{\headsep}{10pt}
+			\setlength{\textwidth}{6.5in}
+			\setlength{\headwidth}{6.5in}
+			\setlength{\textheight}{8.75in}
+			\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+			\setlength{\footskip}{0.3in}
+			\ifevantitling
+				\addtolength{\posttitledrop}{0.4em}
+				\addtolength{\postauthordrop}{0.2em}
+			\fi
+		}
+		{
+			\addtolength{\textheight}{3.14cm}
+			\setlength{\footskip}{0.5in}
+			\setlength{\headsep}{10pt}
+		}
+		
+
+		%Setup FancyHeaders
+		\ifevanhdr
+		\renewcommand{\headrulewidth}{0.5pt}
+		\renewcommand{\footrulewidth}{0.0pt}
+		\pagestyle{fancy}
+		\ifevantitling
+			\lhead{\theauthor}
+		\else
+			\lhead{Evan Chen}
+		\fi
+		\chead{}
+		\rhead{\nouppercase{\leftmark}}
+		\lfoot{}
+		\cfoot{\thepage}
+		\rfoot{}
+		\fi
+	\fi
+
+	\ifevanchinese
+		\usepackage[encapsulated]{CJK}
+		\usepackage{ucs}
+		\usepackage[utf8x]{inputenc}
+		\newenvironment{bsmi}{\begin{CJK}{UTF8}{bsmi}}{\end{CJK}}
+		\newcommand{\cn}[1]{\begin{bsmi}#1\end{bsmi}}
+		\AtBeginDocument{\begin{CJK}{UTF8}{bsmi}}
+		\AtEndDocument{\end{CJK}}
+	\fi
+
+	\ifevanhints
+		\usepackage{answers}
+		\Newassociation{hint}{hintitem}{hints}
+		\renewcommand{\solutionextension}{out}
+		\Opensolutionfile{hints}
+		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}}
+	\fi
+\fi

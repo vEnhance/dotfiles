@@ -1,0 +1,49 @@
+[user]
+	name = Evan Chen
+	email = evanchen@mit.edu
+[credential]
+	helper = cache
+
+[color]
+	branch = auto
+	diff = auto
+	status = auto
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red
+	new = cyan
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[push]
+	default = simple
+
+[alias]
+	ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate 
+	ll = log -n 6 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%ad" --decorate --date=short --stat
+	tree = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
+
+	cm = commit
+	co = checkout
+	br = branch 
+	ss = status -s -b
+	pu = pull origin
+	pr = pull --rebase origin
+	psh = push origin
+	undo = reset --soft HEAD~1
+	fail = commit --amend # to avoid stupid "oops typo" commits
+
+	rb = rebase
+	rbc = rebase --continue
+	bis = bisect
+	dc = checkout --
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
+	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"

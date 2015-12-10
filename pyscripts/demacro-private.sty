@@ -1,0 +1,265 @@
+%% DE-MACRO PRIVATE FILE
+%% A list of macros that show up in my documents
+
+\usepackage{enumerate}
+\usepackage{mathrsfs}
+\usepackage[usenames]{xcolor}
+\usepackage{graphicx}
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{hyperref}
+
+%% FROM EVAN.STY
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\mailto}[1]{\href{mailto:#1}{\texttt{#1}}}
+\newcommand{\ol}[1]{\overline{#1}}
+\newcommand{\ul}[1]{\underline{#1}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\vocab}[1]{\begin{blue}\textbf{#1}\end{blue}}
+\newcommand{\hrulebar}{\bigskip\bigskip}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\plusemail}[1]{\\ \normalfont \texttt{\mailto{#1}}}
+\newcommand{\cis}{\opname{cis}}
+\newcommand{\lcm}{\opname{lcm}}
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
+\newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
+\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
+\newcommand{\symsum}{\sum_{\mathrm{sym}}}
+\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
+\newcommand{\symprod}{\prod_{\mathrm{sym}}}
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\charin}{\text{ char }}
+\newcommand{\sign}{\opname{sign}}
+\newcommand{\Aut}{\opname{Aut}}
+\newcommand{\Inn}{\opname{Inn}}
+\newcommand{\Syl}{\opname{Syl}}
+\newcommand{\GL}{\opname{GL}}
+\newcommand{\SL}{\opname{SL}}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\dang}{\measuredangle} %% Directed angle
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\wideparen{#1}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\taking}[1]{\xrightarrow{#1}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\diam}{\opname{diam}}
+\newcommand{\ord}{\opname{ord}}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+\newcommand{\st}{^{\text{st}}}
+\newcommand{\nd}{^{\text{nd}}}
+\renewcommand{\th}{^{\text{th}}}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+\newenvironment{subproof}{\begin{proof}}{\end{proof}} % Edited
+\newcommand{\PP}{\mathcal P} % power set
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\On}{\mathrm{On}} % ordinals
+\newcommand{\img}{\opname{im}} % Image
+\newcommand{\Img}{\opname{Im}} % Image
+\newcommand{\coker}{\opname{coker}} % Cokernel
+\newcommand{\Coker}{\opname{Coker}} % Cokernel
+\newcommand{\Ker}{\opname{Ker}} % Kernel
+\newcommand{\rank}{\opname{rank}}
+\newcommand{\Spec}{\opname{Spec}} % spectrum
+\newcommand{\Tr}{\opname{Tr}} % trace
+\newcommand{\pr}{\opname{pr}} % projection
+\newcommand{\ext}{\opname{ext}} % extension
+\newcommand{\pred}{\opname{pred}} % predecessor
+\newcommand{\dom}{\opname{dom}} % domain
+\newcommand{\ran}{\opname{ran}} % range
+\newcommand{\Hom}{\opname{Hom}} % homomorphism
+\newcommand{\End}{\opname{End}} % endomorphism
+\newcommand{\opname}{\operatorname}
+
+%% NAPKIN
+\newcommand{\problemhead}{Exercises}
+\newcommand{\prototype}[1]{\begin{red}\emph{Prototypical example for this section:}\end{red} \emph{#1}
+
+}
+\newenvironment{moral}{\begin{quote}}{\end{quote}}
+\newcommand{\gim}{*}
+\newcommand{\yod}{**}
+\newcommand{\kurumi}{***}
+
+\newcommand{\Zc}[1]{\ZZ_{#1}}
+\newcommand{\Zm}[1]{\ZZ_{#1}^\times}
+\newcommand{\pre}{^{\text{pre}}}
+\newcommand{\normalin}{\trianglelefteq}
+\newcommand{\triv}{\mathrm{triv}}
+\newcommand{\largeotimes}[1]{\mathop{\otimes}\limits_{#1}}
+\newcommand{\Mat}{\mathrm{Mat}}
+\newcommand{\PGL}[1]{\mathbf{PGL}_{#1}(\CC)}
+
+\newcommand{\Stab}{\opname{Stab}}
+\newcommand{\refl}{\opname{refl}}
+\newcommand{\Fun}{\opname{Fun}}
+\newcommand{\Irrep}{\opname{Irrep}}
+\newcommand{\Res}{\opname{Res}}
+\newcommand{\Reg}{\opname{Reg}}
+\newcommand{\ev}{\opname{ev}}
+\newcommand{\Wind}{\opname{\mathbf I}}
+
+\newcommand{\VV}{\mathcal V}
+\newcommand{\Aff}{\mathbb A}
+% \newcommand{\II}{\mathbb I}
+\newcommand{\RP}{\mathbb{RP}}
+\newcommand{\CP}{\mathbb{CP}}
+\newcommand{\Cl}{\mathrm{Cl}}
+
+\renewcommand{\Re}{\opname{Re}}
+\renewcommand{\Im}{\opname{Im}}
+
+
+%% Category Theory macros
+\renewcommand{\AA}{\mathcal A}
+\newcommand{\BB}{\mathcal B}
+\newcommand{\obj}{\operatorname{obj}}
+\newcommand{\op}{^{\mathrm{op}}}
+
+%% Alg Top macros
+\newcommand{\wt}{\widetilde}
+\DeclareMathOperator{\Ext}{Ext}
+
+%% Alg NT macros
+\renewcommand{\aa}{\mathfrak a}
+\newcommand{\bb}{\mathfrak b}
+\newcommand{\pp}{\mathfrak p}
+\newcommand{\qq}{\mathfrak q}
+
+\newcommand{\OO}{\mathcal O}
+\newcommand{\Frob}{\mathrm{Frob}}
+\DeclareMathOperator{\Norm}{N}
+\DeclareMathOperator{\Gal}{Gal}
+\newcommand{\TrK}{\Tr_{K/\QQ}}
+\newcommand{\NK}{\Norm_{K/\QQ}}
+
+%% Diff geo macros
+\newcommand{\ee}{\mathbf e}
+\newcommand{\fpartial}[2]{\frac{\partial #1}{\partial #2}}
+
+%% ST macros
+\newcommand{\CH}{\mathsf{CH}}
+\newcommand{\ZFC}{\mathsf{ZFC}}
+
+\newcommand{\Name}{\text{Name}}
+\newcommand{\Po}{\mathbb P}
+\newcommand{\nrank}{\opname{n-rank}} % ranks
+
+\newcommand{\EmptySet}{\mathrm{EmptySet}}
+\newcommand{\PowerSet}{\mathrm{PowerSet}}
+\newcommand{\Pairing}{\mathrm{Pairing}}
+\newcommand{\Infinity}{\mathrm{Infinity}}
+\newcommand{\Extensionality}{\mathrm{Extensionality}}
+\newcommand{\Foundation}{\mathrm{Foundation}}
+\newcommand{\Union}{\mathrm{Union}}
+\newcommand{\Comprehension}{\mathrm{Comprehension}}
+\newcommand{\Replacement}{\mathrm{Replacement}}
+
+\newcommand\MM{\mathscr M}
+\newcommand\llex{<_{\text{lex}}}
+
+\newcommand{\cof}{\opname{cof}}
+
+%% THEOREM ENVIRONMENTS
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem*{corollary*}{Corollary}
+
+
+%Def-style theorems
+\theoremstyle{definition}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem*{algorithm*}{Algorithm}
+
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{fact}[theorem]{Fact}
+
+\newtheorem{answer}[theorem]{Answer}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{ques}[theorem]{Question}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{problem}[theorem]{Problem}
+
+\newtheorem*{answer*}{Answer}
+\newtheorem*{case*}{Case}
+\newtheorem*{claim*}{Claim}
+\newtheorem*{conjecture*}{Conjecture}
+\newtheorem*{definition*}{Definition}
+\newtheorem*{fact*}{Fact}
+\newtheorem*{joke*}{Joke}
+\newtheorem*{ques*}{Question}
+\newtheorem*{exercise*}{Exercise}
+\newtheorem*{problem*}{Problem}
+
+
+\newtheorem{example}[theorem]{Example}
+\newtheorem*{example*}{Example}
+
+% Remark-style theorems
+\newtheorem{note}[theorem]{Note}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem*{note*}{Note}
+\newtheorem*{remark*}{Remark}
+\newtheorem{abuse}[theorem]{Abuse of Notation}
+\newtheorem*{abuse*}{Abuse of Notation}
+
+\newtheorem{sproblem}[theorem]{Problem} %% Napkin
+\newtheorem{dproblem}[theorem]{Problem} %% Napkin
+\newcommand{\listhack}{$\empty$} %% Mdtheorem, do nothing
+\newenvironment{hint}{Hint: }{}
+\newenvironment{sol}{Sol: }{}
+
+
+%% Asymptote
+\usepackage{asymptote}
+\begin{asydef}
+	import olympiad;
+	import cse5;
+	pointpen = black;
+	pathpen = black;
+	pathfontpen = black;
+	anglepen = black;
+	anglefontpen = black;
+	pointfontsize = 10;
+	defaultpen(fontsize(10pt));
+	size(6cm); // set a reasonable default
+	usepackage("amsmath");
+	usepackage("amssymb");
+\end{asydef}
+
+%% Missing figures and etc.
+\newcommand{\missingfigure}[1]{\begin{center} \begin{red} MISSING: #1 \end{red} \end{center}}
+\newcommand{\todo}[1]{\begin{center} \begin{red} TODO: #1 \end{red} \end{center}}
+
+
+%% WordPress hacks
+% Color hack (use \def to get around things. . .)
+\def\blue{\bgroup\color{blue}}
+\def\endblue{\egroup}
+\def\red{\bgroup\color{red}}
+\def\endred{\egroup}
+\def\green{\bgroup\color{green}}
+\def\endblue{\egroup}
+
+\endinput % This is terrible
+\renewcommand{\opname}[1]{\text{#1 }}
+\newcommand{\Cref}{\autoref{#1}}

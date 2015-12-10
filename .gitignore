@@ -1,0 +1,6 @@
+elinks/*
+!elinks/elinks.conf
+gm_scripts/*
+sage/*
+ssh/*
+vim/spell/*
