@@ -30,14 +30,14 @@ alias lisp='sbcl --script'
 
 alias dragon='python -m dragon'
 alias sparky='python -m sparky'
-alias tsq='python ~/dotfiles/pyscripts/tsq.py'
-alias wplatex='python ~/dotflies/pyscripts/latex2wp.py'	
-alias demacro='python ~/dotfiles/pyscripts/demacro.py'
+alias tsq='python ~/dotfiles/py-scripts/tsq.py'
+alias wplatex='python ~/dotflies/py-scripts/latex2wp.py'	
+alias demacro='python ~/dotfiles/py-scripts/demacro.py'
 alias toss='~/.PlayOnLinux/wine/linux-x86/1.5.1-Starcraft_battlenet/bin/wine ~/.stermchains/seriouscombo.exe'
 
 alias workflowy='/usr/bin/chromium --profile-directory=Default --app-id=koegeopamaoljbmhnfjbclbocehhgmkm'
 alias pudb='python -m pudb.run'
-alias dropcli='python ~/dotfiles/pyscripts/dropbox.py'
+alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
 alias trash='gvfs-trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
@@ -61,11 +61,11 @@ function cclean() {
 	rm -f *.class
 }
 
-alias jerm='python ~/dotfiles/pyscripts/jpc.py'
-alias piglet='python ~/dotfiles/pyscripts/jpc.py'
-alias cow='python ~/dotfiles/pyscripts/jpc.py'
-alias jpc='python ~/dotfiles/pyscripts/jpc.py'
-alias grade='python ~/dotfiles/pyscripts/grade.py'
+alias jerm='python ~/dotfiles/py-scripts/jpc.py'
+alias piglet='python ~/dotfiles/py-scripts/jpc.py'
+alias cow='python ~/dotfiles/py-scripts/jpc.py'
+alias jpc='python ~/dotfiles/py-scripts/jpc.py'
+alias grade='python ~/dotfiles/py-scripts/grade.py'
 
 # Custom change-directory function: cd + ls = cs
 function cs () {
@@ -93,7 +93,7 @@ function pdf() {
 
 # Uses the locate utility to find a certain file
 function hunt () {
-	python ~/dotfiles/pyscripts/hunt.py "${1}"
+	python ~/dotfiles/py-scripts/hunt.py "${1}"
 	cd "$(cat /tmp/hunt)"
 	pwd
 	ls -l --color=tty
