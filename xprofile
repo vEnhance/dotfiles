@@ -1,0 +1,26 @@
+# Load background image, if not existent already
+[[ -f ~/.fehbg ]] && ~/.fehbg 
+
+if [ "$HOSTNAME" = ArchAir ]; then
+	~/.dropbox-dist/dropboxd & # Dropbox
+	xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12" # natural scroll
+	synclient TapButton1=0           # Disable tap to click
+	synclient TapButton2=0           # Disable double tap to paste
+	synclient RightButtonAreaRight=1 # Remap mouse buttons
+fi
+if [ "$HOSTNAME" = ArchMega ]; then
+	~/.dropbox-dist/dropboxd & # Dropbox
+	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+fi
+if [ "$HOSTNAME" = Inspiron ]; then
+	~/.dropbox-dist/dropboxd & # Dropbox
+	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+fi
+
+# Make sure we're in Dvorak
+setxkbmap dvorak
+
+case $(date +%Z) in
+	(PST) xflux -z 94539;;    # Pacific
+	(EST) xflux -z 02138;;  # Eastern
+esac
