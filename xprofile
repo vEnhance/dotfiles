@@ -1,5 +1,5 @@
 # Load background image, if not existent already
-[[ -f ~/.fehbg ]] && ~/.fehbg 
+[[ -f ~/.fehbg ]] && source ~/.fehbg
 
 if [ "$HOSTNAME" = ArchAir ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
