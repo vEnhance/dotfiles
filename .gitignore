@@ -4,3 +4,4 @@ gm_scripts/*
 sage/*
 ssh/*
 vim/spell/*
+**/*.pyc
