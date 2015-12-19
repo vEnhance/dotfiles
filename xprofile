@@ -14,7 +14,6 @@ if [ "$HOSTNAME" = ArchMega ]; then
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 fi
 
 # Make sure we're in Dvorak
