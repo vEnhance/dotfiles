@@ -1,5 +1,4 @@
 \ProvidesPackage{evan}
-% Last updated November 26, 2015
 \usepackage{amsmath,amssymb,amsthm}
 
 % Default Arguments
@@ -204,6 +203,8 @@
 	\fi
 	%Href
 	\ifevanpkg
+		\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+		\usepackage{xcolor}
 		\ifevanhref
 			\usepackage{hyperref}
 		\fi
@@ -223,10 +224,11 @@
 			innerbottommargin=9pt,
 			skipbelow=2pt,
 			linecolor=blue,
-			nobreak=true
+			nobreak=true,
+			backgroundcolor=TealBlue!5,
 		}
 		\declaretheoremstyle[
-			headfont=\sffamily\bfseries,
+			headfont=\sffamily\bfseries\color{MidnightBlue},
 			mdframed={style=mdbluebox},
 			headpunct={\\[3pt]},
 			postheadspace={0pt}
@@ -242,9 +244,10 @@
 			innertopmargin=4pt,
 			innerbottommargin=8pt,
 			nobreak=true,
+			backgroundcolor=Salmon!5,
 		}
 		\declaretheoremstyle[
-			headfont=\bfseries,
+			headfont=\bfseries\color{RawSienna},
 			mdframed={style=mdrecbox},
 			headpunct={\\[3pt]},
 			postheadspace={0pt},
