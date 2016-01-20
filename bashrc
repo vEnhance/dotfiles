@@ -7,6 +7,8 @@
 
 [[ -f /bin/python2 ]] && alias python='python2' # Use Python 2 on Arch Linux
 
+shopt -s globstar
+
 # Git magic / Sourcing
 GIT_PS1_SHOWDIRTYSTATE=1
 GIT_PS1_SHOWSTASHSTATE=1
@@ -20,7 +22,7 @@ export EDITOR='vim'
 export TEXMFHOME=$HOME/.texmf
 export PYTHONPATH=$PYTHONPATH:$HOME/Dropbox/Documents/Projects/
 export PDFVIEWER='zathura'
-export DOT_SAGENB='~/dotfiles/sage/'
+export DOT_SAGENB='/home/evan/.sage/'
 
 # Aliases
 alias kitty="cat"
