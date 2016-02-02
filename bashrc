@@ -54,7 +54,7 @@ function rot13 {
 function newtex () {
 	mkdir "${1}"
 	cd "${1}"
-	cat ~/Templates/Generic.tex >> "${1}.tex"
+	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "${1}.tex"
 	# vim "${1}.tex"
 	gvim "${1}.tex"
 }	
