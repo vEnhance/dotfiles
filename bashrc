@@ -35,9 +35,9 @@ alias sparky='python -m sparky'
 alias tsq='python ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python ~/dotflies/py-scripts/latex2wp.py'	
 alias demacro='python ~/dotfiles/py-scripts/demacro.py'
-alias toss='~/.PlayOnLinux/wine/linux-x86/1.5.1-Starcraft_battlenet/bin/wine ~/.stermchains/seriouscombo.exe'
+alias win='wine winefile'
+alias winx='startx /bin/wine winefile --kiosk -- :2'
 
-alias workflowy='/usr/bin/chromium --profile-directory=Default --app-id=koegeopamaoljbmhnfjbclbocehhgmkm'
 alias pudb='python -m pudb.run'
 alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
 alias trash='gvfs-trash'
@@ -63,9 +63,6 @@ function cclean() {
 	rm -f *.class
 }
 
-alias jerm='python ~/dotfiles/py-scripts/jpc.py'
-alias piglet='python ~/dotfiles/py-scripts/jpc.py'
-alias cow='python ~/dotfiles/py-scripts/jpc.py'
 alias jpc='python ~/dotfiles/py-scripts/jpc.py'
 alias grade='python ~/dotfiles/py-scripts/grade.py'
 
@@ -152,7 +149,7 @@ alias egrep='egrep --color=auto'              # show differences in colour
 alias fgrep='fgrep --color=auto'              # show differences in colour
 
 # Some shortcuts for different directory listings
-alias ls='ls --color=tty'                 # classify files in colour
+alias ls='ls --color=tty --quoting-style=literal' # classify files in colour
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 alias ll='ls -l --color=tty'                  # long list
