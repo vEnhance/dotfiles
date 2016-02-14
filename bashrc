@@ -35,8 +35,9 @@ alias sparky='python -m sparky'
 alias tsq='python ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python ~/dotflies/py-scripts/latex2wp.py'	
 alias demacro='python ~/dotfiles/py-scripts/demacro.py'
-alias win='wine winefile'
+alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk -- :2'
+alias bcsum='paste -sd+ - | bc'
 
 alias pudb='python -m pudb.run'
 alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
@@ -44,6 +45,7 @@ alias trash='gvfs-trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
+
 
 # Various functions
 function rot13 {
