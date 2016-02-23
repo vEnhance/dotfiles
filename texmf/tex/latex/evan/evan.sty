@@ -144,7 +144,6 @@
 \begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
 {\end{proof}}
 
-\newcommand{\PP}{\opname{\mathcal P}} % power set
 \newcommand{\liff}{\leftrightarrow}
 \newcommand{\lthen}{\rightarrow}
 \newcommand{\opname}{\operatorname}
@@ -255,6 +254,7 @@
 			headpunct={\\[3pt]},
 			postheadspace={0pt},
 		]{thmrecbox}
+
 		\newcommand{\listhack}{$\empty$\vspace{-2em}}
 	\fi
 
@@ -346,6 +346,8 @@
 	%Loads a bunch of useful packages
 	\ifevanpkg
 		\usepackage{listings}
+		\usepackage{tikz-cd}
+		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
 		\usepackage{textcomp}
 		\lstset{basicstyle=\footnotesize\ttfamily,
 			numbers=left,
