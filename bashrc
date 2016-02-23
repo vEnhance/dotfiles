@@ -4,20 +4,24 @@
 #
 
 [[ -n "$DISPLAY" && "$TERM" = "xterm" ]] && export TERM=xterm-256color
-
 [[ -f /bin/python2 ]] && alias python='python2' # Use Python 2 on Arch Linux
 
 shopt -s globstar
 
-# Git magic / Sourcing
-GIT_PS1_SHOWDIRTYSTATE=1
-GIT_PS1_SHOWSTASHSTATE=1
-GIT_PS1_SHOWUPSTREAM="auto"
-source ~/dotfiles/git-scripts/git-complete.sh
-source ~/dotfiles/git-scripts/git-prompt.sh
 
 # Exports
-export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
+if [ "x${SSH_TTY}" = "x" ]; then
+	# Git magic / Sourcing
+	GIT_PS1_SHOWDIRTYSTATE=1
+	GIT_PS1_SHOWSTASHSTATE=1
+	GIT_PS1_SHOWUPSTREAM="auto"
+	source ~/dotfiles/git-scripts/git-complete.sh
+	source ~/dotfiles/git-scripts/git-prompt.sh
+	export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
+else
+	export PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
+	cat ~/dotfiles/banner
+fi
 export EDITOR='vim'
 export TEXMFHOME=$HOME/.texmf
 export PYTHONPATH=$PYTHONPATH:$HOME/Dropbox/Documents/Projects/
@@ -72,7 +76,7 @@ alias grade='python ~/dotfiles/py-scripts/grade.py'
 function cs () {
 	[ -n "${1}" ] && cd "${1}"
 	echo -n "`pwd`: "
-	ls -l --color=tty
+	ls -l --color=tty --quoting-style=literal
 }
 alias c='cs'
 
