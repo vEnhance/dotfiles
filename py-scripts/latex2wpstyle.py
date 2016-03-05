@@ -54,24 +54,30 @@ ThmEnvs = T.keys()
 # the way \begin{theorem}, \begin{lemma} etc are translated in HTML
 # the string _ThmType_ stands for the type of theorem
 # the string _ThmNumb_ is the theorem number
-beginthm = "\n<blockquote><b>_ThmType_ _ThmNumb_</b>"
+
+box_string =  "<div style=\"color: #000000 !important; border: 1px red solid;" + \
+		"padding-left: 8px; padding-top: 4px; margin-bottom: 8px !important; \">"
+head_string = "<p style=\"margin-bottom: 6px\"><b style=\"color: #ff4d4d !important;\">"
+
+beginthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b></p>"
 
 # translation of \begin{theorem}[...]. The string
 # _ThmName_ stands for the content betwee the
 # square brackets
-beginnamedthm = "\n<blockquote><b>_ThmType_ _ThmNumb_ (_ThmName_)</b>"
+
+beginnamedthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b>" + " <b>(_ThmName_)</b>" + "</p>"
 
 #translation of \end{theorem}, \end{lemma}, etc.
-endthm = "</blockquote>\n<p>\n"
+endthm = "<p style=\"margin-bottom:-12px;\"></p></div>\n"
 
 
 beginproof = "<em>Proof:</em> "
-endproof = "$latex \Box&fg=000000$\n\n"
+endproof = "$latex \Box&fg=000000$\n"
 
-section = "\n<p>\n<h2>_SecNumb_. _SecName_ </h2>\n<p>\n"
-sectionstar = "\n<p>\n<b> _SecName_ </b>\n<p>\n"
-subsection = "\n<p>\n<h3>  _SecNumb_._SubSecNumb_. _SecName_ </h3>\n<p>\n"
-subsectionstar = "\n<p>\n<b> _SecName_ </b>\n<p>\n"
+section = "\n<h2>_SecNumb_. _SecName_ </h2>\n"
+sectionstar = "\n<h2>_SecName_</h2>\n"
+subsection = "\n<h3>_SecNumb_._SubSecNumb_. _SecName_ </h3>\n"
+subsectionstar = "\n<h3> _SecName_ </h3>\n"
 
 # Font styles. Feel free to add others. The key *must* contain
 # an open curly bracket. The value is the namem of a HTML tag.

@@ -356,17 +356,18 @@ def convertcolors(m,c) :
         return("</span>")
 
 
+# Evan edit: don't put \n's near <ul> or <ol>
 def convertitm(m) :
     if m.find("begin") != -1 :
-        return ("\n\n<ul>")
+        return ("<ul>")
     else :
-        return ("\n</ul>\n\n")
+        return ("</ul>")
 
 def convertenum(m) :
     if m.find("begin") != -1 :
-        return ("\n\n<ol>")
+        return ("<ol>")
     else :
-        return ("\n</ol>\n\n")
+        return ("</ol>")
 
 
 def convertbeginnamedthm(thname,thm) :
