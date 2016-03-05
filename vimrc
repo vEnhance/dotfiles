@@ -326,7 +326,7 @@ nnoremap <silent> ZW :update<CR>
 vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 
-nnoremap <silent> za zt7k7jA
+nnoremap <silent> za zt7k7j
 
 " Calendar
 let g:calendar_first_day = "sunday"
