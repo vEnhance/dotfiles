@@ -40,7 +40,7 @@ alias tsq='python ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python ~/dotflies/py-scripts/latex2wp.py'	
 alias demacro='python ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
-alias winx='startx /bin/wine winefile --kiosk -- :2'
+alias winx='startx /bin/wine winefile --kiosk --'
 alias bcsum='paste -sd+ - | bc'
 
 alias pudb='python -m pudb.run'
