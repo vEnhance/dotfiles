@@ -89,6 +89,7 @@ else:
 	stream = sys.stdin
 
 
+in_comment_mode = False
 # Print output
 for line in stream:
 	raw_code += line
@@ -97,6 +98,19 @@ for line in stream:
 	# Empty line = newspace
 	if line == "":
 		print ""
+		continue
+
+	# Comment mode
+	if line == "/*":
+		in_comment_mode = True
+		print "/*"
+		continue
+	elif in_comment_mode and line == "*/":
+		in_comment_mode = False
+		print "*/"
+		continue
+	elif in_comment_mode:
+		print line
 		continue
 
 	# Verbatim
