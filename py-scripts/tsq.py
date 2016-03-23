@@ -100,16 +100,23 @@ for line in stream:
 		print ""
 		continue
 
-	# Comment mode
-	if line == "/*":
-		in_comment_mode = True
-		print "/*"
+	# Handling of comments
+	if line[:2] == "//":
+		print line
 		continue
-	elif in_comment_mode and line == "*/":
+	if line[:2] == "/*" and line[-2:] == "*/":
+		print line
+		continue
+	elif line[:2] == "/*":
+		in_comment_mode = True
+		print line
+		continue
+	elif in_comment_mode and line[-2:] == "*/":
 		in_comment_mode = False
 		print "*/"
 		continue
-	elif in_comment_mode:
+
+	if in_comment_mode:
 		print line
 		continue
 
