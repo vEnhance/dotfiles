@@ -19,6 +19,9 @@ fi
 # Make sure we're in Dvorak
 setxkbmap dvorak
 
+# Set Chinese for X
+export LANG="zh_TW.UTF-8"
+
 case $(date +%Z) in
 	(PST) xflux -z 94539 -k 2400;;  # Pacific
 	(EST) xflux -z 02138 -k 2800;;  # Eastern
