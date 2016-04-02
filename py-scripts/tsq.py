@@ -56,20 +56,22 @@ parser.add_argument('-p', '--pre',
 		help = 'Adds an Asymptote preamble.',
 		action = 'store_true',
 		dest = 'preamble',
-		default = False
-		)
+		default = False)
+parser.add_argument('-n', '--no-trans',
+		help = 'Temporarily disables the transparencies.',
+		action = 'store_true',
+		dest = 'notrans',
+		default = False)
 parser.add_argument('fname',
 		help = 'If provided, reads from the designated file rather than stdin',
 		metavar = "filename",
 		nargs = '?',
-		default = ''
-		)
+		default = '')
 parser.add_argument('-s', '--size',
 		help = 'If provided, sets the image size in the preamble. (Use with -p.)',
 		action = 'store',
 		dest = 'size',
-		default = '8cm'
-		)
+		default = '8cm')
 args = parser.parse_args()
 
 
@@ -192,7 +194,10 @@ for line in stream:
 				drawpen = '+'.join(tokens[tindex+1:])
 				if not drawpen: drawpen = "defaultpen"
 
-				print "filldraw(" + expr + ", " + fillpen + ", " + drawpen + ");"
+				if args.notrans:
+					print "draw(" + expr + ", " + drawpen + ");"
+				else:
+					print "filldraw(" + expr + ", " + fillpen + ", " + drawpen + ");"
 			else:
 				pen = '+'.join(tokens) # any remaining tokens
 		else:
