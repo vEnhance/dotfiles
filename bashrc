@@ -20,13 +20,15 @@ if [ "x${SSH_TTY}" = "x" ]; then
 	export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
 else
 	export PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
-	cat ~/dotfiles/banner
+	[[ -f ~/banner ]] && cat ~/banner
 fi
 export EDITOR='vim'
 export TEXMFHOME=$HOME/.texmf
 export PYTHONPATH=$PYTHONPATH:$HOME/Dropbox/Documents/Projects/
 export PDFVIEWER='zathura'
 export DOT_SAGENB='/home/evan/.sage/'
+
+[[ -f ~/dotfiles/aws ]] && source ~/dotfiles/aws
 
 # Aliases
 alias kitty="cat"
@@ -117,6 +119,8 @@ alias hm="echo Hm?"
 alias aoeu="echo I see you are a Dvorak user."
 alias fml="echo HAHAHAHAHA"
 alias lolwut="echo idk"
+alias meow="echo Here, kitty! \<3"
+alias purr="echo Here, kitty! \<3"
 
 #QQ
 alias qq="echo QQ!"

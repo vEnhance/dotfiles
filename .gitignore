@@ -5,3 +5,4 @@ sage/*
 ssh/*
 vim/spell/*
 **/*.pyc
+aws
