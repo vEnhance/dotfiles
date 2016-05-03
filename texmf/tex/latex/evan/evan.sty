@@ -69,6 +69,7 @@
 \newcommand{\ol}{\overline}
 \newcommand{\ul}{\underline}
 \newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
 \newcommand{\eps}{\varepsilon}
 %\renewcommand{\iff}{\Leftrightarrow}
 %\renewcommand{\implies}{\Rightarrow}
@@ -85,7 +86,9 @@
 
 %More commands and math operators
 \DeclareMathOperator{\cis}{cis}
-\DeclareMathOperator{\lcm}{lcm}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
 
 %Convenient Environments
 \newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
@@ -380,6 +383,7 @@
 	\ifevanpkg
 		\usepackage{listings}
 		\usepackage{tikz-cd}
+		\usetikzlibrary{decorations.pathmorphing}
 		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
 		\usepackage{textcomp}
 		\lstset{basicstyle=\footnotesize\ttfamily,
