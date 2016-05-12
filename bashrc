@@ -44,6 +44,7 @@ alias demacro='python ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias bcsum='paste -sd+ - | bc'
+alias todo='vim ~/Documents/VimFlowy/TODO.otl'
 
 alias pudb='python -m pudb.run'
 alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
