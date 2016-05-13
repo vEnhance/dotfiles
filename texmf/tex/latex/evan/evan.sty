@@ -478,9 +478,9 @@
 
 	%Page Setup
 	\ifevanfancy
-		\usepackage{fancyhdr}
 		\@ifundefined{KOMAClassName}
 		{
+			\usepackage{fancyhdr}
 			\setlength{\headheight}{0.75in}
 			\setlength{\oddsidemargin}{0in}
 			\setlength{\evensidemargin}{0in}
@@ -495,30 +495,34 @@
 				\addtolength{\posttitledrop}{0.4em}
 				\addtolength{\postauthordrop}{0.2em}
 			\fi
+			\ifevanhdr
+				\renewcommand{\headrulewidth}{0.5pt}
+				\renewcommand{\footrulewidth}{0.0pt}
+				\pagestyle{fancy}
+				\ifevantitling \lhead{\theauthor} \else \lhead{Evan Chen} \fi
+				\chead{}
+				\rhead{\nouppercase{\leftmark}}
+				\lfoot{}
+				\cfoot{\thepage}
+				\rfoot{}
+			\fi
 		}
 		{
+			\usepackage[headsepline]{scrlayer-scrpage}
+			\renewcommand{\headfont}{}
 			\addtolength{\textheight}{3.14cm}
 			\setlength{\footskip}{0.5in}
 			\setlength{\headsep}{10pt}
+			\ifevantitling \ihead{\theauthor} \else \ihead{Evan Chen} \fi
+			\automark{section}
+			\chead{}
+			\ohead{\headmark}
+			\cfoot{\pagemark}
 		}
 		
 
 		%Setup FancyHeaders
-		\ifevanhdr
-		\renewcommand{\headrulewidth}{0.5pt}
-		\renewcommand{\footrulewidth}{0.0pt}
-		\pagestyle{fancy}
-		\ifevantitling
-			\lhead{\theauthor}
-		\else
-			\lhead{Evan Chen}
-		\fi
-		\chead{}
-		\rhead{\nouppercase{\leftmark}}
-		\lfoot{}
-		\cfoot{\thepage}
-		\rfoot{}
-		\fi
+
 	\fi
 
 	\ifevanchinese
