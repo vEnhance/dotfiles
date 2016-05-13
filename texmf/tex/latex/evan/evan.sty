@@ -22,10 +22,13 @@
 \newif\ifevanpatchasy\evanpatchasyfalse
 \newif\ifevanhints\evanhintsfalse
 \newif\ifevanasy\evanasytrue
+\newif\ifevancolorsec\evancolorsecfalse
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
 % allow href to override this one
+
+\DeclareOption{sexy}{\evansecthmtrue\evanmdthmtrue\evancolorsectrue} % long docs
 
 \DeclareOption{fancy}{\evanfancytrue}
 \DeclareOption{nofancy}{\evanfancyfalse}
@@ -38,6 +41,8 @@
 \DeclareOption{thm}{\evanthmtrue}
 \DeclareOption{nothm}{\evanthmfalse}
 \DeclareOption{secthm}{\evansecthmtrue}
+\DeclareOption{nosecthm}{\evansecthmfalse}
+
 \DeclareOption{ht}{\evanhttrue}
 \DeclareOption{nopdf}{\evanpdffalse}
 \DeclareOption{nopkg}{\evanpkgfalse}
@@ -49,6 +54,8 @@
 \DeclareOption{nomdthm}{\evanmdthmfalse}
 \DeclareOption{diagrams}{\evandiagramstrue}
 \DeclareOption{nodiagrams}{\evandiagramsfalse}
+\DeclareOption{colorsec}{\evancolorsectrue}
+\DeclareOption{nocolorsec}{\evancolorsecfalse}
 
 \DeclareOption{patchasy}{\evanpatchasytrue}
 \DeclareOption{noasy}{\evanasyfalse}
@@ -378,6 +385,30 @@
 		\newtheorem{abuse}[theorem]{Abuse of Notation}
 		\newtheorem*{abuse*}{Abuse of Notation}
 	\fi
+
+	% Fancy section and chapter heads
+	\ifevancolorsec
+		\@ifundefined{KOMAClassName}{}{
+			\@ifundefined{chapter}{}{
+				\addtokomafont{partprefix}{\rmfamily}
+				\renewcommand*{\partformat}{\color{purple}
+					\scalebox{2.5}{\thepart}\enlargethispage{2em}}
+				\addtokomafont{chapterprefix}{\raggedleft}
+				\RedeclareSectionCommand[beforeskip=0.5em]{chapter}
+				\renewcommand*{\chapterformat}{\mbox{%
+					\scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
+					\scalebox{2.718}{\color{purple}\thechapter}\enskip}}
+			}
+			\renewcommand*{\sectionformat}%
+				{\color{purple}\S\thesection\enskip}
+			\renewcommand*{\subsectionformat}%
+				{\color{purple}\S\thesubsection\enskip}
+			\KOMAoptions{numbers=noenddot}
+			\usepackage[tocindentauto]{tocstyle}
+			\usetocstyle{KOMAlike}
+		}
+	\fi
+
 
 	%Loads a bunch of useful packages
 	\ifevanpkg
