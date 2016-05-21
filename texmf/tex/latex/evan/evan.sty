@@ -413,9 +413,6 @@
 	%Loads a bunch of useful packages
 	\ifevanpkg
 		\usepackage{listings}
-		\usepackage{tikz-cd}
-		\usetikzlibrary{decorations.pathmorphing}
-		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
 		\usepackage{textcomp}
 		\lstset{basicstyle=\footnotesize\ttfamily,
 			numbers=left,
@@ -474,6 +471,9 @@
 		\newarrow{Dotted}....>
 		\newarrow{Dashed}{}{dash}{}{dash}>
 		\newarrow{Line}-----
+		\usepackage{tikz-cd}
+		\usetikzlibrary{decorations.pathmorphing}
+		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
 	\fi
 
 	%Page Setup
