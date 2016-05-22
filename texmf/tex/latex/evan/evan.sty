@@ -1,7 +1,6 @@
 \ProvidesPackage{evan}
 \usepackage{amsmath,amssymb,amsthm}
-\usepackage{mathrsfs}
-
+%%fakesection Argument processing
 % Default Arguments
 % We include "Evan" in all of these to make sure
 % that they don't collide with anything in external packages
@@ -68,6 +67,7 @@
 \ifevanpkg\else\evanmdthmfalse\fi
 \ifevanpkg\else\evanasyfalse\fi
 
+%%fakesection Some macros
 %Small commands
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
@@ -210,7 +210,7 @@
 
 
 
-%Asy commands
+%%fakesection Asymptote setup
 \ifevanasy
 	\ifevanpatchasy
 		\usepackage{patch-asy}
@@ -233,20 +233,19 @@
 	\end{asydef}
 \fi
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%fakesection BEGIN MAIN SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ifevansetup
-	%Setup Title/Auth/Date
+	%%fakesection Set up author and date
 	\ifevanauthor
 		\AtBeginDocument{%
 			\author{Evan Chen}
 			\date{\today}
 		}
 	\fi
-	%Href
+	%%fakesection Hyperref
 	\ifevanpkg
 		\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 		\usepackage{xcolor}
@@ -257,7 +256,7 @@
 	\fi
 
 
-	%New Theorem Styles -- mdbluebox, mdrecbox
+	%%fakesection New Theorem Styles -- mdbluebox, mdrecbox
 	\ifevanmdthm
 		\usepackage{thmtools}
 		\usepackage[framemethod=TikZ]{mdframed}
@@ -301,9 +300,10 @@
 		\newcommand{\listhack}{$\empty$\vspace{-2em}}
 	\fi
 
+	%%fakesection Theorem setup
 	\ifevanthm
 		\theoremstyle{plain}
-		%Braching here: the option secthm changes theorems to be labelled by section
+		%Branching here: the option secthm changes theorems to be labelled by section
 		\ifevanmdthm
 			\ifevansecthm
 				\declaretheorem[%
@@ -386,7 +386,7 @@
 		\newtheorem*{abuse*}{Abuse of Notation}
 	\fi
 
-	% Fancy section and chapter heads
+	%%fakesection Fancy section and chapter heads
 	\ifevancolorsec
 		\@ifundefined{KOMAClassName}{}{
 			\@ifundefined{chapter}{}{
@@ -410,9 +410,10 @@
 	\fi
 
 
-	%Loads a bunch of useful packages
+	%%fakesection Loads a bunch of useful packages (but allow disabling)
 	\ifevanpkg
 		\usepackage{listings}
+		\usepackage{mathrsfs}
 		\usepackage{textcomp}
 		\lstset{basicstyle=\footnotesize\ttfamily,
 			numbers=left,
@@ -436,6 +437,7 @@
 		\usepackage{microtype}
 	\fi
 
+	%%fakesection \maketitle configuration
 	\ifevantitling
 	%If we have titling...
 		\usepackage{titling}
@@ -458,7 +460,7 @@
 		\postdate{\end{center}}
 	\fi
 
-	% Commutative diagrams support
+	%%fakesection Commutative diagrams support
 	\ifevandiagrams
 		\usepackage{diagrams}
 		\newarrow{Inj}C--->
@@ -476,7 +478,7 @@
 		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
 	\fi
 
-	%Page Setup
+	%%fakesection Page Setup
 	\ifevanfancy
 		\@ifundefined{KOMAClassName}
 		{
@@ -519,12 +521,9 @@
 			\ohead{\headmark}
 			\cfoot{\pagemark}
 		}
-		
-
-		%Setup FancyHeaders
-
 	\fi
 
+	%%fakesection Chinese support
 	\ifevanchinese
 		\usepackage[encapsulated]{CJK}
 		\usepackage{ucs}
@@ -535,6 +534,7 @@
 		\AtEndDocument{\end{CJK}}
 	\fi
 
+	%%fakesection Hints
 	\ifevanhints
 		\usepackage{answers}
 		\Newassociation{hint}{hintitem}{hints}
@@ -542,4 +542,5 @@
 		\Opensolutionfile{hints}
 		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}}
 	\fi
+%%fakesection END MAIN SETUP
 \fi
