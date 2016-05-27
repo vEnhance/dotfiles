@@ -52,3 +52,7 @@ au! CursorHold <buffer>
 au! CursorMoved <buffer> 
 
 set omnifunc=pythoncomplete#Complete
+
+set list
+set listchars=tab:\|\ 
+highlight SpecialKey    ctermfg=236
