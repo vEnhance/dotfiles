@@ -5,6 +5,7 @@
 
 [[ -n "$DISPLAY" && "$TERM" = "xterm" ]] && export TERM=xterm-256color
 [[ -f /bin/python2 ]] && alias python='python2' # Use Python 2 on Arch Linux
+[[ -f /bin/pip2 ]] && alias pip='pip2' # Use Python 2 on Arch Linux
 
 shopt -s globstar
 
@@ -23,11 +24,9 @@ else
 	[[ -f ~/banner ]] && cat ~/banner
 fi
 export EDITOR='vim'
-export TEXMFHOME=$HOME/.texmf
-export PYTHONPATH=$PYTHONPATH:$HOME/Dropbox/Documents/Projects/
-export PDFVIEWER='zathura'
-export DOT_SAGENB='/home/evan/.sage/'
-
+[[ -d $HOME/.texmf ]] && export TEXMFHOME=$HOME/.texmf
+[[ -d $HOME/.sage ]] && export DOT_SAGENB=$HOME/.sage
+[[ -f /usr/bin/zathura ]] && export PDFVIEWER='zathura'
 [[ -f ~/dotfiles/aws ]] && source ~/dotfiles/aws
 
 # Aliases
@@ -45,6 +44,7 @@ alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias bcsum='paste -sd+ - | bc'
 alias todo='vim ~/Documents/VimFlowy/TODO.otl'
+alias frn='vim ~/Documents/VimFlowy/FRIENDZ.otl'
 
 alias pudb='python -m pudb.run'
 alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
@@ -52,6 +52,7 @@ alias trash='gvfs-trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
+alias sudo='sudo ' # allows my aliases to get into sudo
 
 
 # Various functions
