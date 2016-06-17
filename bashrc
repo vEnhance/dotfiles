@@ -27,13 +27,14 @@ export EDITOR='vim'
 [[ -d $HOME/.texmf ]] && export TEXMFHOME=$HOME/.texmf
 [[ -d $HOME/.sage ]] && export DOT_SAGENB=$HOME/.sage
 [[ -f /usr/bin/zathura ]] && export PDFVIEWER='zathura'
-[[ -f ~/dotfiles/aws ]] && source ~/dotfiles/aws
+[[ -f ~/dotfiles/aws-hmmt ]] && source ~/dotfiles/aws-hmmt
 
 # Aliases
 alias kitty="cat"
 alias getclip="xsel --clipboard"
 alias putclip="xsel --clipboard"
 alias lisp='sbcl --script'
+alias bcsum='paste -sd+ - | bc'
 
 alias dragon='python -m dragon'
 alias sparky='python -m sparky'
@@ -42,7 +43,7 @@ alias wplatex='python ~/dotflies/py-scripts/latex2wp.py'
 alias demacro='python ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
-alias bcsum='paste -sd+ - | bc'
+alias s3='aws s3'
 alias todo='vim ~/Documents/VimFlowy/TODO.otl'
 alias frn='vim ~/Documents/VimFlowy/FRIENDZ.otl'
 
