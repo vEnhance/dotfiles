@@ -36,8 +36,9 @@ alias putclip="xsel --clipboard"
 alias lisp='sbcl --script'
 alias bcsum='paste -sd+ - | bc'
 
-alias dragon='python -m dragon'
-alias sparky='python -m sparky'
+alias dragon='python ~/Documents/Projects/dragon/'
+alias sparky='python ~/Documents/Projects/sparky/'
+alias von='python ~/Documents/Projects/von/'
 alias tsq='python ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python ~/dotflies/py-scripts/latex2wp.py'	
 alias demacro='python ~/dotfiles/py-scripts/demacro.py'

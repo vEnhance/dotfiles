@@ -412,6 +412,7 @@
 
 	%%fakesection Loads a bunch of useful packages (but allow disabling)
 	\ifevanpkg
+		\IfFileExists{von.sty}{\usepackage{von}}{}
 		\usepackage{listings}
 		\usepackage{mathrsfs}
 		\usepackage{textcomp}
