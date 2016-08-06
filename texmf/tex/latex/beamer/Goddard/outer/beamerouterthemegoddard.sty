@@ -1,0 +1,423 @@
+%% Copyright 2010 by Mohamed El Morabity
+% <melmorabity@fedoraproject.org>
+% 
+% Based on the LaTeX-Beamer theme "progress bar" by Sylvain Bouveret
+% (http://recherche.noiraudes.net/en/LaTeX.php)
+% 
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+
+%%% Available options
+
+% Language for button labels
+\def\goddard@french{french}
+\def\goddard@italian{italian}
+\def\goddard@german{german}
+\def\goddard@portuguese{portuguese}
+\def\goddard@spanish{spanish}
+
+\def\goddard@back{Back}
+\def\goddard@forward{Forward}
+
+\DeclareOptionBeamer{language}{%
+  \def\goddard@language{#1}
+
+  \ifx\goddard@language\goddard@french
+    \def\goddard@back{Pr\'ec\'edent}
+    \def\goddard@forward{Suivant}
+  \fi
+
+  \ifx\goddard@language\goddard@german
+    \def\goddard@back{Zur\"uck}
+    \def\goddard@forward{Vor}
+  \fi
+
+  \ifx\goddard@language\goddard@italian
+    \def\goddard@back{Indietro}
+    \def\goddard@forward{Avanti}
+  \fi
+
+  \ifx\goddard@language\goddard@portuguese
+    \def\goddard@back{Voltar}
+    \def\goddard@forward{Avan\c car}
+  \fi
+  
+  \ifx\goddard@language\goddard@spanish
+    \def\goddard@back{Atr\'as}
+    \def\goddard@forward{Adelante}%
+  \fi
+}
+
+
+% Buttons arrows style
+\newif\ifgoddard@oldstylearrows
+\DeclareOptionBeamer{oldstylearrows}{%
+  \goddard@oldstylearrowstrue
+}
+
+
+% Process options by default...
+\ExecuteOptionsBeamer{language=english}
+\ProcessOptionsBeamer
+
+
+\mode<presentation>
+
+% Use the "sidebar" theme, with no header and a left sidebar as base
+\useoutertheme[width=2.56cm,height=0pt,left]{sidebar}
+
+% Load the side bar image if enabled
+\pgfdeclareimage[height=\paperheight]{goddard@sidebarimage}{goddard-sidebar}
+
+
+%%% Mandatory packages
+\@ifpackageloaded{tikz}{}{%
+  \RequirePackage{tikz}
+}
+\@ifpackageloaded{calc}{}{%
+  \RequirePackage{calc}
+}
+\@ifpackageloaded{multido}{}{%
+  \RequirePackage{multido}
+}
+
+
+%%% Some variables
+
+%%% Progressbar dimensions
+%
+% ┊                   ┊                                                         ┊
+% │                   │      ←────────────────────(D)────────────────────→      │
+% │      sidebar      │     ╭─────────────────────────────────────────────╮ ↑   │  ↑
+% │                   │←(B)→│                progress bar                 │(E)  │  │
+% │     ┌───────────┐ │     ╰─────────────────────────────────────────────╯ ↓   │  │
+% │     │           │ │                            ↑                            │  │
+% │←(K)→│    logo   │ │                           (F)                     ┊←(C)→│  │
+% │     │           │ │                            ↓                            │  │
+% │     └───────────┘ │                         ╭─────────╮     ╭─────────╮ ↑   │ (M)
+% │           ↑       │                         │  button │←(I)→│  button │(H)  │  │
+% │           │       │                         ╰─────────╯     ╰─────────╯ ↓   │  │
+% │          (L)      │                              ↑           ←──(G)──→      │  │
+% │           │       │                             (J)                         │  │
+% │           ↓       │                              ↓                          │  ↓
+% └───────────────────┴─────────────────────────────────────────────────────────┘
+%                      ←──────────────────────────(A)──────────────────────────→
+
+% (A)
+\newdimen\goddard@panelwidth
+\goddard@panelwidth=\paperwidth
+\advance\goddard@panelwidth by -\beamer@sidebarwidth
+
+% (B)
+\newdimen\goddard@barleftspace
+\goddard@barleftspace=\goddard@panelwidth
+\advance\goddard@barleftspace by -\textwidth
+\advance\goddard@barleftspace by -8bp
+\divide\goddard@barleftspace by 2
+
+% (C)
+\newdimen\goddard@barrightspace
+\goddard@barrightspace=\goddard@barleftspace
+
+% (D)
+\newdimen\goddard@barwidth
+\goddard@barwidth=\goddard@panelwidth
+\advance\goddard@barwidth by -\goddard@barleftspace
+\advance\goddard@barwidth by -\goddard@barrightspace
+
+% (E)
+\newdimen\goddard@barheight
+% \goddard@barheight=3mm
+\settototalheight{\goddard@barheight}{\usebeamerfont{sidebar}X}
+\multiply\goddard@barheight by 3
+
+% (F)
+\newdimen\goddard@barbuttonsdistance
+\goddard@barbuttonsdistance=\goddard@barrightspace
+\divide\goddard@barbuttonsdistance by 2
+
+% (G)
+\newdimen\goddard@buttonwidth
+\goddard@buttonwidth=1.5cm
+
+% (H)
+\newdimen\goddard@buttonheight
+\goddard@buttonheight=\goddard@barheight
+
+% (I)
+\newdimen\goddard@buttonspace
+\goddard@buttonspace=\goddard@barbuttonsdistance
+
+% (J)
+\newdimen\goddard@barbottomspace
+\goddard@barbottomspace=\goddard@barbuttonsdistance
+
+% (K)
+\newdimen\goddard@logoleftspace
+\goddard@logoleftspace=\goddard@barbottomspace
+
+% (L)
+\newdimen\goddard@logobottomspace
+\goddard@logobottomspace=\goddard@logoleftspace
+
+% (M)
+\newdimen\goddard@panelheight
+\goddard@panelheight=\goddard@barheight
+\advance\goddard@panelheight by \goddard@barbuttonsdistance
+\advance\goddard@panelheight by \goddard@buttonheight
+\advance\goddard@panelheight by \goddard@barbottomspace  
+
+
+%%% Rounding corners for the progress bar
+\newdimen\goddard@barroundedcorners
+\goddard@barroundedcorners=0.3mm
+
+
+%%% Rounding corners for the buttons
+\newdimen\goddard@buttonroundedcorners
+\goddard@buttonroundedcorners=\goddard@barroundedcorners
+
+
+% Some temporary variables
+\newdimen\goddard@temp@dimen@a
+\newcount\goddard@temp@count@a
+\newcount\goddard@temp@count@b
+
+
+
+
+
+%%% Arrows
+
+% Draw an arrow oriented by #1 degrees
+\def\goddard@oldarrow#1{%
+  \settototalheight{\goddard@temp@dimen@a}{X}
+  \begin{tikzpicture}[baseline,rounded corners=0cm,very thin]
+    \shadedraw[%
+        draw=sidebar.bg, %
+        top color=sidebar.bg!50, %
+        bottom color=sidebar.bg, %
+        rotate around={#1:(\goddard@temp@dimen@a,0.5\goddard@temp@dimen@a)}%
+      ]%
+      (0\goddard@temp@dimen@a, 0\goddard@temp@dimen@a) -- %
+      (\goddard@temp@dimen@a, 0\goddard@temp@dimen@a) -- %
+      (\goddard@temp@dimen@a, -0.5\goddard@temp@dimen@a) -- %
+      (2\goddard@temp@dimen@a, 0.5\goddard@temp@dimen@a) -- %
+      (\goddard@temp@dimen@a, 1.5\goddard@temp@dimen@a) -- %
+      (\goddard@temp@dimen@a, \goddard@temp@dimen@a) -- %
+      (0\goddard@temp@dimen@a, \goddard@temp@dimen@a) -- cycle;
+  \end{tikzpicture}%
+}
+
+\def\goddard@newarrow#1{%
+  \settototalheight{\goddard@temp@dimen@a}{X}
+  \begin{tikzpicture}[baseline,rounded corners=0cm,very thin]
+    \draw[%
+        draw=sidebar.bg, %
+        top color=sidebar.bg!50, %
+        bottom color=sidebar.bg, %
+        rotate around={#1:(\goddard@temp@dimen@a,0.5\goddard@temp@dimen@a)}%
+      ]%
+      (0.25\goddard@temp@dimen@a, 0.5\goddard@temp@dimen@a) %
+      circle (0.2\goddard@temp@dimen@a);
+    \draw[%
+        draw=sidebar.bg, %
+        top color=sidebar.bg!50, %
+        bottom color=sidebar.bg, %
+        rotate around={#1:(\goddard@temp@dimen@a,0.5\goddard@temp@dimen@a)}%
+      ]%
+      (0.875\goddard@temp@dimen@a, 0.5\goddard@temp@dimen@a) %
+      circle (0.2\goddard@temp@dimen@a);
+    \draw[%
+        draw=sidebar.bg, %
+        top color=sidebar.bg!50, %
+        bottom color=sidebar.bg, %
+        rotate around={#1:(\goddard@temp@dimen@a,0.5\goddard@temp@dimen@a)}%
+      ]%
+      (\goddard@temp@dimen@a, -0.5\goddard@temp@dimen@a) -- %
+      (2\goddard@temp@dimen@a, 0.5\goddard@temp@dimen@a) [rounded corners=0.2\goddard@temp@dimen@a] -- %
+      (\goddard@temp@dimen@a, 1.5\goddard@temp@dimen@a) -- %
+      (0.75\goddard@temp@dimen@a, 1.25\goddard@temp@dimen@a) [sharp corners] -- %
+      (1.5\goddard@temp@dimen@a, 0.5\goddard@temp@dimen@a) [rounded corners=0.2\goddard@temp@dimen@a] -- %
+      (0.75\goddard@temp@dimen@a, -0.25\goddard@temp@dimen@a) -- cycle;
+  \end{tikzpicture}%
+}
+
+\ifgoddard@oldstylearrows
+  \def\goddard@arrow#1{\goddard@oldarrow{#1}}
+\else
+  \def\goddard@arrow#1{\goddard@newarrow{#1}}
+\fi
+
+
+%%% Right and left arrows
+\def\goddard@forwardarrow{\goddard@arrow{0}}
+\def\goddard@backarrow{\goddard@arrow{180}}
+
+
+
+%%% Buttons
+
+% Draw a button at the position (#1, #2) containing the label #3
+\def\goddard@button#1#2#3#4{%
+  \draw (#1, #2) %
+    node[%
+      below left, %
+      draw=normal text.fg!50, %
+      shading=axis, %
+      top color=normal text.fg!5, %
+      bottom color=normal text.fg!20, %
+      minimum width=\goddard@buttonwidth, %
+      minimum height=\goddard@buttonheight%
+    ] {#3};%
+}
+
+% Draw a "Forward" button at the position (#1, #2)
+\def\goddard@forwardbutton#1#2{%
+  \goddard@button{#1}{#2}{\hyperlinkslidenext{\goddard@forwardarrow~\textnormal{\goddard@forward}}}%
+}
+
+% Draw a "Back" button at the position (#1, #2)
+\def\goddard@backbutton#1#2{%
+  \goddard@button{#1}{#2}{\hyperlinkslideprev{\goddard@backarrow~\textnormal{\goddard@back}}}%
+}
+
+
+%%% Progress bar
+\def\goddard@progressbar{%
+  % No draw if there is only one slide
+  \ifnum\inserttotalframenumber=1
+  \else
+    % Compute the width of the filled part of the progress bar
+    \goddard@temp@count@a=\insertframenumber
+    \advance\goddard@temp@count@a by -1
+    \goddard@temp@count@b=\inserttotalframenumber
+    \advance\goddard@temp@count@b by -1
+    \goddard@temp@dimen@a=\goddard@barwidth
+    \multiply\goddard@temp@dimen@a by \goddard@temp@count@a
+    \divide\goddard@temp@dimen@a by \goddard@temp@count@b
+
+    % Compute the number of strips in the filled part of the progress bar
+    \goddard@temp@count@a=\goddard@temp@dimen@a
+    \divide\goddard@temp@count@a by 2
+    \divide\goddard@temp@count@a by \goddard@barheight
+    \advance\goddard@temp@count@a by 1
+  \fi
+
+  \begin{tikzpicture}[rounded corners=\goddard@barroundedcorners,very thin]
+    \usebeamercolor{sidebar}
+    \usebeamerfont{sidebar}
+
+    % Draw the beckground of the bar
+    \shade[ %
+        top color=normal text.fg!25, %
+        bottom color=normal text.fg!15%
+        ]
+      (0pt, 0pt) rectangle ++ %
+      (\goddard@barwidth, \goddard@barheight) %
+      node[ %
+        midway, %
+        color=normal text.fg%
+      ] {\textnormal{\insertframenumber/\inserttotalframenumber}};
+
+    % Fill the bar according to the page number
+    \ifnum\insertframenumber=1
+    \else
+      \shade[%
+          draw=sidebar.bg, %
+          top color=sidebar.bg!50, %
+          bottom color=sidebar.bg%
+        ] %
+        (0pt, 0pt) rectangle ++ %
+        (\goddard@temp@dimen@a, \goddard@barheight);
+
+      % Draw the strips
+      \begin{scope}
+        \clip %
+          (0pt, 0pt) rectangle %
+          (\goddard@temp@dimen@a, \goddard@barheight);
+          \multido{\i=0+2}{\goddard@temp@count@a}{%
+            \shade[top color=sidebar.bg!50, %
+                bottom color=sidebar.bg!90, %
+                xshift=\i\goddard@barheight%
+              ] (0pt, 0pt) (0pt, 0pt) -- %
+              (\goddard@barheight, 0pt) -- %
+              (2\goddard@barheight, \goddard@barheight) -- %
+              (\goddard@barheight, \goddard@barheight) -- cycle;%
+        }
+
+        \node[%
+            color=-normal text.fg%
+          ] %
+          at (0.5\goddard@barwidth, 0.5\goddard@barheight) %
+          {\textnormal{\insertframenumber/\inserttotalframenumber}};
+      \end{scope}
+    \fi
+
+    % Draw the edge of the bar
+    \draw[%
+        color=normal text.fg!50%
+      ] %
+      (0pt, 0pt) rectangle %
+      (\goddard@barwidth, \goddard@barheight);
+
+    % Insert the title of the presentation
+    \draw (0pt, -\goddard@barbuttonsdistance) %
+      node[%
+        below right, %
+        minimum height=\goddard@buttonheight, %
+        color=sidebar.bg%
+      ] {\usebeamerfont{footline}\insertshorttitle};
+
+    % Insert the buttons
+    \goddard@temp@dimen@a=\goddard@barwidth
+    \ifnum\insertframenumber=\inserttotalframenumber
+      % No "Forward" button in the last slide
+    \else
+      \advance\goddard@temp@dimen@a by -\goddard@buttonspace
+      \advance\goddard@temp@dimen@a by -\goddard@buttonwidth
+      \goddard@forwardbutton{\goddard@barwidth}{-\goddard@barbuttonsdistance};
+    \fi
+    
+    \ifnum\insertframenumber=1
+      % No "Back" button in the first slide
+    \else
+      \goddard@backbutton{\goddard@temp@dimen@a}{-\goddard@barbuttonsdistance}
+    \fi
+  \end{tikzpicture}%
+}
+
+
+
+
+%%% The background color of the frametitle is the same than the
+%%% presentation one
+\setbeamercolor*{frametitle}{parent=structure}
+
+
+%%% Set the background in the sidebar
+\setbeamercolor*{frametitle}{parent=structure}
+\defbeamertemplate*{sidebar canvas left}{goddard theme}{\pgfuseimage{goddard@sidebarimage}}
+
+
+%%% Set the progress bar in the footlines of the slides
+\defbeamertemplate*{footline}{goddard theme}{%
+  \leavevmode%
+  \begin{beamercolorbox}[wd=\beamer@sidebarwidth,ht=\goddard@panelheight,leftskip=\goddard@logoleftspace,ignorebg]{logo}
+    \insertlogo
+    \vskip \goddard@logobottomspace
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=\goddard@panelwidth,ht=\goddard@panelheight,center,ignorebg]{footline}
+    \goddard@progressbar
+    \vskip \goddard@barbottomspace
+  \end{beamercolorbox}
+  \vskip0pt%
+}
+
+
+%%% Disable navigation symbols (useless with the progress bar buttons)
+\setbeamertemplate{navigation symbols}{}
+
+
+\mode<all>

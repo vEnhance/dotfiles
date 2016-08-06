@@ -1,0 +1,214 @@
+% LaTeX Beamer outer theme "wuerzburg"
+%
+% Copyright Christian Gogolin 2011 (beamer@cgogolin.de)
+%
+% http://www.cgogolin.de
+%
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with this program.  If not, see <http://www.gnu.org/licenses/>.
+%
+%   features: - Two info lines at the head and at the bottom
+%               that provide information similar to the "infolines" outer
+%               theme.
+%             - An optional "polished" look (activated by the [glossy]
+%               option).
+%             - Drop shadows to separate the head/foot line and the
+%               frametitle from the frame content.
+%             - Suppresses the shadow on and below the frame title if
+%               the "frametitle" color is not set and thus respects the
+%               intention of some color themes to make the frame title
+%               appear as a part of the frame content.
+%             - A condensed frame title, that leaves more space for the
+%               frame content.
+%             - Vertical bars that separate the the items in the head/foot
+%               line that can be deactivated by specifying the
+%               [noseperators] option.
+%             - Exclude frames (for example supplementary material in the 
+%               appendix) from the total number of frames by specifying the
+%               [lastframe=] option.
+%             - The [nofootline] option can be used to suppress drawing of 
+%               the foot line.
+%
+%   problems: - The glossy style does not fit well with all color themes.
+%             - This theme does not work well with the "inmargin" inner
+%               theme. The dropshadow of the frame title is to long.
+%               (I think this could be fixed.)
+
+\newif\ifbeamer@wuerzburg@glossy
+\DeclareOptionBeamer{glossy}[true]{\csname beamer@wuerzburg@glossy#1\endcsname}
+
+\newif\ifbeamer@wuerzburg@nofootline
+\DeclareOptionBeamer{nofootline}[true]{\csname beamer@wuerzburg@nofootline#1\endcsname}
+
+\newif\ifbeamer@wuerzburg@noseperators
+\DeclareOptionBeamer{noseperators}[true]{\csname beamer@wuerzburg@noseperators#1\endcsname}
+
+\newcounter{lastframecounter}
+\DeclareOptionBeamer{lastframe}{\setcounter{lastframecounter}{#1}}
+%\ExecuteOptionsBeamer{\setcounter{lastframecounter}{0}}
+
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\setbeamercolor*{headfoot}{parent=palette tertiary}
+
+\AtBeginDocument{
+
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(1pt)=(black!55!bg);
+    color(3pt)=(black!70!bg)}
+  \pgfdeclareverticalshading{beamer@bottomshade}{\paperwidth}{%
+    color(0pt)=(black!40!bg);
+    color(1pt)=(bg)}
+  {\usebeamercolor{frametitle}
+    \pgfdeclareverticalshading{beamer@frametitletopmshade}{\paperwidth}{%
+      color(0pt)=(bg);
+      color(1.5pt)=(black!75!bg)}}
+  \pgfdeclareverticalshading{beamer@frametitlebottomshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(1.5pt)=(black!75!bg)}
+  {\usebeamercolor{headfoot}\usebeamerfont{author in head/foot}
+    \pgfdeclareverticalshading{beamer@headfootshade}{\paperwidth}{%
+      color(0.0ex)=(black!30!bg);
+      color(0.8ex)=(black!20!bg);
+      color(1.0ex)=(bg);
+      color(1.2ex)=(white!10!bg);
+      color(2.0ex)=(white!20!bg)}}
+
+  \newcommand{\beamerwuerzburgthemeadddelimiter}[1]{%
+    \setbox\beamer@tempbox=\hbox{#1}%
+    \ifdim\wd\beamer@tempbox>1pt%
+    \ifbeamer@wuerzburg@noseperators%
+    \hskip1.5ex
+    \else%
+    {\usebeamercolor[fg]{frametitle}\textbar}
+    \fi
+    #1
+    \fi%
+  }
+}
+
+\defbeamertemplate*{footline}{wuerzburg theme}
+{
+  \ifbeamer@wuerzburg@nofootline
+  \else
+  \leavevmode%
+  \pgfuseshading{beamer@bottomshade}
+  \ifbeamer@wuerzburg@glossy%
+    \pgfuseshading{beamer@headfootshade}
+    \vskip-3.5ex
+    \hbox{%
+      \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,left,ignorebg]{headfoot}%
+        {\usebeamerfont{author in head/foot}\hspace*{3.5ex}\insertshortauthor{} \beamerwuerzburgthemeadddelimiter{\insertshortinstitute} \beamerwuerzburgthemeadddelimiter{\insertshortdate}}
+      \end{beamercolorbox}\hspace{-12ex}%
+      \begin{beamercolorbox}[wd=12ex,ht=2.25ex,dp=1ex,right,ignorebg]{headfoot}%
+        {\usebeamerfont{date in head/foot}
+%        \insertframenumber{} / \inserttotalframenumber \hspace*{3.5ex} 
+        \insertframenumber{} / \if\thelastframecounter0\inserttotalframenumber\else\thelastframecounter\fi \hspace*{3.5ex}}
+      \end{beamercolorbox}}
+  \else%
+    \hbox{%
+      \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,left]{headfoot}%
+        {\usebeamerfont{author in head/foot}\hspace*{3.5ex}\insertshortauthor{} \beamerwuerzburgthemeadddelimiter{\insertshortinstitute} \beamerwuerzburgthemeadddelimiter{\insertshortdate}}
+      \end{beamercolorbox}\hspace{-12ex}%
+      \begin{beamercolorbox}[wd=12ex,ht=2.25ex,dp=1ex,right]{headfoot}%
+        {\usebeamerfont{date in head/foot}
+%        \insertframenumber{} / \inserttotalframenumber\hspace*{3.5ex} 
+        \insertframenumber{} / \if\thelastframecounter0\inserttotalframenumber\else\thelastframecounter\fi \hspace*{3.5ex}}
+      \end{beamercolorbox}}
+    \fi%
+  \vskip0pt%
+  \fi
+}
+
+\defbeamertemplate*{headline}{wuerzburg theme}
+{
+  \leavevmode%
+  \ifbeamer@wuerzburg@glossy%
+    \pgfuseshading{beamer@headfootshade}
+    \vskip-3.5ex
+    \hbox{%
+      \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.25ex,dp=1ex,left,ignorebg]{headfoot}%
+        \usebeamerfont{section in head/foot}\hspace*{3.5ex}%
+        \insertshorttitle\ %
+        \beamerwuerzburgthemeadddelimiter{\insertsection}%
+        \beamerwuerzburgthemeadddelimiter{\insertsubsection}%
+        \beamerwuerzburgthemeadddelimiter{\insertsubsubsection}%
+      \end{beamercolorbox}%
+      \ifbeamer@wuerzburg@nofootline%
+      \hspace{-12ex}%
+      \begin{beamercolorbox}[wd=12ex,ht=2.25ex,dp=1ex,right,ignorebg]{headfoot}%
+        {\usebeamerfont{date in head/foot}
+          % \insertframenumber{} / \inserttotalframenumber \hspace*{3.5ex} 
+          \insertframenumber{} / \if\thelastframecounter0\inserttotalframenumber\else\thelastframecounter\fi \hspace*{3.5ex}}
+      \end{beamercolorbox}\fi}%
+  \else%
+    \hbox{%
+      \begin{beamercolorbox}[wd=1.0\paperwidth,ht=2.25ex,dp=1ex,left]{headfoot}%
+        \usebeamerfont{section in head/foot}\hspace*{3.5ex}%
+        \insertshorttitle\ %
+        \beamerwuerzburgthemeadddelimiter{\insertsection}%
+        \beamerwuerzburgthemeadddelimiter{\insertsubsection}%
+        \beamerwuerzburgthemeadddelimiter{\insertsubsubsection}%
+      \end{beamercolorbox}%
+      \ifbeamer@wuerzburg@nofootline%
+      \hspace{-12ex}%
+      \begin{beamercolorbox}[wd=12ex,ht=2.25ex,dp=1ex,right,ignorebg]{headfoot}%
+        {\usebeamerfont{date in head/foot}
+          % \insertframenumber{} / \inserttotalframenumber \hspace*{3.5ex} 
+          \insertframenumber{} / \if\thelastframecounter0\inserttotalframenumber\else\thelastframecounter\fi \hspace*{3.5ex}}
+      \end{beamercolorbox}\fi}%
+  \fi%
+  \vskip0pt%
+  \pgfuseshading{beamer@topshade}
+  \vskip-3pt
+}
+
+\defbeamertemplate*{frametitle}{wuerzburg theme}[1][left]
+{
+  \nointerlineskip
+  \ifbeamercolorempty[bg]{frametitle}{\vskip0.5ex}{%
+    \hbox to\textwidth{\hskip-\Gm@lmargin\pgfuseshading{beamer@frametitletopmshade}\hskip-\Gm@rmargin}
+    \nointerlineskip%
+  }%
+  \@tempdima=\textwidth%
+  \advance\@tempdima by\beamer@leftmargin%
+  \advance\@tempdima by\beamer@rightmargin%
+  \begin{beamercolorbox}[sep=0.3cm,#1,wd=\the\@tempdima]{frametitle}
+    \usebeamerfont{frametitle}%
+    \vbox{}\vskip-1.7ex%
+    \if@tempswa\else\csname beamer@fte#1\endcsname\fi%
+    \strut\insertframetitle\strut\par%
+    {%
+      \ifx\insertframesubtitle\@empty%
+      \else%
+      {\usebeamerfont{framesubtitle}\usebeamercolor[fg]{framesubtitle}\insertframesubtitle\strut\par}%
+      \fi
+    }%
+    \vskip-1.3ex%
+    \if@tempswa\else\vskip-.3cm\fi% set inside beamercolorbox... evil here...
+  \end{beamercolorbox}%
+  \nointerlineskip
+  \ifbeamercolorempty[bg]{frametitle}{}{%
+    \hbox to\textwidth{\hskip-\Gm@lmargin\pgfuseshading{beamer@frametitlebottomshade}\hskip-\Gm@rmargin}%
+    \vskip-1.5pt%
+  }%
+}
+
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\mode
+<all>

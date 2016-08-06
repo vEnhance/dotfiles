@@ -1,0 +1,82 @@
+% Cyberjaya (Multimedia University) presentation theme for beamer
+%
+% LIM Lian Tze <liantze@gmail.com>, 2011
+% http://liantze.penguinattack.org/latextypesetting
+%
+% Changelog:
+%
+% Version 1.0:
+%   First public version.
+
+\ProvidesPackage{beamerthemeCyberjaya}[2011/09/25]
+
+\usefonttheme[onlylarge]{structurebold}
+
+\pgfdeclareimage[width=\paperwidth]{bgd}{bgd}
+\pgfdeclareimage[width=.25\paperwidth]{small-logo}{MMULogo}
+\pgfdeclareimage[width=.5\paperwidth]{large-logo}{MMULogo}
+\pgfdeclareimage[height=7pt]{TM}{TM}
+\pgfdeclareimage[height=16pt]{MSC}{MSC}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+% Colours
+%%%%%%%%%%%%%%%%%%%%%%%
+\definecolor{MMUBlue}{RGB}{26,33,141}
+\definecolor{MMURed}{RGB}{213,24,0}
+\definecolor{SubduedBlue}{RGB}{107,142,168}
+\pgfdeclarehorizontalshading{doubleShade}
+  {1.5pt}{color(0cm)=(white); color(.5\textwidth)=(gray); color(\textwidth)=(white)}
+\pgfdeclarehorizontalshading{singleShade}
+  {.5pt}{color(0cm)=(gray); color(.8\textwidth)=(gray); color(\textwidth)=(white)}
+%\pgfdeclarehorizontalshading{footShade}
+%  {.75pt}{color(0cm)=(gray); color(.8\textwidth)=(gray); color(\textwidth)=(white)}
+
+\usecolortheme[named=MMUBlue]{structure}
+\usecolortheme{rose}
+\setbeamercolor{item}{fg=SubduedBlue}
+\setbeamercolor{title}{fg=MMUBlue}
+\setbeamercolor{block title}{fg=MMUBlue,bg=MMUBlue!15!white}
+\setbeamercolor{block body}{bg=MMURed!5!white}
+\setbeamercolor{section in head/foot}{fg=MMUBlue}
+\setbeamercolor{separator}{fg=MMURed}
+\setbeamercolor{page number in head/foot}{bg=MMUBlue!30!white,fg=MMUBlue}
+\setbeamercolor{footline}{bg=MMUBlue!30!white,fg=MMUBlue}
+\setbeamercolor{mini frame}{fg=SubduedBlue}
+\setbeamertemplate{mini frame in other subsection}[default][40]
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Inner theme
+%%%%%%%%%%%%%%%%%%%%%%%%
+\RequirePackage{pifont}
+\useinnertheme{rounded}
+\setbeamertemplate{itemize items}{\ding{113}}
+\setbeamertemplate{enumerate items}[default]
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+% Outer theme
+%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{background canvas}{\pgfuseimage{bgd}}
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{frametitle}[default][center]
+
+\setbeamertemplate{headline}{%
+\vskip1pt\hskip2pt%
+{\makebox[10pt][r]{\usebeamercolor[fg]{page number in head/foot}\insertframenumber/\inserttotalframenumber}}\hspace*{23pt}\insertnavigation{.65\paperwidth}%
+\vskip2pt\pgfuseshading{singleShade}\vskip1pt%
+\hfill\raisebox{-6pt}[0pt][0pt]{\pgfuseimage{small-logo}}%
+}
+
+\setbeamertemplate{section in head/foot}{\insertsectionhead\space}
+\setbeamertemplate{subsection in head/foot}{\guillemotright\space\insertsubsectionhead}
+
+\setbeamertemplate{footline}{%
+\pgfuseshading{singleShade}\vskip-10pt%
+\hskip5pt\insertshortauthor\hskip5pt{\usebeamercolor[fg]{separator}\textbullet}\hskip5pt \insertshorttitle%
+\hfill\raisebox{5pt}[0pt][0pt]{\pgfuseimage{TM}}\hskip5pt\pgfuseimage{MSC}\hspace*{5pt}\vskip1pt%
+}
+
+\addtobeamertemplate{title page}{\vskip20pt}{\vfil\centering%
+\pgfpathrectangle{\pgfpoint{0pt}{0pt}}{\pgfpoint{\textwidth}{-2pt}}
+\pgfuseshading{doubleShade}
+\vskip1pt\pgfuseimage{large-logo}\par}{}

@@ -1,0 +1,23 @@
+% Copyright 2010 by Mohamed El Morabity
+% <melmorabity@fedoraproject.org>
+% 
+% Based on the LaTeX-Beamer package: Copyright 2003 by Till Tantau
+% <tantau@users.sourceforge.net>
+% 
+% This program can be redistributed and/or modified under the terms
+% of the GNU Public License, version 2.
+
+\DeclareOptionBeamer{language}{\PassOptionsToPackage{language=#1}{beamerouterthemegoddard}}
+\DeclareOptionBeamer{oldstylearrows}{\PassOptionsToPackage{oldstylearrows}{beamerouterthemegoddard}}
+
+\ProcessOptionsBeamer
+
+\mode<presentation>
+
+\useoutertheme{goddard}
+\useinnertheme{goddard}
+\usecolortheme{goddard}
+\usefonttheme{structurebold}
+
+\mode
+<all>
