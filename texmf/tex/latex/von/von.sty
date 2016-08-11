@@ -6,11 +6,12 @@
 \def\@vonsetname#1#2{\StrLeft{\pdfmdfivesum{#1#2}}{12}[\@vonname]}
 % We need to store results since StrLeft isn't purely expandable
 \newcommand{\@vonname}{}
+\newwrite\@vonfile
 \newcommand{\@voncore}[2]{
 	\@vonsetname{#1}{#2}
-	\newwrite\@vonfile
 	\immediate\openout\@vonfile=\@vonname.von
 	\immediate\write\@vonfile{von show "#2" -b #1 > \@vonname.out}
+	\immediate\closeout\@vonfile
 	\IfFileExists{\@vonname.out}{\input{\@vonname.out}}%
 	{\PackageWarning{von}{file `\@vonname.out' not found}}}
 \newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
