@@ -38,6 +38,7 @@
 	psh = push origin
 	undo = reset --soft HEAD~1
 	fail = commit --amend # to avoid stupid "oops typo" commits
+	unstage = reset HEAD
 
 	rb = rebase
 	rbc = rebase --continue
