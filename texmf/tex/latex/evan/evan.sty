@@ -1,5 +1,5 @@
 \ProvidesPackage{evan}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsmath,amssymb}
 %%fakesection Argument processing
 % Default Arguments
 % We include "Evan" in all of these to make sure
@@ -254,6 +254,11 @@
 		\fi
 		\usepackage[nameinlink]{cleveref}
 	\fi
+
+	\ifevanthm
+		\usepackage{amsthm}
+	\fi
+
 
 
 	%%fakesection New Theorem Styles -- mdbluebox, mdrecbox
