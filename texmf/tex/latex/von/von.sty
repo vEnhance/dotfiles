@@ -1,8 +1,9 @@
 \ProvidesPackage{von}[2016/08/06 v1.0 VON problem manager]
+\usepackage{xstring}
+\usepackage{xifthen}
+% Generate a unique name using the first 12 characters of an MD5 sum
 % #1 is always index
 % #2 is always source
-\usepackage{xstring}
-% Generate a unique name using the first 12 characters of an MD5 sum
 \def\@vonsetname#1#2{\StrLeft{\pdfmdfivesum{#1#2}}{12}[\@vonname]}
 % We need to store results since StrLeft isn't purely expandable
 \newcommand{\@vonname}{}
@@ -17,5 +18,9 @@
 \newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
 
 \def\von{\@ifstar\@vonstar\@von}
-\newcommand{\@von}[2][problem]{\begin{#1}[#2] \voninclude{#2} \end{#1}}
-\newcommand{\@vonstar}[2][problem]{\begin{#1} \voninclude{#2} \end{#1}}
+\newcommand{\vonenvname}{problem}
+\newcommand{\@von}[2][]{%
+	\ifthenelse{\isempty{#1}}%
+	{\begin{\vonenvname}[#2] \voninclude{#2} \end{\vonenvname}}%
+	{\begin{\vonenvname}[#1] \voninclude{#2} \end{\vonenvname}}}
+\newcommand{\@vonstar}[1]{\begin{\vonenvname} \voninclude{#1} \end{\vonenvname}}
