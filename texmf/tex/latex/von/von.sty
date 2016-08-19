@@ -10,11 +10,11 @@
 \newwrite\@vonfile
 \newcommand{\@voncore}[2]{
 	\@vonsetname{#1}{#2}
-	\immediate\openout\@vonfile=\@vonname.von
-	\immediate\write\@vonfile{von show "#2" -b #1 > \@vonname.out}
+	\immediate\openout\@vonfile=_v\@vonname.von
+	\immediate\write\@vonfile{von show "#2" -b #1 > _v\@vonname.out}
 	\immediate\closeout\@vonfile
-	\IfFileExists{\@vonname.out}{\input{\@vonname.out}}%
-	{\PackageWarning{von}{file `\@vonname.out' not found}}}
+	\IfFileExists{_v\@vonname.out}{\input{_v\@vonname.out}}%
+	{\PackageWarning{von}{file `_v\@vonname.out' not found}}}
 \newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
 
 \def\von{\@ifstar\@vonstar\@von}
