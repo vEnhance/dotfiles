@@ -4,17 +4,18 @@
 % Generate a unique name using the first 12 characters of an MD5 sum
 % #1 is always index
 % #2 is always source
+\def\vonprefix{v_} % can use for directory name too!
 \def\@vonsetname#1#2{\StrLeft{\pdfmdfivesum{#1#2}}{12}[\@vonname]}
 % We need to store results since StrLeft isn't purely expandable
 \newcommand{\@vonname}{}
 \newwrite\@vonfile
 \newcommand{\@voncore}[2]{
 	\@vonsetname{#1}{#2}
-	\immediate\openout\@vonfile=_v\@vonname.von
-	\immediate\write\@vonfile{von show "#2" -b #1 > _v\@vonname.out}
+	\immediate\openout\@vonfile=\vonprefix\@vonname.von
+	\immediate\write\@vonfile{von show "#2" -b #1 > \vonprefix\@vonname.out}
 	\immediate\closeout\@vonfile
-	\IfFileExists{_v\@vonname.out}{\input{_v\@vonname.out}}%
-	{\PackageWarning{von}{file `_v\@vonname.out' not found}}}
+	\IfFileExists{\vonprefix\@vonname.out}{\input{\vonprefix\@vonname.out}}%
+	{\PackageWarning{von}{file `\vonprefix\@vonname.out' not found}}}
 \newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
 
 \def\von{\@ifstar\@vonstar\@von}
