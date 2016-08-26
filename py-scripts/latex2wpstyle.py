@@ -103,7 +103,7 @@ fontstyle = {
 # and \" instead of "
 
 M = [    
-          [r"\i",       r"\item"] ,
+          [r"\ii",       r"\item"] ,
           [r"\to",       r"\rightarrow"] ,
           [r"\NN",       r"{\mathbb N}"],
           [r"\ZZ",       r"{\mathbb Z}"],
