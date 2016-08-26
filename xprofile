@@ -7,10 +7,12 @@ if [ "$HOSTNAME" = ArchAir ]; then
 	synclient TapButton1=0           # Disable tap to click
 	synclient TapButton2=0           # Disable double tap to paste
 	synclient RightButtonAreaRight=1 # Remap mouse buttons
+	conky &
 fi
 if [ "$HOSTNAME" = ArchMega ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	conky &
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
