@@ -130,6 +130,7 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead *.pegjs setfiletype pegjs
 	autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 	autocmd BufNewFile,BufRead *.less setfiletype css
+	autocmd BufRead,BufNewFile *.ics setfiletype icalendar
 augroup END
 
 " Hide preview scratch window on leaving (why would you not do this?)
