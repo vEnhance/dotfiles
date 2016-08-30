@@ -29,6 +29,7 @@ xftfont AR PL UKai TW MBE:size=12
 override_utf8_locale yes
 
 TEXT
-${color orange}${font Source Han Sans TW:size=14}Hello, 陳誼廷! It is ${execpi 31 date}, you are filled with ${color ff0033}determination.
+${color orange}${font Source Han Sans TW:size=14}Hello, 陳誼廷! It is ${execpi 31 date}.
+You are filled with ${color ff0033}determination.
 ${font}${color}${execpi 31 cat /tmp/conky.out}
 ${execpi 768 ~/dotfiles/conky-out.sh}
