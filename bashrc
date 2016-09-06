@@ -7,8 +7,9 @@
 [[ -f /bin/python2 ]] && alias python='python2' # Use Python 2 on Arch Linux
 [[ -f /bin/pip2 ]] && alias pip='pip2' # Use Python 2 on Arch Linux
 
-shopt -s globstar
-
+if [ "$(uname)" = Linux ]; then
+	shopt -s globstar
+fi
 
 # Exports
 if [ "x${SSH_TTY}" = "x" ]; then
@@ -77,14 +78,6 @@ function cclean() {
 
 alias jpc='python ~/dotfiles/py-scripts/jpc.py'
 alias grade='python ~/dotfiles/py-scripts/grade.py'
-
-# Custom change-directory function: cd + ls = cs
-function cs () {
-	[ -n "${1}" ] && cd "${1}"
-	echo -n "`pwd`: "
-	ls -l --color=tty --quoting-style=literal
-}
-alias c='cs'
 
 # Shortcut for editors and the like
 function pdf() { 
@@ -165,14 +158,26 @@ alias du='du -h'
 # Misc :)
 alias less='less -r'                          # raw control characters
 alias whence='type -a'                        # where, of a sort
-alias grep='grep --color'                     # show differences in colour
-alias egrep='egrep --color=auto'              # show differences in colour
-alias fgrep='fgrep --color=auto'              # show differences in colour
+alias grep='grep --color'                     # show differences in color
+alias egrep='egrep --color=auto'              # show differences in color
+alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-alias ls='ls --color=tty --quoting-style=literal' # classify files in colour
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
-alias ll='ls -l --color=tty'                  # long list
-alias la='ls -A'                              # all but . and ..
-alias l='ls -CF'                              #
+if [ "$(uname)" = Linux ]; then
+	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
+	alias ll='ls -l --color=tty'                  # long list
+	alias l='ls -CF'                              #
+else if [ "$(uname)" = Darwin ]; then
+	alias ls='ls -G' # classify files in color
+	alias ll='ls -Gl'                             # long list
+	alias l='ls -CF'                              #
+fi
+fi
+
+# Custom change-directory function: cd + ls = cs
+function cs () {
+	[ -n "${1}" ] && cd "${1}"
+	echo -n "`pwd`: "
+	ll
+}
+alias c='cs'
