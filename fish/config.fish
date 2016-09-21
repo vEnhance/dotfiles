@@ -52,6 +52,8 @@ function fish_prompt
   printf '%s ' (__fish_git_prompt)
   set_color normal
   printf '\n$ '
+
+  zd --add "$PWD"
 end
 
 
@@ -118,12 +120,12 @@ end
 
 # Shortcut for editors and the like
 function pdf
-	if [ -f "$argvpdf" ] then
-		$PDFVIEWER "$argvpdf" &
-	elif [ -f "$argv.pdf" ] then
-		$PDFVIEWER "$argv.pdf" &
-	elif [ -f "$argv" ] then
-		$PDFVIEWER "$argv" &
+	if test -f "$argv""pdf"
+		eval $PDFVIEWER "$argv""pdf" &
+	else if test -f "$argv.pdf"
+		eval $PDFVIEWER "$argv.pdf" &
+	else if test -f "$argv"
+		eval $PDFVIEWER "$argv" &
 	else
 		echo "Cannot found a suitable file."
 	end
@@ -214,5 +216,11 @@ alias c='cs'
 
 # Fish completions
 complete -x -c cs -a "(__fish_complete_directories)"
+
+source ~/dotfiles/z.fish
+function z
+	zd $argv
+	ll
+end
 
 # vim: ft=sh
