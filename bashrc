@@ -3,9 +3,15 @@
 # Evan Chen
 #
 
-[[ -n "$DISPLAY" && "$TERM" = "xterm" ]] && export TERM=xterm-256color
-[[ -f /bin/python2 ]] && alias python='python2' # Use Python 2 on Arch Linux
-[[ -f /bin/pip2 ]] && alias pip='pip2' # Use Python 2 on Arch Linux
+if [ -f /bin/python2 ]; then
+   	alias python='python2'
+fi
+if [ -f /bin/pip2 ]; then
+	alias pip2='pip2'
+fi 
+if [ "$TERM" = "xterm" ]; then
+	export TERM=xterm-256color
+fi
 
 if [ "$(uname)" = Linux ]; then
 	shopt -s globstar
@@ -22,13 +28,23 @@ if [ "x${SSH_TTY}" = "x" ]; then
 	export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
 else
 	export PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
-	[[ -f ~/banner ]] && cat ~/banner
+	if [ -f ~/banner ]; then
+		cat ~/banner
+	fi
 fi
 export EDITOR='vim'
-[[ -d $HOME/.texmf ]] && export TEXMFHOME=$HOME/.texmf
-[[ -d $HOME/.sage ]] && export DOT_SAGENB=$HOME/.sage
-[[ -f /usr/bin/zathura ]] && export PDFVIEWER='zathura'
-[[ -f ~/dotfiles/aws-hmmt ]] && source ~/dotfiles/aws-hmmt
+if [ -d $HOME/.texmf ]; then
+   	export TEXMFHOME=$HOME/.texmf
+fi
+if [ -d $HOME/.sage ]; then
+   	export DOT_SAGENB=$HOME/.sage
+fi
+if [ -f /usr/bin/zathura ]; then
+   	export PDFVIEWER='zathura'
+fi
+if [ -f ~/dotfiles/aws-hmmt ]; then
+   	source ~/dotfiles/aws-hmmt
+fi
 
 # Aliases
 alias kitty="cat"
@@ -59,9 +75,12 @@ alias sudo='sudo ' # allows my aliases to get into sudo
 
 
 # Various functions
-function rot13 {
-	if [ -r $1 ]; then cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
-	else echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'; fi
+function rot13 () {
+	if [ -r $1 ]; then
+		cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
+	else
+		echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
+   	fi
 }
 # Create a new TeX file
 function newtex () {
@@ -151,13 +170,8 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
-# Default to human readable figures
-alias df='df -h'
-alias du='du -h'
-
 # Misc :)
 alias less='less -r'                          # raw control characters
-alias whence='type -a'                        # where, of a sort
 alias grep='grep --color'                     # show differences in color
 alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
@@ -167,16 +181,18 @@ if [ "$(uname)" = Linux ]; then
 	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
 	alias ll='ls -l --color=tty'                  # long list
 	alias l='ls -CF'                              #
-else if [ "$(uname)" = Darwin ]; then
+fi
+if [ "$(uname)" = Darwin ]; then
 	alias ls='ls -G' # classify files in color
 	alias ll='ls -Gl'                             # long list
 	alias l='ls -CF'                              #
 fi
-fi
 
 # Custom change-directory function: cd + ls = cs
 function cs () {
-	[ -n "${1}" ] && cd "${1}"
+	if [ -n "${1}" ]; then
+		cd "${1}"
+	fi
 	echo -n "`pwd`: "
 	ll
 }
