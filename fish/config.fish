@@ -1,52 +1,84 @@
-# 
-# .bashrc 
-# Evan Chen
-#
+set normal (set_color normal)
+set magenta (set_color magenta)
+set yellow (set_color yellow)
+set green (set_color green)
+set red (set_color red)
+set gray (set_color -o black)
 
-if [ "$TERM" = "xterm" ] && [ -f /bin/fish ]; then
-	exec fish
-	exit;
-fi
+# Fish git prompt
+set __fish_git_prompt_showdirtystate 'yes'
+set __fish_git_prompt_showstashstate 'yes'
+set __fish_git_prompt_showuntrackedfiles 'no'
+set __fish_git_prompt_showupstream 'yes'
+set __fish_git_prompt_color_branch 'FFFFFF'
+set __fish_git_prompt_color_upstream_ahead green
+set __fish_git_prompt_color_upstream_behind red
 
-if [ -f /bin/python2 ]; then
+# Status Chars
+set __fish_git_prompt_char_dirtystate '*'
+set __fish_git_prompt_char_stagedstate '+'
+set __fish_git_prompt_char_untrackedfiles '?'
+set __fish_git_prompt_char_stashstate '$'
+set __fish_git_prompt_char_upstream_ahead '>'
+set __fish_git_prompt_char_upstream_behind '<'
+
+set fish_color_cwd CCA700
+set fish_color_name 00CCA7
+set fish_color_greeting FF3333
+
+function fish_greeting
+	set_color $fish_color_greeting
+	printf "Hello "
+	set_color $fish_color_name
+	printf (whoami)
+	set_color $fish_color_greeting
+	printf "! You are filled with "
+	set_color $fish_color_name
+	printf "determination"
+	set_color $fish_color_greeting
+	printf "."
+end
+
+function fish_prompt
+  set last_status $status
+
+  set_color $fish_color_name
+  printf (whoami)@(hostname)
+  printf ' '
+  set_color $fish_color_cwd
+  printf (dirs)
+
+  set_color normal
+  printf '%s ' (__fish_git_prompt)
+  set_color normal
+  printf '\n$ '
+end
+
+
+if [ -f /bin/python2 ]
    	alias python='python2'
-fi
-if [ -f /bin/pip2 ]; then
+end
+if [ -f /bin/pip2 ]
 	alias pip2='pip2'
-fi 
-
-if [ "$(uname)" = Linux ]; then
+end
+if [ "(uname)" = Linux ]
 	shopt -s globstar
-fi
+end
 
 # Exports
-if [ "x${SSH_TTY}" = "x" ]; then
-	# Git magic / Sourcing
-	GIT_PS1_SHOWDIRTYSTATE=1
-	GIT_PS1_SHOWSTASHSTATE=1
-	GIT_PS1_SHOWUPSTREAM="auto"
-	source ~/dotfiles/git-scripts/git-complete.sh
-	source ~/dotfiles/git-scripts/git-prompt.sh
-	export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
-else
-	export PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
-	if [ -f ~/banner ]; then
-		cat ~/banner
-	fi
-fi
 export EDITOR='vim'
-if [ -d $HOME/.texmf ]; then
+if [ -d $HOME/.texmf ]
    	export TEXMFHOME=$HOME/.texmf
-fi
-if [ -d $HOME/.sage ]; then
+end
+if [ -d $HOME/.sage ]
    	export DOT_SAGENB=$HOME/.sage
-fi
-if [ -f /usr/bin/zathura ]; then
+end
+if [ -f /usr/bin/zathura ]
    	export PDFVIEWER='zathura'
-fi
-if [ -f ~/dotfiles/aws-hmmt ]; then
+end
+if [ -f ~/dotfiles/aws-hmmt ]
    	source ~/dotfiles/aws-hmmt
-fi
+end
 
 # Aliases
 alias kitty="cat"
@@ -76,55 +108,42 @@ alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias sudo='sudo ' # allows my aliases to get into sudo
 
 
-# Various functions
-function rot13 () {
-	if [ -r $1 ]; then
-		cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
-	else
-		echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
-   	fi
-}
 # Create a new TeX file
-function newtex () {
-	mkdir "${1}"
-	cd "${1}"
-	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "${1}.tex"
-	# vim "${1}.tex"
-	gvim "${1}.tex"
-}	
-function cclean() {
-	rm -f *.out
-	rm -f *.class
-}
-
-alias jpc='python ~/dotfiles/py-scripts/jpc.py'
-alias grade='python ~/dotfiles/py-scripts/grade.py'
+function newtex 
+	mkdir $argv
+	cd $argv
+	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "$argv.tex"
+	gvim "$argv.tex"
+end
 
 # Shortcut for editors and the like
-function pdf() { 
-	if [ -f "${1}pdf" ]
-	then
-		$PDFVIEWER "${1}pdf" &
-	elif [ -f "${1}.pdf" ]
-	then
-		$PDFVIEWER "${1}.pdf" &
-	elif [ -f "${1}" ]
-	then
-		$PDFVIEWER "${1}" &
+function pdf
+	if [ -f "$argvpdf" ] then
+		$PDFVIEWER "$argvpdf" &
+	elif [ -f "$argv.pdf" ] then
+		$PDFVIEWER "$argv.pdf" &
+	elif [ -f "$argv" ] then
+		$PDFVIEWER "$argv" &
 	else
 		echo "Cannot found a suitable file."
-	fi
-}
+	end
+end
 
 # Uses the locate utility to find a certain file
-function hunt () {
-	python ~/dotfiles/py-scripts/hunt.py "${1}"
-	cd "$(cat /tmp/hunt)"
+function hunt ()
+	python ~/dotfiles/py-scripts/hunt.py "$argv"
+	cd (cat /tmp/hunt)
 	pwd
 	ls -l --color=tty
-}
+end
 
-export SHELL=/bin/fish
+#export LESS_TERMCAP_mb='\e[01;31m'
+#export LESS_TERMCAP_md='\e[01;38;5;208m'
+#export LESS_TERMCAP_me='\e[0m'
+#export LESS_TERMCAP_se='\e[0m'
+#export LESS_TERMCAP_so='\e[01;44;33m'
+#export LESS_TERMCAP_ue='\e[0m'
+#export LESS_TERMCAP_us='\e[04;38;5;111m'
 
 #It speaks!
 alias hi="echo Hi!"
@@ -173,23 +192,27 @@ alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-if [ "$(uname)" = Linux ]; then
+if [ "$uname" = Linux ]
 	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
 	alias ll='ls -l --color=tty'                  # long list
 	alias l='ls -CF'                              #
-fi
-if [ "$(uname)" = Darwin ]; then
+end
+if [ "$uname" = Darwin ]
 	alias ls='ls -G' # classify files in color
 	alias ll='ls -Gl'                             # long list
 	alias l='ls -CF'                              #
-fi
+end
 
 # Custom change-directory function: cd + ls = cs
-function cs () {
-	if [ -n "${1}" ]; then
-		cd "${1}"
-	fi
-	echo -n "`pwd`: "
+function cs
+	if [ -n $argv ]
+		cd $argv
+	end
 	ll
-}
+end
 alias c='cs'
+
+# Fish completions
+complete -x -c cs -a "(__fish_complete_directories)"
+
+# vim: ft=sh
