@@ -152,7 +152,7 @@ for line in stream:
 			draw_point = True
 			label_point = True
 		label_name = label_name.strip()
-		point_name = label_name.replace("'", "p") # primes
+		point_name = label_name.replace("'", "p").replace("\\", "") # primes
 
 		if do_auto_paren:
 			tokens = raw_expr.strip().split(' ')
