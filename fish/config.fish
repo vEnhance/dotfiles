@@ -68,7 +68,9 @@ if [ "(uname)" = Linux ]
 end
 
 # Exports
+export SHELL='/bin/fish'
 export EDITOR='vim'
+export TERM='xterm-256color'
 if [ -d $HOME/.texmf ]
    	export TEXMFHOME=$HOME/.texmf
 end
@@ -109,7 +111,6 @@ alias gogogo='startx'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias sudo='sudo ' # allows my aliases to get into sudo
 
-
 # Create a new TeX file
 function newtex 
 	mkdir $argv
@@ -121,11 +122,11 @@ end
 # Shortcut for editors and the like
 function pdf
 	if test -f "$argv""pdf"
-		eval $PDFVIEWER "$argv""pdf" &
+		zathura "$argv""pdf" &
 	else if test -f "$argv.pdf"
-		eval $PDFVIEWER "$argv.pdf" &
+		zathura "$argv.pdf" &
 	else if test -f "$argv"
-		eval $PDFVIEWER "$argv" &
+		zathura "$argv" &
 	else
 		echo "Cannot found a suitable file."
 	end
@@ -166,21 +167,6 @@ alias purr="echo Here, kitty! \<3"
 alias qq="echo QQ!"
 alias qqq="echo QQ!"
 alias qqqq="echo QQ!"
-alias qqqqq="echo QQ!"
-alias qqqqqq="echo QQ!"
-alias qqqqqqq="echo QQ!"
-alias qqqqqqqq="echo QQ!"
-alias qqqqqqqqq="echo QQ!"
-alias qqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqqqqqqq="echo QQ!"
-alias qqqqqqqqqqqqqqqqqqq="echo QQ!"
 
 # Interactive operation...
 alias rm='rm -i'
@@ -194,12 +180,12 @@ alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-if [ "$uname" = Linux ]
+if [ (uname) = Linux ]
 	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
 	alias ll='ls -l --color=tty'                  # long list
 	alias l='ls -CF'                              #
 end
-if [ "$uname" = Darwin ]
+if [ (uname) = Darwin ]
 	alias ls='ls -G' # classify files in color
 	alias ll='ls -Gl'                             # long list
 	alias l='ls -CF'                              #
