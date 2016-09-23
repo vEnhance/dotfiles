@@ -3,10 +3,6 @@
 # Evan Chen
 #
 
-if [ "$TERM" = "xterm" ] && [ -f /bin/fish ]; then
-	exec fish
-	exit;
-fi
 
 if [ -f /bin/python2 ]; then
    	alias python='python2'
@@ -19,7 +15,6 @@ if [ "$(uname)" = Linux ]; then
 	shopt -s globstar
 fi
 
-# Exports
 if [ "x${SSH_TTY}" = "x" ]; then
 	# Git magic / Sourcing
 	GIT_PS1_SHOWDIRTYSTATE=1
@@ -34,7 +29,11 @@ else
 		cat ~/banner
 	fi
 fi
+
+# Exports
 export EDITOR='vim'
+export SHELL='/bin/fish'
+export TERM='xterm-256color'
 if [ -d $HOME/.texmf ]; then
    	export TEXMFHOME=$HOME/.texmf
 fi
@@ -124,7 +123,6 @@ function hunt () {
 	ls -l --color=tty
 }
 
-export SHELL=/bin/fish
 
 #It speaks!
 alias hi="echo Hi!"
