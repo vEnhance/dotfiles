@@ -1,0 +1,97 @@
+%% Package for typesetting my olympiad materials
+
+\usepackage{epic}
+\usepackage{xstring}
+\usepackage{amsthm}
+
+%% Options
+\newif\ifexcexam\excexamfalse
+\DeclareOption{exam}{\excexamtrue}
+\newif\ifexcwater\excwatertrue
+\DeclareOption{nowatermark}{\excwaterfalse}
+\newif\ifexcreveal\excrevealfalse
+\DeclareOption{reveal}{\excrevealtrue}
+\ProcessOptions\relax
+
+\ifexcexam
+	\usepackage[nofancy]{evan}
+	\newcommand{\thelogo}{}
+	\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
+
+	\makeatletter
+	\def\thm@space@setup{%
+	  \thm@preskip=\parskip \thm@postskip=18pt
+	}
+	\makeatother
+	\theoremstyle{definition}
+
+	\usepackage{fancyhdr}
+	\pagestyle{fancy}
+	\cfoot{}
+	\lhead{\makelogo}
+	\rhead{\righthead\vspace{-1em}}
+	\rfoot{\emph{\sevenpoints}}
+	\setlength{\headheight}{9em}
+	\setlength{\headsep}{2em}
+	\setlength{\voffset}{-1in}
+	\setlength{\hoffset}{-0.5in}
+	\addtolength{\textwidth}{1in}
+	\addtolength{\textheight}{0.25in}
+	\newlength\FHoffset\setlength\FHoffset{0.5in}
+	\addtolength\headwidth{2\FHoffset}
+	\fancyheadoffset{\FHoffset}
+	\newlength\FHleft\setlength\FHleft{0in}
+	\newlength\FHright\setlength\FHright{-1in}
+	\newbox\FHline\setbox\FHline=\hbox{\hsize=\paperwidth%
+	  \hspace*{\FHleft}%
+	  \rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
+	}
+	\renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
+	\newcommand{\olyinfo}[1]{\begin{flushright} \itshape #1 \end{flushright} \medskip}
+	\newcommand{\nmbox}[1]{\fbox{\sffamily\LARGE\vphantom{y}#1} \par\vspace{1em}} % normal box
+	\newcommand{\fdbox}[2]{\fbox{\sffamily\LARGE\vphantom{y}#1: \bfseries #2} \par\vspace{1em}} % field box
+
+	\newcommand{\makelogo}{\includegraphics[width=8em]{\thelogo}}
+
+	\newcommand{\righthead}{%
+		{\sffamily \Huge Mock Olympiad}  \\[1em]
+		{\sffamily \LARGE \textbf{\StrSubstitute{\jobname}{-}{ }}} 
+			\par\vspace{1em}
+		}
+	\newcommand{\sevenpoints}{Each problem is worth seven points.}
+
+	\usepackage{titlesec}
+	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
+\else
+	\usepackage[sexy]{evan}
+	\ohead{\thedate}
+	\AtBeginDocument{\date{\MakeUppercase{\jobname}}}
+\fi
+
+
+\ifexcwater
+	\usepackage{draftwatermark}
+	\SetWatermarkAngle{32}
+	\SetWatermarkLightness{0.94}
+	\SetWatermarkFontSize{40pt}
+	\SetWatermarkScale{2.718}
+	\SetWatermarkText{\shortstack{By \theauthor \\ Internal Use}}
+\fi
+\renewcommand{\vonprefix}{von}
+
+\ifexcreveal
+	\newenvironment{onion}{\color{magenta}}{\ignorespacesafterend}
+\else
+	\newenvironment{onion}{\begin{gobble}}{\end{gobble}}
+\fi
+
+\ifexcwater
+	\usepackage{draftwatermark}
+	\SetWatermarkAngle{32}
+	\SetWatermarkLightness{0.94}
+	\SetWatermarkFontSize{40pt}
+	\SetWatermarkScale{2.718}
+	\SetWatermarkText{\shortstack{By \theauthor \\ Internal Use}}
+\fi
+
+
