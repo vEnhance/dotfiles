@@ -1,6 +1,14 @@
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
 
+# Start XFLUX
+case $(date +%Z) in
+	PST) xflux -z 94539 -k 2400;; # Pacific
+	PDT) xflux -z 94539 -k 2400;; # Pacific
+	EST) xflux -z 02138 -k 2400;; # Eastern
+	EDT) xflux -z 02138 -k 2400;; # Eastern
+esac
+
 if [ "$HOSTNAME" = ArchAir ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 	xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12" # natural scroll
@@ -24,7 +32,3 @@ setxkbmap dvorak
 # Set Chinese for X
 export LANG="zh_TW.UTF-8"
 
-case $(date +%Z) in
-	(PST) xflux -z 94539 -k 2400;;  # Pacific
-	(EST) xflux -z 02138 -k 2800;;  # Eastern
-esac
