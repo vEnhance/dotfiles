@@ -1,5 +1,5 @@
 \ProvidesPackage{evan}
-\usepackage{amsmath,amssymb,amsthm}
+\usepackage{amsmath,amssymb}
 %%fakesection Argument processing
 % Default Arguments
 % We include "Evan" in all of these to make sure
@@ -66,6 +66,9 @@
 % if packages not loaded, turn off mdthm and asy
 \ifevanpkg\else\evanmdthmfalse\fi
 \ifevanpkg\else\evanasyfalse\fi
+
+% If no setup, turn off theorems
+\ifevansetup\else\evanthmfalse\fi
 
 %%fakesection Some macros
 %Small commands
@@ -227,12 +230,15 @@
 		anglefontpen = black;
 		pointfontsize = 10;
 		defaultpen(fontsize(10pt));
-		size(6cm); // set a reasonable default
+		size(8cm); // set a reasonable default
 		usepackage("amsmath");
 		usepackage("amssymb");
 		settings.tex="latex";
 		settings.outformat="pdf";
 	\end{asydef}
+\fi
+\ifevanthm
+	\usepackage{amsthm}
 \fi
 
 %%fakesection BEGIN MAIN SETUP
