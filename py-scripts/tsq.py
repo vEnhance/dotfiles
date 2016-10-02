@@ -77,6 +77,11 @@ parser.add_argument('-s', '--size',
 		action = 'store',
 		dest = 'size',
 		default = '8cm')
+parser.add_argument('-f', '--fontsize',
+		help = 'If provided, sets the image size in the preamble. (Use with -p.)',
+		action = 'store',
+		dest = 'fontsize',
+		default = '9pt')
 opts = parser.parse_args()
 
 
@@ -88,7 +93,7 @@ if opts.preamble:
 	print "import olympiad;"
 	print "import cse5;"
 	print "size(%s);" %opts.size
-	print "defaultpen(fontsize(9pt));"
+	print "defaultpen(fontsize(%s));" % opts.fontsize
 	print "settings.outformat=\"pdf\";"
 if opts.fname is not '':
 	stream = open(opts.fname, 'r')
