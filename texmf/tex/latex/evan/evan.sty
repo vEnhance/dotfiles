@@ -22,6 +22,7 @@
 \newif\ifevanhints\evanhintsfalse
 \newif\ifevanasy\evanasytrue
 \newif\ifevancolorsec\evancolorsecfalse
+\newif\ifevantitlemark\evantitlemarkfalse
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
@@ -48,6 +49,7 @@
 \DeclareOption{oldtitle}{\evantitlingfalse}
 \DeclareOption{newtitle}{\evantitlingtrue}
 \DeclareOption{noauthor}{\evanauthorfalse}
+\DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
 
 \DeclareOption{mdthm}{\evanmdthmtrue}
 \DeclareOption{nomdthm}{\evanmdthmfalse}
@@ -532,7 +534,11 @@
 			\fi
 			\automark{section}
 			\chead{}
-			\ohead{\footnotesize\headmark}
+			\ifevantitlemark
+				\ohead{\footnotesize\textbf{\thetitle}}
+			\else
+				\ohead{\footnotesize\textbf{\headmark}}
+			\fi
 			\cfoot{\pagemark}
 		}
 	\fi

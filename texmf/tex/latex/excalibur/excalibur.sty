@@ -64,7 +64,8 @@
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
 	\usepackage[sexy]{evan}
-	\ohead{\thedate}
+	\ihead{\footnotesize\bfseries\theauthor}
+	\ohead{\footnotesize\bfseries\thedate}
 	\AtBeginDocument{\date{\MakeUppercase{\jobname}}}
 \fi
 
