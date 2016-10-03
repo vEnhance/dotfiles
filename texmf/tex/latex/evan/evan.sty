@@ -525,10 +525,14 @@
 			\addtolength{\textheight}{3.14cm}
 			\setlength{\footskip}{0.5in}
 			\setlength{\headsep}{10pt}
-			\ifevantitling \ihead{\theauthor} \else \ihead{Evan Chen} \fi
+			\ifevantitling
+				\ihead{\footnotesize\textbf{\theauthor} (\thedate)}
+				\else
+				\ihead{\footnotesize\textbf{Evan Chen} (\thedate)}
+			\fi
 			\automark{section}
 			\chead{}
-			\ohead{\headmark}
+			\ohead{\footnotesize\headmark}
 			\cfoot{\pagemark}
 		}
 	\fi
