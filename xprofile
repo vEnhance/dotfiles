@@ -1,3 +1,5 @@
+# !/bin/bash
+
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
 
@@ -32,3 +34,5 @@ setxkbmap dvorak
 # Set Chinese for X
 export LANG="zh_TW.UTF-8"
 
+# Use Fish as shell
+export SHELL='/bin/fish'

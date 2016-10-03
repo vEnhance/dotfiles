@@ -32,7 +32,6 @@ fi
 
 # Exports
 export EDITOR='vim'
-export SHELL='/bin/fish'
 export TERM='xterm-256color'
 if [ -d $HOME/.texmf ]; then
    	export TEXMFHOME=$HOME/.texmf
