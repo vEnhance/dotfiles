@@ -45,7 +45,7 @@ function zd -d "Jump to a recent directory."
                 count += $2
             }
             END {
-                if( count > 1000 ) {
+                if( count > 5000 ) {
                     for( i in rank ) print i "|" 0.9*rank[i] "|" time[i] # aging
                 } else for( i in rank ) print i "|" rank[i] "|" time[i]
             }
