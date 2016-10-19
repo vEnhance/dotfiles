@@ -1,3 +1,5 @@
+set FISH_CLIPBOARD_CMD "cat" # Stop that.
+
 set normal (set_color normal)
 set magenta (set_color magenta)
 set yellow (set_color yellow)
