@@ -26,8 +26,9 @@
 
 [alias]
 	ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate 
-	ll = log -n 6 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%ad" --decorate --date=short --stat
-	tree = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
+	lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate 
+	ll = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%ad" --decorate --date=short --stat
+	tree = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
 
 	cm = commit
 	co = checkout
