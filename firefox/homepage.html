@@ -1,0 +1,97 @@
+<html>
+<head>
+<title>Vimperator | New Page</title>
+<style type="text/css">
+body {
+	text-align: center;
+	font: Trebuchet MS;
+}
+input#search {
+	width: 600px;
+	height: 45px;
+}
+div#main {
+	cursor: pointer;
+	margin-top: 20px;
+}
+span.intpart {
+	font-size: 140px;
+	color: blue;
+}
+span.fracpart {
+	font-size: 80px;
+	color: grey;
+}
+</style>
+<script type="text/javascript">
+function isLeapYear(year) {
+    var d = new Date(year, 1, 28);
+    d.setDate(d.getDate() + 1);
+    return d.getMonth() == 1;
+}
+function getAge(date) {
+    var d = new Date(date);
+    var now = new Date();
+    var years = now.getFullYear() - d.getFullYear();
+    d.setFullYear(d.getFullYear() + years);
+    if (d > now) {
+        years--;
+        d.setFullYear(d.getFullYear() - 1);
+    }
+    var days = (now.getTime() - d.getTime()) / (3600 * 24 * 1000);
+    return years + days / (isLeapYear(now.getFullYear()) ? 366 : 365);
+}
+function update(targetdate, id) {
+	var dom = document.getElementById(id);
+	var a = Math.abs(getAge(targetdate));
+	var ip = Math.floor(a); // int part
+	var fp = a - ip; // frac part
+	dom.innerHTML = '<span class="intpart">' + ip + '</span>'
+		+ '<span class="fracpart">' + fp.toString().slice(1,10) + '</span>';
+}
+
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+</script>
+</head>
+
+<body>
+<div id="main"></div>
+<div id="searchdiv">
+	<form action="http://www.goosh.org" method="get">
+	<input name="q" autocomplete="off" id="search" />
+	</form>
+</div>
+
+<script type="text/javascript">
+var utime = 365.242 * 24 * 3600 * 1000 * 0.00000001
+var target = getCookie("target") || "0000-01-01";
+window.setInterval(function() { update(target, "main") }, utime);
+
+document.getElementById("main").onclick = function() {
+	setCookie("target", prompt("Enter a date in YYYY-MM-DD format"), 1000);
+	document.location.reload();
+}
+// Consider also using your birthday here
+</script>
+</body>
+</html>
