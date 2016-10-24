@@ -7,3 +7,4 @@ vim/spell/*
 **/*.pyc
 aws-hmmt
 aws/*
+stepmania/*
