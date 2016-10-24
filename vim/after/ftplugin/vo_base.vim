@@ -1,7 +1,7 @@
 if has("gui_running")
 	colorscheme vo_light
 	hi OL2 guifg=blue	ctermfg=blue
-	hi OL3 guifg=green	ctermfg=green
+	hi OL3 guifg=darkgreen	ctermfg=green
 
 	hi BT1 guifg=red	ctermfg=red
 	hi BT2 guifg=red	ctermfg=red
