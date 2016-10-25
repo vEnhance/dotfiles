@@ -41,9 +41,9 @@ function getAge(date) {
     var days = (now.getTime() - d.getTime()) / (3600 * 24 * 1000);
     return years + days / (isLeapYear(now.getFullYear()) ? 366 : 365);
 }
-function update(targetdate, id) {
+function update(t, id) {
 	var dom = document.getElementById(id);
-	var a = Math.abs(getAge(targetdate));
+	var a = Math.abs(t);
 	var ip = Math.floor(a); // int part
 	var fp = a - ip; // frac part
 	dom.innerHTML = '<span class="intpart">' + ip + '</span>'
@@ -83,15 +83,21 @@ function getCookie(cname) {
 </div>
 
 <script type="text/javascript">
-var utime = 365.242 * 24 * 3600 * 1000 * 0.00000001
-var target = getCookie("target") || "0000-01-01";
-window.setInterval(function() { update(target, "main") }, utime);
+var target_date = getCookie("target") || "0000-01-01";
+var current_age = getAge(target_date);
+update(current_age, "main");
+
+var inc_time = 0.00000001;
+var ms_per_year = 365.242 * 24 * 3600 * 1000;
+window.setInterval(function() {
+	current_age += inc_time;
+	update(current_age, "main")
+}, inc_time * ms_per_year);
 
 document.getElementById("main").onclick = function() {
 	setCookie("target", prompt("Enter a date in YYYY-MM-DD format"), 1000);
 	document.location.reload();
 }
-// Consider also using your birthday here
 </script>
 </body>
 </html>
