@@ -95,8 +95,11 @@ window.setInterval(function() {
 }, inc_time * ms_per_year);
 
 document.getElementById("main").onclick = function() {
-	setCookie("target", prompt("Enter a date in YYYY-MM-DD format"), 1000);
-	document.location.reload();
+	var ans = prompt("Enter a date in YYYY-MM-DD format");
+	if (ans) {
+		setCookie("target", ans, 1000);
+		document.location.reload();
+	}
 }
 </script>
 </body>
