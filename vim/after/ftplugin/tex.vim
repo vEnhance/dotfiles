@@ -83,11 +83,12 @@ if has("gui_running")
 	syntax match One contained "nv" conceal cchar=¹
 	syntax match MinusOne "\\inv\>" containedin=texStatement contains=Minus,One
 	
-	" Match 1/2
+	" Match 1/2, and other symobls
 	syntax match texMathSymbol "\\half\>" contained conceal cchar=½
 	" Match other symbols
     syntax match texMathSymbol "\\dang\>" contained conceal cchar=∡
-	
+    syntax match texMathSymbol "\\then\>" contained conceal cchar=⊃
+
 	" Match absolute value bars
 	syntax match texMathSymbol "\\left\\lvert\>" contained conceal cchar=|
 	syntax match texMathSymbol "\\right\\rvert\>" contained conceal cchar=|
