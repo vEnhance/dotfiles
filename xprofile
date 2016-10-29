@@ -5,10 +5,10 @@
 
 # Start XFLUX
 case $(date +%Z) in
-	PST) xflux -z 94539 -k 2400;; # Pacific
-	PDT) xflux -z 94539 -k 2400;; # Pacific
-	EST) xflux -z 02138 -k 2400;; # Eastern
-	EDT) xflux -z 02138 -k 2400;; # Eastern
+	PST) xflux -z 94539 -k 2800;; # Pacific
+	PDT) xflux -z 94539 -k 2800;; # Pacific
+	EST) xflux -z 02138 -k 2800;; # Eastern
+	EDT) xflux -z 02138 -k 2800;; # Eastern
 esac
 
 if [ "$HOSTNAME" = ArchAir ]; then
