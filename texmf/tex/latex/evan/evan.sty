@@ -455,21 +455,44 @@
 		\usepackage{titling}
 		\@ifundefined{KOMAClassName}{}{
 			\newcommand{\thesubtitle}{}
-			\renewcommand{\subtitle}[1]{%
-				\renewcommand{\thesubtitle}{#1}
-				\posttitle{\\ {\normalsize \thesubtitle} \end{center}\vspace{\posttitledrop}}
+			\@ifundefined{chapter}{
+				% No \chapter, so small style
+				\renewcommand{\subtitle}[1]{%
+					\renewcommand{\thesubtitle}{#1}
+					\posttitle{\\ {\normalsize \thesubtitle} \end{center}\vspace{\posttitledrop}}
+				}
+			}{
+				% \chapter exists, so large style
+				\renewcommand{\subtitle}[1]{%
+					\renewcommand{\thesubtitle}{#1}
+					\posttitle{\\ {\Large \thesubtitle} \end{center}\vspace{\posttitledrop}}
+				}
 			}
 		}
 		\newlength{\posttitledrop}
-		\setlength{\posttitledrop}{-0.7em}
 		\newlength{\postauthordrop}
-		\setlength{\postauthordrop}{-1.2em}
-		\pretitle{\begin{center}\bfseries \sffamily \Large}
-		\posttitle{\end{center}\vspace{\posttitledrop}}
-		\preauthor{\begin{center} \scshape}
-		\postauthor{\end{center}\vspace{\postauthordrop}}
-		\predate{\begin{center}\small}
-		\postdate{\end{center}}
+		\@ifundefined{chapter}{
+			% No \chapter, so small style
+			\setlength{\posttitledrop}{-0.7em}
+			\setlength{\postauthordrop}{-1.2em}
+			\pretitle{\begin{center}\bfseries \sffamily \Large}
+			\posttitle{\end{center}\vspace{\posttitledrop}}
+			\preauthor{\begin{center} \scshape}
+			\postauthor{\end{center}\vspace{\postauthordrop}}
+			\predate{\begin{center}\small}
+			\postdate{\end{center}}
+		}{
+			% \chapter exists, so large style
+			\setlength{\droptitle}{-8cm}
+			\setlength{\posttitledrop}{1em}
+			\setlength{\postauthordrop}{0.5em}
+			\pretitle{\begin{center}\bfseries \sffamily \Huge}
+			\posttitle{\end{center}\vspace{\posttitledrop}}
+			\preauthor{\begin{center} \scshape \LARGE}
+			\postauthor{\end{center}\vspace{\postauthordrop}}
+			\predate{\begin{center} \Large}
+			\postdate{\end{center}}
+		}
 	\fi
 
 	%%fakesection Commutative diagrams support
