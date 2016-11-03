@@ -43,7 +43,6 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
   " Enable file type detection.
   " Use the default filetype settings, so that mail gets 'tw' set to 72,
   " 'cindent' is on in C files, etc.
@@ -66,62 +65,10 @@ if has("autocmd")
     \ if line("'\"") > 1 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
-
   augroup END
-
 else
-
   set autoindent		" always set autoindenting on
-
 endif " has("autocmd")
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
-endif
-
-
-" Backup Directories
-set backupdir=~/.vim/tmp
-set directory=~/.vim/tmp
-
-set mouse=a
-set number
-
-source $VIMRUNTIME/mswin.vim
-
-" Pathogen
-execute pathogen#infect()
-
-" Actual encryption: need a try / catch for backwards compatibility
-try
-	set cm=blowfish2
-catch
-	set cm=blowfish
-endtry
-
-" Lilypond
-set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
-
-" Filetype options and such
-filetype plugin on
-filetype indent on
-
-" TeX-Suite
-set shellslash
-set grepprg=grep\ -nH\ $*
-let g:tex_flavor='latex'
-let g:Tex_SmartKeyDot = 0
-let g:Tex_comment_nospell= 1
-let g:Tex_SmartKeyQuote = 0
-
-
-" Certain file-specific settings which don't seem to apply in after/ftplugin
-let g:tex_conceal='agms'
-let g:xml_syntax_folding=1
 
 " Custom files aren't being detected, darn
 augroup filetypedetect
@@ -132,6 +79,99 @@ augroup filetypedetect
 	autocmd BufNewFile,BufRead *.less setfiletype css
 	autocmd BufRead,BufNewFile *.ics setfiletype icalendar
 augroup END
+
+
+" Backup Directories
+set backupdir=~/.vim/tmp
+set directory=~/.vim/tmp
+
+set number
+set shell=/bin/bash
+
+" Plug
+call plug#begin('~/.vim/plugged')
+
+Plug 'kchmck/vim-coffee-script'
+Plug 'dag/vim-fish'
+Plug 'vim-latex/vim-latex'
+Plug 'honza/vim-snippets'
+Plug 'tpope/vim-unimpaired'
+Plug 'laoyang945/vimflowy'
+Plug 'vim-syntastic/syntastic'
+Plug 'SirVer/ultisnips'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
+" YCM build is a little more complicated
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+Plug 'Valloric/ycmd'
+
+call plug#end()
+
+" Actual encryption: need a try / catch for backwards compatibility
+try
+	set cm=blowfish2
+catch
+	set cm=blowfish
+endtry
+" Lilypond
+set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
+
+" TeX-Suite
+set shellslash
+set grepprg=grep\ -nH\ $*
+let g:tex_flavor='latex'
+let g:Tex_SmartKeyDot = 0
+let g:Tex_comment_nospell= 1
+let g:Tex_SmartKeyQuote = 0
+
+" Certain file-specific settings which don't seem to apply in after/ftplugin
+let g:tex_conceal='agms'
+let g:xml_syntax_folding=1
+
+" Calendar
+let g:calendar_first_day = "sunday"
+let g:calendar_google_calendar = 1
+
+" SLIMV
+let g:slimv_swank_cmd = '! xfce4-terminal -e "sbcl --load /home/evan/.vim/bundle/slimv/slime/start-swank.lisp" &'
+" let g:slimv_repl_split = 0
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_tex_chktex_args = "-n 1 -n 2 -n 3 -n 8 -n 11 -n 13 -n 18 -n 26 -n 32 -n 34 -n 36 -n 37 -e 16 -e 17"
+let g:syntastic_tex_checkers = ['chktex']
+
+" YouCompleteMe
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
+
+" Highlight bad spaces
+let g:python_space_error_highlight = 1
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<c-e>"
+
+" NerdTree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | q | endif
+let NERDTreeIgnore = ['\.pyc$']
+nnoremap <silent> NT :NERDTreeFocus<CR>
 
 " Hide preview scratch window on leaving (why would you not do this?)
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -203,17 +243,10 @@ map <C-Down> :call AddEmptyLineBelow()<CR>
 map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
 
-
-" Remap alt-arrow keys
-nmap <silent> <A-Up> :wincmd k<CR>
-nmap <silent> <A-Down> :wincmd j<CR>
-nmap <silent> <A-Left> :wincmd h<CR>
-nmap <silent> <A-Right> :wincmd l<CR>
-
 " Tabs
 set showtabline=2
 if exists("+showtabline")
-    function TerminalVimTabLine()
+    function! TerminalVimTabLine()
         let s = ''
         let t = tabpagenr()
         let i = 1
@@ -329,10 +362,3 @@ nnoremap <silent> <C-V> "+p
 
 nnoremap <silent> za zt7k7j
 
-" Calendar
-let g:calendar_first_day = "sunday"
-let g:calendar_google_calendar = 1
-
-" SLIMV
-let g:slimv_swank_cmd = '! xfce4-terminal -e "sbcl --load /home/evan/.vim/bundle/slimv/slime/start-swank.lisp" &'
-" let g:slimv_repl_split = 0
