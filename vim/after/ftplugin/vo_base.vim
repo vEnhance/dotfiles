@@ -14,7 +14,8 @@ if has("gui_running")
 	hi BT9 guifg=red	ctermfg=red
 
 else
-	hi OL2 guifg=lightblue	ctermfg=lightblue
+	hi OL1 guifg=lightblue	ctermfg=lightblue
+	hi OL2 guifg=white	ctermfg=white
 	hi OL3 guifg=green	ctermfg=green
 	hi OL4 guifg=red	ctermfg=red
 	hi OL5 guifg=violet	ctermfg=magenta
