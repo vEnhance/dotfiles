@@ -2,6 +2,7 @@
 # Do NOT edit it directly, your changes will be overwritten.
 SET __fish_classic_git_prompt_initialized:\x1d
 SET __fish_init_1_50_0:\x1d
+SET __fish_init_2_39_8:\x1d
 SET __fish_init_2_3_0:\x1d
 SET fish_color_autosuggestion:777777
 SET fish_color_command:00FF00
