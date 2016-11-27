@@ -9,7 +9,7 @@
 \def\@vonsetname#1#2{\StrLeft{\pdfmdfivesum{#1#2}}{12}[\@vonname]}
 
 \newcommand{\vonhook}[1]{}
-\newcommand{\vonmarginstyle}{\scriptsize\ttfamily\color{magenta}}%
+\newcommand{\vonmarginstyle}{\scriptsize\ttfamily\color{Green}}%
 \newcommand{\enablevonmargins}{%
 	\renewcommand{\vonhook}[1]{\marginpar{\vonmarginstyle{##1}}}}
 \DeclareOption{vonmargin}{\enablevonmargins}
