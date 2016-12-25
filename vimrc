@@ -70,17 +70,6 @@ else
   set autoindent		" always set autoindenting on
 endif " has("autocmd")
 
-" Custom files aren't being detected, darn
-augroup filetypedetect
-	autocmd BufNewFile,BufRead *.asy setfiletype asy
-	autocmd BufNewFile,BufRead *.darkblue setfiletype darkblue
-	autocmd BufNewFile,BufRead *.pegjs setfiletype pegjs
-	autocmd BufNewFile,BufRead *.ly setfiletype lilypond
-	autocmd BufNewFile,BufRead *.less setfiletype css
-	autocmd BufRead,BufNewFile *.ics setfiletype icalendar
-augroup END
-
-
 " Backup Directories
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
@@ -112,6 +101,17 @@ Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
 Plug 'Valloric/ycmd'
 
 call plug#end()
+
+" Custom files aren't being detected, darn
+augroup filetypedetect
+	autocmd BufNewFile,BufRead *.asy setfiletype asy
+	autocmd BufNewFile,BufRead *.darkblue setfiletype darkblue
+	autocmd BufNewFile,BufRead *.pegjs setfiletype pegjs
+	autocmd BufNewFile,BufRead *.ly setfiletype lilypond
+	autocmd BufNewFile,BufRead *.less setfiletype css
+	autocmd BufRead,BufNewFile *.ics setfiletype icalendar
+augroup END
+
 
 " Actual encryption: need a try / catch for backwards compatibility
 try
@@ -151,7 +151,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_tex_chktex_args = "-n 1 -n 2 -n 3 -n 8 -n 11 -n 13 -n 18 -n 26 -n 32 -n 34 -n 36 -n 37 -n 40 -n 44 -e 16 -e 17"
+let g:syntastic_tex_chktex_args = "-n 1 -n 2 -n 3 -n 8 -n 11 -n 13 -n 18 -n 26 -n 29 -n 32 -n 34 -n 36 -n 37 -n 40 -n 44 -e 16 -e 17"
 let g:syntastic_tex_checkers = ['chktex']
 
 " YouCompleteMe
