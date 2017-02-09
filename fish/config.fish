@@ -7,6 +7,12 @@ set green (set_color green)
 set red (set_color red)
 set gray (set_color -o black)
 
+# disown
+function disown
+    set -l escaped_argv (string escape --no-quoted $argv)
+    bash -c "$escaped_argv &"
+end
+
 # Fish git prompt
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showstashstate 'yes'
@@ -57,7 +63,6 @@ function fish_prompt
 
   zd --add "$PWD"
 end
-
 
 if [ -f /bin/python2 ]
    	alias python='python2'
@@ -124,11 +129,11 @@ end
 # Shortcut for editors and the like
 function pdf
 	if test -f "$argv""pdf"
-		zathura "$argv""pdf" &
+		disown zathura "$argv""pdf"
 	else if test -f "$argv.pdf"
-		zathura "$argv.pdf" &
+		disown zathura "$argv.pdf"
 	else if test -f "$argv"
-		zathura "$argv" &
+		disown zathura "$argv"
 	else
 		echo "Cannot found a suitable file."
 	end
@@ -204,6 +209,7 @@ alias c='cs'
 
 # Fish completions
 complete -x -c cs -a "(__fish_complete_directories)"
+complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
 
 source ~/dotfiles/z.fish
 function z
