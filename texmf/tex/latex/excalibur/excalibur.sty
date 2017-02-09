@@ -47,11 +47,11 @@
 	  \rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
 	}
 	\renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
-	\newcommand{\olyinfo}[1]{\begin{flushright} \itshape #1 \end{flushright} \medskip}
+	\newcommand{\olyinfo}[1]{\begin{flushright} \emph{#1} \end{flushright} \medskip}
 	\newcommand{\nmbox}[1]{\fbox{\sffamily\LARGE\vphantom{y}#1} \par\vspace{1em}} % normal box
 	\newcommand{\fdbox}[2]{\fbox{\sffamily\LARGE\vphantom{y}#1: \bfseries #2} \par\vspace{1em}} % field box
 
-	\newcommand{\makelogo}{\includegraphics[width=8em]{\thelogo}}
+	\newcommand{\makelogo}{\thelogo}
 
 	\newcommand{\righthead}{%
 		{\sffamily \Huge Mock Olympiad}  \\[1em]
@@ -64,8 +64,6 @@
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
 	\usepackage[sexy]{evan}
-	\ihead{\footnotesize\bfseries\theauthor}
-	\ohead{\footnotesize\bfseries\thedate}
 	\AtBeginDocument{\date{\MakeUppercase{\jobname}}}
 \fi
 
@@ -94,5 +92,3 @@
 	\SetWatermarkScale{2.718}
 	\SetWatermarkText{\shortstack{By \theauthor \\ Internal Use}}
 \fi
-
-
