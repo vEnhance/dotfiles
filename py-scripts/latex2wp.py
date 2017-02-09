@@ -201,7 +201,7 @@ def converttables(m) :
         m = m + rest[i+1]
     return m
 
-# Evan Chen -- hack more
+# evan -- hack more
 def convertaligns(m):
     realign = re.compile("\\\\begin\s*\\{align\\*?}.*?\\\\end\s*\\{align\\*?}")
     delims = re.compile("\\\\(begin|end)\s*\\{align\\*?}")
@@ -356,7 +356,7 @@ def convertcolors(m,c) :
         return("</span>")
 
 
-# Evan edit: don't put \n's near <ul> or <ol>
+# evan edit: don't put \n's near <ul> or <ol>
 def convertitm(m) :
     if m.find("begin") != -1 :
         return ("<ul>")
@@ -381,7 +381,7 @@ def convertbeginnamedthm(thname,thm) :
   return(t)
 
 
-# Evan Chen -- more hacks
+# evan -- more hacks
 def convertbeginthm(thm, nonumber=False) :
   global inthm
   inthm = thm
@@ -405,7 +405,7 @@ def convertlab(m) :
     global inthm
     global ref
 
-    
+
     m=cb.split(m)[1]
     m=m.replace(":","")
     if inthm != "" :
@@ -413,7 +413,6 @@ def convertlab(m) :
     else :
         ref[m]=count["section"]
     return("<a name=\""+m+"\"></a>")
-        
 
 
 def convertproof(m) :
@@ -421,7 +420,14 @@ def convertproof(m) :
         return(beginproof)
     else :
         return(endproof)
-    
+
+# Quotes - evan
+def convertquote(m) :
+    if m.find("begin") != -1 :
+        return(beginquote)
+    else :
+        return(endquote)
+
 
 def convertsection (m) :
 
@@ -529,6 +535,8 @@ def processtext ( t ) :
                 w = w+converturl(tcontrol[i])
             elif tcontrol[i].find("{proof}") != -1 :
                 w = w+convertproof(tcontrol[i])
+            elif tcontrol[i].find("{quote}") != -1 : # quotes - evan
+                w = w+convertquote(tcontrol[i])
             elif tcontrol[i].find("\\subsection") != -1 :
                 w = w+convertsubsection(tcontrol[i])
             elif tcontrol[i].find("\\section") != -1 :
@@ -556,7 +564,7 @@ def processtext ( t ) :
                     L=cb.split(tcontrol[i])
                     thname=L[3]
                     w=w+convertbeginnamedthm(thname,thm)
-                # Evan Chen -- hack to allow starred theorems
+                # evan -- hack to allow starred theorems
                 elif tcontrol[i]=="\\end{"+thm+"*}" :
                     w=w+convertendthm(thm, nonumber=True)
                 elif tcontrol[i]=="\\begin{"+thm+"*}":

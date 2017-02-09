@@ -73,6 +73,8 @@ endthm = "<p style=\"margin-bottom:-12px;\"></p></div>\n"
 
 beginproof = "<em>Proof:</em> "
 endproof = "$latex \Box&fg=000000$\n"
+beginquote = "<blockquote>\n"
+endquote = "</blockquote>\n"
 
 section = "\n<h2>_SecNumb_. _SecName_ </h2>\n"
 sectionstar = "\n<h2>_SecName_</h2>\n"
@@ -102,7 +104,7 @@ fontstyle = {
 # Note that you have to write \\ instead of \
 # and \" instead of "
 
-M = [    
+M = [
           [r"\ii",       r"\item"] ,
           [r"\to",       r"\rightarrow"] ,
           [r"\NN",       r"{\mathbb N}"],
@@ -126,5 +128,5 @@ M = [
           [r"\id",       r"\mathrm{id}"],
           [r"\qedhere",  r""], # sigh
           [r"\injto",    r"\hookrightarrow"],
-		  [r"\img",      r"\text{Im }"]  # :(
+          [r"\img",      r"\text{Im }"],  # :(
     ]
