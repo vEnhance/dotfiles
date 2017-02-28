@@ -5,15 +5,15 @@
 \usepackage{amsthm}
 
 %% Options
-\newif\ifexcexam\excexamfalse
-\DeclareOption{exam}{\excexamtrue}
-\newif\ifexcwater\excwatertrue
-\DeclareOption{nowatermark}{\excwaterfalse}
-\newif\ifexcreveal\excrevealfalse
-\DeclareOption{reveal}{\excrevealtrue}
+\newif\ifotisexam\otisexamfalse
+\DeclareOption{exam}{\otisexamtrue}
+\newif\ifotiswater\otiswatertrue
+\DeclareOption{nowatermark}{\otiswaterfalse}
+\newif\ifotisreveal\otisrevealfalse
+\DeclareOption{reveal}{\otisrevealtrue}
 \ProcessOptions\relax
 
-\ifexcexam
+\ifotisexam
 	\usepackage[nofancy]{evan}
 	\newcommand{\thelogo}{}
 	\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
@@ -68,7 +68,7 @@
 \fi
 
 
-\ifexcwater
+\ifotiswater
 	\usepackage{draftwatermark}
 	\SetWatermarkAngle{32}
 	\SetWatermarkLightness{0.94}
@@ -78,13 +78,13 @@
 \fi
 \renewcommand{\vonprefix}{von}
 
-\ifexcreveal
+\ifotisreveal
 	\newenvironment{onion}{\color{magenta}}{\ignorespacesafterend}
 \else
 	\newenvironment{onion}{\begin{gobble}}{\end{gobble}}
 \fi
 
-\ifexcwater
+\ifotiswater
 	\usepackage{draftwatermark}
 	\SetWatermarkAngle{32}
 	\SetWatermarkLightness{0.94}
