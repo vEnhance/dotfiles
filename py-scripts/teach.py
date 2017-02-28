@@ -5,10 +5,12 @@
 # $ teach ZCX rigid
 
 import sys, os
-assert len(sys.argv) > 1, "No arguments given"
+if not os.path.exists("/tmp/teach/"):
+	os.mkdir("/tmp/teach/")
+if not os.path.exists("/tmp/teach/von"):
+	os.mkdir("/tmp/teach/von/")
 
-if not os.path.exists("/tmp/von"):
-	os.mkdir("/tmp/von/")
+assert len(sys.argv) > 1, "No arguments given"
 
 MATERIALS_PATH = os.path.expanduser("~/Dropbox/Documents/Teaching/Materials/")
 tex_files = [os.path.join(dirpath, f) for dirpath, dirnames, files in os.walk(MATERIALS_PATH)
@@ -38,7 +40,7 @@ content = content.replace(
 		r'\usepackage[reveal]{otis}' \
 		+ '\n' + r'\enablevonmargins')
 
-target_path = os.path.join("/tmp/", lesson_name)
+target_path = os.path.join("/tmp/teach/", lesson_name)
 
 with open(target_path, 'w') as g:
 	print >>g, content
