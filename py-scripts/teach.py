@@ -1,12 +1,33 @@
+## WRAPPER SCRIPT FOR OTIS
+## By Evan Chen
+
+# Usage:
+# $ teach ZCX rigid
+
 import sys, os
+assert len(sys.argv) > 1, "No arguments given"
 
-assert len(sys.argv) > 1, "start"
-fname = sys.argv[1]
+if not os.path.exists("/tmp/von"):
+	os.mkdir("/tmp/von/")
 
-if fname[-1] == ".":
-	fname += "tex"
-elif "." not in fname:
-	fname += ".tex"
+MATERIALS_PATH = os.path.expanduser("~/Dropbox/Documents/Teaching/Materials/")
+tex_files = [os.path.join(dirpath, f) for dirpath, dirnames, files in os.walk(MATERIALS_PATH)
+    for f in files if f.endswith('.tex')]
+
+keywords = sys.argv[1:]
+
+# get everything that has all keywords
+locations = [f for f in tex_files if all(k in f for k in keywords)]
+
+# copied from hunt.py
+if len(locations) > 1:
+	for i, place in enumerate(locations):
+		print i, '\t' + os.path.relpath(place, MATERIALS_PATH)
+	j = input("Please enter an index: ")
+else:
+	assert len(locations) != 0, "HALP no such lesson"
+	j = 0
+fname = locations[j]
 
 with open(fname) as f:
 	content = ''.join(f.readlines())
@@ -14,11 +35,12 @@ with open(fname) as f:
 
 content = content.replace(
 		r'\usepackage{otis}',
-		r'\usepackage[reveal]{otis}' + '\n' + '\enablevonmargins')
+		r'\usepackage[reveal]{otis}' \
+		+ '\n' + r'\enablevonmargins')
 
 target_path = os.path.join("/tmp/", lesson_name)
 
 with open(target_path, 'w') as g:
 	print >>g, content
 
-os.system("latexmk -pv %s" %target_path)
+os.system("cd /tmp; latexmk -pv %s" %target_path)
