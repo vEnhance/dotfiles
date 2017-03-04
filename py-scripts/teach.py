@@ -45,4 +45,4 @@ target_path = os.path.join("/tmp/teach/", lesson_name)
 with open(target_path, 'w') as g:
 	print >>g, content
 
-os.system("cd /tmp; latexmk -pv %s" %target_path)
+os.system("cd /tmp/teach/; latexmk -pv %s" %target_path)
