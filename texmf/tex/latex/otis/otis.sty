@@ -54,7 +54,7 @@
 	\newcommand{\makelogo}{\thelogo}
 
 	\newcommand{\righthead}{%
-		{\sffamily \Huge Mock Olympiad}  \\[1em]
+		{\sffamily \Huge OTIS Mock Olympiad}  \\[1em]
 		{\sffamily \LARGE \textbf{\StrSubstitute{\jobname}{-}{ }}} 
 			\par\vspace{1em}
 		}
@@ -64,17 +64,21 @@
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
 	\usepackage[sexy]{evan}
-	\AtBeginDocument{\date{\MakeUppercase{\jobname}}}
+	\AtBeginDocument{\date{\MakeUppercase{\jobname}}%
+	\author{Evan Chen\thanks{Developed as part of
+		Olympiad Training for Individual Students (OTIS).
+		Internal use only.}}%
+	}
+	\ohead{\footnotesize\textbf{\thetitle} (OTIS)}
 \fi
-
 
 \ifotiswater
 	\usepackage{draftwatermark}
 	\SetWatermarkAngle{32}
 	\SetWatermarkLightness{0.94}
-	\SetWatermarkFontSize{40pt}
+	\SetWatermarkFontSize{32pt}
 	\SetWatermarkScale{2.718}
-	\SetWatermarkText{\shortstack{By \theauthor \\ Internal Use}}
+	\SetWatermarkText{\shortstack{By \theauthor \\ OTIS, Internal Use}}
 \fi
 \renewcommand{\vonprefix}{von}
 
@@ -82,13 +86,4 @@
 	\newenvironment{onion}{\color{magenta}}{\ignorespacesafterend}
 \else
 	\newenvironment{onion}{\begin{gobble}}{\end{gobble}}
-\fi
-
-\ifotiswater
-	\usepackage{draftwatermark}
-	\SetWatermarkAngle{32}
-	\SetWatermarkLightness{0.94}
-	\SetWatermarkFontSize{40pt}
-	\SetWatermarkScale{2.718}
-	\SetWatermarkText{\shortstack{By \theauthor \\ Internal Use}}
 \fi
