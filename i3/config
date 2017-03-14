@@ -143,7 +143,7 @@ bar {
 
 
 # === CUSTOM SHORTCUTS ===
-bindsym Control+mod1+h exec qutebrowser
+bindsym Control+mod1+h exec --no-startup-id cpulimit --limit 60 --lazy --include-children qutebrowser
 bindsym Control+mod1+l exec '/home/evan/dotfiles/fuzzy-lock.sh' &
 
 mode "control" {
