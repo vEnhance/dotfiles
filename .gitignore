@@ -10,3 +10,4 @@ aws/*
 stepmania/*
 qutebrowser/bookmarks/*
 qutebrowser/quickmarks
+qutebrowser/qsettings/
