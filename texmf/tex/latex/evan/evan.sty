@@ -461,12 +461,14 @@
 				% No \chapter, so small style
 				\renewcommand{\subtitle}[1]{%
 					\renewcommand{\thesubtitle}{#1}
+					\pretitle{\begin{center}\bfseries \sffamily \Large}
 					\posttitle{\\ {\normalsize \thesubtitle} \end{center}\vspace{\posttitledrop}}
 				}
 			}{
 				% \chapter exists, so large style
 				\renewcommand{\subtitle}[1]{%
 					\renewcommand{\thesubtitle}{#1}
+					\pretitle{\begin{center}\bfseries \sffamily \Huge}
 					\posttitle{\\ {\Large \thesubtitle} \end{center}\vspace{\posttitledrop}}
 				}
 			}
