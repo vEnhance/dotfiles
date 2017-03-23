@@ -91,6 +91,8 @@ if [ -f ~/dotfiles/aws-hmmt ]
    	source ~/dotfiles/aws-hmmt
 end
 
+umask 007 # set umask
+
 # Aliases
 alias kitty="cat"
 alias getclip="xsel --clipboard"
