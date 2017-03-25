@@ -13,10 +13,11 @@ esac
 
 if [ "$HOSTNAME" = ArchAir ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
-	xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12" # natural scroll
+	# xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12" # natural scroll
 	synclient TapButton1=0           # Disable tap to click
 	synclient TapButton2=0           # Disable double tap to paste
 	synclient RightButtonAreaRight=1 # Remap mouse buttons
+	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	conky &
 fi
 if [ "$HOSTNAME" = ArchMega ]; then
