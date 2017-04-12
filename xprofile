@@ -34,6 +34,8 @@ setxkbmap dvorak
 
 # Set Chinese for X
 export LANG="zh_TW.UTF-8"
+# for Chinese input
+export GTK_IM_MODULE=ibus
 
 # Use Fish as shell
 export SHELL='/bin/fish'
