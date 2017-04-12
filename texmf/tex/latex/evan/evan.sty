@@ -261,12 +261,13 @@
 		\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
 		\usepackage{xcolor}
 		\ifevanhref
-			\usepackage{hyperref}
+			\usepackage[colorlinks=true]{hyperref}
+			\hypersetup{urlcolor=RubineRed,linkcolor=RoyalBlue,citecolor=ForestGreen}
 		\fi
 		\usepackage[nameinlink]{cleveref}
 	\fi
 
-	%%fakesection New Theorem Styles -- mdbluebox, mdrecbox
+	%%fakesection New Theorem Styles -- mdbluebox, mdrecbox, mdinlinebox
 	\ifevanmdthm
 		\usepackage{thmtools}
 		\usepackage[framemethod=TikZ]{mdframed}
@@ -306,6 +307,24 @@
 			headpunct={\\[3pt]},
 			postheadspace={0pt},
 		]{thmrecbox}
+
+		\mdfdefinestyle{mdinlinebox}{%
+			skipabove=8pt,
+			linewidth=3pt,
+			rightline=false,
+			leftline=true,
+			topline=false,
+			bottomline=false,
+			linecolor=green,
+			backgroundcolor=green!2
+		}
+		\declaretheoremstyle[
+			headfont=\bfseries\color{Cerulean},
+			bodyfont=\normalfont\small,
+			spaceabove=0pt,
+			spacebelow=0pt,
+			mdframed={style=mdinlinebox}
+		]{thminlinebox}
 
 		\newcommand{\listhack}{$\empty$\vspace{-2em}}
 	\fi
