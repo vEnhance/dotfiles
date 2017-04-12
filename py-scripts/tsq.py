@@ -151,20 +151,21 @@ for line in stream:
 		do_auto_paren = not (',' in line) # just default to auto-ing unless , appears
 
 	if "=" in line:
-		label_name, raw_expr = line.split("=", 2)
-		if len(label_name) > 0 and label_name[-1] == ":":
+		raw_name, raw_expr = line.split("=", 2)
+		if len(raw_name) > 0 and raw_name[-1] == ":":
 			draw_point = False
 			label_point = False
-			label_name = label_name[:-1].strip()
-		elif len(label_name) > 0 and label_name[-1] == ".":
+			raw_name = raw_name[:-1].strip()
+		elif len(raw_name) > 0 and raw_name[-1] == ".":
 			draw_point = True
 			label_point = False
-			label_name = label_name[:-1].strip()
+			raw_name = raw_name[:-1].strip()
 		else:
 			draw_point = True
 			label_point = True
-		label_name = label_name.strip()
-		point_name = label_name.replace("'", "p").replace("\\", "") # primes
+		raw_name = raw_name.strip()
+		point_name = raw_name.replace("'", "p").replace("*", "s").replace("^", "") # name used in source code
+		label_name = raw_name.replace("*", r"^\ast") # name passed to LaTeX label function
 
 		if do_auto_paren:
 			tokens = raw_expr.strip().split(' ')
