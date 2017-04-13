@@ -129,6 +129,18 @@ function newtex
 	gvim "$argv.tex"
 end
 
+# Script for when I'm done teaching
+function uteach
+	if test -f "$argv.tex"
+		mv "$argv.tex" ~/Downloads
+	else if test -f "$argv""tex"
+		mv "$argv""tex" ~/Downloads
+	end
+	trash *.{von,asy,out,vrb}
+	latexmk -c
+	drive push .
+end
+
 # Shortcut for editors and the like
 function pdf
 	if test -f "$argv""pdf"
