@@ -31,4 +31,9 @@ else
 	hi BT9 guifg=white	ctermfg=white
 
 endif
-autocmd BufEnter * :normal zR " is this how you do it??
+
+" Don't spell-check tags (it looks awful, red on red)
+syn match outlTags '\s#\w*' contained contains=@NoSpell
+syn match outlTags '\s@\w*' contained contains=@NoSpell
+
+autocmd BufEnter * :normal zR " start unfolded
