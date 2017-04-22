@@ -31,6 +31,7 @@ fi
 
 # Make sure we're in Dvorak
 setxkbmap dvorak
+setxkbmap -option caps:escape
 
 # Set Chinese for X
 export LANG="zh_TW.UTF-8"
