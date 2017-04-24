@@ -90,6 +90,7 @@ Plug 'vim-syntastic/syntastic'
 Plug 'SirVer/ultisnips'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'qpkorr/vim-renamer'
 " Plug 'chrisbra/csv.vim'
 
 " YCM build is a little more complicated
