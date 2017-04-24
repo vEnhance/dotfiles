@@ -168,6 +168,7 @@ alias mv='mv -i'
 
 # Misc :)
 alias less='less -r'                          # raw control characters
+alias diff='diff --color'                     # show differences in color
 alias grep='grep --color'                     # show differences in color
 alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
