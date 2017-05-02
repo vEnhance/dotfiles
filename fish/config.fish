@@ -115,7 +115,7 @@ alias frn='vim ~/Documents/VimFlowy/FRIENDZ.otl'
 
 alias pudb='python -m pudb.run'
 alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
-alias trash='gvfs-trash'
+alias trash='gio trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
