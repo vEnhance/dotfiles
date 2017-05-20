@@ -68,6 +68,8 @@ alias s3='aws s3'
 alias todo='vim ~/Documents/VimFlowy/TODO.otl'
 alias frn='vim ~/Documents/VimFlowy/FRIENDZ.otl'
 
+export PYTHONPATH="${PYTHONPATH}:/home/evan/Documents/Projects/"
+
 alias pudb='python -m pudb.run'
 alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
 alias trash='gio trash'
