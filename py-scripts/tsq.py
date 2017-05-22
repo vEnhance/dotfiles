@@ -19,6 +19,7 @@ fn_names = {
 		'CP' : 2,
 		'CR' : 2,
 		'dir' : 1,
+		'conj' : 1,
 		'intersect': 2,
 		'IP': 2,
 		'OP': 2,
