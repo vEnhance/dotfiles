@@ -164,13 +164,12 @@ function hunt ()
 	ls -l --color=tty
 end
 
-#export LESS_TERMCAP_mb='\e[01;31m'
-#export LESS_TERMCAP_md='\e[01;38;5;208m'
-#export LESS_TERMCAP_me='\e[0m'
-#export LESS_TERMCAP_se='\e[0m'
-#export LESS_TERMCAP_so='\e[01;44;33m'
-#export LESS_TERMCAP_ue='\e[0m'
-#export LESS_TERMCAP_us='\e[04;38;5;111m'
+set -xU LESS_TERMCAP_md (printf "\e[01;31m")
+set -xU LESS_TERMCAP_me (printf "\e[0m")
+set -xU LESS_TERMCAP_se (printf "\e[0m")
+set -xU LESS_TERMCAP_so (printf "\e[01;44;33m")
+set -xU LESS_TERMCAP_ue (printf "\e[0m")
+set -xU LESS_TERMCAP_us (printf "\e[01;32m")
 
 #It speaks!
 alias hi="echo Hi!"
@@ -198,7 +197,6 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Misc :)
-alias less='less -r'                          # raw control characters
 alias diff='diff --color'                     # show differences in color
 alias grep='grep --color'                     # show differences in color
 alias egrep='egrep --color=auto'              # show differences in color
