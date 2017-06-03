@@ -32,8 +32,12 @@ function isLeapYear(year) {
     return d.getMonth() == 1;
 }
 function getAge(date) {
-    var d = new Date(date);
+	// Current date
     var now = new Date();
+	var offset = now.getTimezoneOffset();
+	// Target date (with time zone correction)
+    var d = new Date(date);
+	d.setTime(d.getTime() + now.getTimezoneOffset() * 60000);
     var years = now.getFullYear() - d.getFullYear();
     d.setFullYear(d.getFullYear() + years);
     if (d > now) {
