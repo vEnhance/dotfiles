@@ -28,6 +28,13 @@ fi
 if [ "$HOSTNAME" = Inspiron ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 fi
+if [ "$HOSTNAME" = ArchScythe ]; then
+	dropbox & # Dropbox
+	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	synclient TapButton1=0           # Disable tap to click
+	synclient VertScrollDelta=-237   # Natural scroll for touchpads
+	synclient RightButtonAreaTop=0   # Remap mouse buttons
+fi
 
 # Make sure we're in Dvorak
 setxkbmap dvorak
