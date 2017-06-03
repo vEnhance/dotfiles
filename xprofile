@@ -19,6 +19,7 @@ if [ "$HOSTNAME" = ArchAir ]; then
 	synclient RightButtonAreaRight=1 # Remap mouse buttons
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	conky &
+	cbatticon -u 300 &
 fi
 if [ "$HOSTNAME" = ArchMega ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
@@ -34,6 +35,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	synclient TapButton1=0           # Disable tap to click
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	synclient RightButtonAreaTop=0   # Remap mouse buttons
+	cbatticon -u 300 &
 fi
 
 # Make sure we're in Dvorak
