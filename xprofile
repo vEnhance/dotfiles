@@ -1,15 +1,26 @@
 # !/bin/bash
+# vim: ft=sh
 
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
 
 # Start XFLUX
-case $(date +%Z) in
-	PST) xflux -z 94539 -k 2800;; # Pacific
-	PDT) xflux -z 94539 -k 2800;; # Pacific
-	EST) xflux -z 02138 -k 2800;; # Eastern
-	EDT) xflux -z 02138 -k 2800;; # Eastern
-esac
+if [ "$HOSTNAME" = ArchScythe ]; then
+	if pgrep redshift > /dev/null
+	then
+		echo "RedShift already started"
+	else
+		redshift -v &
+	fi
+else
+	case $(date +%Z) in
+		PST) xflux -z 94539 -k 2800;; # Pacific
+		PDT) xflux -z 94539 -k 2800;; # Pacific
+		EST) xflux -z 02138 -k 2800;; # Eastern
+		EDT) xflux -z 02138 -k 2800;; # Eastern
+	esac
+fi
+
 
 if [ "$HOSTNAME" = ArchAir ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
