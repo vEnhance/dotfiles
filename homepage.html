@@ -59,28 +59,6 @@ function update(t, id) {
 	dom.innerHTML = '<span class="intpart">' + ip + '</span>'
 		+ '<span class="fracpart">' + fp.toString().slice(1,10) + '</span>';
 }
-
-function setCookie(cname, cvalue, exdays) {
-    var d = new Date();
-    d.setTime(d.getTime() + (exdays*24*60*60*1000));
-    var expires = "expires="+d.toUTCString();
-    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 </script>
 </head>
 
@@ -93,7 +71,7 @@ function getCookie(cname) {
 </div>
 
 <script type="text/javascript">
-var target_date = getCookie("target") || "0000-01-01";
+var target_date = localStorage.getItem("target") || "0000-01-01";
 var current_age = getAge(target_date);
 update(current_age, "main");
 
@@ -107,7 +85,7 @@ window.setInterval(function() {
 document.getElementById("main").onclick = function() {
 	var ans = prompt("Enter a date in YYYY-MM-DD format");
 	if (ans) {
-		setCookie("target", ans, 1000);
+		localStorage.setItem("target", ans);
 		document.location.reload();
 	}
 }
