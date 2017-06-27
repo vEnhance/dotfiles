@@ -12,7 +12,7 @@ if not os.path.exists("/tmp/teach/von"):
 
 assert len(sys.argv) > 1, "No arguments given"
 
-MATERIALS_PATH = os.path.expanduser("~/Dropbox/Documents/Teaching/Materials/")
+MATERIALS_PATH = os.path.expanduser("~/Dropbox/Documents/OTIS/Materials/")
 tex_files = [os.path.join(dirpath, f) for dirpath, dirnames, files in os.walk(MATERIALS_PATH)
     for f in files if f.endswith('.tex')]
 
