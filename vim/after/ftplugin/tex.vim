@@ -72,6 +72,7 @@ syn match texTypeStyle		"\\alert\>"
 " Highlight diagram as math environment.
 call TexNewMathZone("Z","diagram",0)
 call TexNewMathZone("Z","tikzcd",0)
+call TexNewMathZone("Z","ytableau",0)
 
 " TeX Conceal
 set cole=2
