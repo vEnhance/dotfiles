@@ -6,12 +6,7 @@
 
 # Start XFLUX
 if [ "$HOSTNAME" = ArchScythe ]; then
-	if pgrep redshift > /dev/null
-	then
-		echo "RedShift already started"
-	else
-		redshift -v &
-	fi
+	redshift-gtk &
 else
 	case $(date +%Z) in
 		PST) xflux -z 94539 -k 2800;; # Pacific
