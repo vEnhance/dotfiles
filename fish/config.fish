@@ -96,7 +96,7 @@ alias bcsum='paste -sd+ - | bc'
 
 alias dragon='python2 ~/Documents/Projects/dragon/'
 alias sparky='python2 ~/Documents/Projects/sparky/'
-alias von='python2 ~/Documents/Projects/von/'
+alias von='python3 -m von'
 alias tsq='python2 ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'	
 alias teach='python2 ~/dotfiles/py-scripts/teach.py'	
