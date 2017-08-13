@@ -5,7 +5,7 @@
 [[ -f ~/.fehbg ]] && source ~/.fehbg
 
 # Start XFLUX
-if [ "$HOSTNAME" = ArchScythe ]; then
+if [ "$HOSTNAME" = ArchScythe ] || [ "$HOSTNAME" = ArchAir ]; then
 	redshift-gtk &
 else
 	case $(date +%Z) in
