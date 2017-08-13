@@ -4,17 +4,6 @@
 #
 
 
-if [ -f /bin/python2 ]; then
-   	alias python='python2'
-fi
-if [ -f /bin/pip2 ]; then
-	alias pip2='pip2'
-fi 
-
-if [ "$(uname)" = Linux ]; then
-	shopt -s globstar
-fi
-
 if [ "x${SSH_TTY}" = "x" ]; then
 	# Git magic / Sourcing
 	GIT_PS1_SHOWDIRTYSTATE=1
@@ -55,21 +44,21 @@ alias putclip="xsel --clipboard"
 alias lisp='sbcl --script'
 alias bcsum='paste -sd+ - | bc'
 
-alias dragon='python ~/Documents/Projects/dragon/'
-alias sparky='python ~/Documents/Projects/sparky/'
-alias von='python ~/Documents/Projects/von/'
-alias tsq='python ~/dotfiles/py-scripts/tsq.py'
-alias wplatex='python ~/dotfiles/py-scripts/latex2wp.py'	
-alias teach='python ~/dotfiles/py-scripts/teach.py'	
-alias demacro='python ~/dotfiles/py-scripts/demacro.py'
+alias dragon='python2 ~/Documents/Projects/dragon/'
+alias sparky='python2 ~/Documents/Projects/sparky/'
+alias von='python2 -m von'
+alias tsq='python2 ~/dotfiles/py-scripts/tsq.py'
+alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'	
+alias teach='python2 ~/dotfiles/py-scripts/teach.py'	
+alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias s3='aws s3'
 
 export PYTHONPATH="${PYTHONPATH}:/home/evan/Documents/Projects/"
 
-alias pudb='python -m pudb.run'
-alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
+alias pudb='python2 -m pudb.run'
+alias dropcli='python2 ~/dotfiles/py-scripts/dropbox.py'
 alias trash='gio trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
@@ -98,9 +87,6 @@ function cclean() {
 	rm -f *.class
 }
 
-alias jpc='python ~/dotfiles/py-scripts/jpc.py'
-alias grade='python ~/dotfiles/py-scripts/grade.py'
-
 # Shortcut for editors and the like
 function pdf() { 
 	if [ -f "${1}pdf" ]
@@ -119,7 +105,7 @@ function pdf() {
 
 # Uses the locate utility to find a certain file
 function hunt () {
-	python ~/dotfiles/py-scripts/hunt.py "${1}"
+	python2 ~/dotfiles/py-scripts/hunt.py "${1}"
 	cd "$(cat /tmp/hunt)"
 	pwd
 	ls -l --color=tty

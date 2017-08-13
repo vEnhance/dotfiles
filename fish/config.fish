@@ -64,12 +64,6 @@ function fish_prompt
   zd --add "$PWD"
 end
 
-if [ -f /bin/python2 ]
-   	alias python='python2'
-end
-if [ -f /bin/pip2 ]
-	alias pip2='pip2'
-end
 if [ "(uname)" = Linux ]
 	shopt -s globstar
 end
@@ -100,21 +94,21 @@ alias putclip="xsel --clipboard"
 alias lisp='sbcl --script'
 alias bcsum='paste -sd+ - | bc'
 
-alias dragon='python ~/Documents/Projects/dragon/'
-alias sparky='python ~/Documents/Projects/sparky/'
-alias von='python ~/Documents/Projects/von/'
-alias tsq='python ~/dotfiles/py-scripts/tsq.py'
-alias wplatex='python ~/dotfiles/py-scripts/latex2wp.py'	
-alias teach='python ~/dotfiles/py-scripts/teach.py'	
-alias demacro='python ~/dotfiles/py-scripts/demacro.py'
+alias dragon='python2 ~/Documents/Projects/dragon/'
+alias sparky='python2 ~/Documents/Projects/sparky/'
+alias von='python2 ~/Documents/Projects/von/'
+alias tsq='python2 ~/dotfiles/py-scripts/tsq.py'
+alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'	
+alias teach='python2 ~/dotfiles/py-scripts/teach.py'	
+alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias s3='aws s3'
 
 export PYTHONPATH="$PYTHONPATH:/home/evan/Documents/Projects/"
 
-alias pudb='python -m pudb.run'
-alias dropcli='python ~/dotfiles/py-scripts/dropbox.py'
+alias pudb='python2 -m pudb.run'
+alias dropcli='python2 ~/dotfiles/py-scripts/dropbox.py'
 alias trash='gio trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
@@ -156,7 +150,7 @@ end
 
 # Uses the locate utility to find a certain file
 function hunt ()
-	python ~/dotfiles/py-scripts/hunt.py "$argv"
+	python2 ~/dotfiles/py-scripts/hunt.py "$argv"
 	cd (cat /tmp/hunt)
 	pwd
 	ls -l --color=tty
