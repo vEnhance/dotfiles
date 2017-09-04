@@ -172,6 +172,5 @@ workspace_layout stacked
 
 # === CUSTOM STARTUP ===
 # exec xfce4-power-manager
-exec rescuetime
 exec nm-applet --no-startup-id
 exec xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
