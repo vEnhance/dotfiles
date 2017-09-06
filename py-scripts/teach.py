@@ -19,13 +19,14 @@ tex_files = [os.path.join(dirpath, f) for dirpath, dirnames, files in os.walk(MA
 keywords = sys.argv[1:]
 
 # get everything that has all keywords
-locations = [f for f in tex_files if all(k in f for k in keywords)]
+locations = [f for f in tex_files if all(k in f for k in keywords) \
+		and not "SOLNS" in f]
 
 # copied from hunt.py
 if len(locations) > 1:
 	for i, place in enumerate(locations):
-		print i, '\t' + os.path.relpath(place, MATERIALS_PATH)
-	j = input("Please enter an index: ")
+		print(i, '\t' + os.path.relpath(place, MATERIALS_PATH))
+	j = eval(input("Please enter an index: "))
 else:
 	assert len(locations) != 0, "HALP no such lesson"
 	j = 0
@@ -43,6 +44,6 @@ content = content.replace(
 target_path = os.path.join("/tmp/teach/", lesson_name)
 
 with open(target_path, 'w') as g:
-	print >>g, content
+	print(content, file=g)
 
 os.system("cd /tmp/teach/; latexmk -pv %s" %target_path)

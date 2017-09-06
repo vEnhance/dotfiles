@@ -99,7 +99,7 @@ alias sparky='python2 ~/Documents/Projects/sparky/'
 alias von='python3 -m von'
 alias tsq='python2 ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'	
-alias teach='python2 ~/dotfiles/py-scripts/teach.py'	
+alias teach='python3 ~/dotfiles/py-scripts/teach.py'	
 alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
@@ -121,18 +121,6 @@ function newtex
 	cd $argv
 	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "$argv.tex"
 	gvim "$argv.tex"
-end
-
-# Script for when I'm done teaching
-function uteach
-	if test -f "$argv.tex"
-		mv "$argv.tex" ~/Downloads
-	else if test -f "$argv""tex"
-		mv "$argv""tex" ~/Downloads
-	end
-	trash *.{von,asy,out,vrb}
-	latexmk -c
-	drive push .
 end
 
 # Shortcut for editors and the like
