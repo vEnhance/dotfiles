@@ -29,7 +29,7 @@ bindsym $mod+Shift+q kill window # kill focused window
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+space exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+space exec --no-startup-id i3-dmenu-desktop --entry-type=command
 
 # change focus
 bindsym $mod+h focus left
