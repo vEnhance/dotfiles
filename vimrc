@@ -187,15 +187,16 @@ set nohlsearch
 
 set wrap
 set linebreak
-set nolist
 set textwidth=0
 set wrapmargin=0
 set showbreak=_
 
 set tabstop=4
 set shiftwidth=4
+set guifont=Monospace\ 11
 
-set guifont=Monospace\ 9
+set list 
+set listchars=tab:\|\ ,trail:$
 
 " Remap arrow keys to useful things
 function! DelEmptyLineAbove()
