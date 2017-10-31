@@ -9,6 +9,7 @@ print("% " + first_line)
 for line in sys.stdin.readlines():
 	if not line.strip(): continue
 	line = line.rstrip()
+	line = line.replace("$$", "$")
 	num_spaces = len(line) - len(line.lstrip(' '))
 	curr_indent = int(num_spaces / 4)
 	while curr_indent > prev_indent:
