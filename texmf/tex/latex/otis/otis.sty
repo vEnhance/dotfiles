@@ -65,11 +65,36 @@
 \else
 	\usepackage[sexy]{evan}
 	\AtBeginDocument{\date{\MakeUppercase{\jobname}}%
-	\author{Evan Chen\thanks{Developed as part of
-		Olympiad Training for Individual Students (OTIS).
-		Internal use only.}}%
+	\author{Evan Chen\thanks{Internal use:
+		Olympiad Training for Individual Study (OTIS).
+		Last update \today.}}%
 	}
 	\ohead{\footnotesize\textbf{\thetitle} (OTIS)}
+	\reversemarginpar
+
+	\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
+	\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
+	\newcommand{\goal}[1]{Solve at least \clubs{#1}
+		(more if you have time).
+		Recommendations marked in red.}
+	\newtheorem{probX}{Problem}
+	\newtheorem{probE}[probX]{\clubs{2} Problem}
+	\newtheorem{probM}[probX]{\clubs{3} Problem}
+	\newtheorem{probH}[probX]{\clubs{5} Problem}
+	\newtheorem{probZ}[probX]{\clubs{9} Problem}
+	\newtheorem{probER}[probX]{\clubr{2} Problem}
+	\newtheorem{probMR}[probX]{\clubr{3} Problem}
+	\newtheorem{probHR}[probX]{\clubr{5} Problem}
+	\newtheorem{probZR}[probX]{\clubr{9} Problem}
+
+	\newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
+	\newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
+	\newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
+	\newcommand{\vonZ}{\renewcommand{\vonenvname}{probZ}\von}
+	\newcommand{\vonER}{\renewcommand{\vonenvname}{probER}\von}
+	\newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
+	\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
+	\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
 \fi
 
 \ifotiswater
@@ -80,6 +105,7 @@
 	\SetWatermarkScale{2.718}
 	\SetWatermarkText{\shortstack{By \theauthor \\ OTIS, Internal Use}}
 \fi
+
 \renewcommand{\vonprefix}{von}
 
 \ifotisreveal
