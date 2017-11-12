@@ -8,6 +8,10 @@
 \def\vonprefix{.} % must be a directory name (with slash)
 \def\@vonsetname#1#2{\StrLeft{\pdfmdfivesum{#1#2}}{12}[\@vonname]}
 
+\newif\ifvonbrave\vonbravefalse
+\DeclareOption{brave}{\vonbravetrue}
+\DeclareOption{timid}{\vonbravefalse}
+
 \newcommand{\vonhook}[1]{}
 \newcommand{\vonmarginstyle}{\scriptsize\ttfamily\color{Green}}%
 \newcommand{\enablevonmargins}{%
@@ -21,7 +25,11 @@
 \newcommand{\@voncore}[2]{
 	\@vonsetname{#1}{#2}%
 	\immediate\openout\@vonfile=\vonprefix/_v\@vonname.von%
+	\ifvonbrave
+	\immediate\write\@vonfile{von show "#2" --brave -b #1 > `dirname $0`/_v\@vonname.out}%
+	\else
 	\immediate\write\@vonfile{von show "#2" -b #1 > `dirname $0`/_v\@vonname.out}%
+	\fi
 	\immediate\closeout\@vonfile%
 	\vonhook{#2}% for example a margin par
 	\IfFileExists{\vonprefix/_v\@vonname.out}{\input{\vonprefix/_v\@vonname.out}}%
