@@ -7,6 +7,7 @@ sub von_run { return system("bash -i '$_[0].von'"); }
 add_cus_dep("von", "out", 0, "von_run");
 
 $pdf_mode = 1;
+$max_repeat = 7;
 $pdf_previewer = "zathura %O %S &";
 
 $cleanup_includes_generated = 1;
