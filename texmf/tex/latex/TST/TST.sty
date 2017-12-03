@@ -1,0 +1,95 @@
+%% Package for typesetting team selection test materials
+
+\ProvidesPackage{TST}
+\usepackage{xifthen}
+
+\newif\ifTSTbrave\TSTbravefalse
+\DeclareOption{brave}{\TSTbravetrue}
+\newif\ifTSTwatermark\TSTwatermarkfalse
+\DeclareOption{watermark}{\TSTwatermarktrue}
+
+\newif\ifTSTexam\TSTexamfalse
+\DeclareOption{exam}{\TSTexamtrue}
+\newif\ifTSTsols\TSTsolsfalse
+\DeclareOption{sols}{\TSTsolstrue}
+\newif\ifTSTsl\TSTslfalse
+\DeclareOption{shortlist}{\TSTsltrue}
+
+\ProcessOptions\relax
+
+%% Use VON problem manager
+\ifTSTbrave
+	\usepackage[brave]{von}
+\else
+	\usepackage{von}
+\fi
+\renewcommand{\vonprefix}{von/}
+
+%% Typeset a TST style exam
+\ifTSTexam
+	\usepackage[noauthor,nohdr]{evan}
+	\usepackage{titling}
+	\setlength{\labelsep}{10pt}
+	\setlength{\parindent}{0pt}
+	\pagestyle{empty}
+	\setlength{\droptitle}{-4em}
+	\renewcommand{\maketitlehooka}{\centering\bfseries}
+	\renewcommand{\maketitlehookd}{\vspace*{0.7in}}
+	\newcommand{\theday}{}
+	\newcommand{\dayinfo}[1]{\renewcommand{\theday}{#1}}
+	\pretitle{}
+	\posttitle{\par\vspace{0.20in}}
+	\preauthor{}
+	\postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
+	\predate{\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
+	\postdate{}
+	\usepackage{enumitem} % also supports [resume]
+	\setenumerate{itemsep=4ex}
+\fi
+
+%% Typeset solutions packet
+\ifTSTsols
+	\usepackage[sexy]{evan}
+	\newcommand{\TST}[2]{%
+	\subsection{#2}
+	\voninclude[0]{#1}
+	\hrulebar
+	\voninclude[1]{#1}
+	\pagebreak}
+	\usepackage{pdfpages}
+	\ihead{\footnotesize\bfseries\thetitle}
+	\ohead{\footnotesize\theauthor}
+\fi
+
+%% Typeset shortlist packet
+\ifTSTsl
+	\usepackage[sexy]{evan}
+
+	% formatting for shortlist problems
+	\newtheoremstyle{shortlist}%
+	{3pt} % space before
+	{2em} % space after
+	{\normalfont} % body font
+	{0pt} % indent
+	{\Large\bfseries\sffamily\color{blue}} % head font
+	{.} % head punctuation
+	{ } % space after head
+	{} % manually specify head
+	\theoremstyle{shortlist}
+	\newtheorem{prob}{}[section]
+
+	\allowdisplaybreaks
+\fi
+
+
+%% If requested, draft watermark
+\ifTSTwatermark
+	\usepackage{draftwatermark}
+	\SetWatermarkAngle{32}
+	\SetWatermarkLightness{0.93}
+	\SetWatermarkFontSize{32pt}
+	\SetWatermarkScale{2.718}
+	\SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
+\fi
+
+
