@@ -7,6 +7,13 @@ set green (set_color green)
 set red (set_color red)
 set gray (set_color -o black)
 
+
+# disown
+function dn
+    set -l escaped_argv (string escape --no-quoted $argv)
+    bash -c "$escaped_argv &"
+end
+
 # Fish git prompt
 set __fish_git_prompt_showdirtystate 'yes'
 set __fish_git_prompt_showstashstate 'yes'
@@ -120,11 +127,11 @@ end
 # Shortcut for editors and the like
 function pdf
 	if test -f "$argv""pdf"
-		disown zathura "$argv""pdf"
+		dn zathura "$argv""pdf"
 	else if test -f "$argv.pdf"
-		disown zathura "$argv.pdf"
+		dn zathura "$argv.pdf"
 	else if test -f "$argv"
-		disown zathura "$argv"
+		dn zathura "$argv"
 	else
 		echo "Cannot found a suitable file."
 	end
