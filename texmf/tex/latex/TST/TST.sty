@@ -44,7 +44,7 @@
 	\predate{\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
 	\postdate{}
 	\usepackage{enumitem} % also supports [resume]
-	\setenumerate{itemsep=4ex}
+	\setlist[enumerate,1]{itemsep=4ex}
 \fi
 
 %% Typeset solutions packet
@@ -86,7 +86,7 @@
 \ifTSTwatermark
 	\usepackage{draftwatermark}
 	\SetWatermarkAngle{32}
-	\SetWatermarkLightness{0.93}
+	\SetWatermarkLightness{0.97}
 	\SetWatermarkFontSize{32pt}
 	\SetWatermarkScale{2.718}
 	\SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
