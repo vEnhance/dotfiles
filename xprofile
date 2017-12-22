@@ -7,7 +7,8 @@
 # Start XFLUX
 if [ "$HOSTNAME" = ArchScythe ] || [ "$HOSTNAME" = ArchAir ]; then
 	redshift-gtk &
-else
+fi
+if [ "$HOSTNAME" = ArchMega ]; then
 	case $(date +%Z) in
 		PST) xflux -z 94539 -k 2800;; # Pacific
 		PDT) xflux -z 94539 -k 2800;; # Pacific
