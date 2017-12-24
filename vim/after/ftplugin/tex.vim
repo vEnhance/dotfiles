@@ -61,6 +61,14 @@ syntax region asySnip matchgroup=Snip start="\\begin{asy}" end="\\end{asy}" cont
 syntax region asySnip matchgroup=Snip start="\\begin{asydef}" end="\\end{asydef}" contains=@ASY containedin=texPartZone,texChapterZone,texSectionZone,texSubSectionZone,texSubSubSectionZone,texDocZone
 hi link Snip PreProc
 
+" wef why were these removed in f0b03c4e98f8a7184d8b4a5d702cbcd602426923
+call TexNewMathZone("V","align",1)
+call TexNewMathZone("W","alignat",1)
+call TexNewMathZone("X","flalign",1)
+call TexNewMathZone("Y","multiline",1)
+call TexNewMathZone("Z","gather",1)
+
+
 " Include cleverref as a ref in highlighting.
 syn region texRefZone		matchgroup=texStatement start="\\cref{"	end="}\|%stopzone\>"	contains=@texRefGroup
 syn region texRefZone		matchgroup=texStatement start="\\Cref{"	end="}\|%stopzone\>"	contains=@texRefGroup
