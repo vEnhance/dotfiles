@@ -1,13 +1,3 @@
-set FISH_CLIPBOARD_CMD "cat" # Stop that.
-
-set normal (set_color normal)
-set magenta (set_color magenta)
-set yellow (set_color yellow)
-set green (set_color green)
-set red (set_color red)
-set gray (set_color -o black)
-
-
 # disown
 function dn
     set -l escaped_argv (string escape --no-quoted $argv)
@@ -32,37 +22,48 @@ set __fish_git_prompt_char_upstream_ahead '>'
 set __fish_git_prompt_char_upstream_behind '<'
 
 set fish_color_cwd CCA700
-set fish_color_name 00CCA7
+set fish_color_name 44FFFF
+set fish_color_host 00CCA7
 set fish_color_greeting FF3333
+set fish_color_determination yellow
+
+set fish_prompt_pwd_dir_length 2
 
 function fish_greeting
 	set_color $fish_color_greeting
 	printf "Hello "
-	set_color $fish_color_name
-	printf (whoami)
+	set_color --italics $fish_color_name
+	printf $USER
+	set_color normal
 	set_color $fish_color_greeting
 	printf "! You are filled with "
-	set_color $fish_color_name
+	set_color --bold $fish_color_determination
 	printf "determination"
+	set_color normal
 	set_color $fish_color_greeting
 	printf "."
+	set_color normal
 end
 
 function fish_prompt
   set last_status $status
 
-  set_color $fish_color_name
-  printf (whoami)@(hostname)
-  printf ' '
+  set_color --bold $fish_color_name
+  printf $USER
+  set_color normal
+  set_color $fish_color_host
+  printf @
+  printf (hostname)
   set_color $fish_color_cwd
-  printf (dirs)
+  printf ' '
+  printf (prompt_pwd)
 
   set_color normal
   printf '%s ' (__fish_git_prompt)
   set_color normal
   printf '\n$ '
 
-  zd --add "$PWD"
+  zd --add "$PWD" # z.fish
 end
 
 if [ "(uname)" = Linux ]
@@ -117,7 +118,7 @@ alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias sudo='sudo ' # allows my aliases to get into sudo
 
 # Create a new TeX file
-function newtex 
+function newtex
 	mkdir $argv
 	cd $argv
 	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "$argv.tex"
