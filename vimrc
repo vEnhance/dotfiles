@@ -153,7 +153,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_tex_chktex_args = "-n 1 -n 2 -n 3 -n 8 -n 11 -n 13 -n 18 -n 24 -n 26 -n 29 -n 32 -n 34 -n 36 -n 37 -n 40 -n 44 -e 16 -e 17"
 let g:syntastic_tex_checkers = ['chktex']
 let g:syntastic_python_python_exec = '/usr/bin/python3'
 
