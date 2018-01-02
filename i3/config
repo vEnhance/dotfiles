@@ -76,16 +76,17 @@ bindsym $mod+a focus parent
 bindsym $mod+d focus child
 
 # set workspace varnames
-set $WS1 Aleph
-set $WS2 Bet
-set $WS3 Gimel
-set $WS4 Dalet
-set $WS5 Hei
-set $WS6 Vav
-set $WS7 Zayin
-set $WS8 Het
-set $WS9 Tet
-set $WS0 Yod
+set $WS1 1: Aleph
+set $WS2 2: Bet
+set $WS3 3: Gimel
+set $WS4 4: Dalet
+set $WS5 5: Hei
+set $WS6 6: Vav
+set $WS7 7: Zayin
+set $WS8 8: Het
+set $WS9 9: Tet
+set $WS0 10: Yod
+
 
 # switch to workspace
 bindsym $mod+1 workspace $WS1
@@ -110,6 +111,7 @@ bindsym $mod+Shift+7 move container to workspace $WS7; workspace $WS7
 bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
+
 
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
@@ -138,10 +140,11 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+	id main-bar
 	status_command i3status
-	font pango:DejaVu Sans Mono 8
+	font pango:DejaVu Sans Mono 10
+	strip_workspace_numbers yes
 }
-
 
 # === CUSTOM SHORTCUTS ===
 bindsym Control+mod1+h exec --no-startup-id cpulimit --limit 40 --lazy --include-children -- qutebrowser
@@ -149,8 +152,8 @@ bindsym Control+mod1+l exec '/home/evan/dotfiles/fuzzy-lock.sh' &
 
 mode "control" {
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id systemctl poweroff, mode "default"  
-    bindsym z exec --no-startup-id systemctl reboot, mode "default"  
+    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
+    bindsym z exec --no-startup-id systemctl reboot, mode "default"
 
 	# reload the configuration file
 	bindsym r reload, mode "default"
@@ -163,10 +166,6 @@ mode "control" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Escape mode "control"
-
-# Floating windows
-for_window [class="psi"] floating enable
-# for_window [title="[0-9]+/[0-9]+ - DownThemAll!"] floating enable
 
 workspace_layout stacked
 
