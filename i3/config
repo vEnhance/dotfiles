@@ -29,7 +29,7 @@ bindsym $mod+Shift+q kill window # kill focused window
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
-bindsym $mod+space exec --no-startup-id i3-dmenu-desktop --entry-type=filename
+bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --entry-type=filename
 
 # change focus
 bindsym $mod+h focus left
@@ -73,7 +73,7 @@ bindsym $mod+Tab focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-bindsym $mod+d focus child
+bindsym $mod+b focus child
 
 # set workspace varnames
 set $WS1 1: Aleph
@@ -147,7 +147,7 @@ bar {
 }
 
 # === CUSTOM SHORTCUTS ===
-bindsym Control+mod1+h exec --no-startup-id cpulimit --limit 40 --lazy --include-children -- qutebrowser
+bindsym Control+mod1+h exec --no-startup-id qutebrowser
 bindsym Control+mod1+l exec '/home/evan/dotfiles/fuzzy-lock.sh' &
 
 mode "control" {
