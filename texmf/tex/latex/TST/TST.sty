@@ -34,14 +34,14 @@
 	\pagestyle{empty}
 	\setlength{\droptitle}{-4em}
 	\renewcommand{\maketitlehooka}{\centering\bfseries}
-	\renewcommand{\maketitlehookd}{\vspace*{0.7in}}
+	\renewcommand{\maketitlehookd}{\par\vspace*{0.7in}}
 	\newcommand{\theday}{}
 	\newcommand{\dayinfo}[1]{\renewcommand{\theday}{#1}}
-	\pretitle{}
+	\pretitle{\par}
 	\posttitle{\par\vspace{0.20in}}
-	\preauthor{}
+	\preauthor{\par}
 	\postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
-	\predate{\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
+	\predate{\par\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
 	\postdate{}
 	\usepackage{enumitem} % also supports [resume]
 	\setlist[enumerate,1]{itemsep=4ex}
