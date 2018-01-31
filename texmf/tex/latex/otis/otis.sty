@@ -17,6 +17,7 @@
 	\usepackage[nofancy]{evan}
 	\newcommand{\thelogo}{}
 	\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
+	\usepackage{mdframed}
 
 	\makeatletter
 	\def\thm@space@setup{%
@@ -58,7 +59,8 @@
 		{\sffamily \LARGE \textbf{\StrSubstitute{\jobname}{-}{ }}}
 			\par\vspace{1em}
 		}
-	\newcommand{\sevenpoints}{Time limit: 4 hours \\ Each problem is worth $7$ points}
+	\newcommand{\sevenpoints}{Time limit: 3.5 hours. \\
+		Each problem is worth $7$ points.}
 
 	\usepackage{titlesec}
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
