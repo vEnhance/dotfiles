@@ -76,9 +76,11 @@
 
 	\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
 	\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
-	\newcommand{\goal}[1]{Solve at least \clubs{#1}
-		(more if you have time),
-		including any problem marked in red.}
+	\newcommand{\goal}[1]{Solve at least \clubs{#1} (more if you have time),
+		including any problem marked in {\color{red} red}.}
+	\newcommand{\goals}[2]{Solve at least \clubs{#1}.
+		If you are ambitious, aim for \clubs{#2} or more.
+		Problems whose weights are marked in {\color{red} red} are mandatory.}
 	\newtheorem{probX}{Problem}
 	\newtheorem{probE}[probX]{\clubs{2} Problem}
 	\newtheorem{probM}[probX]{\clubs{3} Problem}
