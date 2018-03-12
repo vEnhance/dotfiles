@@ -3,7 +3,7 @@ add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
 
-sub von_run { return system("bash -i '$_[0].von'"); }
+sub von_run { return system("bash '$_[0].von'"); }
 add_cus_dep("von", "out", 0, "von_run");
 
 $pdf_mode = 1;

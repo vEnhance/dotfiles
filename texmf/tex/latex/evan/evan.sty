@@ -575,14 +575,14 @@
 			\setlength{\footskip}{0.5in}
 			\setlength{\headsep}{10pt}
 			\ifevantitling
-				\ihead{\footnotesize\textbf{\theauthor} (\thedate)}
+				\ihead{\footnotesize\textbf{\@author} (\@date)}
 				\else
-				\ihead{\footnotesize\textbf{Evan Chen} (\thedate)}
+				\ihead{\footnotesize\textbf{Evan Chen} (\@date)}
 			\fi
 			\automark{section}
 			\chead{}
 			\ifevantitlemark
-				\ohead{\footnotesize\textbf{\thetitle}}
+				\ohead{\footnotesize\textbf{\@title}}
 			\else
 				\ohead{\footnotesize\textbf{\headmark}}
 			\fi

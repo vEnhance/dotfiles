@@ -63,7 +63,9 @@
 
 %% Typeset shortlist packet
 \ifTSTsl
-	\usepackage[sexy]{evan}
+	\usepackage[sexy,oldtitle]{evan}
+	\ihead{\footnotesize\textbf{\@title}, compiled by \@author}
+	\ohead{\footnotesize \@date}
 
 	% formatting for shortlist problems
 	\newtheoremstyle{shortlist}%
