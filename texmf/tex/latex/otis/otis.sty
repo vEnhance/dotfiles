@@ -71,15 +71,19 @@
 		Olympiad Training for Individual Study (OTIS).
 		Last update \today.}}%
 	}
-	\ohead{\footnotesize\textbf{\thetitle} (OTIS)}
-	\reversemarginpar
+	\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+	\def\lastupdate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
+	\renewcommand{\vonenvname}{example}
+	\ihead{\footnotesize\textbf{\theauthor} (OTIS, updated \lastupdate)}
+	\ohead{\footnotesize\textbf{\thetitle}}
 
 	\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
 	\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
-	\newcommand{\goal}[1]{Solve at least \clubs{#1} (more if you have time),
+	\newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
+	\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
 		including any problem marked in {\color{red} red}.}
-	\newcommand{\goals}[2]{Solve at least \clubs{#1}.
-		If you are ambitious, aim for \clubs{#2} or more.
+	\newcommand{\goals}[2]{Solve at least \clubg{#1}.
+		If you are ambitious, aim for \clubg{#2} or more.
 		Problems whose weights are marked in {\color{red} red} are mandatory.}
 	\newtheorem{probX}{Problem}
 	\newtheorem{probE}[probX]{\clubs{2} Problem}
@@ -99,6 +103,40 @@
 	\newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
 	\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
 	\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
+
+	% Walkthroughs to examples
+	\newtheorem*{walkthrough}{Walkthrough}
+	\usepackage{answers}
+
+	\def\vonX{\@ifstar\@vonXstar\@vonX}
+	\newcommand{\@vonX}[2][]{%
+		\ifthenelse{\isempty{#1}}%
+		{\begin{example}[#2] \voninclude{#2} \end{example}
+		\Writetofile{exanswers}{\protect\subsection{Solution to #2}}}%
+		{\begin{example}[#1] \voninclude{#2} \end{example}
+		\Writetofile{exanswers}{\protect\subsection{Solution to #1}}}
+		\begin{walkthrough}
+		\voninclude[2]{#2} % body 2 = walkthrough
+		\end{walkthrough}
+		\Writetofile{exanswers}{\protect\voninclude[1]{#2}}
+	}
+	\newcommand{\@vonXstar}[1]{%
+		\begin{example} \voninclude{#1} \end{example}
+		\begin{walkthrough}
+		\voninclude[2]{#1} % body 2 = walkthrough
+		\end{walkthrough}
+		\Writetofile{exanswers}{\protect\subsection{Solution to Example~\theexample}}
+		\Writetofile{exanswers}{\protect\voninclude[1]{#1}}
+	}
+
+	\Newassociation{exanswer}{exitem}{exanswers}
+	\renewcommand{\solutionextension}{out}
+	\AtBeginDocument{\Opensolutionfile{exanswers}[von/exsol-\jobname]}
+	\AtEndDocument{\pagebreak
+	\Closesolutionfile{exanswers}
+	\section{Solutions to the example problems}
+	\input{von/exsol-\jobname.out} %chktex 27
+	}
 \fi
 
 \ifotiswater

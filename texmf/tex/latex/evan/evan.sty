@@ -464,6 +464,9 @@
 			frame=none
 		}
 		\usepackage[shortlabels]{enumitem}
+		% a list I like for walkthrough's --- Drew-style parts
+		\newlist{walk}{enumerate}{3}
+		\setlist[walk]{label=\bfseries (\alph*)}
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
 		\usepackage{textcomp}
 		% Tiny tiny optimizations:
