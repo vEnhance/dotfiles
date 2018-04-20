@@ -132,6 +132,22 @@
 			\Writetofile{exanswers}{\protect\voninclude[1]{#1}}
 		}
 
+		\def\vonI{\@ifstar\@vonIstar\@vonI}
+		\newcommand{\@vonI}[2][]{%
+			\ifthenelse{\isempty{#1}}%
+			{\begin{example}[#2] \voninclude{#2} \end{example}
+			\Writetofile{exanswers}{\protect\subsection{Solution \theexample, #2}}
+			\Writetofile{exanswers}{\protect\voninclude[1]{#2}}}%
+			{\begin{example}[#1] \voninclude{#2} \end{example}
+			\Writetofile{exanswers}{\protect\subsection{Solution \theexample, #1}}
+			\Writetofile{exanswers}{\protect\voninclude[1]{#2}}}
+		}
+		\newcommand{\@vonIstar}[1]{%
+			\begin{example} \voninclude{#1} \end{example}
+			\Writetofile{exanswers}{\protect\subsection{Solution \theexample}}
+			\Writetofile{exanswers}{\protect\voninclude[1]{#1}}
+		}
+
 		\Newassociation{exanswer}{exitem}{exanswers}
 		\renewcommand{\solutionextension}{out}
 		\AtBeginDocument{\Opensolutionfile{exanswers}[von/exsol-\jobname]}
