@@ -137,13 +137,22 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+# move windows around
+mode "move" {
+        bindsym h move workspace to output left
+        bindsym l move workspace to output right
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+bindsym $mod+m mode "move"
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-	id main-bar
-	status_command i3status
-	font pango:DejaVu Sans Mono 10
-	strip_workspace_numbers yes
+    id main-bar
+    status_command i3status
+    font pango:DejaVu Sans Mono 10
+    strip_workspace_numbers yes
 }
 
 # === CUSTOM SHORTCUTS ===
@@ -155,11 +164,11 @@ mode "control" {
     bindsym s exec --no-startup-id systemctl poweroff, mode "default"
     bindsym z exec --no-startup-id systemctl reboot, mode "default"
 
-	# reload the configuration file
-	bindsym r reload, mode "default"
-	# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-	bindsym i restart, mode "default"
-	bindsym m exec --no-startup-id '/home/evan/dotfiles/redo-keys.sh' &, mode "default"
+    # reload the configuration file
+    bindsym r reload, mode "default"
+    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+    bindsym i restart, mode "default"
+    bindsym m exec --no-startup-id '/home/evan/dotfiles/redo-keys.sh' &, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
@@ -173,3 +182,5 @@ workspace_layout stacked
 # exec xfce4-power-manager
 exec nm-applet --no-startup-id
 exec xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
+
+# vim: expandtab
