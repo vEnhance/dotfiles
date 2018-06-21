@@ -16,17 +16,24 @@
 \ProcessOptions\relax
 
 \ifotisexam
-	\usepackage[nofancy]{evan}
+	\usepackage[nofancy,diagrams]{evan}
 	\newcommand{\thelogo}{}
 	\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
 	\usepackage{mdframed}
 
-	\makeatletter
-	\def\thm@space@setup{%
-	  \thm@preskip=\parskip \thm@postskip=18pt
-	}
-	\makeatother
-	\theoremstyle{definition}
+	\newtheoremstyle{problem}% name of the style to be used
+	{6pt}% measure of space to leave above the theorem. E.g.: 3pt
+	{24pt}% measure of space to leave below the theorem. E.g.: 3pt
+	{\normalfont}% name of font to use in the body of the theorem
+	{0pt}% measure of space to indent
+	{\bfseries}% name of head font
+	{.}% punctuation between head and body
+	{ }% space after theorem head; " " = normal interword space
+	{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
+	\theoremstyle{problem}
+	\newtheorem{jprob}{JMO}
+	\newtheorem{uprob}{USAMO}
+	\newtheorem{tprob}{TST}
 
 	\usepackage{fancyhdr}
 	\pagestyle{fancy}
@@ -67,7 +74,7 @@
 	\usepackage{titlesec}
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
-	\usepackage[sexy]{evan}
+	\usepackage[sexy,diagrams]{evan}
 	\AtBeginDocument{\date{\MakeUppercase{\jobname}}%
 	\author{Evan Chen\thanks{Internal use:
 		Olympiad Training for Individual Study (OTIS).
