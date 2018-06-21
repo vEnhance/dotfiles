@@ -27,7 +27,7 @@
 
 %% Typeset a TST style exam
 \ifTSTexam
-	\usepackage[noauthor,nohdr]{evan}
+	\usepackage[noauthor,nohdr,diagrams]{evan}
 	\usepackage{titling}
 	\setlength{\labelsep}{10pt}
 	\setlength{\parindent}{0pt}
@@ -49,21 +49,23 @@
 
 %% Typeset solutions packet
 \ifTSTsols
-	\usepackage[sexy]{evan}
+	\usepackage[sexy,diagrams]{evan}
 	\newcommand{\TST}[2]{%
 	\subsection{#2}
 	\voninclude[0]{#1}
 	\hrulebar
-	\voninclude[1]{#1}
-	\pagebreak}
+	\voninclude[1]{#1}}
 	\usepackage{pdfpages}
 	\ihead{\footnotesize\bfseries\thetitle}
 	\ohead{\footnotesize\theauthor}
+	\theoremstyle{definition}
+	\newtheorem{prob}{Problem}
+	\renewcommand{\vonenvname}{prob}
 \fi
 
 %% Typeset shortlist packet
 \ifTSTsl
-	\usepackage[sexy,oldtitle]{evan}
+	\usepackage[sexy,oldtitle,diagrams]{evan}
 	\ihead{\footnotesize\textbf{\@title}, compiled by \@author}
 	\ohead{\footnotesize \@date}
 
