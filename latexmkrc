@@ -10,11 +10,11 @@ $pdf_mode = 1;
 $max_repeat = 7;
 $pdf_previewer = "zathura %O %S &";
 
-$cleanup_includes_generated = 1;
+$cleanup_includes_generated = 0;
 $cleanup_includes_cusdep_generated = 1;
 
 @generated_exts = ( 'aux', 'bbl', 'bcf', 'fls', 'idx', 'ind', 'lof',
-                    'lot', 'out', 'pre', 'toc', 'asy', 'nav', 'snm', 'von');
+                    'lot', 'out', 'pre', 'toc', 'nav', 'snm', 'von');
 
 # don't hash calc for deep system dependencies
 $hash_calc_ignore_pattern{'map'} = '^';
