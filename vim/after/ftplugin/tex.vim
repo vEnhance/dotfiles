@@ -119,7 +119,7 @@ nnoremap <C-M> i$<Esc>ea$<Esc>
 
 " Spell
 syntax spell toplevel
-set spell 
+set spell
 
 " amsthm environments defined in evan.sty
 " Deferred to end because they're LONG.
