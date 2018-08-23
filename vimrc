@@ -93,14 +93,15 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'qpkorr/vim-renamer'
 " Plug 'chrisbra/csv.vim'
 
-" YCM build is a little more complicated
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
-endfunction
-Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
-Plug 'Valloric/ycmd'
+" YCM stopped working, will fix one day but for now...
+" " YCM build is a little more complicated
+" function! BuildYCM(info)
+"   if a:info.status == 'installed' || a:info.force
+"     !./install.py
+"   endif
+" endfunction
+" Plug 'Valloric/YouCompleteMe', { 'do': function('BuildYCM') }
+" Plug 'Valloric/ycmd'
 
 call plug#end()
 
