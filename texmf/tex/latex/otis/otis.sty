@@ -13,6 +13,8 @@
 \DeclareOption{reveal}{\otisrevealtrue}
 \newif\ifotishandout\otishandoutfalse
 \DeclareOption{handout}{\otishandouttrue}
+\newif\ifotishandoutwalk\otishandoutwalktrue
+\DeclareOption{nowalk}{\otishandoutwalkfalse}
 \ProcessOptions\relax
 
 \ifotisexam
@@ -91,9 +93,12 @@
 	\newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
 	%\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
 	%	including any problem marked in {\color{red} red}.}
-	\newcommand{\goals}[2]{Solve at least \clubg{#1}.
-		If you are ambitious, aim for \clubg{#2} or more.
-		Problems whose weights are marked in {\color{red} red} are mandatory.}
+	\newcommand{\goals}[2]{\bgroup
+		\sffamily\small \emph{Instructions}: Solve \clubg{#1}.
+		For hard mode, aim for \clubg{#2}.
+		Problems with {\color{red} red} weights are mandatory.
+		\egroup
+	}
 	\newtheorem{probOTIS}{Problem}
 	\newtheorem{probE}[probOTIS]{\clubs{2} Problem}
 	\newtheorem{probM}[probOTIS]{\clubs{3} Problem}
@@ -158,11 +163,18 @@
 		\Newassociation{exanswer}{exitem}{exanswers}
 		\renewcommand{\solutionextension}{out}
 		\AtBeginDocument{\Opensolutionfile{exanswers}[von/exsol-\jobname]}
-		\AtEndDocument{\pagebreak
-		\Closesolutionfile{exanswers}
-		\section{Solutions to the walkthroughs}
-		\input{von/exsol-\jobname.out} %chktex 27
-		}
+		\ifotishandoutwalk
+			\AtEndDocument{\pagebreak
+				\Closesolutionfile{exanswers}
+				\section{Solutions to the walkthroughs}
+				\input{von/exsol-\jobname.out} %chktex 27
+			}
+		\fi
+
+		\usepackage{epigraph}
+		%\renewcommand{\epigraphflush}{flushleft}
+		\renewcommand{\epigraphsize}{\scriptsize}
+		\renewcommand{\epigraphwidth}{60ex}
 	\fi
 \fi
 
