@@ -60,3 +60,6 @@ export GTK_IM_MODULE=ibus
 
 # Use Fish as shell
 export SHELL='/bin/fish'
+
+# VLC
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
