@@ -34,7 +34,7 @@
 	\pagestyle{empty}
 	\setlength{\droptitle}{-4em}
 	\renewcommand{\maketitlehooka}{\centering\bfseries}
-	\renewcommand{\maketitlehookd}{\par\vspace*{0.7in}}
+	\renewcommand{\maketitlehookd}{\par\vspace*{0.4in}}
 	\newcommand{\theday}{}
 	\newcommand{\dayinfo}[1]{\renewcommand{\theday}{#1}}
 	\pretitle{\par}
@@ -43,8 +43,23 @@
 	\postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
 	\predate{\par\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
 	\postdate{}
+
+	% for enumerate-style exam
 	\usepackage{enumitem} % also supports [resume]
-	\setlist[enumerate,1]{itemsep=4ex}
+	\newlist{problems}{enumerate}{3}
+	\setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
+
+	% for theorem-style exam
+	\newtheoremstyle{TST}%
+	{4ex} % space before
+	{2ex} % space after
+	{\normalfont} % body font
+	{0pt} % indent
+	{\bfseries} % head font
+	{.} % head punctuation
+	{ } % space after head
+	{} % manually specify head
+	\theoremstyle{TST}
 \fi
 
 %% Typeset solutions packet
@@ -90,7 +105,7 @@
 \ifTSTwatermark
 	\usepackage{draftwatermark}
 	\SetWatermarkAngle{32}
-	\SetWatermarkLightness{0.97}
+	\SetWatermarkLightness{0.95}
 	\SetWatermarkFontSize{32pt}
 	\SetWatermarkScale{2.718}
 	\SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
