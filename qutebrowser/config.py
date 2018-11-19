@@ -1,6 +1,6 @@
 ## qutebrowser config.py
 
-c.backend = 'webkit'
+c.backend = 'webengine'
 c.content.pdfjs =  True
 c.statusbar.hide = False
 c.tabs.show = 'always'
