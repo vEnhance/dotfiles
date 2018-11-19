@@ -92,9 +92,9 @@ if has("gui_running")
 	syntax match One contained "nv" conceal cchar=¹
 	syntax match MinusOne "\\inv\>" containedin=texStatement contains=Minus,One
 	
-	" Match 1/2, and other symobls
+	" Match 1/2, and other symbls
 	syntax match texMathSymbol "\\half\>" contained conceal cchar=½
-	" Match other symbols
+	syntax match texMathSymbol "\\eps\>" contained conceal cchar=ε
     syntax match texMathSymbol "\\dang\>" contained conceal cchar=∡
     syntax match texMathSymbol "\\then\>" contained conceal cchar=⊃
 
