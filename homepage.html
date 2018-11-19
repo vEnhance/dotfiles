@@ -71,7 +71,12 @@ function update(t, id) {
 </div>
 
 <script type="text/javascript">
-var target_date = localStorage.getItem("target") || "0000-01-01";
+try {
+	var target_date = localStorage.getItem("target") || "0000-01-01";
+}
+catch (e) {
+	var target_date = "1996-06-03";
+}
 var current_age = getAge(target_date);
 update(current_age, "main");
 
