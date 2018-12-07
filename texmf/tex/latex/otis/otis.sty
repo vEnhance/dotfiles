@@ -95,7 +95,7 @@
 	%	including any problem marked in {\color{red} red}.}
 	\newcommand{\goals}[2]{\bgroup
 		\sffamily\small \emph{Instructions}: Solve \clubg{#1}.
-		For hard mode, aim for \clubg{#2}.
+		If you have time, solve \clubg{#2}.
 		Problems with {\color{red} red} weights are mandatory.
 		\egroup
 	}
@@ -120,7 +120,7 @@
 
 	\ifotishandout
 		% Walkthroughs to examples
-		\newtheorem*{walkthrough}{Walkthrough}
+		\newenvironment{walkthrough}{\noindent\textbf{\color{green!70!black}Walkthrough.}}{}
 		\usepackage{answers}
 
 		\def\vonX{\@ifstar\@vonXstar\@vonX}
