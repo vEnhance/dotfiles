@@ -192,7 +192,7 @@
 \DeclareMathOperator{\Ext}{Ext} % Ext functor
 \DeclareMathOperator{\Tor}{Tor} % Tor functor
 \newcommand{\gl}{\opname{\mathfrak{gl}}} % frak gl group
-\renewcommand{\sl}{\opname{\mathfrak{sl}}} % frak gl group
+\renewcommand{\sl}{\opname{\mathfrak{sl}}} % frak sl group chktex 6
 
 % More script letters etc.
 \newcommand{\SA}{\mathcal A}
@@ -482,6 +482,7 @@
 		\setlist[walk]{label=\bfseries (\alph*)}
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
 		\usepackage{textcomp}
+		\usepackage{multirow}
 		% Tiny tiny optimizations:
 		\usepackage{mathtools}
 		\usepackage{microtype}
@@ -623,7 +624,7 @@
 		\Newassociation{hint}{hintitem}{hints}
 		\renewcommand{\solutionextension}{out}
 		\Opensolutionfile{hints}
-		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}}
+		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}} % chktex 27
 	\fi
 %%fakesection END MAIN SETUP
 \fi
