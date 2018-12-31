@@ -18,8 +18,8 @@
 \DeclareOption{nowalk}{\otishandoutwalkfalse}
 \ProcessOptions\relax
 
-\newcommand{\thelogo}{\includegraphics[width=7em]%
-{/home/evan/Documents/OTIS/logo/otis-logo-v2018-small.png}}
+\newcommand{\logopath}{/home/evan/Documents/OTIS/logo/otis-logo-v2018-small.png}
+\newcommand{\thelogo}{\includegraphics[width=6em]{\logopath}}
 \newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
 
 \ifotisexam
@@ -80,16 +80,17 @@
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
 	\usepackage[sexy,diagrams]{evan}
-	\AtBeginDocument{\date{\MakeUppercase{\jobname}}%
-	\author{Evan Chen\thanks{Internal use:
+	\AtBeginDocument{\date{\MakeUppercase{\jobname}\thanks{Internal use:
 		Olympiad Training for Individual Study (OTIS).
-		Last update \today.}}%
-	}
+		Last update \today.}}}%
+	\author{Evan Chen}
+	\titlehead{\includegraphics[width=2cm]{\logopath}\dotfill
+		\emph{\sffamily\Large Olympiad Training for Individual Study}}
 	\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
 	\def\lastupdate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
 	\renewcommand{\vonenvname}{example}
-	\ihead{\footnotesize\textbf{\theauthor} (OTIS, updated \lastupdate)}
-	\ohead{\footnotesize\textbf{\thetitle}}
+	\ihead{\footnotesize\textbf{\@author} (OTIS, updated \lastupdate)}
+	\ohead{\footnotesize\textbf{\@title}}
 	% OTIS logo at bottom
 	\cfoot{}
 	\ifoot{\thelogo}
@@ -191,7 +192,7 @@
 	\SetWatermarkLightness{0.97}
 	\SetWatermarkFontSize{32pt}
 	\SetWatermarkScale{2.718}
-	\SetWatermarkText{\shortstack{By \theauthor \\ OTIS, Internal Use}}
+	\SetWatermarkText{\shortstack{By \@author \\ OTIS, Internal Use}}
 \fi
 
 \renewcommand{\vonprefix}{von}
