@@ -1,5 +1,6 @@
 %% Package for typesetting OTIS materials
 
+\usepackage{graphicx}
 \usepackage{epic}
 \usepackage{xstring}
 \usepackage{amsthm}
@@ -17,10 +18,12 @@
 \DeclareOption{nowalk}{\otishandoutwalkfalse}
 \ProcessOptions\relax
 
+\newcommand{\thelogo}{\includegraphics[width=7em]%
+{/home/evan/Documents/OTIS/logo/otis-logo-v2018-small.png}}
+\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
+
 \ifotisexam
 	\usepackage[nofancy,diagrams]{evan}
-	\newcommand{\thelogo}{}
-	\newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
 	\usepackage{mdframed}
 
 	\newtheoremstyle{problem}% name of the style to be used
@@ -87,6 +90,10 @@
 	\renewcommand{\vonenvname}{example}
 	\ihead{\footnotesize\textbf{\theauthor} (OTIS, updated \lastupdate)}
 	\ohead{\footnotesize\textbf{\thetitle}}
+	% OTIS logo at bottom
+	\cfoot{}
+	\ifoot{\thelogo}
+	\ofoot{\thepage}
 
 	\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
 	\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
