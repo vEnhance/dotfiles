@@ -13,7 +13,6 @@
 \newif\ifevanht\evanhtfalse
 \newif\ifevanpkg\evanpkgtrue
 \newif\ifevanpdf\evanpdftrue
-\newif\ifevantitling\evantitlingtrue
 \newif\ifevanauthor\evanauthortrue
 \newif\ifevanchinese\evanchinesefalse
 \newif\ifevanmdthm\evanmdthmfalse
@@ -46,8 +45,6 @@
 \DeclareOption{ht}{\evanhttrue}
 \DeclareOption{nopdf}{\evanpdffalse}
 \DeclareOption{nopkg}{\evanpkgfalse}
-\DeclareOption{oldtitle}{\evantitlingfalse}
-\DeclareOption{newtitle}{\evantitlingtrue}
 \DeclareOption{noauthor}{\evanauthorfalse}
 \DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
 \DeclareOption{sectionmark}{\evantitlemarkfalse} % Uses \rightmark not title in ohead
@@ -489,52 +486,12 @@
 	\fi
 
 	%%fakesection \maketitle configuration
-	\ifevantitling
-	%If we have titling...
-		\usepackage{titling}
-		\@ifundefined{KOMAClassName}{}{
-			\newcommand{\thesubtitle}{}
-			\@ifundefined{chapter}{
-				% No \chapter, so small style
-				\renewcommand{\subtitle}[1]{%
-					\renewcommand{\thesubtitle}{#1}
-					\pretitle{\begin{center}\bfseries \sffamily \Large}
-					\posttitle{\\ {\normalsize \thesubtitle} \end{center}\vspace{\posttitledrop}}
-				}
-			}{
-				% \chapter exists, so large style
-				\renewcommand{\subtitle}[1]{%
-					\renewcommand{\thesubtitle}{#1}
-					\pretitle{\begin{center}\bfseries \sffamily \Huge}
-					\posttitle{\\ {\Large \thesubtitle} \end{center}\vspace{\posttitledrop}}
-				}
-			}
+	\@ifundefined{KOMAClassName}%
+		{} % do nothing outside KOMA class
+		{% If KOMA exists. . .
+		\setkomafont{author}{\Large\scshape}
+		\setkomafont{date}{\normalsize}
 		}
-		\newlength{\posttitledrop}
-		\newlength{\postauthordrop}
-		\@ifundefined{chapter}{
-			% No \chapter, so small style
-			\setlength{\posttitledrop}{-0.7em}
-			\setlength{\postauthordrop}{-1.2em}
-			\pretitle{\begin{center}\bfseries \sffamily \Large}
-			\posttitle{\end{center}\vspace{\posttitledrop}}
-			\preauthor{\begin{center} \scshape}
-			\postauthor{\end{center}\vspace{\postauthordrop}}
-			\predate{\begin{center}\small}
-			\postdate{\end{center}}
-		}{
-			% \chapter exists, so large style
-			\setlength{\droptitle}{-8cm}
-			\setlength{\posttitledrop}{1em}
-			\setlength{\postauthordrop}{0.5em}
-			\pretitle{\begin{center}\bfseries \sffamily \Huge}
-			\posttitle{\end{center}\vspace{\posttitledrop}}
-			\preauthor{\begin{center} \scshape \LARGE}
-			\postauthor{\end{center}\vspace{\postauthordrop}}
-			\predate{\begin{center} \Large}
-			\postdate{\end{center}}
-		}
-	\fi
 
 	%%fakesection Commutative diagrams support
 	\ifevandiagrams
@@ -569,15 +526,11 @@
 			\setlength{\textheight}{8.75in}
 			\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
 			\setlength{\footskip}{0.3in}
-			\ifevantitling
-				\addtolength{\posttitledrop}{0.4em}
-				\addtolength{\postauthordrop}{0.2em}
-			\fi
 			\ifevanhdr
 				\renewcommand{\headrulewidth}{0.5pt}
 				\renewcommand{\footrulewidth}{0.0pt}
 				\pagestyle{fancy}
-				\ifevantitling \lhead{\theauthor} \else \lhead{Evan Chen} \fi
+				\lhead{Evan Chen}
 				\chead{}
 				\rhead{\nouppercase{\leftmark}}
 				\lfoot{}
@@ -591,18 +544,10 @@
 			\addtolength{\textheight}{3.14cm}
 			\setlength{\footskip}{0.5in}
 			\setlength{\headsep}{10pt}
-			\ifevantitling
-				\ihead{\footnotesize\textbf{\theauthor} (\@date)}
-				\else
-				\ihead{\footnotesize\textbf{\@author} (\@date)}
-			\fi
+			\ihead{\footnotesize\textbf{\@author} (\@date)}
 			\automark{section}
 			\chead{}
-			\ifevantitlemark
-				\ohead{\footnotesize\textbf{\thetitle}}
-			\else
-				\ohead{\footnotesize\textbf{\@title}}
-			\fi
+			\ohead{\footnotesize\textbf{\@title}}
 			\cfoot{\pagemark}
 		}
 	\fi
