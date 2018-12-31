@@ -489,8 +489,9 @@
 	\@ifundefined{KOMAClassName}%
 		{} % do nothing outside KOMA class
 		{% If KOMA exists. . .
+		\addtokomafont{subtitle}{\Large}
 		\setkomafont{author}{\Large\scshape}
-		\setkomafont{date}{\normalsize}
+		\setkomafont{date}{\Large\normalsize}
 		}
 
 	%%fakesection Commutative diagrams support
