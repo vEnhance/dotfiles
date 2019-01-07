@@ -493,6 +493,9 @@
 		\setkomafont{author}{\Large\scshape}
 		\setkomafont{date}{\Large\normalsize}
 		}
+	\providecommand{\thetitle}{\@title}
+	\providecommand{\theauthor}{\@author}
+	\providecommand{\thedate}{\@date}
 
 	%%fakesection Commutative diagrams support
 	\ifevandiagrams
@@ -545,10 +548,10 @@
 			\addtolength{\textheight}{3.14cm}
 			\setlength{\footskip}{0.5in}
 			\setlength{\headsep}{10pt}
-			\ihead{\footnotesize\textbf{\@author} (\@date)}
+			\ihead{\footnotesize\textbf{\theauthor} (\thedate)}
 			\automark{section}
 			\chead{}
-			\ohead{\footnotesize\textbf{\@title}}
+			\ohead{\footnotesize\textbf{\thetitle}}
 			\cfoot{\pagemark}
 		}
 	\fi
