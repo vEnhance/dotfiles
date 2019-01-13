@@ -369,4 +369,3 @@ vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 
 nnoremap <silent> za zt7k7j
-
