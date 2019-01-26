@@ -223,8 +223,6 @@
 	\bfseries\color{green!70!black}}%
 	{\end{mdframed}}
 
-
-
 %%fakesection Asymptote setup
 \ifevanasy
 	\ifevanpatchasy
@@ -276,7 +274,7 @@
 		\usepackage[nameinlink]{cleveref}
 	\fi
 
-	%%fakesection New Theorem Styles -- mdbluebox, mdrecbox, mdinlinebox
+	%%fakesection New Theorem Styles
 	\ifevanmdthm
 		\usepackage{thmtools}
 		\usepackage[framemethod=TikZ]{mdframed}
@@ -298,7 +296,7 @@
 			postheadspace={0pt}
 		]{thmbluebox}
 
-		\mdfdefinestyle{mdrecbox}{%
+		\mdfdefinestyle{mdredbox}{%
 			linewidth=0.5pt,
 			skipabove=12pt,
 			frametitleaboveskip=5pt,
@@ -309,31 +307,56 @@
 			innerbottommargin=8pt,
 			nobreak=true,
 			backgroundcolor=Salmon!5,
+			linecolor=brown,
 		}
 		\declaretheoremstyle[
 			headfont=\bfseries\color{RawSienna},
-			mdframed={style=mdrecbox},
+			mdframed={style=mdredbox},
 			headpunct={\\[3pt]},
 			postheadspace={0pt},
-		]{thmrecbox}
+		]{thmredbox}
 
-		\mdfdefinestyle{mdinlinebox}{%
+		\mdfdefinestyle{mdgreenbox}{%
+			linewidth=0.5pt,
+			skipabove=12pt,
+			frametitleaboveskip=5pt,
+			frametitlebelowskip=0pt,
+			skipbelow=2pt,
+			frametitlefont=\bfseries,
+			innertopmargin=4pt,
+			innerbottommargin=8pt,
+			nobreak=true,
+			backgroundcolor=SpringGreen!15,
+			rightline=false,
+			leftline=false,
+			topline=false,
+			bottomline=false,
+			linecolor=green,
+		}
+		\declaretheoremstyle[
+			headfont=\bfseries\color{OliveGreen},
+			mdframed={style=mdgreenbox},
+			headpunct={\\[3pt]},
+			postheadspace={0pt},
+		]{thmgreenbox}
+
+		\mdfdefinestyle{mdblackbox}{%
 			skipabove=8pt,
 			linewidth=3pt,
 			rightline=false,
 			leftline=true,
 			topline=false,
 			bottomline=false,
-			linecolor=green,
-			backgroundcolor=green!2
+			linecolor=black,
+			backgroundcolor=gray!5,
 		}
 		\declaretheoremstyle[
-			headfont=\bfseries\color{Cerulean},
+			headfont=\bfseries,
 			bodyfont=\normalfont\small,
 			spaceabove=0pt,
 			spacebelow=0pt,
-			mdframed={style=mdinlinebox}
-		]{thminlinebox}
+			mdframed={style=mdblackbox}
+		]{thmblackbox}
 
 		\newcommand{\listhack}{$\empty$\vspace{-2em}}
 	\fi
@@ -407,8 +430,8 @@
 
 
 		\ifevanmdthm
-			\declaretheorem[style=thmrecbox,name=Example,sibling=theorem]{example}
-			\declaretheorem[style=thmrecbox,name=Example,numbered=no]{example*}
+			\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+			\declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
 		\else
 			\newtheorem{example}[theorem]{Example}
 			\newtheorem*{example*}{Example}
