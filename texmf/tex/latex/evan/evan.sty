@@ -317,27 +317,22 @@
 		]{thmredbox}
 
 		\mdfdefinestyle{mdgreenbox}{%
-			linewidth=0.5pt,
-			skipabove=12pt,
-			frametitleaboveskip=5pt,
-			frametitlebelowskip=0pt,
-			skipbelow=2pt,
-			frametitlefont=\bfseries,
-			innertopmargin=4pt,
-			innerbottommargin=8pt,
-			nobreak=true,
-			backgroundcolor=SpringGreen!15,
+			skipabove=8pt,
+			linewidth=2pt,
 			rightline=false,
-			leftline=false,
+			leftline=true,
 			topline=false,
 			bottomline=false,
-			linecolor=green,
+			linecolor=ForestGreen,
+			backgroundcolor=ForestGreen!5,
 		}
 		\declaretheoremstyle[
-			headfont=\bfseries\color{OliveGreen},
+			headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+			bodyfont=\normalfont,
+			spaceabove=2pt,
+			spacebelow=1pt,
 			mdframed={style=mdgreenbox},
-			headpunct={\\[3pt]},
-			postheadspace={0pt},
+			headpunct={ --- },
 		]{thmgreenbox}
 
 		\mdfdefinestyle{mdblackbox}{%
@@ -348,7 +343,7 @@
 			topline=false,
 			bottomline=false,
 			linecolor=black,
-			backgroundcolor=gray!5,
+			backgroundcolor=RedViolet!5!gray!5,
 		}
 		\declaretheoremstyle[
 			headfont=\bfseries,
@@ -400,34 +395,35 @@
 
 		% This ought to be a real theorem, but would be too much italics
 		\ifevanmdthm
-			\declaretheorem[style=thmbluebox,name=Algorithm,sibling=theorem]{algorithm}
+			\declaretheorem[style=thmgreenbox,name=Algorithm,sibling=theorem]{algorithm}
+			\declaretheorem[style=thmgreenbox,name=Algorithm,numbered=no]{algorithm*}
+			\declaretheorem[style=thmgreenbox,name=Claim,sibling=theorem]{claim}
+			\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
 		\else
 			\newtheorem{algorithm}[theorem]{Algorithm}
 			\newtheorem*{algorithm*}{Algorithm}
+			\newtheorem{claim}[theorem]{Claim}
+			\newtheorem*{claim*}{Claim}
 		\fi
 
-		\newtheorem{claim}[theorem]{Claim}
 		\newtheorem{conjecture}[theorem]{Conjecture}
 		\newtheorem{definition}[theorem]{Definition}
 		\newtheorem{fact}[theorem]{Fact}
-
 		\newtheorem{answer}[theorem]{Answer}
 		\newtheorem{case}[theorem]{Case}
 		\newtheorem{ques}[theorem]{Question}
 		\newtheorem{exercise}[theorem]{Exercise}
 		\newtheorem{problem}[theorem]{Problem}
 
-		\newtheorem*{answer*}{Answer}
-		\newtheorem*{case*}{Case}
-		\newtheorem*{claim*}{Claim}
 		\newtheorem*{conjecture*}{Conjecture}
 		\newtheorem*{definition*}{Definition}
 		\newtheorem*{fact*}{Fact}
+		\newtheorem*{answer*}{Answer}
+		\newtheorem*{case*}{Case}
 		\newtheorem*{joke*}{Joke}
 		\newtheorem*{ques*}{Question}
 		\newtheorem*{exercise*}{Exercise}
 		\newtheorem*{problem*}{Problem}
-
 
 		\ifevanmdthm
 			\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
@@ -439,10 +435,15 @@
 
 		% Remark-style theorems
 		%\theoremstyle{remark}
+		\ifevanmdthm
+			\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+			\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+		\else
+			\newtheorem{remark}[theorem]{Remark}
+			\newtheorem*{remark*}{Remark}
+		\fi
 		\newtheorem{note}[theorem]{Note}
-		\newtheorem{remark}[theorem]{Remark}
 		\newtheorem*{note*}{Note}
-		\newtheorem*{remark*}{Remark}
 		\newtheorem{abuse}[theorem]{Abuse of Notation}
 		\newtheorem*{abuse*}{Abuse of Notation}
 	\fi
