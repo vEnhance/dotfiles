@@ -1,5 +1,4 @@
 \ProvidesPackage{evan}
-\usepackage{amsmath,amssymb}
 %%fakesection Argument processing
 % Default Arguments
 % We include "Evan" in all of these to make sure
@@ -72,6 +71,9 @@
 
 %%fakesection Some macros
 %Small commands
+\ifevanpkg
+	\usepackage{amsmath,amssymb}
+\fi
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
@@ -247,9 +249,6 @@
 		settings.outformat="pdf";
 	\end{asydef}
 \fi
-\ifevanthm
-	\usepackage{amsthm}
-\fi
 
 %%fakesection BEGIN MAIN SETUP
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -258,10 +257,8 @@
 \ifevansetup
 	%%fakesection Set up author and date
 	\ifevanauthor
-		\AtBeginDocument{%
-			\author{Evan Chen}
-			\date{\today}
-		}
+		\author{Evan Chen}
+		\date{\today}
 	\fi
 	%%fakesection Hyperref
 	\ifevanpkg
@@ -275,7 +272,11 @@
 	\fi
 
 	%%fakesection New Theorem Styles
+	\ifevanthm
+		\usepackage{amsthm}
+	\fi
 	\ifevanmdthm
+		\usepackage{amsthm} % needed for nothm+mdthm
 		\usepackage{thmtools}
 		\usepackage[framemethod=TikZ]{mdframed}
 
