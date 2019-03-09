@@ -1,0 +1,54 @@
+%% PREAMBLE (for distribution or copy-pasting)
+%%% Load packages
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{mathrsfs}
+\usepackage[shortlabels]{enumitem}
+\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
+\usepackage{mathtools}
+\usepackage{microtype}
+%%% Colored sections
+\renewcommand*{\sectionformat}%
+	{\color{purple}\S\thesection\enskip}
+	\renewcommand*{\subsectionformat}%
+	{\color{purple}\S\thesubsection\enskip}
+	\renewcommand*{\subsubsectionformat}%
+	{\color{purple}\S\thesubsubsection\enskip}
+	\KOMAoptions{numbers=noenddot}
+%%% Title
+\addtokomafont{subtitle}{\Large}
+\setkomafont{author}{\Large\scshape}
+\setkomafont{date}{\Large\normalsize}
+%%% Page setup
+\usepackage[headsepline]{scrlayer-scrpage}
+\renewcommand{\headfont}{}
+\addtolength{\textheight}{3.14cm}
+\setlength{\footskip}{0.5in}
+\setlength{\headsep}{10pt}
+\ihead{\footnotesize\textbf{\@author} (\@date)}
+\automark{section}
+\chead{}
+\ohead{\footnotesize\textbf{\@title}}
+\cfoot{\pagemark}
+%%% Macros
+\providecommand{\ol}{\overline}
+\providecommand{\ul}{\underline}
+\providecommand{\wt}{\widetilde}
+\providecommand{\wh}{\widehat}
+\providecommand{\eps}{\varepsilon}
+\providecommand{\half}{\frac{1}{2}}
+\providecommand{\CC}{\mathbb C}
+\providecommand{\FF}{\mathbb F}
+\providecommand{\NN}{\mathbb N}
+\providecommand{\QQ}{\mathbb Q}
+\providecommand{\RR}{\mathbb R}
+\providecommand{\ZZ}{\mathbb Z}
+\providecommand{\ts}{\textsuperscript}
+\providecommand{\dg}{^\circ}
+\providecommand{\ii}{\item}
+\providecommand{\defeq}{\coloneqq}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
+%% END PREAMBLE
