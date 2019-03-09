@@ -64,7 +64,7 @@
 
 %% Typeset solutions packet
 \ifTSTsols
-	\usepackage[sexy,diagrams]{evan}
+	\usepackage[sexy,diagrams,noauthor]{evan}
 	\newcommand{\TST}[2]{%
 	\subsection{#2}
 	\voninclude[0]{#1}
@@ -80,7 +80,7 @@
 
 %% Typeset shortlist packet
 \ifTSTsl
-	\usepackage[sexy,diagrams]{evan}
+	\usepackage[sexy,diagrams,noauthor]{evan}
 	\ihead{\footnotesize\textbf{\@title}, compiled by \@author}
 	\ohead{\footnotesize \@date}
 
@@ -110,5 +110,3 @@
 	\SetWatermarkScale{2.718}
 	\SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
 \fi
-
-
