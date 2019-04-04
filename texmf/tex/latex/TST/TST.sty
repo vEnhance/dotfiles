@@ -67,7 +67,9 @@
 	\usepackage[sexy,diagrams,noauthor]{evan}
 	\newcommand{\TST}[2]{%
 	\subsection{#2}
+	\bgroup \color{Maroon}\small
 	\voninclude[0]{#1}
+	\egroup
 	\hrulebar
 	\voninclude[1]{#1}}
 	\usepackage{pdfpages}
