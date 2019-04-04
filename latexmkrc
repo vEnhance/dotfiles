@@ -1,4 +1,4 @@
-sub run_asy { return system("asy '$_[0]'"); }
+sub run_asy { return system("asy -nosafe '$_[0]'"); }
 add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
