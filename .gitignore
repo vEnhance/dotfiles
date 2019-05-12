@@ -14,3 +14,4 @@ qutebrowser/autoconfig.yml
 asy/history
 fish/fishd.*
 driveignore
+fish/fish_variables
