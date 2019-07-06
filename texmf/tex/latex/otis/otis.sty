@@ -80,9 +80,14 @@
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
 	\usepackage[sexy,diagrams]{evan}
-	\AtBeginDocument{\date{\MakeUppercase{\jobname}\thanks{Internal use:
-		Olympiad Training for Individual Study (OTIS).
-		Last update \today.}}}%
+	\setkomafont{publishers}{\small}
+	\AtBeginDocument{\publishers{\MakeUppercase{\jobname},
+		OTIS\thanks{Internal use only.
+		Selected problems belong to their
+		respective authors and organizations, as attributed.
+		Otherwise, no part of this document may be reproduced
+		or transmitted in any form or by any means,
+		without prior written permission from the author.}}}%
 	\author{Evan Chen}
 	\titlehead{\includegraphics[width=2cm]{\logopath}\dotfill
 		\emph{\sffamily\Large Olympiad Training for Individual Study}}
