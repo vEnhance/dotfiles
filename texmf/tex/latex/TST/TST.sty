@@ -27,7 +27,7 @@
 
 %% Typeset a TST style exam
 \ifTSTexam
-	\usepackage[noauthor,nohdr,diagrams]{evan}
+	\usepackage[noauthor,nohdr,nothm,diagrams]{evan}
 	\usepackage{titling}
 	\setlength{\labelsep}{10pt}
 	\setlength{\parindent}{0pt}
@@ -50,14 +50,15 @@
 	\setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
 
 	% for theorem-style exam
+	\usepackage{amsthm}
 	\newtheoremstyle{TST}%
-	{4ex} % space before
-	{2ex} % space after
+	{3ex} % space before
+	{5ex} % space after
 	{\normalfont} % body font
 	{0pt} % indent
 	{\bfseries} % head font
 	{.} % head punctuation
-	{ } % space after head
+	{0.7em plus 0.2em minus 0.2em} % space after head
 	{} % manually specify head
 	\theoremstyle{TST}
 
@@ -68,13 +69,17 @@
 %% Typeset solutions packet
 \ifTSTsols
 	\usepackage[sexy,diagrams,noauthor]{evan}
+	\newenvironment{TSTsol}[2]{%
+		\subsection{#2}
+		\bgroup\color{Maroon}\small
+		\voninclude[0]{#1}
+		\egroup\hrulebar}%
+		{\pagebreak}
 	\newcommand{\TST}[2]{%
-	\subsection{#2}
-	\bgroup \color{Maroon}\small
-	\voninclude[0]{#1}
-	\egroup
-	\hrulebar
-	\voninclude[1]{#1}\pagebreak}
+		\begin{TSTsol}{#1}{#2}
+		\voninclude[1]{#1}
+		\end{TSTsol}}
+
 	\usepackage{pdfpages}
 	\ihead{\footnotesize\bfseries\thetitle}
 	\ohead{\footnotesize\theauthor}
