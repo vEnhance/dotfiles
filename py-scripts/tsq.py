@@ -107,7 +107,7 @@ pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
 // cse5 abbrevations
 path CP(pair P, pair A) { return circle(P, abs(A-P)); }
 path CR(pair P, real r) { return circle(P, r); }
-pair IP(path p, path q) { return intersectionpoint(p,q); }
+pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
 pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
 path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
 '''.strip()
