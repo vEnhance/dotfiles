@@ -8,7 +8,7 @@ fi
 if pgrep stepmania > /dev/null
 then
 	echo "Stepmania running"
-	xset s off -dpms # don't blank screen if stepmania is running
+	# xset s off -dpms # don't blank screen if stepmania is running
 	exit
 fi
 
