@@ -13,9 +13,9 @@
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
-# is used in the bar {} block below.
-font pango:DejaVu Sans Mono 9
-# font pango:Inconsolata 8
+# is used in the bar {} block below (it is).
+font pango:DejaVu Sans Mono 11
+# font pango:Inconsolata 11
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -39,7 +39,7 @@ bindsym $mod+l focus right
 
 #bindsym $mod+Left  workspace prev
 #bindsym $mod+Right workspace next
- 
+
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
@@ -151,7 +151,7 @@ bindsym $mod+m mode "move"
 bar {
     id main-bar
     status_command i3status
-    font pango:DejaVu Sans Mono 10
+    font pango:DejaVu Sans Mono 12
     strip_workspace_numbers yes
 }
 
@@ -177,10 +177,5 @@ mode "control" {
 bindsym $mod+Escape mode "control"
 
 workspace_layout stacked
-
-# === CUSTOM STARTUP ===
-# exec xfce4-power-manager
-exec nm-applet --no-startup-id
-exec xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
 
 # vim: expandtab
