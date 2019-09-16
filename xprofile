@@ -25,17 +25,23 @@ if [ "$HOSTNAME" = ArchAir ]; then
 	synclient TapButton2=0           # Disable double tap to paste
 	synclient RightButtonAreaRight=1 # Remap mouse buttons
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
-	conky &
 	cbatticon -u 300 &
+	xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
+	nm-applet --no-startup-id &
 fi
 if [ "$HOSTNAME" = ArchMega ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	conky &
+	xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
+	nm-applet --no-startup-id &
 fi
 if [ "$HOSTNAME" = ArchAngel ]; then
 	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xautolock -time 128 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
+	nm-applet --no-startup-id &
+	xset s 0 dpms 3600 3600 3600
+	export QT_SCALE_FACTOR=2.5
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
@@ -47,6 +53,9 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	synclient RightButtonAreaTop=0   # Remap mouse buttons
 	cbatticon -u 300 &
+	xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
+	nm-applet --no-startup-id &
+	compton -b
 fi
 
 # Make sure we're in Dvorak
@@ -59,6 +68,3 @@ export GTK_IM_MODULE=ibus
 
 # Use Fish as shell
 export SHELL='/bin/fish'
-
-# VLC
-export QT_AUTO_SCREEN_SCALE_FACTOR=0
