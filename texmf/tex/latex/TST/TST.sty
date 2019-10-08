@@ -90,9 +90,19 @@
 
 %% Typeset shortlist packet
 \ifTSTsl
-	\usepackage[sexy,diagrams,noauthor]{evan}
-	\ihead{\footnotesize\textbf{\@title}, compiled by \@author}
-	\ohead{\footnotesize \@date}
+	\usepackage[nosecthm,sexy,diagrams,noauthor]{evan}
+	\usepackage{datetime}
+	\renewcommand{\dateseparator}{-}
+	\yyyymmdddate
+	\@ifundefined{KOMAClassName}
+	{
+		\lhead{\footnotesize\textbf{\@title}}
+		\rhead{\footnotesize \today\ \currenttime}
+	}
+	{
+		\ihead{\footnotesize\textbf{\@title}}
+		\ohead{\footnotesize \today\ \currenttime}
+	}
 
 	% formatting for shortlist problems
 	\newtheoremstyle{shortlist}%
@@ -106,6 +116,9 @@
 	{} % manually specify head
 	\theoremstyle{shortlist}
 	\newtheorem{prob}{}[section]
+	
+	\numberwithin{theorem}{subsection}
+	\renewcommand{\thetheorem}{\arabic{theorem}}
 
 	\allowdisplaybreaks
 \fi
