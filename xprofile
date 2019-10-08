@@ -63,7 +63,8 @@ fi
 setxkbmap dvorak -option caps:escape
 
 # Set Chinese for X
-export LANG="zh_TW.UTF-8"
+# export LANG="zh_TW.UTF-8"
+
 # for Chinese input
 export GTK_IM_MODULE=ibus
 
