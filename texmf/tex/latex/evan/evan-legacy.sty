@@ -1,0 +1,611 @@
+%% evan.sty LEGACY VERSION
+%% This was last updated on August 8, 2019,
+%% and notably still imports olympiad and cse5 in asymptote.
+%% It is retained for backwards compatibility with
+%% my older documents in which figures may not re-compile
+%% correctly with the older version.
+
+\ProvidesPackage{evan}
+%%fakesection Argument processing
+% Default Arguments
+% We include "Evan" in all of these to make sure
+% that they don't collide with anything in external packages
+\newif\ifevanfancy\evanfancytrue
+\newif\ifevanhdr\evanhdrtrue
+\newif\ifevanhref\evanhreftrue
+\newif\ifevansetup\evansetuptrue
+\newif\ifevanthm\evanthmtrue
+\newif\ifevansecthm\evansecthmfalse
+\newif\ifevanht\evanhtfalse
+\newif\ifevanpkg\evanpkgtrue
+\newif\ifevanpdf\evanpdftrue
+\newif\ifevanauthor\evanauthortrue
+\newif\ifevanchinese\evanchinesefalse
+\newif\ifevanmdthm\evanmdthmfalse
+\newif\ifevandiagrams\evandiagramsfalse
+\newif\ifevanpatchasy\evanpatchasyfalse
+\newif\ifevanhints\evanhintsfalse
+\newif\ifevanasy\evanasytrue
+\newif\ifevancolorsec\evancolorsecfalse
+\newif\ifevantitlemark\evantitlemarktrue
+
+%Receive Arguments
+\DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
+% allow href to override this one
+
+\DeclareOption{sexy}{\evansecthmtrue\evanmdthmtrue\evancolorsectrue} % long docs
+
+\DeclareOption{fancy}{\evanfancytrue}
+\DeclareOption{nofancy}{\evanfancyfalse}
+\DeclareOption{hdr}{\evanhdrtrue}
+\DeclareOption{nohdr}{\evanhdrfalse}
+\DeclareOption{href}{\evanhreftrue}
+\DeclareOption{nohref}{\evanhreffalse}
+
+\DeclareOption{nosetup}{\evansetupfalse}
+\DeclareOption{thm}{\evanthmtrue}
+\DeclareOption{nothm}{\evanthmfalse}
+\DeclareOption{secthm}{\evansecthmtrue}
+\DeclareOption{nosecthm}{\evansecthmfalse}
+
+\DeclareOption{ht}{\evanhttrue}
+\DeclareOption{nopdf}{\evanpdffalse}
+\DeclareOption{nopkg}{\evanpkgfalse}
+\DeclareOption{noauthor}{\evanauthorfalse}
+\DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
+\DeclareOption{sectionmark}{\evantitlemarkfalse} % Uses \rightmark not title in ohead
+
+\DeclareOption{mdthm}{\evanmdthmtrue}
+\DeclareOption{nomdthm}{\evanmdthmfalse}
+\DeclareOption{diagrams}{\evandiagramstrue}
+\DeclareOption{nodiagrams}{\evandiagramsfalse}
+\DeclareOption{colorsec}{\evancolorsectrue}
+\DeclareOption{nocolorsec}{\evancolorsecfalse}
+
+\DeclareOption{patchasy}{\evanpatchasytrue}
+\DeclareOption{noasy}{\evanasyfalse}
+
+\DeclareOption{hints}{\evanhintstrue}
+
+\ProcessOptions\relax
+
+% if packages not loaded, turn off mdthm and asy
+\ifevanpkg\else\evanmdthmfalse\fi
+\ifevanpkg\else\evanasyfalse\fi
+
+% If no setup, turn off theorems
+\ifevansetup\else\evanthmfalse\fi
+
+%%fakesection Some macros
+%Small commands
+\ifevanpkg
+	\usepackage{amsmath,amssymb}
+\fi
+\newcommand{\cbrt}[1]{\sqrt[3]{#1}}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\mailto}[1]{\href{mailto:#1}{\texttt{#1}}}
+\newcommand{\ol}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+\newcommand{\eps}{\varepsilon}
+%\renewcommand{\iff}{\Leftrightarrow}
+%\renewcommand{\implies}{\Rightarrow}
+\newcommand{\vocab}[1]{\textbf{\color{blue} #1}}
+\providecommand{\alert}{\vocab}
+\providecommand{\half}{\frac{1}{2}}
+\newcommand{\catname}{\mathsf}
+\newcommand{\hrulebar}{
+  \par\hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
+  \par\nointerlineskip \vspace{\baselineskip}
+}
+
+%For use in author command
+\newcommand{\plusemail}[1]{\\ \normalfont \texttt{\mailto{#1}}}
+
+%More commands and math operators
+\DeclareMathOperator{\cis}{cis}
+\DeclareMathOperator*{\lcm}{lcm}
+\DeclareMathOperator*{\argmin}{arg min}
+\DeclareMathOperator*{\argmax}{arg max}
+
+%Convenient Environments
+\newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
+\newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
+\newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
+
+%Inequalities
+\newcommand{\cycsum}{\sum_{\mathrm{cyc}}}
+\newcommand{\symsum}{\sum_{\mathrm{sym}}}
+\newcommand{\cycprod}{\prod_{\mathrm{cyc}}}
+\newcommand{\symprod}{\prod_{\mathrm{sym}}}
+
+%From H113 "Introduction to Abstract Algebra" at UC Berkeley
+\newcommand{\CC}{\mathbb C}
+\newcommand{\FF}{\mathbb F}
+\newcommand{\NN}{\mathbb N}
+\newcommand{\QQ}{\mathbb Q}
+\newcommand{\RR}{\mathbb R}
+\newcommand{\ZZ}{\mathbb Z}
+\newcommand{\charin}{\text{ char }}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\Inn}{Inn}
+\DeclareMathOperator{\Syl}{Syl}
+\DeclareMathOperator{\Gal}{Gal}
+\DeclareMathOperator{\GL}{GL} % General linear group
+\DeclareMathOperator{\SL}{SL} % Special linear group
+
+%From Kiran Kedlaya's "Geometry Unbound"
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\dang}{\measuredangle} %% Directed angle
+\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\seg}[1]{\overline{#1}}
+\newcommand{\arc}[1]{\wideparen{#1}}
+
+%From M275 "Topology" at SJSU
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\taking}[1]{\xrightarrow{#1}}
+\newcommand{\inv}{^{-1}}
+
+%From M170 "Introduction to Graph Theory" at SJSU
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\ord}{ord}
+\newcommand{\defeq}{\overset{\mathrm{def}}{=}}
+
+%From the USAMO .tex files
+\newcommand{\ts}{\textsuperscript}
+\newcommand{\dg}{^\circ}
+\newcommand{\ii}{\item}
+
+% From Math 55 and Math 145 at Harvard
+\newenvironment{subproof}[1][Proof]{%
+\begin{proof}[#1] \renewcommand{\qedsymbol}{$\blacksquare$}}%
+{\end{proof}}
+
+\newcommand{\liff}{\leftrightarrow}
+\newcommand{\lthen}{\rightarrow}
+\newcommand{\opname}{\operatorname}
+\newcommand{\surjto}{\twoheadrightarrow}
+\newcommand{\injto}{\hookrightarrow}
+\newcommand{\On}{\mathrm{On}} % ordinals
+\DeclareMathOperator{\img}{im} % Image
+\DeclareMathOperator{\Img}{Im} % Image
+\DeclareMathOperator{\coker}{coker} % Cokernel
+\DeclareMathOperator{\Coker}{Coker} % Cokernel
+\DeclareMathOperator{\Ker}{Ker} % Kernel
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Spec}{Spec} % spectrum
+\DeclareMathOperator{\Tr}{Tr} % trace
+\DeclareMathOperator{\pr}{pr} % projection
+\DeclareMathOperator{\ext}{ext} % extension
+\DeclareMathOperator{\pred}{pred} % predecessor
+\DeclareMathOperator{\dom}{dom} % domain
+\DeclareMathOperator{\ran}{ran} % range
+\DeclareMathOperator{\Hom}{Hom} % homomorphism
+\DeclareMathOperator{\Mor}{Mor} % morphisms
+\DeclareMathOperator{\End}{End} % endomorphism
+
+% Things Lie
+\newcommand{\kb}{\mathfrak b}
+\newcommand{\kg}{\mathfrak g}
+\newcommand{\kh}{\mathfrak h}
+\newcommand{\kn}{\mathfrak n}
+\newcommand{\ku}{\mathfrak u}
+\newcommand{\kz}{\mathfrak z}
+\DeclareMathOperator{\Ext}{Ext} % Ext functor
+\DeclareMathOperator{\Tor}{Tor} % Tor functor
+\newcommand{\gl}{\opname{\mathfrak{gl}}} % frak gl group
+\renewcommand{\sl}{\opname{\mathfrak{sl}}} % frak sl group chktex 6
+
+% More script letters etc.
+\newcommand{\SA}{\mathcal A}
+\newcommand{\SB}{\mathcal B}
+\newcommand{\SC}{\mathcal C}
+\newcommand{\SF}{\mathcal F}
+\newcommand{\SG}{\mathcal G}
+\newcommand{\SH}{\mathcal H}
+\newcommand{\OO}{\mathcal O}
+
+\newcommand{\SCA}{\mathscr A}
+\newcommand{\SCB}{\mathscr B}
+\newcommand{\SCC}{\mathscr C}
+\newcommand{\SCD}{\mathscr D}
+\newcommand{\SCE}{\mathscr E}
+\newcommand{\SCF}{\mathscr F}
+\newcommand{\SCG}{\mathscr G}
+\newcommand{\SCH}{\mathscr H}
+
+% Mathfrak primes
+\newcommand{\km}{\mathfrak m}
+\newcommand{\kp}{\mathfrak p}
+\newcommand{\kq}{\mathfrak q}
+
+%% Napkin commands
+\newcommand{\prototype}[1]{
+	\emph{{\color{red} Prototypical example for this section:} #1} \par\medskip
+}
+\newenvironment{moral}{%
+	\begin{mdframed}[linecolor=green!70!black]%
+	\bfseries\color{green!70!black}}%
+	{\end{mdframed}}
+
+%%fakesection Asymptote setup
+\ifevanasy
+	\ifevanpatchasy
+		\usepackage{patch-asy}
+	\else
+		\usepackage{asymptote}
+	\fi
+	\begin{asydef}
+		import olympiad;
+		import cse5;
+		pointpen = black;
+		pathpen = black;
+		pathfontpen = black;
+		anglepen = black;
+		anglefontpen = black;
+		pointfontsize = 10;
+		defaultpen(fontsize(10pt));
+		size(8cm); // set a reasonable default
+		usepackage("amsmath");
+		usepackage("amssymb");
+		settings.tex="latex";
+		settings.outformat="pdf";
+	\end{asydef}
+\fi
+
+%%fakesection BEGIN MAIN SETUP
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\ifevansetup
+	%%fakesection Set up author and date
+	\ifevanauthor
+		\author{Evan Chen}
+		\date{\today}
+	\fi
+	%%fakesection Hyperref
+	\ifevanpkg
+		\PassOptionsToPackage{usenames,svgnames,dvipsnames}{xcolor}
+		\usepackage{xcolor}
+		\ifevanhref
+			\usepackage[colorlinks=true]{hyperref}
+			\hypersetup{urlcolor=RubineRed,linkcolor=RoyalBlue,citecolor=ForestGreen}
+		\fi
+		\usepackage[nameinlink]{cleveref}
+	\fi
+
+	%%fakesection New Theorem Styles
+	\ifevanthm
+		\usepackage{amsthm}
+	\fi
+	\ifevanmdthm
+		\usepackage{amsthm} % needed for nothm+mdthm
+		\usepackage{thmtools}
+		\usepackage[framemethod=TikZ]{mdframed}
+
+		\mdfdefinestyle{mdbluebox}{%
+			roundcorner = 10pt,
+			linewidth=1pt,
+			skipabove=12pt,
+			innerbottommargin=9pt,
+			skipbelow=2pt,
+			linecolor=blue,
+			nobreak=true,
+			backgroundcolor=TealBlue!5,
+		}
+		\declaretheoremstyle[
+			headfont=\sffamily\bfseries\color{MidnightBlue},
+			mdframed={style=mdbluebox},
+			headpunct={\\[3pt]},
+			postheadspace={0pt}
+		]{thmbluebox}
+
+		\mdfdefinestyle{mdredbox}{%
+			linewidth=0.5pt,
+			skipabove=12pt,
+			frametitleaboveskip=5pt,
+			frametitlebelowskip=0pt,
+			skipbelow=2pt,
+			frametitlefont=\bfseries,
+			innertopmargin=4pt,
+			innerbottommargin=8pt,
+			nobreak=true,
+			backgroundcolor=Salmon!5,
+			linecolor=RawSienna,
+		}
+		\declaretheoremstyle[
+			headfont=\bfseries\color{RawSienna},
+			mdframed={style=mdredbox},
+			headpunct={\\[3pt]},
+			postheadspace={0pt},
+		]{thmredbox}
+
+		\mdfdefinestyle{mdgreenbox}{%
+			skipabove=8pt,
+			linewidth=2pt,
+			rightline=false,
+			leftline=true,
+			topline=false,
+			bottomline=false,
+			linecolor=ForestGreen,
+			backgroundcolor=ForestGreen!5,
+		}
+		\declaretheoremstyle[
+			headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+			bodyfont=\normalfont,
+			spaceabove=2pt,
+			spacebelow=1pt,
+			mdframed={style=mdgreenbox},
+			headpunct={ --- },
+		]{thmgreenbox}
+
+		\mdfdefinestyle{mdblackbox}{%
+			skipabove=8pt,
+			linewidth=3pt,
+			rightline=false,
+			leftline=true,
+			topline=false,
+			bottomline=false,
+			linecolor=black,
+			backgroundcolor=RedViolet!5!gray!5,
+		}
+		\declaretheoremstyle[
+			headfont=\bfseries,
+			bodyfont=\normalfont\small,
+			spaceabove=0pt,
+			spacebelow=0pt,
+			mdframed={style=mdblackbox}
+		]{thmblackbox}
+
+		\newcommand{\listhack}{$\empty$\vspace{-2em}}
+	\fi
+
+	%%fakesection Theorem setup
+	\ifevanthm
+		\theoremstyle{plain}
+		%Branching here: the option secthm changes theorems to be labelled by section
+		\ifevanmdthm
+			\ifevansecthm
+				\declaretheorem[%
+				style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+			\else
+				\declaretheorem[%
+				style=thmbluebox,name=Theorem]{theorem}
+			\fi
+			\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
+			\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
+			\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+			\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
+			\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
+			\declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
+			\declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
+		\else
+			\ifevansecthm
+				\newtheorem{theorem}{Theorem}[section]
+			\else
+				\newtheorem{theorem}{Theorem}
+			\fi
+			\newtheorem{lemma}[theorem]{Lemma}
+			\newtheorem{proposition}[theorem]{Proposition}
+			\newtheorem{corollary}[theorem]{Corollary}
+			\newtheorem*{theorem*}{Theorem}
+			\newtheorem*{lemma*}{Lemma}
+			\newtheorem*{proposition*}{Proposition}
+			\newtheorem*{corollary*}{Corollary}
+		\fi
+			
+		%Def-style theorems
+		\theoremstyle{definition}
+
+		% This ought to be a real theorem, but would be too much italics
+		\ifevanmdthm
+			\declaretheorem[style=thmgreenbox,name=Algorithm,sibling=theorem]{algorithm}
+			\declaretheorem[style=thmgreenbox,name=Algorithm,numbered=no]{algorithm*}
+			\declaretheorem[style=thmgreenbox,name=Claim,sibling=theorem]{claim}
+			\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+		\else
+			\newtheorem{algorithm}[theorem]{Algorithm}
+			\newtheorem*{algorithm*}{Algorithm}
+			\newtheorem{claim}[theorem]{Claim}
+			\newtheorem*{claim*}{Claim}
+		\fi
+
+		\newtheorem{conjecture}[theorem]{Conjecture}
+		\newtheorem{definition}[theorem]{Definition}
+		\newtheorem{fact}[theorem]{Fact}
+		\newtheorem{answer}[theorem]{Answer}
+		\newtheorem{case}[theorem]{Case}
+		\newtheorem{ques}[theorem]{Question}
+		\newtheorem{exercise}[theorem]{Exercise}
+		\newtheorem{problem}[theorem]{Problem}
+
+		\newtheorem*{conjecture*}{Conjecture}
+		\newtheorem*{definition*}{Definition}
+		\newtheorem*{fact*}{Fact}
+		\newtheorem*{answer*}{Answer}
+		\newtheorem*{case*}{Case}
+		\newtheorem*{joke*}{Joke}
+		\newtheorem*{ques*}{Question}
+		\newtheorem*{exercise*}{Exercise}
+		\newtheorem*{problem*}{Problem}
+
+		\ifevanmdthm
+			\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
+			\declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
+		\else
+			\newtheorem{example}[theorem]{Example}
+			\newtheorem*{example*}{Example}
+		\fi
+
+		% Remark-style theorems
+		%\theoremstyle{remark}
+		\ifevanmdthm
+			\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
+			\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+		\else
+			\newtheorem{remark}[theorem]{Remark}
+			\newtheorem*{remark*}{Remark}
+		\fi
+		\newtheorem{note}[theorem]{Note}
+		\newtheorem*{note*}{Note}
+		\newtheorem{abuse}[theorem]{Abuse of Notation}
+		\newtheorem*{abuse*}{Abuse of Notation}
+	\fi
+
+	%%fakesection Fancy section and chapter heads
+	\ifevancolorsec
+		\@ifundefined{KOMAClassName}{}{
+			\@ifundefined{chapter}{}{
+				\addtokomafont{partprefix}{\rmfamily}
+				\renewcommand*{\partformat}{\color{purple}
+					\scalebox{2.5}{\thepart}\enlargethispage{2em}}
+				\addtokomafont{chapterprefix}{\raggedleft}
+				\RedeclareSectionCommand[beforeskip=0.5em]{chapter}
+				\renewcommand*{\chapterformat}{\mbox{%
+					\scalebox{1.5}{\chapappifchapterprefix{\nobreakspace}}%
+					\scalebox{2.718}{\color{purple}\thechapter}\enskip}}
+			}
+			\renewcommand*{\sectionformat}%
+				{\color{purple}\S\thesection\enskip}
+			\renewcommand*{\subsectionformat}%
+				{\color{purple}\S\thesubsection\enskip}
+			\renewcommand*{\subsubsectionformat}%
+				{\color{purple}\S\thesubsubsection\enskip}
+			\KOMAoptions{numbers=noenddot}
+			\usepackage[tocindentauto]{tocstyle}
+			\usetocstyle{KOMAlike}
+		}
+	\fi
+
+
+	%%fakesection Loads a bunch of useful packages (but allow disabling)
+	\ifevanpkg
+		\IfFileExists{von.sty}{\usepackage{von}}{}
+		\usepackage{listings}
+		\usepackage{mathrsfs}
+		\usepackage{textcomp}
+		\lstset{basicstyle=\footnotesize\ttfamily,
+			numbers=left,
+			numbersep=5pt,
+			numberstyle=\tiny,
+			keywordstyle=\bfseries,
+			% title=\lstname,
+			showstringspaces=false,
+			tabsize=4,
+			frame=single,
+			keywordstyle=\bfseries\color{blue},
+			commentstyle=\color{green!70!black},
+			identifierstyle=\color{green!20!black},
+			stringstyle=\color{orange},
+			breaklines=true,
+			breakatwhitespace=true,
+			frame=none
+		}
+		\usepackage[shortlabels]{enumitem}
+		% a list I like for walkthrough's --- Drew-style parts
+		\newlist{walk}{enumerate}{3}
+		\setlist[walk]{label=\bfseries (\alph*)}
+		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
+		\usepackage{textcomp}
+		\usepackage{multirow}
+		% Tiny tiny optimizations:
+		\usepackage{mathtools}
+		\usepackage{microtype}
+	\fi
+
+	%%fakesection \maketitle configuration
+	\@ifundefined{KOMAClassName}%
+		{} % do nothing outside KOMA class
+		{% If KOMA exists. . .
+		\addtokomafont{subtitle}{\Large}
+		\setkomafont{author}{\Large\scshape}
+		\setkomafont{date}{\Large\normalsize}
+		}
+	\providecommand{\thetitle}{\@title}
+	\providecommand{\theauthor}{\@author}
+	\providecommand{\thedate}{\@date}
+
+	%%fakesection Commutative diagrams support
+	\ifevandiagrams
+		\usepackage{diagrams}
+		\newarrow{Inj}C--->
+		\newarrow{Surj}----{>>}
+		\newarrow{Proj}----{>>}
+		\newarrow{Embed}>--->
+		\newarrow{Incl}C--->
+		\newarrow{Mapsto}|--->
+		\newarrow{Isom}<--->
+		\newarrow{Dotted}....>
+		\newarrow{Dashed}{}{dash}{}{dash}>
+		\newarrow{Line}-----
+		\usepackage{tikz-cd}
+		\usetikzlibrary{decorations.pathmorphing}
+		\tikzcdset{row sep/normal=3.14em,column sep/normal=3.14em}
+	\fi
+
+	%%fakesection Page Setup
+	\ifevanfancy
+		\@ifundefined{KOMAClassName}
+		{
+			\usepackage{fancyhdr}
+			\setlength{\headheight}{0.75in}
+			\setlength{\oddsidemargin}{0in}
+			\setlength{\evensidemargin}{0in}
+			\setlength{\voffset}{-1.0in}
+			\setlength{\headsep}{10pt}
+			\setlength{\textwidth}{6.5in}
+			\setlength{\headwidth}{6.5in}
+			\setlength{\textheight}{8.75in}
+			\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+			\setlength{\footskip}{0.3in}
+			\ifevanhdr
+				\renewcommand{\headrulewidth}{0.5pt}
+				\renewcommand{\footrulewidth}{0.0pt}
+				\pagestyle{fancy}
+				\lhead{Evan Chen}
+				\chead{}
+				\rhead{\nouppercase{\leftmark}}
+				\lfoot{}
+				\cfoot{\thepage}
+				\rfoot{}
+			\fi
+		}
+		{
+			\usepackage[headsepline]{scrlayer-scrpage}
+			\renewcommand{\headfont}{}
+			\addtolength{\textheight}{3.14cm}
+			\setlength{\footskip}{0.5in}
+			\setlength{\headsep}{10pt}
+			\ihead{\footnotesize\textbf{\theauthor} (\thedate)}
+			\automark{section}
+			\chead{}
+			\ohead{\footnotesize\textbf{\thetitle}}
+			\cfoot{\pagemark}
+		}
+	\fi
+
+	%%fakesection Chinese support
+	\ifevanchinese
+		\usepackage[encapsulated]{CJK}
+		\usepackage{ucs}
+		\usepackage[utf8x]{inputenc}
+		\newenvironment{bsmi}{\begin{CJK}{UTF8}{bsmi}}{\end{CJK}}
+		\newcommand{\cn}[1]{\begin{bsmi}#1\end{bsmi}}
+		\AtBeginDocument{\begin{CJK}{UTF8}{bsmi}}
+		\AtEndDocument{\end{CJK}}
+	\fi
+
+	%%fakesection Hints
+	\ifevanhints
+		\usepackage{answers}
+		\Newassociation{hint}{hintitem}{hints}
+		\renewcommand{\solutionextension}{out}
+		\Opensolutionfile{hints}
+		\newcommand{\makehints}{\Closesolutionfile{hints}\input{hints.out}} % chktex 27
+	\fi
+%%fakesection END MAIN SETUP
+\fi
