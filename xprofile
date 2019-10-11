@@ -40,8 +40,8 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 128 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
 	nm-applet --no-startup-id &
-	xset s 0 dpms 3600 3600 3600
 	export QT_SCALE_FACTOR=3.0
+	xfce4-power-manager
 	compton -b
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
@@ -53,9 +53,10 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	synclient TapButton1=0           # Disable tap to click
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	synclient RightButtonAreaTop=0   # Remap mouse buttons
-	cbatticon -u 300 &
+	# cbatticon -u 300 &
 	xautolock -time 7 -locker '/home/evan/dotfiles/fuzzy-lock.sh' &
 	nm-applet --no-startup-id &
+	xfce4-power-manager
 	compton -b
 fi
 
