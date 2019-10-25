@@ -1,5 +1,7 @@
 ## qutebrowser config.py
 
+config.load_autoconfig()
+
 c.backend = 'webengine'
 c.content.pdfjs =  True
 c.statusbar.hide = False
