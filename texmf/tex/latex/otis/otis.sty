@@ -121,7 +121,7 @@
 	\newtheorem{probMR}[probOTIS]{\clubr{3} Problem}
 	\newtheorem{probHR}[probOTIS]{\clubr{5} Problem}
 	\newtheorem{probZR}[probOTIS]{\clubr{9} Problem}
-	\newtheorem*{probSurvey}{\clubs{1} Survey}
+	\newtheorem*{probSurvey}{\clubs{1} Mini Survey}
 
 	\newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
 	\newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
@@ -179,19 +179,17 @@
 		\AtBeginDocument{\Opensolutionfile{exanswers}[von/exsol-\jobname]}
 		\AtEndDocument{
 			\begin{probSurvey}
-			At the end of your submission,
-			answer the following optional questions.
+			Answer the following optional questions.
 			\begin{enumerate}[(a)]
-				\item How long did the problem set take?
-				Did the goal feel too low or high?
-				\item Name any problems that stood out to you
+				\item About how many hours did the problem set take?
+				\item Name any problems that stood out
 				(e.g.\ especially nice, instructive,
 				boring, or unusually easy/hard for its placement).
 			\end{enumerate}
 			Any other thoughts are welcome too.
-			Examples: unusually easy or hard,
-			suggestions for new problems to add,
-			things I could add to the lecture notes.
+			Examples: suggestions for new problems to add,
+			things I could explain better in the notes,
+			overall difficulty or usefulness of the unit.
 			\end{probSurvey}
 		}
 		\ifotishandoutwalk
