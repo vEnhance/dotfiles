@@ -160,7 +160,7 @@ bar {
 # === CUSTOM SHORTCUTS ===
 bindsym $mod+q exec --no-startup-id qutebrowser
 bindsym $mod+g exec '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-bindsym $mod+t exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "Power status" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
+bindsym $mod+t exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
 
 mode "control" {
