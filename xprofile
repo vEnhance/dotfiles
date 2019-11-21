@@ -41,7 +41,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	nm-applet --no-startup-id &
 	export QT_SCALE_FACTOR=3.0
-	compton -b
+	picom -b
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
@@ -55,7 +55,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	# cbatticon -u 300 &
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	nm-applet --no-startup-id &
-	compton -b
+	picom -b
 fi
 
 # Make sure we're in Dvorak
