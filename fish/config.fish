@@ -110,7 +110,7 @@ alias s3='aws s3'
 export PYTHONPATH="$PYTHONPATH:/home/evan/Documents/Projects/"
 
 alias pudb='python2 -m pudb.run'
-alias dropcli='python2 ~/dotfiles/py-scripts/dropbox.py'
+alias dropcli='dropbox-cli'
 alias trash='gio trash'
 alias emacs='vim' # Sorry, can't help it
 alias gogogo='startx'
