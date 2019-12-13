@@ -69,16 +69,20 @@
 %% Typeset solutions packet
 \ifTSTsols
 	\usepackage[sexy,diagrams,noauthor]{evan}
-	\newenvironment{TSTsol}[2]{%
-		\subsection{#2}
-		\bgroup\color{Maroon}\small
+	\newenvironment{TSTprob}%
+		{\color{Maroon}\small}
+		{\medskip\hrulebar\medskip}
+	\newcommand{\TSTpvon}[1]{%
+		\begin{TSTprob}
 		\voninclude[0]{#1}
-		\egroup\hrulebar}%
-		{\pagebreak}
-	\newcommand{\TST}[2]{%
-		\begin{TSTsol}{#1}{#2}
+		\end{TSTprob}}
+	\newcommand{\TSTpsvon}[1]{%
+		\begin{TSTprob}
+		\voninclude[0]{#1}
+		\end{TSTprob}
 		\voninclude[1]{#1}
-		\end{TSTsol}}
+		\pagebreak}
+	\newcommand{\TST}[2]{\subsection{#2}\TSTpsvon{#1}}
 
 	\usepackage{pdfpages}
 	\ihead{\footnotesize\bfseries\thetitle}
