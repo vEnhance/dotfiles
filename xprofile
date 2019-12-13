@@ -27,19 +27,16 @@ if [ "$HOSTNAME" = ArchAir ]; then
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	cbatticon -u 300 &
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	nm-applet --no-startup-id &
 fi
 if [ "$HOSTNAME" = ArchMega ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	nm-applet --no-startup-id &
 fi
 if [ "$HOSTNAME" = ArchAngel ]; then
 	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	nm-applet --no-startup-id &
 	export QT_SCALE_FACTOR=3.0
 	picom -b
 fi
@@ -47,15 +44,17 @@ if [ "$HOSTNAME" = Inspiron ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 fi
 if [ "$HOSTNAME" = ArchScythe ]; then
-	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	synclient TapButton1=0           # Disable tap to click
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
-	synclient RightButtonAreaTop=0   # Remap mouse buttons
+	# remap mouse buttons
+	synclient RightButtonAreaTop=0
+	# synclient RightButtonAreaLeft=0
+	# synclient RightButtonAreaRight=1560
 	# cbatticon -u 300 &
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	nm-applet --no-startup-id &
 	picom -b
+	dropbox & # Dropbox
 fi
 
 # Make sure we're in Dvorak
