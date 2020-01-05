@@ -116,7 +116,7 @@ if opts.preamble:
 	print("defaultpen(fontsize(%s));" % opts.fontsize)
 	print("size(%s);" %opts.size)
 	print(GENERIC_PREAMBLE)
-if opts.fname is not '':
+if opts.fname != '':
 	stream = open(opts.fname, 'r')
 else:
 	stream = sys.stdin
