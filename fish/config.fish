@@ -146,6 +146,10 @@ function hunt ()
 	ls -l --color=tty
 end
 
+function pdfenc --argument-names 'infile' 'outfile' 'password' 
+	qpdf --encrypt "$password" "$password" 128 --print=none --modify=none -- $infile $outfile
+end
+
 set -x LESS_TERMCAP_md (printf "\e[01;31m")
 set -x LESS_TERMCAP_me (printf "\e[0m")
 set -x LESS_TERMCAP_se (printf "\e[0m")
