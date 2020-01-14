@@ -91,6 +91,8 @@ Plug 'SirVer/ultisnips'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'qpkorr/vim-renamer'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 " Plug 'chrisbra/csv.vim'
 
 " YCM stopped working, will fix one day but for now...
