@@ -91,7 +91,7 @@ dot_code = ""
 GENERIC_PREAMBLE = r'''
 usepackage("amsmath");
 usepackage("amssymb");
-settings.tex="latex";
+settings.tex="pdflatex";
 settings.outformat="pdf";
 // Replacement for olympiad+cse5 which is not standard
 import geometry;
