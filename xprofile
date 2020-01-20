@@ -1,9 +1,6 @@
 # !/bin/bash
 # vim: ft=sh
 
-# Load background image, if not existent already
-[[ -f ~/.fehbg ]] && source ~/.fehbg
-
 if [ "$HOSTNAME" = ArchAir ]; then
 	~/.dropbox-dist/dropboxd & # Dropbox
 	# xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12" # natural scroll
@@ -31,7 +28,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	export QT_SCALE_FACTOR=3.0
-	picom -b
+	picom -C -G -b
 	redshift-gtk &
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
@@ -47,7 +44,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	# synclient RightButtonAreaRight=1560
 	# cbatticon -u 300 &
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	picom -b
+	picom -C -G -b
 	dropbox & # Dropbox
 	redshift-gtk &
 fi
@@ -55,11 +52,14 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	# remap mouse buttons
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	picom -b
+	picom -C -G -b
 	dropbox & # Dropbox
 	redshift-gtk &
+	xrandr --ouptut "DP-0" --right-of "HDMI-0"
 fi
 
+# Load background image, if not existent already
+[[ -f ~/.fehbg ]] && source ~/.fehbg
 
 # Make sure we're in Dvorak
 setxkbmap dvorak -option caps:escape
