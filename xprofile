@@ -28,7 +28,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	export QT_SCALE_FACTOR=3.0
-	picom -C -G -b
+	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 fi
 if [ "$HOSTNAME" = Inspiron ]; then
@@ -44,7 +44,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	# synclient RightButtonAreaRight=1560
 	# cbatticon -u 300 &
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	picom -C -G -b
+	picom -C -G -b --no-fading-openclose
 	dropbox & # Dropbox
 	redshift-gtk &
 fi
@@ -52,7 +52,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	# remap mouse buttons
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	picom -C -G -b
+	picom -C -G -b --no-fading-openclose
 	dropbox & # Dropbox
 	redshift-gtk &
 	xrandr --ouptut "DP-0" --right-of "HDMI-0"
