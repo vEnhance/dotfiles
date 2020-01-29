@@ -1,0 +1,52 @@
+%% Simplified package for typesetting a team selection exam
+%% Doesn't have external dependencies, so easier for collaboration
+
+\ProvidesPackage{natoly}
+
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{mathtools}
+\usepackage{microtype}
+
+\usepackage{scrlayer-scrpage}
+%\setlength{\headsep}{10pt}
+\addtolength{\textheight}{8em}
+\setlength{\footskip}{0.5in}
+
+\setlength{\labelsep}{10pt}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8ex plus 0.5ex minus 0.2ex}
+
+\usepackage{titling}
+\setlength{\droptitle}{-4em}
+\renewcommand{\maketitlehooka}{\centering\bfseries}
+\renewcommand{\maketitlehookd}{\par\vspace*{0.4in}}
+\newcommand{\theday}{}
+\newcommand{\dayinfo}[1]{\renewcommand{\theday}{#1}}
+\pretitle{\par}
+\posttitle{\par\vspace{0.15in}}
+\preauthor{\par}
+\postauthor{\ifx\theauthor\empty\else\par\vspace{0.08in}\fi}
+\predate{\par\ifx\theday\empty\else\theday\par\vspace{0.08in}\fi}
+\postdate{}
+
+\usepackage{amsthm}
+\newtheoremstyle{TST}%
+{3ex} % space before
+{7ex} % space after
+{\normalfont} % body font
+{0pt} % indent
+{\bfseries} % head font
+{.} % head punctuation
+{0.7em plus 0.2em minus 0.2em} % space after head
+{} % manually specify head
+\theoremstyle{TST}
+
+\newcommand{\ts}{\textsuperscript}
+\newcommand{\ii}{\item}
+\newcommand{\ol}{\overline}
+
+\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+
+\usepackage[shortlabels]{enumitem} % also supports [resume]
+\newlist{problems}{enumerate}{3}
+\setlist*[problems]{topsep=4ex,itemsep=3ex,label=\arabic*.}

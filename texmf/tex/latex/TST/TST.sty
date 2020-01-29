@@ -26,11 +26,14 @@
 \renewcommand{\vonprefix}{von/}
 
 %% Typeset a TST style exam
+%% Only used for older exams that we're too lazy to edit
+%% For other exams, better to use natoly.sty instead
 \ifTSTexam
 	\usepackage[noauthor,nohdr,diagrams]{evan}
 	\usepackage{titling}
 	\setlength{\labelsep}{10pt}
 	\setlength{\parindent}{0pt}
+	\setlength{\parskip}{0.8ex plus 0.5ex minus 0.2ex}
 	\pagestyle{empty}
 	\setlength{\droptitle}{-4em}
 	\renewcommand{\maketitlehooka}{\centering\bfseries}
