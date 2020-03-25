@@ -27,7 +27,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	export QT_SCALE_FACTOR=3.0
+	export QT_SCALE_FACTOR=2.5
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 fi
@@ -53,7 +53,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	xrandr --output "DP-0" --right-of "HDMI-0" # move to .xinitrc
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	picom -C -G -b --no-fading-openclose
+	picom -b &
 	dropbox & # Dropbox
 	redshift-gtk &
 fi
