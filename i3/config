@@ -47,8 +47,8 @@ bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left  move workspace prev; workspace prev
-bindsym $mod+Shift+Right move workspace next; workspace next
+bindsym $mod+Shift+Left  move workspace to output left;
+bindsym $mod+Shift+Right move workspace to output right;
 
 # split in horizontal orientation
 bindsym $mod+z split h
@@ -76,16 +76,16 @@ bindsym $mod+a focus parent
 bindsym $mod+b focus child
 
 # set workspace varnames
-set $WS1 1: Aleph
-set $WS2 2: Bet
-set $WS3 3: Gimel
-set $WS4 4: Dalet
-set $WS5 5: Hei
-set $WS6 6: Vav
-set $WS7 7: Zayin
-set $WS8 8: Het
-set $WS9 9: Tet
-set $WS0 10: Yod
+set $WS1 "1: Aleph"
+set $WS2 "2: Bet"
+set $WS3 "3: Gimel"
+set $WS4 "4: Dalet"
+set $WS5 "5: Hei"
+set $WS6 "6: Vav"
+set $WS7 "7: Zayin"
+set $WS8 "8: Het"
+set $WS9 "9: Tet"
+set $WS0 "10: Yod"
 
 
 # switch to workspace
@@ -155,6 +155,7 @@ bar {
     strip_workspace_numbers yes
     wheel_up_cmd nop
     wheel_down_cmd nop
+    tray_output primary
 }
 
 # === CUSTOM SHORTCUTS ===
@@ -182,6 +183,9 @@ mode "control" {
 bindsym $mod+Escape mode "control"
 
 workspace_layout stacked
+
+workspace $WS1 output HDMI-0 DP-0
+workspace $WS2 output DP-0 HDMI-0
 
 ## CUSTOM STARTUP ##
 exec xfce4-power-manager --sm-client-disable
