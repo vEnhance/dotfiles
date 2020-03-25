@@ -41,7 +41,7 @@ function fish_greeting
 	printf "determination"
 	set_color normal
 	set_color $fish_color_greeting
-	printf "."
+	printf ".\n"
 	set_color normal
 end
 
