@@ -184,8 +184,9 @@ bindsym $mod+Escape mode "control"
 
 workspace_layout stacked
 
-workspace $WS1 output HDMI-0 DP-0
+workspace $WS1 output DP-4 HDMI-0 DP-0
 workspace $WS2 output DP-0 HDMI-0
+workspace $WS0 output HDMI-0
 
 ## CUSTOM STARTUP ##
 exec xfce4-power-manager --sm-client-disable
