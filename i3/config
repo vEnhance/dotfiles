@@ -64,7 +64,7 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+Shift+f floating toggle
+bindsym $mod+comma floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+Tab focus mode_toggle
@@ -151,10 +151,11 @@ bindsym $mod+m mode "move"
 bar {
     id main-bar
     status_command i3status
-    font pango:DejaVu Sans Mono 12
+    font pango:DejaVu Sans Mono 16
     strip_workspace_numbers yes
     wheel_up_cmd nop
     wheel_down_cmd nop
+    tray_output DP-4
     tray_output primary
 }
 
@@ -184,9 +185,12 @@ bindsym $mod+Escape mode "control"
 
 workspace_layout stacked
 
-workspace $WS1 output DP-4 HDMI-0 DP-0
-workspace $WS2 output DP-0 HDMI-0
+workspace $WS1 output DP-4
+workspace $WS2 output DP-0
+workspace $WS9 output DP-2
 workspace $WS0 output HDMI-0
+
+focus_follows_mouse no
 
 ## CUSTOM STARTUP ##
 exec xfce4-power-manager --sm-client-disable
