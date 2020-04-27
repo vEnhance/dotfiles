@@ -59,12 +59,12 @@ bindsym $mod+v split v
 bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
+bindsym $mod+t layout tabbed
+bindsym $mod+n layout toggle split
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $mod+comma floating toggle
+bindsym $mod+period floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+Tab focus mode_toggle
@@ -146,25 +146,7 @@ mode "move" {
 }
 bindsym $mod+m mode "move"
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-    id main-bar
-    status_command i3status
-    font pango:DejaVu Sans Mono 16
-    strip_workspace_numbers yes
-    wheel_up_cmd nop
-    wheel_down_cmd nop
-    tray_output DP-4
-    tray_output primary
-}
-
-# === CUSTOM SHORTCUTS ===
-bindsym $mod+q exec --no-startup-id qutebrowser
-bindsym $mod+g exec '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-bindsym $mod+p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
-
-
+# power control mode
 mode "control" {
     bindsym e exec --no-startup-id i3-msg exit, mode "default"
     bindsym s exec --no-startup-id systemctl poweroff, mode "default"
@@ -182,6 +164,26 @@ mode "control" {
     bindsym Escape mode "default"
 }
 bindsym $mod+Escape mode "control"
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    id main-bar
+    status_command i3status
+    font pango:DejaVu Sans Mono 16
+    strip_workspace_numbers yes
+    wheel_up_cmd nop
+    wheel_down_cmd nop
+    tray_output DP-4
+    tray_output primary
+}
+
+# === CUSTOM SHORTCUTS ===
+bindsym $mod+q exec --no-startup-id qutebrowser
+
+bindsym $mod+g exec '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+
+bindsym $mod+p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
 workspace_layout stacked
 
