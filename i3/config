@@ -165,6 +165,26 @@ mode "control" {
 }
 bindsym $mod+Escape mode "control"
 
+# audio control mode
+mode "ponymix" {
+    # switching audio
+    bindsym u exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, mode "default"
+    bindsym s exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, mode "default"
+    bindsym h exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
+
+    # query
+    bindsym q exec --no-startup-id notify-send -i audio-input-microphone "Audio settings" "$(ponymix defaults | head -n 3)", mode "default"
+
+    # global volume
+    bindsym k exec --no-startup-id ponymix increase 4 && notify-send -i audio-volume-high "Volume up" "Current volume $(ponymix get-volume)%" -t 500
+    bindsym j exec --no-startup-id ponymix decrease 4 && notify-send -i audio-volume-low "Volume down" "Current volume $(ponymix get-volume)%" -t 500
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+o mode "ponymix"
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
