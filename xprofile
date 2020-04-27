@@ -28,7 +28,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	# xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	export QT_SCALE_FACTOR=2.5
+	export QT_SCALE_FACTOR=2.4
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 fi
