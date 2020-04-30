@@ -106,6 +106,7 @@ alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias s3='aws s3'
+alias todo='~/dotfiles/sh-scripts/get-todo.sh'
 
 export PYTHONPATH="$PYTHONPATH:/home/evan/Documents/Projects/"
 
