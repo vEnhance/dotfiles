@@ -112,7 +112,6 @@ bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 
-
 # exit i3 (logs you out of your X session)
 # bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
@@ -148,10 +147,14 @@ bindsym $mod+m mode "move"
 
 # power control mode
 mode "control" {
-    bindsym e exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s exec --no-startup-id systemctl poweroff, mode "default"
-    bindsym z exec --no-startup-id systemctl reboot, mode "default"
-    bindsym g exec --no-startup-id systemctl suspend, mode "default"
+    bindsym e exec --no-startup-id i3-nagbar -t warning \
+        -m "Log out?" -b "i3-msg exit" "i3-msg exit", mode "default"
+    bindsym g exec --no-startup-id i3-nagbar -t warning \
+        -m "Suspend?" -b "systemctl suspend" "systemctl suspend", mode "default"
+    bindsym s exec --no-startup-id i3-nagbar \
+        -m "Shut down?" -b "systemctl poweroff" "systemctl poweroff", mode "default"
+    bindsym z exec --no-startup-id i3-nagbar \
+        -m "Reboot?" -b "systemctl reboot" "systemctl reboot", mode "default"
 
     # reload the configuration file
     bindsym r reload, mode "default"
@@ -170,7 +173,7 @@ mode "ponymix" {
     # switching audio
     bindsym u exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, mode "default"
     bindsym s exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, mode "default"
-    bindsym h exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
+    bindsym b exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
 
     # query
     bindsym q exec --no-startup-id notify-send -i audio-input-microphone "Audio settings" "$(ponymix defaults | head -n 3)", mode "default"
@@ -207,19 +210,21 @@ bar {
     tray_output primary
 }
 
-# === CUSTOM SHORTCUTS ===
+# Settings
+focus_follows_mouse no
+workspace_auto_back_and_forth yes
+workspace_layout stacked
+
+# Exec scripts
 bindsym $mod+g exec '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 bindsym $mod+p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
-workspace_layout stacked
 
 workspace $WS1 output DP-4
 workspace $WS2 output DP-0
 workspace $WS9 output DP-2
 workspace $WS0 output HDMI-0
 
-focus_follows_mouse no
-
-## CUSTOM STARTUP ##
+# Exec startup
 exec xfce4-power-manager --sm-client-disable
 exec nm-applet --no-startup-id
 
