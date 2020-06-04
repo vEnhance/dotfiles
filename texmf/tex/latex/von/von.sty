@@ -26,11 +26,9 @@
 	\@vonsetname{#1}{#2}%
 	\immediate\openout\@vonfile=\vonprefix/_v\@vonname.von%
 	\ifvonbrave
-	\immediate\write\@vonfile{env PYTHONPATH=/home/evan/Documents/Projects/
-	python3 -m von show "#2" --brave -b #1 > `dirname $0`/_v\@vonname.out}%
+	\immediate\write\@vonfile{python3 -m von show "#2" --brave -b #1 > `dirname $0`/_v\@vonname.out}%
 	\else
-	\immediate\write\@vonfile{env PYTHONPATH=/home/evan/Documents/Projects/
-	python3 -m von show "#2" -b #1 > `dirname $0`/_v\@vonname.out}%
+	\immediate\write\@vonfile{python3 -m von show "#2" -b #1 > `dirname $0`/_v\@vonname.out}%
 	\fi
 	\immediate\closeout\@vonfile%
 	\vonhook{#2}% for example a margin par
