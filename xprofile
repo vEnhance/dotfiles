@@ -51,10 +51,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 fi
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	# remap mouse buttons
-	xrandr --output "DP-4" --primary
-	xrandr --output "DP-0" --right-of "DP-4"
-	xrandr --output "HDMI-0" --below "DP-0"
-	xrandr --output "DP-2" --right-of "DP-0"
+	xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	picom -b &
