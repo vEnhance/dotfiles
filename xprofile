@@ -74,3 +74,4 @@ export GTK_IM_MODULE=ibus
 
 # Use Fish as shell
 export SHELL='/bin/fish'
+export QT_QPA_PLATFORMTHEME='qt5ct'
