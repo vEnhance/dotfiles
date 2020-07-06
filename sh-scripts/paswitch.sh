@@ -25,7 +25,7 @@
 # eventually split this
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	declare -A sink_names=(
-		[usb]=alsa_output.usb-N-SIA_KJ-USB_U_HEADSET_00000000-00.analog-stereo
+		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
 		[speakers]=alsa_output.pci-0000_00_1f.3.analog-stereo
 		[hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
 	)
