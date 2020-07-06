@@ -174,7 +174,7 @@ mode "ponymix" {
     # switching audio
     bindsym u exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, mode "default"
     bindsym s exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, mode "default"
-    bindsym b exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
+    # bindsym b exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
 
     # query
     bindsym q exec --no-startup-id notify-send -i audio-input-microphone "Audio settings" "$(ponymix defaults | head -n 3)", mode "default"
@@ -182,6 +182,16 @@ mode "ponymix" {
     # global volume
     bindsym k exec --no-startup-id notify-send -i audio-volume-high "Global volume up" "Current volume $(ponymix increase 4)%" -t 500
     bindsym j exec --no-startup-id notify-send -i audio-volume-low "Global volume down" "Current volume $(ponymix decrease 4)%" -t 500
+
+    # global mute / unmute
+    bindsym m exec --no-startup-id notify-send -i audio-volume-muted "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
+    bindsym w exec --no-startup-id notify-send -i audio-input-microphone-high "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
+
+    # combo commands
+    # leave desk
+    bindsym l exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, exec --no-startup-id notify-send -i audio-volume-muted "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
+    # return to desk
+    bindsym r exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, exec --no-startup-id notify-send -i audio-input-microphone-high "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
 
     # playerctl
     bindsym space exec --no-startup-id playerctl play-pause, mode "default"
