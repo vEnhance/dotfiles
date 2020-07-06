@@ -169,7 +169,7 @@ for line in stream:
 		do_auto_paren = False
 		line = line[1:].strip()
 	else:
-		do_auto_paren = not (',' in line) # just default to auto-ing unless , appears
+		do_auto_paren = not (', ' in line) # just default to auto-ing unless , appears
 
 	if "=" in line:
 		raw_name, raw_expr = line.split("=", 2)
