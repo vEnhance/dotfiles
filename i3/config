@@ -22,7 +22,8 @@ floating_modifier $mod
 
 bindsym $mod+Return exec xfce4-terminal
 
-bindsym $mod+Shift+q kill window # kill focused window
+# close focused window
+bindsym $mod+Shift+q kill window
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
