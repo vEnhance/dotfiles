@@ -19,10 +19,6 @@ while : ; do
 		break
 	fi
 
-	if [ "$stroke" = q ]; then
-		ponymix defaults | head -n 3
-	fi
-
 	if [ "$stroke" = k ]; then
 		echo "Main volume increased to $(ponymix increase 4)"
 	fi
@@ -58,6 +54,9 @@ while : ; do
 
 
 	if [ -z "$stroke" ]; then
+		break
+	fi
+	if [ "$stroke" = q ]; then
 		break
 	fi
 done

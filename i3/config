@@ -176,9 +176,6 @@ mode "ponymix" {
     bindsym s exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, mode "default"
     # bindsym b exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
 
-    # query
-    bindsym q exec --no-startup-id notify-send -i audio-input-microphone "Audio settings" "$(ponymix defaults | head -n 3)", mode "default"
-
     # global volume
     bindsym k exec --no-startup-id notify-send -i audio-volume-high "Global volume up" "Current volume $(ponymix increase 4)%" -t 500
     bindsym j exec --no-startup-id notify-send -i audio-volume-low "Global volume down" "Current volume $(ponymix decrease 4)%" -t 500
@@ -205,6 +202,8 @@ mode "ponymix" {
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
+    bindsym q mode "default"
+
 }
 bindsym $mod+o mode "ponymix"
 
