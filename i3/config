@@ -76,6 +76,10 @@ bindsym $mod+a focus parent
 # focus the child container
 bindsym $mod+b focus child
 
+# scratchpad commands
+bindsym $mod+minus move scratchpad
+bindsym $mod+u scratchpad show
+
 # set workspace varnames
 set $WS1 "1: Aleph"
 set $WS2 "2: Bet"
@@ -113,8 +117,8 @@ bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# for_window commands
+# to be added
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
