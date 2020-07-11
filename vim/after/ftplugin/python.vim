@@ -4,8 +4,7 @@ set tabstop=4
 set shiftwidth=4
 
 let g:pydiction_location = '~/.vim/ftplugin/complete-dict'
-set ofu=syntaxcomplete#Complete
-set omnifunc=pythoncomplete#Complete
+" set ofu=syntaxcomplete#Complete
 
 set list
 set listchars=tab:\|\ 
