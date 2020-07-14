@@ -15,11 +15,11 @@ target = sys.argv[1]
 
 if not '/' in target:
 	locateOut = subprocess.check_output(["locate", target])
-	locations = locateOut.strip().split('\n')
+	locations = locateOut.decode().strip().split('\n')
 	if len(locations) > 1:
 		for i, place in enumerate(locations):
-			print i, '\t' + place
-		j = input("Please enter an index: ")
+			print(i, '\t' + place)
+		j = int(input("Please enter an index: "))
 	else:
 		j = 0
 	fileLocation = locations[j]
@@ -29,6 +29,6 @@ else:
 
 destination = fileLocation[:fileLocation.rfind('/')]
 with open("/tmp/hunt", "w") as f:
-	print >>f, destination
+	print(destination, file=f)
 
 #os.system('cd %s' %destination)
