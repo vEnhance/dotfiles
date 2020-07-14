@@ -50,8 +50,8 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	redshift-gtk &
 fi
 if [ "$HOSTNAME" = ArchMajestic ]; then
-	# remap mouse buttons
 	xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
+	# remap mouse buttons
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	picom -b &
@@ -59,6 +59,18 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	redshift-gtk &
 	workrave &
 fi
+if [ "$HOSTNAME" = Endor ]; then
+	xrandr --output "DP-2" --primary --output "HDMI-0" --right-of "DP-2"
+	# xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+	compton -b &
+	dropbox start
+	redshift-gtk &
+	workrave &
+	pulseaudio --start
+fi
+
+
 
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
@@ -73,5 +85,5 @@ setxkbmap dvorak -option caps:escape
 export GTK_IM_MODULE=ibus
 
 # Use Fish as shell
-export SHELL='/bin/fish'
+export SHELL='/usr/bin/fish'
 export QT_QPA_PLATFORMTHEME='qt5ct'

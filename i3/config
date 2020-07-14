@@ -222,6 +222,7 @@ bar {
     wheel_down_cmd nop
     tray_output DP-0
     tray_output primary
+    tray_output DP-2
 }
 
 # Settings
