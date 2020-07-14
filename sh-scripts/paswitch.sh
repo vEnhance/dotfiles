@@ -33,7 +33,7 @@ fi
 if [ "$HOSTNAME" = Endor ]; then
 	declare -A sink_names=(
 		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-		[speakers]=alsa_output.pci-0000_00_1f.3.analog-stereo
+		[speakers]=alsa_output.pci-0000_0a_00.4.analog-stereo
 		[hdmi]=alsa_output.pci-0000_08_00.1.hdmi-stereo
 	)
 fi
@@ -51,6 +51,6 @@ sink=${sink_names[$1]:-$1}
 	do
 		echo move-sink-input $input $sink
 	done
-) | pacmd > /dev/null
+) | pacmd
 
 notify-send -i audio-card "Sink changed" "Sound now on sink $sink"
