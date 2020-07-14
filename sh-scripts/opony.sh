@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 echo "========================="
 echo "= EVAN'S PONYMIX REMOTE ="
