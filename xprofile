@@ -63,7 +63,7 @@ if [ "$HOSTNAME" = Endor -a "$(whoami)" = "evan" ]; then
 	xrandr --output "DP-2" --primary --output "HDMI-0" --right-of "DP-2"
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	compton -b &
-	dropbox start
+	# dropbox start covered by gnome already?
 	redshift-gtk &
 	workrave &
 fi
