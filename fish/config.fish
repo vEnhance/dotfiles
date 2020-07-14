@@ -71,7 +71,7 @@ if [ "(uname)" = Linux ]
 end
 
 # Exports
-export SHELL='/bin/fish'
+export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 export TERM='xterm-256color'
 if [ -d $HOME/.texmf ]
