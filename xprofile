@@ -49,7 +49,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	dropbox & # Dropbox
 	redshift-gtk &
 fi
-if [ "$HOSTNAME" = ArchMajestic ]; then
+if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = "evan" ]; then
 	xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
 	# remap mouse buttons
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
@@ -59,15 +59,13 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	redshift-gtk &
 	workrave &
 fi
-if [ "$HOSTNAME" = Endor ]; then
+if [ "$HOSTNAME" = Endor -a "$(whoami)" = "evan" ]; then
 	xrandr --output "DP-2" --primary --output "HDMI-0" --right-of "DP-2"
-	# xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	compton -b &
 	dropbox start
 	redshift-gtk &
 	workrave &
-	pulseaudio --start
 fi
 
 
