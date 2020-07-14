@@ -95,13 +95,14 @@ alias getclip="xsel --clipboard"
 alias putclip="xsel --clipboard"
 alias lisp='sbcl --script'
 alias bcsum='paste -sd+ - | bc'
+alias python='python3'
 
 alias dragon='python2 ~/Documents/Projects/dragon/'
 alias sparky='python2 ~/Documents/Projects/sparky/'
-alias von='python -m von'
-alias tsq='python ~/dotfiles/py-scripts/tsq.py'
+alias von='python3 -m von'
+alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
-alias wpmarkdown='python ~/dotfiles/py-scripts/markdown2wp.py'
+alias wpmarkdown='python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
@@ -141,7 +142,7 @@ end
 
 # Uses the locate utility to find a certain file
 function hunt ()
-	python2 ~/dotfiles/py-scripts/hunt.py "$argv"
+	python3 ~/dotfiles/py-scripts/hunt.py "$argv"
 	cd (cat /tmp/hunt)
 	pwd
 	ls -l --color=tty
