@@ -68,7 +68,10 @@ if [ "$HOSTNAME" = Endor -a "$(whoami)" = "evan" ]; then
 	workrave &
 fi
 
-
+if [ "$HOSTNAME" = Endor ]; then
+	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-mono
+	ponymix unmute -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-mono
+fi
 
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
