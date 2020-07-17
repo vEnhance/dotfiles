@@ -24,7 +24,12 @@ if [ "$HOSTNAME" = ArchMega ]; then
 	esac
 fi
 if [ "$HOSTNAME" = ArchAngel ]; then
-	xrandr --output "HDMI-2" --primary
+	xrandr | grep 3840x2160
+	if [ $? -eq 0 ]; then
+		xrandr --output "HDMI-2" --primary --mode 3840x2160
+	else
+		xrandr --output "HDMI-2" --primary
+	fi
 	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	# xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
