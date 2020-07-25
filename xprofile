@@ -66,7 +66,7 @@ if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = "evan" ]; then
 fi
 if [ "$HOSTNAME" = Endor -a "$(whoami)" = "evan" ]; then
 	xrandr --output "DP-0" --primary --output "HDMI-0" --left-of "DP-0" --output "DP-2" --right-of "DP-0"
-	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+	# xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	compton -b &
 	sleep 50 && dropbox start &
 	redshift-gtk &
