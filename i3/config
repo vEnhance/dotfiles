@@ -243,7 +243,7 @@ workspace $WS9 output DP-2
 workspace $WS0 output HDMI-0
 
 # Exec startup
-exec xfce4-power-manager --sm-client-disable
-exec nm-applet --no-startup-id
+# exec xfce4-power-manager --sm-client-disable
+# exec nm-applet --no-startup-id
 
 # vim: expandtab
