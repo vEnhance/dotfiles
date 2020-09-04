@@ -187,6 +187,8 @@ mode "ponymix" {
     # global mute / unmute
     bindsym m exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
     bindsym w exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
+    # reset mic volume to 100
+    bindsym t exec --no-startup-id notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 100)%" -t 500, mode "default"
 
     # combo commands
     # leave desk

@@ -34,6 +34,10 @@ while : ; do
 		notify-send -i audio-input-microphone-high "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500
 		break
 	fi
+	if [ "$stroke" = t ]; then
+		notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 100)%" -t 500
+		break
+	fi
 	if [ "$stroke" = l ]; then
 		~/dotfiles/sh-scripts/paswitch.sh speakers
 		notify-send -i audio-volume-muted "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500
