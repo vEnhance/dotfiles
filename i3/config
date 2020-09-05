@@ -167,6 +167,9 @@ mode "control" {
     bindsym i restart, mode "default"
     bindsym m exec --no-startup-id '/home/evan/dotfiles/sh-scripts/redo-keys.sh', mode "default"
 
+    # for ArchMajestic: reset X-screen setup
+    bindsym x exec --no-startup-id xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
+
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
