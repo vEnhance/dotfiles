@@ -179,9 +179,15 @@ bindsym $mod+Escape mode "control"
 # audio control mode
 mode "ponymix" {
     # switching audio
-    bindsym u exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, mode "default"
+    bindsym e exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, mode "default"
     bindsym s exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, mode "default"
     # bindsym b exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
+
+    # mic volume
+    bindsym u exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Mic volume up" "Current mic volume $(ponymix -t source increase 4)%" -t 500
+    bindsym d exec --no-startup-id notify-send -i microphone-sensitivity-low-symbolic "Mic volume down" "Current mic volume $(ponymix -t source decrease 4)%" -t 500
+    # reset mic volume to 90
+    bindsym i exec --no-startup-id notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 90)%" -t 500, mode "default"
 
     # global volume
     bindsym k exec --no-startup-id notify-send -i audio-volume-high "Global volume up" "Current volume $(ponymix increase 4)%" -t 500
@@ -190,8 +196,6 @@ mode "ponymix" {
     # global mute / unmute
     bindsym m exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
     bindsym w exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
-    # reset mic volume to 100
-    bindsym t exec --no-startup-id notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 100)%" -t 500, mode "default"
 
     # combo commands
     # leave desk
@@ -239,13 +243,12 @@ workspace_layout stacked
 bindsym $mod+g exec '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 bindsym $mod+p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
-
-# California is missing DP-4
+# The Endor box is missing DP-0 and DP-4 is actually HDMI-0 compared to ArchMajestic
 workspace $WS1 output DP-4 HDMI-0
 workspace $WS2 output DP-0
 workspace $WS9 output DP-2
 workspace $WS0 output DP-4 HDMI-0
-workspace $WS8 output HDMI-0
+workspace $WS7 output HDMI-0
 
 # Exec startup
 # exec xfce4-power-manager --sm-client-disable
