@@ -165,7 +165,7 @@ mode "control" {
     bindsym r reload, mode "default"
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
     bindsym i restart, mode "default"
-    bindsym m exec --no-startup-id '/home/evan/dotfiles/sh-scripts/redo-keys.sh', mode "default"
+    bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
 
     # for ArchMajestic: reset X-screen setup
     bindsym x exec --no-startup-id xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
@@ -179,9 +179,9 @@ bindsym $mod+Escape mode "control"
 # audio control mode
 mode "ponymix" {
     # switching audio
-    bindsym e exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, mode "default"
-    bindsym s exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, mode "default"
-    # bindsym b exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' hdmi, mode "default"
+    bindsym e exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh usb, mode "default"
+    bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh speakers, mode "default"
+    # bindsym b exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh hdmi, mode "default"
 
     # mic volume
     bindsym u exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Mic volume up" "Current mic volume $(ponymix -t source increase 4)%" -t 500
@@ -199,9 +199,9 @@ mode "ponymix" {
 
     # combo commands
     # leave desk
-    bindsym l exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' speakers, exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
+    bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh speakers, exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
     # return to desk
-    bindsym r exec --no-startup-id '/home/evan/dotfiles/sh-scripts/paswitch.sh' usb, exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
+    bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh usb, exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
 
     # playerctl
     bindsym space exec --no-startup-id playerctl play-pause, mode "default"
@@ -240,7 +240,7 @@ workspace_auto_back_and_forth yes
 workspace_layout stacked
 
 # Exec scripts
-bindsym $mod+g exec '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &
 bindsym $mod+p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
 # The Endor box is missing DP-0 and DP-4 is actually HDMI-0 compared to ArchMajestic
