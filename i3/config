@@ -178,24 +178,27 @@ bindsym $mod+Escape mode "control"
 
 # audio control mode
 mode "ponymix" {
+    #query
+    bindsym q exec --no-startup-id notify-send -i audio-card "Audio query" "$(ponymix)" -t 5000
+
     # switching audio
     bindsym e exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh usb, mode "default"
     bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh speakers, mode "default"
     # bindsym b exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh hdmi, mode "default"
 
     # mic volume
-    bindsym u exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Mic volume up" "Current mic volume $(ponymix -t source increase 4)%" -t 500
-    bindsym d exec --no-startup-id notify-send -i microphone-sensitivity-low-symbolic "Mic volume down" "Current mic volume $(ponymix -t source decrease 4)%" -t 500
+    bindsym u exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Mic volume up" "Current mic volume $(ponymix -t source increase 4)%" -t 5000
+    bindsym d exec --no-startup-id notify-send -i microphone-sensitivity-low-symbolic "Mic volume down" "Current mic volume $(ponymix -t source decrease 4)%" -t 5000
     # reset mic volume to 90
-    bindsym i exec --no-startup-id notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 90)%" -t 500, mode "default"
+    bindsym i exec --no-startup-id notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 90)%" -t 5000, mode "default"
 
     # global volume
-    bindsym k exec --no-startup-id notify-send -i audio-volume-high "Global volume up" "Current volume $(ponymix increase 4)%" -t 500
-    bindsym j exec --no-startup-id notify-send -i audio-volume-medium "Global volume down" "Current volume $(ponymix decrease 4)%" -t 500
+    bindsym k exec --no-startup-id notify-send -i audio-volume-high "Global volume up" "Current volume $(ponymix increase 4)%" -t 5000
+    bindsym j exec --no-startup-id notify-send -i audio-volume-medium "Global volume down" "Current volume $(ponymix decrease 4)%" -t 5000
 
     # global mute / unmute
-    bindsym m exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
-    bindsym w exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
+    bindsym m exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 5000, mode "default"
+    bindsym w exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 5000, mode "default"
 
     # combo commands
     # leave desk
@@ -215,7 +218,6 @@ mode "ponymix" {
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
-    bindsym q mode "default"
 
 }
 bindsym $mod+o mode "ponymix"
