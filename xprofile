@@ -1,28 +1,6 @@
 # !/bin/bash
 # vim: ft=sh
 
-if [ "$HOSTNAME" = ArchAir ]; then
-	~/.dropbox-dist/dropboxd & # Dropbox
-	# xmodmap -e "pointer = 1 2 3 5 4 7 6 8 9 10 11 12" # natural scroll
-	synclient TapButton1=0           # Disable tap to click
-	synclient TapButton2=0           # Disable double tap to paste
-	synclient RightButtonAreaRight=1 # Remap mouse buttons
-	synclient VertScrollDelta=-237   # Natural scroll for touchpads
-	cbatticon -u 300 &
-	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	redshift-gtk &
-fi
-if [ "$HOSTNAME" = ArchMega ]; then
-	~/.dropbox-dist/dropboxd & # Dropbox
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	case $(date +%Z) in
-		PST) xflux -z 94539 -k 2800;; # Pacific
-		PDT) xflux -z 94539 -k 2800;; # Pacific
-		EST) xflux -z 02138 -k 2800;; # Eastern
-		EDT) xflux -z 02138 -k 2800;; # Eastern
-	esac
-fi
 if [ "$HOSTNAME" = ArchAngel ]; then
 	xrandr | grep 1920x1080
 	if [ $? -eq 0 ]; then
@@ -36,9 +14,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 fi
-if [ "$HOSTNAME" = Inspiron ]; then
-	~/.dropbox-dist/dropboxd & # Dropbox
-fi
+
 if [ "$HOSTNAME" = ArchScythe ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	synclient TapButton1=0           # Disable tap to click
@@ -54,39 +30,45 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	sleep 8 && redshift-gtk &
 	xfce4-power-manager &
 fi
+
+
 if [ "$HOSTNAME" = ArchMajestic ]; then
-	xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
+	xrandr --output "DP-4" --primary \
+		--output "DP-0" --right-of "DP-4" \
+		--output "HDMI-0" --below "DP-0" \
+		--output "DP-2" --right-of "DP-0"
 	picom -b &
 	dropbox & # Dropbox
-fi
-if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = "evan" ]; then
-	# remap mouse buttons
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	redshift-gtk &
-	workrave &
-	dunst &
-	# xfce4-power-manager &
-	# ibus-daemon -d -r &
-fi
-if [ "$HOSTNAME" = Endor -a "$(whoami)" = "evan" ]; then
-	xrandr --output "DP-0" --primary --output "HDMI-0" --left-of "DP-0" --output "DP-2" --right-of "DP-0"
-	# xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
-	compton -b &
-	sleep 50 && dropbox start &
-	redshift-gtk &
-	workrave &
-fi
-
-# sound configuration
-if [ "$HOSTNAME" = ArchMajestic ]; then
+	if [ "$(whoami)" = "evan" ]; then
+		# remap mouse buttons
+		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+		xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+		redshift-gtk &
+		workrave &
+		ibus-daemon -d -r &
+	fi
+	if [ "$(whoami)" = "star" ]; then
+		# change keyboard rate for starcraft reasons
+		xset r rate 150 40
+	fi
 	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
+
 if [ "$HOSTNAME" = Endor ]; then
 	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-mono
 	~/dotfiles/sh-scripts/paswitch.sh speakers
+	if [ "$(whoami)" = "evan" ]; then
+		xrandr --output "DP-0" --primary \
+			--output "HDMI-0" --left-of "DP-0" \
+			--output "DP-2" --right-of "DP-0"
+		xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+		compton -b & # ubuntu is far behind so still called compton
+		sleep 50 && dropbox start &
+		redshift-gtk &
+		workrave &
+	fi
 fi
 
 # Load background image, if not existent already
@@ -95,12 +77,11 @@ fi
 # Make sure we're in Dvorak
 setxkbmap dvorak -option caps:escape
 
-# Set Chinese for X
-# export LANG="zh_TW.UTF-8"
-
 # for Chinese input
 export GTK_IM_MODULE=ibus
 
 # Use Fish as shell
 export SHELL='/usr/bin/fish'
+
+# For OBS
 export QT_QPA_PLATFORMTHEME='qt5ct'
