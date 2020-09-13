@@ -48,18 +48,21 @@ i3lock \
 
 xset s 600 600
 
+if $REVIVE_MIC;
+then
+	ponymix -t source unmute
+    notify-send -i microphone-sensitivity-high-symbolic "Sound on headset" "Microphone volume is $(ponymix -t source unmute)%" -t 5000
+else
+    notify-send -i audio-volume-high "Sound currently on speaker" "Master volume is $(ponymix -t source get-volume)%" -t 5000
+fi
+
 if $REVIVE_WORKRAVE;
 then
-	sleep 1
+	sleep 0.5
 	workrave &
 	dbus-send --print-reply \
 		--dest=org.workrave.WorkraveApplication \
 		/org/workrave/Workrave/Core \
 		org.workrave.CoreInterface.SetOperationMode \
 		string:'normal'
-fi
-
-if $REVIVE_MIC;
-then
-	ponymix -t source unmute
 fi
