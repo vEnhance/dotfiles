@@ -78,16 +78,15 @@ if [ "$HOSTNAME" = Endor -a "$(whoami)" = "evan" ]; then
 	workrave &
 fi
 
-# unmute my USB microphone and use full volume for it
+# sound configuration
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
-	ponymix unmute -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80
+	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 if [ "$HOSTNAME" = Endor ]; then
 	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-mono
-	ponymix unmute -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-mono
-	ponymix set-volume -t source 80
+	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
 # Load background image, if not existent already

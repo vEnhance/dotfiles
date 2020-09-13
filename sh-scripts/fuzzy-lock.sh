@@ -20,11 +20,7 @@ then
 	killall workrave
 fi
 
-REVIVE_MIC=true;
-if ponymix -t source is-muted
-then
-	REVIVE_MIC=false;
-fi
+# mute microphone so I'm not recorded while afk
 ponymix -t source mute
 
 # Take a screenshot
@@ -48,12 +44,11 @@ i3lock \
 
 xset s 600 600
 
-if $REVIVE_MIC;
-then
-	ponymix -t source unmute
-    notify-send -i microphone-sensitivity-high-symbolic "Sound on headset" "Microphone volume is $(ponymix -t source unmute)%" -t 5000
-else
-    notify-send -i audio-volume-high "Sound currently on speaker" "Master volume is $(ponymix -t source get-volume)%" -t 5000
+if [ "$HOSTNAME" = ArchMajestic ]; then
+	~/dotfiles/sh-scripts/paswitch.sh speakers
+fi
+if [ "$HOSTNAME" = Endor ]; then
+	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
 if $REVIVE_WORKRAVE;
