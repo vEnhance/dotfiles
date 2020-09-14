@@ -1,6 +1,18 @@
 # !/bin/bash
 # vim: ft=sh
 
+# Make sure we're in Dvorak
+setxkbmap dvorak -option caps:escape
+
+# for Chinese input
+export GTK_IM_MODULE=ibus
+
+# Use Fish as shell
+export SHELL='/usr/bin/fish'
+
+# For OBS
+export QT_QPA_PLATFORMTHEME='qt5ct'
+
 if [ "$HOSTNAME" = ArchAngel ]; then
 	xrandr | grep 1920x1080
 	if [ $? -eq 0 ]; then
@@ -37,8 +49,8 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		--output "DP-0" --right-of "DP-4" \
 		--output "HDMI-0" --below "DP-0" \
 		--output "DP-2" --right-of "DP-0"
+	dunst &
 	picom -b &
-	dropbox & # Dropbox
 	if [ "$(whoami)" = "evan" ]; then
 		# remap mouse buttons
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
@@ -54,6 +66,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80
 	~/dotfiles/sh-scripts/paswitch.sh speakers
+	sleep 10 && dropbox-cli start &
 fi
 
 if [ "$HOSTNAME" = Endor ]; then
@@ -73,15 +86,3 @@ fi
 
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
-
-# Make sure we're in Dvorak
-setxkbmap dvorak -option caps:escape
-
-# for Chinese input
-export GTK_IM_MODULE=ibus
-
-# Use Fish as shell
-export SHELL='/usr/bin/fish'
-
-# For OBS
-export QT_QPA_PLATFORMTHEME='qt5ct'
