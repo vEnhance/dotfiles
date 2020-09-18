@@ -25,6 +25,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	# export QT_SCALE_FACTOR=2.4
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
+	xfce4-power-manager &
 fi
 
 if [ "$HOSTNAME" = ArchScythe ]; then
