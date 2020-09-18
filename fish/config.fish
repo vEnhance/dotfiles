@@ -62,8 +62,6 @@ function fish_prompt
   printf '%s ' (__fish_git_prompt)
   set_color normal
   printf '\n$ '
-
-  zd --add "$PWD" # z.fish
 end
 
 if [ "(uname)" = Linux ]
@@ -215,11 +213,5 @@ alias c='cs'
 # Fish completions
 complete -x -c cs -a "(__fish_complete_directories)"
 complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
-
-source ~/dotfiles/z.fish
-function z
-	zd $argv
-	ll
-end
 
 # vim: ft=sh

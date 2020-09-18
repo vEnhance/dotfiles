@@ -12,6 +12,8 @@ qutebrowser/quickmarks
 qutebrowser/qsettings/
 qutebrowser/autoconfig.yml
 asy/history
-fish/fishd.*
+fish/*
+!fish/config.fish
+!fish/fishfile
 driveignore
 fish/fish_variables
