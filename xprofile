@@ -52,6 +52,8 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		--output "DP-2" --right-of "DP-0"
 	dunst &
 	picom -b &
+	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
+	ponymix set-volume -t source 80
 	if [ "$(whoami)" = "evan" ]; then
 		# remap mouse buttons
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
@@ -59,14 +61,13 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		redshift-gtk &
 		workrave &
 		ibus-daemon -d -r &
+		~/dotfiles/sh-scripts/paswitch.sh speakers
 	fi
 	if [ "$(whoami)" = "star" ]; then
+		~/dotfiles/sh-scripts/paswitch.sh usb
 		# change keyboard rate for starcraft reasons
 		xset r rate 150 40
 	fi
-	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
-	ponymix set-volume -t source 80
-	~/dotfiles/sh-scripts/paswitch.sh speakers
 	sleep 10 && dropbox-cli start &
 fi
 
