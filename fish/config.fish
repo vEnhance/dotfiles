@@ -214,4 +214,7 @@ alias c='cs'
 complete -x -c cs -a "(__fish_complete_directories)"
 complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
 
+# Addon settings
+set -U __done_notification_urgency_level normal
+
 # vim: ft=sh
