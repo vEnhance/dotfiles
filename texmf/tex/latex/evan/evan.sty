@@ -342,10 +342,9 @@
 	%%fakesection New Theorem Styles
 	\ifevanthm
 		\usepackage{amsthm}
+		\usepackage{thmtools}
 	\fi
 	\ifevanmdthm
-		\usepackage{amsthm} % needed for nothm+mdthm
-		\usepackage{thmtools}
 		\usepackage[framemethod=TikZ]{mdframed}
 
 		\mdfdefinestyle{mdbluebox}{%
@@ -427,7 +426,7 @@
 
 	%%fakesection Theorem setup
 	\ifevanthm
-		\theoremstyle{plain}
+		\theoremstyle{definition}
 		%Branching here: the option secthm changes theorems to be labelled by section
 		\ifevanmdthm
 			\ifevansecthm
@@ -446,60 +445,38 @@
 			\declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
 		\else
 			\ifevansecthm
-				\newtheorem{theorem}{Theorem}[section]
+				\declaretheorem[name=Theorem,numberwithin=section]{theorem}
 			\else
-				\newtheorem{theorem}{Theorem}
+				\declaretheorem[name=Theorem]{theorem}
 			\fi
-			\newtheorem{lemma}[theorem]{Lemma}
-			\newtheorem{proposition}[theorem]{Proposition}
-			\newtheorem{corollary}[theorem]{Corollary}
-			\newtheorem*{theorem*}{Theorem}
-			\newtheorem*{lemma*}{Lemma}
-			\newtheorem*{proposition*}{Proposition}
-			\newtheorem*{corollary*}{Corollary}
+			\declaretheorem[name=Lemma,sibling=theorem]{lemma}
+			\declaretheorem[name=Proposition,sibling=theorem]{proposition}
+			\declaretheorem[name=Corollary,sibling=theorem]{corollary}
+			\declaretheorem[name=WTF,sibling=theorem]{wtf}
+			\declaretheorem[name=Theorem,numbered=no]{theorem*}
+			\declaretheorem[name=Lemma,numbered=no]{lemma*}
+			\declaretheorem[name=Proposition,numbered=no]{proposition*}
+			\declaretheorem[name=Corollary,numbered=no]{corollary*}
 		\fi
 			
-		%Def-style theorems
-		\theoremstyle{definition}
-
-		% This ought to be a real theorem, but would be too much italics
 		\ifevanmdthm
 			\declaretheorem[style=thmgreenbox,name=Algorithm,sibling=theorem]{algorithm}
 			\declaretheorem[style=thmgreenbox,name=Algorithm,numbered=no]{algorithm*}
 			\declaretheorem[style=thmgreenbox,name=Claim,sibling=theorem]{claim}
 			\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
 		\else
-			\newtheorem{algorithm}[theorem]{Algorithm}
-			\newtheorem*{algorithm*}{Algorithm}
-			\newtheorem{claim}[theorem]{Claim}
-			\newtheorem*{claim*}{Claim}
+			\declaretheorem[name=Algorithm,sibling=theorem]{algorithm}
+			\declaretheorem[name=Algorithm,numbered=no]{algorithm*}
+			\declaretheorem[name=Claim,sibling=theorem]{claim}
+			\declaretheorem[name=Claim,numbered=no]{claim*}
 		\fi
-
-		\newtheorem{conjecture}[theorem]{Conjecture}
-		\newtheorem{definition}[theorem]{Definition}
-		\newtheorem{fact}[theorem]{Fact}
-		\newtheorem{answer}[theorem]{Answer}
-		\newtheorem{case}[theorem]{Case}
-		\newtheorem{ques}[theorem]{Question}
-		\newtheorem{exercise}[theorem]{Exercise}
-		\newtheorem{problem}[theorem]{Problem}
-
-		\newtheorem*{conjecture*}{Conjecture}
-		\newtheorem*{definition*}{Definition}
-		\newtheorem*{fact*}{Fact}
-		\newtheorem*{answer*}{Answer}
-		\newtheorem*{case*}{Case}
-		\newtheorem*{joke*}{Joke}
-		\newtheorem*{ques*}{Question}
-		\newtheorem*{exercise*}{Exercise}
-		\newtheorem*{problem*}{Problem}
 
 		\ifevanmdthm
 			\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
 			\declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
 		\else
-			\newtheorem{example}[theorem]{Example}
-			\newtheorem*{example*}{Example}
+			\declaretheorem[name=Example,sibling=theorem]{example}
+			\declaretheorem[name=Example,numbered=no]{example*}
 		\fi
 
 		% Remark-style theorems
@@ -508,13 +485,29 @@
 			\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
 			\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
 		\else
-			\newtheorem{remark}[theorem]{Remark}
-			\newtheorem*{remark*}{Remark}
+			\declaretheorem[name=Remark,sibling=theorem]{remark}
+			\declaretheorem[name=Remark,numbered=no]{remark*}
 		\fi
-		\newtheorem{note}[theorem]{Note}
-		\newtheorem*{note*}{Note}
-		\newtheorem{abuse}[theorem]{Abuse of Notation}
-		\newtheorem*{abuse*}{Abuse of Notation}
+
+		\declaretheorem[name=Conjecture,sibling=theorem]{conjecture}
+		\declaretheorem[name=Conjecture,numbered=no]{conjecture*}
+		\declaretheorem[name=Definition,sibling=theorem]{definition}
+		\declaretheorem[name=Definition,numbered=no]{definition*}
+		\declaretheorem[name=Exercise,sibling=theorem]{exercise}
+		\declaretheorem[name=Exercise,numbered=no]{exercise*}
+		\declaretheorem[name=Fact,sibling=theorem]{fact}
+		\declaretheorem[name=Fact,numbered=no]{fact*}
+		\declaretheorem[name=Problem,sibling=theorem]{problem}
+		\declaretheorem[name=Problem,numbered=no]{problem*}
+		\declaretheorem[name=Question,sibling=theorem]{ques}
+		\declaretheorem[name=Question,numbered=no]{ques*}
+
+		\Crefname{claim}{Claim}{Claims}
+		\Crefname{conjecture}{Conjecture}{Conjectures}
+		\Crefname{exercise}{Exercise}{Exercises}
+		\Crefname{fact}{Fact}{Facts}
+		\Crefname{problem}{Problem}{Problems}
+		\Crefname{ques}{Question}{Questions}
 	\fi
 
 	%%fakesection Fancy section and chapter heads
