@@ -50,7 +50,7 @@ call IMAP('.cycprod ', "\\prod_{\\text{cyc}} ", 'tex')
 call IMAP('.symprod ', "\\prod_{\\text{sym}} ", 'tex')
 
 " TeX Customizations
-let g:Tex_FoldedEnvironments='titlepage,abstract,asy,usamts' " Folding of certain environments
+let g:Tex_FoldedEnvironments='titlepage,abstract,asy,tikzpicture' " Folding of certain environments
 let g:Tex_Leader=',' " No more backtick nonsense
 set iskeyword+=: " Autocomplete for fig: etc. references
 set iskeyword+=_ " Add _ to autocomplete list
