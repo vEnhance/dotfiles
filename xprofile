@@ -7,6 +7,9 @@ setxkbmap dvorak -option caps:escape
 # for Chinese input
 export GTK_IM_MODULE=ibus
 
+# Use rofi as CM launcher
+export CM_LAUNCHER=rofi
+
 # Use Fish as shell
 export SHELL='/usr/bin/fish'
 

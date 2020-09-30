@@ -1,0 +1,7 @@
+configuration {
+	theme: "/usr/share/rofi/themes/paper-float.rasi";
+	case-sensitive: false;
+	matching-method: "fuzzy";
+	sorting-method: "fzf";
+}
+@import "/usr/share/rofi/themes/fancy.rasi"
