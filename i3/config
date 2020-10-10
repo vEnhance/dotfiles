@@ -215,8 +215,11 @@ mode "ponymix" {
     bindsym n exec --no-startup-id playerctl next
 
     # control Spotify volume
-    bindsym Shift+k exec --no-startup-id notify-send -i audio-headphones "Spotify volume up" "Spotify volume $(ponymix increase 4 -d Spotify --sink-input)%" -t 500
-    bindsym Shift+j exec --no-startup-id notify-send -i audio-headphones "Spotify volume down" "Spotify volume $(ponymix decrease 4 -d Spotify --sink-input)%" -t 500
+    bindsym Shift+k exec --no-startup-id notify-send -i audio-headphones "Spotify volume up" "Spotify volume $(ponymix increase 10 -d Spotify --sink-input)%" -t 500
+    bindsym Shift+j exec --no-startup-id notify-send -i audio-headphones "Spotify volume down" "Spotify volume $(ponymix decrease 10 -d Spotify --sink-input)%" -t 500
+
+    # sometimes Spotify creates an extra sink for no apparent reason, so make a keybind to kill it
+    bindsym z exec --no-startup-id notify-send -i dialog-warning-symbolic "Spotify stream killed" "$(ponymix kill -d Spotify)" -t 500
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
