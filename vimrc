@@ -93,6 +93,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'qpkorr/vim-renamer'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'leanprover/lean.vim'
 " Plug 'chrisbra/csv.vim'
 
 " YCM stopped working, will fix one day but for now...
