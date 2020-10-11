@@ -55,18 +55,19 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		--output "DP-2" --right-of "DP-0"
 	dunst &
 	picom -b &
+	clipmenud &
 	ponymix set-default -t source -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80
 	if [ "$(whoami)" = "evan" ]; then
-		# remap mouse buttons
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 		xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 		redshift-gtk &
 		workrave &
-		ibus-daemon -d -r &
+		# ibus-daemon -d -r &
 		~/dotfiles/sh-scripts/paswitch.sh speakers
 	fi
 	if [ "$(whoami)" = "star" ]; then
+		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 		~/dotfiles/sh-scripts/paswitch.sh usb
 		# change keyboard rate for starcraft reasons
 		xset r rate 150 40
