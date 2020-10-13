@@ -23,7 +23,13 @@ floating_modifier $mod
 bindsym $mod+Return exec xfce4-terminal
 
 # close focused window
-bindsym $mod+Shift+q kill window
+# we implement this in a separate mode as a sort of confirmation
+# (and so that if we hold down the key by accident nothing happens
+bindsym $mod+q mode "close"
+mode "close" {
+    bindsym Return kill window, mode "default"
+    bindsym Escape mode "default"
+}
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
