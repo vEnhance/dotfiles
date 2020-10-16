@@ -129,61 +129,105 @@ bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 # for_window commands
 # to be added
 
-# resize window (you can also use the mouse for that)
-mode "resize" {
-        # These bindings trigger as soon as you enter the resize mode
-        bindsym k resize grow height 5 px or 5 ppt
-        bindsym j resize shrink height 5 px or 5 ppt
-        bindsym l resize grow width 5 px or 5 ppt
-        bindsym h resize shrink width 5 px or 5 ppt
-
-        # same bindings, but for the arrow keys
-        bindsym Up resize grow height 15 px or 15 ppt
-        bindsym Down resize shrink height 15 px or 15 ppt
-        bindsym Right resize grow width 15 px or 15 ppt
-        bindsym Left resize shrink width 15 px or 15 ppt
-
-        # back to normal: Enter or Escape
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
-}
-
-bindsym $mod+r mode "resize"
+# # resize window (you can also use the mouse for that)
+# mode "resize" {
+#     # These bindings trigger as soon as you enter the resize mode
+#     bindsym k resize grow height 5 px or 5 ppt
+#     bindsym j resize shrink height 5 px or 5 ppt
+#     bindsym l resize grow width 5 px or 5 ppt
+#     bindsym h resize shrink width 5 px or 5 ppt
+#
+#     # same bindings, but for the arrow keys
+#     bindsym Up resize grow height 15 px or 15 ppt
+#     bindsym Down resize shrink height 15 px or 15 ppt
+#     bindsym Right resize grow width 15 px or 15 ppt
+#     bindsym Left resize shrink width 15 px or 15 ppt
+#
+#     # back to normal: Enter or Escape
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
+#
+# bindsym $mod+r mode "resize"
 
 # move windows around
 mode "move" {
-        bindsym h move workspace to output left
-        bindsym l move workspace to output right
-        bindsym Return mode "default"
-        bindsym Escape mode "default"
+    bindsym h move left
+    bindsym j move down
+    bindsym k move up
+    bindsym l move right
+
+    # wider, narrower, shorter, taller
+    bindsym w resize grow width 5 px or 5 ppt
+    bindsym n resize shrink width 5 px or 5 ppt
+    bindsym s resize shrink height 5 px or 5 ppt
+    bindsym t resize grow height 5 px or 5 ppt
+
+    bindsym Left move workspace to output left
+    bindsym Down move workspace to output down
+    bindsym Up move workspace to output up
+    bindsym Right move workspace to output right
+
+    bindsym 0 move container to workspace $WS0; workspace $WS0;
+    bindsym 1 move container to workspace $WS1; workspace $WS1;
+    bindsym 2 move container to workspace $WS2; workspace $WS2;
+    bindsym 3 move container to workspace $WS3; workspace $WS3;
+    bindsym 4 move container to workspace $WS4; workspace $WS4;
+    bindsym 5 move container to workspace $WS5; workspace $WS5;
+    bindsym 6 move container to workspace $WS6; workspace $WS6;
+    bindsym 7 move container to workspace $WS7; workspace $WS7;
+    bindsym 8 move container to workspace $WS8; workspace $WS8;
+    bindsym 9 move container to workspace $WS9; workspace $WS9;
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
 }
 bindsym $mod+m mode "move"
 
-# power control mode
-mode "control" {
+# power mode
+mode "power" {
     bindsym e exec --no-startup-id i3-nagbar -t warning \
         -m "Log out?" -b "i3-msg exit" "i3-msg exit", mode "default"
-    bindsym g exec --no-startup-id i3-nagbar -t warning \
+    bindsym n exec --no-startup-id i3-nagbar -t warning \
         -m "Suspend?" -b "systemctl suspend" "systemctl suspend", mode "default"
     bindsym s exec --no-startup-id i3-nagbar \
         -m "Shut down?" -b "systemctl poweroff" "systemctl poweroff", mode "default"
     bindsym z exec --no-startup-id i3-nagbar \
         -m "Reboot?" -b "systemctl reboot" "systemctl reboot", mode "default"
 
+    # for ArchMajestic: reset X-screen setup
+    bindsym x exec --no-startup-id xrandr \
+        --output "DP-4" --primary \
+        --output "DP-0" --right-of "DP-4" \
+        --output "HDMI-0" --below "DP-0" \
+        --output "DP-2" --right-of "DP-0"
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+backslash mode "power"
+
+# config reset mode
+mode "reset" {
     # reload the configuration file
     bindsym r reload, mode "default"
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
     bindsym i restart, mode "default"
     bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
 
-    # for ArchMajestic: reset X-screen setup
-    bindsym x exec --no-startup-id xrandr --output "DP-4" --primary --output "DP-0" --right-of "DP-4" --output "HDMI-0" --below "DP-0" --output "DP-2" --right-of "DP-0"
+    # switch mouse buttons
+    bindsym h exec --no-startup-id notify-send "Mouse changed" "LEFT HAND mouse\n$(xmodmap -e \"pointer = 1 2 3\")", mode "default"
+    bindsym l exec --no-startup-id notify-send "Mouse changed" "RIGHT HAND mouse\n$(xmodmap -e \"pointer = 3 2 1\")", mode "default"
+
+    bindsym g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
+    bindsym p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Escape mode "control"
+bindsym $mod+Escape mode "reset"
 
 # audio control mode
 mode "ponymix" {
@@ -254,8 +298,6 @@ workspace_auto_back_and_forth yes
 workspace_layout stacked
 
 # Exec scripts
-bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &
-bindsym $mod+p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
 # The Endor box is missing DP-0 and DP-4 is actually HDMI-0 compared to ArchMajestic
 workspace $WS1 output DP-4 HDMI-0
