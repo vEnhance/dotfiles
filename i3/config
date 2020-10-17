@@ -185,15 +185,11 @@ mode "move" {
 bindsym $mod+m mode "move"
 
 # power mode
-mode "power" {
-    bindsym e exec --no-startup-id i3-nagbar -t warning \
-        -m "Log out?" -b "i3-msg exit" "i3-msg exit", mode "default"
-    bindsym n exec --no-startup-id i3-nagbar -t warning \
-        -m "Suspend?" -b "systemctl suspend" "systemctl suspend", mode "default"
-    bindsym s exec --no-startup-id i3-nagbar \
-        -m "Shut down?" -b "systemctl poweroff" "systemctl poweroff", mode "default"
-    bindsym z exec --no-startup-id i3-nagbar \
-        -m "Reboot?" -b "systemctl reboot" "systemctl reboot", mode "default"
+mode "danger" {
+    bindsym e exec --no-startup-id i3-msg exit
+    bindsym n exec --no-startup-id systemctl suspend, mode "default"
+    bindsym s exec --no-startup-id systemctl poweroff
+    bindsym z exec --no-startup-id systemctl reboot
 
     # for ArchMajestic: reset X-screen setup
     bindsym x exec --no-startup-id xrandr \
@@ -206,7 +202,7 @@ mode "power" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+backslash mode "power"
+bindsym $mod+backslash mode "danger"
 
 # config reset mode
 mode "reset" {
