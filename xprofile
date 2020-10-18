@@ -69,8 +69,6 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	if [ "$(whoami)" = "star" ]; then
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 		~/dotfiles/sh-scripts/paswitch.sh usb
-		# change keyboard rate for starcraft reasons
-		xset r rate 150 40
 	fi
 	sleep 10 && dropbox-cli start &
 fi

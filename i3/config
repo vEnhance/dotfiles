@@ -204,8 +204,8 @@ mode "danger" {
 }
 bindsym $mod+backslash mode "danger"
 
-# config reset mode
-mode "reset" {
+# config/reset mode
+mode "config" {
     # reload the configuration file
     bindsym r reload, mode "default"
     # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -213,17 +213,21 @@ mode "reset" {
     bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
 
     # switch mouse buttons
-    bindsym h exec --no-startup-id notify-send "Mouse changed" "LEFT HAND mouse\n$(xmodmap -e \"pointer = 1 2 3\")", mode "default"
-    bindsym l exec --no-startup-id notify-send "Mouse changed" "RIGHT HAND mouse\n$(xmodmap -e \"pointer = 3 2 1\")", mode "default"
+    bindsym h exec --no-startup-id notify-send -i format-justify-left-symbolic "Left hand mouse" "Mouse changed $(xmodmap -e \"pointer = 3 2 1\")", mode "default"
+    bindsym l exec --no-startup-id notify-send -i format-justify-right-symbolic "Right hand mouse" "Mouse changed $(xmodmap -e \"pointer = 1 2 3\")", mode "default"
 
-    bindsym g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
+    # starcraft mode
+    bindsym s exec --no-startup-id notify-send -i starred-symbolic "glhf" "StarCraft mode enabled$(xmodmap -e \"pointer = 1 2 3\")$(xset r rate 150 40)", mode "default"
+    # normal mode
+    bindsym n exec --no-startup-id notify-send "gg no re" -i mail-replied-symbolic "Normal keyboard/mouse mode$(xmodmap -e \"pointer = 3 2 1\")$(xset r rate 660 25)", mode "default"
+
     bindsym p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Escape mode "reset"
+bindsym $mod+Escape mode "config"
 
 # audio control mode
 mode "ponymix" {
@@ -273,6 +277,9 @@ mode "ponymix" {
 
 }
 bindsym $mod+o mode "ponymix"
+
+# screen lock
+bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
