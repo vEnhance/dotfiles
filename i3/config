@@ -48,9 +48,6 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left  move workspace to output left;
-bindsym $mod+Shift+Right move workspace to output right;
 
 # split in horizontal orientation
 bindsym $mod+z split h
@@ -62,7 +59,7 @@ bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+t layout tabbed
-bindsym $mod+n layout toggle split
+bindsym $mod+e layout toggle split
 bindsym $mod+s layout stacking
 
 # toggle tiling / floating
@@ -78,15 +75,6 @@ bindsym $mod+b focus child
 # scratchpad commands
 bindsym $mod+minus move scratchpad
 bindsym $mod+u scratchpad show
-
-# close focused window
-# we implement this in a separate mode as a sort of confirmation
-# (and so that if we hold down the key by accident nothing happens
-bindsym $mod+q mode "close"
-mode "close" {
-    bindsym Return kill window, mode "default"
-    bindsym Escape mode "default"
-}
 
 # set workspace varnames
 set $WS1 "1: Aleph"
@@ -134,37 +122,83 @@ bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 #     bindsym j resize shrink height 5 px or 5 ppt
 #     bindsym l resize grow width 5 px or 5 ppt
 #     bindsym h resize shrink width 5 px or 5 ppt
-#
+# 
+#     # wider, narrower, shorter, taller
+#     bindsym w resize grow width 5 px or 5 ppt
+#     bindsym u resize shrink width 5 px or 5 ppt
+#     bindsym s resize shrink height 5 px or 5 ppt
+#     bindsym t resize grow height 5 px or 5 ppt
+# 
 #     # same bindings, but for the arrow keys
 #     bindsym Up resize grow height 15 px or 15 ppt
 #     bindsym Down resize shrink height 15 px or 15 ppt
 #     bindsym Right resize grow width 15 px or 15 ppt
 #     bindsym Left resize shrink width 15 px or 15 ppt
-#
-#     # back to normal: Enter or Escape
+# 
+#     bindsym m mode "move"
+#     bindsym n mode "drag"
+#     bindsym r mode "resize"
 #     bindsym Return mode "default"
 #     bindsym Escape mode "default"
 # }
-#
 # bindsym $mod+r mode "resize"
-
-# move windows around
+# navigation modes without super key
 mode "move" {
+    bindsym h focus left
+    bindsym j focus down
+    bindsym k focus up
+    bindsym l focus right
+    bindsym a focus parent
+    bindsym b focus child
+
+    bindsym 0 workspace $WS0;
+    bindsym 1 workspace $WS1;
+    bindsym 2 workspace $WS2;
+    bindsym 3 workspace $WS3;
+    bindsym 4 workspace $WS4;
+    bindsym 5 workspace $WS5;
+    bindsym 6 workspace $WS6;
+    bindsym 7 workspace $WS7;
+    bindsym 8 workspace $WS8;
+    bindsym 9 workspace $WS9;
+
+    bindsym Shift+h move container left
+    bindsym Shift+j move container down
+    bindsym Shift+k move container up
+    bindsym Shift+l move container right
+
+    bindsym Shift+0 move container to workspace $WS0; workspace $WS0;
+    bindsym Shift+1 move container to workspace $WS1; workspace $WS1;
+    bindsym Shift+2 move container to workspace $WS2; workspace $WS2;
+    bindsym Shift+3 move container to workspace $WS3; workspace $WS3;
+    bindsym Shift+4 move container to workspace $WS4; workspace $WS4;
+    bindsym Shift+5 move container to workspace $WS5; workspace $WS5;
+    bindsym Shift+6 move container to workspace $WS6; workspace $WS6;
+    bindsym Shift+7 move container to workspace $WS7; workspace $WS7;
+    bindsym Shift+8 move container to workspace $WS8; workspace $WS8;
+    bindsym Shift+9 move container to workspace $WS9; workspace $WS9;
+
+    # wider, narrower, shorter, taller
+    bindsym w resize grow width 5 px or 5 ppt
+    bindsym u resize shrink width 5 px or 5 ppt
+    bindsym s resize shrink height 5 px or 5 ppt
+    bindsym t resize grow height 5 px or 5 ppt
+
+    bindsym m mode "move"
+    bindsym n mode "drag"
+    # bindsym r mode "resize"
+    bindsym q mode "close"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+mode "drag" {
+    bindsym a focus parent
+    bindsym b focus child
+
     bindsym h move left
     bindsym j move down
     bindsym k move up
     bindsym l move right
-
-    # wider, narrower, shorter, taller
-    bindsym w resize grow width 5 px or 5 ppt
-    bindsym n resize shrink width 5 px or 5 ppt
-    bindsym s resize shrink height 5 px or 5 ppt
-    bindsym t resize grow height 5 px or 5 ppt
-
-    bindsym Left move workspace to output left
-    bindsym Down move workspace to output down
-    bindsym Up move workspace to output up
-    bindsym Right move workspace to output right
 
     bindsym 0 move container to workspace $WS0; workspace $WS0;
     bindsym 1 move container to workspace $WS1; workspace $WS1;
@@ -177,10 +211,31 @@ mode "move" {
     bindsym 8 move container to workspace $WS8; workspace $WS8;
     bindsym 9 move container to workspace $WS9; workspace $WS9;
 
+    # wider, narrower, shorter, taller
+    bindsym w resize grow width 5 px or 5 ppt
+    bindsym u resize shrink width 5 px or 5 ppt
+    bindsym s resize shrink height 5 px or 5 ppt
+    bindsym t resize grow height 5 px or 5 ppt
+
+    bindsym m mode "move"
+    bindsym n mode "drag"
+    # bindsym r mode "resize"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+m mode "move"
+bindsym $mod+n mode "drag"
+
+# close focused window
+# we implement this in a separate mode as a sort of confirmation
+# (and so that if we hold down the key by accident nothing happens
+bindsym $mod+q mode "close"
+mode "close" {
+    bindsym m mode "move"
+    bindsym Return kill window, mode "default"
+    bindsym Escape mode "default"
+}
+
 
 # power mode
 mode "danger" {
@@ -303,7 +358,7 @@ bindsym $mod+o mode "ponymix"
 # Run programs
 bindsym $mod+Return exec xfce4-terminal
 
-mode "run" {
+mode "exec" {
     bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
     bindsym c exec caprine &, mode "default"
     bindsym d exec discord &, mode "default"
@@ -319,7 +374,7 @@ mode "run" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+r mode "run"
+bindsym $mod+x mode "exec"
 mode "multirun" {
     bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
     bindsym c exec caprine &
@@ -335,8 +390,7 @@ mode "multirun" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+Shift+r mode "multirun"
-
+bindsym $mod+Shift+x mode "multirun"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
