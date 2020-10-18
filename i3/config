@@ -301,9 +301,42 @@ mode "ponymix" {
 bindsym $mod+o mode "ponymix"
 
 # Run programs
-bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &
 bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+semicolon exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+
+mode "run" {
+    bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+    bindsym c exec caprine &, mode "default"
+    bindsym d exec discord &, mode "default"
+    bindsym e exec epiphany &, mode "default"
+    bindsym f exec firefox &, mode "default"
+    bindsym g exec gnucash &, mode "default"
+    bindsym h exec chromium &, mode "default"
+    bindsym o exec obs &, mode "default"
+    bindsym s exec spotify &, mode "default"
+    bindsym y exec dynalist &, mode "default"
+    bindsym z exec zoom &, mode "default"
+    bindsym space exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "run"
+mode "multirun" {
+    bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+    bindsym c exec caprine &
+    bindsym d exec discord &
+    bindsym e exec epiphany &
+    bindsym f exec firefox &
+    bindsym g exec gnucash &
+    bindsym h exec chromium &
+    bindsym o exec obs &
+    bindsym s exec spotify &
+    bindsym y exec dynalist &
+    bindsym z exec zoom &
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+Shift+r mode "multirun"
+
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
