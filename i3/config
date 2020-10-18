@@ -213,13 +213,13 @@ mode "config" {
     bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
 
     # switch mouse buttons
-    bindsym h exec --no-startup-id notify-send -i format-justify-left-symbolic "Left hand mouse" "Mouse changed $(xmodmap -e \"pointer = 3 2 1\")", mode "default"
-    bindsym l exec --no-startup-id notify-send -i format-justify-right-symbolic "Right hand mouse" "Mouse changed $(xmodmap -e \"pointer = 1 2 3\")", mode "default"
+    bindsym h exec --no-startup-id notify-send -i format-justify-left-symbolic "Left hand mouse" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)", mode "default"
+    bindsym l exec --no-startup-id notify-send -i format-justify-right-symbolic "Right hand mouse" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)", mode "default"
 
     # starcraft mode
-    bindsym s exec --no-startup-id notify-send -i starred-symbolic "glhf" "StarCraft mode enabled$(xmodmap -e \"pointer = 1 2 3\")$(xset r rate 150 40)", mode "default"
+    bindsym s exec --no-startup-id notify-send -i starred-symbolic "SC2 mode glhf" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)\n$(xset r rate 150 40 2>&1)", mode "default"
     # normal mode
-    bindsym n exec --no-startup-id notify-send "gg no re" -i mail-replied-symbolic "Normal keyboard/mouse mode$(xmodmap -e \"pointer = 3 2 1\")$(xset r rate 660 25)", mode "default"
+    bindsym n exec --no-startup-id notify-send -i mail-replied-symbolic "Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", mode "default"
 
     bindsym p exec xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode -T && notify-send "xfce4 power manager presentation mode" "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)" --icon=dialog-information
 
