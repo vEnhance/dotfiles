@@ -20,15 +20,10 @@ font pango:DejaVu Sans Mono 11
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
-
-# close focused window
-# we implement this in a separate mode as a sort of confirmation
-# (and so that if we hold down the key by accident nothing happens
-bindsym $mod+q mode "close"
-mode "close" {
-    bindsym Return kill window, mode "default"
-    bindsym Escape mode "default"
-}
+# Settings
+focus_follows_mouse no
+workspace_auto_back_and_forth yes
+workspace_layout stacked
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -45,16 +40,14 @@ bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
-
-#bindsym $mod+Left  workspace prev
-#bindsym $mod+Right workspace next
+bindsym $mod+Left  workspace prev
+bindsym $mod+Right workspace next
 
 # move focused window
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left  move workspace to output left;
 bindsym $mod+Shift+Right move workspace to output right;
@@ -74,19 +67,26 @@ bindsym $mod+s layout stacking
 
 # toggle tiling / floating
 bindsym $mod+period floating toggle
-
 # change focus between tiling / floating windows
 bindsym $mod+Tab focus mode_toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
-
 # focus the child container
 bindsym $mod+b focus child
 
 # scratchpad commands
 bindsym $mod+minus move scratchpad
 bindsym $mod+u scratchpad show
+
+# close focused window
+# we implement this in a separate mode as a sort of confirmation
+# (and so that if we hold down the key by accident nothing happens
+bindsym $mod+q mode "close"
+mode "close" {
+    bindsym Return kill window, mode "default"
+    bindsym Escape mode "default"
+}
 
 # set workspace varnames
 set $WS1 "1: Aleph"
@@ -250,24 +250,35 @@ mode "ponymix" {
     # bindsym b exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh hdmi, mode "default"
 
     # mic volume
-    bindsym u exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Mic volume up" "Current mic volume $(ponymix -t source increase 4)%" -t 5000
-    bindsym d exec --no-startup-id notify-send -i microphone-sensitivity-low-symbolic "Mic volume down" "Current mic volume $(ponymix -t source decrease 4)%" -t 5000
+    bindsym u exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic \
+        "Mic volume up" "Current mic volume $(ponymix -t source increase 4)%" -t 5000
+    bindsym d exec --no-startup-id notify-send -i microphone-sensitivity-low-symbolic \
+        "Mic volume down" "Current mic volume $(ponymix -t source decrease 4)%" -t 5000
     # reset mic volume to 90
-    bindsym i exec --no-startup-id notify-send -i audio-input-microphone "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 90)%" -t 5000, mode "default"
+    bindsym i exec --no-startup-id notify-send -i audio-input-microphone \
+        "Microphone volume reset" "Microphone volume is $(ponymix -t source set-volume 90)%" -t 5000, mode "default"
 
     # global volume
-    bindsym k exec --no-startup-id notify-send -i audio-volume-high "Global volume up" "Current volume $(ponymix increase 4)%" -t 5000
-    bindsym j exec --no-startup-id notify-send -i audio-volume-medium "Global volume down" "Current volume $(ponymix decrease 4)%" -t 5000
+    bindsym k exec --no-startup-id notify-send -i audio-volume-high \
+        "Global volume up" "Current volume $(ponymix increase 4)%" -t 5000
+    bindsym j exec --no-startup-id notify-send -i audio-volume-medium \
+        "Global volume down" "Current volume $(ponymix decrease 4)%" -t 5000
 
     # global mute / unmute
-    bindsym m exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 5000, mode "default"
-    bindsym w exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 5000, mode "default"
+    bindsym m exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic \
+        "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 5000, mode "default"
+    bindsym w exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic \
+        "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 5000, mode "default"
 
     # combo commands
     # leave desk
-    bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh speakers, exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
+    bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh speakers, \
+         exec --no-startup-id notify-send -i microphone-sensitivity-muted-symbolic \
+        "Microphone muted" "Once was volume $(ponymix -t source mute)%" -t 500, mode "default"
     # return to desk
-    bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh usb, exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
+    bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/paswitch.sh usb, \
+        exec --no-startup-id notify-send -i microphone-sensitivity-high-symbolic \
+        "Microphone unmuted" "Microphone volume is $(ponymix -t source unmute)%" -t 500, mode "default"
 
     # playerctl
     bindsym space exec --no-startup-id playerctl play-pause, mode "default"
@@ -275,16 +286,24 @@ mode "ponymix" {
     bindsym n exec --no-startup-id playerctl next
 
     # control Spotify volume
-    bindsym Shift+k exec --no-startup-id notify-send -i audio-headphones "Spotify volume up" "Spotify volume $(ponymix increase 10 -d Spotify --sink-input)%" -t 500
-    bindsym Shift+j exec --no-startup-id notify-send -i audio-headphones "Spotify volume down" "Spotify volume $(ponymix decrease 10 -d Spotify --sink-input)%" -t 500
+    bindsym Shift+k exec --no-startup-id notify-send -i audio-headphones \
+        "Spotify volume up" "Spotify volume $(ponymix increase 10 -d Spotify --sink-input)%" -t 500
+    bindsym Shift+j exec --no-startup-id notify-send -i audio-headphones \
+        "Spotify volume down" "Spotify volume $(ponymix decrease 10 -d Spotify --sink-input)%" -t 500
 
     # sometimes Spotify creates an extra sink for no apparent reason, so make a keybind to kill it
-    bindsym z exec --no-startup-id notify-send -i dialog-warning-symbolic "Spotify stream killed" "$(ponymix kill -d Spotify)" -t 500
+    bindsym z exec --no-startup-id notify-send -i dialog-warning-symbolic \
+        "Spotify stream killed" "$(ponymix kill -d Spotify)" -t 500
 
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+o mode "ponymix"
+
+# Run programs
+bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &
+bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+semicolon exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -299,16 +318,6 @@ bar {
     tray_output primary
     tray_output DP-2
 }
-
-# Settings
-focus_follows_mouse no
-workspace_auto_back_and_forth yes
-workspace_layout stacked
-
-# Run programs
-bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &
-bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+semicolon exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
 
 # The Endor box is missing DP-0 and DP-4 is actually HDMI-0 compared to ArchMajestic
 workspace $WS1 output DP-4 HDMI-0
