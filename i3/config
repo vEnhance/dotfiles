@@ -279,7 +279,10 @@ mode "ponymix" {
 bindsym $mod+o mode "ponymix"
 
 # screen lock
-bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
+bindsym $mod+g exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &
+
+# geogebra exporter
+bindsym $mod+semicolon exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
