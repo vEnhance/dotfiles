@@ -262,6 +262,12 @@ Plug 'leanprover/lean.vim'
 " Plug 'chrisbra/csv.vim'
 call plug#end()
 
+" Uncomment to auto open NerdTree on empty vim
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Uncomment below to close Vim if only NerdTree remains
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " Backup Directories
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
@@ -296,12 +302,19 @@ set guifont=Monospace\ 11
 
 set list
 set listchars=tab:\|\ ,trail:_
+" use space as leader key
+let mapleader = " "
 
 " Another few tricks
 nnoremap <silent> ZW :update<CR>
 vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
+
+" e is for emulator
+nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory=$VIM_DIR &<CR>
+" t is for tree
+nnoremap <Leader>t :NERDTreeToggle<CR>
 
 
 " ------------------------------------------
@@ -315,13 +328,17 @@ let g:Tex_SmartKeyDot = 0
 let g:Tex_comment_nospell= 1
 let g:Tex_SmartKeyQuote = 0
 let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_CompileRule_pdf = 'latexmk -f -pdf $*'
-let g:Tex_GotoError = 0
+" let g:Tex_CompileRule_pdf = 'latexmk -f -pdf $*'
+let g:Tex_ViewRule_pdf = 'zathura'
+let g:Tex_GotoError = 1
 function! SyncTexForward()
     let execstr = "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
     exec execstr
 endfunction
-au FileType tex nmap <Leader>f :call SyncTexForward()<CR>
+nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
+
+" s stands for synctex
+au FileType tex nmap <Leader>s :call SyncTexForward()<CR>
 
 " Certain file-specific settings which don't seem to apply in after/ftplugin
 let g:tex_conceal='agms'
