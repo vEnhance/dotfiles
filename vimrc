@@ -245,20 +245,31 @@ augroup END
 
 " Plug
 call plug#begin('~/.vim/plugged')
+" File-type specific edits
 Plug 'kchmck/vim-coffee-script'
-Plug 'dag/vim-fish'
-Plug 'vim-latex/vim-latex'
-Plug 'honza/vim-snippets'
-Plug 'tpope/vim-unimpaired'
-Plug 'laoyang945/vimflowy'
-Plug 'vim-syntastic/syntastic'
-Plug 'SirVer/ultisnips'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'qpkorr/vim-renamer'
-Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'leanprover/lean.vim'
+Plug 'dag/vim-fish'
+Plug 'vim-latex/vim-latex'
+Plug 'laoyang945/vimflowy'
+" General plugins
+Plug 'honza/vim-snippets'
+Plug 'SirVer/ultisnips'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-syntastic/syntastic'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'godlygeek/tabular'
+" More general plugins
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'mg979/vim-visual-multi'
+Plug 'tpope/vim-surround'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+" Plug 'qpkorr/vim-renamer' not needed due to vidir
 " Plug 'chrisbra/csv.vim'
 call plug#end()
 
@@ -273,6 +284,7 @@ set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 set number
 set shell=/bin/bash
+set updatetime=100
 
 " Actual encryption: need a try / catch for backwards compatibility
 try
@@ -302,6 +314,10 @@ set guifont=Monospace\ 11
 
 set list
 set listchars=tab:\|\ ,trail:_
+set laststatus=2
+set splitright
+set guicursor+=n-v-c:blinkon0
+
 " use space as leader key
 let mapleader = " "
 
@@ -311,10 +327,47 @@ vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
 
+
+" LEADER KEY
 " e is for emulator
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory=$VIM_DIR &<CR>
-" t is for tree
-nnoremap <Leader>t :NERDTreeToggle<CR>
+" nt is for tree
+nnoremap <Leader>nt :NERDTreeToggle<CR>
+" tn is for tabnew
+nnoremap <Leader>tn :tabnew<CR>
+" open recent
+nnoremap <Leader>or :History<CR>
+" cd
+nnoremap <Leader>cd :lcd %:p:h<CR>
+
+" window new on right (CTRL-W n gives below)
+nnoremap <Leader>wn :vne<CR>
+" window close
+nnoremap <Leader>wc :close<CR>
+" git status
+nnoremap <Leader>gs :Git<CR>
+" git blame
+nnoremap <Leader>gb :Git blame<CR>
+" git diff
+nnoremap <Leader>gd :Git diff<CR>
+" git add current file (w for write)
+nnoremap <Leader>gw :Git add %<CR>
+" git create commit
+nnoremap <Leader>gcc :Git commit<CR>
+" git commit --amend (and edit message)
+nnoremap <Leader>gce :Git commit --amend<CR>
+" git commit all (commit full to avoid confusion with --amend)
+nnoremap <Leader>gcf :Git commit --all<CR>
+" git commit amend all
+nnoremap <Leader>gaa :Git commit --amend --all<CR>
+
+" latex compile
+nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
+
+" Leader keys that are defined for me
+" <Leader>ll -> pdflatex compile
+" <Leader>lv -> latex viewer
+" <Leader>rf -> refresh folds (LaTeX)
 
 
 " ------------------------------------------
@@ -335,7 +388,6 @@ function! SyncTexForward()
     let execstr = "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
     exec execstr
 endfunction
-nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
 
 " s stands for synctex
 au FileType tex nmap <Leader>s :call SyncTexForward()<CR>
@@ -369,5 +421,20 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in
 let NERDTreeIgnore = ['\.pyc$']
 nnoremap <silent> NT :NERDTreeFocus<CR>
 
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
+
 " Lilypond
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
+
+" Git Gutter
+highlight! link SignColumn LineNr
