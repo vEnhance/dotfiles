@@ -11,6 +11,7 @@ add_cus_dep("von", "out", 0, "von_run");
 $pdf_mode = 1;
 $max_repeat = 7;
 $pdf_previewer = "zathura %O %S &";
+$pvc_timeout = 1;
 
 $cleanup_includes_generated = 0;
 $cleanup_includes_cusdep_generated = 1;
