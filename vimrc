@@ -350,19 +350,31 @@ nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gb :Git blame<CR>
 " git diff
 nnoremap <Leader>gd :Git diff<CR>
+
 " git add current file (w for write)
 nnoremap <Leader>gw :Git add %<CR>
+
 " git create commit
 nnoremap <Leader>gcc :Git commit<CR>
-" git commit --amend (and edit message)
-nnoremap <Leader>gce :Git commit --amend<CR>
-" git commit all (commit full to avoid confusion with --amend)
-nnoremap <Leader>gcf :Git commit --all<CR>
-" git commit amend all
-nnoremap <Leader>gaa :Git commit --amend --all<CR>
+" git commit current file
+nnoremap <Leader>gcw :Git commit %<CR>
+" git commit all
+nnoremap <Leader>gca :Git commit --all<CR>
+
+" git create commit --amend
+nnoremap <Leader>gec :Git commit<CR>
+" git commit current file
+nnoremap <Leader>gew :Git commit %<CR>
+" git commit all
+nnoremap <Leader>gea :Git commit --all<CR>
 
 " latex compile
 nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
+
+" syntax group
+nnoremap <Leader>sg :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
