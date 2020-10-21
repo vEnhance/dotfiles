@@ -135,6 +135,15 @@ let g:tex_flavor='latex'
 let g:Tex_SmartKeyDot = 0
 let g:Tex_comment_nospell= 1
 let g:Tex_SmartKeyQuote = 0
+let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_CompileRule_pdf = 'latexmk -f -pdf $*'
+let g:Tex_GotoError = 0
+
+function! SyncTexForward()
+    let execstr = "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
+    exec execstr
+endfunction
+au FileType tex nmap <Leader>f :call SyncTexForward()<CR>
 
 " Certain file-specific settings which don't seem to apply in after/ftplugin
 let g:tex_conceal='agms'
