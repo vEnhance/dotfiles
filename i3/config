@@ -368,6 +368,7 @@ mode "exec" {
     bindsym h exec chromium &, mode "default"
     bindsym o exec obs &, mode "default"
     bindsym s exec spotify &, mode "default"
+    bindsym v exec gvim &, mode "default"
     bindsym y exec dynalist &, mode "default"
     bindsym z exec zoom &, mode "default"
     bindsym space exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
@@ -385,6 +386,7 @@ mode "multirun" {
     bindsym h exec chromium &
     bindsym o exec obs &
     bindsym s exec spotify &
+    bindsym v exec gvim &
     bindsym y exec dynalist &
     bindsym z exec zoom &
     bindsym Return mode "default"
