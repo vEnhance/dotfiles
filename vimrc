@@ -350,9 +350,10 @@ nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gb :Git blame<CR>
 " git diff
 nnoremap <Leader>gd :Git diff<CR>
-
+" git undo (really git read)
+nnoremap <Leader>gu :Gread<CR>
 " git add current file (w for write)
-nnoremap <Leader>gw :Git add %<CR>
+nnoremap <Leader>gw :Gwrite<CR>
 
 " git create commit
 nnoremap <Leader>gcc :Git commit<CR>
