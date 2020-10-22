@@ -360,6 +360,7 @@ bindsym $mod+Return exec xfce4-terminal
 
 mode "exec" {
     bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+    bindsym b exec libreoffice --calc &, mode "default"
     bindsym c exec caprine &, mode "default"
     bindsym d exec discord &, mode "default"
     bindsym e exec epiphany &, mode "default"
@@ -378,6 +379,7 @@ mode "exec" {
 bindsym $mod+x mode "exec"
 mode "multirun" {
     bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+    bindsym b exec libreoffice --calc &
     bindsym c exec caprine &
     bindsym d exec discord &
     bindsym e exec epiphany &
