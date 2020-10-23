@@ -54,7 +54,7 @@ sink=${sink_names[$1]:-$1}
 ) | pacmd
 
 # if dunst running, send a notification
-if pgrep dunst > /dev/null
+if pgrep -U $(whoami) dunst > /dev/null
 then
 	notify-send -i audio-card "Sink changed" "Sound now on sink $sink"
 fi
