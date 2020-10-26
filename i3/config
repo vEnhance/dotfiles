@@ -17,7 +17,7 @@ set $mod Mod4
 font pango:DejaVu Sans Mono 11
 # font pango:Inconsolata 11
 
-# Use Mouse+$mod to drag floating windows to their wanted position
+# Use Mouse+$mod to nudge floating windows to their wanted position
 floating_modifier $mod
 
 # Settings
@@ -136,7 +136,7 @@ bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 #     bindsym Left resize shrink width 15 px or 15 ppt
 # 
 #     bindsym m mode "move"
-#     bindsym n mode "drag"
+#     bindsym n mode "nudge"
 #     bindsym r mode "resize"
 #     bindsym Return mode "default"
 #     bindsym Escape mode "default"
@@ -185,13 +185,13 @@ mode "move" {
     bindsym t resize grow height 5 px or 5 ppt
 
     bindsym m mode "move"
-    bindsym n mode "drag"
+    bindsym n mode "nudge"
     # bindsym r mode "resize"
     bindsym q mode "close"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-mode "drag" {
+mode "nudge" {
     bindsym a focus parent
     bindsym b focus child
 
@@ -218,13 +218,13 @@ mode "drag" {
     bindsym t resize grow height 5 px or 5 ppt
 
     bindsym m mode "move"
-    bindsym n mode "drag"
+    bindsym n mode "nudge"
     # bindsym r mode "resize"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
 bindsym $mod+m mode "move"
-bindsym $mod+n mode "drag"
+bindsym $mod+n mode "nudge"
 
 # close focused window
 # we implement this in a separate mode as a sort of confirmation
