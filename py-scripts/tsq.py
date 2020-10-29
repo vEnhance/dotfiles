@@ -26,6 +26,7 @@ fn_names = {
 		'Line': 2,
 		'bisectorpoint': 2,
 		'arc': 4,
+		'abs': 1,
 		}
 short_names = {
 		'circle' : 'circumcircle',
