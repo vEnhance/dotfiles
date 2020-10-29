@@ -377,6 +377,15 @@ nnoremap <Leader>gea :Git commit --all<CR>
 
 " latex compile
 nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
+" latex von compile (mnemonic O for olympiad)
+nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview/von_preview.tex -pvc" &<CR>
+
+" tsq -> asy compile and open
+nnoremap <Leader>to :update<CR>:silent !python -m tsq -p % \| asy -f pdf -V -<CR>
+" tsq -> asy
+nnoremap <Leader>ta :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR><CR>
+" tsq -> asy but show error
+nnoremap <Leader>te :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR>
 
 " syntax group
 nnoremap <Leader>sg :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
