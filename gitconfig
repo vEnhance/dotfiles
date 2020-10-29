@@ -23,6 +23,8 @@
 	untracked = cyan
 [push]
 	default = simple
+[pull]
+	rebase = true
 
 [alias]
 	ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(green)[%cr]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
@@ -32,7 +34,7 @@
 
 	cm = commit
 	co = checkout
-	br = branch 
+	br = branch
 	ss = status -s -b
 	pu = pull origin
 	pr = pull --rebase origin
