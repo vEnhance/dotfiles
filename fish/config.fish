@@ -141,7 +141,7 @@ end
 # Uses the locate utility to find a certain file
 function hunt ()
 	python3 ~/dotfiles/py-scripts/hunt.py "$argv"
-	cd (cat /tmp/hunt)
+	cd (cat /tmp/hunt.(whoami))
 	pwd
 	ls -l --color=tty
 end

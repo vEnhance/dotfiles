@@ -104,8 +104,8 @@ function pdf() {
 
 # Uses the locate utility to find a certain file
 function hunt () {
-	python2 ~/dotfiles/py-scripts/hunt.py "${1}"
-	cd "$(cat /tmp/hunt)"
+	python3 ~/dotfiles/py-scripts/hunt.py "${1}"
+	cd "$(cat /tmp/hunt.$(whoami))"
 	pwd
 	ls -l --color=tty
 }

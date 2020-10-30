@@ -4,12 +4,13 @@
 # Usage:
 # python hunt.py [file]
 # If file is a filename, then hunt will open the first
-# locate place, then output that directory to /tmp/hunt
+# locate place, then output that directory to /tmp/hunt-user
 # If there is more than one target, it will prompt the user to choose one.
 # If file is a path to a file, then hunt will output
-# the associated directory to /tmp/hunt.
+# the associated directory to /tmp/hunt-user.
 
 import sys, os, subprocess
+import getpass
 target = sys.argv[1]
 
 
@@ -28,7 +29,7 @@ else:
 	fileLocation = target
 
 destination = fileLocation[:fileLocation.rfind('/')]
-with open("/tmp/hunt", "w") as f:
+with open("/tmp/hunt." + getpass.getuser(), "w") as f:
 	print(destination, file=f)
 
 #os.system('cd %s' %destination)
