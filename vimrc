@@ -335,10 +335,16 @@ nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --wo
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 " tn is for tabnew
 nnoremap <Leader>tn :tabnew<CR>
-" open recent
-nnoremap <Leader>or :History<CR>
 " cd
 nnoremap <Leader>cd :lcd %:p:h<CR>
+
+" fzf
+" open recent
+nnoremap <Leader>or :History<CR>
+" open lines (as `open to`)
+nnoremap <Leader>ot :Lines<CR>
+" open file
+nnoremap <Leader>of :Files<CR>
 
 " window new on right (CTRL-W n gives below)
 nnoremap <Leader>wn :vne<CR>
