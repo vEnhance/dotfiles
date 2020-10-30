@@ -17,7 +17,7 @@ $cleanup_includes_generated = 0;
 $cleanup_includes_cusdep_generated = 1;
 
 @generated_exts = ( 'aux', 'bbl', 'bcf', 'fls', 'idx', 'ind', 'lof',
-                    'lot', 'out', 'pre', 'toc', 'nav', 'snm', 'von');
+                    'lot', 'out', 'pre', 'toc', 'nav', 'snm', 'von', 'synctex.gz');
 
 # don't hash calc for deep system dependencies
 $hash_calc_ignore_pattern{'map'} = '^';
