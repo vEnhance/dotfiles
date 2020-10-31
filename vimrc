@@ -330,7 +330,7 @@ nnoremap <silent> za zt7k7j
 
 " LEADER KEY
 " e is for emulator
-nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory=$VIM_DIR &<CR>
+nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>
 " nt is for tree
 nnoremap <Leader>nt :NERDTreeToggle<CR>
 " tn is for tabnew
