@@ -54,9 +54,9 @@ fi
 if $REVIVE_WORKRAVE;
 then
 	sleep 0.5
-	workrave &
+	# workrave &
 	dbus-send --print-reply \
-		--dest=org.workrave.WorkraveApplication \
+		--dest=org.workrave.Workrave \
 		/org/workrave/Workrave/Core \
 		org.workrave.CoreInterface.SetOperationMode \
 		string:'normal'
