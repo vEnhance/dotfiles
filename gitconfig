@@ -51,3 +51,5 @@
 	unassume = update-index --no-assume-unchanged
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+[init]
+	defaultBranch = main
