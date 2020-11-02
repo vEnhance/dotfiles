@@ -367,6 +367,7 @@ mode "exec" {
     bindsym f exec firefox &, mode "default"
     bindsym g exec gnucash &, mode "default"
     bindsym h exec chromium &, mode "default"
+    bindsym i exec ibus-daemon -d -r, mode "default"
     bindsym o exec obs &, mode "default"
     bindsym s exec spotify &, mode "default"
     bindsym v exec gvim &, mode "default"
@@ -386,6 +387,7 @@ mode "multirun" {
     bindsym f exec firefox &
     bindsym g exec gnucash &
     bindsym h exec chromium &
+    bindsym i exec ibus-daemon -d -r
     bindsym o exec obs &
     bindsym s exec spotify &
     bindsym v exec gvim &
