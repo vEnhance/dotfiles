@@ -345,6 +345,8 @@ nnoremap <Leader>or :History<CR>
 nnoremap <Leader>ot :Lines<CR>
 " open file
 nnoremap <Leader>of :Files<CR>
+" open buffers
+nnoremap <Leader>ob :Buffers<CR>
 
 " window new on right (CTRL-W n gives below)
 nnoremap <Leader>wn :vne<CR>
