@@ -24,6 +24,7 @@ set __fish_git_prompt_char_upstream_behind '<'
 set fish_color_cwd CCA700
 set fish_color_name 44FFFF
 set fish_color_host 00CCA7
+set fish_color_error FF0000
 set fish_color_greeting FF3333
 set fish_color_determination yellow
 
@@ -46,22 +47,26 @@ function fish_greeting
 end
 
 function fish_prompt
-  set last_status $status
+	set last_status $status
+	set_color --bold $fish_color_name
+	printf $USER
+	set_color normal
+	set_color $fish_color_host
+	printf @
+	printf (hostname)
+	if not test $last_status -eq 0
+		set_color $fish_color_error
+		printf ' ['
+		printf $last_status
+		printf ']'
+	end
+	set_color $fish_color_cwd
+	printf ' '
+	printf (prompt_pwd)
 
-  set_color --bold $fish_color_name
-  printf $USER
-  set_color normal
-  set_color $fish_color_host
-  printf @
-  printf (hostname)
-  set_color $fish_color_cwd
-  printf ' '
-  printf (prompt_pwd)
-
-  set_color normal
-  printf '%s ' (__fish_git_prompt)
-  set_color normal
-  printf '\n$ '
+	set_color normal
+	printf '%s ' (__fish_git_prompt)
+	printf '\n$ '
 end
 
 if [ "(uname)" = Linux ]
