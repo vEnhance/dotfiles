@@ -13,51 +13,60 @@ then
 	exit
 fi
 
-REVIVE_WORKRAVE=false;
-if pgrep -U $(whoami) workrave > /dev/null
-then
-	REVIVE_WORKRAVE=true;
-	killall workrave
+if [ "$HOSTNAME" = ArchMajestic ]; then
+	if [ "$(whoami)" = "evan" ]; then
+		dbus-send --print-reply \
+			--dest=org.workrave.Workrave \
+			/org/workrave/Workrave/Core \
+			org.workrave.CoreInterface.SetOperationMode \
+			string:'suspended'
+	fi
 fi
 
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute
 
 # Take a screenshot
-scrot --overwrite /tmp/screen_locked.png
+scrot -q 10 --overwrite /tmp/screen_locked_$(whoami).jpg
+convert -blur 3x4 +level 35% -brightness-contrast -30x0 /tmp/screen_locked_$(whoami).jpg /tmp/screen_locked_$(whoami).png
 
-# mogrify -scale 10% -scale 1000% /tmp/screen_locked.png
-mogrify -blur 3x4 +level 35% -brightness-contrast -30x0 /tmp/screen_locked.png
+if [ $(stat --printf="%s" /tmp/screen_locked_evan.png) -gt 25000 ]; then
+	xset s 20 20
+	i3lock \
+		--beep \
+		--ignore-empty-password \
+		--show-failed-attempts \
+		--nofork \
+		--pointer=win \
+		--image=/tmp/screen_locked_$(whoami).png
+	xset s 600 600
+else
+	# in this case, the image is so small that I am led to believe
+	# that the X server is not even focused
+	# so we just use a solid background
+	i3lock \
+		--beep \
+		--ignore-empty-password \
+		--show-failed-attempts \
+		--nofork \
+		--pointer=win \
+		--color=d33529 # superficial burn
+fi
 
-xset s 20 20
-
-# Lock screen displaying this image.
-i3lock \
-	--beep \
-	--ignore-empty-password \
-	--show-failed-attempts \
-	--nofork \
-	--pointer=win \
-	--image=/tmp/screen_locked.png
-
-# i3lock -n -f -b -e -p win -i /home/evan/Dropbox/Photos/Pictures/backgrounds/sans-papyrus.png -t
-
-xset s 600 600
+# And now that we're done...
+rm /tmp/screen_locked_$(whoami).jpg
+rm /tmp/screen_locked_$(whoami).png
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
+	if [ "$(whoami)" = "evan" ]; then
+		dbus-send --print-reply \
+			--dest=org.workrave.Workrave \
+			/org/workrave/Workrave/Core \
+			org.workrave.CoreInterface.SetOperationMode \
+			string:'normal'
+	fi
 fi
 if [ "$HOSTNAME" = Endor ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
-fi
-
-if $REVIVE_WORKRAVE;
-then
-	sleep 0.5
-	# workrave &
-	dbus-send --print-reply \
-		--dest=org.workrave.Workrave \
-		/org/workrave/Workrave/Core \
-		org.workrave.CoreInterface.SetOperationMode \
-		string:'normal'
 fi
