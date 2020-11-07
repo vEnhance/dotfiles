@@ -69,6 +69,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	if [ "$(whoami)" = "star" ]; then
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 		~/dotfiles/sh-scripts/paswitch.sh usb
+		xautolock -time 70 -locker '/home/star/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	fi
 	sleep 10 && dropbox-cli start &
 fi
