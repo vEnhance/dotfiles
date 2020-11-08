@@ -76,7 +76,7 @@ bindsym $mod+b focus child
 
 # scratchpad commands
 bindsym $mod+minus move scratchpad
-bindsym $mod+u scratchpad show
+bindsym $mod+Shift+minus scratchpad show
 
 # set workspace varnames
 set $WS1 "1: Aleph"
