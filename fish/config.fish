@@ -120,7 +120,6 @@ alias trash='gio trash'
 # alias emacs='vim'
 alias gogogo='startx'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
-alias sudo='sudo ' # allows my aliases to get into sudo
 
 # Create a new TeX file
 function newtex
