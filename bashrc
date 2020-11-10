@@ -1,5 +1,5 @@
-# 
-# .bashrc 
+#
+# .bashrc
 # Evan Chen
 #
 
@@ -43,27 +43,29 @@ alias getclip="xsel --clipboard"
 alias putclip="xsel --clipboard"
 alias lisp='sbcl --script'
 alias bcsum='paste -sd+ - | bc'
+alias python='python3'
 
 alias dragon='python2 ~/Documents/Projects/dragon/'
 alias sparky='python2 ~/Documents/Projects/sparky/'
-alias von='python -m von'
-alias tsq='python ~/dotfiles/py-scripts/tsq.py'
+alias von='python3 -m von'
+alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
 alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
+alias wpmarkdown='python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias s3='aws s3'
+alias todo='~/dotfiles/sh-scripts/get-todo.sh'
 
-export PYTHONPATH="${PYTHONPATH}:/home/evan/Documents/Projects/"
+export PYTHONPATH="$PYTHONPATH:/home/evan:/home/evan/dotfiles/py-scripts/:/home/star:/home/star/dotfiles/py-scripts/"
 
 alias pudb='python2 -m pudb.run'
 alias dropcli='dropbox-cli'
 alias trash='gio trash'
-alias emacs='vim' # Sorry, can't help it
+# alias emacs='vim'
 alias gogogo='startx'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
-alias sudo='sudo ' # allows my aliases to get into sudo
-
+alias sudo='sudo ' # allows my aliases to get into sudo in bash
 
 # Various functions
 function rot13 () {
