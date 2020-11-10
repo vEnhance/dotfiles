@@ -1,5 +1,7 @@
 #!/bin/bash
 
+trap exit SIGINT
+
 touch /tmp/agenda.txt
 while :
 do
