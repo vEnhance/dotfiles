@@ -15,11 +15,7 @@ fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	if [ "$(whoami)" = "evan" ]; then
-		dbus-send --print-reply \
-			--dest=org.workrave.Workrave \
-			/org/workrave/Workrave/Core \
-			org.workrave.CoreInterface.SetOperationMode \
-			string:'suspended'
+		killall workrave
 	fi
 fi
 
