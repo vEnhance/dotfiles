@@ -13,14 +13,22 @@ then
 	exit
 fi
 
-if [ "$HOSTNAME" = ArchMajestic ]; then
-	if [ "$(whoami)" = "evan" ]; then
-		killall workrave
+if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
+	# during twitch stream, disable laptop lock screen
+	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -gt 20 ]; then
+		exit
+	fi
+	if [ "$(date +%u)" -eq 6 -a "$(date +%H)" -lt 2 ]; then
+		exit
 	fi
 fi
 
+if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
+	killall workrave
+fi
+
 # mute microphone so I'm not recorded while afk
-ponymix -t source mute
+ponymix -t source mute > /dev/null
 
 # Take a screenshot
 scrot -q 10 --overwrite /tmp/screen_locked_$(whoami).jpg
