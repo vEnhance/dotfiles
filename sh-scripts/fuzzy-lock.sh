@@ -15,10 +15,10 @@ fi
 
 if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
 	# during twitch stream, disable laptop lock screen
-	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -gt 20 ]; then
+	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -ge 20 ]; then
 		exit
 	fi
-	if [ "$(date +%u)" -eq 6 -a "$(date +%H)" -lt 2 ]; then
+	if [ "$(date +%u)" -eq 6 -a "$(date +%H)" -le 2 ]; then
 		exit
 	fi
 fi
