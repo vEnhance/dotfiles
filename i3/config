@@ -367,9 +367,10 @@ mode "exec" {
     bindsym d exec discord &, mode "default"
     bindsym e exec epiphany &, mode "default"
     bindsym f exec firefox &, mode "default"
-    bindsym g exec gnucash &, mode "default"
+    bindsym g exec geogebra &, mode "default"
     bindsym h exec chromium &, mode "default"
     bindsym i exec ibus-daemon -d -r, mode "default"
+    bindsym m exec gnucash &, mode "default"
     bindsym o exec obs &, mode "default"
     bindsym s exec spotify &, mode "default"
     bindsym v exec gvim &, mode "default"
@@ -387,9 +388,10 @@ mode "multirun" {
     bindsym d exec discord &
     bindsym e exec epiphany &
     bindsym f exec firefox &
-    bindsym g exec gnucash &
+    bindsym g exec geogebra &
     bindsym h exec chromium &
     bindsym i exec ibus-daemon -d -r
+    bindsym m exec gnucash &
     bindsym o exec obs &
     bindsym s exec spotify &
     bindsym v exec gvim &
