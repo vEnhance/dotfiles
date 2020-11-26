@@ -361,7 +361,7 @@ bindsym $mod+o mode "ponymix"
 bindsym $mod+Return exec xfce4-terminal
 
 mode "exec" {
-    bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+    bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
     bindsym b exec libreoffice --calc &, mode "default"
     bindsym c exec caprine &, mode "default"
     bindsym d exec discord &, mode "default"
