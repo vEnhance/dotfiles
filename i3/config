@@ -257,7 +257,7 @@ mode "danger" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
-bindsym $mod+backslash mode "danger"
+bindsym $mod+Shift+backslash mode "danger"
 
 # config/reset mode
 mode "config" {
