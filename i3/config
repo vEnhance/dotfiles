@@ -243,7 +243,7 @@ mode "close" {
 mode "danger" {
     bindsym e exec --no-startup-id i3-msg exit
     bindsym n exec --no-startup-id systemctl suspend, mode "default"
-    bindsym s exec --no-startup-id systemctl poweroff
+    bindsym p exec --no-startup-id systemctl poweroff
     bindsym z exec --no-startup-id systemctl reboot
 
     # for ArchMajestic: reset X-screen setup
