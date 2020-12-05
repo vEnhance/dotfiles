@@ -406,7 +406,7 @@ bindsym $mod+Shift+x mode "multirun"
 # finds out, if available)
 bar {
     id main-bar
-    status_command i3status
+    status_command py3status
     font pango:DejaVu Sans Mono 16
     strip_workspace_numbers yes
     wheel_up_cmd nop
