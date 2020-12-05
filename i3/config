@@ -301,7 +301,7 @@ mode "ponymix" {
     #query
     bindsym q exec --no-startup-id notify-send -i audio-card "Audio query" "$(ponymix)" -t 5000
 
-    # mic volume
+    # volume
     bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
     bindsym d exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh d
     bindsym k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh k
@@ -312,9 +312,9 @@ mode "ponymix" {
     bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
 
     # playerctl
-    bindsym space exec --no-startup-id playerctl play-pause, mode "default"
-    bindsym p exec --no-startup-id playerctl previous
-    bindsym n exec --no-startup-id playerctl next
+    bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
+    bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p, mode "default"
+    bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n, mode "default"
 
     # control Spotify volume
     bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
@@ -330,7 +330,8 @@ bindsym $mod+o mode "ponymix"
 bindsym $mod+Return exec xfce4-terminal
 
 mode "exec" {
-    bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
+    bindsym a exec i3-sensible-terminal -e \
+        "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
     bindsym b exec libreoffice --calc &, mode "default"
     bindsym c exec caprine &, mode "default"
     bindsym d exec discord &, mode "default"
@@ -351,7 +352,8 @@ mode "exec" {
 }
 bindsym $mod+x mode "exec"
 mode "multirun" {
-    bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+    bindsym a exec i3-sensible-terminal -e \
+        "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
     bindsym b exec libreoffice --calc &
     bindsym c exec caprine &
     bindsym d exec discord &
