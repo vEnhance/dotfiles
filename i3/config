@@ -313,8 +313,8 @@ mode "ponymix" {
 
     # playerctl
     bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
-    bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p, mode "default"
-    bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n, mode "default"
+    bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p
+    bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n
 
     # control Spotify volume
     bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K

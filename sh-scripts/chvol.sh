@@ -73,14 +73,18 @@ if [ "$1" = z ]; then
 		"$(ponymix kill -d Spotify)%" -t $stime
 fi
 
+# wait a bit after playerctl to update py3status; race condition i think
 if [ "$1" = space ]; then
 	playerctl play-pause
+	sleep 0.1
 fi
 if [ "$1" = p ]; then
 	playerctl previous
+	sleep 0.1
 fi
 if [ "$1" = n ]; then
 	playerctl previous
+	sleep 0.1
 fi
 
 killall -s USR1 py3status
