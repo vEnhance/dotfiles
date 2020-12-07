@@ -78,6 +78,9 @@ bindsym $mod+b focus child
 bindsym $mod+minus move scratchpad
 bindsym $mod+Shift+minus scratchpad show
 
+# refresh i3 status bar
+bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
+
 # set workspace varnames
 set $WS1 "1: Aleph"
 set $WS2 "2: Bet"
