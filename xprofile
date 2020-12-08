@@ -29,6 +29,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 	xfce4-power-manager &
+	nm-applet &
 fi
 
 if [ "$HOSTNAME" = ArchScythe ]; then
@@ -45,6 +46,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	sleep 7 && dropbox & # Dropbox
 	sleep 8 && redshift-gtk &
 	xfce4-power-manager &
+	nm-applet &
 fi
 
 
@@ -71,6 +73,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		~/dotfiles/sh-scripts/paswitch.sh usb
 		xautolock -time 20 -locker '/home/star/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	fi
+	nm-applet &
 	sleep 10 && dropbox-cli start &
 fi
 
