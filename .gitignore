@@ -17,3 +17,4 @@ fish/*
 !fish/fishfile
 driveignore
 fish/fish_variables
+py3status/py3status.*.conf
