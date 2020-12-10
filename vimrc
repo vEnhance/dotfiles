@@ -380,7 +380,7 @@ nnoremap <Leader>gea :Git commit --all<CR>
 " latex compile
 nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
 " latex von compile (mnemonic O for olympiad)
-nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview/von_preview.tex -pvc" &<CR>
+nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview_$(whoami)/von_preview.tex -pvc" &<CR>
 
 " tsq -> asy compile and open
 nnoremap <Leader>to :update<CR>:silent !python -m tsq -p % \| asy -f pdf -V -<CR>
