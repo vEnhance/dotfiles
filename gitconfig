@@ -39,7 +39,7 @@
 	pu = pull origin
 	pr = pull --rebase origin
 	psh = push origin
-	undo = reset --mixed HEAD~1
+	undo = reset --mixed HEAD@{1}
 	fail = commit --amend # to avoid stupid "oops typo" commits
 	unstage = reset HEAD
 
