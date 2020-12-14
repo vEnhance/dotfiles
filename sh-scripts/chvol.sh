@@ -6,12 +6,12 @@ stime=800
 if [ "$1" = u ]; then
 	 notify-send -i microphone-sensitivity-high-symbolic \
 		"Mic volume up" \
-		"Current mic volume $(ponymix -t source increase 4)%" -t $time
+		"Current mic volume $(ponymix -t source increase 5)%" -t $time
 fi
 if [ "$1" = d ]; then
 	 notify-send -i microphone-sensitivity-low-symbolic \
 		"Mic volume down" \
-		"Current mic volume $(ponymix -t source decrease 4)%" -t $time
+		"Current mic volume $(ponymix -t source decrease 5)%" -t $time
 fi
 if [ "$1" = i ]; then
 	 notify-send -i audo-input-microphone \
@@ -22,13 +22,13 @@ fi
 if [ "$1" = k ]; then
 	 notify-send -i audio-volume-high \
 		"Global volume up" \
-		"Current volume $(ponymix increase 4)%" -t $time
+		"Current volume $(ponymix increase 5)%" -t $time
 fi
 
 if [ "$1" = j ]; then
 	 notify-send -i audio-volume-medium \
 		"Global volume down" \
-		"Current volume $(ponymix decrease 4)%" -t $time
+		"Current volume $(ponymix decrease 5)%" -t $time
 fi
 
 if [ "$1" =  m ]; then
