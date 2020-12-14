@@ -313,6 +313,8 @@ mode "ponymix" {
     bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
     bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh l, mode "default"
     bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
+    bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh s, mode "default"
+    bindsym h exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh h, mode "default"
 
     # playerctl
     bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
