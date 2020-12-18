@@ -25,6 +25,7 @@ fi
 
 if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	killall workrave
+	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
 # mute microphone so I'm not recorded while afk
