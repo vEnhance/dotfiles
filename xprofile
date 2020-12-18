@@ -24,7 +24,6 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	xrandr --output "HDMI-2" --primary
 	dropbox & # Dropbox
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	# xautolock -time 128 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
 	# export QT_SCALE_FACTOR=2.4
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
@@ -41,7 +40,10 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	# synclient RightButtonAreaLeft=0
 	# synclient RightButtonAreaRight=1560
 	# cbatticon -u 300 &
-	xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+	xautolock -time 7 \
+		-locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' \
+		-notify 90 \
+		-notifier '/home/evan/dotfiles/sh-scripts/lock-warning.sh' &
 	picom -C -G -b --no-fading-openclose
 	sleep 7 && dropbox & # Dropbox
 	sleep 8 && redshift-gtk &
@@ -62,16 +64,24 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	ponymix set-volume -t source 80
 	if [ "$(whoami)" = "evan" ]; then
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-		xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+		xautolock -time 7 \
+			-locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' \
+			-notify 90 \
+			-notifier '/home/evan/dotfiles/sh-scripts/lock-warning.sh' &
 		redshift-gtk &
 		workrave &
 		# ibus-daemon -d -r &
 		~/dotfiles/sh-scripts/paswitch.sh speakers
+		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh" &
+		qtalarm &
 	fi
 	if [ "$(whoami)" = "star" ]; then
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 		~/dotfiles/sh-scripts/paswitch.sh usb
-		xautolock -time 20 -locker '/home/star/dotfiles/sh-scripts/fuzzy-lock.sh' &
+		xautolock -time 20 \
+			-locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' \
+			-notify 90 \
+			-notifier '/home/evan/dotfiles/sh-scripts/lock-warning.sh' &
 	fi
 	sleep 5 && nm-applet &
 	sleep 10 && dropbox-cli start &
@@ -84,7 +94,10 @@ if [ "$HOSTNAME" = Endor ]; then
 		xrandr --output "DP-0" --primary \
 			--output "HDMI-0" --left-of "DP-0" \
 			--output "DP-2" --right-of "DP-0"
-		xautolock -time 7 -locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' &
+		xautolock -time 7 \
+			-locker '/home/evan/dotfiles/sh-scripts/fuzzy-lock.sh' \
+			-notify 90 \
+			-notifier '/home/evan/dotfiles/sh-scripts/lock-warning.sh' &
 		compton -b & # ubuntu is far behind so still called compton
 		sleep 50 && dropbox start &
 		redshift-gtk &
