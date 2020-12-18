@@ -351,7 +351,7 @@ mode "exec" {
     bindsym v exec gvim &, mode "default"
     bindsym y exec dynalist &, mode "default"
     bindsym z exec zoom &, mode "default"
-    bindsym space exec $HOME/dotfiles/sh-scripts/fuzzy-lock.sh &, mode "default"
+    bindsym space exec loginctl lock-session, mode "default"
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
@@ -400,6 +400,9 @@ workspace $WS0 output DP-4 HDMI-0
 workspace $WS7 output HDMI-0
 
 # Exec startup
+exec --no-startup-id dex -ae i3 &
+exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
+
 # exec xfce4-power-manager --sm-client-disable
 # exec nm-applet --no-startup-id
 
