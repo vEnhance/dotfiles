@@ -28,15 +28,17 @@ if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-# mute microphone so I'm not recorded while afk
-ponymix -t source mute > /dev/null
+xset dpms force off
 
 # Take a screenshot
 scrot -q 10 --overwrite /tmp/screen_locked_$(whoami).jpg
 convert -blur 3x4 +level 35% -brightness-contrast -30x0 /tmp/screen_locked_$(whoami).jpg /tmp/screen_locked_$(whoami).png
 
+# mute microphone so I'm not recorded while afk
+ponymix -t source mute > /dev/null
+
 if [ $(stat --printf="%s" /tmp/screen_locked_evan.png) -gt 25000 ]; then
-	xset s 20 20
+	date >> /tmp/log
 	i3lock \
 		--beep \
 		--ignore-empty-password \
@@ -44,7 +46,6 @@ if [ $(stat --printf="%s" /tmp/screen_locked_evan.png) -gt 25000 ]; then
 		--nofork \
 		--pointer=win \
 		--image=/tmp/screen_locked_$(whoami).png
-	xset s 600 600
 else
 	# in this case, the image is so small that I am led to believe
 	# that the X server is not even focused
