@@ -3,7 +3,6 @@
 # Supports desktop files, so handled by dex:
 # * xfce power manager
 # * nm applet
-# * redshift gtk
 # * dropbox
 
 if [ "$HOSTNAME" = ArchAngel ]; then
@@ -26,3 +25,4 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 fi
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
+redshift-gtk &
