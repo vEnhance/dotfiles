@@ -46,6 +46,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		--output "HDMI-0" --below "DP-0" \
 		--output "DP-2" --right-of "DP-0"
 	# dunst &
+	clipmenud &
 	ponymix set-default -t source \
 		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80

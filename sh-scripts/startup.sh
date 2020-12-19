@@ -17,7 +17,7 @@ fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	picom -b &
-	clipmenud &
+	# clipmenud &
 	if [ "$(whoami)" = "evan" ]; then
 		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh" &
 		qtalarm &
