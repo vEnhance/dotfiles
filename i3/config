@@ -244,7 +244,7 @@ mode "close" {
 
 # power mode
 mode "danger" {
-    bindsym e exec --no-startup-id i3-msg exit
+    bindsym e exit
     bindsym n exec --no-startup-id systemctl suspend, mode "default"
     bindsym p exec --no-startup-id systemctl poweroff
     bindsym z exec --no-startup-id systemctl reboot
