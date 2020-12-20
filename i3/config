@@ -270,8 +270,7 @@ mode "config" {
     bindsym i restart, mode "default"
     bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
 
-    bindsym a bar mode hide, mode "default"
-    bindsym b bar mode dock, mode "default"
+    bindsym b bar mode toggle, mode "default"
 
     # switch mouse buttons
     bindsym h exec --no-startup-id notify-send -i format-justify-left-symbolic \
