@@ -24,54 +24,81 @@ if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
 fi
 
 if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
-	killall workrave
+	xset dpms 10 0 0
+	pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
+	(
+		pactl list sink-inputs short |
+			grep -v 'module-loopback.c' |
+			grep -oE '^[0-9]+' |
+			while read input
+		do
+			echo move-sink-input $input alsa_output.pci-0000_00_1f.3.analog-stereo
+		done
+	) | pacmd
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-xset dpms force off
-
-# Take a screenshot
-scrot -q 10 --overwrite /tmp/screen_locked_$(whoami).jpg
-convert -blur 3x4 +level 35% -brightness-contrast -30x0 /tmp/screen_locked_$(whoami).jpg /tmp/screen_locked_$(whoami).png
+# xset dpms force off
 
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute > /dev/null
 
-if [ $(stat --printf="%s" /tmp/screen_locked_evan.png) -gt 25000 ]; then
-	date >> /tmp/log
+# if [ $(stat --printf="%s" /tmp/screen_locked_evan.png) -gt 25000 ]; then
+#	i3lock \
+#		--beep \
+#		--ignore-empty-password \
+#		--show-failed-attempts \
+#		--nofork \
+#		--pointer=win \
+#		--image=/tmp/screen_locked_$(whoami).png
+#fi
+
+if pacman -Q i3lock-color; then
+	export LANG=zh_TW.UTF-8
 	i3lock \
 		--beep \
 		--ignore-empty-password \
 		--show-failed-attempts \
 		--nofork \
 		--pointer=win \
-		--image=/tmp/screen_locked_$(whoami).png
+		--keylayout 2 \
+		--clock \
+		--timecolor=ffffff \
+		--datecolor=ffffff \
+		--layoutcolor=ffffff \
+		--verifcolor=ffffff \
+		--wrongcolor=ffffff \
+		--greetercolor=ffffff \
+		--datestr="%A %Y年%b%d日" \
+		--timesize=36 \
+		--datesize=24 \
+		--layoutsize=24 \
+		--timestr="%R%Z" \
+		--radius 160 \
+		--ring-width 20 \
+		--greetertext="$(whoami)@$(cat /etc/hostname)" \
+		--greeterpos="ix:iy+0.3*h" \
+		--greetercolor=00ffff \
+		--indicator \
+		--blur 8
+		# --color d33529
+		# --image ~/Pictures/nature/bg-arch-majestic.png \
 else
-	# in this case, the image is so small that I am led to believe
-	# that the X server is not even focused
-	# so we just use a solid background
 	i3lock \
 		--beep \
 		--ignore-empty-password \
 		--show-failed-attempts \
 		--nofork \
-		--pointer=win \
-		--color=d33529 # superficial burn
+		--color=d33529 \
+		--pointer=win
 fi
 
-# And now that we're done...
-rm /tmp/screen_locked_$(whoami).jpg
-rm /tmp/screen_locked_$(whoami).png
+if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
+	xset dpms 900 900 900
+fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
-	if [ "$(whoami)" = "evan" ]; then
-		dbus-send --print-reply \
-			--dest=org.workrave.Workrave \
-			/org/workrave/Workrave/Core \
-			org.workrave.CoreInterface.SetOperationMode \
-			string:'normal'
-	fi
 fi
 if [ "$HOSTNAME" = Endor ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
