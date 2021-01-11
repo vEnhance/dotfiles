@@ -77,6 +77,7 @@ end
 export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 export TERM='xterm-256color'
+export SSH_ASKPASS=ksshaskpass
 if [ -d $HOME/.texmf ]
    	export TEXMFHOME=$HOME/.texmf
 end
