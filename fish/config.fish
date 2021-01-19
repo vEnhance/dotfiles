@@ -68,6 +68,11 @@ function fish_prompt
 	printf '%s ' (__fish_git_prompt)
 	printf '\n$ '
 end
+function fish_right_prompt
+	if set -q VIRTUAL_ENV
+		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
+	end
+end
 
 if [ "(uname)" = Linux ]
 	shopt -s globstar
@@ -78,6 +83,10 @@ export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 export TERM='xterm-256color'
 export SSH_ASKPASS=ksshaskpass
+# the auto prompt-edited detetction is not enabled somehow
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
+
 if [ -d $HOME/.texmf ]
    	export TEXMFHOME=$HOME/.texmf
 end
