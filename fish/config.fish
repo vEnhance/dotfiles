@@ -4,22 +4,13 @@ function dn
     bash -c "$escaped_argv &"
 end
 
-# Fish git prompt
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showuntrackedfiles 'no'
-set __fish_git_prompt_showupstream 'yes'
-set __fish_git_prompt_color_branch 'FFFFFF'
-set __fish_git_prompt_color_upstream_ahead green
-set __fish_git_prompt_color_upstream_behind red
-
 # Status Chars
-set __fish_git_prompt_char_dirtystate '*'
-set __fish_git_prompt_char_stagedstate '+'
-set __fish_git_prompt_char_untrackedfiles '?'
-set __fish_git_prompt_char_stashstate '$'
-set __fish_git_prompt_char_upstream_ahead '>'
-set __fish_git_prompt_char_upstream_behind '<'
+#set __fish_git_prompt_char_dirtystate '*'
+#set __fish_git_prompt_char_stagedstate '+'
+#set __fish_git_prompt_char_untrackedfiles '?'
+#set __fish_git_prompt_char_stashstate '$'
+#set __fish_git_prompt_char_upstream_ahead '>'
+#set __fish_git_prompt_char_upstream_behind '<'
 
 set fish_color_cwd CCA700
 set fish_color_name 44FFFF
@@ -27,8 +18,22 @@ set fish_color_host 00CCA7
 set fish_color_error FF0000
 set fish_color_greeting FF3333
 set fish_color_determination yellow
+set fish_color_loginas 25EE52
+set fish_color_arrows 00CCA7
 
 set fish_prompt_pwd_dir_length 2
+
+# Fish git prompt
+set __fish_git_prompt_showdirtystate 1
+set __fish_git_prompt_showstashstate 1
+set __fish_git_prompt_showuntrackedfiles 1
+set __fish_git_prompt_showcolorhints 1
+set __fish_git_prompt_show_informative_status 1
+set __fish_git_prompt_color 9CFEFA
+set __fish_git_prompt_color_branch 00CCA7
+set __fish_git_prompt_color_upstream_ahead green
+set __fish_git_prompt_color_upstream_behind red
+
 
 function fish_greeting
 	set_color $fish_color_greeting
@@ -43,35 +48,40 @@ function fish_greeting
 	set_color normal
 	set_color $fish_color_greeting
 	printf ".\n"
-	set_color normal
-end
-
-function fish_prompt
-	set last_status $status
+	set_color $fish_color_loginas
+	printf "You are logged in as "
 	set_color --bold $fish_color_name
 	printf $USER
 	set_color normal
 	set_color $fish_color_host
 	printf @
 	printf (hostname)
+	set_color $fish_color_loginas
+	printf '.\n'
+end
+
+function fish_prompt
+	set_color $fish_color_cwd
+	printf (prompt_pwd)
+	set_color $fish_color_arrows
+	printf ' >> '
+	set_color normal
+end
+
+function fish_right_prompt
+	set last_status $status
 	if not test $last_status -eq 0
 		set_color $fish_color_error
 		printf ' ['
 		printf $last_status
 		printf ']'
 	end
-	set_color $fish_color_cwd
-	printf ' '
-	printf (prompt_pwd)
-
-	set_color normal
-	printf '%s ' (__fish_git_prompt)
-	printf '\n$ '
-end
-function fish_right_prompt
 	if set -q VIRTUAL_ENV
 		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
 	end
+	set_color normal
+	printf '%s ' (__fish_git_prompt)
+	set_color normal
 end
 
 if [ "(uname)" = Linux ]
