@@ -378,7 +378,7 @@ nnoremap <Leader>gew :Git commit %<CR>
 nnoremap <Leader>gea :Git commit --all<CR>
 
 " latex compile
-nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -pvc" &<CR>
+nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
 " latex von compile (mnemonic O for olympiad)
 nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview_$(whoami)/von_preview.tex -pvc" &<CR>
 
