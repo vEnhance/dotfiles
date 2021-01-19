@@ -19,6 +19,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	# clipmenud &
 	if [ "$(whoami)" = "evan" ]; then
 		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh" &
+		workrave &
 		qtalarm &
 		# ibus-daemon -d -r &
 	fi
