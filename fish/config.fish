@@ -61,27 +61,32 @@ function fish_greeting
 end
 
 function fish_prompt
+	set last_status $status
 	set_color $fish_color_cwd
 	printf (prompt_pwd)
-	set_color $fish_color_arrows
-	printf ' >> '
-	set_color normal
-end
-
-function fish_right_prompt
-	set last_status $status
 	if not test $last_status -eq 0
 		set_color $fish_color_error
 		printf ' ['
 		printf $last_status
 		printf ']'
 	end
+	set_color $fish_color_arrows
+	printf ' >> '
+	set_color normal
+end
+
+function fish_right_prompt
 	if set -q VIRTUAL_ENV
 		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
 	end
 	set_color normal
 	printf '%s ' (__fish_git_prompt)
 	set_color normal
+end
+
+function fish_right_prompt_loading_indicator -a last_prompt
+    echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
+    echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
 end
 
 if [ "(uname)" = Linux ]
