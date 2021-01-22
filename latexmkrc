@@ -8,6 +8,7 @@ add_cus_dep("asy", "tex", 0, "run_asy");
 sub von_run { return system("bash '$_[0].von'"); }
 add_cus_dep("von", "out", 0, "von_run");
 
+$do_cd = 1;
 $pdf_mode = 1;
 $max_repeat = 7;
 $pdf_previewer = "zathura %O %S &";
