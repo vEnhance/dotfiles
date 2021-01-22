@@ -14,11 +14,11 @@ end
 
 set fish_color_cwd CCA700
 set fish_color_name 44FFFF
-set fish_color_host 00CCA7
+set fish_color_host 11DD33
 set fish_color_error FF0000
 set fish_color_greeting FF3333
 set fish_color_determination yellow
-set fish_color_loginas 25EE52
+set fish_color_date 888888
 set fish_color_arrows 00CCA7
 
 set fish_prompt_pwd_dir_length 2
@@ -36,41 +36,40 @@ set __fish_git_prompt_color_upstream_behind red
 
 
 function fish_greeting
-	set_color $fish_color_greeting
+	set_color --italics $fish_color_greeting
 	printf "Hello "
-	set_color --italics $fish_color_name
+	set_color --bold $fish_color_name
 	printf $USER
 	set_color normal
+	set_color --italics $fish_color_host
+	printf @
+	printf (hostname)
 	set_color $fish_color_greeting
 	printf "! You are filled with "
 	set_color --bold $fish_color_determination
 	printf "determination"
 	set_color normal
-	set_color $fish_color_greeting
+	set_color --italics $fish_color_greeting
 	printf ".\n"
-	set_color $fish_color_loginas
-	printf "You are logged in as "
-	set_color --bold $fish_color_name
-	printf $USER
+	set_color --italics $fish_color_date
+	printf "It is is "
+	printf (date)
+	printf ".\n"
 	set_color normal
-	set_color $fish_color_host
-	printf @
-	printf (hostname)
-	set_color $fish_color_loginas
-	printf '.\n'
 end
 
 function fish_prompt
 	set last_status $status
-	set_color $fish_color_cwd
+	set_color --italics $fish_color_cwd
 	printf (prompt_pwd)
+	set_color normal
 	if not test $last_status -eq 0
 		set_color $fish_color_error
 		printf ' ['
 		printf $last_status
 		printf ']'
 	end
-	set_color $fish_color_arrows
+	set_color --bold $fish_color_arrows
 	printf ' >> '
 	set_color normal
 end
