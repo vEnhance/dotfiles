@@ -380,6 +380,18 @@ mode "multirun" {
 }
 bindsym $mod+Shift+x mode "multirun"
 
+bindsym $mod+Mod1+1 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 1
+bindsym $mod+Mod1+2 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 2
+bindsym $mod+Mod1+3 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 3
+bindsym $mod+Mod1+4 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 4
+bindsym $mod+Mod1+5 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 5
+bindsym $mod+Mod1+6 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 6
+bindsym $mod+Mod1+7 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 7
+bindsym $mod+Mod1+8 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 8
+bindsym $mod+Mod1+9 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 9
+bindsym $mod+Mod1+apostrophe exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh a
+bindsym $mod+Mod1+grave exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh g
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
