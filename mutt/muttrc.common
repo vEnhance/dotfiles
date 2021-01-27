@@ -1,8 +1,14 @@
 set spoolfile=+Inbox
+set postponed=+drafts
 
-mailboxes +Inbox +all +sent +trash
+set realname = "Evan Chen"
+set use_from = yes
+set signature = "~/.config/mutt/signature"
+
+mailboxes +Inbox +All +Drafts +Sent +Trash
 
 ## SIDEBAR
+set sidebar_visible = yes
 set sidebar_width = 15
 set sidebar_short_path = yes
 set sidebar_component_depth = 0
@@ -26,20 +32,22 @@ set sort_aux=date-received
 unset resolve
 
 set auto_tag=yes
-macro index,pager e "<tag-prefix><save-message>=all<enter><enter>" "Archive"
 bind index \043 noop
-macro index,pager \043 "<set-flag>O<save-message>=trash<enter><enter>" "Trash"
-bind index a group-reply
-bind index G imap-fetch-mail
+macro index,pager e "<save-message>=all<enter><enter>" "Archive"
+macro index,pager \043 "<enter-command>unset resolve<enter><set-flag>O<enter-command>set resolve<enter><save-message>=trash<enter><enter>" "Trash"
+
+bind index,pager a group-reply
+bind pager A create-alias
 bind index _ collapse-thread
 bind index _ collapse-all
 macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
 
-bind index g noop
-macro index gi "<change-folder>=Inbox<enter>" "Go to inbox"
-macro index ga "<change-folder>=all<enter>" "Go to all mail"
-macro index gt "<change-folder>=sent<enter>" "Go to sent"
-macro index gd "<change-folder>=trash<enter>" "Go to trash"
+bind index,pager g noop
+macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
+macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
+macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
+macro index,pager gd "<change-folder>=Drafts<enter>" "Go to drafts"
+macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
 bind index x tag-entry
 
 bind index gg first-entry
