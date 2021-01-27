@@ -1,22 +1,54 @@
-set spoolfile=+INBOX
+set spoolfile=+Inbox
+
+mailboxes +Inbox +all +sent +trash
+
+## SIDEBAR
+set sidebar_width = 15
+set sidebar_short_path = yes
+set sidebar_component_depth = 0
+set sidebar_delim_chars = '/.'
+set sidebar_folder_indent = no
+set sidebar_new_mail_only = no
+set sidebar_non_empty_mailbox_only = no
+set sidebar_next_new_wrap = no
+set sidebar_on_right = no
+set sidebar_divider_char = '∥'
+set mail_check_stats
+# Display the Sidebar mailboxes using this format string.
+set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+set sidebar_sort_method = 'unsorted'
+
+set mbox_type=Maildir
+unset record
 set sort=threads
 set sort_aux=date-received
 
-# Decent defaults for the sidebar patch if you're using that:
-# set sidebar_width=20
-# set sidebar_visible=yes
+unset resolve
 
-set record=""
-
-set mbox="imaps://imap.gmail.com/[Gmail]/全部郵件"
-set trash="imaps://imap.gmail.com/[Gmail]/垃圾桶"
-
-macro index,pager e "<save-message>=[Gmail]/全部郵件<enter><enter>" "Archive"
-macro index,pager d "<save-message>=[Gmail]/垃圾桶<enter><enter>$<enter>" "Trash"
+set auto_tag=yes
+macro index,pager e "<tag-prefix><save-message>=all<enter><enter>" "Archive"
+bind index \043 noop
+macro index,pager \043 "<set-flag>O<save-message>=trash<enter><enter>" "Trash"
+bind index a group-reply
 bind index G imap-fetch-mail
 bind index _ collapse-thread
 bind index _ collapse-all
 macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
+
+bind index g noop
+macro index gi "<change-folder>=Inbox<enter>" "Go to inbox"
+macro index ga "<change-folder>=all<enter>" "Go to all mail"
+macro index gt "<change-folder>=sent<enter>" "Go to sent"
+macro index gd "<change-folder>=trash<enter>" "Go to trash"
+bind index x tag-entry
+
+bind index gg first-entry
+bind index G last-entry
+
+bind pager j next-line
+bind pager k previous-line
+bind index j next-entry
+bind index k previous-entry
 
 exec collapse-all
 set collapse_unread=yes
@@ -100,6 +132,6 @@ color index_size cyan white
 
 mono index_author bold '.*'
 
-set index_format = "%4C %Z %{%b %d} %-15.15L %s"
+set index_format = "%3C %{%b%d}%Z%M %-10.10L %s"
 
 # vim: ft=muttrc
