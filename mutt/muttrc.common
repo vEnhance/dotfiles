@@ -1,0 +1,105 @@
+set spoolfile=+INBOX
+set sort=threads
+set sort_aux=date-received
+
+# Decent defaults for the sidebar patch if you're using that:
+# set sidebar_width=20
+# set sidebar_visible=yes
+
+set record=""
+
+set mbox="imaps://imap.gmail.com/[Gmail]/全部郵件"
+set trash="imaps://imap.gmail.com/[Gmail]/垃圾桶"
+
+macro index,pager e "<save-message>=[Gmail]/全部郵件<enter><enter>" "Archive"
+macro index,pager d "<save-message>=[Gmail]/垃圾桶<enter><enter>$<enter>" "Trash"
+bind index G imap-fetch-mail
+bind index _ collapse-thread
+bind index _ collapse-all
+macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
+
+exec collapse-all
+set collapse_unread=yes
+
+# ----------------------------------------------
+
+color hdrdefault black        cyan
+color quoted     red          white
+color signature  brightblack  white
+# color indicator  brightwhite  red
+color attachment black        green
+color error      red          white
+color message    blue         white
+color search     brightwhite  magenta
+# color status     brightyellow blue
+color tree       red          white
+color normal     blue         white
+color tilde      green        white
+color bold       brightyellow white
+color markers    red          white
+
+# Colour definitions when on a mono screen
+mono bold      bold
+mono underline underline
+mono indicator reverse
+
+# Colours for items in the reader
+color header brightwhite cyan "^(From|Subject):"
+color header red         cyan "^X-Junked-Because: "
+color header red         cyan "^X-Virus-hagbard: .* FOUND"
+mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
+
+# Colours for items in the index
+color index brightblue  white ~N
+color index brightgreen white "~N (~x hagbard\.davep\.org | ~h \"^In-[Rr]eply-[Tt]o: .*hagbard\.davep\.org\")"
+color index red         white ~F
+color index black       green ~T
+color index brightwhite black ~D
+mono  index bold              ~N
+mono  index bold              ~F
+mono  index bold              ~T
+mono  index bold              ~D
+
+# Highlights inside the body of a message.
+
+# URLs
+color body brightblue  white "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+color body brightblue  white "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+color body brightblue  white "news:[^ \">\t\r\n]*"
+mono  body bold              "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+mono  body bold              "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+mono  body bold              "news:[^ \">\t\r\n]*"
+
+# email addresses
+color body brightblue  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+mono  body bold              "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+
+# Various smilies and the like
+color body brightgreen white "<[Gg]>"                                            # <g>
+color body brightgreen white "<[Bb][Gg]>"                                        # <bg>
+color body brightgreen white " [;:]-*[)>(<|]"                                    # :-) etc...
+color body brightblue  white "(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$)" # *Bold* text.
+color body brightblue  white "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"     # _Underlined_ text.
+color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
+
+# NeoMutt
+
+# Author name, %A %a %F %L %n
+# Give the author column a dark grey background
+color index_author black white '.*'
+# Number of messages in a collapsed thread, %M
+color index_collapsed default brightblue
+# Date field
+color index_date white black
+# Message label, %y %Y
+color index_label default brightgreen
+# Message number, %C
+color index_number magenta white
+# Message size, %c %cr %l
+color index_size cyan white
+
+mono index_author bold '.*'
+
+set index_format = "%4C %Z %{%b %d} %-15.15L %s"
+
+# vim: ft=muttrc
