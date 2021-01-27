@@ -383,7 +383,7 @@ nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
 nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview_$(whoami)/von_preview.tex -pvc" &<CR>
 
 " tsq -> asy compile and open
-nnoremap <Leader>to :update<CR>:silent !python -m tsq -p % \| asy -f pdf -V -<CR>
+nnoremap <Leader>to :update<CR>:silent !python -m tsq -p % \| asy -f pdf -V - &<CR>
 " tsq -> asy
 nnoremap <Leader>ta :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR><CR>
 " tsq -> asy but show error
