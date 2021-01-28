@@ -17,9 +17,8 @@ set pager_context = 3
 set pager_index_lines = 7
 set mail_check = 300
 set index_format = "%3C %{%b%d}%Z%M %-10.10L %s"
-set quit = ask-yes
+set quit = yes
 set wrap = 80
-
 ## SIDEBAR
 set sidebar_visible = yes
 set sidebar_width = 9
@@ -44,7 +43,6 @@ macro pager e "<exit><tag-thread><save-message>=All<enter><enter>" "Archive"
 macro index,pager \043 "<enter-command>unset resolve<enter><set-flag>O<enter-command>set resolve<enter><save-message>=Trash<enter><enter>" "Trash"
 
 bind index,pager a group-reply
-bind pager A create-alias
 bind index - collapse-thread
 bind index _ collapse-all
 macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
@@ -78,6 +76,15 @@ bind pager gg top
 bind pager G bottom
 bind pager E edit-raw-message
 
+bind index,pager A noop
+macro index,pager A "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
+set wait_key = no
+
+## Hooks
+
+save-hook . +All
+reply-hook ~A "push A"
+
 
 # ----------------------------------------------
 # COMPOSITION SETTINGS
@@ -94,14 +101,10 @@ set attribution = "%f於%d寫道："
 # ----------------------------------------------
 #  Viewing settings  #
 
-# Don't show + on wrapped lines
-set markers=no # https://neomutt.org/guide/reference#markers
-# Wrap lines at 78 chars
-set wrap=78 # https://neomutt.org/guide/reference#wrap
-# When at the end, don't go to next email when trying to scroll
-set pager_stop=yes # https://neomutt.org/guide/reference#pager_stop
-# Mailcap file is used to tell mutt how to open different types of file
-set mailcap_path = "~/.config/mutt/mailcap" # https://neomutt.org/guide/mimesupport#3-%C2%A0mime-viewer-configuration-with-mailcap
+set markers=no
+set wrap=78
+set pager_stop=yes
+set mailcap_path = "~/.config/mutt/mailcap"
 
 # ----------------------------------------------
 
@@ -163,20 +166,12 @@ color body brightblue  white "(^|[[:space:]])\\*[^[:space:]]+\\*([[:space:]]|$)"
 color body brightblue  white "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"     # _Underlined_ text.
 color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
 
-# NeoMutt
-
-# Author name, %A %a %F %L %n
-# Give the author column a dark grey background
+# NeoMutt color settings
 color index_author black white '.*'
-# Number of messages in a collapsed thread, %M
 color index_collapsed default brightblue
-# Date field
 color index_date white black
-# Message label, %y %Y
 color index_label default brightgreen
-# Message number, %C
 color index_number magenta white
-# Message size, %c %cr %l
 color index_size cyan white
 
-# vim: ft=muttrc
+# vim: ft=neomuttrc
