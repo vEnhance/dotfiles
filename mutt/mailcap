@@ -1,0 +1,3 @@
+text/html; xdg-open %s &> /dev/null &;
+application/*; xdg-open %s &> /dev/null &;
+image/*; xdg-open %s &> /dev/null &;
