@@ -1,14 +1,17 @@
 function! mail#ABookComplete(findstart, base)
     if a:findstart
-        " locate the start of the word
-        let line = getline('.')
-        let start = col('.') - 1
-        while start > 0 && (line[start - 1] =~ '\a' || line[start-1] =~ '-')
-            let start -= 1
+        let l:line = getline('.')
+        let l:start = col('.') - 1
+        while l:start > 0 && (l:line[start - 1] =~ '\a' || l:line[start-1] =~ '-')
+            let l:start -= 1
         endwhile
-        return start
+        return l:start
     else
-        let l:raw_choices = system("abook --mutt-query " . a:base)
+        if a:base == ''
+            let l:raw_choices = system("abook --mutt-query .")
+        else
+            let l:raw_choices = system("abook --mutt-query " . a:base)
+        endif
 
         " Abook's '--outformat custom' doesn't work, so instead we'll have to take
         " the standard output and hack that up
