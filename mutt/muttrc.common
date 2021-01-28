@@ -17,10 +17,12 @@ set pager_context = 3
 set pager_index_lines = 7
 set mail_check = 300
 set index_format = "%3C %{%b%d}%Z%M %-10.10L %s"
+set quit = ask-yes
+set wrap = 80
 
 ## SIDEBAR
 set sidebar_visible = yes
-set sidebar_width = 15
+set sidebar_width = 9
 set sidebar_short_path = yes
 set sidebar_component_depth = 0
 set sidebar_delim_chars = '/.'
@@ -32,7 +34,7 @@ set sidebar_on_right = no
 set sidebar_divider_char = '∥'
 set mail_check_stats
 # Display the Sidebar mailboxes using this format string.
-set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
+set sidebar_format = '%B%* %S'
 set sidebar_sort_method = 'unsorted'
 
 ## Bindings
@@ -86,6 +88,8 @@ set use_from = yes
 set include = yes
 set editor = "vim"
 set sig_on_top = yes
+set attribution_locale = "zh_TW.UTF-8"
+set attribution = "%f於%d寫道："
 
 # ----------------------------------------------
 #  Viewing settings  #
