@@ -1,10 +1,22 @@
 set postponed=+Drafts
-
 set realname = "Evan Chen"
 set use_from = yes
 set signature = "~/.config/mutt/signature"
 
 mailboxes $spoolfile +All +Drafts +Sent +Trash
+
+## General settings
+set mbox_type = Maildir
+unset record
+set sort = threads
+set sort_aux = date-received
+set text_flowed = yes
+set auto_tag = yes
+set collapse_unread = yes
+set pager_context = 3
+set pager_index_lines = 7
+set mail_check = 300
+set index_format = "%3C %{%b%d}%Z%M %-10.10L %s"
 
 ## SIDEBAR
 set sidebar_visible = yes
@@ -23,19 +35,15 @@ set mail_check_stats
 set sidebar_format = '%B%?F? [%F]?%* %?N?%N/?%S'
 set sidebar_sort_method = 'unsorted'
 
-set mbox_type=Maildir
-unset record
-set sort=threads
-set sort_aux=date-received
-
-set auto_tag=yes
+## Bindings
 bind index \043 noop
-macro index,pager e "<save-message>=All<enter><enter>" "Archive"
+macro index e "<save-message>=All<enter><enter>" "Archive"
+macro pager e "<exit><tag-thread><save-message>=All<enter><enter>" "Archive"
 macro index,pager \043 "<enter-command>unset resolve<enter><set-flag>O<enter-command>set resolve<enter><save-message>=Trash<enter><enter>" "Trash"
 
 bind index,pager a group-reply
 bind pager A create-alias
-bind index _ collapse-thread
+bind index - collapse-thread
 bind index _ collapse-all
 macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
 
@@ -46,17 +54,27 @@ macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager gd "<change-folder>=Drafts<enter>" "Go to drafts"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
 bind index x tag-entry
+bind index t tag-thread
+macro pager x "<exit><tag-entry>" "Tag entry"
+macro pager t "<exit><tag-thread>" "Tag thread"
 
 bind index gg first-entry
 bind index G last-entry
+bind index j next-entry
+bind index k previous-entry
+bind index J next-thread
+bind index K previous-thread
 
 bind pager j next-line
 bind pager k previous-line
-bind index j next-entry
-bind index k previous-entry
-
-exec collapse-all
-set collapse_unread=yes
+bind pager <down> next-line
+bind pager <up> previous-line
+bind pager J next-undeleted
+bind pager K previous-undeleted
+bind pager <enter> next-undeleted
+bind pager gg top
+bind pager G bottom
+bind pager E edit-raw-message
 
 
 # ----------------------------------------------
@@ -65,8 +83,9 @@ set collapse_unread=yes
 set edit_headers = yes
 set autoedit = yes
 set use_from = yes
-set include = no
+set include = yes
 set editor = "vim"
+set sig_on_top = yes
 
 # ----------------------------------------------
 #  Viewing settings  #
@@ -78,7 +97,7 @@ set wrap=78 # https://neomutt.org/guide/reference#wrap
 # When at the end, don't go to next email when trying to scroll
 set pager_stop=yes # https://neomutt.org/guide/reference#pager_stop
 # Mailcap file is used to tell mutt how to open different types of file
-# set mailcap_path = "~/.config/mutt/mailcap" # https://neomutt.org/guide/mimesupport#3-%C2%A0mime-viewer-configuration-with-mailcap
+set mailcap_path = "~/.config/mutt/mailcap" # https://neomutt.org/guide/mimesupport#3-%C2%A0mime-viewer-configuration-with-mailcap
 
 # ----------------------------------------------
 
@@ -103,14 +122,13 @@ mono underline underline
 mono indicator reverse
 
 # Colours for items in the reader
-color header brightwhite cyan "^(From|Subject):"
-color header red         cyan "^X-Junked-Because: "
-color header red         cyan "^X-Virus-hagbard: .* FOUND"
+color header brightwhite  black "."
+color header brightyellow black "^(From|Subject):"
+color header red         black "^X-Junked-Because: "
 mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
 
 # Colours for items in the index
 color index brightblue  white ~N
-color index brightgreen white "~N (~x hagbard\.davep\.org | ~h \"^In-[Rr]eply-[Tt]o: .*hagbard\.davep\.org\")"
 color index red         white ~F
 color index black       green ~T
 color index brightwhite black ~D
@@ -156,9 +174,5 @@ color index_label default brightgreen
 color index_number magenta white
 # Message size, %c %cr %l
 color index_size cyan white
-
-mono index_author bold '.*'
-
-set index_format = "%3C %{%b%d}%Z%M %-10.10L %s"
 
 # vim: ft=muttrc
