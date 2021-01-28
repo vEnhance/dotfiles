@@ -1,11 +1,10 @@
-set spoolfile=+Inbox
-set postponed=+drafts
+set postponed=+Drafts
 
 set realname = "Evan Chen"
 set use_from = yes
 set signature = "~/.config/mutt/signature"
 
-mailboxes +Inbox +All +Drafts +Sent +Trash
+mailboxes $spoolfile +All +Drafts +Sent +Trash
 
 ## SIDEBAR
 set sidebar_visible = yes
@@ -29,12 +28,10 @@ unset record
 set sort=threads
 set sort_aux=date-received
 
-unset resolve
-
 set auto_tag=yes
 bind index \043 noop
-macro index,pager e "<save-message>=all<enter><enter>" "Archive"
-macro index,pager \043 "<enter-command>unset resolve<enter><set-flag>O<enter-command>set resolve<enter><save-message>=trash<enter><enter>" "Trash"
+macro index,pager e "<save-message>=All<enter><enter>" "Archive"
+macro index,pager \043 "<enter-command>unset resolve<enter><set-flag>O<enter-command>set resolve<enter><save-message>=Trash<enter><enter>" "Trash"
 
 bind index,pager a group-reply
 bind pager A create-alias
@@ -43,7 +40,7 @@ bind index _ collapse-all
 macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
 
 bind index,pager g noop
-macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
+macro index,pager gi "<change-folder>$spoolfile<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager gd "<change-folder>=Drafts<enter>" "Go to drafts"
@@ -60,6 +57,28 @@ bind index k previous-entry
 
 exec collapse-all
 set collapse_unread=yes
+
+
+# ----------------------------------------------
+# COMPOSITION SETTINGS
+
+set edit_headers = yes
+set autoedit = yes
+set use_from = yes
+set include = no
+set editor = "vim"
+
+# ----------------------------------------------
+#  Viewing settings  #
+
+# Don't show + on wrapped lines
+set markers=no # https://neomutt.org/guide/reference#markers
+# Wrap lines at 78 chars
+set wrap=78 # https://neomutt.org/guide/reference#wrap
+# When at the end, don't go to next email when trying to scroll
+set pager_stop=yes # https://neomutt.org/guide/reference#pager_stop
+# Mailcap file is used to tell mutt how to open different types of file
+# set mailcap_path = "~/.config/mutt/mailcap" # https://neomutt.org/guide/mimesupport#3-%C2%A0mime-viewer-configuration-with-mailcap
 
 # ----------------------------------------------
 
