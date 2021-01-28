@@ -3,7 +3,7 @@ function! mail#ABookComplete(findstart, base)
         " locate the start of the word
         let line = getline('.')
         let start = col('.') - 1
-        while start > 0 && (line[start - 1] =~ '\a' || line[start - 1] =~ '.' || line[start - 1] =~ '-')
+        while start > 0 && (line[start - 1] =~ '\a' || line[start-1] =~ '-')
             let start -= 1
         endwhile
         return start
@@ -20,7 +20,9 @@ function! mail#ABookComplete(findstart, base)
         let l:choices = []
         for l:c in split(l:raw_choices, '\n')
             let l:split = split(l:c, '\t')
-            call add(l:choices, l:split[1] . ' <' . l:split[0] . '>')
+            if len(l:split) > 1
+                call add(l:choices, l:split[1] . ' <' . l:split[0] . '>')
+            endif
         endfor
         return l:choices
     endif
