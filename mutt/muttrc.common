@@ -51,9 +51,9 @@ set sidebar_sort_method = 'unsorted'
 
 ## Bindings
 bind index \043 noop
-macro index e "<save-message>=All<enter><enter>" "Archive"
-macro pager e "<exit><tag-thread><save-message>=All<enter><enter>" "Archive"
-macro index,pager \043 "<enter-command>unset resolve<enter><set-flag>O<enter-command>set resolve<enter><save-message>=Trash<enter><enter>" "Trash"
+macro index e "<tag-thread><save-message>=All<enter><enter>" "Archive"
+macro pager e "<exit><tag-thread><save-message>=All<enter><enter>" "Archive thread"
+macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Messages deleted!!\"<enter>" "Trash"
 
 bind index,pager a group-reply
 bind index - collapse-thread
@@ -65,15 +65,15 @@ macro index,pager gi "<change-folder>$spoolfile<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
-macro index,pager gd "<change-folder>=Defer" "Go to deferred"
-macro index,pager gb "<change-folder>=Blocked" "Go to blocked"
-macro index,pager gp "<change-folder>=Pinned" "Go to pinned"
+macro index,pager gd "<change-folder>=Defer<enter>" "Go to deferred"
+macro index,pager gb "<change-folder>=Blocked<enter>" "Go to blocked"
+macro index,pager gp "<change-folder>=Pinned<enter>" "Go to pinned"
 
 bind index,pager V noop
-macro index,pager Vd "<save-message>=Defer" "Defer message"
-macro index,pager Vi "<save-message>=Inbox" "Move message to inbox"
-macro index,pager Vb "<save-message>=Blocked" "Move message to blocked"
-macro index,pager Vp "<save-message>=Pinned" "Move message to pinnd"
+macro index,pager Vd "<save-message>=Defer<enter>" "Defer message"
+macro index,pager Vi "<save-message>=Inbox<enter>" "Move message to inbox"
+macro index,pager Vb "<save-message>=Blocked<enter>" "Move message to blocked"
+macro index,pager Vp "<save-message>=Pinned<enter>" "Move message to pinned"
 
 bind index x tag-entry
 bind index t tag-thread
@@ -101,13 +101,13 @@ bind pager gg top
 bind pager G bottom
 bind pager E edit-raw-message
 
-bind index,pager r noop
-bind index,pager a noop
-bind index,pager A noop
-macro index,pager r "<pipe-message>abook --add-email<enter><reply>" "Reply"
-macro index,pager a "<pipe-message>abook --add-email<enter><group-reply>" "Reply all"
-macro index,pager A "<pipe-message>abook --add-email<enter>" "Add to contacts"
-set wait_key = yes
+bind index,pager r reply
+bind index,pager a group-reply
+#bind index,pager a noop
+#macro index,pager r "<pipe-message>abook --add-email<enter><reply>" "Reply"
+#macro index,pager a "<pipe-message>abook --add-email<enter><group-reply>" "Reply all"
+macro index,pager a "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
+set wait_key = no
 
 macro pager U <pipe-message>urlscan<enter>
 
@@ -165,7 +165,7 @@ mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):
 
 # Colours for items in the index
 color index brightblue  cyan  ~N
-color index red         magenta ~F
+color index brightwhite magenta ~F
 color index black       green ~T
 color index brightwhite black ~D
 mono  index bold              ~N
