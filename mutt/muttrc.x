@@ -3,17 +3,41 @@ set realname = "Evan Chen"
 set use_from = yes
 set signature = "~/.config/mutt/signature"
 
-mailboxes $spoolfile
-mailboxes +All
-mailboxes +Sent
-mailboxes +Trash
-mailboxes +Blocked
-mailboxes +Defer
-mailboxes +Pinned
+mailboxes ~/mail/personal/Inbox
+# mailboxes ~/mail/personal/All
+mailboxes ~/mail/personal/Blocked
+mailboxes ~/mail/personal/Defer
+mailboxes ~/mail/personal/Pinned
+# mailboxes ~/mail/personal/Sent
+# mailboxes ~/mail/personal/Trash
+
+mailboxes ~/mail/work/Inbox
+# mailboxes ~/mail/work/All
+mailboxes ~/mail/work/Blocked
+mailboxes ~/mail/work/Defer
+mailboxes ~/mail/work/Pinned
+# mailboxes ~/mail/work/Sent
+# mailboxes ~/mail/work/Trash
+
+mailboxes ~/mail/records/Inbox
+# mailboxes ~/mail/records/All
+mailboxes ~/mail/records/Blocked
+mailboxes ~/mail/records/Defer
+mailboxes ~/mail/records/Pinned
+# mailboxes ~/mail/records/Sent
+# mailboxes ~/mail/records/Trash
+
+folder-hook ~/mail/personal/[a-zA-Z]* source ~/.config/mutt/muttrc.0
+folder-hook ~/mail/work/[a-zA-Z]*     source ~/.config/mutt/muttrc.1
+folder-hook ~/mail/records/[a-zA-Z]*  source ~/.config/mutt/muttrc.2
+folder-hook ~/mail/[a-z]*/All     color indicator black  yellow
+folder-hook ~/mail/[a-z]*/Trash   color indicator white  black
+folder-hook ~/mail/[a-z]*/Sent    color indicator black  brightwhite
+save-hook . +Blocked
+
 
 ## General settings
 set mbox_type = Maildir
-unset record
 set sort = threads
 set sort_aux = date-received
 set text_flowed = yes
@@ -34,19 +58,20 @@ set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,
 
 ## SIDEBAR
 set sidebar_visible = yes
-set sidebar_width = 10
+set sidebar_width = 15
 set sidebar_short_path = yes
-set sidebar_component_depth = 0
+set sidebar_component_depth = 4
 set sidebar_delim_chars = '/.'
-set sidebar_folder_indent = no
+set sidebar_folder_indent = yes
 set sidebar_new_mail_only = no
 set sidebar_non_empty_mailbox_only = no
 set sidebar_next_new_wrap = no
 set sidebar_on_right = no
 set sidebar_divider_char = '∥'
+set sidebar_indent_string = '..'
 set mail_check_stats
 # Display the Sidebar mailboxes using this format string.
-set sidebar_format = '%B%* %S'
+set sidebar_format = '%D%* %?N?%N/?%S'
 set sidebar_sort_method = 'unsorted'
 
 ## Bindings
@@ -61,7 +86,7 @@ bind index _ collapse-all
 macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
 
 bind index,pager g noop
-macro index,pager gi "<change-folder>$spoolfile<enter>" "Go to inbox"
+macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
@@ -80,8 +105,14 @@ bind index t tag-thread
 macro pager x "<exit><tag-entry>" "Tag entry"
 macro pager t "<exit><tag-thread>" "Tag thread"
 
-bind index,pager C change-folder
-bind index,pager c compose-to-sender
+bind index,pager c mail
+# change mailbox
+bind index,pager m noop
+bind index,pager C compose-to-sender
+macro index,pager mu <change-folder>~/mail/personal/Inbox/<enter> "Change to account 0"
+macro index,pager m1 <change-folder>~/mail/work/Inbox/<enter> "Change to account 1"
+macro index,pager m2 <change-folder>~/mail/records/Inbox/<enter> "change to account 2"
+macro index,pager mb <change-folder>
 
 bind index gg first-entry
 bind index G last-entry
@@ -106,26 +137,30 @@ bind index,pager a group-reply
 #bind index,pager a noop
 #macro index,pager r "<pipe-message>abook --add-email<enter><reply>" "Reply"
 #macro index,pager a "<pipe-message>abook --add-email<enter><group-reply>" "Reply all"
-macro index,pager a "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
+macro index,pager A "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
 set wait_key = no
 
 macro pager U <pipe-message>urlscan<enter>
 
-## Hooks
+bind compose v view-attach
+bind compose <Space> send-message
 
-save-hook . +Blocked
+## Hooks
 
 # ----------------------------------------------
 # COMPOSITION SETTINGS
 
 set edit_headers = yes
 set autoedit = yes
+set fast_reply = yes
 set use_from = yes
 set include = yes
 set editor = "vim"
 set sig_on_top = yes
 set attribution_locale = "zh_TW.UTF-8"
 set attribution = "%f 於%[%A%m月%d日%R]寫道："
+set abort_nosubject = yes
+unset record
 
 # ----------------------------------------------
 #  Viewing settings  #
@@ -164,11 +199,13 @@ color header red         black "^X-Junked-Because: "
 mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
 
 # Colours for items in the index
-color index brightblue  cyan  ~N
+color index brightblue  brightyellow  ~N
+color index brightblue  white   ~O
 color index brightwhite magenta ~F
 color index black       green ~T
 color index brightwhite black ~D
 mono  index bold              ~N
+mono  index bold              ~O
 mono  index bold              ~F
 mono  index bold              ~T
 mono  index bold              ~D
@@ -197,7 +234,8 @@ color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"    
 
 # NeoMutt color settings
 color index_author magenta white '.*'
-color index_author brightblack cyan ~N
+color index_author brightblack brightyellow ~N
+color index_author black white ~O
 color index_author brightblack magenta ~F
 color index_author brightblack green ~T
 color index_author brightmagenta black ~D
@@ -208,5 +246,12 @@ color index_label default brightgreen
 
 color index_number magenta white
 color index_size cyan white
+
+color sidebar_divider blue white
+# color sidebar_spoolfile blue white
+color sidebar_ordinary black white
+color sidebar_flagged black white
+color sidebar_new brightblack brightyellow
+color sidebar_unread brightblack white
 
 # vim: ft=neomuttrc

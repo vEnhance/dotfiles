@@ -139,9 +139,9 @@ alias winx='startx /bin/wine winefile --kiosk --'
 alias s3='aws s3'
 alias todo='~/dotfiles/sh-scripts/get-todo.sh'
 
-alias mu='neomutt -F ~/.config/mutt/muttrc.0'
-alias m1='neomutt -F ~/.config/mutt/muttrc.1'
-alias m2='neomutt -F ~/.config/mutt/muttrc.2'
+alias mu='neomutt'
+alias m1='neomutt -F ~/.config/mutt/neomuttrc.1'
+alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
 
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
 
