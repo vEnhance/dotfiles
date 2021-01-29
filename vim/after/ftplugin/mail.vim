@@ -33,3 +33,9 @@ endfun
 
 setlocal omnifunc=mail#ABookComplete
 setlocal fo+=w
+
+nnoremap <Leader>t /^To:<CR>A<space>
+nnoremap <Leader>c /^Cc:<CR>A<space>
+nnoremap <Leader>b /^Bcc:<CR>A<space>
+nnoremap <Leader>s /^Subject:<CR>A<space>
+nnoremap <Leader>m /^Reply-To:<CR>jjO
