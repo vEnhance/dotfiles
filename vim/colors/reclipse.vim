@@ -51,7 +51,7 @@ highlight Folded     gui=none guifg=#804030 guibg=#fff0d0 ctermbg=black ctermfg=
 highlight FoldColumn gui=none guifg=#6b6b6b guibg=#e7e7e7 ctermfg=black ctermbg=brown
 
 " Popup Menu
-highlight PMenu      ctermbg=green ctermfg=white
+highlight PMenu      ctermbg=blue ctermfg=white
 highlight PMenuSel   ctermbg=white ctermfg=black
 highlight PMenuSBar  ctermbg=red   ctermfg=white
 highlight PMenuThumb ctermbg=white ctermfg=red
