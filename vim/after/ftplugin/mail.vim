@@ -2,15 +2,15 @@ function! mail#ABookComplete(findstart, base)
     if a:findstart
         let l:line = getline('.')
         let l:start = col('.') - 1
-        while l:start > 0 && (l:line[start - 1] =~ '\a' || l:line[start-1] =~ '-')
+        while l:start > 0 && (l:line[start - 1] =~ '\a' || l:line[start-1] =~ '-' || (l:line[start - 1] =~ ' ' && l:line[start - 2] =~ '\a'))
             let l:start -= 1
         endwhile
         return l:start
     else
         if a:base == ''
-            let l:raw_choices = system("abook --mutt-query .")
+            let l:raw_choices = trim(system("abook --mutt-query ."))
         else
-            let l:raw_choices = system("abook --mutt-query " . a:base)
+            let l:raw_choices = trim(system("abook --mutt-query \"" . a:base . "\""))
         endif
 
         " Abook's '--outformat custom' doesn't work, so instead we'll have to take
