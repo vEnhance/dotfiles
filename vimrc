@@ -331,27 +331,32 @@ nnoremap <silent> za zt7k7j
 " LEADER KEY
 " e is for emulator
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>
-" nt is for tree
-nnoremap <Leader>nt :NERDTreeToggle<CR>
-" tn is for tabnew
-nnoremap <Leader>tn :tabnew<CR>
-" cd
-nnoremap <Leader>cd :lcd %:p:h<CR>
 
-" fzf
-" open recent
-nnoremap <Leader>or :History<CR>
+" Global leader things at O
+" open nerdtree
+nnoremap <Leader>ot :NERDTreeToggle<CR>
+" open new tab
+nnoremap <Leader>on :tabnew<CR>
+" change directory
+nnoremap <Leader>oc :lcd %:p:h<CR>
+" open history
+nnoremap <Leader>oh :History<CR>
 " open lines (as `open to`)
-nnoremap <Leader>ot :Lines<CR>
+nnoremap <Leader>ol :Lines<CR>
 " open file
 nnoremap <Leader>of :Files<CR>
 " open buffers
 nnoremap <Leader>ob :Buffers<CR>
-
 " window new on right (CTRL-W n gives below)
-nnoremap <Leader>wn :vne<CR>
+nnoremap <Leader>ok :vne<CR>
 " window close
-nnoremap <Leader>wc :close<CR>
+nnoremap <Leader>ox :close<CR>
+
+" syntax group
+nnoremap <Leader>og :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+
 " git status
 nnoremap <Leader>gs :Git<CR>
 " git blame
@@ -376,23 +381,6 @@ nnoremap <Leader>gec :Git commit<CR>
 nnoremap <Leader>gew :Git commit %<CR>
 " git commit all
 nnoremap <Leader>gea :Git commit --all<CR>
-
-" latex compile
-nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
-" latex von compile (mnemonic O for olympiad)
-nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview_$(whoami)/von_preview.tex -pvc" &<CR>
-
-" tsq -> asy compile and open
-nnoremap <Leader>to :update<CR>:silent !python -m tsq -p % \| asy -f pdf -V - &<CR>
-" tsq -> asy
-nnoremap <Leader>ta :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR><CR>
-" tsq -> asy but show error
-nnoremap <Leader>te :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR>
-
-" syntax group
-nnoremap <Leader>sg :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile

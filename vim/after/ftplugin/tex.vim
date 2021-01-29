@@ -215,3 +215,13 @@ call IMAP('Subproof[]::', "\\begin{subproof}[<++>]\<CR><++>\<CR>\\end{subproof}<
 if filereadable("local.tex.vim")
     so local.tex.vim
 endif
+
+" latex compile
+nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
+" latex von compile (mnemonic O for olympiad)
+nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview_$(whoami)/von_preview.tex -pvc" &<CR>
+
+" Leader keys that are defined for me
+" <Leader>ll -> pdflatex compile
+" <Leader>lv -> latex viewer
+" <Leader>rf -> refresh folds (LaTeX)
