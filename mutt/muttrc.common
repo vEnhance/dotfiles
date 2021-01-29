@@ -3,7 +3,13 @@ set realname = "Evan Chen"
 set use_from = yes
 set signature = "~/.config/mutt/signature"
 
-mailboxes $spoolfile +All +Drafts +Sent +Trash
+mailboxes $spoolfile
+mailboxes +All
+mailboxes +Sent
+mailboxes +Trash
+mailboxes +Blocked
+mailboxes +Defer
+mailboxes +Pinned
 
 ## General settings
 set mbox_type = Maildir
@@ -13,15 +19,22 @@ set sort_aux = date-received
 set text_flowed = yes
 set auto_tag = yes
 set collapse_unread = yes
-set pager_context = 3
+set pager_context = 15
 set pager_index_lines = 7
 set mail_check = 300
-set index_format = "%3C %{%b%d}%Z%M %-10.10L %s"
 set quit = yes
 set wrap = 80
+set attach_save_dir = "~/Downloads/"
+set abort_noattach = yes
+
+set date_format = "%a %m月%d日"
+set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
+set pager_format = "%4C %Z %[%a %m月%d日%R] %.20n %s%* -- (%P)"
+set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4}).*/date +'Date: %a %m月%d日%R' -d '\\1'/e\""
+
 ## SIDEBAR
 set sidebar_visible = yes
-set sidebar_width = 9
+set sidebar_width = 10
 set sidebar_short_path = yes
 set sidebar_component_depth = 0
 set sidebar_delim_chars = '/.'
@@ -51,12 +64,24 @@ bind index,pager g noop
 macro index,pager gi "<change-folder>$spoolfile<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
-macro index,pager gd "<change-folder>=Drafts<enter>" "Go to drafts"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
+macro index,pager gd "<change-folder>=Defer" "Go to deferred"
+macro index,pager gb "<change-folder>=Blocked" "Go to blocked"
+macro index,pager gp "<change-folder>=Pinned" "Go to pinned"
+
+bind index,pager V noop
+macro index,pager Vd "<save-message>=Defer" "Defer message"
+macro index,pager Vi "<save-message>=Inbox" "Move message to inbox"
+macro index,pager Vb "<save-message>=Blocked" "Move message to blocked"
+macro index,pager Vp "<save-message>=Pinned" "Move message to pinnd"
+
 bind index x tag-entry
 bind index t tag-thread
 macro pager x "<exit><tag-entry>" "Tag entry"
 macro pager t "<exit><tag-thread>" "Tag thread"
+
+bind index,pager C change-folder
+bind index,pager c compose-to-sender
 
 bind index gg first-entry
 bind index G last-entry
@@ -76,15 +101,19 @@ bind pager gg top
 bind pager G bottom
 bind pager E edit-raw-message
 
+bind index,pager r noop
+bind index,pager a noop
 bind index,pager A noop
-macro index,pager A "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
-set wait_key = no
+macro index,pager r "<pipe-message>abook --add-email<enter><reply>" "Reply"
+macro index,pager a "<pipe-message>abook --add-email<enter><group-reply>" "Reply all"
+macro index,pager A "<pipe-message>abook --add-email<enter>" "Add to contacts"
+set wait_key = yes
+
+macro pager U <pipe-message>urlscan<enter>
 
 ## Hooks
 
-save-hook . +All
-reply-hook ~A "push A"
-
+save-hook . +Blocked
 
 # ----------------------------------------------
 # COMPOSITION SETTINGS
@@ -96,7 +125,7 @@ set include = yes
 set editor = "vim"
 set sig_on_top = yes
 set attribution_locale = "zh_TW.UTF-8"
-set attribution = "%f於%d寫道："
+set attribution = "%f 於%[%A%m月%d日%R]寫道："
 
 # ----------------------------------------------
 #  Viewing settings  #
@@ -129,14 +158,14 @@ mono underline underline
 mono indicator reverse
 
 # Colours for items in the reader
-color header brightwhite  black "."
+color header white  black "."
 color header brightyellow black "^(From|Subject):"
 color header red         black "^X-Junked-Because: "
 mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
 
 # Colours for items in the index
-color index brightblue  white ~N
-color index red         white ~F
+color index brightblue  cyan  ~N
+color index red         magenta ~F
 color index black       green ~T
 color index brightwhite black ~D
 mono  index bold              ~N
@@ -167,10 +196,16 @@ color body brightblue  white "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"    
 color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
 
 # NeoMutt color settings
-color index_author black white '.*'
+color index_author magenta white '.*'
+color index_author brightblack cyan ~N
+color index_author brightblack magenta ~F
+color index_author brightblack green ~T
+color index_author brightmagenta black ~D
+
 color index_collapsed default brightblue
-color index_date white black
+color index_date green black
 color index_label default brightgreen
+
 color index_number magenta white
 color index_size cyan white
 
