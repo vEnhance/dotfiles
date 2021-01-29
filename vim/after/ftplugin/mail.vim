@@ -32,4 +32,4 @@ function! mail#ABookComplete(findstart, base)
 endfun
 
 setlocal omnifunc=mail#ABookComplete
-setlocal fo+=aw
+setlocal fo+=w
