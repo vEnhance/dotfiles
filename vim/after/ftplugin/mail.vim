@@ -38,4 +38,4 @@ nnoremap <Leader>t /^Cc:<CR>kA<space>
 nnoremap <Leader>c /^Bcc:<CR>kA<space>
 nnoremap <Leader>b /^Subject:<CR>kA<space>
 nnoremap <Leader>s /^Reply-To:<CR>kA<space>
-nnoremap <Leader>m /^Reply-To:<CR>jo
+nnoremap <Leader>m gg}o
