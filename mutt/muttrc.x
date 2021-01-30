@@ -121,6 +121,7 @@ bind index k previous-entry
 bind index J next-thread
 bind index K previous-thread
 
+bind pager i noop
 bind pager j next-line
 bind pager k previous-line
 bind pager <down> next-line
