@@ -3,7 +3,7 @@ set noexpandtab
 set tabstop=4
 set shiftwidth=4
 
-let g:pydiction_location = '~/.vim/ftplugin/complete-dict'
+let g:completor_python_binary = '/bin/python3.9'
 " set ofu=syntaxcomplete#Complete
 
 set list

@@ -260,6 +260,10 @@ Plug 'vim-syntastic/syntastic'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'godlygeek/tabular'
+Plug 'maralla/completor.vim'
+Plug 'Shougo/echodoc.vim'
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'popup'
 " More general plugins
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
