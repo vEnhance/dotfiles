@@ -263,7 +263,8 @@ Plug 'godlygeek/tabular'
 Plug 'maralla/completor.vim'
 Plug 'Shougo/echodoc.vim'
 let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'popup'
+" let g:echodoc#type = 'popup'
+set cmdheight=2
 " More general plugins
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
@@ -331,6 +332,8 @@ vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
 
+" autocompletion: return should be a real return
+inoremap <expr> <CR> pumvisible() ? "\<C-Y>\<CR>" : "\<CR>"
 
 " LEADER KEY
 " e is for emulator
