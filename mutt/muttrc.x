@@ -45,11 +45,12 @@ set auto_tag = yes
 set collapse_unread = yes
 set pager_context = 15
 set pager_index_lines = 7
-set mail_check = 300
+set mail_check = 60
 set quit = ask-yes
 set wrap = 80
 set attach_save_dir = "~/Downloads/"
 set abort_noattach = yes
+set sleep_time = 0
 
 set date_format = "%a %m月%d日"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
@@ -76,14 +77,18 @@ set sidebar_sort_method = 'unsorted'
 
 ## Bindings
 bind index \043 noop
-macro index e "<tag-thread><save-message>=All<enter><enter>" "Archive"
-macro pager e "<exit><tag-thread><save-message>=All<enter><enter>" "Archive thread"
-macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Messages deleted!!\"<enter>" "Trash"
+macro index e "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro pager e "<exit><untag-pattern>.<enter><tag-thread><save-message>=All<enter><enter>$y<enter-command> echo \"Archived thread\"<enter>" "Archive thread"
+macro index \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
+macro pager \043 "<exit><untag-pattern>.<enter><tag-thread><save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash thread"
+
+# bind escape to untag all
+macro index z "<untag-pattern>.<enter><limit>.<enter>" "Reset view"
 
 bind index,pager a group-reply
 bind index - collapse-thread
 bind index _ collapse-all
-macro index Z ":source ~/.config/mutt/muttrc.common<enter>" "Reload"
+macro index Z ":source ~/.config/mutt/muttrc.x<enter>" "Reload"
 
 bind index,pager g noop
 macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
@@ -94,25 +99,25 @@ macro index,pager gd "<change-folder>=Defer<enter>" "Go to deferred"
 macro index,pager gb "<change-folder>=Blocked<enter>" "Go to blocked"
 macro index,pager gp "<change-folder>=Pinned<enter>" "Go to pinned"
 
-bind index,pager V noop
-macro index,pager Vd "<save-message>=Defer<enter>" "Defer message"
-macro index,pager Vi "<save-message>=Inbox<enter>" "Move message to inbox"
-macro index,pager Vb "<save-message>=Blocked<enter>" "Move message to blocked"
-macro index,pager Vp "<save-message>=Pinned<enter>" "Move message to pinned"
 
-bind index x tag-entry
-bind index t tag-thread
-macro pager x "<exit><tag-entry>" "Tag entry"
-macro pager t "<exit><tag-thread>" "Tag thread"
-
-bind index,pager c mail
-# change mailbox
 bind index,pager m noop
-bind index,pager C compose-to-sender
+macro index,pager ma "<save-message>=All<enter><enter><enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager m\043 "<save-message>=Defer<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
+macro index,pager md "<save-message>=Defer<enter><enter><enter-command>echo \"Deferred selection\"<enter>" "Defer"
+macro index,pager mi "<save-message>=Inbox<enter><enter><enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
+macro index,pager mb "<save-message>=Blocked<enter><enter><enter-command>echo \"Blocked selection\"<enter>" "Block"
+macro index,pager mp "<save-message>=Pinned<enter><enter><enter-command>echo \"Pinned selection\"<enter>" "Pin"
+
+bind index t tag-entry
+bind index x tag-thread
+macro pager t "<exit><tag-entry>" "Tag entry"
+macro pager x "<exit><tag-thread>" "Tag thread"
+
+# change mailbox
 macro index,pager mu <change-folder>~/mail/personal/Inbox/<enter> "Change to account 0"
 macro index,pager m1 <change-folder>~/mail/work/Inbox/<enter> "Change to account 1"
 macro index,pager m2 <change-folder>~/mail/records/Inbox/<enter> "change to account 2"
-macro index,pager mb <change-folder>
+macro index,pager mt <change-folder>
 
 bind index gg first-entry
 bind index G last-entry
@@ -141,7 +146,9 @@ bind index,pager a group-reply
 macro index,pager A "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
 set wait_key = no
 
-macro pager U <pipe-message>urlscan<enter>
+bind index,pager c mail
+bind index,pager C compose-to-sender
+macro pager V <pipe-message>urlscan<enter>
 
 bind compose v view-attach
 bind compose <Space> send-message
@@ -203,7 +210,7 @@ mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):
 color index brightblue  brightyellow  ~N
 color index brightblue  white   ~O
 color index brightwhite magenta ~F
-color index black       green ~T
+color index black       cyan  ~T
 color index brightwhite black ~D
 mono  index bold              ~N
 mono  index bold              ~O
@@ -238,7 +245,7 @@ color index_author magenta white '.*'
 color index_author brightblack brightyellow ~N
 color index_author black white ~O
 color index_author brightblack magenta ~F
-color index_author brightblack green ~T
+color index_author brightblack cyan ~T
 color index_author brightmagenta black ~D
 
 color index_collapsed default brightblue
@@ -252,7 +259,7 @@ color sidebar_divider blue white
 # color sidebar_spoolfile blue white
 color sidebar_ordinary black white
 color sidebar_flagged black white
-color sidebar_new brightblack brightyellow
+color sidebar_new brightcyan white
 color sidebar_unread brightblack white
 
 # vim: ft=neomuttrc
