@@ -252,4 +252,33 @@ complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
 # Addon settings
 set -U __done_notification_urgency_level normal
 
+# fish vi key bindings
+fish_vi_key_bindings
+bind -M default \ce 'accept-autosuggestion'
+bind -M insert \ce 'accept-autosuggestion'
+
+function fish_mode_prompt
+    if test "$fish_key_bindings" = "fish_vi_key_bindings"
+        or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
+        switch $fish_bind_mode
+            case default
+                set_color --bold --background red white
+                echo 'N'
+            case insert
+                set_color --bold --background green white
+                echo 'I'
+            case replace_one
+                set_color --bold --background green white
+                echo 'R'
+            case replace
+                set_color --bold --background cyan white
+                echo 'R'
+            case visual
+                set_color --bold --background magenta white
+                echo 'V'
+        end
+        set_color normal
+        echo -n ' '
+    end
+end
 # vim: ft=sh
