@@ -20,7 +20,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	picom -b &
 	# clipmenud &
 	if [ "$(whoami)" = "evan" ]; then
-		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh" &
+		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh --email" &
 		workrave &
 		qtalarm &
 		# ibus-daemon -d -r &

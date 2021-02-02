@@ -34,9 +34,11 @@ do
 		"twitch.tv" > /tmp/agenda.txt &
 	echo ""
 	echo "Press ENTER to refresh..."
-	echo "" >> /tmp/mbsync.log
-	echo "###############################" >> /tmp/mbsync.log
-	date >> /tmp/mbsync.log
-	mbsync -Va >> /tmp/mbsync.log &
+	if [[ $* == *--email* ]] ; then
+		echo "" >> /tmp/mbsync.log
+		echo "###############################" >> /tmp/mbsync.log
+		date >> /tmp/mbsync.log
+		mbsync -Va >> /tmp/mbsync.log &
+	fi
 	read -t 1800 &> /dev/null
 done
