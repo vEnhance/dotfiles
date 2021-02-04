@@ -32,10 +32,8 @@ function! mail#ABookComplete(findstart, base)
 endfun
 
 setlocal omnifunc=mail#ABookComplete
-" sadly, "flowed" does not seem to work in most modern mail
-" r.i.p. plain text wrapping, i'm so sorry
-set textwidth=0
-" setlocal fo+=w
+" flowed email from plain text
+setlocal fo+=w
 
 nnoremap <Leader>t /^Cc:<CR>kA<space>
 nnoremap <Leader>c /^Bcc:<CR>kA<space>

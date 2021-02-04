@@ -39,7 +39,7 @@ save-hook . +Blocked
 ## General settings
 set mbox_type = Maildir
 set sort = threads
-set sort_aux = date-received
+set sort_aux = last-date-received
 set text_flowed = yes
 set auto_tag = yes
 set collapse_unread = yes
@@ -151,7 +151,7 @@ bind index,pager C compose-to-sender
 macro pager V <pipe-message>urlscan<enter>
 
 bind compose v view-attach
-bind compose <Space> send-message
+macro compose <Space> "<first-entry><pipe-message>python ~/.config/mutt/mutt-markdown.py<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><first-entry><tag-entry><group-alternatives><send-message>" "Compile as markdown and send"
 
 ## Hooks
 
