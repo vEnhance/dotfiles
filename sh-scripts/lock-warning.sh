@@ -16,6 +16,6 @@ notify-send -i timer-symbolic -t 30000 \
 	"The session will automatically lock shortly. Do literally anything to cancel."
 
 
-if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
-	cvlc --play-and-exit "/usr/share/sounds/freedesktop/stereo/complete.oga" vlc://quit
-fi
+#if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
+#	cvlc --play-and-exit "/usr/share/sounds/freedesktop/stereo/complete.oga" vlc://quit
+#fi
