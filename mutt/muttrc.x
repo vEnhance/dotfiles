@@ -93,6 +93,7 @@ macro index Z ":source ~/.config/mutt/muttrc.x<enter>" "Reload"
 bind index,pager g noop
 macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
 macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
+macro index,pager ge "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
 macro index,pager gd "<change-folder>=Defer<enter>" "Go to deferred"
@@ -102,6 +103,7 @@ macro index,pager gp "<change-folder>=Pinned<enter>" "Go to pinned"
 
 bind index,pager m noop
 macro index,pager mi "<save-message>=Inbox<enter><enter>$y<enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
+macro index,pager ma "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager me "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager m\043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
 macro index,pager md "<save-message>=Defer<enter><enter>$y<enter-command>echo \"Deferred selection\"<enter>" "Defer"
