@@ -18,7 +18,7 @@ for line in sys.stdin:
 	if line == '-- \n':
 		content += '\n'*2
 		content += '**Evan Chen (陳誼廷)**<br>'
-		content += '[web.evanchen.cc](https://web.evanchen.cc/)'
+		content += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
 		content += '\n'*2
 		signature_lines = 3
 		signature_found = True
