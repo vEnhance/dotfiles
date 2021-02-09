@@ -14,7 +14,7 @@ qutebrowser/autoconfig.yml
 asy/history
 fish/*
 !fish/config.fish
-!fish/fishfile
+!fish/fish_plugins
 driveignore
 fish/fish_variables
 py3status/py3status.*.conf
