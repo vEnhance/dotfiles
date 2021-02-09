@@ -2,7 +2,7 @@
 	name = Evan Chen
 	email = evan@evanchen.cc
 [credential]
-	helper = cache
+	helper = /usr/lib/git-core/git-credential-libsecret
 
 [color]
 	branch = auto

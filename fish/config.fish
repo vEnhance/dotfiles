@@ -96,8 +96,8 @@ end
 export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 export TERM='xterm-256color'
-export SSH_ASKPASS=ksshaskpass
-set -U -x SSH_ENV $HOME/.ssh-environment
+
+export SSH_ASKPASS=/usr/lib/seahorse/ssh-askpass
 
 # the auto prompt-edited detetction is not enabled somehow
 export VIRTUAL_ENV_DISABLE_PROMPT=1

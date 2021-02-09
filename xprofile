@@ -61,6 +61,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		xset dpms 1800 1800 1800
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	fi
+	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
 if [ "$HOSTNAME" = Endor ]; then
