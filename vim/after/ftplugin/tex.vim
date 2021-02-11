@@ -219,7 +219,7 @@ endif
 " latex compile
 nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
 " latex von compile (mnemonic O for olympiad)
-nnoremap <Leader>lo :silent !xfce4-terminal -e "latexmk -cd /tmp/preview_$(whoami)/von_preview.tex -pvc" &<CR>
+nnoremap <Leader>lo :lcd /tmp/preview_$USER<CR>:silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &<CR>
 
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
