@@ -13,8 +13,10 @@ def ssum(S):
 	return sum(_ or 0 for _ in S)
 
 parser = argparse.ArgumentParser(description="Process some scores")
-parser.add_argument('filename', help='File to read; default to sys.stdin otherwise.')
-parser.add_argument('--summary', action='store_true', help='When passed, only print summary stats, not full table.')
+parser.add_argument('filename',
+		help='File to read; default to sys.stdin otherwise.')
+parser.add_argument('-s', '--summary', action='store_true',
+		help='When passed, only print summary stats, not full table.')
 args = parser.parse_args(sys.argv[1:])
 
 with open(args.filename, 'r') as tsvfile:
