@@ -40,3 +40,4 @@ nnoremap <Leader>c /^Bcc:<CR>kA<space>
 nnoremap <Leader>b /^Subject:<CR>kA<space>
 nnoremap <Leader>s /^Reply-To:<CR>kA<space>
 nnoremap <Leader>m gg}o
+nnoremap <Leader>e gg}:read ~/dotfiles/mutt/templates/

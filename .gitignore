@@ -18,6 +18,7 @@ fish/*
 driveignore
 fish/fish_variables
 py3status/py3status.*.conf
+mutt/templates/*
 mutt/abook/addressbook
 mutt/abook/addressbook~
 mutt/muttrc.?

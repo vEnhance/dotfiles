@@ -77,10 +77,8 @@ set sidebar_sort_method = 'unsorted'
 
 ## Bindings
 bind index \043 noop
-macro index e "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
-macro pager e "<exit><untag-pattern>.<enter><tag-thread><save-message>=All<enter><enter>$y<enter-command> echo \"Archived thread\"<enter>" "Archive thread"
-macro index \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
-macro pager \043 "<exit><untag-pattern>.<enter><tag-thread><save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash thread"
+macro index,pager e "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
 
 # bind escape to untag all
 macro index z "<untag-pattern>.<enter><limit>.<enter>" "Reset view"
