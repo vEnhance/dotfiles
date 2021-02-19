@@ -59,7 +59,7 @@ set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,
 
 ## SIDEBAR
 set sidebar_visible = yes
-set sidebar_width = 15
+set sidebar_width = 12
 set sidebar_short_path = yes
 set sidebar_component_depth = 4
 set sidebar_delim_chars = '/.'
@@ -69,7 +69,7 @@ set sidebar_non_empty_mailbox_only = no
 set sidebar_next_new_wrap = no
 set sidebar_on_right = no
 set sidebar_divider_char = '∥'
-set sidebar_indent_string = '..'
+set sidebar_indent_string = ' ➤'
 set mail_check_stats
 # Display the Sidebar mailboxes using this format string.
 set sidebar_format = '%D%* %?N?%N/?%S'
