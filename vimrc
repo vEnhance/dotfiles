@@ -236,8 +236,6 @@ endif
 " Filetype detection manual cases
 augroup filetypedetect
 	autocmd BufNewFile,BufRead *.asy setfiletype asy
-	autocmd BufNewFile,BufRead *.darkblue setfiletype darkblue
-	autocmd BufNewFile,BufRead *.pegjs setfiletype pegjs
 	autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 	autocmd BufNewFile,BufRead *.less setfiletype css
 	autocmd BufRead,BufNewFile *.ics setfiletype icalendar
@@ -271,8 +269,9 @@ let g:ale_sign_error = '#'
 let g:ale_sign_warning = '>'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_python_mypy_options = "--ignore-missing-imports"
+let g:ale_disable_lsp = 1
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
