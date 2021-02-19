@@ -3,7 +3,7 @@ set noexpandtab
 set tabstop=4
 set shiftwidth=4
 
-let g:completor_python_binary = '/bin/python3.9'
+let g:python_space_error_highlight = 1
 " set ofu=syntaxcomplete#Complete
 
 set list

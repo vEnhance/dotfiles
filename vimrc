@@ -245,35 +245,45 @@ augroup END
 
 " Plug
 call plug#begin('~/.vim/plugged')
+
 " File-type specific edits
 Plug 'kchmck/vim-coffee-script'
 Plug 'plasticboy/vim-markdown'
-Plug 'leanprover/lean.vim'
 Plug 'dag/vim-fish'
 Plug 'vim-latex/vim-latex'
-Plug 'laoyang945/vimflowy'
+" Plug 'leanprover/lean.vim'
+" Plug 'laoyang945/vimflowy'
+
 " General plugins
-Plug 'honza/vim-snippets'
-Plug 'SirVer/ultisnips'
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-syntastic/syntastic'
+" Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips'
+" Plug 'godlygeek/tabular'
+" Plug 'vim-syntastic/syntastic'
+" Plug 'tpope/vim-surround'
+" Plug 'editorconfig/editorconfig-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'godlygeek/tabular'
-Plug 'maralla/completor.vim'
-Plug 'Shougo/echodoc.vim'
-let g:echodoc#enable_at_startup = 1
-" let g:echodoc#type = 'popup'
-set cmdheight=2
+Plug 'tpope/vim-unimpaired'
+
+" Heavy programming extensions
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '#'
+let g:ale_sign_warning = '>'
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_python_mypy_options = "--ignore-missing-imports"
+Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 " More general plugins
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mg979/vim-visual-multi'
-Plug 'tpope/vim-surround'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
 " Plug 'chrisbra/csv.vim'
 call plug#end()
@@ -283,6 +293,37 @@ call plug#end()
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " Uncomment below to close Vim if only NerdTree remains
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Rebind completion menu
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1] =~ '\t'
+endfunction
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <silent><expr> <S-Tab>
+      \ pumvisible() ? "\<C-p>" :
+      \ <SID>check_back_space() ? "\<S-Tab>" :
+      \ coc#refresh()
+
+" CoC improved keybindings
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nmap cv <Plug>(coc-rename)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
 
 " Backup Directories
 set backupdir=~/.vim/tmp
@@ -306,6 +347,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 colorscheme reclipse
 set spell
 set nohlsearch
+set cmdheight=2
 
 set wrap
 set linebreak
@@ -355,7 +397,7 @@ nnoremap <Leader>of :Files<CR>
 " open buffers
 nnoremap <Leader>ob :Buffers<CR>
 " window new on right (CTRL-W n gives below)
-nnoremap <Leader>ok :vne<CR>
+nnoremap <Leader>ow :vne<CR>
 " window close
 nnoremap <Leader>ox :close<CR>
 
@@ -420,22 +462,6 @@ au FileType tex nmap <Leader>s :call SyncTexForward()<CR>
 " Certain file-specific settings which don't seem to apply in after/ftplugin
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
-
-" ------------------------------------------
-" Python Configuration
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_tex_checkers = ['chktex']
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-" Highlight bad spaces
-let g:python_space_error_highlight = 1
 
 " ------------------------------------------
 " Misc Configuration

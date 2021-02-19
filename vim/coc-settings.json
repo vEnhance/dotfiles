@@ -1,0 +1,5 @@
+{
+	"diagnostic.displayByAle": true,
+	"suggest.echodocSupport": true,
+	"signature.target": "echo"
+}
