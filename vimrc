@@ -283,10 +283,32 @@ Plug 'itchyny/lightline.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
+Plug 'niklaas/lightline-gitdiff'
 
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
 " Plug 'chrisbra/csv.vim'
 call plug#end()
+
+" Lightline
+let g:lightline = {
+      \ 'colorscheme': 'one',
+      \ 'active': {
+      \   'left': [ ['filename', 'modified'], ['filetype'],
+      \             [ 'gitbranch', 'gitstatus'] ],
+      \   'right' : [ [ 'mode', 'readonly', 'paste' ],
+      \               ['percent', 'lineinfo',] ]
+      \   },
+      \ 'component_function' : {
+      \   'gitbranch': 'FugitiveHead',
+      \   },
+      \ 'component_expand' : {
+      \   'gitstatus': 'lightline#gitdiff#get',
+      \   },
+      \ }
+let g:lightline#gitdiff#indicator_added = '+'
+let g:lightline#gitdiff#indicator_deleted = '-'
+let g:lightline#gitdiff#indicator_modified = '~'
+let g:lightline#gitdiff#separator = ' '
 
 " Uncomment to auto open NerdTree on empty vim
 " autocmd StdinReadPre * let s:std_in=1
@@ -347,7 +369,8 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 colorscheme reclipse
 set spell
 set nohlsearch
-set cmdheight=2
+" don't need mode shown if we have lightline
+set noshowmode
 
 set wrap
 set linebreak
@@ -463,26 +486,11 @@ au FileType tex nmap <Leader>s :call SyncTexForward()<CR>
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
 
-" ------------------------------------------
-" Misc Configuration
-
 " NerdTree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | q | endif
 let NERDTreeIgnore = ['\.pyc$']
 nnoremap <silent> NT :NERDTreeFocus<CR>
-
-" Lightline
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
 
 " Lilypond
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
