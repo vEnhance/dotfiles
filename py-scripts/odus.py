@@ -1,9 +1,19 @@
-# OTIS DUPES
+"""
+OTIS Duplication Uniqueness System
+
+Used to check which problems have been used multiple times or not at all.
+"""
 
 import argparse
 import collections
+import glob
+import os
 import re
+
 import von.api
+from von.model import VonCache, VonIndex
+from von.view import printEntry
+
 
 # Color names {{{
 _TERM_COLOR = {}
@@ -34,70 +44,108 @@ def APPLY_COLOR(color_name, s):
 	return _TERM_COLOR[color_name] + s + _TERM_COLOR["RESET"]
 
 
-parser = argparse.ArgumentParser(description="Scrape OTIS files for problems")
+parser = argparse.ArgumentParser(description="General purpose tool for OTIS problem management.")
 parser.add_argument('-d', '--dup', action='store_true',
 		help='Show only duplicated problems in report.')
 parser.add_argument('-u', '--unique', action='store_true',
 		help='Show only unique problems in report.')
-parser.add_argument('files', nargs='+',
-		help='List of files to scrape')
-
+parser.add_argument('-a', '--all', action='store_true',
+		help='Only valid without files, uses the whole database rather than cache.')
+parser.add_argument('files', nargs='*',
+		help='List of files to scrape.')
 args = parser.parse_args()
+von_re = re.compile(r'^\\von([EMHZXI])(R?).*?\{(.*?)\}')
 
-von_re = re.compile(r'^\\von([EMHZ])(R?).*?\{(.*?)\}')
+if len(args.files) == 0:
+	path_tex = os.path.join(os.environ.get("HOME", ""),
+			"Documents/OTIS/Materials/**/*.tex")
+	path_txt = os.path.join(os.environ.get("HOME", ""),
+			"Documents/OTIS/Materials/**/*.txt")
+	files = glob.glob(path_tex, recursive=True) \
+			+ glob.glob(path_txt, recursive=True)
+	detect_missing = True
+else:
+	files = args.files
+	detect_missing = False
 
-repeat_count_dict = {}
-seen = collections.defaultdict(dict)
+repeat_count_dict = collections.defaultdict(int)
+if detect_missing is False:
+	seen = collections.defaultdict(dict)
+elif detect_missing is True:
+	seen = set()
 
-hardness_chart = {'E':2,'M':3,'H':5,'Z':9}
-for fn in args.files:
-	repeat_count_dict[fn] = 0
+
+hardness_chart = {'E':2,'M':3,'H':5,'Z':9,'X':0,'I':0,}
+for fn in files:
 	with open(fn) as f:
 		for line in f:
 			if (m := von_re.match(line)) is not None:
 				d, r, source = m.groups()
 				w = hardness_chart[d]
-				assert fn not in seen[source], \
-						f"you dummy you duped {source} in {fn}"
-				seen[source][fn] = (w, r)
+				if detect_missing is False:
+					assert fn not in seen[source] or w == 0, \
+							f"you dummy you duped {source} in {fn}"
+					seen[source][fn] = (w, r)
+				elif detect_missing is True:
+					seen.add(source)
 
-num_repeats = 0
-for source, data in seen.items():
-	status_string = ''
-	to_show = (args.unique is True and len(data) == 1) \
-		or (args.dup is True and len(data) > 1) \
-		or (args.unique is False and args.dup is False)
-	if to_show:
-		for fn in args.files:
-			if fn in data:
-				color = "BOLD_MAGENTA" if data[fn][1] == 'R' else 'BOLD_CYAN'
-				status_string += APPLY_COLOR(color, str(data[fn][0]))
-			else:
-				status_string += '.'
-		print(f"{status_string} {APPLY_COLOR('BOLD_GREEN', source):28} "\
-				+ f"{von.api.get(source).desc}")
+if detect_missing is False:
+	num_repeats = 0
+	for source, data in seen.items():
+		status_string = ''
+		to_show = (args.unique is True and len(data) == 1) \
+			or (args.dup is True and len(data) > 1) \
+			or (args.unique is False and args.dup is False)
+		if to_show:
+			for fn in files:
+				if fn in data:
+					if data[fn][1] == 'R':
+						color = "BOLD_MAGENTA"
+					elif data[fn][0] == 0:
+						color = "NORMAL"
+					else:
+						color = 'BOLD_CYAN'
+					status_string += APPLY_COLOR(color, str(data[fn][0]))
+				else:
+					status_string += '.'
+			print(f"{status_string} {APPLY_COLOR('BOLD_GREEN', source):28} "\
+					+ f"{von.api.get(source).desc}")
 
-	if len(data) > 1:
-		for fn in data.keys():
-			repeat_count_dict[fn] += 1
+		if len(data) > 1:
+			for fn in data.keys():
+				if data[fn][0] > 0:
+					repeat_count_dict[fn] += 1
 
-print(r'='*32)
+	print(r'='*32)
 
-for fn in args.files:
-	if '/' in fn:
-		basename = fn[fn.rindex('/')+1:]
+	for fn in files:
+		if '/' in fn:
+			basename = fn[fn.rindex('/')+1:]
+		else:
+			basename = fn
+
+		num_problems = sum(1 for data in seen.values() if fn in data and data[fn][0] > 0)
+		num_points = sum(data[fn][0] for data in seen.values() if fn in data and data[fn][0] > 0)
+		print(APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") \
+				+ " "*3
+				+ APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") \
+				+ " "*3
+				+ f"{num_points:3}♣"
+				+ " "*3
+				+ APPLY_COLOR("CYAN", basename)
+				)
+
+else:
+	if args.all is True:
+		index = VonIndex()
+		entries = index.values()
 	else:
-		basename = fn
-
-	num_problems = sum(1 for data in seen.values() if fn in data)
-	num_points = sum(data[fn][0] for data in seen.values() if fn in data)
-	print(APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") \
-			+ " "*3
-			+ APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") \
-			+ " "*3
-			+ f"{num_points:3}♣"
-			+ " "*3
-			+ APPLY_COLOR("CYAN", basename)
-			)
-
-
+		cache = VonCache()
+		entries = cache
+	
+	for entry in entries:
+		if not entry.source in seen \
+				and not 'waltz' in entry.tags \
+				and not 'final' in entry.tags \
+				and not entry.secret:
+			printEntry(entry)
