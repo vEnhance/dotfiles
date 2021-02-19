@@ -3,6 +3,7 @@
 
 # Make sure we're in Dvorak
 setxkbmap dvorak -option caps:escape
+numlockx on
 
 # for Chinese input
 export GTK_IM_MODULE=ibus
