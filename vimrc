@@ -272,10 +272,6 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_python_mypy_options = "--ignore-missing-imports"
 let g:ale_disable_lsp = 1
-Plug 'dense-analysis/ale'
-
-" CoC
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 let g:coc_global_extensions = [
             \ 'coc-html',
             \ 'coc-jedi',
@@ -283,7 +279,8 @@ let g:coc_global_extensions = [
             \ 'coc-sh',
             \ 'coc-texlab',
             \ 'coc-vimlsp' ]
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'dense-analysis/ale'
 
 " More general plugins
 Plug 'junegunn/fzf'
