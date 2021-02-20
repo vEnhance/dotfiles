@@ -1,3 +1,5 @@
+let b:ale_linters = ['proselint', 'chktex']
+
 " Always use \\dots
 call IMAP('...', "\\dots",'tex')
 

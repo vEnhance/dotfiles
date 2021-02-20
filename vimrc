@@ -283,6 +283,7 @@ Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'niklaas/lightline-gitdiff'
+Plug 'maximbaz/lightline-ale'
 
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
 " Plug 'chrisbra/csv.vim'
@@ -293,15 +294,30 @@ let g:lightline = {
       \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ ['filename', 'modified'], ['filetype'],
-      \             [ 'gitbranch', 'gitstatus'] ],
+      \             [ 'gitbranch', 'gitstatus'], ['cocstatus'] ],
       \   'right' : [ [ 'mode', 'readonly', 'paste' ],
-      \               ['percent', 'lineinfo',] ]
+      \               ['percent', 'lineinfo',],
+      \               [ 'linter_checking', 'linter_errors',
+      \                 'linter_warnings', 'linter_infos', 'linter_ok' ] ]
       \   },
       \ 'component_function' : {
       \   'gitbranch': 'FugitiveHead',
+      \   'cocstatus': 'coc#status',
       \   },
       \ 'component_expand' : {
       \   'gitstatus': 'lightline#gitdiff#get',
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_infos': 'lightline#ale#infos',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors',
+      \   'linter_ok': 'lightline#ale#ok',
+      \   },
+      \ 'component_type' : {
+      \   'linter_checking': 'right',
+      \   'linter_infos': 'right',
+      \   'linter_warnings': 'error',
+      \   'linter_errors': 'error',
+      \   'linter_ok': 'right',
       \   },
       \ }
 let g:lightline#gitdiff#indicator_added = '+'
@@ -330,21 +346,26 @@ inoremap <silent><expr> <S-Tab>
       \ <SID>check_back_space() ? "\<S-Tab>" :
       \ coc#refresh()
 
-" CoC improved keybindings
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
+" CoC go-to keybindings
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
+nmap <silent> [g <Plug>(ale-prev-wrap)
+nmap <silent> ]g <Plug>(ale-next-wrap)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
 
 " Backup Directories
 set backupdir=~/.vim/tmp
@@ -395,9 +416,6 @@ nnoremap <silent> ZW :update<CR>
 vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
-
-" autocompletion: return should be a real return
-inoremap <expr> <CR> pumvisible() ? "\<C-Y>\<CR>" : "\<CR>"
 
 " LEADER KEY
 " e is for emulator
@@ -496,3 +514,5 @@ set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 
 " Git Gutter
 highlight! link SignColumn LineNr
+
+" vim: expandtab
