@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "coc-html": ">=1.4.1",
-    "coc-jedi": ">=0.20.3",
-    "coc-json": ">=1.3.4",
-    "coc-sh": ">=0.6.0",
-    "coc-texlab": ">=2.3.0"
-  }
-}

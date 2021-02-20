@@ -263,7 +263,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-unimpaired'
 
-" Heavy programming extensions
+" ALE
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '#'
 let g:ale_sign_warning = '>'
@@ -273,7 +273,17 @@ let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_python_mypy_options = "--ignore-missing-imports"
 let g:ale_disable_lsp = 1
 Plug 'dense-analysis/ale'
+
+" CoC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+let g:coc_global_extensions = [
+            \ 'coc-html',
+            \ 'coc-jedi',
+            \ 'coc-json',
+            \ 'coc-sh',
+            \ 'coc-texlab',
+            \ 'coc-vimlsp' ]
+
 
 " More general plugins
 Plug 'junegunn/fzf'
@@ -352,8 +362,8 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
-nmap <silent> [g <Plug>(ale-prev-wrap)
-nmap <silent> ]g <Plug>(ale-next-wrap)
+nmap <silent> [g :ALEPreviousWrap<CR>
+nmap <silent> ]g :ALENextWrap<CR>
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
