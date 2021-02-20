@@ -263,7 +263,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-unimpaired'
 
-" ALE
+" ALE + CoC
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '#'
 let g:ale_sign_warning = '>'
@@ -279,8 +279,8 @@ let g:coc_global_extensions = [
             \ 'coc-sh',
             \ 'coc-texlab',
             \ 'coc-vimlsp' ]
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dense-analysis/ale'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " More general plugins
 Plug 'junegunn/fzf'
