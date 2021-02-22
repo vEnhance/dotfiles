@@ -354,9 +354,9 @@ inoremap <silent><expr> <S-Tab>
       \ coc#refresh()
 
 " CoC go-to keybindings
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gr <Plug>(coc-references)
+nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
+nmap <silent> gy :vsplit<CR><Plug>(coc-type-definition)
+nmap <silent> gr :vsplit<CR><Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
@@ -442,10 +442,8 @@ nnoremap <Leader>ol :Lines<CR>
 nnoremap <Leader>of :Files<CR>
 " open buffers
 nnoremap <Leader>ob :Buffers<CR>
-" window new on right (CTRL-W n gives below)
-nnoremap <Leader>ow :vne<CR>
-" window close
-nnoremap <Leader>ox :close<CR>
+" ALE Details
+nnoremap <Leader>oa :ALEDetail<CR>
 
 " syntax group
 nnoremap <Leader>og :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
