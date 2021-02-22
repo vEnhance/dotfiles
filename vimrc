@@ -356,7 +356,6 @@ inoremap <silent><expr> <S-Tab>
 " CoC go-to keybindings
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
