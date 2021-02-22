@@ -10,8 +10,6 @@
 \DeclareOption{exam}{\otisexamtrue}
 \newif\ifotiswater\otiswatertrue
 \DeclareOption{nowatermark}{\otiswaterfalse}
-\newif\ifotisreveal\otisrevealfalse
-\DeclareOption{reveal}{\otisrevealtrue}
 \newif\ifotishandout\otishandoutfalse
 \DeclareOption{handout}{\otishandouttrue}
 \newif\ifotishandoutwalk\otishandoutwalktrue
@@ -80,6 +78,8 @@
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
 	\usepackage[sexy,diagrams]{evan}
+	\addtolength{\textheight}{-36pt}
+	\setlength{\footskip}{36pt}
 	\setkomafont{publishers}{\small}
 	\AtBeginDocument{\publishers{\MakeUppercase{\jobname},
 		OTIS\thanks{Internal use only.
@@ -130,6 +130,7 @@
 	\newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
 	\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
 	\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
+
 
 	\ifotishandout
 		% Walkthroughs to examples
@@ -219,9 +220,3 @@
 \fi
 
 \renewcommand{\vonprefix}{von}
-
-\ifotisreveal
-	\newenvironment{onion}{\color{magenta}}{\ignorespacesafterend}
-\else
-	\newenvironment{onion}{\begin{gobble}}{\end{gobble}}
-\fi
