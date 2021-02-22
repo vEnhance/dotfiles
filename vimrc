@@ -262,6 +262,7 @@ Plug 'vim-latex/vim-latex'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/Tabmerge'
 
 " ALE + CoC
 let g:ale_sign_column_always = 1
@@ -444,6 +445,8 @@ nnoremap <Leader>of :Files<CR>
 nnoremap <Leader>ob :Buffers<CR>
 " ALE Details
 nnoremap <Leader>oa :ALEDetail<CR>
+" merge tab to right
+nnoremap <Leader>os :Tabmerge right<CR>
 
 " syntax group
 nnoremap <Leader>og :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
