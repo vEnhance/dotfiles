@@ -51,6 +51,7 @@ set wrap = 80
 set attach_save_dir = "~/Downloads/"
 set abort_noattach = yes
 set sleep_time = 0
+set simple_search = "~f %s | ~s %s | ~C %s"
 
 set date_format = "%a %m月%d日"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
