@@ -52,6 +52,7 @@ set attach_save_dir = "~/Downloads/"
 set abort_noattach = yes
 set sleep_time = 0
 set simple_search = "~f %s | ~s %s | ~C %s"
+set pipe_decode = yes
 
 set date_format = "%a %m月%d日"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
@@ -82,12 +83,14 @@ macro index,pager e "<save-message>=All<enter><enter>$y<enter-command>echo \"Arc
 macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
 
 # bind escape to untag all
-macro index z "<untag-pattern>.<enter><limit>.<enter>" "Reset view"
+bind index . noop
+macro index . "<untag-pattern>.<enter><limit>.<enter>" "Reset view"
 
 bind index,pager a group-reply
 bind index - collapse-thread
 bind index _ collapse-all
-macro index Z ":source ~/.config/mutt/muttrc.x<enter>" "Reload"
+
+macro index,pager z "<pipe-message>vim -R -c \"set ft=mail\" -<enter>" "View in Vim"
 
 bind index,pager g noop
 macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
