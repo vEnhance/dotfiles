@@ -459,6 +459,8 @@ nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gb :Git blame<CR>
 " git diff
 nnoremap <Leader>gd :Git diff<CR>
+" git diff --staged
+nnoremap <Leader>gt :Git diff --staged<CR>
 " git undo (really git read)
 nnoremap <Leader>gu :Gread<CR>
 " git add current file (w for write)
@@ -471,12 +473,12 @@ nnoremap <Leader>gcw :Git commit %<CR>
 " git commit all
 nnoremap <Leader>gca :Git commit --all<CR>
 
-" git create commit --amend
+" git create commit --amend [edit commit]
 nnoremap <Leader>gec :Git commit<CR>
-" git commit current file
-nnoremap <Leader>gew :Git commit %<CR>
-" git commit all
-nnoremap <Leader>gea :Git commit --all<CR>
+" git commit --amend current file [edit write]
+nnoremap <Leader>gew :Git commit % --amend<CR>
+" git commit --amend all [edit all]
+nnoremap <Leader>gea :Git commit --all --amend<CR>
 
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
