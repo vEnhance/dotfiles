@@ -157,6 +157,11 @@ macro pager V <pipe-message>urlscan<enter>
 bind compose v view-attach
 macro compose <Space> "<first-entry><pipe-message>python ~/.config/mutt/mutt-markdown.py<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><first-entry><tag-entry><group-alternatives><send-message>" "Compile as markdown and send"
 
+bind generic,index,pager \Cf       next-page
+bind generic,index,pager \Cb       previous-page
+bind generic,index,pager \Cd       half-down
+bind generic,index,pager \Cu       half-up
+
 ## Hooks
 
 # ----------------------------------------------
