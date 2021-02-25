@@ -9,6 +9,7 @@ import collections
 import glob
 import os
 import re
+from typing import DefaultDict
 
 import von.api
 from von.model import VonCache, VonIndex
@@ -54,7 +55,7 @@ parser.add_argument('-a', '--all', action='store_true',
 parser.add_argument('files', nargs='*',
 		help='List of files to scrape.')
 args = parser.parse_args()
-von_re = re.compile(r'^\\von([EMHZXI])(R?).*?\{(.*?)\}')
+von_re = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\])?\{(.*?)\}')
 
 if len(args.files) == 0:
 	path_tex = os.path.join(os.environ.get("HOME", ""),
@@ -68,11 +69,11 @@ else:
 	files = args.files
 	detect_missing = False
 
-repeat_count_dict = collections.defaultdict(int)
+repeat_count_dict : DefaultDict[str, int] = collections.defaultdict(int)
 if detect_missing is False:
-	seen = collections.defaultdict(dict)
+	seen : DefaultDict[str, dict] = collections.defaultdict(dict)
 elif detect_missing is True:
-	seen = set()
+	seen_set = set()
 
 
 hardness_chart = {'E':2,'M':3,'H':5,'Z':9,'X':0,'I':0,}
@@ -80,14 +81,14 @@ for fn in files:
 	with open(fn) as f:
 		for line in f:
 			if (m := von_re.match(line)) is not None:
-				d, r, source = m.groups()
+				d, r, _, source = m.groups()
 				w = hardness_chart[d]
 				if detect_missing is False:
 					assert fn not in seen[source] or w == 0, \
 							f"you dummy you duped {source} in {fn}"
 					seen[source][fn] = (w, r)
 				elif detect_missing is True:
-					seen.add(source)
+					seen_set.add(source)
 
 if detect_missing is False:
 	num_repeats = 0
@@ -144,7 +145,7 @@ else:
 		entries = cache
 	
 	for entry in entries:
-		if not entry.source in seen \
+		if not entry.source in seen_set \
 				and not 'waltz' in entry.tags \
 				and not 'final' in entry.tags \
 				and not entry.secret:
