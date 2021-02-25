@@ -35,6 +35,7 @@ bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+c exec --no-startup-id clipmenu -i
 bindsym $mod+Shift+c exec --no-startup-id clipdel -d . \
+    && echo "" | xsel --clipboard \
     && notify-send -i my-caffeine-on-symbolic "Clipboard cleared" "All entries from the clipboard have been erased."
 
 # change focus
