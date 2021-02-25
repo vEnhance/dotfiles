@@ -26,6 +26,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh --email" &
 		workrave &
 		qtalarm &
+		pacman -Qe > /home/evan/Dropbox/Archive/pacman.txt
 		# ibus-daemon -d -r &
 	fi
 	redshift-gtk &
