@@ -55,7 +55,7 @@ parser.add_argument('-a', '--all', action='store_true',
 parser.add_argument('files', nargs='*',
 		help='List of files to scrape.')
 args = parser.parse_args()
-von_re = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\])?\{(.*?)\}')
+von_re = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
 
 if len(args.files) == 0:
 	path_tex = os.path.join(os.environ.get("HOME", ""),
