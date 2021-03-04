@@ -53,6 +53,7 @@ set abort_noattach = yes
 set sleep_time = 0
 set simple_search = "~f %s | ~s %s | ~C %s"
 set pipe_decode = yes
+set delete = yes
 
 set date_format = "%a %m月%d日"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
@@ -79,7 +80,7 @@ set sidebar_sort_method = 'unsorted'
 
 ## Bindings
 bind index \043 noop
-macro index,pager e "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager e "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
 
 # bind escape to untag all
@@ -104,13 +105,13 @@ macro index,pager gp "<change-folder>=Pinned<enter>" "Go to pinned"
 
 
 bind index,pager m noop
-macro index,pager mi "<save-message>=Inbox<enter><enter>$y<enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
-macro index,pager ma "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
-macro index,pager me "<save-message>=All<enter><enter>$y<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager mi "<save-message>=Inbox<enter><enter>$<enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
+macro index,pager ma "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager me "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager m\043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
-macro index,pager md "<save-message>=Defer<enter><enter>$y<enter-command>echo \"Deferred selection\"<enter>" "Defer"
-macro index,pager mb "<save-message>=Blocked<enter><enter>$y<enter-command>echo \"Blocked selection\"<enter>" "Block"
-macro index,pager mp "<save-message>=Pinned<enter><enter>$y<enter-command>echo \"Pinned selection\"<enter>" "Pin"
+macro index,pager md "<save-message>=Defer<enter><enter>$<enter-command>echo \"Deferred selection\"<enter>" "Defer"
+macro index,pager mb "<save-message>=Blocked<enter><enter>$<enter-command>echo \"Blocked selection\"<enter>" "Block"
+macro index,pager mp "<save-message>=Pinned<enter><enter>$<enter-command>echo \"Pinned selection\"<enter>" "Pin"
 
 bind index t tag-entry
 bind index x tag-thread
