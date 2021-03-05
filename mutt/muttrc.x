@@ -1,4 +1,3 @@
-set postponed=+Drafts
 set realname = "Evan Chen"
 set use_from = yes
 set signature = "~/.config/mutt/signature"
