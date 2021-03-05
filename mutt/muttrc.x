@@ -2,38 +2,36 @@ set realname = "Evan Chen"
 set use_from = yes
 set signature = "~/.config/mutt/signature"
 
-mailboxes ~/mail/personal/Inbox
-# mailboxes ~/mail/personal/All
-mailboxes ~/mail/personal/Blocked
-mailboxes ~/mail/personal/Defer
-mailboxes ~/mail/personal/Pinned
-# mailboxes ~/mail/personal/Sent
-# mailboxes ~/mail/personal/Trash
+mailboxes ~/Mail/personal/Inbox
+# mailboxes ~/Mail/personal/All
+mailboxes ~/Mail/personal/Blocked
+mailboxes ~/Mail/personal/Defer
+mailboxes ~/Mail/personal/Pinned
+# mailboxes ~/Mail/personal/Sent
+# mailboxes ~/Mail/personal/Trash
 
-mailboxes ~/mail/work/Inbox
-# mailboxes ~/mail/work/All
-mailboxes ~/mail/work/Blocked
-mailboxes ~/mail/work/Defer
-mailboxes ~/mail/work/Pinned
-# mailboxes ~/mail/work/Sent
-# mailboxes ~/mail/work/Trash
+mailboxes ~/Mail/work/Inbox
+# mailboxes ~/Mail/work/All
+mailboxes ~/Mail/work/Blocked
+mailboxes ~/Mail/work/Defer
+mailboxes ~/Mail/work/Pinned
+# mailboxes ~/Mail/work/Sent
+# mailboxes ~/Mail/work/Trash
 
-mailboxes ~/mail/records/Inbox
-# mailboxes ~/mail/records/All
-mailboxes ~/mail/records/Blocked
-mailboxes ~/mail/records/Defer
-mailboxes ~/mail/records/Pinned
-# mailboxes ~/mail/records/Sent
-# mailboxes ~/mail/records/Trash
+mailboxes ~/Mail/records/Inbox
+# mailboxes ~/Mail/records/All
+mailboxes ~/Mail/records/Blocked
+mailboxes ~/Mail/records/Defer
+mailboxes ~/Mail/records/Pinned
+# mailboxes ~/Mail/records/Sent
+# mailboxes ~/Mail/records/Trash
 
-folder-hook ~/mail/personal/[a-zA-Z]* source ~/.config/mutt/muttrc.0
-folder-hook ~/mail/work/[a-zA-Z]*     source ~/.config/mutt/muttrc.1
-folder-hook ~/mail/records/[a-zA-Z]*  source ~/.config/mutt/muttrc.2
-folder-hook ~/mail/[a-z]*/All     color indicator black  yellow
-folder-hook ~/mail/[a-z]*/Trash   color indicator white  black
-folder-hook ~/mail/[a-z]*/Sent    color indicator black  brightwhite
-save-hook . +Blocked
-
+folder-hook ~/Mail/personal/[a-zA-Z]* source ~/.config/mutt/muttrc.0
+folder-hook ~/Mail/work/[a-zA-Z]*     source ~/.config/mutt/muttrc.1
+folder-hook ~/Mail/records/[a-zA-Z]*  source ~/.config/mutt/muttrc.2
+folder-hook ~/Mail/[a-z]*/All     color indicator black  yellow
+folder-hook ~/Mail/[a-z]*/Trash   color indicator white  black
+folder-hook ~/Mail/[a-z]*/Sent    color indicator black  brightwhite
 
 ## General settings
 set mbox_type = Maildir
@@ -118,9 +116,9 @@ macro pager t "<exit><tag-entry>" "Tag entry"
 macro pager x "<exit><tag-thread>" "Tag thread"
 
 # change mailbox
-macro index,pager mu <change-folder>~/mail/personal/Inbox/<enter> "Change to account 0"
-macro index,pager m1 <change-folder>~/mail/work/Inbox/<enter> "Change to account 1"
-macro index,pager m2 <change-folder>~/mail/records/Inbox/<enter> "change to account 2"
+macro index,pager mu <change-folder>~/Mail/personal/Inbox/<enter> "Change to account 0"
+macro index,pager m1 <change-folder>~/Mail/work/Inbox/<enter> "Change to account 1"
+macro index,pager m2 <change-folder>~/Mail/records/Inbox/<enter> "change to account 2"
 macro index,pager mt <change-folder>
 
 bind index gg first-entry
