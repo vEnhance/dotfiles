@@ -3,7 +3,7 @@
 Takes a plaintext email and
 * Truncates quotes nested past depth 2
 * Removes Evan's signature (3 lines long)
-* Runs it through Darkdown
+* Runs it through Markdown
 
 """
 
