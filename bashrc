@@ -19,6 +19,10 @@ else
 	fi
 fi
 
+if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
+	eval `dbus-launch --sh-syntax`
+fi
+
 # Exports
 export EDITOR='vim'
 export TERM='xterm-256color'
@@ -38,34 +42,37 @@ fi
 umask 007 # set umask
 
 # Aliases
-alias kitty="cat"
-alias getclip="xsel --clipboard"
-alias putclip="xsel --clipboard"
-alias lisp='sbcl --script'
+# alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
+alias dropcli='dropbox-cli'
+alias getclip="xsel --clipboard"
+alias kitty="cat"
+alias lisp='sbcl --script'
+alias putclip="xsel --clipboard"
 alias python='python3'
-
-alias dragon='python2 ~/Documents/Projects/dragon/'
-alias sparky='python2 ~/Documents/Projects/sparky/'
-alias von='python3 -m von'
-alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
-alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
-alias wpmarkdown='python3 ~/dotfiles/py-scripts/markdown2wp.py'
-alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
+alias trash='gio trash'
+alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
-alias s3='aws s3'
+
+alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
+alias dragon='python2 ~/Documents/Projects/dragon/'
+alias odus='python3 ~/dotfiles/py-scripts/odus.py'
+alias oscar='python3 ~/dotfiles/py-scripts/oscar.py'
+alias sparky='python3 ~/Documents/Projects/sparky/'
 alias todo='~/dotfiles/sh-scripts/get-todo.sh'
+alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
+alias von='python3 -m von'
+alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
+alias wpmd='python3 ~/dotfiles/py-scripts/markdown2wp.py'
+
+alias mu='neomutt'
+alias m1='neomutt -F ~/.config/mutt/neomuttrc.1'
+alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
+
+alias sudo='sudo ' # allows my aliases to get into sudo in bash
 
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts"
-
-alias pudb='python2 -m pudb.run'
-alias dropcli='dropbox-cli'
-alias trash='gio trash'
-# alias emacs='vim'
-alias gogogo='startx'
-alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
-alias sudo='sudo ' # allows my aliases to get into sudo in bash
 
 # Various functions
 function rot13 () {
@@ -82,10 +89,6 @@ function newtex () {
 	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "${1}.tex"
 	# vim "${1}.tex"
 	gvim "${1}.tex"
-}	
-function cclean() {
-	rm -f *.out
-	rm -f *.class
 }
 
 # Shortcut for editors and the like
@@ -114,18 +117,18 @@ function hunt () {
 
 
 #It speaks!
-alias hi="echo Hi!"
-alias hello="echo Hello!"
-alias ok="echo Glad you approve."
-alias kk="echo Glad you approve."
+alias aoeu="echo I see you are a Dvorak user."
+alias bleh="echo Meh."
 alias bye="echo So long, and thanks for all the fish."
 alias darn="echo Heh."
-alias bleh="echo Meh."
-alias hm="echo Hm?"
-alias aoeu="echo I see you are a Dvorak user."
 alias fml="echo HAHAHAHAHA"
+alias hello="echo Hello!"
+alias hi="echo Hi!"
+alias hm="echo Hm?"
+alias kk="echo Glad you approve."
 alias lolwut="echo idk"
 alias meow="echo Here, kitty! \<3"
+alias ok="echo Glad you approve."
 alias purr="echo Here, kitty! \<3"
 
 #QQ
@@ -172,12 +175,4 @@ if [ "$(uname)" = Darwin ]; then
 	alias l='ls -CF'                              #
 fi
 
-# Custom change-directory function: cd + ls = cs
-function cs () {
-	if [ -n "${1}" ]; then
-		cd "${1}"
-	fi
-	echo -n "`pwd`: "
-	ll
-}
-alias c='cs'
+

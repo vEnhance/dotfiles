@@ -119,39 +119,35 @@ end
 umask 007 # set umask
 
 # Aliases
-alias kitty="cat"
-alias getclip="xsel --clipboard"
-alias putclip="xsel --clipboard"
-alias lisp='sbcl --script'
+# alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
+alias dropcli='dropbox-cli'
+alias getclip="xsel --clipboard"
+alias kitty="cat"
+alias lisp='sbcl --script'
+alias putclip="xsel --clipboard"
 alias python='python3'
-
-alias dragon='python2 ~/Documents/Projects/dragon/'
-alias sparky='python2 ~/Documents/Projects/sparky/'
-alias von='python3 -m von'
-alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
-alias oscar='python3 ~/dotfiles/py-scripts/oscar.py'
-alias odus='python3 ~/dotfiles/py-scripts/odus.py'
-alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
-alias wpmarkdown='python3 ~/dotfiles/py-scripts/markdown2wp.py'
-alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
+alias trash='gio trash'
+alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
-alias s3='aws s3'
+
+alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
+alias dragon='python2 ~/Documents/Projects/dragon/'
+alias odus='python3 ~/dotfiles/py-scripts/odus.py'
+alias oscar='python3 ~/dotfiles/py-scripts/oscar.py'
+alias sparky='python3 ~/Documents/Projects/sparky/'
 alias todo='~/dotfiles/sh-scripts/get-todo.sh'
+alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
+alias von='python3 -m von'
+alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
+alias wpmd='python3 ~/dotfiles/py-scripts/markdown2wp.py'
 
 alias mu='neomutt'
 alias m1='neomutt -F ~/.config/mutt/neomuttrc.1'
 alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
 
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
-
-alias pudb='python2 -m pudb.run'
-alias dropcli='dropbox-cli'
-alias trash='gio trash'
-# alias emacs='vim'
-alias gogogo='startx'
-alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 
 # Create a new TeX file
 function newtex
@@ -199,24 +195,39 @@ set -x LESS_TERMCAP_ue (printf "\e[0m")
 set -x LESS_TERMCAP_us (printf "\e[01;32m")
 
 #It speaks!
-alias hi="echo Hi!"
-alias hello="echo Hello!"
-alias ok="echo Glad you approve."
-alias kk="echo Glad you approve."
+alias aoeu="echo I see you are a Dvorak user."
+alias bleh="echo Meh."
 alias bye="echo So long, and thanks for all the fish."
 alias darn="echo Heh."
-alias bleh="echo Meh."
-alias hm="echo Hm?"
-alias aoeu="echo I see you are a Dvorak user."
 alias fml="echo HAHAHAHAHA"
+alias hello="echo Hello!"
+alias hi="echo Hi!"
+alias hm="echo Hm?"
+alias kk="echo Glad you approve."
 alias lolwut="echo idk"
 alias meow="echo Here, kitty! \<3"
+alias ok="echo Glad you approve."
 alias purr="echo Here, kitty! \<3"
 
 #QQ
 alias qq="echo QQ!"
 alias qqq="echo QQ!"
 alias qqqq="echo QQ!"
+alias qqqqq="echo QQ!"
+alias qqqqqq="echo QQ!"
+alias qqqqqqq="echo QQ!"
+alias qqqqqqqq="echo QQ!"
+alias qqqqqqqqq="echo QQ!"
+alias qqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqqqqqqq="echo QQ!"
+alias qqqqqqqqqqqqqqqqqqq="echo QQ!"
 
 # Interactive operation...
 alias rm='rm -i'
@@ -242,18 +253,9 @@ if [ (uname) = Darwin ]
 	alias l='ls -CF'                              #
 end
 
-# Custom change-directory function: cd + ls = cs
-function cs
-	if [ -n $argv ]
-		cd $argv
-	end
-	ll
-end
-alias c='cs'
-
 # Fish completions
-complete -x -c cs -a "(__fish_complete_directories)"
 complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
+complete -c dn -x -a "(__fish_complete_subcommand -u -g)"
 
 # Addon settings
 set -U __done_notification_urgency_level normal
