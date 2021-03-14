@@ -339,21 +339,6 @@ let g:lightline#gitdiff#separator = ' '
 " Uncomment below to close Vim if only NerdTree remains
 " autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" Rebind completion menu
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1] =~ '\t'
-endfunction
-inoremap <silent><expr> <Tab>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <silent><expr> <S-Tab>
-      \ pumvisible() ? "\<C-p>" :
-      \ <SID>check_back_space() ? "\<S-Tab>" :
-      \ coc#refresh()
-
 " CoC go-to keybindings
 nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
 nmap <silent> gy :vsplit<CR><Plug>(coc-type-definition)
