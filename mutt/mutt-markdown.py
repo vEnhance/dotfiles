@@ -25,7 +25,7 @@ for line in sys.stdin:
 	elif signature_lines > 0:
 		signature_lines -= 1
 		continue
-	elif line.startswith('>>') and signature_found:
+	elif line.startswith('>>>>') and signature_found:
 		break
 	else:
 		content += line.strip() + '\n'
