@@ -46,6 +46,10 @@ if [ "$1" = 9 ]; then
 	mpg123 -f -18000 $HOME/dotfiles/noisemaker/S9-taratata.mp3
 fi
 
+if [ "$1" = 0 ]; then
+	mpg123 $HOME/dotfiles/noisemaker/S0-success.mp3
+fi
+
 if [ "$1" = a ]; then
 	mpg123 -f -18000 $HOME/dotfiles/noisemaker/Sa-horn.mp3
 fi
