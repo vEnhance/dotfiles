@@ -35,9 +35,6 @@ fi
 if [ -f /usr/bin/zathura ]; then
    	export PDFVIEWER='zathura'
 fi
-if [ -f ~/dotfiles/aws-hmmt ]; then
-   	source ~/dotfiles/aws-hmmt
-fi
 
 umask 007 # set umask
 
