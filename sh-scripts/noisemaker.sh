@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if pgrep -U $(whoami) soundux > /dev/null
+then
+	exit
+fi
+
 if pgrep -U $(whoami) mpg123 > /dev/null
 then
 	if [ "$1" = a ]; then
