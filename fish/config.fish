@@ -60,8 +60,13 @@ end
 
 function fish_prompt
 	set last_status $status
-	set_color --italics $fish_color_cwd
-	printf (prompt_pwd)
+	if set -q SUDO_USER
+		set_color --italics yellow
+		printf (prompt_pwd)
+	else
+		set_color --italics $fish_color_cwd
+		printf (prompt_pwd)
+	end
 	set_color normal
 	if not test $last_status -eq 0
 		set_color $fish_color_error
@@ -69,8 +74,18 @@ function fish_prompt
 		printf $last_status
 		printf ']'
 	end
-	set_color --bold $fish_color_arrows
-	printf ' >> '
+	if set -q SUDO_USER
+		printf ' '
+		set_color -b blue yellow --bold
+		printf '('
+		printf $USER
+		printf ')'
+		set_color normal
+		printf ' '
+	else
+		set_color --bold $fish_color_arrows
+		printf ' >> '
+	end
 	set_color normal
 end
 
