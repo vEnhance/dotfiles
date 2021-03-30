@@ -24,7 +24,7 @@ if [ "$1" = 2 ]; then
 fi
 
 if [ "$1" = 3 ]; then
-	mpg123 -f 10000 $HOME/dotfiles/noisemaker/S3-fanfare.mp3
+	mpg123 -f 15000 $HOME/dotfiles/noisemaker/S3-fanfare.mp3
 fi
 
 if [ "$1" = 4 ]; then
