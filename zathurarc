@@ -2,3 +2,8 @@ set default-bg "#001337"
 set dbus-service true
 set synctex true
 set synctex-editor-command "gvim --servername GVIM --remote +%{line} %{input}"
+
+map , feedkeys ":set first-page-column 1<Return>"
+map . feedkeys ":set first-page-column 2<Return>"
+map e feedkeys ":exec sh -c 'xfce4-terminal --working-directory=$(dirname $FILE)'<Return>"
+map b feedkeys ":exec sh -c 'thunar $(dirname $FILE)'<Return>"
