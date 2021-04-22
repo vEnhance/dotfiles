@@ -175,11 +175,11 @@ end
 # Shortcut for editors and the like
 function pdf
 	if test -f (echo $argv | cut -f 1 -d '.').pdf
-		dn zathura (echo $argv | cut -f 1 -d '.').pdf
+		dn zathura (echo $argv | cut -f 1 -d '.').pdf &> /dev/null
 	else if test -f "$argv""pdf"
-		dn zathura "$argv""pdf"
+		dn zathura "$argv""pdf" &> /dev/null
 	else if test -f "$argv.pdf"
-		dn zathura "$argv.pdf"
+		dn zathura "$argv.pdf" &> /dev/null
 	else
 		echo "Cannot found a suitable file."
 	end
