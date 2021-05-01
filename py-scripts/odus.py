@@ -148,5 +148,6 @@ else:
 		if not entry.source in seen_set \
 				and not 'waltz' in entry.tags \
 				and not 'final' in entry.tags \
+				and not 'unowned' in entry.tags \
 				and not entry.secret:
 			printEntry(entry)
