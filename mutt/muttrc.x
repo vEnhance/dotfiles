@@ -160,6 +160,9 @@ bind generic,index,pager \Cb       previous-page
 bind generic,index,pager \Cd       half-down
 bind generic,index,pager \Cu       half-up
 
+bind attach d noop
+bind attach D delete-entry
+
 ## Hooks
 
 # ----------------------------------------------
