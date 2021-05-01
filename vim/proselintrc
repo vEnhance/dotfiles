@@ -1,5 +1,6 @@
 {
   "checks": {
+    "cursing.filth": false,
     "typography.diacritical_marks": false,
     "misc.but": false,
     "misc.chatspeak": false,
