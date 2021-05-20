@@ -116,7 +116,7 @@ def main(tsv_file, outfile, name):
 	print(r"\arraycolsep=1em\def\arraystretch{1.2}", file=outfile)
 	print(r"\begin{array}{|r|" + "r"*NUM_PROBLEMS + "|}", file=outfile)
 	print(r'\hline', file=outfile)
-	print(''.join([r" & \text{P%d}" %(i+1) for i in range(NUM_PROBLEMS)]), end=' ', file=outfile)
+	print(''.join([r" & \textsf{\bfseries P%d} " %(i+1) for i in range(NUM_PROBLEMS)]), end=' ', file=outfile)
 	print(r"\\ \hline", file=outfile)
 	for s in range(0,8): # scores 0-7
 		print(str(s) + " & " + "\n\t& ".join([
@@ -207,7 +207,7 @@ def clean_name(s):
 	if '.' in s:
 		s = s[:s.index('.')]
 	s = s.replace('_', ' ')
-	return re.sub("[A-Za-z]+", lambda e: " " + e[0] + " ", s).strip()
+	return re.sub("[A-Za-z]+", lambda e: e[0] + " ", s).strip()
 	
 if __name__ == "__main__":
 	files = args.files
