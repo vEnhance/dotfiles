@@ -31,6 +31,8 @@
 	lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cd]\\ %C(red)%d" --decorate --date=short
 	ll = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --decorate --date=short --stat
 	tree = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
+	tracked = ls-tree -r HEAD --name-only
+	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
 
 	cm = commit
 	co = checkout
