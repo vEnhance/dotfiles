@@ -1,5 +1,12 @@
 {
 	"diagnostic.displayByAle": true,
 	"suggest.echodocSupport": true,
-	"signature.target": "echo"
+	"signature.target": "echo",
+    "python.venvPath": "/home/evan/python-venvs/",
+    "coc.preferences.rootPatterns": [
+      "pyrightconfig.json",
+      ".git",
+      ".hg",
+      ".projections.json"
+    ]
 }

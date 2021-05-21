@@ -265,7 +265,8 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/Tabmerge'
 Plug 'maralla/completor.vim', { 'for' :
     \ ['python', 'javascript', 'sh', 'fish', 'vim',
-    \ 'json', 'tex', 'typescript', 'go'] }
+    \ 'json', 'tex', 'typescript', 'go',
+    \ 'gitcommit', 'gitconfig'] }
 let g:completor_filetype_map = {}
 
 " ALE + CoC
