@@ -259,10 +259,14 @@ Plug 'vim-latex/vim-latex'
 " Plug 'vim-syntastic/syntastic'
 " Plug 'tpope/vim-surround'
 " Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/Tabmerge'
+Plug 'maralla/completor.vim', { 'for' :
+    \ ['python', 'javascript', 'sh', 'fish', 'vim',
+    \ 'json', 'tex', 'typescript', 'go'] }
+let g:completor_filetype_map = {}
 
 " ALE + CoC
 let g:ale_sign_column_always = 1
