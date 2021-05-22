@@ -263,12 +263,15 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/Tabmerge'
+
+set completeopt=menuone,noselect,preview
 Plug 'maralla/completor.vim', { 'for' :
     \ ['python', 'javascript', 'sh', 'fish', 'vim',
     \ 'json', 'tex', 'typescript', 'go',
     \ 'gitcommit', 'gitconfig'] }
 let g:completor_filetype_map = {}
-
+Plug 'Shougo/echodoc'
+ 
 " ALE + CoC
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '#'
@@ -282,9 +285,13 @@ let g:coc_global_extensions = [
             \ 'coc-html',
             \ 'coc-jedi',
             \ 'coc-json',
+            \ 'coc-pyright',
             \ 'coc-sh',
+            \ 'coc-tabnine',
             \ 'coc-texlab',
-            \ 'coc-vimlsp' ]
+            \ 'coc-tsserver',
+            \ 'coc-vimlsp',
+            \ ]
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
