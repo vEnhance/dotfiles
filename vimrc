@@ -266,7 +266,7 @@ Plug 'vim-scripts/Tabmerge'
 
 set completeopt=menuone,noselect,preview
 Plug 'maralla/completor.vim', { 'for' :
-    \ ['python', 'javascript', 'sh', 'fish', 'vim',
+    \ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
     \ 'json', 'tex', 'typescript', 'go',
     \ 'gitcommit', 'gitconfig'] }
 let g:completor_filetype_map = {}
@@ -281,16 +281,23 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_python_mypy_options = "--ignore-missing-imports"
 let g:ale_disable_lsp = 1
+set omnifunc=ale#completion#OmniFunc
 let g:coc_global_extensions = [
+            \ 'coc-css',
+            \ 'coc-git',
             \ 'coc-html',
+            \ 'coc-htmldjango',
             \ 'coc-jedi',
             \ 'coc-json',
+            \ 'coc-markdownlint',
             \ 'coc-pyright',
             \ 'coc-sh',
+            \ 'coc-snippets',
             \ 'coc-tabnine',
             \ 'coc-texlab',
             \ 'coc-tsserver',
             \ 'coc-vimlsp',
+            \ 'coc-yaml',
             \ ]
 Plug 'dense-analysis/ale'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -300,7 +307,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mg979/vim-visual-multi'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'maximbaz/lightline-ale'
