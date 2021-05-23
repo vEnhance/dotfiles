@@ -5,8 +5,8 @@ add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
 
-sub von_run { return system("bash '$_[0].von'"); }
-add_cus_dep("von", "out", 0, "von_run");
+sub pythontex { return system("pythontex \"$_[0]\""); }
+add_cus_dep("pytxcode", "pytxmcr", 0, "pythontex");
 
 $do_cd = 1;
 $pdf_mode = 1;
@@ -18,7 +18,8 @@ $cleanup_includes_generated = 0;
 $cleanup_includes_cusdep_generated = 1;
 
 @generated_exts = ( 'aux', 'bbl', 'bcf', 'fls', 'idx', 'ind', 'lof',
-                    'lot', 'out', 'pre', 'toc', 'nav', 'snm', 'von', 'synctex.gz');
+                    'lot', 'out', 'pre', 'toc', 'nav', 'snm',
+                    'synctex.gz', 'pytxpyg', 'pytxcode');
 
 # don't hash calc for deep system dependencies
 $hash_calc_ignore_pattern{'map'} = '^';
