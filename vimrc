@@ -284,7 +284,6 @@ let g:ale_disable_lsp = 1
 set omnifunc=ale#completion#OmniFunc
 let g:coc_global_extensions = [
             \ 'coc-css',
-            \ 'coc-git',
             \ 'coc-html',
             \ 'coc-htmldjango',
             \ 'coc-jedi',
@@ -307,7 +306,7 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'mg979/vim-visual-multi'
-" Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'niklaas/lightline-gitdiff'
 Plug 'maximbaz/lightline-ale'
