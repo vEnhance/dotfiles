@@ -60,7 +60,7 @@
 \newif\ifevanasy\evanasytrue
 \newif\ifevancolorsec\evancolorsecfalse
 \newif\ifevantitlemark\evantitlemarktrue
-\newif\ifevanvonenabled\evanvonenabledtrue
+\newif\ifevanvonenabled\evanvonenabledfalse
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
@@ -99,7 +99,7 @@
 \DeclareOption{noasy}{\evanasyfalse}
 
 \DeclareOption{hints}{\evanhintstrue}
-\DeclareOption{novon}{\evanvonenabledfalse}
+\DeclareOption{von}{\evanvonenabledtrue}
 
 \ProcessOptions\relax
 
