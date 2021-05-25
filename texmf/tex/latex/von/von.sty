@@ -17,10 +17,12 @@
 \DeclareOption{vonmargin}{\enablevonmargins}
 \ProcessOptions\relax
 
-\setpythontexoutputdir{.}
 \begin{pycode}
 import von.api as api
 \end{pycode}
+\setpythontexoutputdir{.}
+% trick latexmk into running
+% \IfFileExists{./\jobname.von}{}{\typeout{No file \jobname.von.}}
 
 % We need to store results since StrLeft isn't purely expandable
 \newcommand{\@vonname}{}

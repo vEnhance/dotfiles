@@ -60,6 +60,7 @@
 \newif\ifevanasy\evanasytrue
 \newif\ifevancolorsec\evancolorsecfalse
 \newif\ifevantitlemark\evantitlemarktrue
+\newif\ifevanvonenabled\evanvonenabledtrue
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
@@ -98,6 +99,7 @@
 \DeclareOption{noasy}{\evanasyfalse}
 
 \DeclareOption{hints}{\evanhintstrue}
+\DeclareOption{novon}{\evanvonenabledfalse}
 
 \ProcessOptions\relax
 
@@ -537,7 +539,9 @@
 
 	%%fakesection Loads a bunch of useful packages (but allow disabling)
 	\ifevanpkg
-		\IfFileExists{von.sty}{\usepackage{von}}{}
+		\ifevanvonenabled
+			\IfFileExists{von.sty}{\usepackage{von}}{}
+		\fi
 		\usepackage{listings}
 		\usepackage{mathrsfs}
 		\usepackage{textcomp}

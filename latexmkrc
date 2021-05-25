@@ -5,7 +5,10 @@ add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
 
-sub pythontex { return system("pythontex \"$_[0]\""); }
+sub pythontex {
+    system("pythontex \"$_[0]\"");
+    return;
+}
 add_cus_dep("pytxcode", "pytxmcr", 0, "pythontex");
 
 $do_cd = 1;
@@ -19,7 +22,7 @@ $cleanup_includes_cusdep_generated = 1;
 
 @generated_exts = ( 'aux', 'bbl', 'bcf', 'fls', 'idx', 'ind', 'lof',
                     'lot', 'out', 'pre', 'toc', 'nav', 'snm',
-                    'synctex.gz', 'pytxpyg', 'pytxcode');
+                    'synctex.gz', 'pytxpyg', 'pytxmcr', 'pytxcode',);
 
 # don't hash calc for deep system dependencies
 $hash_calc_ignore_pattern{'map'} = '^';

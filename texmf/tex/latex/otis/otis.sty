@@ -12,8 +12,6 @@
 \DeclareOption{nowatermark}{\otiswaterfalse}
 \newif\ifotishandout\otishandoutfalse
 \DeclareOption{handout}{\otishandouttrue}
-\newif\ifotishandoutwalk\otishandoutwalktrue
-\DeclareOption{nowalk}{\otishandoutwalkfalse}
 \ProcessOptions\relax
 
 \newcommand{\logopath}{otis-logo-sm.png}
@@ -131,53 +129,48 @@
 	\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
 	\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
 
-
 	\ifotishandout
 		% Walkthroughs to examples
 		\newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}
-		\usepackage{answers}
+		\pyc{solution_text = ''}
 
 		\def\vonX{\@ifstar\@vonXstar\@vonX}
 		\newcommand{\@vonX}[2][]{%
 			\ifthenelse{\isempty{#1}}%
-			{\begin{example}[#2] \voninclude{#2} \end{example}
-			\Writetofile{exanswers}{\protect\subsection{Solution \theexample, #2}}}%
-			{\begin{example}[#1] \voninclude{#2} \end{example}
-			\Writetofile{exanswers}{\protect\subsection{Solution \theexample, #1}}}
+			{\begin{example}[#2] \label{ex:#2} \voninclude{#2} \end{example}
+			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #2}"}}%
+			{\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
+			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
 			\begin{walkthrough}
 			\voninclude[2]{#2} % body 2 = walkthrough
 			\end{walkthrough}
-			\Writetofile{exanswers}{\protect\voninclude[1]{#2}}
+			\pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
 		}
 		\newcommand{\@vonXstar}[1]{%
-			\begin{example} \voninclude{#1} \end{example}
+			\begin{example} \label{ex:#1} \voninclude{#1} \end{example}
 			\begin{walkthrough}
 			\voninclude[2]{#1} % body 2 = walkthrough
 			\end{walkthrough}
-			\Writetofile{exanswers}{\protect\subsection{Solution \theexample}}
-			\Writetofile{exanswers}{\protect\voninclude[1]{#1}}
+			\pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
+			\pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
 		}
 
 		\def\vonI{\@ifstar\@vonIstar\@vonI}
 		\newcommand{\@vonI}[2][]{%
 			\ifthenelse{\isempty{#1}}%
-			{\begin{example}[#2] \voninclude{#2} \end{example}
-			\Writetofile{exanswers}{\protect\subsection{Solution \theexample, #2}}
-			\Writetofile{exanswers}{\protect\voninclude[1]{#2}}}%
-			{\begin{example}[#1] \voninclude{#2} \end{example}
-			\Writetofile{exanswers}{\protect\subsection{Solution \theexample, #1}}
-			\Writetofile{exanswers}{\protect\voninclude[1]{#2}}}
+			{\begin{example}[#2] \label{ex:#2} \voninclude{#2} \end{example}
+			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #2}"}}%
+			{\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
+			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
+			\pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
 		}
 		\newcommand{\@vonIstar}[1]{%
-			\begin{example} \voninclude{#1} \end{example}
-			\Writetofile{exanswers}{\protect\subsection{Solution \theexample}}
-			\Writetofile{exanswers}{\protect\voninclude[1]{#1}}
+			\begin{example} \label{ex:#1} \voninclude{#1} \end{example}
+			\pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
+			\pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
 		}
 
-		\Newassociation{exanswer}{exitem}{exanswers}
-		\renewcommand{\solutionextension}{out}
-		\AtBeginDocument{\Opensolutionfile{exanswers}[von/exsol-\jobname]}
-		\AtEndDocument{
+		\newcommand{\conclusion}{%
 			\begin{probSurvey}
 			Please write an estimate for how long the problem set took,
 			and any thoughts you had on problems (e.g.\ naming problems
@@ -188,15 +181,10 @@
 			or want to write hints for one problem you really liked,
 			please do so using the forms on the website!
 			\end{probSurvey}
+			\newpage
+			\py{'\section{Solutions to the walkthroughs}' if solution_text else ''}
+			\py{solution_text}
 		}
-		\ifotishandoutwalk
-			\AtEndDocument{\pagebreak
-			\Closesolutionfile{exanswers}
-			\section{Solutions to the walkthroughs}
-			\input{von/exsol-\jobname.out} %chktex 27
-			}
-		\fi
-
 		\usepackage{epigraph}
 		%\renewcommand{\epigraphflush}{flushleft}
 		\renewcommand{\epigraphsize}{\scriptsize}
@@ -212,5 +200,3 @@
 	\SetWatermarkScale{2.718}
 	\SetWatermarkText{\shortstack{By \theauthor \\ OTIS, Internal Use}}
 \fi
-
-\renewcommand{\vonprefix}{von}
