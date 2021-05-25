@@ -1,6 +1,6 @@
 push @extra_pdflatex_options, '-synctex=1' ;
 
-sub run_asy { return system("cd \$(dirname '$_[0]') && asy '$_[0]'"); }
+sub run_asy { return system("asy '$_[0]'"); }
 add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
