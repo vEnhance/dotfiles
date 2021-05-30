@@ -8,5 +8,9 @@
       ".git",
       ".hg",
       ".projections.json"
-    ]
+    ],
+    "markdownlint.config": {
+      "no-hard-tabs": false,
+      "first-line-h1": false
+    }
 }

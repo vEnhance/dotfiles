@@ -31,4 +31,5 @@ for line in sys.stdin:
 		content += line.strip() + '\n'
 
 with open('/tmp/neomutt-alternative.html', 'w') as f:
-	print(markdown.markdown(content, extensions=['md_in_html']), file=f)
+	print(markdown.markdown(content,
+		extensions=['extra', 'sane_lists', 'smarty']), file=f)

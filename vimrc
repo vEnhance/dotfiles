@@ -249,6 +249,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'plasticboy/vim-markdown'
 Plug 'dag/vim-fish'
 Plug 'vim-latex/vim-latex'
+Plug 'neoclide/jsonc.vim'
 " Plug 'leanprover/lean.vim'
 " Plug 'laoyang945/vimflowy'
 
@@ -267,7 +268,7 @@ Plug 'vim-scripts/Tabmerge'
 set completeopt=menuone,noselect,preview
 Plug 'maralla/completor.vim', { 'for' :
     \ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
-    \ 'json', 'tex', 'typescript', 'go',
+    \ 'json', 'jsonc', 'tex', 'typescript', 'go',
     \ 'gitcommit', 'gitconfig'] }
 let g:completor_filetype_map = {}
 Plug 'Shougo/echodoc'
