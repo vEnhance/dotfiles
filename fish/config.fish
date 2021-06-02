@@ -1,8 +1,6 @@
-if begin; echo "3.0.0"; echo $FISH_VERSION; end | sort --check=silent --version-sort
-	function dn
-		set -l escaped_argv (string escape --no-quoted $argv)
-		bash -c "$escaped_argv &"
-	end
+function dn
+	set -l escaped_argv (string escape --no-quoted $argv)
+	bash -c "$escaped_argv &" > /dev/null
 end
 
 # Status Chars
@@ -176,11 +174,11 @@ end
 # Shortcut for editors and the like
 function pdf
 	if test -f (echo $argv | cut -f 1 -d '.').pdf
-		dn zathura (echo $argv | cut -f 1 -d '.').pdf &> /dev/null
+		dn zathura (echo $argv | cut -f 1 -d '.').pdf
 	else if test -f "$argv""pdf"
-		dn zathura "$argv""pdf" &> /dev/null
+		dn zathura "$argv""pdf"
 	else if test -f "$argv.pdf"
-		dn zathura "$argv.pdf" &> /dev/null
+		dn zathura "$argv.pdf"
 	else
 		echo "Cannot found a suitable file."
 	end
