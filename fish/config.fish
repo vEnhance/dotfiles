@@ -142,11 +142,13 @@ alias getclip="xsel --clipboard"
 alias kitty="cat"
 alias lisp='sbcl --script'
 alias putclip="xsel --clipboard"
-alias python='python3'
 alias trash='gio trash'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
+#gd ubuntu
+alias python='python3'
+alias pip='pip3'
 
 alias demacro='python2 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='python2 ~/Documents/Projects/dragon/'
