@@ -244,73 +244,77 @@ augroup END
 " Plug
 call plug#begin('~/.vim/plugged')
 
-" File-type specific edits
-Plug 'kchmck/vim-coffee-script'
-Plug 'plasticboy/vim-markdown'
-Plug 'dag/vim-fish'
+" Lighter plugns that are always enabled
 Plug 'vim-latex/vim-latex'
-Plug 'neoclide/jsonc.vim'
-" Plug 'leanprover/lean.vim'
-" Plug 'laoyang945/vimflowy'
-
-" General plugins
-" Plug 'honza/vim-snippets'
-" Plug 'SirVer/ultisnips'
-" Plug 'godlygeek/tabular'
-" Plug 'vim-syntastic/syntastic'
-" Plug 'tpope/vim-surround'
-" Plug 'editorconfig/editorconfig-vim'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'tpope/vim-unimpaired'
-Plug 'vim-scripts/Tabmerge'
-
-set completeopt=menuone,noselect,preview
-Plug 'maralla/completor.vim', { 'for' :
-    \ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
-    \ 'json', 'jsonc', 'tex', 'typescript', 'go',
-    \ 'gitcommit', 'gitconfig'] }
-let g:completor_filetype_map = {}
-Plug 'Shougo/echodoc'
- 
-" ALE + CoC
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '#'
-let g:ale_sign_warning = '>'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
-let g:ale_python_mypy_options = "--ignore-missing-imports"
-let g:ale_disable_lsp = 1
-set omnifunc=ale#completion#OmniFunc
-let g:coc_global_extensions = [
-            \ 'coc-css',
-            \ 'coc-html',
-            \ 'coc-htmldjango',
-            \ 'coc-jedi',
-            \ 'coc-json',
-            \ 'coc-markdownlint',
-            \ 'coc-pyright',
-            \ 'coc-sh',
-            \ 'coc-snippets',
-            \ 'coc-tabnine',
-            \ 'coc-texlab',
-            \ 'coc-tsserver',
-            \ 'coc-vimlsp',
-            \ 'coc-yaml',
-            \ ]
-Plug 'dense-analysis/ale'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" More general plugins
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
+Plug 'plasticboy/vim-markdown'
 Plug 'itchyny/lightline.vim'
 Plug 'mg979/vim-visual-multi'
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'niklaas/lightline-gitdiff'
-Plug 'maximbaz/lightline-ale'
+Plug 'vim-scripts/Tabmerge'
+
+if ($USER ==# "evan")
+    " File-type specific edits
+    Plug 'kchmck/vim-coffee-script'
+    Plug 'neoclide/jsonc.vim'
+    Plug 'dag/vim-fish'
+    " Plug 'leanprover/lean.vim'
+    " Plug 'laoyang945/vimflowy'
+
+    " General plugins
+    " Plug 'honza/vim-snippets'
+    " Plug 'SirVer/ultisnips'
+    " Plug 'godlygeek/tabular'
+    " Plug 'vim-syntastic/syntastic'
+    " Plug 'tpope/vim-surround'
+    " Plug 'editorconfig/editorconfig-vim'
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+    Plug 'tpope/vim-unimpaired'
+
+    set completeopt=menuone,noselect,preview
+    Plug 'maralla/completor.vim', { 'for' :
+        \ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
+        \ 'json', 'jsonc', 'tex', 'typescript', 'go',
+        \ 'gitcommit', 'gitconfig'] }
+    let g:completor_filetype_map = {}
+    Plug 'Shougo/echodoc'
+
+    " ALE + CoC
+    let g:ale_sign_column_always = 1
+    let g:ale_sign_error = '#'
+    let g:ale_sign_warning = '>'
+    let g:ale_echo_msg_error_str = 'E'
+    let g:ale_echo_msg_warning_str = 'W'
+    let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
+    let g:ale_python_mypy_options = "--ignore-missing-imports"
+    let g:ale_disable_lsp = 1
+    set omnifunc=ale#completion#OmniFunc
+    let g:coc_global_extensions = [
+                \ 'coc-css',
+                \ 'coc-html',
+                \ 'coc-htmldjango',
+                \ 'coc-jedi',
+                \ 'coc-json',
+                \ 'coc-markdownlint',
+                \ 'coc-pyright',
+                \ 'coc-sh',
+                \ 'coc-snippets',
+                \ 'coc-tabnine',
+                \ 'coc-texlab',
+                \ 'coc-tsserver',
+                \ 'coc-vimlsp',
+                \ 'coc-yaml',
+                \ ]
+    Plug 'dense-analysis/ale'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+    " More general plugins
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+    Plug 'maximbaz/lightline-ale'
+endif
 
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
 " Plug 'chrisbra/csv.vim'
