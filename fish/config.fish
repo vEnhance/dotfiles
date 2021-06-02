@@ -1,7 +1,8 @@
-# disown
-function dn
-    set -l escaped_argv (string escape --no-quoted $argv)
-    bash -c "$escaped_argv &"
+if begin; echo "3.0.0"; echo $FISH_VERSION; end | sort --check=silent --version-sort
+	function dn
+		set -l escaped_argv (string escape --no-quoted $argv)
+		bash -c "$escaped_argv &"
+	end
 end
 
 # Status Chars
