@@ -59,7 +59,7 @@ end
 
 function fish_prompt
 	set last_status $status
-	if set -q SUDO_USER
+	if set -q SUDO_USER or set -q SSH_TTY
 		set_color --italics yellow
 		printf (prompt_pwd)
 	else
@@ -73,7 +73,7 @@ function fish_prompt
 		printf $last_status
 		printf ']'
 	end
-	if set -q SUDO_USER
+	if set -q SUDO_USER or set -q SSH_TTY
 		printf ' '
 		set_color -b blue yellow --bold
 		printf '('
