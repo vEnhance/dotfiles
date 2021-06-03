@@ -120,6 +120,7 @@
 	\newtheorem{probZR}[probOTIS]{\clubr{9} Required Problem}
 	\newtheorem*{probSurvey}{\clubs{1} Mini Survey}
 
+
 	\newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
 	\newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
 	\newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
@@ -130,9 +131,13 @@
 	\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
 
 	\ifotishandout
+		\reversemarginpar
 		% Walkthroughs to examples
 		\newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}
 		\pyc{solution_text = ''}
+		\renewcommand{\vonprehook}[1]{%
+		\marginpar{\footnotesize\ttfamily%
+		\color{green!40!black}\py{api.get_puid("#1")}}}
 
 		\def\vonX{\@ifstar\@vonXstar\@vonX}
 		\newcommand{\@vonX}[2][]{%

@@ -21,22 +21,34 @@
 import von.api as api
 \end{pycode}
 \setpythontexoutputdir{.}
-% trick latexmk into running
-% \IfFileExists{./\jobname.von}{}{\typeout{No file \jobname.von.}}
 
-% We need to store results since StrLeft isn't purely expandable
-\newcommand{\@vonname}{}
-\newwrite\@vonfile
 \newcommand{\@voncore}[2]{%
 	\ifvonbrave\py{api.get("#2", True).bodies[#1]}%
 	\else\py{api.get("#2").bodies[#1]}\fi
 	\vonhook{#2}}% for example a margin par
 \newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
+\newcommand{\vonprehook}[1]{}
+\newcommand{\vonposthook}[1]{}
 
 \def\von{\@ifstar\@vonstar\@von}
 \newcommand{\vonenvname}{problem}
 \newcommand{\@von}[2][]{%
 	\ifthenelse{\isempty{#1}}%
-	{\begin{\vonenvname}[#2] \voninclude{#2} \end{\vonenvname}}%
-	{\begin{\vonenvname}[#1] \voninclude{#2} \end{\vonenvname}}}
-\newcommand{\@vonstar}[1]{\begin{\vonenvname} \voninclude{#1} \end{\vonenvname}}
+	{\begin{\vonenvname}[#2]%
+		\vonprehook{#2}
+		\voninclude{#2}%
+		\vonposthook{#2}
+	\end{\vonenvname}}%
+	{\begin{\vonenvname}[#1]%
+		\vonprehook{#2}%
+		\voninclude{#2}%
+		\vonposthook{#2}
+	\end{\vonenvname}}%
+}
+\newcommand{\@vonstar}[1]{%
+	\begin{\vonenvname}
+		\vonprehook{#1}
+		\voninclude{#1}
+		\vonposthook{#1}
+	\end{\vonenvname}
+	}
