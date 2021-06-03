@@ -1,3 +1,5 @@
+[core]
+	editor = vim
 [user]
 	name = Evan Chen
 	email = evan@evanchen.cc
