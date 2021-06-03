@@ -46,17 +46,15 @@ shorthands = [
 cal_exec_command = options.get('cal_exec', 'cal --color=never')
 calendar_lines = subprocess.check_output(
 		cal_exec_command.split(' ')).decode('utf-8').split('\n')
-calendar_lines[1] = f'{shorthands[0]}  {shorthands[1]} {shorthands[2]} {shorthands[3]} {shorthands[4]} {shorthands[5]} {shorthands[6]}'
+calendar_lines[1] = ' '.join(shorthands)
 k = now.isoweekday() % 7
 d = now.day
-print(k)
 print(now.strftime('%c'))
 row = (d + (6-k)) // 7
 calendar_lines[row+2] = calendar_lines[row+2][:3*k] \
 		+ '💚' + calendar_lines[row+2][3*k+2:]
 calendar_text = '\n'.join(calendar_lines)
 print(calendar_text)
-
 embed = DiscordEmbed(
 		title = options.get('title', 'Calendar'),
 		description = f"Generated on {now.strftime('%A, %B %d, %H:%M')}" \
