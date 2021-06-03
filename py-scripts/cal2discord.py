@@ -33,7 +33,7 @@ events.sort(key = lambda t : t[1].begin)
 output_string = ''
 
 shorthands = [
-		'☀️', 
+		'🌞', 
 		'🐒',
 		'🇹',
 		'💍',
