@@ -43,8 +43,9 @@ shorthands = [
 		]
 
 # get a silly calendar
-calendar_lines = subprocess.check_output(['cal', '--color=never'])\
-		.decode('utf-8').split('\n')
+cal_exec_command = options.get('cal_exec', 'cal --color=never')
+calendar_lines = subprocess.check_output(
+		cal_exec_command.split(' ')).decode('utf-8').split('\n')
 calendar_lines[1] = f'{shorthands[0]}  {shorthands[1]} {shorthands[2]} {shorthands[3]} {shorthands[4]} {shorthands[5]} {shorthands[6]}'
 k = now.isoweekday() % 7
 d = now.day
