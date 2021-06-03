@@ -66,7 +66,7 @@ if 'url' in options:
 	embed.set_url(options['url'])
 
 for calname, e in events[0:options.get('limit',27)]:
-	emoji = shorthands[e.begin.weekday()]
+	emoji = shorthands[e.begin.isoweekday() % 7]
 	when = f"{emoji} {e.begin.strftime('%b %d %H:%M')}\n" \
 			f"{calname} {e.begin.humanize()}"
 	embed.add_embed_field(
