@@ -481,7 +481,7 @@ nnoremap <Leader>gcw :Git commit %<CR>
 nnoremap <Leader>gca :Git commit --all<CR>
 
 " git create commit --amend [edit commit]
-nnoremap <Leader>gec :Git commit<CR>
+nnoremap <Leader>gec :Git commit --amend<CR>
 " git commit --amend current file [edit write]
 nnoremap <Leader>gew :Git commit % --amend<CR>
 " git commit --amend all [edit all]
