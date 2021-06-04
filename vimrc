@@ -295,7 +295,6 @@ if ($USER ==# "evan")
                 \ 'coc-css',
                 \ 'coc-html',
                 \ 'coc-htmldjango',
-                \ 'coc-jedi',
                 \ 'coc-json',
                 \ 'coc-markdownlint',
                 \ 'coc-pyright',
