@@ -17,8 +17,8 @@ with open(args.config) as f:
 
 tz = pytz.timezone('US/Eastern')
 now = datetime.datetime.now(tz)
-interval_start = now + datetime.timedelta(hours=-4)
-interval_end = now + datetime.timedelta(hours=168)
+interval_start = now + datetime.timedelta(hours=-2)
+interval_end = now + datetime.timedelta(hours=60)
 
 calendars = [(_['name'], Calendar(requests.get(_['url']).text)) \
 		for _ in options['calendars']]
