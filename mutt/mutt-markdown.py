@@ -9,6 +9,7 @@ Takes a plaintext email and
 
 import sys
 import markdown
+from pathlib import Path
 
 signature_lines = 0
 signature_found = False
@@ -30,6 +31,10 @@ for line in sys.stdin:
 	else:
 		content += line.strip() + '\n'
 
-with open('/tmp/neomutt-alternative.html', 'w') as f:
+output_path = Path('/tmp/neomutt-alternative.html')
+if output_path.exists():
+	output_path.unlink()
+
+with open(output_path, 'w') as f:
 	print(markdown.markdown(content,
 		extensions=['extra', 'sane_lists', 'smarty']), file=f)
