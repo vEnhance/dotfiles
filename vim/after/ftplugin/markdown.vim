@@ -5,3 +5,4 @@ let g:vim_markdown_new_list_item_indent = 0
 
 set tabstop=2
 set tw=80
+set sw=2

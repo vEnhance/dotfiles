@@ -12,10 +12,11 @@
       ".projections.json"
     ],
     "markdownlint.config": {
+      "first-line-h1": false,
       "no-hard-tabs": false,
       "no-inline-html": false,
-      "first-line-h1": false,
+      "no-trailing-punctuation": false,
       "single-h1": false,
-      "no-trailing-punctuation": false
+      "ul-indent": false,
     }
 }
