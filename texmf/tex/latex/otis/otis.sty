@@ -75,7 +75,7 @@
 	\usepackage{titlesec}
 	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
-	\usepackage[sexy,diagrams,von]{evan}
+	\usepackage[sexy,diagrams]{evan}
 	\addtolength{\textheight}{-36pt}
 	\setlength{\footskip}{36pt}
 	\setkomafont{publishers}{\small}
@@ -91,7 +91,6 @@
 		\emph{\sffamily\Large Olympiad Training for Individual Study}}
 	\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
 	\def\lastupdate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
-	\renewcommand{\vonenvname}{example}
 	\ihead{\footnotesize\textbf{\theauthor} (OTIS, updated \lastupdate)}
 	\ohead{\footnotesize\textbf{\thetitle}}
 	% OTIS logo at bottom
@@ -99,38 +98,40 @@
 	\ifoot{\thelogo}
 	\ofoot{\thepage}
 
-	\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
-	\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
-	\newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
-	%\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
-	%	including any problem marked in {\color{red} red}.}
-	\newcommand{\goals}[2]{\bgroup
-		\sffamily\small \emph{Instructions}: Solve \clubg{#1}.
-		If you have time, solve \clubg{#2}.
-		Problems with {\color{red} red} weights are mandatory.
-		\egroup\par}
-	\newtheorem{probOTIS}{Problem}
-	\newtheorem{probE}[probOTIS]{\clubs{2} Problem}
-	\newtheorem{probM}[probOTIS]{\clubs{3} Problem}
-	\newtheorem{probH}[probOTIS]{\clubs{5} Problem}
-	\newtheorem{probZ}[probOTIS]{\clubs{9} Problem}
-	\newtheorem{probER}[probOTIS]{\clubr{2} Required Problem}
-	\newtheorem{probMR}[probOTIS]{\clubr{3} Required Problem}
-	\newtheorem{probHR}[probOTIS]{\clubr{5} Required Problem}
-	\newtheorem{probZR}[probOTIS]{\clubr{9} Required Problem}
-	\newtheorem*{probSurvey}{\clubs{1} Mini Survey}
-
-
-	\newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
-	\newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
-	\newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
-	\newcommand{\vonZ}{\renewcommand{\vonenvname}{probZ}\von}
-	\newcommand{\vonER}{\renewcommand{\vonenvname}{probER}\von}
-	\newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
-	\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
-	\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
-
 	\ifotishandout
+		\usepackage{von}
+		\renewcommand{\vonenvname}{example}
+		\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
+		\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
+		\newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
+		%\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
+		%	including any problem marked in {\color{red} red}.}
+		\newcommand{\goals}[2]{\bgroup
+			\sffamily\small \emph{Instructions}: Solve \clubg{#1}.
+			If you have time, solve \clubg{#2}.
+			Problems with {\color{red} red} weights are mandatory.
+			\egroup\par}
+		\newtheorem{probOTIS}{Problem}
+		\newtheorem{probE}[probOTIS]{\clubs{2} Problem}
+		\newtheorem{probM}[probOTIS]{\clubs{3} Problem}
+		\newtheorem{probH}[probOTIS]{\clubs{5} Problem}
+		\newtheorem{probZ}[probOTIS]{\clubs{9} Problem}
+		\newtheorem{probER}[probOTIS]{\clubr{2} Required Problem}
+		\newtheorem{probMR}[probOTIS]{\clubr{3} Required Problem}
+		\newtheorem{probHR}[probOTIS]{\clubr{5} Required Problem}
+		\newtheorem{probZR}[probOTIS]{\clubr{9} Required Problem}
+		\newtheorem*{probSurvey}{\clubs{1} Mini Survey}
+
+
+		\newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
+		\newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
+		\newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
+		\newcommand{\vonZ}{\renewcommand{\vonenvname}{probZ}\von}
+		\newcommand{\vonER}{\renewcommand{\vonenvname}{probER}\von}
+		\newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
+		\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
+		\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
+
 		\reversemarginpar
 		% Walkthroughs to examples
 		\newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}

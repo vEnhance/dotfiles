@@ -13,6 +13,7 @@ add_cus_dep("asy", "tex", 0, "run_asy");
 
 sub pythontex {
     system("pythontex \"$_[0]\"");
+    system("touch \$(basename \"$_[0]\").pytxmcr");
     return;
 }
 add_cus_dep("pytxcode", "pytxmcr", 0, "pythontex");
