@@ -63,22 +63,22 @@ if pacman -Q i3lock-color; then
 		--pointer=win \
 		--keylayout 2 \
 		--clock \
-		--timecolor=ffffff \
-		--datecolor=ffffff \
-		--layoutcolor=ffffff \
-		--verifcolor=ffffff \
-		--wrongcolor=ffffff \
-		--greetercolor=ffffff \
-		--datestr="%A %Y年%b%d日" \
-		--timesize=36 \
-		--datesize=24 \
-		--layoutsize=24 \
-		--timestr="%R%Z" \
+		--time-color=ffffff \
+		--date-color=33ddff \
+		--layout-color=aaaaaa \
+		--verif-color=ffffff \
+		--wrong-color=ffffff \
+		--greeter-color=ffffff \
+		--date-str="%A %Y年%b%d日" \
+		--time-size=36 \
+		--date-size=24 \
+		--layout-size=24 \
+		--time-str="%R%Z" \
 		--radius 160 \
 		--ring-width 20 \
-		--greetertext="$(whoami)@$(cat /etc/hostname)" \
-		--greeterpos="ix:iy+0.3*h" \
-		--greetercolor=00ffff \
+		--greeter-text="$(whoami)@$(cat /etc/hostname)" \
+		--greeter-pos="ix:iy+0.3*h" \
+		--greeter-color=00ffff \
 		--indicator \
 		--blur 8
 		# --color d33529
