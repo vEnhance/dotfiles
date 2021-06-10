@@ -1,34 +1,40 @@
-from typing import List, Tuple
-from ics import Calendar, Event
+from typing import List, Tuple, Any
+from icalendar import Calendar, Event
 from discord_webhook import DiscordWebhook, DiscordEmbed
-import pytz
-import datetime
-import requests
 import argparse
-import yaml
+import datetime
+import humanize
+import pytz
+import recurring_ical_events
+import requests
 import subprocess
+import yaml
 
 parser = argparse.ArgumentParser()
 parser.add_argument('config')
 parser.add_argument('--dry', action='store_true')
+parser.add_argument('--cal-exec', default=None)
 args = parser.parse_args()
 with open(args.config) as f:
 	options = yaml.load(f, Loader=yaml.SafeLoader)
 
 tz = pytz.timezone('US/Eastern')
 now = datetime.datetime.now(tz)
-interval_start = now + datetime.timedelta(hours=-2)
+interval_start = now + datetime.timedelta(hours=-4)
 interval_end = now + datetime.timedelta(hours=60)
 
-calendars = [(_['name'], Calendar(requests.get(_['url']).text)) \
-		for _ in options['calendars']]
+calendars : List[Tuple[str, Any]] = [
+		(_['name'],
+			Calendar.from_ical(requests.get(_['url']).text)) \
+					for _ in options['calendars']]
 
 events : List[Tuple[str, Event]] = []
-for (calname, c) in calendars:
-	for e in c.timeline:
-		if interval_start < e.end < interval_end:
-			events.append( (calname,e) )
-events.sort(key = lambda t : t[1].begin)
+for (calname, calendar) in calendars:
+	for component in recurring_ical_events.of(calendar)\
+			.between(interval_start, interval_end):
+		events.append( (calname, component))
+
+events.sort(key = lambda t : t[1]['DTEND'].dt)
 
 output_string = ''
 
@@ -43,7 +49,8 @@ shorthands = [
 		]
 
 # get a silly calendar
-cal_exec_command = options.get('cal_exec', 'cal --color=never')
+cal_exec_command = args.cal_exec \
+		or options.get('cal_exec', 'cal --color=never')
 calendar_lines = subprocess.check_output(
 		cal_exec_command.split(' ')).decode('utf-8').split('\n')
 calendar_lines[1] = ' '.join(shorthands)
@@ -65,15 +72,25 @@ embed = DiscordEmbed(
 if 'url' in options:
 	embed.set_url(options['url'])
 
-for calname, e in events[0:options.get('limit',27)]:
-	start_time = e.begin.astimezone(tz)
+for calname, component in events[0:options.get('limit',27)]:
+	start_time = component['DTSTART'].dt.astimezone(tz)
+	delta = humanize.precisedelta(
+			start_time - now,
+			minimum_unit = "hours",
+			# suppress = ('days',),
+			format = "%.1f",
+			)
 	emoji = shorthands[start_time.isoweekday() % 7]
-	when = f"{emoji} {start_time.strftime('%b %d %H:%M')}\n" \
-			f"{calname} {e.begin.humanize()}"
+	when = f"{calname} {emoji} {start_time.strftime('%b %d %H:%M')}\n"
+	if start_time < now:
+		when += f"{delta} ago"
+	else:
+		when += f"in {delta}"
 	embed.add_embed_field(
-			name = e.name,
+			name = component['SUMMARY'],
 			value = when,
 			)
+	print(component['SUMMARY'] + '\n' + when + '\n')
 
 webhook = DiscordWebhook(options['webhook_url'])
 webhook.add_embed(embed)
