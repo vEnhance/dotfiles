@@ -158,6 +158,7 @@ alias sparky='python3 ~/Documents/Projects/sparky/'
 alias todo='~/dotfiles/sh-scripts/get-todo.sh'
 alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
 alias von='python3 -m von'
+alias wah='python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='python2 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='python3 ~/dotfiles/py-scripts/markdown2wp.py'
 
