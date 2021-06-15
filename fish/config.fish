@@ -149,7 +149,7 @@ alias winx='startx /bin/wine winefile --kiosk --'
 #gd ubuntu
 alias pip='pip3'
 function python
-	if test -z $argv
+	if test -z "$argv"
 		ipython3
 	else
 		python3 $argv
