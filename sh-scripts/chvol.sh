@@ -75,12 +75,12 @@ fi
 if [ "$1" = K ]; then
 	notify-send -i audio-headphones \
 		"Spotify volume up" \
-		"Spotify volume $(ponymix -d Spotify --sink-input increase 10)%" -t $stime
+		"Spotify volume $(ponymix -d Spotify --sink-input increase 5)%" -t $stime
 fi
 if [ "$1" = J ]; then
 	notify-send -i audio-headphones \
 		"Spotify volume down" \
-		"Spotify volume $(ponymix -d Spotify --sink-input decrease 10)%" -t $stime
+		"Spotify volume $(ponymix -d Spotify --sink-input decrease 5)%" -t $stime
 fi
 if [ "$1" = z ]; then
 	notify-send -i audio-headphones \
