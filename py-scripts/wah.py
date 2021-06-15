@@ -123,7 +123,8 @@ if __name__ == '__main__':
 	decision : Dict[str, bool] = data.get('decision', {}) # hexsha -> true or false
 	time = datetime.timedelta(hours = 0)
 	if args.verbose:
-		print('Root commit was at ' + commits[0].committed_datetime.strftime(DATE_STRING))
+		print('Root commit was at ' \
+				+ commits[0].committed_datetime.strftime(DATE_STRING))
 	for i in range(len(commits)-1):
 		a = commits[i]
 		b = commits[i+1]
