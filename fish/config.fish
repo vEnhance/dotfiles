@@ -147,8 +147,14 @@ alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 #gd ubuntu
-alias python='python3'
 alias pip='pip3'
+function python
+	if test -z $argv
+		ipython3
+	else
+		python3 $argv
+	end
+end
 
 alias demacro='/usr/bin/python2 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python2 ~/Documents/Projects/dragon/'
