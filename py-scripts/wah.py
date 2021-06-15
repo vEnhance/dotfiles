@@ -90,7 +90,7 @@ if __name__ == '__main__':
 	# read wah data
 	needs_save = False
 	if save_path.exists():
-		data = yaml.load(save_path.read_text(), Loader=yaml.FullLoader)
+		data = yaml.load(save_path.read_text(), Loader=yaml.SafeLoader)
 	else:
 		data = {
 				'min_hours' : None,
