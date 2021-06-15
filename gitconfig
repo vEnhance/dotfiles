@@ -47,6 +47,8 @@
 	fail = commit --amend # to avoid stupid "oops typo" commits
 	unstage = reset HEAD
 
+	sub = submodule
+
 	rb = rebase
 	rbc = rebase --continue
 	bis = bisect
