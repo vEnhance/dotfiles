@@ -155,6 +155,7 @@ function python
 		python3 $argv
 	end
 end
+alias pudb='pudb3'
 
 alias demacro='/usr/bin/python2 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python2 ~/Documents/Projects/dragon/'
