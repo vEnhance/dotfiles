@@ -78,10 +78,11 @@ if __name__ == '__main__':
 			help = "Quiet mode: don't print stuff if not necessary.")
 
 	args = parser.parse_args()
-	repo_path = Path(args.repo)
 	committers : List[str] = args.emails
-	repo = Repo(args.repo)
-	save_path = repo_path / '.git/wah'
+	repo = Repo(args.repo, search_parent_directories=True)
+	assert isinstance(repo.git_dir, str)
+	git_dir_path = Path(repo.git_dir)
+	save_path = git_dir_path / 'wah'
 
 	commits = [commit for commit in repo.iter_commits('main') \
 			if (not committers) or (commit.committer.email in committers)]
