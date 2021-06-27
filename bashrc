@@ -3,7 +3,6 @@
 # Evan Chen
 #
 
-
 if [ "x${SSH_TTY}" = "x" ]; then
 	# Git magic / Sourcing
 	GIT_PS1_SHOWDIRTYSTATE=1
