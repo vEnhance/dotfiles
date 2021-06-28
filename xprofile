@@ -38,7 +38,6 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	synclient RightButtonAreaTop=0
 	# synclient RightButtonAreaLeft=0
 	# synclient RightButtonAreaRight=1560
-	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
 

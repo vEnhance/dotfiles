@@ -17,6 +17,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	redshift-gtk &
 	# cbatticon -u 300 &
 	dropbox-cli start
+	export $(keychain --query --quiet id_aur id_rsa)
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
