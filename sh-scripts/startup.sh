@@ -17,12 +17,10 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	redshift-gtk &
 	# cbatticon -u 300 &
 	dropbox-cli start
-	export $(keychain --query --quiet id_aur id_rsa)
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	picom -b &
-	# clipmenud &
 	if [ "$(whoami)" = "evan" ]; then
 		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh --email" &
 		workrave &

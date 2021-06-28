@@ -113,10 +113,6 @@ export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 export TERM='xterm-256color'
 
-if status --is-interactive
-   keychain --eval --quiet -Q | source
-end
-
 # the auto prompt-edited detetction is not enabled somehow
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
