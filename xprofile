@@ -35,9 +35,13 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	synclient TapButton1=0           # Disable tap to click
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	# remap mouse buttons
+	clipmenud &
 	synclient RightButtonAreaTop=0
 	# synclient RightButtonAreaLeft=0
 	# synclient RightButtonAreaRight=1560
+	secret-tool lookup type ssh |
+		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
+	export $(keychain --query --quiet)
 fi
 
 
