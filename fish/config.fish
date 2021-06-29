@@ -166,6 +166,7 @@ alias von='/usr/bin/python3 -m von'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='/usr/bin/python2 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
+alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
 
 alias mu='neomutt'
 alias m1='neomutt -F ~/.config/mutt/neomuttrc.1'
