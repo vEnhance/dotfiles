@@ -1,0 +1,9 @@
+[Unit]
+Description=Periodically sync mailbox
+
+[Timer]
+OnBootSec=15min
+OnUnitActiveSec=30min
+
+[Install]
+WantedBy=timers.target

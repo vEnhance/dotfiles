@@ -17,6 +17,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	redshift-gtk &
 	# cbatticon -u 300 &
 	dropbox-cli start
+	systemctl --user start mbsync.timer # idfk why systemctl enable doesn't work w/e
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
