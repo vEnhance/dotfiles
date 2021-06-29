@@ -42,6 +42,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 	export $(keychain --query --quiet)
+	export LANG="en_US.UTF-8"
 fi
 
 
@@ -67,6 +68,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	fi
 	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+	export LANG="en_US.UTF-8"
 fi
 
 if [ "$HOSTNAME" = Endor ]; then
