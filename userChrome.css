@@ -1,0 +1,18 @@
+#nav-bar {
+  visibility: hidden;
+  margin-top: -44px;
+}
+#nav-bar panel {
+  visibility: visible;
+}
+#nav-bar[urlbar-exceeds-toolbar-bounds="true"] {
+  visibility: visible;
+  margin-top: inherit;
+}
+#TabsToolbar {
+  --toolbarbutton-inner-padding: 0px;
+}
+#TabsToolbar .tabbrowser-tab {
+  min-height: 0px;
+  --tab-min-height: 0px;
+}
