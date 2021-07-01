@@ -259,6 +259,7 @@ if ($USER ==# "evan")
     Plug 'kchmck/vim-coffee-script'
     Plug 'neoclide/jsonc.vim'
     Plug 'dag/vim-fish'
+    Plug 'petRUShka/vim-sage'
     " Plug 'leanprover/lean.vim'
     " Plug 'laoyang945/vimflowy'
 
