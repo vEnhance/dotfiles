@@ -350,6 +350,7 @@ mode "exec" {
     bindsym i exec ibus-daemon -d -r, mode "default"
     bindsym m exec gnucash &, mode "default"
     bindsym o exec obs &, mode "default"
+    bindsym q exec qutebrowser &, mode "default"
     bindsym s exec spotify &, mode "default"
     bindsym v exec gvim &, mode "default"
     bindsym y exec dynalist &, mode "default"
@@ -372,6 +373,7 @@ mode "multirun" {
     bindsym i exec ibus-daemon -d -r
     bindsym m exec gnucash &
     bindsym o exec obs &
+    bindsym q exec qutebrowser &
     bindsym s exec spotify &
     bindsym v exec gvim &
     bindsym y exec dynalist &
