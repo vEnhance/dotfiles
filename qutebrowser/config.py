@@ -19,3 +19,5 @@ c.content.javascript.enabled = False
 
 config.bind('gt', 'tab-next')
 config.bind('x', 'tab-close')
+config.bind('d', 'scroll-page 0 0.5')
+config.bind('u', 'scroll-page 0 -0.5')
