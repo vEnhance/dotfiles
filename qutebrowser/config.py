@@ -16,6 +16,8 @@ c.url.start_pages = c.url.default_page
 c.input.insert_mode.auto_load  = True
 c.input.insert_mode.auto_leave = False
 c.content.javascript.enabled = False
+c.zoom.default = 140
+c.fonts.default_size = '16pt'
 
 config.bind('gt', 'tab-next')
 config.bind('x', 'tab-close')
