@@ -1,18 +1,38 @@
 #nav-bar {
-  visibility: hidden;
-  margin-top: -44px;
+  position: absolute !important;
+  top: 4em;
+  display: block;
+  width: 100%;
 }
-#nav-bar panel {
-  visibility: visible;
+
+/* Hamburger menu near address bar needs tweak */
+#PanelUI-button {
+  position: absolute;
+  right: 0.5em;
+  display: inline;
+  top: 0.5em;
 }
-#nav-bar[urlbar-exceeds-toolbar-bounds="true"] {
-  visibility: visible;
-  margin-top: inherit;
+
+#PersonalToolbar {
+  overflow: clip;
+  height: 7em !important;
+  padding-top: 4.5em !important;
+  max-height: unset !important;
 }
+
 #TabsToolbar {
   --toolbarbutton-inner-padding: 0px;
 }
 #TabsToolbar .tabbrowser-tab {
   min-height: 0px;
   --tab-min-height: 0px;
+}
+
+#urlbar-container {
+  min-width: 800px !important;
+}
+@media (max-width: 1000px) {
+  #urlbar-container {
+    min-width: 450px !important;
+  }
 }
