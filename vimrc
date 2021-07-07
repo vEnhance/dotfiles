@@ -234,12 +234,10 @@ endif
 " GENERAL CONFIGURATION
 
 " Filetype detection manual cases
-augroup filetypedetect
-	autocmd BufNewFile,BufRead *.asy setfiletype asy
-	autocmd BufNewFile,BufRead *.ly setfiletype lilypond
-	autocmd BufNewFile,BufRead *.less setfiletype css
-	autocmd BufRead,BufNewFile *.ics setfiletype icalendar
-augroup END
+autocmd BufNewFile,BufRead *.asy setfiletype asy
+autocmd BufNewFile,BufRead *.ly setfiletype lilypond
+autocmd BufNewFile,BufRead *.less setfiletype css
+autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 
 " Plug
 call plug#begin('~/.vim/plugged')
@@ -309,11 +307,11 @@ if ($USER ==# "evan")
                 \ ]
     Plug 'dense-analysis/ale'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'mgedmin/python-imports.vim'
-    Plug 'ludovicchabant/vim-gutentags'
-    let g:gutentags_project_root=['pyrightconfig.json',]
-    let g:gutentags_exclude_filetypes=['js', 'json']
-    let g:gutentags_cache_dir='~/.vim/tags'
+"    Plug 'mgedmin/python-imports.vim'
+"    Plug 'ludovicchabant/vim-gutentags'
+"    let g:gutentags_project_root=['pyrightconfig.json',]
+"    let g:gutentags_exclude_filetypes=['js', 'json']
+"    let g:gutentags_cache_dir='~/.vim/tags'
 
     " More general plugins
     Plug 'junegunn/fzf'
@@ -494,7 +492,7 @@ nnoremap <Leader>gew :Git commit % --amend<CR>
 nnoremap <Leader>gea :Git commit --all --amend<CR>
 
 " Python
-nnoremap <Leader>i :ImportName<CR>
+" nnoremap <Leader>i :ImportName<CR>
 
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
@@ -539,7 +537,5 @@ set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 
 " Git Gutter
 highlight! link SignColumn LineNr
-
-
 
 " vim: expandtab
