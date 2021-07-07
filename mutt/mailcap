@@ -1,3 +1,3 @@
-text/html; qutebrowser %s; needsterminal; nametemplate=%s.html
+text/html; qutebrowser %s &; needsterminal; nametemplate=%s.html
 application/*; xdg-open %s &> /dev/null &;
 image/*; xdg-open %s &> /dev/null &;
