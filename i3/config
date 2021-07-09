@@ -411,11 +411,12 @@ bar {
 }
 
 # The Endor box is missing DP-0 and DP-4 is actually HDMI-0 compared to ArchMajestic
-workspace $WS1 output DP-4 HDMI-0
-workspace $WS2 output DP-0
-workspace $WS9 output DP-2
-workspace $WS0 output DP-4 HDMI-0
-workspace $WS7 output HDMI-0
+#workspace $WS1 output DP-4 HDMI-0 DP-2
+#workspace $WS2 output DP-0
+#workspace $WS9 output DP-3 DP-2
+#workspace $WS0 output DP-4 HDMI-0
+#workspace $WS7 output HDMI-0
+workspace $WS2 output primary
 
 # Exec startup
 exec --no-startup-id dex -ae i3 &

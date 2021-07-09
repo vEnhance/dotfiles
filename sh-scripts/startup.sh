@@ -15,9 +15,15 @@ fi
 if [ "$HOSTNAME" = ArchScythe ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
-	# cbatticon -u 300 &
 	dropbox-cli start
 	systemctl --user start mbsync.timer # idfk why systemctl enable doesn't work w/e
+	dunst &
+fi
+
+if [ "$HOSTNAME" = ArchMagnet ]; then
+	picom -C -G -b --no-fading-openclose
+	redshift-gtk &
+	dropbox-cli start
 	dunst &
 fi
 

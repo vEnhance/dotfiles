@@ -45,6 +45,16 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	export LANG="en_US.UTF-8"
 fi
 
+if [ "$HOSTNAME" = ArchMagnet ]; then
+	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	clipmenud &
+	#secret-tool lookup type ssh |
+	#	sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
+	#export $(keychain --query --quiet)
+	export LANG="en_US.UTF-8"
+	xrandr --output "DP-2" --primary \
+		--output "DP-3" --right-of "DP-2"
+fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	xrandr --output "DP-4" --primary \
