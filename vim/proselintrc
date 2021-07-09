@@ -9,6 +9,5 @@
     "misc.phrasal_adjectives": false,
     "dates_times.am_pm": false
   },
-  "max_errors": 10,
-  "__vim__": { "modeline": "/* vim: set ft=json: */" }
+  "max_errors": 100
 }
