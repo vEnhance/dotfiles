@@ -1,10 +1,11 @@
 set encoding=utf-8
+set guifont=Inconsolata\ Semi-Condensed\ 20
 if hostname() == "ArchScythe"
 	set guifont=Inconsolata\ Semi-Bold\ Condensed\ 24
-elseif hostname == "ArchMajestic"
+elseif hostname() == "ArchMajestic"
 	set guifont=Inconsolata\ Semi-Condensed\ 20
-else
-	set guifont=Inconsolata\ Medium\ 20
+elseif hostname() == "ArchMagnet"
+	set guifont=Inconsolata\ Semi-Condensed\ 20
 endif
 set guioptions-=T  "remove toolbar
 
