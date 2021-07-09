@@ -57,3 +57,5 @@
 	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
 [init]
 	defaultBranch = main
+[url "git@github.com:"]
+	insteadOf = https://github.com/
