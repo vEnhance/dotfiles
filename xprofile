@@ -55,6 +55,9 @@ if [ "$HOSTNAME" = ArchMagnet ]; then
 	xrandr --output "DP-2" --primary \
 		--output "DP-3" --left-of "DP-2" \
 		--output "DP-1" --right-of "DP-2"
+	secret-tool lookup type ssh |
+		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
+	export $(keychain --query --quiet)
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then

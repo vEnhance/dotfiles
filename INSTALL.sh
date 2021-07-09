@@ -47,3 +47,9 @@ ln -s ~/dotfiles/vim/colors ~/.vim/colors
 ln -s ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
 mkdir ~/dotfiles/vim/spell
 ln -s ~/dotfiles/vim/spell ~/.vim/spell
+
+# systemd
+mkdir -p ~/.config/systemd/user
+for i in $(ls -D ~/dotfiles/custom-systemd-units/*); do
+	ln -s $i ~/.config/systemd/user/
+done

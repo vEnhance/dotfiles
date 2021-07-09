@@ -1,9 +1,5 @@
 [Unit]
-Description=Periodically sync mailbox
+Description=mbsync -a
 
-[Timer]
-OnBootSec=15min
-OnUnitActiveSec=30min
-
-[Install]
-WantedBy=timers.target
+[Service]
+ExecStart=mbsync -a

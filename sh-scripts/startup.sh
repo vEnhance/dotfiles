@@ -18,13 +18,16 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	dropbox-cli start
 	systemctl --user start mbsync.timer # idfk why systemctl enable doesn't work w/e
 	dunst &
+	syncthing-gtk -m &
 fi
 
 if [ "$HOSTNAME" = ArchMagnet ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 	dropbox-cli start
+	systemctl --user start mbsync.timer
 	dunst &
+	syncthing-gtk -m &
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
@@ -38,6 +41,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	fi
 	redshift-gtk &
 	dropbox-cli start
+	syncthing-gtk &
 fi
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
