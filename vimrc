@@ -164,73 +164,6 @@ onoremap <silent> [U :call NextIndent(1, 0, 1, 1)<CR>
 onoremap <silent> ]U :call NextIndent(1, 1, 1, 1)<CR>
 
 " ------------------------------------------
-" TABS / TABLINE CUSTOMIZATION
-
-set showtabline=2
-if exists("+showtabline")
-    function! TerminalVimTabLine()
-        let s = ''
-        let t = tabpagenr()
-        let i = 1
-        while i <= tabpagenr('$')
-            let buflist = tabpagebuflist(i)
-            let winnr = tabpagewinnr(i)
-            let s .= '%' . i . 'T'
-            let s .= (i == t ? '%1*' : '%2*')
-            let s .= ' '
-            let s .= i . '.'
-            let s .= ' %*'
-            let s .= (i == t ? '%#TabLineSel#' : '%#TabLine#')
-            let file = bufname(buflist[winnr - 1])
-            let file = fnamemodify(file, ':p:t')
-            if file == ''
-                let file = '[No Name]'
-            endif
-            let s .= file
-            let s .= '  '
-            let i = i + 1
-        endwhile
-        let s .= '%T%#TabLineFill#%='
-        let s .= (tabpagenr('$') > 1 ? '%999XX' : 'X')
-        return s
-    endfunction
-    set tabline=%!TerminalVimTabLine()
-
-    " set up tab labels with tab number, buffer name, number of windows
-    function! GuiTabLabel()
-      let label = ''
-      let bufnrlist = tabpagebuflist(v:lnum)
-      " Add '+' if one of the buffers in the tab page is modified
-      for bufnr in bufnrlist
-        if getbufvar(bufnr, "&modified")
-          let label = '+'
-          break
-        endif
-      endfor
-      " Append the tab number
-      let label .= v:lnum.'. '
-      " Append the buffer name
-      let name = bufname(bufnrlist[tabpagewinnr(v:lnum) - 1])
-      if name == ''
-        " give a name to no-name documents
-        if &buftype=='quickfix'
-          let name = '[Quickfix List]'
-        else
-          let name = '[No Name]'
-        endif
-      else
-        " get only the file name
-        let name = fnamemodify(name,":t")
-      endif
-      let label .= name
-      " Append the number of windows in the tab page
-      let wincount = tabpagewinnr(v:lnum, '$')
-      return label . '  [' . wincount . ']'
-    endfunction
-    set guitablabel=%{GuiTabLabel()}
-endif
-
-" ------------------------------------------
 " GENERAL CONFIGURATION
 
 " Filetype detection manual cases
@@ -243,34 +176,26 @@ autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 call plug#begin('~/.vim/plugged')
 
 " Lighter plugns that are always enabled
-Plug 'vim-latex/vim-latex'
 Plug 'plasticboy/vim-markdown'
-Plug 'itchyny/lightline.vim'
 Plug 'mg979/vim-visual-multi'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'niklaas/lightline-gitdiff'
 Plug 'vim-scripts/Tabmerge'
 
-if ($USER ==# "evan")
-    " File-type specific edits
-    Plug 'kchmck/vim-coffee-script'
-    Plug 'neoclide/jsonc.vim'
-    Plug 'dag/vim-fish'
-    Plug 'petRUShka/vim-sage'
-    " Plug 'leanprover/lean.vim'
-    " Plug 'laoyang945/vimflowy'
+" File-type specific edits
+Plug 'kchmck/vim-coffee-script'
+Plug 'neoclide/jsonc.vim'
+Plug 'dag/vim-fish'
+Plug 'petRUShka/vim-sage'
+" Plug 'leanprover/lean.vim'
+" Plug 'laoyang945/vimflowy'
 
-    " General plugins
-    " Plug 'honza/vim-snippets'
-    " Plug 'SirVer/ultisnips'
-    " Plug 'godlygeek/tabular'
-    " Plug 'vim-syntastic/syntastic'
-    " Plug 'tpope/vim-surround'
-    " Plug 'editorconfig/editorconfig-vim'
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-    Plug 'tpope/vim-unimpaired'
+" General plugins
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+Plug 'tpope/vim-unimpaired'
+
+if ($USER ==# "evan")
+    " EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
+    " already so this list got trimmed a lot.
+    " (In fact, having both Plug and system will cause conflicts with ALE).
 
     set completeopt=menuone,noselect,preview
     Plug 'maralla/completor.vim', { 'for' :
@@ -279,6 +204,10 @@ if ($USER ==# "evan")
         \ 'gitcommit', 'gitconfig'] }
     let g:completor_filetype_map = {}
     Plug 'Shougo/echodoc'
+
+    let g:airline_theme='wombat'
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline_powerline_fonts = 1
 
     " ALE + CoC
     let g:ale_sign_column_always = 1
@@ -305,60 +234,17 @@ if ($USER ==# "evan")
                 \ 'coc-vimlsp',
                 \ 'coc-yaml',
                 \ ]
-    Plug 'dense-analysis/ale'
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"    Plug 'mgedmin/python-imports.vim'
-"    Plug 'ludovicchabant/vim-gutentags'
-"    let g:gutentags_project_root=['pyrightconfig.json',]
-"    let g:gutentags_exclude_filetypes=['js', 'json']
-"    let g:gutentags_cache_dir='~/.vim/tags'
 
     " More general plugins
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
-    Plug 'maximbaz/lightline-ale'
 endif
 
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
 " Plug 'chrisbra/csv.vim'
 call plug#end()
-
-" Lightline
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ 'active': {
-      \   'left': [ ['filename', 'modified'], ['filetype'],
-      \             [ 'gitbranch', 'gitstatus'], ['cocstatus'] ],
-      \   'right' : [ [ 'mode', 'readonly', 'paste' ],
-      \               ['percent', 'lineinfo',],
-      \               [ 'linter_checking', 'linter_errors',
-      \                 'linter_warnings', 'linter_infos', 'linter_ok' ] ]
-      \   },
-      \ 'component_function' : {
-      \   'gitbranch': 'FugitiveHead',
-      \   'cocstatus': 'coc#status',
-      \   },
-      \ 'component_expand' : {
-      \   'gitstatus': 'lightline#gitdiff#get',
-      \   'linter_checking': 'lightline#ale#checking',
-      \   'linter_infos': 'lightline#ale#infos',
-      \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors',
-      \   'linter_ok': 'lightline#ale#ok',
-      \   },
-      \ 'component_type' : {
-      \   'linter_checking': 'right',
-      \   'linter_infos': 'right',
-      \   'linter_warnings': 'error',
-      \   'linter_errors': 'error',
-      \   'linter_ok': 'right',
-      \   },
-      \ }
-let g:lightline#gitdiff#indicator_added = '+'
-let g:lightline#gitdiff#indicator_deleted = '-'
-let g:lightline#gitdiff#indicator_modified = '~'
-let g:lightline#gitdiff#separator = ' '
-
+"
 " Uncomment to auto open NerdTree on empty vim
 " autocmd StdinReadPre * let s:std_in=1
 " autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -407,7 +293,7 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 colorscheme reclipse
 set spell
 set nohlsearch
-" don't need mode shown if we have lightline
+" don't need mode shown if we have airline
 set noshowmode
 
 set wrap
