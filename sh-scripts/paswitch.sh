@@ -40,7 +40,7 @@ fi
 if [ "$HOSTNAME" = ArchMagnet ]; then
 	declare -A sink_names=(
 		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-		[speakers]=alsa_output.pci-0000_00_1f.3.hdmi-stereo-extra1
+		[speakers]=alsa_output.pci-0000_00_1f.3.hdmi-stereo
 		[hdmi]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
 	)
 fi

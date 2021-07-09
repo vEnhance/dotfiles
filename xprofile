@@ -53,7 +53,8 @@ if [ "$HOSTNAME" = ArchMagnet ]; then
 	#export $(keychain --query --quiet)
 	export LANG="en_US.UTF-8"
 	xrandr --output "DP-2" --primary \
-		--output "DP-3" --right-of "DP-2"
+		--output "DP-3" --left-of "DP-2" \
+		--output "DP-1" --right-of "DP-2"
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
