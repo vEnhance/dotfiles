@@ -34,23 +34,20 @@
 	tracked = ls-tree -r HEAD --name-only
 	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
 
+	br = branch
 	cm = commit
 	co = checkout
-	br = branch
-	ss = status -s -b
-	pu = pull origin
-	pr = pull --rebase origin
-	psh = push origin
-	undo = reset --mixed HEAD@{1}
 	fail = commit --amend # to avoid stupid "oops typo" commits
-	unstage = reset HEAD
-
-	sub = submodule
-
+	pushup = push --set-upstream origin HEAD
 	rb = rebase
 	rbc = rebase --continue
+	ss = status -s -b
+	sub = submodule
+	undo = reset --mixed HEAD@{1}
+	unstage = reset HEAD
+
 	bis = bisect
-	dc = checkout --
+	discard = checkout --
 	assume = update-index --assume-unchanged
 	unassume = update-index --no-assume-unchanged
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
