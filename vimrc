@@ -344,6 +344,8 @@ nnoremap <Leader>ob :Buffers<CR>
 nnoremap <Leader>oa :ALEDetail<CR>
 " merge tab to right
 nnoremap <Leader>os :Tabmerge right<CR>
+" merge tab to right
+nnoremap <Leader>oy :%y+<CR>
 
 " syntax group
 nnoremap <Leader>og :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
@@ -355,20 +357,16 @@ nnoremap <Leader>gs :Git<CR>
 " git blame
 nnoremap <Leader>gb :Git blame<CR>
 " git diff
-nnoremap <Leader>gd :Git diff<CR>
-" git diff --staged
-nnoremap <Leader>gt :Git diff --staged<CR>
+nnoremap <Leader>gd :Gdiffsplit<CR>
 " git undo (really git read)
 nnoremap <Leader>gu :Gread<CR>
 " git add current file (w for write)
 nnoremap <Leader>gw :Gwrite<CR>
 
-" git create commit
-nnoremap <Leader>gcc :Git commit<CR>
-" git commit current file
-nnoremap <Leader>gcw :Git commit %<CR>
+" git commit (current file)
+nnoremap <Leader>gc :Git commit %<CR>
 " git commit all
-nnoremap <Leader>gca :Git commit --all<CR>
+nnoremap <Leader>ga :Git commit --all<CR>
 
 " git create commit --amend [edit commit]
 nnoremap <Leader>gec :Git commit --amend<CR>
