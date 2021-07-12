@@ -137,6 +137,7 @@ umask 007 # set umask
 alias bcsum='paste -sd+ - | bc'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
+alias gim="vim -c Git -c only"
 alias kitty="cat"
 alias lisp='sbcl --script'
 alias putclip="xsel --clipboard"
