@@ -28,6 +28,10 @@ if [ "$HOSTNAME" = ArchMagnet ]; then
 	systemctl --user start mbsync.timer
 	dunst &
 	syncthing-gtk -m &
+	if [ "$(whoami)" = "evan" ]; then
+		workrave &
+		ibus-daemon -d -r &
+	fi
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
@@ -37,7 +41,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		workrave &
 		qtalarm &
 		pacman -Qe > /home/evan/Dropbox/Archive/pacman.txt
-		# ibus-daemon -d -r &
+		ibus-daemon -d -r &
 	fi
 	redshift-gtk &
 	dropbox-cli start
