@@ -344,7 +344,7 @@ nnoremap <Leader>ob :Buffers<CR>
 nnoremap <Leader>oa :ALEDetail<CR>
 " merge tab to right
 nnoremap <Leader>os :Tabmerge right<CR>
-" merge tab to right
+" yank all
 nnoremap <Leader>oy :%y+<CR>
 
 " syntax group
