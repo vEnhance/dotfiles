@@ -38,7 +38,7 @@ if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-if [ "$HOSTNAME" = ArchMagnet -a "$(whoami)" = evan ]; then
+if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 fi
 
@@ -100,7 +100,7 @@ fi
 if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
 fi
-if [ "$HOSTNAME" = ArchMagnet -a "$(whoami)" = evan ]; then
+if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
 fi
 

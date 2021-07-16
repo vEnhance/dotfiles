@@ -21,7 +21,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	syncthing-gtk -m &
 fi
 
-if [ "$HOSTNAME" = ArchMagnet ]; then
+if [ "$HOSTNAME" = ArchDiamond ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 	dropbox-cli start

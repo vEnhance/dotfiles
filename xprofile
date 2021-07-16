@@ -45,7 +45,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	export LANG="en_US.UTF-8"
 fi
 
-if [ "$HOSTNAME" = ArchMagnet ]; then
+if [ "$HOSTNAME" = ArchDiamond ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	clipmenud &
 	#secret-tool lookup type ssh |
