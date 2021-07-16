@@ -209,6 +209,7 @@ if ($USER ==# "evan")
     let g:airline#extensions#tabline#enabled = 1
     let g:airline_powerline_fonts = 1
 
+    Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
     " ALE + CoC
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = '#'
@@ -229,6 +230,7 @@ if ($USER ==# "evan")
                 \ 'coc-sh',
                 \ 'coc-snippets',
                 \ 'coc-tabnine',
+                \ 'coc-tailwind-intellisense',
                 \ 'coc-texlab',
                 \ 'coc-tsserver',
                 \ 'coc-vimlsp',
