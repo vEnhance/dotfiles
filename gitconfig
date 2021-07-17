@@ -38,7 +38,7 @@
 	cm = commit
 	co = checkout
 	fail = commit --amend # to avoid stupid "oops typo" commits
-	pushup = push HEAD --set-upstream
+	pushup = push --set-upstream origin HEAD
 	rb = rebase
 	rbc = rebase --continue
 	ss = status -s -b
@@ -55,4 +55,4 @@
 [init]
 	defaultBranch = main
 [url "git@github.com:"]
-	insteadOf = https://github.com/
+	insteadOf = http://github.com/
