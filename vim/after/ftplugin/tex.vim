@@ -88,7 +88,7 @@ call TexNewMathZone("Z","ytableau",0)
 set cole=2
 
 " Conceal modifications
-if has("gui_running") 
+if has("gui_running")
 	" Match ^(-1)
 	syntax match Minus contained "\\i" conceal cchar=⁻
 	syntax match One contained "nv" conceal cchar=¹
