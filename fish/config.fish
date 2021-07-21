@@ -141,6 +141,7 @@ alias gim="vim -c Git -c only"
 alias kitty="cat"
 alias lisp='sbcl --script'
 alias putclip="xsel --clipboard"
+alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias trash='gio trash'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
