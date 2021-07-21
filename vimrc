@@ -241,6 +241,14 @@ if ($USER ==# "evan")
     " More general plugins
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
+    Plug 'kovisoft/slimv'
+
+    " Task manager
+    Plug 'vimwiki/vimwiki'
+    Plug 'tools-life/taskwiki'
+    Plug 'powerman/vim-plugin-AnsiEsc'
+    Plug 'majutsushi/tagbar'
+    Plug 'farseer90718/vim-taskwarrior'
 endif
 
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
@@ -304,8 +312,8 @@ set textwidth=0
 set wrapmargin=0
 set showbreak=_
 
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set guifont=Monospace\ 11
 
 set list
