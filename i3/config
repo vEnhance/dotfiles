@@ -242,6 +242,11 @@ mode "close" {
     bindsym Escape mode "default"
 }
 
+# Task management systems
+bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
+bindsym $mod+r exec gvim "$HOME/vimwiki/index.wiki"
+bindsym $mod+i exec xfce4-terminal --command "vit" --title="Evan VIMTODO"
+for_window [title="Evan VIMTODO"] floating enable
 
 # power mode
 mode "danger" {

@@ -1,0 +1,7 @@
+taskd.certificate=~/.ssh/task/private.certificate.pem
+taskd.key=~/.ssh/task/private.key.pem
+taskd.ca=~/.ssh/task/ca.cert.pem
+taskd.server=inthe.am:53589
+taskd.credentials=inthe_am/chen.evan6/8b9da4fb-2e56-4f33-989c-075adad0013e
+taskd.trust=strict
+recurrence.limit=2
