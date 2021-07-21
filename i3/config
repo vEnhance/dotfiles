@@ -244,7 +244,7 @@ mode "close" {
 
 # Task management systems
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
-bindsym $mod+r exec gvim "$HOME/vimwiki/index.wiki"
+bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
 bindsym $mod+i exec xfce4-terminal --command "vit" --title="Evan VIMTODO"
 for_window [title="Evan VIMTODO"] floating enable
 
