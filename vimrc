@@ -196,6 +196,7 @@ if ($USER ==# "evan")
     " EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
     " already so this list got trimmed a lot.
     " (In fact, having both Plug and system will cause conflicts with ALE).
+    Plug 'vim-ctrlspace/vim-ctrlspace'
 
     set completeopt=menuone,noselect,preview
     Plug 'maralla/completor.vim', { 'for' :
@@ -205,9 +206,14 @@ if ($USER ==# "evan")
     let g:completor_filetype_map = {}
     Plug 'Shougo/echodoc'
 
+    " Airline auto from vim-plugins
     let g:airline_theme='wombat'
     let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#show_tabs = 1
+    let airline#extensions#tabline#show_buffers = 1
+    let g:airline#extensions#tabline#buffer_nr_show = 0
     let g:airline_powerline_fonts = 1
+    let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
 
     Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
     " ALE + CoC
@@ -249,6 +255,8 @@ if ($USER ==# "evan")
     Plug 'powerman/vim-plugin-AnsiEsc'
     Plug 'majutsushi/tagbar'
     Plug 'farseer90718/vim-taskwarrior'
+    let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
+    let g:taskwiki_disable_concealcursor=1
 endif
 
 " Plug 'qpkorr/vim-renamer' not needed due to vidir
@@ -321,6 +329,8 @@ set listchars=tab:\|\ ,trail:_
 set laststatus=2
 set splitright
 set guicursor+=n-v-c:blinkon0
+set foldlevelstart=3
+set hidden
 
 " use space as leader key
 let mapleader = " "
@@ -331,6 +341,9 @@ vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
 
+nnoremap gc :CtrlSpaceGoDown<CR>
+nnoremap gs :CtrlSpaceGoUp<CR>
+
 " LEADER KEY
 " e is for emulator
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
@@ -340,6 +353,8 @@ nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --wo
 nnoremap <Leader>ot :NERDTreeToggle<CR>
 " open new tab
 nnoremap <Leader>on :tabnew<CR>
+" open buffers
+nnoremap <Leader>ob :Buffers<CR>
 " change directory
 nnoremap <Leader>oc :lcd %:p:h<CR>
 " open history
@@ -348,8 +363,6 @@ nnoremap <Leader>oh :History<CR>
 nnoremap <Leader>ol :Lines<CR>
 " open file
 nnoremap <Leader>of :Files<CR>
-" open buffers
-nnoremap <Leader>ob :Buffers<CR>
 " ALE Details
 nnoremap <Leader>oa :ALEDetail<CR>
 " merge tab to right
@@ -384,6 +397,7 @@ nnoremap <Leader>gec :Git commit --amend<CR>
 nnoremap <Leader>gew :Git commit % --amend<CR>
 " git commit --amend all [edit all]
 nnoremap <Leader>gea :Git commit --all --amend<CR>
+
 
 " Python
 " nnoremap <Leader>i :ImportName<CR>
