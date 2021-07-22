@@ -350,7 +350,7 @@ nnoremap <silent> za zt7k7j
 " e is for emulator
 
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
-nnoremap <Leader><Space> :CtrlSpaceGoDown<CR>
+nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 
