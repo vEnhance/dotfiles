@@ -18,8 +18,8 @@ Changelog:
 ]]
 
 --Coordinates of the centre of the clock, in pixels, from the top left of the Conky window.
-  clock_x=310
-  clock_y=132
+  clock_x=320
+  clock_y=80
 
 settings_table = {
   {
@@ -28,7 +28,7 @@ settings_table = {
     max=60,
     bg_colour=0x999999,
     bg_alpha=0.5,
-    fg_colour=0x338888,
+    fg_colour=0x338833,
     fg_alpha=0.6,
     x=clock_x, y=clock_y,
     radius=55,
@@ -56,7 +56,7 @@ settings_table = {
     max=12,
     bg_colour=0x999999,
     bg_alpha=0.5,
-    fg_colour=0x77cccc,
+    fg_colour=0xcc7777,
     fg_alpha=0.6,
     x=clock_x, y=clock_y,
     radius=34,
