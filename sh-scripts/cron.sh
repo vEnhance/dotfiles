@@ -19,8 +19,5 @@ gcalendar --no-of-days 1 --output txt \
 		"Zero-Minute Reminders" \
 		"twitch.tv" > ~/.cache/_agenda.txt
 		
-cat ~/.cache/_agenda.txt | cut -b 12-16,36- > ~/.cache/agenda.txt
-
 mbsync -Va
-
 task sync
