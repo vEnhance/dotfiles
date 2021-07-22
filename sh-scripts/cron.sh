@@ -24,6 +24,3 @@ cat ~/.cache/_agenda.txt | cut -b 12-19,31- | sed "s/\ -\ /~/" | sed "s/\ -\ /~/
 mbsync -Va
 
 task sync
-
-task rc.verbose=nothing rc.report.min.columns:due.relative,description \
-	min rc.report.min.sort:urgency- status:pending | grep . > ~/.cache/nexttasks.txt
