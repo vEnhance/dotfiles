@@ -153,7 +153,7 @@ bind index,pager C compose-to-sender
 macro index,pager V <pipe-message>urlscan<enter>
 
 bind compose v view-attach
-macro compose <Space> "<first-entry><pipe-message>python ~/.config/mutt/mutt-markdown.py<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><first-entry><tag-entry><group-alternatives><send-message><shell-escape>systemctl start mbsync.service --user<enter><shell-escape>~/dotfiles/sh-scripts/noisemaker.sh 5<enter>" "Compile as markdown and send"
+macro compose <Space> "<first-entry><pipe-message>python ~/.config/mutt/mutt-markdown.py<enter><attach-file>/tmp/neomutt-alternative.html<enter><tag-entry><first-entry><tag-entry><group-alternatives><send-message><shell-escape>systemctl start evansync.service --user<enter><shell-escape>~/dotfiles/sh-scripts/noisemaker.sh 5<enter>" "Compile as markdown and send"
 
 bind generic,index,pager \Cf       next-page
 bind generic,index,pager \Cb       previous-page
@@ -164,7 +164,7 @@ bind attach d noop
 bind attach D delete-entry
 
 bind index q noop
-macro index q "<shell-escape>systemctl start mbsync.service --user<enter><quit>"
+macro index q "<shell-escape>systemctl start evansync.service --user<enter><quit>"
 
 ## Hooks
 
