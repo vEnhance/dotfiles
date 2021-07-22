@@ -76,8 +76,8 @@ bindsym $mod+a focus parent
 bindsym $mod+b focus child
 
 # scratchpad commands
-bindsym $mod+minus move scratchpad
-bindsym $mod+Shift+minus scratchpad show
+bindsym $mod+minus move scratchpad; exec --no-startup-id killall -s USR1 py3status
+bindsym $mod+Shift+minus scratchpad show; exec --no-startup-id killall -s USR1 py3status
 
 # refresh i3 status bar
 bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
@@ -245,7 +245,9 @@ mode "close" {
 # Task management systems
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
-bindsym $mod+i exec xfce4-terminal --command "vit" --title="Evan VIMTODO"
+bindsym $mod+i exec xfce4-terminal --command "vit" --title="Evan VIMTODO"; \
+    exec --no-startup-id task sync
+    exec --no-startup-id killall -s USR1 py3status; \
 for_window [title="Evan VIMTODO"] floating enable
 
 # power mode
