@@ -196,7 +196,9 @@ if ($USER ==# "evan")
     " EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
     " already so this list got trimmed a lot.
     " (In fact, having both Plug and system will cause conflicts with ALE).
+
     Plug 'vim-ctrlspace/vim-ctrlspace'
+    let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
 
     set completeopt=menuone,noselect,preview
     Plug 'maralla/completor.vim', { 'for' :
@@ -211,7 +213,7 @@ if ($USER ==# "evan")
     let g:airline#extensions#tabline#enabled = 1
     let g:airline#extensions#tabline#show_tabs = 1
     let airline#extensions#tabline#show_buffers = 1
-    let g:airline#extensions#tabline#buffer_nr_show = 0
+    let g:airline#extensions#tabline#buffer_nr_show = 1
     let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
 
@@ -333,7 +335,9 @@ set foldlevelstart=3
 set hidden
 
 " use space as leader key
-let mapleader = " "
+let mapleader = "\<Space>"
+nnoremap <Leader> <Nop>
+map , <Plug>(easymotion-prefix)
 
 " Another few tricks
 nnoremap <silent> ZW :update<CR>
@@ -341,11 +345,12 @@ vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
 
-nnoremap gc :CtrlSpaceGoDown<CR>
-nnoremap gs :CtrlSpaceGoUp<CR>
-
 " LEADER KEY
 " e is for emulator
+
+nnoremap <Backspace> :CtrlSpaceGoUp<CR>
+nnoremap <Leader><Space> :CtrlSpaceGoDown<CR>
+
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 
 " Global leader things at O
@@ -398,6 +403,17 @@ nnoremap <Leader>gew :Git commit % --amend<CR>
 " git commit --amend all [edit all]
 nnoremap <Leader>gea :Git commit --all --amend<CR>
 
+" Buffer
+nnoremap <Leader>1 :b 1<CR>
+nnoremap <Leader>2 :b 2<CR>
+nnoremap <Leader>3 :b 3<CR>
+nnoremap <Leader>4 :b 4<CR>
+nnoremap <Leader>5 :b 5<CR>
+nnoremap <Leader>6 :b 6<CR>
+nnoremap <Leader>7 :b 7<CR>
+nnoremap <Leader>8 :b 8<CR>
+nnoremap <Leader>9 :b 9<CR>
+nnoremap <Leader>0 :b 10<CR>
 
 " Python
 " nnoremap <Leader>i :ImportName<CR>
