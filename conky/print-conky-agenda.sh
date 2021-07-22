@@ -2,7 +2,7 @@
 
 task rc.verbose=nothing rc.report.min.columns:due.relative,description \
 	min rc.report.min.sort:urgency- status:pending \
-	| sed "s/\ \ \ /\t/" \
+	| sed "s/[\ ]{3,}/\t/" | sed 's/^/ /' \
 	> ~/.cache/todo.txt
 
 cat ~/.cache/_agenda.txt | cut -b 12-16,36- > ~/.cache/agenda.txt
