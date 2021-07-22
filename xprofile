@@ -17,13 +17,9 @@ export SHELL='/usr/bin/fish'
 # For OBS
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
+source ~/dotfiles/sh-scripts/xrandr.sh
+
 if [ "$HOSTNAME" = ArchAngel ]; then
-	xrandr | grep 1920x1080
-	if [ $? -eq 0 ]; then
-		xrandr --output "HDMI-2" --primary --mode 1920x1080
-	else
-		xrandr --output "HDMI-2" --primary
-	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	# export QT_SCALE_FACTOR=2.4
 fi
@@ -48,23 +44,13 @@ fi
 if [ "$HOSTNAME" = ArchDiamond ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	clipmenud &
-	#secret-tool lookup type ssh |
-	#	sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
-	#export $(keychain --query --quiet)
 	export LANG="en_US.UTF-8"
-	xrandr --output "DP-2" --primary \
-		--output "DP-3" --left-of "DP-2" \
-		--output "DP-1" --right-of "DP-2"
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 	export $(keychain --query --quiet)
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
-	xrandr --output "DP-4" --primary \
-		--output "DP-0" --right-of "DP-4" \
-		--output "HDMI-0" --below "DP-0" \
-		--output "DP-2" --right-of "DP-0"
 	# dunst &
 	clipmenud &
 	ponymix set-default -t source \
@@ -83,18 +69,6 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	fi
 	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 	export LANG="en_US.UTF-8"
-fi
-
-if [ "$HOSTNAME" = Endor ]; then
-	ponymix set-default -t source \
-		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-mono
-	~/dotfiles/sh-scripts/paswitch.sh speakers
-	if [ "$(whoami)" = "evan" ]; then
-		xrandr --output "DP-0" --primary \
-			--output "HDMI-0" --left-of "DP-0" \
-			--output "DP-2" --right-of "DP-0"
-		workrave &
-	fi
 fi
 
 # Load background image, if not existent already
