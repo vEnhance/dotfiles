@@ -1,11 +1,29 @@
-export LANG=zh_TW.utf-8
-if [ "$HOSTNAME" = ArchMega ]; then
-	gcalcli calw --conky --nolineart \
-		--color_owner green --color_border green \
-		--color_now_marker cyan --color_date white \
-		-w 20 --military | sed s/green/orange/g > /tmp/conky.out &
-fi
-if [ "$HOSTNAME" = ArchAir ]; then
-	gcalcli agenda $(date -I) $(date -I -d '+3 day') --military --conky \
-		--color_owner yellow --color_date white > /tmp/conky.out &
-fi
+#!/bin/bash
+
+gcalendar --no-of-days 1 --output txt \
+		--calendar "日曆" \
+		"Break" \
+		"Events" \
+		"Friends" \
+		"Garbage" \
+		"Happy Events" \
+		"Important" \
+		"Leisure" \
+		"Office Hours" \
+		"Prison" \
+		"Real Life" \
+		"Schedule" \
+		"Todoist" \
+		"Unfortunate Things" \
+		"Video Calls for OTIS" \
+		"Zero-Minute Reminders" \
+		"twitch.tv" > ~/.cache/_agenda.txt
+		
+cat ~/.cache/_agenda.txt | cut -b 12-19,31- | sed "s/\ -\ /~/" | sed "s/\ -\ /~/" | tail -n +2 > ~/.cache/agenda.txt
+
+mbsync -Va
+
+task sync
+
+task rc.verbose=nothing rc.report.min.columns:due.relative,description \
+	min rc.report.min.sort:urgency- status:pending | grep . > ~/.cache/nexttasks.txt

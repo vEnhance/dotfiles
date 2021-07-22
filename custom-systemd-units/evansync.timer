@@ -1,5 +1,5 @@
 [Unit]
-Description=Periodically sync mailbox
+Description=Periodically run a "cron" script
 
 [Timer]
 OnBootSec=15min

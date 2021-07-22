@@ -1,5 +1,5 @@
 [Unit]
-Description=mbsync -a
+Description=Runs a custom cron script
 
 [Service]
-ExecStart=mbsync -a
+ExecStart=/home/evan/dotfiles/sh-scripts/cron.sh
