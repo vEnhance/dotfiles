@@ -36,10 +36,3 @@
     min-width: 450px !important;
   }
 }
-
-body {
-  filter: grayscale(95%);
-}
-body img {
-  filter: grayscale(60%);
-}
