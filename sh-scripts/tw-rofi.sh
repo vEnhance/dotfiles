@@ -2,7 +2,7 @@
 
 default="--------------------"
 lines="${default}\n$(task next rc.verbose=nothing)"
-chosen=$(echo -e "$lines" | rofi -dmenu)
+chosen=$(echo -e "$lines" | rofi -dmenu -i)
 
 if [ -z "$chosen" ]; then
 	echo "Empty"
