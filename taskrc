@@ -5,3 +5,12 @@ taskd.server=inthe.am:53589
 taskd.credentials=inthe_am/chen.evan6/8b9da4fb-2e56-4f33-989c-075adad0013e
 taskd.trust=strict
 recurrence.limit=2
+
+alias.E=project:errand
+alias.L=project:leisure
+alias.M=project:math
+alias.O=project:otis
+alias.P=project:personal
+alias.S=project:school
+alias.U=project:usamo
+alias.W=project:work
