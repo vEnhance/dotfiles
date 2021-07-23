@@ -245,10 +245,8 @@ mode "close" {
 # Task management systems
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
-bindsym $mod+i exec xfce4-terminal --command "vit" --title="Evan VIMTODO"; \
-    exec --no-startup-id task sync
-    exec --no-startup-id killall -s USR1 py3status; \
-for_window [title="Evan VIMTODO"] floating enable
+bindsym $mod+i exec "xfce4-terminal --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
+for_window [title="VIMTODO"] floating enable
 
 # power mode
 mode "danger" {
@@ -259,11 +257,7 @@ mode "danger" {
 
     # for ArchMajestic: reset X-screen setup
     # TODO
-    bindsym x exec --no-startup-id xrandr \
-        --output "DP-4" --auto \
-        --output "DP-0" --mode 2560x1440 --rate 59.59 --right-of "DP-4" \
-        --output "HDMI-0" --mode 1920x1080 --rate 60.00 --below "DP-0" \
-        --output "DP-2" --mode 1920x1080 --rate 60.00 --right-of "DP-0"
+    bindsym x exec --no-startup-id $HOME/dotfiles/sh-scripts/xrandr.sh, mode "default"
 
     # back to normal: Enter or Escape
     bindsym Return mode "default"
