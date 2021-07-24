@@ -259,6 +259,7 @@ if ($USER ==# "evan")
     Plug 'majutsushi/tagbar'
     Plug 'farseer90718/vim-taskwarrior'
     let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
+    let g:vimwiki_global_ext = 0
     let g:taskwiki_disable_concealcursor=1
 endif
 
@@ -334,6 +335,7 @@ set splitright
 set guicursor+=n-v-c:blinkon0
 set foldlevelstart=3
 set hidden
+set conceallevel=2
 
 " use space as leader key
 let mapleader = "\<Space>"
@@ -361,8 +363,6 @@ nnoremap <Leader>ot :NERDTreeToggle<CR>
 nnoremap <Leader>on :tabnew<CR>
 " open buffers
 nnoremap <Leader>ob :Buffers<CR>
-" change directory
-nnoremap <Leader>oc :lcd %:p:h<CR>
 " open history
 nnoremap <Leader>oh :History<CR>
 " open lines (as `open to`)
@@ -375,6 +375,8 @@ nnoremap <Leader>oa :ALEDetail<CR>
 nnoremap <Leader>os :Tabmerge right<CR>
 " yank all
 nnoremap <Leader>oy :%y+<CR>
+" change directory
+nnoremap <Leader>cd :lcd %:p:h<CR>
 
 " syntax group
 nnoremap <Leader>og :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
