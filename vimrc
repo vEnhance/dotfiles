@@ -176,7 +176,6 @@ autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 call plug#begin('~/.vim/plugged')
 
 " Lighter plugns that are always enabled
-Plug 'plasticboy/vim-markdown'
 Plug 'mg979/vim-visual-multi'
 Plug 'vim-scripts/Tabmerge'
 
@@ -185,8 +184,15 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'neoclide/jsonc.vim'
 Plug 'dag/vim-fish'
 Plug 'petRUShka/vim-sage'
+Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_math = 1
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_new_list_item_indent = 0
+Plug 'avakhov/vim-yaml'
+Plug 'hura/vim-asymptote'
+Plug 'chutzpah/icalendar.vim'
 " Plug 'leanprover/lean.vim'
-" Plug 'laoyang945/vimflowy'
 
 " General plugins
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
