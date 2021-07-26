@@ -4,7 +4,8 @@ taskd.ca=~/.ssh/task/ca.cert.pem
 taskd.server=inthe.am:53589
 taskd.credentials=inthe_am/chen.evan6/8b9da4fb-2e56-4f33-989c-075adad0013e
 taskd.trust=strict
-recurrence.limit=2
+
+alias.mod=modify
 
 alias.E=project:errand
 alias.L=project:leisure
@@ -15,6 +16,22 @@ alias.S=project:school
 alias.T=project:twitch
 alias.U=project:usamo
 alias.W=project:work
+alias.lo=priority:L
+alias.md=priority:M
+alias.hi=priority:H
+
 uda.priority.values=H,M,,L
 
+report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.remaining,until.remaining,description,urgency
+report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
+
 include /usr/share/doc/task/rc/dark-yellow-green.theme
+
+report.undone.description=List of tasks that are not done
+report.undone.filter=status:pending or status:waiting
+report.undone.columns=id,status,wait.remaining,scheduled.remaining,due.relative,urgency,depends,description,priority,project,tags
+report.undone.labels=ID,Stat,Wait,Schd,Due,Ur,Dep,Description,P,Proj,Tag
+report.undone.sort=status,wait,urgency-
+
+report.next.columns=id,depends,priority,project,tags,scheduled.countdown,due.relative,until.remaining,description,urgency
+report.next.labels=ID,Deps,P,Project,Tag,S,Due,Until,Description,Urg
