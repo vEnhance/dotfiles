@@ -1,7 +1,7 @@
 #!/bin/bash
 
 default="--------------------"
-lines="${default}\n$(task next rc.verbose=nothing)"
+lines="${default}\n$(task next rc.verbose=nothing rc.defaultwidth=200)"
 chosen=$(echo -e "$lines" | rofi -dmenu -i -p "taskwarrior")
 
 if [ -z "$chosen" ]; then
