@@ -135,10 +135,11 @@ umask 007 # set umask
 # Aliases
 # alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
+alias cat=bat
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
 alias gim="vim -c Git -c only"
-alias kitty="cat"
+alias kitty="/bin/cat"
 alias lisp='sbcl --script'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
