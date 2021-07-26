@@ -245,7 +245,7 @@ mode "close" {
 # Task management systems
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
-bindsym $mod+i exec "xfce4-terminal --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
+bindsym $mod+i exec "xfce4-terminal --geometry 120x40 --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
 for_window [title="VIMTODO"] floating enable
 
 # power mode
