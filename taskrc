@@ -12,5 +12,7 @@ alias.M=project:math
 alias.O=project:otis
 alias.P=project:personal
 alias.S=project:school
+alias.T=project:twitch
 alias.U=project:usamo
 alias.W=project:work
+uda.priority.values=H,M,,L
