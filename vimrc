@@ -185,6 +185,7 @@ Plug 'neoclide/jsonc.vim'
 Plug 'dag/vim-fish'
 Plug 'petRUShka/vim-sage'
 Plug 'plasticboy/vim-markdown'
+let g:vim_markdown_conceal = 0
 let g:vim_markdown_math = 1
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_auto_insert_bullets = 0
@@ -318,7 +319,7 @@ autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 " Personal settings
-colorscheme reclipse
+set t_Co=256
 set spell
 set nohlsearch
 " don't need mode shown if we have airline
@@ -342,6 +343,7 @@ set guicursor+=n-v-c:blinkon0
 set foldlevelstart=3
 set hidden
 set conceallevel=2
+colorscheme reclipse
 
 " use space as leader key
 let mapleader = "\<Space>"

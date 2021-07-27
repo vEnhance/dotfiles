@@ -60,23 +60,23 @@ highlight PMenuThumb ctermbg=white ctermfg=red
 highlight Directory  gui=none guifg=#7050ff guibg=bg
 highlight LineNr     gui=none guifg=#6b6b6b guibg=#eeeeee
 highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
-highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=DarkCyan
+highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=105
 highlight Title      gui=bold guifg=#0033cc guibg=bg
-highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=DarkCyan
+highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=105
 
 " Syntax group
 highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan cterm=bold
 highlight Error      gui=none guifg=#f8f8f8 guibg=#4040ff term=reverse        ctermbg=Red    ctermfg=White
 highlight Ignore     gui=none guifg=bg      guibg=bg      ctermfg=Black
-highlight Statement  gui=none guifg=#0066FF guibg=bg      ctermfg=Blue cterm=Bold
+highlight Statement  gui=none guifg=#0066FF guibg=bg      cterm=Bold ctermfg=117
 highlight Todo       gui=none guifg=#ff5050 guibg=white   term=standout       ctermbg=Brown ctermfg=Black
 highlight Underlined gui=none guifg=blue    guibg=bg
-highlight Conceal    gui=none guifg=#4a9400 guibg=bg      ctermfg=LightGreen
+highlight Conceal    gui=none guifg=#4a9400 guibg=bg      ctermfg=Yellow ctermbg=none
 
 " Further changes
 highlight Comment    gui=none guifg=#4a9400 guibg=bg      ctermfg=2
 highlight PreProc    gui=none guifg=#7f0055 guibg=bg      ctermfg=Red
-highlight Type       gui=bold guifg=#006600 guibg=bg      ctermfg=Cyan cterm=bold
+highlight Type       gui=bold guifg=#006600 guibg=bg      ctermfg=47 cterm=bold
 highlight String     gui=none guifg=#b07800 guibg=bg      ctermfg=Yellow
 highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=Green cterm=bold
 highlight Number     gui=none guifg=#cc0033 guibg=bg      ctermfg=Magenta
