@@ -180,6 +180,8 @@ Plug 'mg979/vim-visual-multi'
 Plug 'vim-scripts/Tabmerge'
 
 " File-type specific edits
+Plug 'vim-python/python-syntax'
+let g:python_highlight_all = 1
 Plug 'kchmck/vim-coffee-script'
 Plug 'neoclide/jsonc.vim'
 Plug 'dag/vim-fish'
