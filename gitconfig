@@ -41,6 +41,8 @@
 	pushup = push --set-upstream origin HEAD
 	rb = rebase
 	rbc = rebase --continue
+	# command for recently ADDED files
+	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status
 	ss = status -s -b
 	sub = submodule
 	undo = reset --mixed HEAD@{1}
