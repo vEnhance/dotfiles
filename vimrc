@@ -182,9 +182,14 @@ Plug 'vim-scripts/YankRing.vim'
 
 " General plugins
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+" Plug 'tpope/vim-unimpaired'
 
 if ($USER ==# "evan")
     let grepprg = "ag --nogroup --nocolor"
+
+    Plug 'brooth/far.vim'
+    let g:far#source='rg'
+    nnoremap <C-h> :Farr<CR>
 
     " EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
     " already so this list got trimmed a lot.
@@ -207,9 +212,8 @@ if ($USER ==# "evan")
     \ call fzf#vim#grep(
     \   'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
     \   fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
-    nnoremap / :BLinesExtra<CR>
-    nnoremap <C-/> /
-    nnoremap <C-_> /
+    nnoremap <C-/> :BLinesExtra<CR>
+    nnoremap <C-_> :BLinesExtra<CR>
 
     Plug 'vim-ctrlspace/vim-ctrlspace'
 
@@ -260,6 +264,11 @@ if ($USER ==# "evan")
     let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
     let g:ale_python_mypy_options = "--ignore-missing-imports"
     let g:ale_disable_lsp = 1
+    let g:ale_set_balloon= 1
+    let g:ale_set_loclist = 0
+    let g:ale_set_quickfix = 1
+    let g:ale_open_list = 0
+    let g:ale_keep_list_window_open = 0
     set omnifunc=ale#completion#OmniFunc
     let g:coc_global_extensions = [
                 \ 'coc-css',
