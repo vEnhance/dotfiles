@@ -419,4 +419,4 @@ exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 # exec xfce4-power-manager --sm-client-disable
 # exec nm-applet --no-startup-id
 
-# vim: expandtab
+# vim: expandtab ft=i3config

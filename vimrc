@@ -178,36 +178,20 @@ call plug#begin('~/.vim/plugged')
 " Lighter plugns that are always enabled
 Plug 'mg979/vim-visual-multi'
 Plug 'vim-scripts/Tabmerge'
-
-" File-type specific edits
-Plug 'vim-python/python-syntax'
-let g:python_highlight_all = 1
-Plug 'kchmck/vim-coffee-script'
-Plug 'neoclide/jsonc.vim'
-Plug 'dag/vim-fish'
-Plug 'petRUShka/vim-sage'
-Plug 'plasticboy/vim-markdown'
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_math = 1
-let g:vim_markdown_frontmatter = 1
-let g:vim_markdown_auto_insert_bullets = 0
-let g:vim_markdown_new_list_item_indent = 0
-Plug 'avakhov/vim-yaml'
-Plug 'hura/vim-asymptote'
-Plug 'chutzpah/icalendar.vim'
-" Plug 'leanprover/lean.vim'
+Plug 'vim-scripts/YankRing.vim'
 
 " General plugins
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'tpope/vim-unimpaired'
 
 if ($USER ==# "evan")
     " EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
     " already so this list got trimmed a lot.
     " (In fact, having both Plug and system will cause conflicts with ALE).
+    let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
 
     Plug 'vim-ctrlspace/vim-ctrlspace'
-    let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
+    let g:ctrlp_map = '<C-b>'
+    Plug 'lokikl/vim-ctrlp-ag'
 
     set completeopt=menuone,noselect,preview
     Plug 'maralla/completor.vim', { 'for' :
@@ -216,6 +200,26 @@ if ($USER ==# "evan")
         \ 'gitcommit', 'gitconfig'] }
     let g:completor_filetype_map = {}
     Plug 'Shougo/echodoc'
+
+    " File-type specific edits
+    Plug 'vim-python/python-syntax', { 'for' : 'python' }
+    let g:python_highlight_all = 1
+    Plug 'kchmck/vim-coffee-script', { 'for' : 'coffee' }
+    Plug 'neoclide/jsonc.vim',       { 'for' : 'json' }
+    Plug 'dag/vim-fish',             { 'for' : 'fish' }
+    Plug 'petRUShka/vim-sage',       { 'for' : 'sage' }
+    Plug 'plasticboy/vim-markdown',  { 'for' : 'markdown' }
+    let g:vim_markdown_conceal = 0
+    let g:vim_markdown_math = 1
+    let g:vim_markdown_frontmatter = 1
+    let g:vim_markdown_auto_insert_bullets = 0
+    let g:vim_markdown_new_list_item_indent = 0
+    Plug 'avakhov/vim-yaml',        { 'for' : 'yaml' }
+    Plug 'hura/vim-asymptote',      { 'for' : 'asy' }
+    Plug 'chutzpah/icalendar.vim',  { 'for' : 'icalendar' }
+    Plug 'kovisoft/slimv',          { 'for' : 'lisp' }
+    Plug 'mboughaba/i3config.vim'
+    " Plug 'leanprover/lean.vim'
 
     " Airline auto from vim-plugins
     let g:airline_theme='wombat'
@@ -227,7 +231,6 @@ if ($USER ==# "evan")
     let g:airline_powerline_fonts = 1
     let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
 
-    Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
     " ALE + CoC
     let g:ale_sign_column_always = 1
     let g:ale_sign_error = '#'
@@ -255,11 +258,9 @@ if ($USER ==# "evan")
                 \ 'coc-yaml',
                 \ ]
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 
-    " More general plugins
-    Plug 'junegunn/fzf'
-    Plug 'junegunn/fzf.vim'
-    Plug 'kovisoft/slimv'
+
 
     " Task manager
     Plug 'vimwiki/vimwiki'

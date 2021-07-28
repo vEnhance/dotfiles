@@ -17,6 +17,7 @@ ln -s ~/dotfiles/gitconfig ~/.gitconfig
 ln -s ~/dotfiles/latexmkrc ~/.latexmkrc
 ln -s ~/dotfiles/screenrc ~/.screenrc
 # ln -s ~/dotfiles/ssh ~/.ssh
+ln -s ~/dotfiles/taskrc ~/.taskrc
 ln -s ~/dotfiles/texmf ~/.texmf
 ln -s ~/dotfiles/vimrc ~/.vimrc
 ln -s ~/dotfiles/xprofile ~/.xprofile
@@ -41,6 +42,8 @@ mkdir -p ~/.config/zathura
 ln -s ~/dotfiles/zathurarc ~/.config/zathura/zathurarc
 mkdir -p ~/.config/py3status
 ln -s ~/dotfiles/py3status/py3status.$(hostname).conf ~/.config/py3status/config
+mkdir -p ~/.vit
+ln -s ~/dotfiles/vit-config.ini ~/.vit/config.ini
 
 # vim
 mkdir -p ~/.vim/tmp/
