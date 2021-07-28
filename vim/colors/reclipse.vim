@@ -78,7 +78,7 @@ highlight Comment    gui=none guifg=#4a9400 guibg=bg      ctermfg=2
 highlight PreProc    gui=none guifg=#7f0055 guibg=bg      ctermfg=Red
 highlight Type       gui=bold guifg=#006600 guibg=bg      ctermfg=47 cterm=bold
 highlight String     gui=none guifg=#b07800 guibg=bg      ctermfg=Yellow
-highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=Green cterm=bold
+highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=85 cterm=bold
 highlight Number     gui=none guifg=#cc0033 guibg=bg      ctermfg=Magenta
 highlight Identifier gui=bold guifg=#006633 guibg=bg      ctermfg=LightGreen cterm=bold
 highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
