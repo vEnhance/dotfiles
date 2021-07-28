@@ -184,14 +184,34 @@ Plug 'vim-scripts/YankRing.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
 if ($USER ==# "evan")
+    let grepprg = "ag --nogroup --nocolor"
+
     " EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
     " already so this list got trimmed a lot.
     " (In fact, having both Plug and system will cause conflicts with ALE).
     let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
+    " I'm going to take a while to get used to not typing spaces i guess
+    Plug 'FelikZ/ctrlp-py-matcher'
+    let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+    let g:ctrlp_clear_cache_on_exit = 0
+    let g:ctrlp_max_files = 0
+    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+    nnoremap <C-b> :CtrlPMixed<CR>
+    Plug 'junegunn/fzf'
+    Plug 'junegunn/fzf.vim'
+    let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
+    let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+    " https://github.com/junegunn/fzf.vim/issues/374
+    " TODO for unknown reasons I can't get this to work with ripgrep
+    command! -bang -nargs=* BLinesExtra
+    \ call fzf#vim#grep(
+    \   'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
+    \   fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
+    nnoremap / :BLinesExtra<CR>
+    nnoremap <C-/> /
+    nnoremap <C-_> /
 
     Plug 'vim-ctrlspace/vim-ctrlspace'
-    let g:ctrlp_map = '<C-b>'
-    Plug 'lokikl/vim-ctrlp-ag'
 
     set completeopt=menuone,noselect,preview
     Plug 'maralla/completor.vim', { 'for' :
@@ -259,8 +279,6 @@ if ($USER ==# "evan")
                 \ ]
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
-
-
 
     " Task manager
     Plug 'vimwiki/vimwiki'
@@ -359,40 +377,22 @@ vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
 
-" LEADER KEY
-" e is for emulator
-
+" copy to system clipboard
+vnoremap <C-c> "+y
+nnoremap <C-c> :%y+<CR>
+" Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 
-nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
-
-" Global leader things at O
-" open nerdtree
-nnoremap <Leader>ot :NERDTreeToggle<CR>
-" open new tab
-nnoremap <Leader>on :tabnew<CR>
-" open buffers
-nnoremap <Leader>ob :Buffers<CR>
-" open history
-nnoremap <Leader>oh :History<CR>
-" open lines (as `open to`)
-nnoremap <Leader>ol :Lines<CR>
-" open file
-nnoremap <Leader>of :Files<CR>
+" LEADER KEY
 " ALE Details
-nnoremap <Leader>oa :ALEDetail<CR>
-" merge tab to right
-nnoremap <Leader>os :Tabmerge right<CR>
-" yank all
-nnoremap <Leader>oy :%y+<CR>
-" change directory
-nnoremap <Leader>cd :lcd %:p:h<CR>
-
+nnoremap <Leader>a :ALEDetail<CR>
 " syntax group
-nnoremap <Leader>og :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+nnoremap <Leader>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" e is for emulator
+nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 
 " git status
 nnoremap <Leader>gs :Git<CR>
@@ -476,4 +476,4 @@ set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 " Git Gutter
 highlight! link SignColumn LineNr
 
-" vim: expandtab
+" vim: expandtab ft=vim
