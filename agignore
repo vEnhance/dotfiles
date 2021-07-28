@@ -1,0 +1,8 @@
+**.pyc
+**/node_modules/**
+**/lib/**
+**/bin/**
+**/.git/*
+**/.wine/**
+**/*cache*/**
+**/*Cache*/**

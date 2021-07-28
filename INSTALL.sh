@@ -10,6 +10,7 @@ cd ~
 mv .bashrc .bashrc.bak
 
 # symlink in home
+ln -s ~/dotfiles/agignore ~/.aignore
 ln -s ~/dotfiles/asy ~/.asy
 ln -s ~/dotfiles/bashrc ~/.bashrc
 ln -s ~/dotfiles/chktexrc ~/.chktexrc
