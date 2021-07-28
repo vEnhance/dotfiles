@@ -33,9 +33,13 @@ ln -s ~/dotfiles/qutebrowser ~/.config/qutebrowser
 ln -s ~/dotfiles/rofi ~/.config/rofi
 
 # nested config
-ln -s ~/dotfiles/dunst/dunstrc ~/.config/proselint/dunstrc
+mkdir -p ~/.config/dunst
+ln -s ~/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
+mkdir -p ~/.config/proselint
 ln -s ~/dotfiles/vim/proselintrc ~/.config/proselint/config
+mkdir -p ~/.config/zathura
 ln -s ~/dotfiles/zathurarc ~/.config/zathura/zathurarc
+mkdir -p ~/.config/py3status
 ln -s ~/dotfiles/py3status/py3status.$(hostname).conf ~/.config/py3status/config
 
 # vim
