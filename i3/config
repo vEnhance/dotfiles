@@ -118,36 +118,6 @@ bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 
-# for_window commands
-# to be added
-
-# # resize window (you can also use the mouse for that)
-# mode "resize" {
-#     # These bindings trigger as soon as you enter the resize mode
-#     bindsym k resize grow height 5 px or 5 ppt
-#     bindsym j resize shrink height 5 px or 5 ppt
-#     bindsym l resize grow width 5 px or 5 ppt
-#     bindsym h resize shrink width 5 px or 5 ppt
-# 
-#     # wider, narrower, shorter, taller
-#     bindsym w resize grow width 5 px or 5 ppt
-#     bindsym u resize shrink width 5 px or 5 ppt
-#     bindsym s resize shrink height 5 px or 5 ppt
-#     bindsym t resize grow height 5 px or 5 ppt
-# 
-#     # same bindings, but for the arrow keys
-#     bindsym Up resize grow height 15 px or 15 ppt
-#     bindsym Down resize shrink height 15 px or 15 ppt
-#     bindsym Right resize grow width 15 px or 15 ppt
-#     bindsym Left resize shrink width 15 px or 15 ppt
-# 
-#     bindsym m mode "move"
-#     bindsym n mode "nudge"
-#     bindsym r mode "resize"
-#     bindsym Return mode "default"
-#     bindsym Escape mode "default"
-# }
-# bindsym $mod+r mode "resize"
 # navigation modes without super key
 mode "move" {
     bindsym h focus left
