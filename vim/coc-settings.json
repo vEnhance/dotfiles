@@ -18,5 +18,6 @@
       "no-trailing-punctuation": false,
       "single-h1": false,
       "ul-indent": false,
+      "line-length": false
     }
 }
