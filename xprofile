@@ -42,6 +42,10 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 fi
 
 if [ "$HOSTNAME" = ArchDiamond ]; then
+	if [ $(date +"%Z") = PDT ]; then
+		xset s 540 90
+		xset dpms 600 600 600
+	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	clipmenud &
 	export LANG="en_US.UTF-8"

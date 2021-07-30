@@ -46,15 +46,15 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		ibus-daemon -d -r &
 	fi
 	xrandr | grep 2560x1440
-	if [ $? -eq 0 ]; then
+	if [ $(date +"%Z") = PDT ]; then
 		i3-msg workspace $WS2
 		i3-msg workspace $WS9
 		i3-msg move workspace to "DP-1"
 		i3-msg workspace $WS2
 		i3-msg workspace $WS1
 		i3-msg move workspace to "DP-3"
-		i3-msg gaps right current set 400
 	fi
+	i3-msg gaps right current set 400
 	sleep 5 && conky
 fi
 
