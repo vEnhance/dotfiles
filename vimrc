@@ -201,7 +201,6 @@ if ($USER ==# "evan")
     let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_max_files = 0
     let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-    nnoremap <C-b> :CtrlPMixed<CR>
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
     let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
@@ -216,6 +215,10 @@ if ($USER ==# "evan")
     nnoremap <C-_> :BLinesExtra<CR>
 
     Plug 'vim-ctrlspace/vim-ctrlspace'
+    nnoremap <C-b> :CtrlPMixed<CR>
+    let g:ctrlp_map = '<c-b>'
+    let g:ctrlp_cmd = 'CtrlPMixed'
+
 
     set completeopt=menuone,noselect,preview
     Plug 'maralla/completor.vim', { 'for' :
@@ -382,13 +385,14 @@ map , <Plug>(easymotion-prefix)
 
 " Another few tricks
 nnoremap <silent> ZW :update<CR>
-vnoremap <silent> <C-C> "+y
-nnoremap <silent> <C-V> "+p
 nnoremap <silent> za zt7k7j
 
-" copy to system clipboard
-vnoremap <C-c> "+y
-nnoremap <C-c> :%y+<CR>
+" system keyboard
+vnoremap <silent> <C-C> "+y
+nnoremap <silent> <C-c> :%y+<CR>
+nnoremap <silent> <C-V> "+p
+vnoremap <silent> <C-X> "+d
+
 " Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
@@ -403,8 +407,8 @@ nnoremap <Leader>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
 " e is for emulator
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 
-" git status
-nnoremap <Leader>gs :Git<CR>
+" git main
+nnoremap <Leader>G :Git<CR>
 " git blame
 nnoremap <Leader>gb :Git blame<CR>
 " git diff
