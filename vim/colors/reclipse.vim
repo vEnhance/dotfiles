@@ -104,5 +104,6 @@ if !has("gui_running")
     hi link pythonBuiltin   Special
     hi link pythonStatement Statement
 endif
+hi mkdURL guifg=#999999
 
 " vim:ff=unix:
