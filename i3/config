@@ -387,9 +387,38 @@ workspace $WS2 output primary
 
 # Exec startup
 exec --no-startup-id dex -ae i3 &
-exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
+exec --no-statup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
 # exec xfce4-power-manager --sm-client-disable
 # exec nm-applet --no-startup-id
+
+mode trap {
+  bindsym a noop
+  bindsym b noop
+  bindsym c noop
+  bindsym d noop
+  bindsym e noop
+  bindsym f noop
+  bindsym g noop
+  bindsym h noop
+  bindsym i noop
+  bindsym j noop
+  bindsym k noop
+  bindsym l noop
+  bindsym m noop
+  bindsym n noop
+  bindsym o noop
+  bindsym p noop
+  bindsym q noop
+  bindsym r noop
+  bindsym s noop
+  bindsym t noop
+  bindsym u noop
+  bindsym v noop
+  bindsym w noop
+  bindsym x noop
+  bindsym y noop
+  bindsym z noop
+}
 
 # vim: expandtab ft=i3config

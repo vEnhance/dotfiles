@@ -42,7 +42,7 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 	dunst &
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
-		workrave &
+		/home/evan/dotfiles/py-scripts/ctwenty.py &
 		ibus-daemon -d -r &
 	fi
 	xrandr | grep 2560x1440
@@ -61,10 +61,8 @@ fi
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	picom -b &
 	if [ "$(whoami)" = "evan" ]; then
-		xfce4-terminal -e "/home/evan/dotfiles/sh-scripts/get-todo.sh --email" &
-		workrave &
+		/home/evan/dotfiles/py-scripts/ctwenty.py &
 		qtalarm &
-		pacman -Qe > /home/evan/Dropbox/Archive/pacman.txt
 		ibus-daemon -d -r &
 	fi
 	redshift-gtk &
@@ -78,3 +76,5 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	i3-msg move workspace to "HDMI-0"
 fi
 
+pacman -Qen > ~/Sync/Misc/pacman/$(hostname).paclist
+pacman -Qem >> ~/Sync/Misc/pacman/$(hostname).paclist

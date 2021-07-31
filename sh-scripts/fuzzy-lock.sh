@@ -107,6 +107,7 @@ if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 fi
 if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
+	killall -s CONT ctwenty.py
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then

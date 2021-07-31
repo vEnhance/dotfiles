@@ -1,4 +1,8 @@
 #!/bin/python3
+"""
+C-TWENTY
+
+"""
 
 from datetime import datetime, timedelta
 import signal
@@ -11,18 +15,12 @@ def cmd(s: str):
 	return Popen(s, shell=True).wait()
 def audio_block():
 	cmd(r'touch ~/.cache/ctwenty.lock')
-	# TODO: I don't think this dpms thing is that elegant
-	# it'd be better to spawn a giant fullscreen window that blocks everything
-	cmd(r'xset dpms force off')
-	cmd(r'mpg123 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
-	cmd(r'xset dpms force on')
-	cmd(r'i3-msg "restart"')
-	cmd(r'i3-msg workspace "1: Aleph"')
-	# bug with i3 sometimes, idk why
-	cmd(r'i3-msg fullscreen toggle')
-	cmd(r'i3-msg fullscreen toggle')
+	cmd(r'i3-msg mode trap')
+	cmd(r'i3-msg workspace "Trap"')
+	cmd(r'mpg123 -f 8192 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
+	cmd(r'i3-msg workspace back_and_forth')
+	cmd(r'i3-msg mode default')
 	cmd(r'rm -f ~/.cache/ctwenty.lock')
-
 
 def write_next_time(current_status : int, seconds: Optional[int] = None):
 	p = Path('~/.cache/ctwenty.target').expanduser()
@@ -71,7 +69,6 @@ while True:
 		audio_block()
 		current_status = 0
 	else:
-		assert sig == signal.SIGALRM
 		current_status += 1
 	print("New state: ", current_status)
 
@@ -85,7 +82,7 @@ while True:
 		cmd(r'notify-send -i timer-symbolic -t 5000 "Rest your eyes!" '\
 				r'"You have a mandatory break coming up soon in 6 minutes"')
 		t = 300
-		write_next_time(1, 300)
+		write_next_time(1, 337)
 	elif current_status == 2:
 		cmd(r'notify-send -i timer-symbolic -t 5000 "Rest your eyes!" '\
 				r'"You have a mandatory break coming up soon in 37 seconds"')
