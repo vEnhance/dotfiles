@@ -13,6 +13,11 @@ then
 	exit
 fi
 
+if [ -f "$HOME/.cache/ctwenty.lock" ]; then
+	echo "ctwenty.lock running"
+	exit
+fi
+
 if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
 	# during twitch stream, disable laptop lock screen
 	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -ge 20 ]; then
