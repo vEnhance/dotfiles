@@ -143,6 +143,7 @@ alias getclip="xsel --clipboard"
 alias gim="vim -c Git -c only"
 alias kitty="/bin/cat"
 alias lisp='sbcl --script'
+alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias trash='gio trash'
