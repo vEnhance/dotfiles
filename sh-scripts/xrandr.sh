@@ -10,9 +10,9 @@ fi
 if [ "$HOSTNAME" = ArchDiamond ]; then
 	xrandr | grep 2560x1440
 	if [ $? -eq 0 ]; then
-		xrandr --output "DP-2" --primary \
-			--output "DP-3" --left-of "DP-2" \
-			--output "DP-1" --right-of "DP-2"
+		xrandr --output "DP-1" --primary \
+			--output "DP-3" --left-of "DP-1" \
+			--output "DP-2" --right-of "DP-1"
 	fi
 fi
 
