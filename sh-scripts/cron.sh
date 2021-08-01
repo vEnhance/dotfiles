@@ -17,7 +17,7 @@ gcalendar --no-of-days 14 --output txt \
 		"Unfortunate Things" \
 		"Video Calls for OTIS" \
 		"Zero-Minute Reminders" \
-		"twitch.tv" > ~/.cache/_agenda.txt
+		"twitch.tv" > ~/.cache/agenda.txt
 		
 mbsync -Va
 task sync
