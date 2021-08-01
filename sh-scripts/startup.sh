@@ -46,7 +46,7 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		ibus-daemon -d -r &
 	fi
 	xrandr | grep 2560x1440
-	if [ $(date +"%Z") = PDT ]; then
+	if [ $? -eq 0 ]; then
 		i3-msg workspace $WS2
 		i3-msg workspace $WS9
 		i3-msg move workspace to "DP-1"
