@@ -35,5 +35,5 @@ report.undone.columns=id,status,wait.remaining,scheduled.remaining,due.relative,
 report.undone.labels=ID,Stat,Wait,Schd,Due,Ur,Dep,Description,P,Proj,Tag
 report.undone.sort=status,wait,urgency-
 
-report.next.columns=id,depends,priority,project,tags,scheduled.countdown,due.relative,until.remaining,description,urgency
+report.next.columns=id,depends,priority,project,tags,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Deps,P,Project,Tag,S,Due,Until,Description,Urg
