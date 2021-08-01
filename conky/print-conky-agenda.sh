@@ -5,7 +5,11 @@ task rc.verbose=nothing rc.report.min.columns:due.relative,description \
 	| sed "s/[\ ]{3,}/\t/" | sed 's/^/ /' \
 	> ~/.cache/todo.txt
 
-cat ~/.cache/_agenda.txt | cut -b 12-16,36- > ~/.cache/agenda.txt
+grep $(date +"%Y-%m-%d") ~/.cache/_agenda.txt | cut -b 12-16,36- > ~/.cache/agenda.txt
+grep -v $(date +"%Y-%m-%d") ~/.cache/_agenda.txt \
+	| cut -b 1-16,36- \
+	| sed "s/:/\t/" \
+	| gawk -F "\t" '{ print strftime("%a", $1) "\t" $2 " " $3 }' - >> ~/.cache/agenda.txt
 
 echo "\${color4}$(cat ~/.cache/agenda.txt | tail -n +1 | head -n 1)"
 echo "\${color5}$(cat ~/.cache/agenda.txt | tail -n +2 | head -n 1)"
