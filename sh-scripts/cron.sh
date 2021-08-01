@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcalendar --no-of-days 1 --output txt \
+gcalendar --no-of-days 14 --output txt \
 		--calendar "日曆" \
 		"Break" \
 		"Events" \
