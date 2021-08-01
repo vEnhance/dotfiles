@@ -54,7 +54,7 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		i3-msg workspace $WS1
 		i3-msg move workspace to "DP-3"
 	fi
-	i3-msg gaps right current set 400
+	i3-msg gaps right current set 390
 	sleep 5 && conky
 fi
 
