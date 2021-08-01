@@ -55,7 +55,7 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		i3-msg move workspace to "DP-3"
 	fi
 	i3-msg gaps right current set 390
-	sleep 5 && conky
+	sleep 5 && conky -d -c ~/dotfiles/conky/conky.conf
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
