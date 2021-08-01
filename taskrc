@@ -24,7 +24,7 @@ alias.hi=priority:H
 
 uda.priority.values=H,M,,L
 
-report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.remaining,until.remaining,description,urgency
+report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
 
 include /usr/share/doc/task/rc/dark-yellow-green.theme
