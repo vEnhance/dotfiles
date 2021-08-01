@@ -46,8 +46,6 @@ shorthands = [
 		'🍟',
 		'📡'
 		]
-now = now.replace(month=9, day=5)
-
 calendar_lines = TextCalendar(firstweekday=6).formatmonth(
 		theyear = now.year,
 		themonth = now.month,
@@ -62,7 +60,6 @@ row = (d + ((k-d+1)%7) - 1) // 7 # 0-indexed row number to get
 calendar_lines[row+2] = calendar_lines[row+2][:3*k] \
 		+ '💚' + calendar_lines[row+2][3*k+2:]
 calendar_text = '\n'.join(calendar_lines)
-print(calendar_text)
 embed = DiscordEmbed(
 		title = options.get('title', 'Calendar'),
 		description = f"Generated on {now.strftime('%A, %B %d, %H:%M')}" \
