@@ -7,5 +7,5 @@ for data in json.load(sys.stdin):
 	if start_date == datetime.date.today():
 		print(f"{data['start_time']}\t{data['summary']}")
 	else:
-		print(f" {start_date.strftime('%a')}\t" \
+		print(f"{start_date.strftime('%a%_d')}\t" \
 				f"{data['start_time']} {data['summary']}")
