@@ -1,4 +1,5 @@
 from typing import List, Tuple, Any
+from calendar import TextCalendar
 from icalendar import Calendar, Event
 from discord_webhook import DiscordWebhook, DiscordEmbed
 import argparse
@@ -7,7 +8,6 @@ import humanize
 import pytz
 import recurring_ical_events
 import requests
-import subprocess
 import yaml
 
 parser = argparse.ArgumentParser()
@@ -35,11 +35,10 @@ for (calname, calendar) in calendars:
 		events.append( (calname, component))
 
 events.sort(key = lambda t : t[1]['DTEND'].dt)
-
 output_string = ''
 
 shorthands = [
-		'🌞', 
+		'🌞',
 		'🐒',
 		'🇹',
 		'💍',
@@ -47,17 +46,19 @@ shorthands = [
 		'🍟',
 		'📡'
 		]
+now = now.replace(month=9, day=5)
 
-# get a silly calendar
-cal_exec_command = args.cal_exec \
-		or options.get('cal_exec', 'cal --color=never')
-calendar_lines = subprocess.check_output(
-		cal_exec_command.split(' ')).decode('utf-8').split('\n')
+calendar_lines = TextCalendar(firstweekday=6).formatmonth(
+		theyear = now.year,
+		themonth = now.month,
+		).strip().split('\n')
 calendar_lines[1] = ' '.join(shorthands)
 k = now.isoweekday() % 7
 d = now.day
-print(now.strftime('%c'))
-row = (d + (6-k)) // 7
+# that means the 1st was on (k-d+1)'th day of week
+# so the calendar starts with (k-d+1) extra days
+row = (d + ((k-d+1)%7) - 1) // 7 # 0-indexed row number to get
+
 calendar_lines[row+2] = calendar_lines[row+2][:3*k] \
 		+ '💚' + calendar_lines[row+2][3*k+2:]
 calendar_text = '\n'.join(calendar_lines)
