@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcalendar --no-of-days 14 --output txt \
+gcalendar --no-of-days 14 --output json \
 		--calendar "日曆" \
 		"Break" \
 		"Events" \
@@ -17,7 +17,7 @@ gcalendar --no-of-days 14 --output txt \
 		"Unfortunate Things" \
 		"Video Calls for OTIS" \
 		"Zero-Minute Reminders" \
-		"twitch.tv" > ~/.cache/agenda.txt
-		
+		"twitch.tv" > ~/.cache/agenda.json
+	
 mbsync -Va
 task sync
