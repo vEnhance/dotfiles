@@ -99,12 +99,12 @@ while True:
 		t = 1000
 		write_next_time(0, 1337)
 	elif current_status == 1:
-		cmd(r'notify-send -i timer-symbolic -t 5000 "Rest your eyes!" '\
+		cmd(r'notify-send -i timer-symbolic -u low -t 120000 "Rest your eyes!" '\
 				r'"You have a mandatory break coming up soon in 6 minutes"')
 		t = 300
 		write_next_time(1, 337)
 	elif current_status == 2:
-		cmd(r'notify-send -i timer-symbolic -t 5000 "Rest your eyes!" '\
+		cmd(r'notify-send -i timer-symbolic -t 30000 "Rest your eyes!" '\
 				r'"You have a mandatory break coming up soon in 37 seconds"')
 		t = 37
 		write_next_time(2, 37)
