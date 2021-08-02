@@ -51,7 +51,7 @@ class CalItem:
 		return self.text < other.text
 	def __eq__(self, other):
 		return self.when == other.when and self.type == other.type and self.text == other.text
-	def conky_repr(self, needs_date = False):
+	def conky_repr(self, offset = None, needs_date = False):
 		s = ''
 		s += r'${font Exo 2:normal:size=18}'
 		if self.type == Type.DUE:
@@ -61,9 +61,10 @@ class CalItem:
 		elif self.type == Type.WAITING:
 			s += r"${color bbffbb}[Wait] "
 		if self.type == Type.CALENDAR:
-			s += r"${color ffffff}${voffset 3}${font DejaVu Sans:normal:size=18}"
-			s += f"{self.when.hour:02d}:{self.when.minute:02d}"
-			s += r'${voffset -3} '
+			s += r"${color ffffff}${font Exo 2:italic:size=18}"
+			s += f"{self.when.hour:02d}:{self.when.minute:02d} "
+		if offset is not None:
+			s += r'${goto ' + str(offset) + '}'
 		if needs_date is True:
 			if self.type == Type.CALENDAR:
 				s += r"${color 00ff00}"
@@ -74,11 +75,13 @@ class CalItem:
 			else:
 				s += r"${color 99bb99}"
 			if self.type == Type.CALENDAR or self.type == Type.NOW:
-				s += r'${font Exo 2:semibold:size=18}'
+				s += r'${voffset -1}${font Exo 2:semibold:size=18}'
 			else:
 				s += r'${font Exo 2:light:size=18}'
 			s += f'{self.when.date().strftime("%a %b%d")} '
-			s += r'${font Exo 2:normal:size=18}'
+			if self.type == Type.CALENDAR or self.type == Type.NOW:
+				s += r'${voffset 1}'
+		s += r'${font Exo 2:normal:size=18}'
 		s += r"${color " + (self.color or 'dddddd') + r"}"
 		s += f"{self.text[:MAX_CHARS]}"
 		return s
@@ -119,6 +122,13 @@ table = [['' for _ in range(4)] for _ in range(NUM_ROWS * 2 + 2)]
 HEADER_Y_FIRST = 0
 HEADER_Y_SECOND = NUM_ROWS
 
+def offset(x):
+	return 512*x + 20
+def offset_indented(x):
+	return 512*x + 93
+def goto_offset(x):
+	return r'${goto ' + str(offset(x)) + '}'
+
 for i in (0,3,1,4,2,5):
 	current_day = today + timedelta(days=i)
 	items = all_items.pop(current_day, [])
@@ -127,7 +137,8 @@ for i in (0,3,1,4,2,5):
 		x = 1 + (i % 3)
 		for n, item in enumerate(items[:NUM_ROWS]):
 			y = (n+1) + (NUM_ROWS if i >= 3 else 0)
-			table[y][x] = item.conky_repr(needs_date = False)
+			table[y][x] = item.conky_repr(needs_date = False,
+					offset = offset_indented(x))
 
 		y0 = HEADER_Y_FIRST if i < 3 else HEADER_Y_SECOND
 		table[y0][x] = r'' \
@@ -140,14 +151,14 @@ remaining = sorted(chain(*all_items.values()))
 criteria = lambda item: item.type == Type.CALENDAR or item.type == Type.NOW
 remaining_calendar = [item for item in remaining if criteria(item)]
 for n, item in enumerate(remaining_calendar[:NUM_ROWS]):
-	table[n+1][0] = item.conky_repr(needs_date=True)
+	table[n+1][0] = item.conky_repr(needs_date = True,
+			offset = offset_indented(0))
 remaining_tasks = [item for item in remaining if not criteria(item)]
 remaining_tasks.sort(key = lambda item: item.when)
 for n, item in enumerate(remaining_tasks[:NUM_ROWS]):
-	table[n+NUM_ROWS+1][0] = item.conky_repr(needs_date=True)
+	table[n+NUM_ROWS+1][0] = item.conky_repr(needs_date = True,
+			offset = offset_indented(0))
 
-def offset(x):
-	return r'${goto ' + str(512*x+20) + '}'
 
 table[HEADER_Y_FIRST][1] = \
 		r'${color ddeeff}' \
@@ -163,4 +174,4 @@ table[HEADER_Y_SECOND][1] = \
 table[HEADER_Y_SECOND][-1] += r'${font Exo 2:size=18}'
 
 for row in table:
-	print(''.join(offset(i) + row[i] for i in range(4)))
+	print(''.join(goto_offset(i) + row[i] for i in range(4)))
