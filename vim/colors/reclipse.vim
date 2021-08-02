@@ -89,21 +89,24 @@ highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=b
 hi link pythonString String
 hi link Directory Identifier
 
+hi IndentGuidesOdd  guibg=#ffffff guifg=#cccccc   ctermbg=none ctermfg=240
+hi IndentGuidesEven guibg=#f2f2f2 guifg=#aaaadd ctermbg=237  ctermfg=22
+
 if !has("gui_running")
-    hi link Float          Number
-    hi link Conditional    Repeat
-    hi link Include        PreProc
-    hi link Macro          PreProc
-    hi link PreCondit      PreProc
-    hi link StorageClass   Type
-    hi link Structure      Type
-    hi link Typedef        Type
-    hi link Tag            Special
-    hi link Delimiter      Normal
-    hi link SpecialComment Special
-    hi link Debug          Special
-    hi link pythonBuiltin   Special
-    hi link pythonStatement Statement
+	hi link Float          Number
+	hi link Conditional    Repeat
+	hi link Include        PreProc
+	hi link Macro          PreProc
+	hi link PreCondit      PreProc
+	hi link StorageClass   Type
+	hi link Structure      Type
+	hi link Typedef        Type
+	hi link Tag            Special
+	hi link Delimiter      Normal
+	hi link SpecialComment Special
+	hi link Debug          Special
+	hi link pythonBuiltin   Special
+	hi link pythonStatement Statement
 endif
 hi mkdURL guifg=#999999
 

@@ -182,6 +182,10 @@ Plug 'vim-scripts/YankRing.vim'
 
 " General plugins
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+Plug 'nathanaelkane/vim-indent-guides'
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_auto_colors = 0
+
 " Plug 'tpope/vim-unimpaired'
 
 if ($USER ==# "evan")
