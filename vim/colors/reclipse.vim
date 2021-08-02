@@ -57,7 +57,7 @@ highlight PMenuSBar  ctermbg=red   ctermfg=white
 highlight PMenuThumb ctermbg=white ctermfg=red
 
 " Other
-highlight Directory  gui=none guifg=#7050ff guibg=bg
+highlight Directory  gui=none guifg=#7050ff guibg=bg ctermfg=39
 highlight LineNr     gui=none guifg=#6b6b6b guibg=#eeeeee
 highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
 highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=105
@@ -87,6 +87,7 @@ highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
 highlight texComment    gui=none guifg=#ff1cae guibg=bg      ctermfg=2
 highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=bold
 hi link pythonString String
+hi link Directory Identifier
 
 if !has("gui_running")
     hi link Float          Number
