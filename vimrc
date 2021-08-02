@@ -306,10 +306,10 @@ call plug#end()
 
 " Vim server
 function StartServer()
-	if exists("t:prompted")
+	if exists("g:prompted")
 		return
 	endif
-	let t:prompted = 1
+	let g:prompted = 1
 	let l:gitdir = FugitiveGitDir()
 	let l:target = expand('%:p')
 	if !empty(l:target) && !empty(l:gitdir)
