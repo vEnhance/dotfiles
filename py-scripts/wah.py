@@ -34,7 +34,7 @@ def pretty_print_commit(
 		Style.RESET_ALL + commit.committed_datetime.strftime(DATE_STRING),
 		time_color + time_symbol + str(time_delta) + Style.RESET_ALL,
 		Style.RESET_ALL + f'+{num_insertions:4d} -{num_deletions:4d}',
-		Fore.CYAN + commit.summary[0:60] + Style.RESET_ALL,
+		Fore.CYAN + str(commit.summary or 'no commit message')[0:60] + Style.RESET_ALL,
 	)
 
 def save(path, data):
