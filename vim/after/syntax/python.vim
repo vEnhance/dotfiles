@@ -1,4 +1,5 @@
 " https://vi.stackexchange.com/a/9917/1851
+highlight SpecialKey    ctermfg=236
 
 " syntax match PythonArg "\v[\(\,]\s{-}\zs\w+\ze\s{-}\=(\=)@!"
 hi PythonFuncCall ctermfg=218 cterm=none guifg=#0000dd gui=none
