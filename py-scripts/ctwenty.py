@@ -36,7 +36,7 @@ def audio_block():
 	cmd(r'i3-msg mode trap')
 	cmd(r'i3-msg workspace "Trap"')
 	time.sleep(1)
-	cmd(r'mpg123 -f 4096 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
+	cmd(r'mpg123 -f 3084 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
 	time.sleep(2)
 	cmd(r'i3-msg workspace back_and_forth')
 	cmd(r'i3-msg mode default')
