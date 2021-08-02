@@ -173,6 +173,8 @@ autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 call plug#begin('~/.vim/plugged')
 
 " Lighter plugns that are always enabled
+Plug 'moll/vim-bbye'
+Plug 'aymericbeaumet/vim-symlink'
 Plug 'mg979/vim-visual-multi'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
@@ -180,7 +182,6 @@ Plug 'svintus/vim-editexisting'
 Plug 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_auto_colors = 0
-
 " Plug 'tpope/vim-unimpaired'
 
 if ($USER ==# "evan")
@@ -301,15 +302,40 @@ if ($USER ==# "evan")
 	let g:taskwiki_disable_concealcursor=1
 endif
 
-" Plug 'qpkorr/vim-renamer' not needed due to vidir
-" Plug 'chrisbra/csv.vim'
 call plug#end()
-"
-" Uncomment to auto open NerdTree on empty vim
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" Uncomment below to close Vim if only NerdTree remains
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" Vim server
+function StartServer()
+	if exists("t:prompted")
+		return
+	endif
+	let t:prompted = 1
+	let l:gitdir = FugitiveGitDir()
+	let l:target = expand('%:p')
+	if !empty(l:target) && !empty(l:gitdir)
+		if stridx(serverlist(), l:gitdir) != -1
+			let l:response = input("Open in existing server? (empty is yes) ", "")
+			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
+				bdelete
+				call remote_send(l:gitdir, ":e " . l:target . "<CR>")
+				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p'))
+					quit
+				endif
+			endif
+		else
+			call remote_startserver(l:gitdir)
+			call remote_foreground(l:gitdir)
+			echo "Started server " . l:gitdir
+		endif
+	endif
+endfunction
+autocmd BufEnter * call StartServer()
+
+" Open NerdTree on empty vim
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Close Vim if only NerdTree remains
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " CoC go-to keybindings
 nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
