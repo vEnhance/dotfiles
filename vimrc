@@ -450,7 +450,7 @@ function! GenericClose()
 	if winnr('$') == 1
 		if tabpagenr('$') == 1
 			bdelete
-			if expand('%:p') != ''
+			if expand('%:p') == ''
 				quit
 			endif
 		else
