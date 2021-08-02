@@ -442,6 +442,8 @@ nnoremap <Leader>8 :b 8<CR>
 nnoremap <Leader>9 :b 9<CR>
 nnoremap <Leader>0 :b 10<CR>
 
+nnoremap <silent> <leader>t :NERDTreeFocus<CR>
+
 " Python
 " nnoremap <Leader>i :ImportName<CR>
 
@@ -481,7 +483,6 @@ let g:xml_syntax_folding=1
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | q | endif
 let NERDTreeIgnore = ['\.pyc$']
-nnoremap <silent> NT :NERDTreeFocus<CR>
 
 " Lilypond
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
