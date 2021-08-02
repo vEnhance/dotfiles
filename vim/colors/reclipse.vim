@@ -109,5 +109,6 @@ if !has("gui_running")
 	hi link pythonStatement Statement
 endif
 hi mkdURL guifg=#999999
+highlight! link SignColumn LineNr
 
 " vim:ff=unix:
