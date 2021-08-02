@@ -177,6 +177,7 @@ Plug 'moll/vim-bbye'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'mg979/vim-visual-multi'
 Plug 'vim-scripts/YankRing.vim'
+let g:yankring_history_dir = '$HOME/.cache/'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'svintus/vim-editexisting'
 Plug 'nathanaelkane/vim-indent-guides'
@@ -322,9 +323,8 @@ function StartServer()
 					quit
 				endif
 			endif
-		else
+		elseif empty(v:servername)
 			call remote_startserver(l:gitdir)
-			call remote_foreground(l:gitdir)
 			echo "Started server " . l:gitdir
 		endif
 	endif
