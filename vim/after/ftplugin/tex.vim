@@ -158,10 +158,14 @@ if filereadable("local.tex.vim")
     so local.tex.vim
 endif
 
-" latex compile
-nnoremap <Leader>lc :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
+" latex compile continuously
+nnoremap <localleader>p :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
+" latex compile once
+nnoremap <localleader>c :silent !xfce4-terminal -e "latexmk % -cd -pv" &<CR>
 " latex von compile (mnemonic O for olympiad)
-nnoremap <Leader>lo :lcd /tmp/preview_$USER<CR>:silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &<CR>
+nnoremap <localleader>v :lcd /tmp/preview_$USER<CR>:silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &<CR>
+
+nmap <localleader>s :call SyncTexForward()
 
 set cole=2
 

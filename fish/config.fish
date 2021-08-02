@@ -185,7 +185,12 @@ export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
 function newtex
 	mkdir $argv
 	cd $argv
-	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "$argv.tex"
+	echo '\documentclass[11pt]{scrartcl}' > "$argv.tex"
+	echo '\usepackage{evan}' >> "$argv.tex"
+	echo '\begin{document}' >> "$argv.tex"
+	echo '\title{<++>}' >> "$argv.tex"
+	echo '<++>' >> "$argv.tex"
+	echo '\end{document}' >> "$argv.tex"
 	gvim "$argv.tex"
 end
 

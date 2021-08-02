@@ -380,6 +380,7 @@ colorscheme reclipse
 
 " use space as leader key
 let mapleader = "\<Space>"
+let maplocalleader = "\\"
 nnoremap <Leader> <Nop>
 map , <Plug>(easymotion-prefix)
 
@@ -444,9 +445,6 @@ nnoremap <Leader>0 :b 10<CR>
 
 nnoremap <silent> <leader>t :NERDTreeFocus<CR>
 
-" Python
-" nnoremap <Leader>i :ImportName<CR>
-
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
@@ -458,12 +456,12 @@ nnoremap <silent> <leader>t :NERDTreeFocus<CR>
 
 " TeX-Suite
 set shellslash
-set grepprg=grep\ -nH\ $*
 let g:tex_flavor='latex'
 let g:Tex_SmartKeyDot = 0
 let g:Tex_comment_nospell= 1
 let g:Tex_SmartKeyQuote = 0
 let g:Tex_DefaultTargetFormat = 'pdf'
+let g:Tex_Leader2='\\'
 " let g:Tex_CompileRule_pdf = 'latexmk -f -pdf $*'
 let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_GotoError = 1
@@ -471,9 +469,6 @@ function! SyncTexForward()
     let execstr = "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
     exec execstr
 endfunction
-
-" s stands for synctex
-au FileType tex nmap <Leader>s :call SyncTexForward()<CR>
 
 " Certain file-specific settings which don't seem to apply in after/ftplugin
 let g:tex_conceal='agms'
