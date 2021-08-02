@@ -10,7 +10,6 @@ import json
 import subprocess
 
 
-MAX_CHARS = 24
 NUM_ROWS = 15
 
 class Type(IntEnum):
@@ -51,7 +50,7 @@ class CalItem:
 		return self.text < other.text
 	def __eq__(self, other):
 		return self.when == other.when and self.type == other.type and self.text == other.text
-	def conky_repr(self, offset = None, needs_date = False):
+	def conky_repr(self, offset = None, needs_date = False, truncate = 36):
 		s = ''
 		s += r'${font Exo 2:normal:size=18}'
 		if self.type == Type.DUE:
@@ -83,7 +82,7 @@ class CalItem:
 				s += r'${voffset 1}'
 		s += r'${font Exo 2:normal:size=18}'
 		s += r"${color " + (self.color or 'dddddd') + r"}"
-		s += f"{self.text[:MAX_CHARS]}"
+		s += f"{self.text[:truncate]}"
 		return s
 
 all_items : Dict[Optional[date], List[CalItem]] = defaultdict(list)
@@ -152,13 +151,14 @@ criteria = lambda item: item.type == Type.CALENDAR or item.type == Type.NOW
 remaining_calendar = [item for item in remaining if criteria(item)]
 for n, item in enumerate(remaining_calendar[:NUM_ROWS]):
 	table[n+1][0] = item.conky_repr(needs_date = True,
+			truncate = 24,
 			offset = offset_indented(0))
 remaining_tasks = [item for item in remaining if not criteria(item)]
 remaining_tasks.sort(key = lambda item: item.when)
 for n, item in enumerate(remaining_tasks[:NUM_ROWS]):
 	table[n+NUM_ROWS+1][0] = item.conky_repr(needs_date = True,
+			truncate = 24,
 			offset = offset_indented(0))
-
 
 table[HEADER_Y_FIRST][1] = \
 		r'${color ddeeff}' \
