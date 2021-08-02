@@ -2,10 +2,22 @@
 """
 C-TWENTY
 
+According to the American Optometric Association:
+every 20 minutes you spend looking at a digital device or computer screen, you
+should look at something else that is 20 feet away for a period of 20 seconds.
+
+This is a Python script I wrote to enforce this. When run in the background,
+using this dotfile system, it will cause i3 to enter an unusable state "trap"
+while a short melody plays in the background for around 20 seconds.
+
+It can be disabled temporarily by sending the SIGTSTP signal to it.
+It will also automatically disable itself if it sees i3lock running.
+It will resume when sent a SIGCONT signal.
 """
 
 from datetime import datetime, timedelta
 import signal
+import time
 import psutil
 from subprocess import Popen
 from typing import Optional
@@ -17,7 +29,9 @@ def audio_block():
 	cmd(r'touch ~/.cache/ctwenty.lock')
 	cmd(r'i3-msg mode trap')
 	cmd(r'i3-msg workspace "Trap"')
-	cmd(r'mpg123 -f 8192 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
+	time.sleep(1)
+	cmd(r'mpg123 -f 4096 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
+	time.sleep(2)
 	cmd(r'i3-msg workspace back_and_forth')
 	cmd(r'i3-msg mode default')
 	cmd(r'rm -f ~/.cache/ctwenty.lock')
