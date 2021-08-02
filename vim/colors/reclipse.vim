@@ -89,8 +89,8 @@ highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=b
 hi link pythonString String
 hi link Directory Identifier
 
-hi IndentGuidesOdd  guibg=#ffffff guifg=#cccccc   ctermbg=none ctermfg=240
-hi IndentGuidesEven guibg=#f1f1f1 guifg=#7788dd ctermbg=237  ctermfg=22
+hi IndentGuidesOdd  guibg=#ffffff guifg=#cccccc ctermbg=none ctermfg=240
+hi IndentGuidesEven guibg=#f1f1f1 guifg=#7788dd ctermbg=232  ctermfg=45
 
 if !has("gui_running")
 	hi link Float          Number

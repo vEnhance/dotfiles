@@ -435,6 +435,9 @@ nnoremap <Leader>gew :Git commit % --amend<CR>
 " git commit --amend all [edit all]
 nnoremap <Leader>gea :Git commit --all --amend<CR>
 
+" fold by indent
+nnoremap <Leader>f :set foldmethod=indent<CR>
+
 " Buffer
 nnoremap <Leader>1 :b 1<CR>
 nnoremap <Leader>2 :b 2<CR>
