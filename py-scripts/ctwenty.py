@@ -13,6 +13,12 @@ while a short melody plays in the background for around 20 seconds.
 It can be disabled temporarily by sending the SIGTSTP signal to it.
 It will also automatically disable itself if it sees i3lock running.
 It will resume when sent a SIGCONT signal.
+
+Also, sending a SIGUSR1 will cause the script to fire immediately.
+This is useful so that I can essentially *choose* my breaks
+so long as there is one at least every twenty minutes.
+Otherwise, I find myself constantly interrupted mid-sentence,
+which is pretty annoying. :P
 """
 
 from datetime import datetime, timedelta
