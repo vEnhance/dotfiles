@@ -486,7 +486,7 @@ function! GenericClose()
 		close
 	endif
 endfunction
-nnoremap <Leader>d :call GenericClose()<CR>
+nnoremap <Leader>- :call GenericClose()<CR>
 
 " NerdTree
 nnoremap <silent> <leader>t :NERDTreeFocus<CR>
