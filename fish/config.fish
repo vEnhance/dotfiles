@@ -33,7 +33,6 @@ set __fish_git_prompt_color_branch 00CCA7
 set __fish_git_prompt_color_upstream_ahead green
 set __fish_git_prompt_color_upstream_behind red
 
-
 function fish_greeting
 	set_color --italics $fish_color_greeting
 	printf "Hello "
@@ -100,8 +99,8 @@ function fish_right_prompt
 end
 
 function fish_right_prompt_loading_indicator -a last_prompt
-    echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
-    echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
+	echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
+	echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
 end
 
 if [ "(uname)" = Linux ]
@@ -118,16 +117,16 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
 if [ -d $HOME/.texmf ]
-   	export TEXMFHOME=$HOME/.texmf
+		export TEXMFHOME=$HOME/.texmf
 end
 if [ -d $HOME/.sage ]
-   	export DOT_SAGENB=$HOME/.sage
+		export DOT_SAGENB=$HOME/.sage
 end
 if [ -f /usr/bin/zathura ]
-   	export PDFVIEWER='zathura'
+		export PDFVIEWER='zathura'
 end
 if [ -f ~/dotfiles/aws-hmmt ]
-   	source ~/dotfiles/aws-hmmt
+		source ~/dotfiles/aws-hmmt
 end
 
 umask 007 # set umask
@@ -216,7 +215,7 @@ function hunt ()
 	ls -l --color=tty
 end
 
-function pdfenc --argument-names 'infile' 'outfile' 'password' 
+function pdfenc --argument-names 'infile' 'outfile' 'password'
 	qpdf --encrypt "$password" "$password" 128 --print=none --modify=none -- $infile $outfile
 end
 
@@ -279,16 +278,9 @@ alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-if [ (uname) = Linux ]
-	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
-	alias ll='ls -l --color=tty'                  # long list
-	alias l='ls -CF'                              #
-end
-if [ (uname) = Darwin ]
-	alias ls='ls -G' # classify files in color
-	alias ll='ls -Gl'                             # long list
-	alias l='ls -CF'                              #
-end
+alias ls='ls --color=tty --quoting-style=literal' # classify files in color
+alias ll='ls -l --color=tty'                  # long list
+alias l='ls -CF'                              #
 
 # Fish completions
 complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
@@ -303,27 +295,26 @@ bind -M default \ce 'accept-autosuggestion'
 bind -M insert \ce 'accept-autosuggestion'
 
 function fish_mode_prompt
-    if test "$fish_key_bindings" = "fish_vi_key_bindings"
-        or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
-        switch $fish_bind_mode
-            case default
-                set_color --bold --background red white
-                echo 'N'
-            case insert
-                set_color --bold --background green white
-                echo 'I'
-            case replace_one
-                set_color --bold --background green white
-                echo 'R'
-            case replace
-                set_color --bold --background cyan white
-                echo 'R'
-            case visual
-                set_color --bold --background magenta white
-                echo 'V'
-        end
-        set_color normal
-        echo -n ' '
-    end
+	if test "$fish_key_bindings" = "fish_vi_key_bindings"
+			or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
+			switch $fish_bind_mode
+				case default
+					set_color --bold --background red white
+					echo 'N'
+				case insert
+					set_color --bold --background green white
+					echo 'I'
+				case replace_one
+					set_color --bold --background green white
+					echo 'R'
+				case replace
+					set_color --bold --background cyan white
+					echo 'R'
+				case visual
+					set_color --bold --background magenta white
+					echo 'V'
+				end
+			set_color normal
+			echo -n ' '
+	end
 end
-# vim: ft=sh
