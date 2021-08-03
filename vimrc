@@ -460,7 +460,7 @@ let maplocalleader = "\\"
 nnoremap <Leader> <Nop>
 
 " Another few tricks
-nnoremap <silent> ZW :update<CR>
+nnoremap <silent> ZW :wa<CR>
 nnoremap <silent> za zt7k7j
 
 " system keyboard
