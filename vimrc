@@ -317,7 +317,7 @@ function StartServer()
 			let l:response = input("Open in existing server? (empty is yes) ", "")
 			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
 				bdelete
-				call remote_send(l:gitdir, ":e " . l:target . "<CR>")
+				call remote_send(l:gitdir, ":vsplit " . l:target . "<CR>")
 				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p'))
 					quit
 				endif
