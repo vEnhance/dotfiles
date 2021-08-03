@@ -376,8 +376,8 @@ endfunction
 autocmd BufEnter * call StartServer()
 
 " Open NerdTree on empty vim
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd StdinReadPre * let g:nt_auto_off=1
+autocmd VimEnter * if argc() == 0 && !exists("g:nt_auto_off") && len(argv()) < 1 | NERDTree | endif
 " Close Vim if only NerdTree remains
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 

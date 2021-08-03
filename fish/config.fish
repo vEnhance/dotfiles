@@ -140,7 +140,7 @@ alias grep=ag
 alias bcsum='paste -sd+ - | bc'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
-alias gim="vim -c Git -c only"
+alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias gvim="gvim --servername ''"
 alias kitty="/bin/cat"
 alias lisp='sbcl --script'
