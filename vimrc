@@ -307,13 +307,12 @@ call plug#end()
 
 " Vim server
 function StartServer()
-	if exists("g:prompted")
+	let l:target = expand('%:p')
+	if empty(l:target) || exists('g:prompted')
 		return
 	endif
-	let g:prompted = 1
 	let l:gitdir = FugitiveGitDir()
-	let l:target = expand('%:p')
-	if !empty(l:target) && !empty(l:gitdir)
+	if !empty(l:gitdir)
 		if stridx(serverlist(), l:gitdir) != -1
 			let l:response = input("Open in existing server? (empty is yes) ", "")
 			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
@@ -323,9 +322,10 @@ function StartServer()
 					quit
 				endif
 			endif
+			let g:prompted = 1
 		elseif empty(v:servername)
 			call remote_startserver(l:gitdir)
-			echo "Started server " . l:gitdir
+			let g:prompted = 1
 		endif
 	endif
 endfunction
