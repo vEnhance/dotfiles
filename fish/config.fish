@@ -110,7 +110,7 @@ end
 
 # Exports
 export SHELL='/usr/bin/fish'
-export EDITOR='vim'
+export EDITOR='vim '
 export TERM='xterm-256color'
 
 # the auto prompt-edited detetction is not enabled somehow
@@ -141,6 +141,7 @@ alias bcsum='paste -sd+ - | bc'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
 alias gim="vim -c Git -c only"
+alias gvim="gvim --servername ''"
 alias kitty="/bin/cat"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
