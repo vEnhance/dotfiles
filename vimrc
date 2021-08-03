@@ -257,6 +257,50 @@ if ($USER ==# "evan")
 	let g:airline#extensions#tabline#current_first = 0
 	let g:airline_powerline_fonts = 1
 	let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
+	let g:airline#extensions#coc#enabled = 1
+	let g:airline#extensions#ctrlspace#enabled = 1
+	let g:airline#extensions#fugitive#enabled = 1
+	let g:CtrlSpaceStatuslineFunction =
+	\ "airline#extensions#ctrlspace#statusline()"
+	function! AirlineSetup()
+		let g:airline_section_a =
+		\ airline#section#create_left(['mode', 'readonly',])
+		let g:airline_section_b =
+		\ airline#section#create_left(['tagbar',])
+		let g:airline_section_c =
+		\ airline#section#create_left(['crypt', 'paste', 'iminsert', ])
+		let g:airline_section_gutter =
+		\ airline#section#create(['%<', 'file', '%='])
+		let g:airline_section_x =
+		\ airline#section#create_right(['branch', 'hunks'])
+		let g:airline_section_y =
+		\ airline#section#create(['%3p%%', ':%3v', 'linenr', 'maxlinenr', 'spell',])
+		let g:airline_section_z =
+		\ airline#section#create(['filetype'])
+		let g:airline_mode_map = {
+				\ '__'     : '-',
+				\ 'c'      : 'C',
+				\ 'i'      : 'I',
+				\ 'ic'     : 'I',
+				\ 'ix'     : 'I',
+				\ 'n'      : 'N',
+				\ 'multi'  : 'M',
+				\ 'ni'     : 'N',
+				\ 'no'     : 'N',
+				\ 'R'      : 'R',
+				\ 'Rv'     : 'R',
+				\ 's'      : 'S',
+				\ 'S'      : 'S',
+				\ ''     : 'S',
+				\ 't'      : 'T',
+				\ 'v'      : 'V',
+				\ 'V'      : 'V',
+				\ ''     : 'V',
+				\ }
+		let s:IA = [ 'gray15', 'gray80', 35, 234 ]
+		let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+	endfunction
+	autocmd User AirlineAfterTheme call AirlineSetup()
 
 	" ALE + CoC
 	let g:ale_sign_column_always = 1
