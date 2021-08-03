@@ -74,7 +74,7 @@ function! DelEmptyLineAbove()
 	if l:line =~ '^\s*$'
 		let l:colsave = col(".")
 		.-1d
-		"silent normal! 
+		"silent normal!
 		call cursor(line("."), l:colsave)
 	endif
 endfunction
@@ -299,6 +299,8 @@ if ($USER ==# "evan")
 				\ }
 		let s:IA = [ 'gray15', 'gray80', 35, 234 ]
 		let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+		let g:airline#extensions#whitespace#checks =
+			\  ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 	endfunction
 	autocmd User AirlineAfterTheme call AirlineSetup()
 
@@ -309,6 +311,7 @@ if ($USER ==# "evan")
 	let g:ale_echo_msg_error_str = 'E'
 	let g:ale_echo_msg_warning_str = 'W'
 	let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
+	let g:ale_python_mypy_enabled = 0
 	let g:ale_python_mypy_options = "--ignore-missing-imports"
 	let g:ale_disable_lsp = 1
 	let g:ale_set_balloon= 1
