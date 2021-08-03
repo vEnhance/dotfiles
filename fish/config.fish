@@ -110,7 +110,7 @@ end
 
 # Exports
 export SHELL='/usr/bin/fish'
-export EDITOR='vim '
+export EDITOR='vim'
 export TERM='xterm-256color'
 
 # the auto prompt-edited detetction is not enabled somehow
