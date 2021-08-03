@@ -357,6 +357,10 @@ if filereadable("/bin/pacman")
 		if empty(l:target) || exists('g:prompted')
 			return
 		endif
+		if stridx(l:target, ".git") != -1
+			let g:prompted = 1
+			return
+		endif
 		let l:gitdir = FugitiveGitDir()
 		if !empty(l:gitdir)
 			if stridx(serverlist(), l:gitdir) != -1
