@@ -3,7 +3,7 @@
 # Evan Chen
 #
 
-if [ "x${SSH_TTY}" = "x" ]; then
+if [ -f ~/dotfiles/sh-scripts/git-complete.sh ]; then
 	# Git magic / Sourcing
 	GIT_PS1_SHOWDIRTYSTATE=1
 	GIT_PS1_SHOWSTASHSTATE=1
@@ -17,6 +17,7 @@ else
 		cat ~/banner
 	fi
 fi
+export SUDO_PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
 
 # Exports
 export EDITOR='vim'
