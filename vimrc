@@ -106,8 +106,6 @@ endfunction
 
 map <Left> <<
 map <Right> >>
-" map <C-Up> :call DelEmptyLineBelow()<CR>
-" map <C-Down> :call AddEmptyLineBelow()<CR>
 map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
 
@@ -169,24 +167,28 @@ autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd BufNewFile,BufRead *.less setfiletype css
 autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 
-" Plug
-call plug#begin('~/.vim/plugged')
+if filereadable("/bin/pacman")
+	" NerdTree
+	autocmd StdinReadPre * let s:std_in=1
+	autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | q | endif
+	let NERDTreeIgnore = ['\.pyc$']
+	map , <Plug>(easymotion-prefix)
 
-" Lighter plugns that are always enabled
-Plug 'moll/vim-bbye'
-Plug 'aymericbeaumet/vim-symlink'
-Plug 'mg979/vim-visual-multi'
-Plug 'vim-scripts/YankRing.vim'
-let g:yankring_history_dir = '$HOME/.cache/'
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-Plug 'svintus/vim-editexisting'
-Plug 'nathanaelkane/vim-indent-guides'
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_auto_colors = 0
-" Plug 'tpope/vim-unimpaired'
-
-if ($USER ==# "evan")
 	let grepprg = "ag --nogroup --nocolor"
+	" Plug
+	call plug#begin('~/.vim/plugged')
+	" Lighter plugns that are always enabled
+	Plug 'moll/vim-bbye'
+	Plug 'aymericbeaumet/vim-symlink'
+	Plug 'mg979/vim-visual-multi'
+	Plug 'vim-scripts/YankRing.vim'
+	let g:yankring_history_dir = '$HOME/.cache/'
+	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+	Plug 'svintus/vim-editexisting'
+	Plug 'nathanaelkane/vim-indent-guides'
+	let g:indent_guides_enable_on_vim_startup = 1
+	let g:indent_guides_auto_colors = 0
+	" Plug 'tpope/vim-unimpaired'
 
 	Plug 'brooth/far.vim'
 	let g:far#source='rg'
@@ -348,49 +350,48 @@ if ($USER ==# "evan")
 	let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
 	let g:vimwiki_global_ext = 0
 	let g:taskwiki_disable_concealcursor=1
-endif
 
-call plug#end()
-
-" Vim server
-function StartServer()
-	let l:target = expand('%:p')
-	if empty(l:target) || exists('g:prompted')
-		return
-	endif
-	let l:gitdir = FugitiveGitDir()
-	if !empty(l:gitdir)
-		if stridx(serverlist(), l:gitdir) != -1
-			let l:response = input("Open in existing server? (empty is yes) ", "")
-			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
-				bdelete
-				call remote_send(l:gitdir, ":vsplit " . l:target . "<CR>")
-				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p'))
-					quit
-				endif
-			endif
-			let g:prompted = 1
-		elseif empty(v:servername)
-			call remote_startserver(l:gitdir)
-			let g:prompted = 1
+	" Vim server
+	function StartServer()
+		let l:target = expand('%:p')
+		if empty(l:target) || exists('g:prompted')
+			return
 		endif
-	endif
-endfunction
-autocmd BufEnter * call StartServer()
+		let l:gitdir = FugitiveGitDir()
+		if !empty(l:gitdir)
+			if stridx(serverlist(), l:gitdir) != -1
+				let l:response = input("Open in existing server? (empty is yes) ", "")
+				if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
+					bdelete
+					call remote_send(l:gitdir, ":vsplit " . l:target . "<CR>")
+					if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p'))
+						quit
+					endif
+				endif
+				let g:prompted = 1
+			elseif empty(v:servername)
+				call remote_startserver(l:gitdir)
+				let g:prompted = 1
+			endif
+		endif
+	endfunction
+	autocmd BufEnter * call StartServer()
 
-" Open NerdTree on empty vim
-autocmd StdinReadPre * let g:nt_auto_off=1
-autocmd VimEnter * if argc() == 0 && !exists("g:nt_auto_off") && len(argv()) < 1 | NERDTree | endif
-" Close Vim if only NerdTree remains
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+	" Open NerdTree on empty vim
+	autocmd StdinReadPre * let g:nt_auto_off=1
+	autocmd VimEnter * if argc() == 0 && !exists("g:nt_auto_off") && len(argv()) < 1 | NERDTree | endif
+	" Close Vim if only NerdTree remains
+	autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-" CoC go-to keybindings
-nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
-nmap <silent> gy :vsplit<CR><Plug>(coc-type-definition)
-nmap <silent> gr :vsplit<CR><Plug>(coc-references)
-nmap cv <Plug>(coc-rename)
-nmap <silent> [g :ALEPreviousWrap<CR>
-nmap <silent> ]g :ALENextWrap<CR>
+	" CoC go-to keybindings
+	nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
+	nmap <silent> gy :vsplit<CR><Plug>(coc-type-definition)
+	nmap <silent> gr :vsplit<CR><Plug>(coc-references)
+	nmap cv <Plug>(coc-rename)
+	nmap <silent> [g :ALEPreviousWrap<CR>
+	nmap <silent> ]g :ALENextWrap<CR>
+	call plug#end()
+endif
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -453,7 +454,6 @@ colorscheme reclipse
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
 nnoremap <Leader> <Nop>
-map , <Plug>(easymotion-prefix)
 
 " Another few tricks
 nnoremap <silent> ZW :update<CR>
@@ -566,11 +566,6 @@ endfunction
 " Certain file-specific settings which don't seem to apply in after/ftplugin
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
-
-" NerdTree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | q | endif
-let NERDTreeIgnore = ['\.pyc$']
 
 " Lilypond
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
