@@ -18,10 +18,6 @@ else
 	fi
 fi
 
-if test -z "$DBUS_SESSION_BUS_ADDRESS" ; then
-	eval `dbus-launch --sh-syntax`
-fi
-
 # Exports
 export EDITOR='vim'
 export TERM='xterm-256color'
@@ -38,7 +34,6 @@ fi
 umask 007 # set umask
 
 # Aliases
-# alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
@@ -79,31 +74,6 @@ function rot13 () {
 		echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
    	fi
 }
-# Create a new TeX file
-function newtex () {
-	mkdir "${1}"
-	cd "${1}"
-	cat ~/Dropbox/Archive/Code/LaTeX-Templates/Generic.tex >> "${1}.tex"
-	# vim "${1}.tex"
-	gvim "${1}.tex"
-}
-
-# Shortcut for editors and the like
-function pdf() { 
-	if [ -f "${1}pdf" ]
-	then
-		$PDFVIEWER "${1}pdf" &
-	elif [ -f "${1}.pdf" ]
-	then
-		$PDFVIEWER "${1}.pdf" &
-	elif [ -f "${1}" ]
-	then
-		$PDFVIEWER "${1}" &
-	else
-		echo "Cannot found a suitable file."
-	fi
-}
-
 # Uses the locate utility to find a certain file
 function hunt () {
 	python3 ~/dotfiles/py-scripts/hunt.py "${1}"
@@ -111,7 +81,6 @@ function hunt () {
 	pwd
 	ls -l --color=tty
 }
-
 
 #It speaks!
 alias aoeu="echo I see you are a Dvorak user."
@@ -161,15 +130,16 @@ alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-if [ "$(uname)" = Linux ]; then
+if [ -f /bin/pacman ]; then
 	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
 	alias ll='ls -l --color=tty'                  # long list
 	alias l='ls -CF'                              #
-fi
-if [ "$(uname)" = Darwin ]; then
+elif [ -f /sbin/apk ]; then
+	alias ls='ls --color=always' # classify files in color
+	alias ll='ls -l --color=tty'                  # long list
+	alias l='ls -CF'                              #
+elif [ "$(uname)" = Darwin ]; then
 	alias ls='ls -G' # classify files in color
 	alias ll='ls -Gl'                             # long list
 	alias l='ls -CF'                              #
 fi
-
-
