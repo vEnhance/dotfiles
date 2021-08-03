@@ -3,6 +3,7 @@
 [user]
 	name = Evan Chen
 	email = evan@evanchen.cc
+	signingkey = 2911981B5D39118D80D782779474E9565D64C443
 
 [color]
 	branch = auto
@@ -60,3 +61,5 @@
 	insteadOf = http://github.com/
 
 # vim: ft=gitconfig
+[commit]
+	gpgSign = true
