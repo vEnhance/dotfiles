@@ -36,7 +36,7 @@ highlight DiffChange     gui=none guifg=black guibg=#ffe7e7 cterm=none    ctermb
 highlight DiffDelete     gui=none guifg=bg    guibg=#e7e7ff ctermbg=black
 highlight DiffAdd        gui=none guifg=blue  guibg=#e7e7ff ctermbg=green cterm=bold
 highlight DiffRemoved    gui=none guifg=red   guibg=#e7e7ff ctermfg=red   cterm=none
-highlight DiffAdded      gui=none guifg=green guibg=#e7e7ff ctermfg=green cterm=none
+highlight DiffAdded      gui=none guifg=#007700 guibg=#e7e7ff ctermfg=green cterm=none
 highlight DiffSubname    gui=none guifg=blue  guibg=#ffd0d0 ctermfg=blue  cterm=none
 highlight DiffLine       gui=bold guifg=blue  guibg=#ffd0d0 ctermfg=blue  cterm=bold
 highlight DiffIndexLine  gui=bold guifg=blue  guibg=#ffd0d0 ctermfg=3     cterm=bold
