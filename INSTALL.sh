@@ -45,6 +45,8 @@ mkdir -p ~/.config/py3status
 ln -s ~/dotfiles/py3status/py3status.$(hostname).conf ~/.config/py3status/config
 mkdir -p ~/.vit
 ln -s ~/dotfiles/vit-config.ini ~/.vit/config.ini
+mkdir -p ~/.config/gtk-3.0
+ln -s ~/dotfiles/gtk3-config.ini ~/.config/gtk-3.0/settings.ini
 
 # vim
 mkdir -p ~/.vim/tmp/
