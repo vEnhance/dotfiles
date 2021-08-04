@@ -34,6 +34,7 @@
 // @exclude      https://getbootstrap.com/*
 // @exclude      https://wordpress.com/*
 // @exclude      https://usamo.wordpress.com/*
+// @exclude      https://*.archlinux.org/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
