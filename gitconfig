@@ -63,3 +63,4 @@
 # vim: ft=gitconfig
 [commit]
 	gpgSign = true
+	verbose = true
