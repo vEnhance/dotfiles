@@ -12,3 +12,4 @@ set listchars=tab:\|\
 
 " let's try using just pyright
 let b:ale_linters = ['pyright']
+nnoremap <localleader>b ibreakpoint()<Esc>

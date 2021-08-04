@@ -137,6 +137,7 @@ alias grep=ag
 
 # alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
+alias dj='python -m pdb manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
 alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
