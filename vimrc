@@ -66,10 +66,10 @@ if filereadable("/bin/pacman")
 	Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 	Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 	Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
-	Plug 'vimwiki/vimwiki',              { 'for' : 'vimwiki' }
-	Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
 	Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
-	Plug 'tools-life/taskwiki',          { 'for' : 'taskwiki' }
+	Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
+	Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
+	Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
 	" Plug 'leanprover/lean.vim'
 	let g:python_highlight_all = 1
 	let g:taskwiki_disable_concealcursor=1
