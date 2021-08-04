@@ -63,6 +63,7 @@ highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
 highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=105
 highlight Title      gui=bold guifg=#0033cc guibg=bg
 highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=105
+highlight CursorLineNr ctermfg=122 ctermbg=239 cterm=bold
 
 " Syntax group
 highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan cterm=bold

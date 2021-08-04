@@ -411,6 +411,8 @@ set backup     " keep a backup file
 set cm=blowfish2
 set completeopt=menuone,noselect,preview
 set conceallevel=2
+set cursorline
+set cursorlineopt=number
 set foldlevelstart=3
 set guicursor+=n-v-c:blinkon0
 set guifont=Monospace\ 11
