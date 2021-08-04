@@ -448,7 +448,6 @@ set wrapmargin=0
 " ------------------------------------------
 " SPECIFIC FILETYPE CONFIG
 " ------------------------------------------
-autocmd FileType gitcommit set nosmartindent | set formatoptions-=t
 autocmd BufNewFile,BufRead *.asy setfiletype asy
 autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd BufNewFile,BufRead *.less setfiletype css
