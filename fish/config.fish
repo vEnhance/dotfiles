@@ -318,4 +318,4 @@ function fish_mode_prompt
 			echo -n ' '
 	end
 end
-tab -2
+tabs -2
