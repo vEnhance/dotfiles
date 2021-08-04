@@ -387,7 +387,7 @@ workspace $WS2 output primary
 
 # Exec startup
 exec --no-startup-id dex -ae i3 &
-exec --no-statup-id $HOME/dotfiles/sh-scripts/startup.sh &
+exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
 # exec xfce4-power-manager --sm-client-disable
 # exec nm-applet --no-startup-id
