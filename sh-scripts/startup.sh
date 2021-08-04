@@ -19,26 +19,25 @@ WS0="10: Yod"
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 
-if [ "$HOSTNAME" = ArchAngel ]; then
+if [ "$(hostname)" = ArchAngel ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 	dropbox-cli start
 fi
 
-if [ "$HOSTNAME" = ArchScythe ]; then
+if [ "$(hostname)" = ArchScythe ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 	dropbox-cli start
-	systemctl --user start mbsync.timer # idfk why systemctl enable doesn't work w/e
+	systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
 	dunst &
 	syncthing-gtk -m &
 fi
 
-if [ "$HOSTNAME" = ArchDiamond ]; then
+if [ "$(hostname)" = ArchDiamond ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
-	dropbox-cli start
-	systemctl --user start mbsync.timer
+	systemctl --user start evansync.timer
 	dunst &
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
@@ -55,10 +54,10 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		i3-msg move workspace to "DP-3"
 	fi
 	i3-msg gaps right current set 390
-	sleep 5 && conky -c ~/dotfiles/conky/conky.conf; conky -c ~/dotfiles/conky/huge-calendar.conf
+	source ~/dotfiles/conky/setup.sh &
 fi
 
-if [ "$HOSTNAME" = ArchMajestic ]; then
+if [ "$(hostname)" = ArchMajestic ]; then
 	picom -b &
 	if [ "$(whoami)" = "evan" ]; then
 		/home/evan/dotfiles/py-scripts/ctwenty.py &
