@@ -35,9 +35,10 @@ setlocal omnifunc=mail#ABookComplete
 " flowed email from plain text
 setlocal fo+=w
 
-nnoremap <Leader>t /^Cc:<CR>kA<space>
-nnoremap <Leader>c /^Bcc:<CR>kA<space>
-nnoremap <Leader>b /^Subject:<CR>kA<space>
-nnoremap <Leader>s /^Reply-To:<CR>kA<space>
-nnoremap <Leader>m gg}o
-nnoremap <Leader>e gg}:read ~/dotfiles/mutt/templates/
+" r for recipient since ,t* is bound to _something_ (dunno what)
+nnoremap <localleader>r /^Cc:<CR>kA<space>
+nnoremap <localleader>c /^Bcc:<CR>kA<space>
+nnoremap <localleader>b /^Subject:<CR>kA<space>
+nnoremap <localleader>s /^Reply-To:<CR>kA<space>
+nnoremap <localleader>m gg}o
+nnoremap <localleader>e gg}:read ~/dotfiles/mutt/templates/
