@@ -7,9 +7,6 @@ setlocal noexpandtab
 let g:python_space_error_highlight = 1
 " set ofu=syntaxcomplete#Complete
 
-set list
-set listchars=tab:\|\ 
-
 " let's try using just pyright
 let b:ale_linters = ['pyright']
-nnoremap <localleader>b ibreakpoint()<Esc>
+nnoremap <localleader>b eObreakpoint()<Esc>
