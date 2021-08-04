@@ -484,7 +484,7 @@ nnoremap <Leader>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 
 " git main
-nnoremap <Leader>G :Git<CR><C-W>T
+nnoremap <Leader>G :Git<CR><C-W>T:call ShowFugitiveMiniHelp()<CR>
 " git blame
 nnoremap <Leader>gb :Git blame<CR>
 " git diff
