@@ -1,0 +1,45 @@
+Staging/unstaging maps ~
+*fugitive_s* Stage (add) the file or hunk under the cursor.
+*fugitive_u* Unstage (reset) the file or hunk under the cursor.
+*fugitive_U* Unstage everything.
+*fugitive_X* Discard the change under the cursor.
+*fugitive_=* Toggle an inline diff of the file under the cursor.
+*fugitive_gI* Open .git/info/exclude in a split and add the file
+*fugitive_P* Invoke |:Git| add --patch
+
+Navigation maps ~
+*fugitive_<CR>* Open the |fugitive-object|
+*fugitive_o*    Open the |fugitive-object| in a new split.
+*fugitive_gO*   Open the |fugitive-object| in a new vsplit.
+*fugitive_O*    Open the |fugitive-object| in a new tab.
+*fugitive_CTRL-P* *fugitive_CTRL-N* Jump to the next/previous item.
+*fugitive_i* Jump to the next file or hunk, expanding inline diffs.
+*fugitive_gi* Open .git/info/exclude in a split.
+
+Commit and stash commands ~
+cc                      Create a commit.
+ca                      Amend the last commit and edit the message.
+ce                      Amend the last commit without editing the message.
+cw                      Reword the last commit.
+cF                      Create a `fixup!` commit under cursor AND rebase it.
+cS                      Create a `squash!` commit under cursor AND rebase it.
+cA                      Create a `squash!` commit under cursor and edit msg
+crc                     Revert the commit under the cursor.
+crn                     Revert the commit under the cursor but don't commit
+czz                     Push stash.  Pass [count] 1 for `--include-untracked`, 2 for `--all`.
+czw                     Push stash of worktree.  Like `czz` with `--include-index`.
+
+Rebase commands ~
+ri                      Perform an interactive rebase.
+ru                      Perform an interactive rebase against @{upstream}.
+rp                      Perform an interactive rebase against @{push}.
+rr                      Continue the current rebase.
+rs                      Skip the current commit and continue the current rebase.
+ra                      Abort the current rebase.
+re                      Edit the current rebase to-do list.
+rw                      Perform an interactive rebase, this commit set to `reword`.
+rm                      Perform an interactive rebase, this commit set to `edit`.
+rd                      Perform an interactive rebase, this commit set to `drop`.
+*fugitive_gq* *fugitive_q*  Close the status buffer.
+
+vim: ft=help nospell
