@@ -319,14 +319,14 @@ command! -bang -nargs=* BLinesExtra
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
 nnoremap <C-b> :CtrlPMixed<CR>
-map , <Plug>(easymotion-prefix)
+map <bslash> <Plug>(easymotion-prefix)
 
 " ------------------------------------------
 " CUSTOM LEADER KEYBINDINGS (SPACE BAR)
 " ------------------------------------------
 " use space as leader key
 let mapleader = "\<Space>"
-let maplocalleader = "\\"
+let maplocalleader = ","
 nnoremap <Leader> <Nop>
 
 " LEADER KEY
