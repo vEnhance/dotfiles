@@ -68,6 +68,7 @@ if filereadable("/bin/pacman")
 	Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
 	Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 	Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
+	" Plug 'relastle/vim-nayvy',          { 'for' : 'python' }
 	Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 	Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 	Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
@@ -138,6 +139,7 @@ if filereadable("/bin/pacman")
 	let g:ale_echo_msg_error_str = 'E'
 	let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 	let g:ale_echo_msg_warning_str = 'W'
+	let g:ale_fix_on_save = 0
 	let g:ale_keep_list_window_open = 0
 	let g:ale_open_list = 0
 	let g:ale_python_mypy_enabled = 0
@@ -173,8 +175,8 @@ if filereadable("/bin/pacman")
 		let l:target = expand('%:p')
 		let l:gitdir = FugitiveGitDir()
 		" Don't run the server check cases in certain cases
-		if (empty(l:gitdir) || empty(l:target) || exists('g:prompted')) | return | endif
-		if stridx(l:target, ".git") != -1 | let g:prompted = 1 | return | endif
+		if empty(l:gitdir) || empty(l:target) | return | endif
+		if stridx(l:target, ".git") != -1 | return | endif
 		" If we find a server, offer to load there instead
 		if stridx(serverlist(), l:gitdir) != -1
 			let l:response = input("Open in existing server? (empty is yes) ", "")
@@ -183,18 +185,11 @@ if filereadable("/bin/pacman")
 				call remote_send(l:gitdir, ":vsplit " . l:target . "<CR>")
 				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p')) | quit | endif
 			endif
-			let g:prompted = 1
 		elseif empty(v:servername)
 			call remote_startserver(l:gitdir)
-			let g:prompted = 1
 		endif
 	endfunction
-	autocmd BufEnter * call StartServer()
-	" Open NerdTree on empty vim
-	autocmd StdinReadPre * let g:nt_auto_off=1
-	autocmd VimEnter * if argc() == 0 && !exists("g:nt_auto_off") && len(argv()) < 1 | NERDTree | endif
-	" Close Vim if only NerdTree remains
-	" autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+	autocmd VimEnter * call StartServer()
 endif
 
 " ------------------------------------------
@@ -347,6 +342,8 @@ nnoremap <Leader>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 " fold by indent
 nnoremap <Leader>f :set foldmethod=indent<CR>
+" fold by indent
+nnoremap <Leader>x :ALEFix<CR>
 " NerdTree
 nnoremap <silent> <leader>t :NERDTreeFocus<CR>
 
@@ -406,7 +403,7 @@ nnoremap <Leader>- :call EvanClose()<CR>
 " SETTINGS
 " ------------------------------------------
 colorscheme reclipse
-autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+" autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 set backupdir=~/.vim/tmp
