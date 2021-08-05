@@ -58,12 +58,12 @@ highlight PMenuThumb ctermbg=white ctermfg=red
 
 " Other
 highlight Directory  gui=none guifg=#7050ff guibg=bg ctermfg=39
-highlight LineNr     gui=none guifg=#6b6b6b guibg=#eeeeee
+highlight LineNr     gui=none guifg=#6b6b6b guibg=#cccccc
 highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
 highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=105
 highlight Title      gui=bold guifg=#0033cc guibg=bg
 highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=105
-highlight CursorLineNr ctermfg=122 ctermbg=239 cterm=bold
+highlight CursorLineNr ctermfg=122 ctermbg=239 cterm=bold guibg=#eeeeee
 
 " Syntax group
 highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan cterm=bold
@@ -90,8 +90,8 @@ highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=b
 hi link pythonString String
 hi link Directory Identifier
 
-hi IndentGuidesOdd  guibg=#ffffff guifg=#cccccc ctermbg=none ctermfg=240
-hi IndentGuidesEven guibg=#f1f1f1 guifg=#7788dd ctermbg=232  ctermfg=45
+hi IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
+hi IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
 
 if !has("gui_running")
 	hi link Float          Number
