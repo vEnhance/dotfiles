@@ -9,4 +9,8 @@ let g:python_space_error_highlight = 1
 
 " let's try using just pyright
 let b:ale_linters = ['pyright']
+let b:ale_fixers = ['autoimport', 'isort']
+let b:ale_python_isort_options = '-m NOQA'
 nnoremap <localleader>b eObreakpoint()<Esc>
+
+nnoremap <localleader>i :ImportName<CR><C-O>
