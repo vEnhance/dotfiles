@@ -51,6 +51,7 @@ ln -s ~/dotfiles/gtk3-config.ini ~/.config/gtk-3.0/settings.ini
 # vim
 mkdir -p ~/.vim/tmp/
 mkdir -p ~/.vim/after
+mkdir -p ~/.vim/tags
 ln -s ~/dotfiles/vim/after/ftplugin ~/.vim/after/ftplugin
 ln -s ~/dotfiles/vim/autoload ~/.vim/autoload
 ln -s ~/dotfiles/vim/colors ~/.vim/colors

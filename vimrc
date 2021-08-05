@@ -11,16 +11,13 @@ if filereadable("/bin/pacman")
 	" already so this list got trimmed a lot.
 	" (In fact, having both Plug and system will cause conflicts with ALE).
 
-	" NerdTree: start if only buffer, quit if last one
-	autocmd StdinReadPre * let s:std_in=1
-	autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | q | endif
-
 	call plug#begin('~/.vim/plugged')
 	Plug 'aymericbeaumet/vim-symlink'
 	Plug 'brooth/far.vim'
 	Plug 'FelikZ/ctrlp-py-matcher'
 	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
+	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'majutsushi/tagbar'
 	Plug 'mg979/vim-visual-multi'
 	Plug 'moll/vim-bbye'
@@ -43,6 +40,12 @@ if filereadable("/bin/pacman")
 	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
 	let g:far#source='rg'
 	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
+	let g:gutentags_cache_dir = '~/.vim/tags/'
+	let g:gutentags_file_list_command = {
+		\ 'markers': {
+				\ '.git': 'sh /home/evan/dotfiles/sh-scripts/guten-targets-git.sh',
+				\ },
+		\ }
 	let g:indent_guides_auto_colors = 0
 	let g:indent_guides_enable_on_vim_startup = 1
 	let g:yankring_history_dir = '$HOME/.cache/'
@@ -64,6 +67,7 @@ if filereadable("/bin/pacman")
 	Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
 	Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
 	Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
+	Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
 	Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 	Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 	Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
@@ -190,7 +194,7 @@ if filereadable("/bin/pacman")
 	autocmd StdinReadPre * let g:nt_auto_off=1
 	autocmd VimEnter * if argc() == 0 && !exists("g:nt_auto_off") && len(argv()) < 1 | NERDTree | endif
 	" Close Vim if only NerdTree remains
-	autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+	" autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 endif
 
 " ------------------------------------------
@@ -230,8 +234,10 @@ endfunction
 function! AddEmptyLineBelow()
 	call append(line("."), "")
 endfunction
-map <Left> <<
-map <Right> >>
+nnoremap < <<
+nnoremap > >>
+map <Left> <
+map <Right> >
 map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
 
@@ -318,6 +324,7 @@ command! -bang -nargs=* BLinesExtra
 	\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
+" mixed list
 nnoremap <C-b> :CtrlPMixed<CR>
 map <bslash> <Plug>(easymotion-prefix)
 
