@@ -42,6 +42,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
 		/home/evan/dotfiles/py-scripts/ctwenty.py &
+		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
 	fi
 	xrandr | grep 2560x1440
@@ -54,12 +55,12 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		i3-msg move workspace to "DP-3"
 	fi
 	i3-msg gaps right current set 390
-	source ~/dotfiles/conky/setup.sh &
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
 	picom -b &
 	if [ "$(whoami)" = "evan" ]; then
+		source ~/dotfiles/conky/setup.sh &
 		/home/evan/dotfiles/py-scripts/ctwenty.py &
 		qtalarm &
 		ibus-daemon -d -r &
