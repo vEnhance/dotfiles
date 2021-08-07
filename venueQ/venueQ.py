@@ -6,12 +6,12 @@ VENUE_NAME_FIELD = 'venue-name'
 VENUE_CHILDREN_FIELD = 'venue-children'
 
 class VenueNode:
-	name : str = '' # name must be unique
-	parent : 'VenueNode'
-	children : List['VenueNode']
-	root_path : Path = Path('.')
+	name: str = '' # name must be unique
+	parent: 'VenueNode'
+	children: List['VenueNode']
+	root_path: Path = Path('.')
 
-	def __init__(self, data : Dict, parent : Optional['VenueNode'] = None):
+	def __init__(self, data: Dict, parent: Optional['VenueNode'] = None):
 		self.children = []
 		if parent is not None:
 			self.parent = parent
@@ -20,7 +20,7 @@ class VenueNode:
 		self.name = data.pop(VENUE_NAME_FIELD, '')
 		children_dicts = data.pop(VENUE_CHILDREN_FIELD, None)
 		if children_dicts is not None:
-			child_dict : Dict[str, Any]
+			child_dict: Dict[str, Any]
 			for child_dict in children_dicts:
 				cls = self.get_class(child_dict)
 				self.children.append(
@@ -34,7 +34,7 @@ class VenueNode:
 	def is_directory(self) -> bool:
 		return len(self.children) > 0
 
-	def get_class(self, child_dict : Dict[str, Any]) -> type:
+	def get_class(self, child_dict: Dict[str, Any]) -> type:
 		return type(self)
 	def get_extension(self) -> str:
 		return '.yaml'
@@ -49,7 +49,7 @@ class VenueNode:
 	
 	@property
 	def debug_dict(self) -> Dict[str, Any]:
-		d : Dict[str, Any] = self.data
+		d: Dict[str, Any] = self.data
 		d["CLASS"] = type(self)
 		d["NAME"] = self.name
 		if self.is_directory:
