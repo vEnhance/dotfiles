@@ -352,6 +352,12 @@
 		\usepackage{thmtools}
 	\fi
 	\ifevanmdthm
+		\ifevanthm
+			%% theorem packages loaded already
+		\else
+			\usepackage{amsthm}
+			\usepackage{thmtools}
+		\fi
 		\usepackage[framemethod=TikZ]{mdframed}
 
 		\mdfdefinestyle{mdbluebox}{%
