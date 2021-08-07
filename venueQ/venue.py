@@ -1,80 +1,45 @@
 from pathlib import Path
-from typing import List, Dict, Optional
+from typing import Any, Dict, List, Optional
 
-VENUE_NAME_FIELD = '_venue_name'
-VENUE_CHILDREN_FIELD = '_venue_children'
+VENUE_NAME_FIELD = 'venue-name'
+VENUE_CHILDREN_FIELD = 'venue-children'
 
 class VenueNode:
 	name : str = '' # name must be unique
 	parent : 'VenueNode'
-	root : 'VenuePlate'
 	children: List['VenueNode'] = []
 
-	def __init__(self, parent : Optional['VenueNode'], data : Dict):
+	def __init__(self, data : Dict, parent : Optional['VenueNode']):
 		if parent is not None:
 			self.parent = parent
-			self.root = parent.root
 		else:
-			assert isinstance(self, VenuePlate)
 			self.parent = self
-			self.root = self
 		self.name = data.pop(VENUE_NAME_FIELD, '')
 		children_dicts = data.pop(VENUE_CHILDREN_FIELD, None)
 		if children_dicts is not None:
+			child_dict : Dict[str, Any]
 			for child_dict in children_dicts:
+				cls = self.get_class_name(child_dict)
 				self.children.append(
-					VenueNode(parent = self, data = child_dict)
+					vars()[cls](data = child_dict, parent = self,)
 					)
 		self.data = data
-
 	@property
 	def is_root(self) -> bool:
-		return self.root is self
+		return self.parent is self
 	@property
 	def is_directory(self) -> bool:
 		return len(self.children) > 0
 
+	def get_class_name(self, child_dict : Dict[str, Any]):
+		return 'VenueNode'
 	def get_extension(self) -> str:
-		return '.venue' if self.is_directory else ''
-
+		return '.yaml'
+	def get_parent_path(self) -> Path:
+		if self.is_root:
+			return Path('.')
+		else:
+			return self.parent.get_parent_path() / self.parent.name
 	def get_path(self) -> Path:
-		assert not self.is_root
-		return self.parent.get_path() / f"{self.name}{self.get_extension()}"
-
-	def delete(self):
-		# TODO file operation
-		self.parent.children.remove(self)
-
-	def load(self):
-		pass
-
-	def dump(self):
-		pass
-
-	def postwrite(self):
-		pass
-
-
-class VenuePlate(VenueNode):
-	sync_on_start = True
-
-	def __init__(self, path : Path):
-		self.path = path
-		self.setup()
-		self.load_data_from_path()
-		if self.sync_on_start:
-			self.sync()
-	
-	def setup(self):
-		raise NotImplementedError
-
-	def load_data_from_path(self):
-		# recursively walk through self.path to get the initial dictionary
-		# and then pass it to
-		pass
-
-	def sync(self):
-		pass
-
-	def get_path(self):
-		return self.path
+		return self.get_parent_path() \
+				/ f'{self.name}.{self.get_extension()}'
