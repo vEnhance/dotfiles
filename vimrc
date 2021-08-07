@@ -182,7 +182,7 @@ if filereadable("/bin/pacman")
 			let l:response = input("Open in existing server? (empty is yes) ", "")
 			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
 				bdelete
-				call remote_send(l:gitdir, ":vsplit " . l:target . "<CR>")
+				call remote_send(l:gitdir, "<ESC>:vsplit " . l:target . "<CR>")
 				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p')) | quit | endif
 			endif
 		elseif empty(v:servername)
@@ -388,6 +388,8 @@ function! EvanClose()
 		else
 			bdelete
 		endif
+	elseif expand('%:p') == '/tmp/__doc__'
+		bdelete
 	else
 		close
 	endif
