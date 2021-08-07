@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ "$(whoami)" != "evan" ]; then
+	exit;
+fi
+
 task rc.verbose=nothing rc.report.min.columns:due.relative,description \
 	min rc.report.min.sort:urgency- status:pending +READY \
 	| sed "s/[\ ]{3,}/\t/" | sed 's/^/ /' \
