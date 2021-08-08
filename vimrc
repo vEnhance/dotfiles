@@ -30,11 +30,14 @@ if filereadable("/bin/pacman")
 	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 	" Plug 'tpope/vim-unimpaired'
 
+	" https://github.com/junegunn/fzf.vim/issues/374
 	let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 	let NERDTreeIgnore = ['\.pyc$']
 	let g:completor_filetype_map = {}
 	let g:ctrlp_clear_cache_on_exit = 0
+	let g:ctrlp_cmd= 'CtrlPBuffer'
 	let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+	let g:ctrlp_map = '<c-b>'
 	let g:ctrlp_max_files = 0
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
@@ -50,9 +53,6 @@ if filereadable("/bin/pacman")
 	let g:indent_guides_enable_on_vim_startup = 1
 	let g:yankring_history_dir = '$HOME/.cache/'
 	let grepprg = "ag --nogroup --nocolor"
-	" https://github.com/junegunn/fzf.vim/issues/374
-	let g:ctrlp_map = '<c-b>'
-	let g:ctrlp_cmd = 'CtrlPMixed'
 
 	" File-type specific edits
 	Plug 'maralla/completor.vim', { 'for' :
@@ -299,7 +299,7 @@ nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
 " smart find and replace
-nnoremap <C-h> :Farr<CR>
+nnoremap <C-f> :Farr<CR>
 " write all buffers shortcut
 nnoremap <silent> ZW :wa<CR>
 " move page so that cursor is on 7th line
@@ -320,7 +320,9 @@ command! -bang -nargs=* BLinesExtra
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
 " mixed list
-nnoremap <C-b> :CtrlPMixed<CR>
+nnoremap <C-x><C-f> :CtrlPMixed<CR>
+" switch buffers
+nnoremap <C-x><C-t> :CtrlPBuffer<CR>
 map <bslash> <Plug>(easymotion-prefix)
 
 " ------------------------------------------
