@@ -31,7 +31,6 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	synclient TapButton1=0           # Disable tap to click
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	# remap mouse buttons
-	clipmenud &
 	synclient RightButtonAreaTop=0
 	# synclient RightButtonAreaLeft=0
 	# synclient RightButtonAreaRight=1560
@@ -47,7 +46,6 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		xset dpms 600 600 600
 	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	clipmenud &
 	export LANG="en_US.UTF-8"
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
@@ -56,7 +54,6 @@ fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
 	# dunst &
-	clipmenud &
 	ponymix set-default -t source \
 		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80

@@ -3,6 +3,9 @@
 # Supports desktop files, so handled by systemd or dex:
 # * xfce power manager
 # * nm applet
+# * copyq
+# * flameshot
+# * syncthing-gtk? unclear
 #
 # dropbox no longer, started manually
 
