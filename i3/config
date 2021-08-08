@@ -11,6 +11,16 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $WS1 "1: Aleph"
+set $WS2 "2: Bet"
+set $WS3 "3: Gimel"
+set $WS4 "4: Dalet"
+set $WS5 "5: Hei"
+set $WS6 "6: Vav"
+set $WS7 "7: Zayin"
+set $WS8 "8: Het"
+set $WS9 "9: Tet"
+set $WS0 "10: Yod"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
@@ -25,17 +35,18 @@ focus_follows_mouse no
 workspace_auto_back_and_forth no
 workspace_layout stacked
 
-# start dmenu (a program launcher)
-# bindsym $mod+d exec dmenu_run
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file. It is a wrapper around dmenu, so you need that
-# installed.
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop --entry-type=filename
-bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
-bindsym $mod+w exec --no-startup-id rofi -modi window -show window
-bindsym $mod+Shift+c exec --no-startup-id clipdel -d . \
-    && echo "" | xsel --clipboard \
-    && notify-send -i my-caffeine-on-symbolic "Clipboard cleared" "All entries from the clipboard have been erased."
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+	id main-bar
+	status_command py3status
+	font pango:DejaVu Sans Mono 16
+	strip_workspace_numbers yes
+	wheel_up_cmd nop
+	wheel_down_cmd nop
+	tray_output primary
+}
+workspace $WS2 output primary
 
 # change focus
 bindsym $mod+h focus left
@@ -84,18 +95,6 @@ bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
 # voluntary vision break
 bindsym $mod+u exec --no-startup-id killall -s USR1 ctwenty.py
 
-# set workspace varnames
-set $WS1 "1: Aleph"
-set $WS2 "2: Bet"
-set $WS3 "3: Gimel"
-set $WS4 "4: Dalet"
-set $WS5 "5: Hei"
-set $WS6 "6: Vav"
-set $WS7 "7: Zayin"
-set $WS8 "8: Het"
-set $WS9 "9: Tet"
-set $WS0 "10: Yod"
-
 # switch to workspace
 bindsym $mod+1 workspace $WS1
 bindsym $mod+2 workspace $WS2
@@ -122,84 +121,84 @@ bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
 
 # navigation modes without super key
 mode "move" {
-    bindsym h focus left
-    bindsym j focus down
-    bindsym k focus up
-    bindsym l focus right
-    bindsym a focus parent
-    bindsym b focus child
+	bindsym h focus left
+	bindsym j focus down
+	bindsym k focus up
+	bindsym l focus right
+	bindsym a focus parent
+	bindsym b focus child
 
-    bindsym 0 workspace $WS0;
-    bindsym 1 workspace $WS1;
-    bindsym 2 workspace $WS2;
-    bindsym 3 workspace $WS3;
-    bindsym 4 workspace $WS4;
-    bindsym 5 workspace $WS5;
-    bindsym 6 workspace $WS6;
-    bindsym 7 workspace $WS7;
-    bindsym 8 workspace $WS8;
-    bindsym 9 workspace $WS9;
+	bindsym 0 workspace $WS0;
+	bindsym 1 workspace $WS1;
+	bindsym 2 workspace $WS2;
+	bindsym 3 workspace $WS3;
+	bindsym 4 workspace $WS4;
+	bindsym 5 workspace $WS5;
+	bindsym 6 workspace $WS6;
+	bindsym 7 workspace $WS7;
+	bindsym 8 workspace $WS8;
+	bindsym 9 workspace $WS9;
 
-    bindsym Shift+h move container left
-    bindsym Shift+j move container down
-    bindsym Shift+k move container up
-    bindsym Shift+l move container right
+	bindsym Shift+h move container left
+	bindsym Shift+j move container down
+	bindsym Shift+k move container up
+	bindsym Shift+l move container right
 
-    bindsym Shift+0 move container to workspace $WS0; workspace $WS0;
-    bindsym Shift+1 move container to workspace $WS1; workspace $WS1;
-    bindsym Shift+2 move container to workspace $WS2; workspace $WS2;
-    bindsym Shift+3 move container to workspace $WS3; workspace $WS3;
-    bindsym Shift+4 move container to workspace $WS4; workspace $WS4;
-    bindsym Shift+5 move container to workspace $WS5; workspace $WS5;
-    bindsym Shift+6 move container to workspace $WS6; workspace $WS6;
-    bindsym Shift+7 move container to workspace $WS7; workspace $WS7;
-    bindsym Shift+8 move container to workspace $WS8; workspace $WS8;
-    bindsym Shift+9 move container to workspace $WS9; workspace $WS9;
+	bindsym Shift+0 move container to workspace $WS0; workspace $WS0;
+	bindsym Shift+1 move container to workspace $WS1; workspace $WS1;
+	bindsym Shift+2 move container to workspace $WS2; workspace $WS2;
+	bindsym Shift+3 move container to workspace $WS3; workspace $WS3;
+	bindsym Shift+4 move container to workspace $WS4; workspace $WS4;
+	bindsym Shift+5 move container to workspace $WS5; workspace $WS5;
+	bindsym Shift+6 move container to workspace $WS6; workspace $WS6;
+	bindsym Shift+7 move container to workspace $WS7; workspace $WS7;
+	bindsym Shift+8 move container to workspace $WS8; workspace $WS8;
+	bindsym Shift+9 move container to workspace $WS9; workspace $WS9;
 
-    # wider, narrower, shorter, taller
-    bindsym w resize grow width 5 px or 5 ppt
-    bindsym u resize shrink width 5 px or 5 ppt
-    bindsym s resize shrink height 5 px or 5 ppt
-    bindsym t resize grow height 5 px or 5 ppt
+	# wider, narrower, shorter, taller
+	bindsym w resize grow width 5 px or 5 ppt
+	bindsym u resize shrink width 5 px or 5 ppt
+	bindsym s resize shrink height 5 px or 5 ppt
+	bindsym t resize grow height 5 px or 5 ppt
 
-    bindsym m mode "move"
-    bindsym n mode "nudge"
-    # bindsym r mode "resize"
-    bindsym q mode "close"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym m mode "move"
+	bindsym n mode "nudge"
+	# bindsym r mode "resize"
+	bindsym q mode "close"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 mode "nudge" {
-    bindsym a focus parent
-    bindsym b focus child
+	bindsym a focus parent
+	bindsym b focus child
 
-    bindsym h move left
-    bindsym j move down
-    bindsym k move up
-    bindsym l move right
+	bindsym h move left
+	bindsym j move down
+	bindsym k move up
+	bindsym l move right
 
-    bindsym 0 move container to workspace $WS0; workspace $WS0;
-    bindsym 1 move container to workspace $WS1; workspace $WS1;
-    bindsym 2 move container to workspace $WS2; workspace $WS2;
-    bindsym 3 move container to workspace $WS3; workspace $WS3;
-    bindsym 4 move container to workspace $WS4; workspace $WS4;
-    bindsym 5 move container to workspace $WS5; workspace $WS5;
-    bindsym 6 move container to workspace $WS6; workspace $WS6;
-    bindsym 7 move container to workspace $WS7; workspace $WS7;
-    bindsym 8 move container to workspace $WS8; workspace $WS8;
-    bindsym 9 move container to workspace $WS9; workspace $WS9;
+	bindsym 0 move container to workspace $WS0; workspace $WS0;
+	bindsym 1 move container to workspace $WS1; workspace $WS1;
+	bindsym 2 move container to workspace $WS2; workspace $WS2;
+	bindsym 3 move container to workspace $WS3; workspace $WS3;
+	bindsym 4 move container to workspace $WS4; workspace $WS4;
+	bindsym 5 move container to workspace $WS5; workspace $WS5;
+	bindsym 6 move container to workspace $WS6; workspace $WS6;
+	bindsym 7 move container to workspace $WS7; workspace $WS7;
+	bindsym 8 move container to workspace $WS8; workspace $WS8;
+	bindsym 9 move container to workspace $WS9; workspace $WS9;
 
-    # wider, narrower, shorter, taller
-    bindsym w resize grow width 5 px or 5 ppt
-    bindsym u resize shrink width 5 px or 5 ppt
-    bindsym s resize shrink height 5 px or 5 ppt
-    bindsym t resize grow height 5 px or 5 ppt
+	# wider, narrower, shorter, taller
+	bindsym w resize grow width 5 px or 5 ppt
+	bindsym u resize shrink width 5 px or 5 ppt
+	bindsym s resize shrink height 5 px or 5 ppt
+	bindsym t resize grow height 5 px or 5 ppt
 
-    bindsym m mode "move"
-    bindsym n mode "nudge"
-    # bindsym r mode "resize"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym m mode "move"
+	bindsym n mode "nudge"
+	# bindsym r mode "resize"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+m mode "move"
 bindsym $mod+n mode "nudge"
@@ -209,151 +208,138 @@ bindsym $mod+n mode "nudge"
 # (and so that if we hold down the key by accident nothing happens
 bindsym $mod+q mode "close"
 mode "close" {
-    bindsym m mode "move"
-    bindsym Return kill window, mode "default"
-    bindsym Escape mode "default"
+	bindsym m mode "move"
+	bindsym Return kill window, mode "default"
+	bindsym Escape mode "default"
 }
-
-# Task management systems
-bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
-bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
-bindsym $mod+i exec "xfce4-terminal --geometry 120x40 --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
-for_window [title="VIMTODO"] floating enable
 
 # power mode
 mode "danger" {
-    bindsym e exit
-    bindsym n exec --no-startup-id systemctl suspend, mode "default"
-    bindsym p exec --no-startup-id systemctl poweroff
-    bindsym z exec --no-startup-id systemctl reboot
+	bindsym e exit
+	bindsym n exec --no-startup-id systemctl suspend, mode "default"
+	bindsym p exec --no-startup-id systemctl poweroff
+	bindsym z exec --no-startup-id systemctl reboot
+	bindsym x exec --no-startup-id $HOME/dotfiles/sh-scripts/xrandr.sh, mode "default"
 
-    # for ArchMajestic: reset X-screen setup
-    # TODO
-    bindsym x exec --no-startup-id $HOME/dotfiles/sh-scripts/xrandr.sh, mode "default"
-
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+Shift+backslash mode "danger"
 
 # config/reset mode
 mode "config" {
-    # reload the configuration file
-    bindsym r reload, mode "default"
-    # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-    bindsym i restart, mode "default"
-    bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
+	# reload the configuration file
+	bindsym r reload, mode "default"
+	# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+	bindsym i restart, mode "default"
+	bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
 
-    bindsym b bar mode toggle, mode "default"
+	bindsym b bar mode toggle, mode "default"
 
-    # switch mouse buttons
-    bindsym h exec --no-startup-id notify-send -i format-justify-left-symbolic \
-        "Left hand mouse" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)",\
-         mode "default"
-    bindsym l exec --no-startup-id notify-send -i format-justify-right-symbolic \
-        "Right hand mouse" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)", \
-        mode "default"
+	# switch mouse buttons
+	bindsym h exec --no-startup-id notify-send -i format-justify-left-symbolic \
+		"Left hand mouse" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)",\
+		mode "default"
+	bindsym l exec --no-startup-id notify-send -i format-justify-right-symbolic \
+		"Right hand mouse" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)", \
+		mode "default"
 
-    # starcraft mode
-    bindsym s exec --no-startup-id notify-send -i starred-symbolic "SC2 mode glhf" \
-        "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)\n$(xset r rate 150 40 2>&1)", \
-         mode "default"
-    # normal mode
-    bindsym n exec --no-startup-id notify-send -i mail-replied-symbolic \
-        "Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", \
-         mode "default"
+	# starcraft mode
+	bindsym s exec --no-startup-id notify-send -i starred-symbolic "SC2 mode glhf" \
+		"$(xmodmap -e \"pointer = 1 2 3\" 2>&1)\n$(xset r rate 150 40 2>&1)", \
+		mode "default"
+	# normal mode
+	bindsym n exec --no-startup-id notify-send -i mail-replied-symbolic \
+		"Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", \
+		mode "default"
 
-    bindsym p exec xfconf-query -c xfce4-power-manager \
-        -p /xfce4-power-manager/presentation-mode -T \
-        && notify-send -i dialog-information "xfce4 power manager presentation mode" \
-        "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)", \
-        mode "default"
+	bindsym p exec xfconf-query -c xfce4-power-manager \
+		-p /xfce4-power-manager/presentation-mode -T \
+		&& notify-send -i dialog-information "xfce4 power manager presentation mode" \
+		"$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)", \
+		mode "default"
 
-    # back to normal: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	# back to normal: Enter or Escape
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+Escape mode "config"
 
 # audio control mode
 mode "ponymix" {
-    #query
-    bindsym q exec --no-startup-id notify-send -i audio-card "Audio query" "$(ponymix)" -t 5000
+	#query
+	bindsym q exec --no-startup-id notify-send -i audio-card "Audio query" "$(ponymix)" -t 5000
 
-    # volume
-    bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
-    bindsym d exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh d
-    bindsym k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh k
-    bindsym j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh j
-    bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh m, mode "default"
-    bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
-    bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh l, mode "default"
-    bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
-    bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh s, mode "default"
-    bindsym h exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh h, mode "default"
+	# volume
+	bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
+	bindsym d exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh d
+	bindsym k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh k
+	bindsym j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh j
+	bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh m, mode "default"
+	bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
+	bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh l, mode "default"
+	bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
+	bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh s, mode "default"
+	bindsym h exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh h, mode "default"
 
-    # playerctl
-    bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
-    bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p
-    bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n
+	# playerctl
+	bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
+	bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p
+	bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n
 
-    # control Spotify volume
-    bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
-    bindsym Shift+j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh J
-    bindsym z exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh z
+	# control Spotify volume
+	bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
+	bindsym Shift+j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh J
+	bindsym z exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh z
 
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+o mode "ponymix"
-
-# Run programs
-bindsym $mod+Return exec xfce4-terminal
-
 mode "exec" {
-    bindsym a exec i3-sensible-terminal -e \
-        "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
-    bindsym b exec libreoffice --calc &, mode "default"
-    bindsym c exec caprine &, mode "default"
-    bindsym d exec discord &, mode "default"
-    bindsym e exec epiphany &, mode "default"
-    bindsym f exec firefox &, mode "default"
-    bindsym g exec geogebra &, mode "default"
-    bindsym h exec chromium &, mode "default"
-    bindsym i exec ibus-daemon -d -r, mode "default"
-    bindsym m exec gnucash &, mode "default"
-    bindsym o exec obs &, mode "default"
-    bindsym q exec qutebrowser &, mode "default"
-    bindsym s exec spotify &, mode "default"
-    bindsym v exec gvim &, mode "default"
-    bindsym y exec dynalist &, mode "default"
-    bindsym z exec zoom &, mode "default"
-    bindsym space exec loginctl lock-session, mode "default"
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym a exec i3-sensible-terminal -e \
+		"python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
+	bindsym b exec libreoffice --calc &, mode "default"
+	bindsym c exec caprine &, mode "default"
+	bindsym d exec discord &, mode "default"
+	bindsym e exec epiphany &, mode "default"
+	bindsym f exec firefox &, mode "default"
+	bindsym g exec geogebra &, mode "default"
+	bindsym h exec chromium &, mode "default"
+	bindsym i exec ibus-daemon -d -r, mode "default"
+	bindsym m exec gnucash &, mode "default"
+	bindsym o exec obs &, mode "default"
+	bindsym q exec qutebrowser &, mode "default"
+	bindsym s exec spotify &, mode "default"
+	bindsym v exec gvim &, mode "default"
+	bindsym y exec dynalist &, mode "default"
+	bindsym z exec zoom &, mode "default"
+	bindsym space exec loginctl lock-session, mode "default"
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+x mode "exec"
 mode "multirun" {
-    bindsym a exec i3-sensible-terminal -e \
-        "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
-    bindsym b exec libreoffice --calc &
-    bindsym c exec caprine &
-    bindsym d exec discord &
-    bindsym e exec epiphany &
-    bindsym f exec firefox &
-    bindsym g exec geogebra &
-    bindsym h exec chromium &
-    bindsym i exec ibus-daemon -d -r
-    bindsym m exec gnucash &
-    bindsym o exec obs &
-    bindsym q exec qutebrowser &
-    bindsym s exec spotify &
-    bindsym v exec gvim &
-    bindsym y exec dynalist &
-    bindsym z exec zoom &
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
+	bindsym a exec i3-sensible-terminal -e \
+		"python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
+	bindsym b exec libreoffice --calc &
+	bindsym c exec caprine &
+	bindsym d exec discord &
+	bindsym e exec epiphany &
+	bindsym f exec firefox &
+	bindsym g exec geogebra &
+	bindsym h exec chromium &
+	bindsym i exec ibus-daemon -d -r
+	bindsym m exec gnucash &
+	bindsym o exec obs &
+	bindsym q exec qutebrowser &
+	bindsym s exec spotify &
+	bindsym v exec gvim &
+	bindsym y exec dynalist &
+	bindsym z exec zoom &
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
 }
 bindsym $mod+Shift+x mode "multirun"
 
@@ -370,54 +356,50 @@ bindsym $mod+Mod1+0 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh
 bindsym $mod+Mod1+apostrophe exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh a
 bindsym $mod+Mod1+grave exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh g
 
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
-bar {
-    id main-bar
-    status_command py3status
-    font pango:DejaVu Sans Mono 16
-    strip_workspace_numbers yes
-    wheel_up_cmd nop
-    wheel_down_cmd nop
-    tray_output primary
-}
+# exec xfce4-power-manager --sm-client-disable
+# exec nm-applet --no-startup-id
 
-workspace $WS2 output primary
+mode trap {
+	bindsym a nop
+	bindsym b nop
+	bindsym c nop
+	bindsym d nop
+	bindsym e nop
+	bindsym f nop
+	bindsym g nop
+	bindsym h nop
+	bindsym i nop
+	bindsym j nop
+	bindsym k nop
+	bindsym l nop
+	bindsym m nop
+	bindsym n nop
+	bindsym o nop
+	bindsym p nop
+	bindsym q nop
+	bindsym r nop
+	bindsym s nop
+	bindsym t nop
+	bindsym u nop
+	bindsym v nop
+	bindsym w nop
+	bindsym x nop
+	bindsym y nop
+	bindsym z nop
+}
 
 # Exec startup
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
-# exec xfce4-power-manager --sm-client-disable
-# exec nm-applet --no-startup-id
+# Run programs
+bindsym $mod+Return exec xfce4-terminal
+bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
+bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
+bindsym $mod+i exec "xfce4-terminal --geometry 120x40 --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
+for_window [title="VIMTODO"] floating enable
+bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
+bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 
-mode trap {
-  bindsym a nop
-  bindsym b nop
-  bindsym c nop
-  bindsym d nop
-  bindsym e nop
-  bindsym f nop
-  bindsym g nop
-  bindsym h nop
-  bindsym i nop
-  bindsym j nop
-  bindsym k nop
-  bindsym l nop
-  bindsym m nop
-  bindsym n nop
-  bindsym o nop
-  bindsym p nop
-  bindsym q nop
-  bindsym r nop
-  bindsym s nop
-  bindsym t nop
-  bindsym u nop
-  bindsym v nop
-  bindsym w nop
-  bindsym x nop
-  bindsym y nop
-  bindsym z nop
-}
 
-# vim: expandtab ft=i3config
+# vim: ft=i3config
