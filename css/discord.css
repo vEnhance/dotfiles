@@ -1,3 +1,4 @@
 body {
-  filter: grayscale(95%) !important;
+	filter: grayscale(100%) contrast(3);
+	color: #efefef !important;
 }

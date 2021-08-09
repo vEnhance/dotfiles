@@ -25,6 +25,6 @@ Press Command/Ctrl+R in Caprine to see your changes.
 	--list-header-color: #222;
 	--blue: #0084ff;
 	--selected-conversation-background: linear-gradient(hsla(209, 110%, 45%, 0.9), hsla(209, 110%, 42%, 0.9));
-	filter: grayscale(90%);
+	filter: grayscale(95%) contrast(9);
 }
 
