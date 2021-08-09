@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grayscale Internet
 // @namespace    https://web.evanchen.cc/
-// @version      1.1.1
+// @version      1.1.2
 // @description  Turn things to black and white
 // @author       Evan Chen
 // @match        http://*/*
@@ -45,7 +45,6 @@
   const body = document.getElementsByTagName('body')[0];
 
   const oldbg = window.getComputedStyle(body, null).getPropertyValue("background-color");
-  console.log(oldbg);
   function getRGB(str){
     var match = str.match(/rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/);
     return match ? {
