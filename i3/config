@@ -396,7 +396,7 @@ exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
-bindsym $mod+i exec "xfce4-terminal --geometry 120x40 --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
+bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command vit --title=VIMTODO; task sync && killall -s USR1 py3status"
 for_window [title="VIMTODO"] floating enable
 bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
