@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grayscale Internet
 // @namespace    https://web.evanchen.cc/
-// @version      1.1.0
+// @version      1.1.1
 // @description  Turn things to black and white
 // @author       Evan Chen
 // @match        http://*/*
@@ -58,6 +58,6 @@
   const rgb = getRGB(oldbg);
   const avg = Math.round((rgb.red + rgb.green + rgb.blue) / 3) || 255;
   const elm = document.createElement('style');
-  elm.innerHTML = `html { filter: grayscale(100%) brightness(80%) contrast(9); background-color: rgb(${avg}, ${avg}, ${avg}) }`;
+  elm.innerHTML = `html { filter: grayscale(100%) brightness(80%) contrast(1.5); background-color: rgb(${avg}, ${avg}, ${avg}) }`;
   head.appendChild(elm);
 })();
