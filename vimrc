@@ -139,7 +139,7 @@ if filereadable("/bin/pacman")
 	let g:ale_echo_msg_error_str = 'E'
 	let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 	let g:ale_echo_msg_warning_str = 'W'
-	let g:ale_fix_on_save = 0
+	let g:ale_fix_on_save = 1
 	let g:ale_keep_list_window_open = 0
 	let g:ale_open_list = 0
 	let g:ale_python_mypy_enabled = 0
@@ -344,8 +344,6 @@ nnoremap <Leader>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") .
 nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 " fold by indent
 nnoremap <Leader>z :set foldmethod=indent<CR>
-" ALE Fix
-nnoremap <Leader>f :ALEFix<CR>
 " NerdTree
 nnoremap <silent> <leader>t :NERDTreeFocus<CR>
 
