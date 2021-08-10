@@ -72,6 +72,7 @@ if filereadable("/bin/pacman")
 	Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 	Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 	Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
+	Plug 'cespare/vim-toml',             { 'for' : 'toml' }
 	Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
 	Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
 	Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
