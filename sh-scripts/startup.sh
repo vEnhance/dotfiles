@@ -79,5 +79,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	i3-msg move workspace to "HDMI-0"
 fi
 
-pacman -Qen > ~/Sync/Misc/pacman/$(hostname).paclist
-pacman -Qem >> ~/Sync/Misc/pacman/$(hostname).paclist
+if [ -f /bin/pacman ]; then
+	pacman -Qqtten > ~/Sync/Backups/pacman/$(hostname).pacman.paclist
+	pacman -Qqttem >> ~/Sync/Backups/pacman/$(hostname).aur.paclist
+fi
