@@ -4,6 +4,7 @@
     "signature.target": "echo",
     "python.venvPath": "/home/evan/python-venvs/",
     "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.useLibraryCodeForTypes": true,
     "python.linting.mypyEnabled": false,
     "coc.preferences.rootPatterns": [
       "pyrightconfig.json",
