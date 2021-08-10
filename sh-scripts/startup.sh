@@ -80,6 +80,6 @@ if [ "$(hostname)" = ArchMajestic ]; then
 fi
 
 if [ -f /bin/pacman ]; then
-	pacman -Qqtten > ~/Sync/Backups/pacman/$(hostname).pacman.paclist
-	pacman -Qqttem >> ~/Sync/Backups/pacman/$(hostname).aur.paclist
+	pacman -Qqtten > ~/Backups/pacman/$(hostname).pacman.paclist
+	pacman -Qqttem >> ~/Backups/pacman/$(hostname).aur.paclist
 fi
