@@ -146,7 +146,7 @@ if filereadable("/bin/pacman")
 	let g:ale_python_mypy_enabled = 0
 	let g:ale_python_mypy_options = "--ignore-missing-imports"
 	let g:ale_set_balloon= 1
-	let g:ale_set_loclist = 0
+	let g:ale_set_loclist = 1
 	let g:ale_set_quickfix = 1
 	let g:ale_sign_column_always = 1
 	let g:ale_sign_error = '#'
