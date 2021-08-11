@@ -313,6 +313,9 @@ vnoremap <silent> <C-X> "+d
 " Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
+" Disable ex mode entirely
+nnoremap Q ;
+nnoremap ; :
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
 	\ call fzf#vim#grep(
@@ -438,6 +441,7 @@ set noshowmode " don't need mode shown if we have airline
 set number
 set omnifunc=ale#completion#OmniFunc
 set ruler      " show the cursor position all the time
+set scrolloff=7
 set shell=/bin/fish
 set shellslash
 set shiftwidth=2
