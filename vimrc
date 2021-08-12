@@ -392,7 +392,7 @@ function! EvanClose()
 		else
 			bdelete
 		endif
-	elseif expand('%:p') == '/tmp/__doc__'
+	elseif expand('%:l') == '__doc__'
 		bdelete
 	else
 		close
