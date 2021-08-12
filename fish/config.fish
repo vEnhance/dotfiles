@@ -145,6 +145,7 @@ alias gvim="gvim --servername ''"
 alias kitty="/bin/cat"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
+alias pdb='python -m pdb'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias trash='gio trash'
