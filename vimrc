@@ -44,6 +44,7 @@ if filereadable("/bin/pacman")
 	let g:EasyMotion_keys = "ueaohtnsid;qjkxbmwvz',.pyfgcrl/"
 	let g:far#source='rg'
 	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
+	let g:gitgutter_map_keys = 0
 	let g:gutentags_cache_dir = '~/.vim/tags/'
 	let g:gutentags_file_list_command = {
 		\ 'markers': {
@@ -175,6 +176,7 @@ if filereadable("/bin/pacman")
 
 	" Vim server
 	function StartServer()
+		if !empty(argv(1)) | return | endif
 		let l:target = expand('%:p')
 		let l:gitdir = FugitiveGitDir()
 		" Don't run the server check cases in certain cases
@@ -182,8 +184,8 @@ if filereadable("/bin/pacman")
 		if stridx(l:target, ".git") != -1 | return | endif
 		" If we find a server, offer to load there instead
 		if stridx(serverlist(), l:gitdir) != -1
-			let l:response = input("Open in existing server? (empty is yes) ", "")
-			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1 || empty(l:response)
+			let l:response = input("Open in existing server? (y/n) ", "")
+			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1
 				bdelete
 				call remote_send(l:gitdir, "<ESC>:vsplit " . l:target . "<CR>")
 				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p')) | quit | endif
@@ -268,6 +270,7 @@ function! NextIndent(exclusive, fwd, lowerlevel, skipblanks)
 		endif
 	endwhile
 endfunction
+
 " Moving back and forth between lines of same or lower indentation.
 nnoremap <silent> [u :call NextIndent(0, 0, 0, 1)<CR>
 nnoremap <silent> ]u :call NextIndent(0, 1, 0, 1)<CR>
@@ -301,10 +304,6 @@ nmap <silent> gr :vsplit<CR><Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
-" smart find and replace
-nnoremap <C-f> :Farr<CR>
-" write all buffers shortcut
-nnoremap <silent> ZW :wa<CR>
 " move page so that cursor is on 7th line
 nnoremap <silent> za zt7k7j
 " system clipboard
@@ -317,6 +316,7 @@ nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 " Disable ex mode entirely
 nmap Q <nop>
+" Don't need colon anymore
 nnoremap ; :
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
@@ -325,10 +325,6 @@ command! -bang -nargs=* BLinesExtra
 	\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
-" mixed list
-nnoremap <C-x><C-f> :CtrlPCurFile<CR>
-" recent history
-nnoremap <C-x><C-h> :CtrlPMRU<CR>
 " Easymotion
 nmap f <Plug>(easymotion-fl)
 nmap F <Plug>(easymotion-Fl)
@@ -348,59 +344,84 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " ------------------------------------------
-" CUSTOM LEADER KEYBINDINGS (SPACE BAR)
+" MINUS KEYBINDINGS
+" CTRL-W is too annoying to type, repurpose minus
 " ------------------------------------------
-" use space as leader key
-let mapleader = "\<Space>"
-let maplocalleader = ","
-nnoremap <Leader> <Nop>
+nnoremap -h <C-w>H
+nnoremap -l <C-w>L
+nnoremap -j <C-w>J
+nnoremap -k <C-w>K
+" rotate window layout
+nnoremap -a <C-w>a
+" split
+nnoremap -s <C-w>s
+" n for new; easier to reach than -v
+nnoremap -n <C-w>v
+" use WASD-like keys for quickly moving around windows
+" since the minus sign is on the right hand side
+nnoremap -o <C-w>h
+nnoremap -u <C-w>l
+nnoremap -. <C-w>k
+nnoremap -e <C-w>j
 
+nnoremap <silent> -r <C-w>v:CtrlPRoot<CR>
+nnoremap <silent> -m <C-w>v:CtrlPMRU<CR>
+nnoremap <silent> -c <C-w>v:CtrlPCurFile<CR>
+nnoremap <silent> -b <C-w>v:CtrlPBuffer<CR>
+nnoremap -w <C-w><C-w>
+
+" ------------------------------------------
+" SPACE BAR KEYBINDINGS
+" Not setting leader key because otherwise extensions mess with me
+" ------------------------------------------
 " LEADER KEY
 " ALE Details
-nnoremap <Leader>a :ALEDetail<CR>
+nnoremap <Space>a :ALEDetail<CR>
 " show syntax group
-nnoremap <Leader>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " e is for emulator
-nnoremap <Leader>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
+nnoremap <Space><CR> :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 " fold by indent
-nnoremap <Leader>z :set foldmethod=indent<CR>
+nnoremap <Space>z :set foldmethod=indent<CR>
 " NerdTree
-nnoremap <silent> <leader>t :NERDTreeFocus<CR>
+nnoremap <silent> <Space>t :NERDTreeFocus<CR>
+" write all
+nnoremap <silent> <Space>w :wa<CR>
+" smart find and replace
+nnoremap <silent> <Space>f :Farr<CR>
 
-" git main -> open in new tab, and show mini help (defined in fugitive.vim)
-nnoremap <Leader>G :Git<CR><C-W>T:call ShowFugitiveMiniHelp()<CR>
-nnoremap <Leader>gb :Git blame<CR>
-nnoremap <Leader>gd :Gdiffsplit<CR>
-nnoremap <Leader>gw :Gwrite<CR>
+" Ctrl P
+nnoremap <silent> <Space>r :CtrlPRoot<CR>
+nnoremap <silent> <Space>m :CtrlPMRU<CR>
+nnoremap <silent> <Space>c :CtrlPCurFile<CR>
+nnoremap <silent> <Space>b :CtrlPBuffer<CR>
+
+" git status
+nnoremap <Space>s :Git<CR><C-W>T:call ShowFugitiveMiniHelp()<CR>
+" other git commands
+nnoremap <Space>gb :Git blame<CR>
+nnoremap <Space>gd :Gdiffsplit<CR>
+nnoremap <Space>gw :Gwrite<CR>
 " git commit (current file)
-nnoremap <Leader>gc :Git commit %<CR>
+nnoremap <Space>gc :Git commit %<CR>
 " git commit all
-nnoremap <Leader>ga :Git commit --all<CR>
+nnoremap <Space>ga :Git commit --all<CR>
 " git create commit --amend [edit commit]
-nnoremap <Leader>gec :Git commit --amend<CR>
+nnoremap <Space>gec :Git commit --amend<CR>
 " git commit --amend current file [edit write]
-nnoremap <Leader>gew :Git commit % --amend<CR>
+nnoremap <Space>gew :Git commit % --amend<CR>
 " git commit --amend all [edit all]
-nnoremap <Leader>gea :Git commit --all --amend<CR>
+nnoremap <Space>gea :Git commit --all --amend<CR>
 " git undo (really git read)
-nnoremap <Leader>gu :Gread<CR>
-
-" Buffer
-nnoremap <Leader>1 :b 1<CR>
-nnoremap <Leader>2 :b 2<CR>
-nnoremap <Leader>3 :b 3<CR>
-nnoremap <Leader>4 :b 4<CR>
-nnoremap <Leader>5 :b 5<CR>
-nnoremap <Leader>6 :b 6<CR>
-nnoremap <Leader>7 :b 7<CR>
-nnoremap <Leader>8 :b 8<CR>
-nnoremap <Leader>9 :b 9<CR>
-nnoremap <Leader>0 :b 10<CR>
+nnoremap <Space>gu :Gread<CR>
 
 " Replacement for :q that is smarter
 function! EvanClose()
+	if &modifiable
+		write
+	endif
 	if winnr('$') == 1
 		if tabpagenr('$') == 1
 			bdelete
@@ -416,7 +437,8 @@ function! EvanClose()
 		close
 	endif
 endfunction
-nnoremap <Leader>- :call EvanClose()<CR>
+nnoremap <Space>- :call EvanClose()<CR>
+
 
 " Leader keys that are forced on me by LaTeX
 " <Leader>ll -> pdflatex compile
@@ -498,5 +520,7 @@ endfunction
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
+
+let maplocalleader = ","
 
 " vim: ft=vim
