@@ -47,6 +47,8 @@ mkdir -p ~/.vit
 ln -s ~/dotfiles/vit-config.ini ~/.vit/config.ini
 mkdir -p ~/.config/gtk-3.0
 ln -s ~/dotfiles/gtk3-config.ini ~/.config/gtk-3.0/settings.ini
+mkdir -p ~/.config/xfce4/
+ln -s ~/dotfiles/terminal ~/.config/xfce4/terminal
 
 # vim
 mkdir -p ~/.vim/tmp/
