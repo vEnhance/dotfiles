@@ -20,26 +20,25 @@ class VenueNode:
 			parent: Optional['VenueNode'] = None,
 			root_path: Optional[Path] = None,
 			):
-		self.name = data.pop(VENUE_NAME_FIELD, None)
 
+		self.name = self.get_name(data)
 		if parent is not None:
 			self.parent = parent
-			# linked by ref, which is what we want i think
-			self.lookup = self.parent.lookup
 			self.root_path = self.parent.root_path
+			# vv linked by ref, which is what we want i think
+			self.lookup = self.parent.lookup
 		else:
 			self.parent = self
-			self.lookup = {self.pk : self}
 			assert root_path is not None
 			self.root_path = root_path
+			self.lookup = {self.pk : self}
 		self.lookup[self.pk] = self
 		if not self.directory.exists():
 			self.mkdir()
 		self.data = self.get_initial_data()
 		self.update_by_dictionary(data)
-		self.dump()
+		self.save()
 	def update_by_dictionary(self, data: Data):
-		self.name = data.pop(VENUE_NAME_FIELD, '')
 		children_dicts = data.pop(VENUE_CHILDREN_FIELD, None)
 		if children_dicts is not None:
 			self.is_directory = True
@@ -49,7 +48,7 @@ class VenueNode:
 				# only to see if it exists already
 				cls = self.get_class_for_child(child_dict)
 				node = cls(data = child_dict, parent = self)
-				if not node.pk in self.lookup:
+				if node.pk not in self.lookup:
 					self.lookup[node.pk] = node
 				else:
 					self.lookup[node.pk].update_by_dictionary(child_dict)
@@ -97,7 +96,7 @@ class VenueNode:
 			self.directory.mkdir()
 	def save(self):
 		self.mkdir()
-		return self.path.write_text(self.dump())
+		self.path.write_text(self.dump())
 	def read(self):
 		return self.path.read_text()
 	@property
@@ -110,13 +109,13 @@ class VenueNode:
 	def __str__(self) -> str:
 		return pformat(self.debug_dict)
 
-	def get_class_for_child(self, child_dict: Data) -> type:
-		"""Gets the class type for child dictionaries"""
+	def get_class_for_child(self, data: Data) -> type:
+		"""Gets the class type for child dictionaries in terms of initial data."""
 		return type(self)
 
-	def get_name(self) -> str:
-		"""Gets the name of the node"""
-		return self.data.get(VENUE_NAME_FIELD, str(id(self)))
+	def get_name(self, data: Data) -> str:
+		"""Gets the name of the node in terms of initial data."""
+		return data.get(VENUE_NAME_FIELD, str(id(self)))
 
 	def load(self):
 		"""This method loads a dictionary object from disk.
