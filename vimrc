@@ -41,7 +41,7 @@ if filereadable("/bin/pacman")
 	let g:ctrlp_map = '<c-b>'
 	let g:ctrlp_max_files = 0
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:EasyMotion_keys = "ueaohtnsid;qjkxbmwvz',.pyfgcrl/"
+	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
 	let g:far#source='rg'
 	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
 	let g:gitgutter_map_keys = 0
@@ -347,22 +347,22 @@ map g/ <Plug>(incsearch-stay)
 " MINUS KEYBINDINGS
 " CTRL-W is too annoying to type, repurpose minus
 " ------------------------------------------
-nnoremap -h <C-w>H
-nnoremap -l <C-w>L
-nnoremap -j <C-w>J
-nnoremap -k <C-w>K
-" rotate window layout
-nnoremap -a <C-w>a
+nnoremap -h <C-w>h
+nnoremap -l <C-w>l
+nnoremap -j <C-w>j
+nnoremap -k <C-w>k
 " split
 nnoremap -s <C-w>s
 " n for new; easier to reach than -v
 nnoremap -n <C-w>v
-" use WASD-like keys for quickly moving around windows
+" use WASD-like keys for quickly shoving around windows
 " since the minus sign is on the right hand side
-nnoremap -o <C-w>h
-nnoremap -u <C-w>l
-nnoremap -. <C-w>k
-nnoremap -e <C-w>j
+nnoremap -o <C-w>H
+nnoremap -u <C-w>L
+nnoremap -. <C-w>K
+nnoremap -e <C-w>J
+" maximize window
+nnoremap -a <C-w>o
 
 nnoremap <silent> -r <C-w>v:CtrlPRoot<CR>
 nnoremap <silent> -m <C-w>v:CtrlPMRU<CR>
@@ -419,9 +419,6 @@ nnoremap <Space>gu :Gread<CR>
 
 " Replacement for :q that is smarter
 function! EvanClose()
-	if &modifiable
-		write
-	endif
 	if winnr('$') == 1
 		if tabpagenr('$') == 1
 			bdelete
