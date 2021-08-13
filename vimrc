@@ -41,7 +41,7 @@ if filereadable("/bin/pacman")
 	let g:ctrlp_map = '<c-b>'
 	let g:ctrlp_max_files = 0
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
+	let g:EasyMotion_keys = "ueaohtnsid;qjkxbmwvz',.pyfgcrl/"
 	let g:far#source='rg'
 	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
 	let g:gutentags_cache_dir = '~/.vim/tags/'
@@ -326,7 +326,7 @@ command! -bang -nargs=* BLinesExtra
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
 " mixed list
-nnoremap <C-x><C-f> :CtrlP<CR>
+nnoremap <C-x><C-f> :CtrlPCurFile<CR>
 " recent history
 nnoremap <C-x><C-h> :CtrlPMRU<CR>
 " Easymotion
@@ -447,6 +447,7 @@ set guifont=Monospace\ 11
 set hidden
 set history=50 " keep 50 lines of command line history
 set hlsearch
+set ignorecase
 set incsearch  " do incremental searching
 set laststatus=2
 set linebreak
@@ -465,6 +466,7 @@ set shellslash
 set shiftwidth=2
 set showbreak=_
 set showcmd    " display incomplete commands
+set smartcase
 set spell
 set splitright
 set t_Co=256
