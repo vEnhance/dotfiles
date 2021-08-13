@@ -19,16 +19,17 @@ class VenueNode:
 			parent: Optional['VenueNode'] = None,
 			root_path: Optional[Path] = None,
 			):
-		assert parent is not None or root_path is not None
 		self.name = data.pop(VENUE_NAME_FIELD, None)
-		self.root_path = root_path
 
 		if parent is not None:
 			self.parent = parent
 			self.lookup = self.parent.lookup # linked by ref, which is what we want i think
+			self.root_path = self.parent.root_path
 		else:
 			self.parent = self
 			self.lookup = {self.pk : self}
+			assert root_path is not None
+			self.root_path = root_path
 		self.lookup[self.pk] = self
 		if not self.directory.exists():
 			self.mkdir()
@@ -42,8 +43,14 @@ class VenueNode:
 			self.is_directory = True
 			child_dict: Dict[str, Any]
 			for child_dict in children_dicts:
+				# this is pretty expensive to recreate the object
+				# only to see if it exists already
 				cls = self.get_class_for_child(child_dict)
 				node = cls(data = child_dict, parent = self)
+				if not node.pk in self.lookup:
+					self.lookup[node.pk] = node
+				else:
+					self.lookup[node.pk].update_by_dictionary(child_dict)
 		self.data.update(data)
 		self.process_data()
 
@@ -104,7 +111,7 @@ class VenueNode:
 	def get_class_for_child(self, child_dict: Dict[str, Any]) -> type:
 		"""Gets the class type for child dictionaries"""
 		return type(self)
-	
+
 	def get_name(self) -> str:
 		"""Gets the name of the node"""
 		return self.data.get(VENUE_NAME_FIELD, str(id(self)))
