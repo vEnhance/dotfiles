@@ -168,7 +168,6 @@ nnoremap <localleader>v :lcd /tmp/preview_$USER<CR>:silent !xfce4-terminal -e "l
 nmap <localleader>s :call SyncTexForward()
 
 set cole=2
-
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
