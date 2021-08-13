@@ -154,13 +154,6 @@ alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 #gd ubuntu
 alias pip='pip3'
-function python
-	if test -z "$argv"
-		ipython3
-	else
-		python3 $argv
-	end
-end
 alias pudb='pudb3'
 
 alias demacro='/usr/bin/python2 ~/dotfiles/py-scripts/demacro.py'
