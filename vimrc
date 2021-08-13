@@ -15,6 +15,7 @@ if filereadable("/bin/pacman")
 	Plug 'aymericbeaumet/vim-symlink'
 	Plug 'brooth/far.vim'
 	Plug 'FelikZ/ctrlp-py-matcher'
+	Plug 'haya14busa/incsearch.vim'
 	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
 	Plug 'ludovicchabant/vim-gutentags'
@@ -315,7 +316,7 @@ vnoremap <silent> <C-X> "+d
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 " Disable ex mode entirely
-nnoremap Q ;
+nmap Q <nop>
 nnoremap ; :
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
@@ -325,10 +326,26 @@ command! -bang -nargs=* BLinesExtra
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
 " mixed list
-nnoremap <C-x><C-f> :CtrlPMixed<CR>
-" switch buffers
-nnoremap <C-x><C-t> :CtrlPBuffer<CR>
-map <bslash> <Plug>(easymotion-prefix)
+nnoremap <C-x><C-f> :CtrlP<CR>
+" recent history
+nnoremap <C-x><C-h> :CtrlPMRU<CR>
+" Easymotion
+nmap f <Plug>(easymotion-fl)
+nmap F <Plug>(easymotion-Fl)
+nmap cf c<Plug>(easymotion-fl)
+nmap cF c<Plug>(easymotion-Fl)
+nmap df d<Plug>(easymotion-fl)
+nmap dF d<Plug>(easymotion-Fl)
+nmap t <Plug>(easymotion-tl)
+nmap T <Plug>(easymotion-Tl)
+nmap ct c<Plug>(easymotion-tl)
+nmap cT c<Plug>(easymotion-Tl)
+nmap dt d<Plug>(easymotion-tl)
+nmap dT d<Plug>(easymotion-Tl)
+" incsearch
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
 
 " ------------------------------------------
 " CUSTOM LEADER KEYBINDINGS (SPACE BAR)
