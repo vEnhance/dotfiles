@@ -51,6 +51,7 @@ if filereadable("/bin/pacman")
 		\ }
 	let g:indent_guides_auto_colors = 0
 	let g:indent_guides_enable_on_vim_startup = 1
+	let g:vimwiki_filetypes = ['markdown']
 	let g:yankring_history_dir = '$HOME/.cache/'
 	let grepprg = "ag --nogroup --nocolor"
 
