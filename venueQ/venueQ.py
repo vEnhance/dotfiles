@@ -6,6 +6,7 @@ import yaml
 
 VENUE_NAME_FIELD = '_name'
 VENUE_CHILDREN_FIELD = '_children'
+Data = Dict[str, Any]
 
 class VenueNode:
 	name: str = '' # name must be unique
@@ -15,7 +16,7 @@ class VenueNode:
 	is_directory = False
 
 	def __init__(self,
-			data: Dict[str, Any],
+			data: Data,
 			parent: Optional['VenueNode'] = None,
 			root_path: Optional[Path] = None,
 			):
@@ -23,7 +24,8 @@ class VenueNode:
 
 		if parent is not None:
 			self.parent = parent
-			self.lookup = self.parent.lookup # linked by ref, which is what we want i think
+			# linked by ref, which is what we want i think
+			self.lookup = self.parent.lookup
 			self.root_path = self.parent.root_path
 		else:
 			self.parent = self
@@ -36,12 +38,12 @@ class VenueNode:
 		self.data = self.get_initial_data()
 		self.update_by_dictionary(data)
 		self.dump()
-	def update_by_dictionary(self, data: Dict[str, Any]):
+	def update_by_dictionary(self, data: Data):
 		self.name = data.pop(VENUE_NAME_FIELD, '')
 		children_dicts = data.pop(VENUE_CHILDREN_FIELD, None)
 		if children_dicts is not None:
 			self.is_directory = True
-			child_dict: Dict[str, Any]
+			child_dict: Data
 			for child_dict in children_dicts:
 				# this is pretty expensive to recreate the object
 				# only to see if it exists already
@@ -76,12 +78,12 @@ class VenueNode:
 		del self.lookup[self.pk]
 		self.path.unlink()
 
-	def get_initial_data(self) -> Dict[str, Any]:
+	def get_initial_data(self) -> Data:
 		if self.path.exists():
 			return self.load()
 		else:
 			return self.get_default_data()
-	def get_default_data(self) -> Dict[str, Any]:
+	def get_default_data(self) -> Data:
 		return {}
 	def process_data(self):
 		pass
@@ -108,7 +110,7 @@ class VenueNode:
 	def __str__(self) -> str:
 		return pformat(self.debug_dict)
 
-	def get_class_for_child(self, child_dict: Dict[str, Any]) -> type:
+	def get_class_for_child(self, child_dict: Data) -> type:
 		"""Gets the class type for child dictionaries"""
 		return type(self)
 
