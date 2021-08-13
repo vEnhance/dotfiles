@@ -12,7 +12,7 @@ class VenueNode:
 	name: str = '' # name must be unique
 	parent: 'VenueNode'
 	root: 'VenueNode'
-	lookup: Dict[Path, 'VenueNode']
+	lookup: Dict[str, 'VenueNode']
 	is_directory = False
 
 	def __init__(self,
@@ -57,7 +57,7 @@ class VenueNode:
 
 	@property
 	def pk(self) -> Path:
-		return self.path.absolute()
+		return self.path.absolute().as_posix()
 	@property
 	def is_root(self) -> bool:
 		return self.parent is self
@@ -109,6 +109,8 @@ class VenueNode:
 	def __str__(self) -> str:
 		return pformat(self.debug_dict)
 
+	# Methods that the user overrides go below here
+
 	def get_class_for_child(self, data: Data) -> type:
 		"""Gets the class type for child dictionaries in terms of initial data."""
 		return type(self)
@@ -121,16 +123,20 @@ class VenueNode:
 		"""This method loads a dictionary object from disk.
 		Override it to change how the data on disk is interpreted."""
 		return yaml.load(self.read(), Loader=yaml.SafeLoader)
+
 	def dump(self):
 		"""This method serializes the dictionary object to save to disk.
 		Override it to change how the data on disk is interpreted."""
 		return yaml.dump(self.data)
 
-	def on_buffer_open(self):
+	def on_buffer_open(self, data: Data):
 		"""This method is called when the buffer is loaded.
+		This is called with an argument data = self.load().
 		Override this to perform actions."""
-		self.data.update(self.load())
-	def on_buffer_exit(self):
+		pass
+
+	def on_buffer_exit(self, data: Data):
 		"""This method is called when the disk data is edited and saved.
+		This is called with an argument data = self.load().
 		Override this to perform actions."""
-		self.data.update(self.load())
+		self.data.update(data)
