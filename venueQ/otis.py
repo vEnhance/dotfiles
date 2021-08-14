@@ -49,6 +49,7 @@ class ProblemSet(VenueQNode):
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 	def on_buffer_open(self, data: Data):
+		super().on_buffer_open(data)
 		url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
 		pdf_response = requests.get(url=url)
 		def clean(key) -> str:
@@ -63,11 +64,11 @@ class ProblemSet(VenueQNode):
 		pdf_target_path = Path(f"/tmp/otis_{pdf_name}.pdf")
 		pdf_target_path.write_bytes(pdf_response.content)
 		os.system(f'zathura "{pdf_target_path.as_posix()}"&')
-	def on_buffer_exit(self, data: Data):
+	def on_buffer_close(self, data: Data):
 		if data['approved']:
 			requests.post(DASHBOARD_API_URL, data = data)
 		else:
-			super().on_buffer_exit(data)
+			super().on_buffer_close(data)
 
 class ProblemSetCarrier(VenueQNode):
 	def get_class_for_child(self, _: Data):
@@ -101,7 +102,11 @@ if __name__ == "__main__":
 			url = DASHBOARD_API_URL,
 			data = {'token' : TOKEN}
 			)
-	otis = OTISRoot(otis_response.json(), root_path = Path('trial'))
-	pset1 = otis.lookup[Path('trial/Root/Problem sets/1.yaml').absolute().as_posix()]
-	print(pset1.data)
+
+	otis_dir = Path('/tmp/otis')
+	if not otis_dir.exists():
+		otis_dir.mkdir()
+	ROOT_NODE = OTISRoot(otis_response.json(), root_path = otis_dir)
+	# pset1 = otis.lookup[Path('trial/Root/Problem sets/1.venueQ.yaml').absolute().as_posix()]
+	# print(pset1.data)
 	# pset1.on_buffer_open(pset1.load())

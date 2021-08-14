@@ -4,9 +4,18 @@ from typing import Any, Dict, Optional
 
 import yaml
 
+try:
+	import vim  # type: ignore
+
+except ImportError:
+	VIM_ENABLED = False
+else:
+	VIM_ENABLED = True
+
 VENUE_NAME_FIELD = '_name'
 VENUE_CHILDREN_FIELD = '_children'
 Data = Dict[str, Any]
+
 
 class VenueQNode:
 	name: str = '' # name must be unique
@@ -54,6 +63,21 @@ class VenueQNode:
 					self.lookup[node.pk].update_by_dictionary(child_dict)
 		self.data.update(data)
 		self.process_data()
+	def get_initial_data(self) -> Data:
+		if self.path.exists():
+			return self.load()
+		else:
+			return self.get_default_data()
+
+	def temp_path(self, extension: str, name: str = None):
+		return Path(f'/tmp/{name or self.name}.venueQ.{extension}')
+	def write_temp(self, extension: str, name: str = None):
+		if VIM_ENABLED:
+			vim.command(f":split {self.temp_path(extension, name)}")
+		else:
+			raise NotImplementedError
+	def read_temp(self, extension: str, name: str = None):
+		return self.temp_path(extension, name).read_text()
 
 	@property
 	def pk(self) -> str:
@@ -72,22 +96,10 @@ class VenueQNode:
 		return self.directory \
 				/ f'{self.name}.{self.get_extension()}'
 	def __eq__(self, other) -> bool:
-		return self.pk.samefile(other.pk)
+		return self.pk == other.pk
 	def delete(self):
 		del self.lookup[self.pk]
 		self.path.unlink()
-
-	def get_initial_data(self) -> Data:
-		if self.path.exists():
-			return self.load()
-		else:
-			return self.get_default_data()
-	def get_default_data(self) -> Data:
-		return {}
-	def process_data(self):
-		pass
-	def get_extension(self) -> str:
-		return 'yaml'
 
 	def mkdir(self):
 		if not self.parent.directory.exists() and not self.is_root:
@@ -99,6 +111,7 @@ class VenueQNode:
 		self.path.write_text(self.dump())
 	def read(self):
 		return self.path.read_text()
+
 	@property
 	def debug_dict(self) -> Dict[str, Any]:
 		d: Dict[str, Any] = self.data
@@ -109,7 +122,20 @@ class VenueQNode:
 	def __str__(self) -> str:
 		return pformat(self.debug_dict)
 
+	def open_in_vim(self):
+		if VIM_ENABLED:
+			vim.command(f":e {self.path}")
+
 	# Methods that the user overrides go below here
+
+	def get_default_data(self) -> Data:
+		return {}
+	def process_data(self):
+		""""Post update hook called each time this node has its dictionary updated"""
+		pass
+	def get_extension(self) -> str:
+		"""Returns the file extension for these venueQ nodes"""
+		return 'venueQ.yaml'
 
 	def get_class_for_child(self, data: Data) -> type:
 		"""Gets the class type for child dictionaries in terms of initial data."""
@@ -135,7 +161,7 @@ class VenueQNode:
 		Override this to perform actions."""
 		pass
 
-	def on_buffer_exit(self, data: Data):
+	def on_buffer_close(self, data: Data):
 		"""This method is called when the disk data is edited and saved.
 		This is called with an argument data = self.load().
 		Override this to perform actions."""
