@@ -1,6 +1,6 @@
 " venueQ.vim
 
-set cmdheight=3
+set cmdheight=1
 
 py3 << EOF
 import sys
@@ -15,24 +15,28 @@ def onVenueBuffer(func_name: str):
 			getattr(node, func_name)(node.load())
 	else:
 		print(f"The file {pk} is not tracked by Venue")
+
+def setup():
+	assert ROOT_NODE is not None, "ROOT_NODE should be set by now"
+	vim.command(f'cd {ROOT_NODE.directory.absolute().as_posix()}')
+	vim.command(f'edit {ROOT_NODE.path.absolute().as_posix()}')
 EOF
 
-" Add the path to venueQ.py before this execution
-exec "py3 sys.path.append('" . expand('<sfile>:p:h') . "')"
-exec "py3file " . argv(0)
 
-py3 << EOF
-assert ROOT_NODE is not None, "ROOT_NODE should be set by now"
-# print(ROOT_NODE.directory)
-vim.command(f'cd {ROOT_NODE.directory.absolute().as_posix()}')
-vim.command(f'edit {ROOT_NODE.path.absolute().as_posix()}')
-EOF
+if !empty(get(g:, 'venue_entry', ''))
+	" Add the path to venueQ.py before this execution
+	exec "py3 sys.path.append('" . expand('<sfile>:p:h') . "')"
+	exec "py3file " . g:venue_entry
+	py3 setup()
 
-augroup venueQ
-	au BufReadPost *.venueQ.* py3 onVenueBuffer("on_buffer_open")
-	au BufUnload *.venueQ.* py3 onVenueBuffer("on_buffer_close")
-augroup END
+	augroup venueQ
+		au BufReadPost *.venueQ.* py3 onVenueBuffer("on_buffer_open")
+		au BufUnload *.venueQ.* py3 onVenueBuffer("on_buffer_close")
+	augroup END
 
-if get(g:, 'loaded_nerd_tree', 0)
-	NERDTreeFocus
+	if get(g:, 'loaded_nerd_tree', 0)
+		NERDTreeFocus
+	endif
+else
+	echo "g:venue_entry is not set"
 endif

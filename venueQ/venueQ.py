@@ -46,6 +46,7 @@ class VenueQNode:
 			self.mkdir()
 		self.data = self.get_initial_data()
 		self.update_by_dictionary(data)
+		self.init_hook()
 		self.save()
 	def update_by_dictionary(self, data: Data):
 		children_dicts = data.pop(VENUE_CHILDREN_FIELD, None)
@@ -70,14 +71,16 @@ class VenueQNode:
 			return self.get_default_data()
 
 	def temp_path(self, extension: str, name: str = None):
-		return Path(f'/tmp/{name or self.name}.venueQ.{extension}')
+		return self.directory / f'{name or self.name}.tmp.{extension}'
 	def edit_temp(self, extension: str, name: str = None):
 		if VIM_ENABLED:
 			vim.command(f":split {self.temp_path(extension, name)}")
 		else:
 			raise NotImplementedError
 	def read_temp(self, extension: str, name: str = None):
-		return self.temp_path(extension, name).read_text()
+		text = self.temp_path(extension, name).read_text()
+		self.temp_path(extension, name).unlink()
+		return text
 
 	@property
 	def pk(self) -> str:
@@ -130,6 +133,9 @@ class VenueQNode:
 
 	def get_default_data(self) -> Data:
 		return {}
+	def init_hook(self):
+		"""Hook called just before saving data each time the node is initialized"""
+		pass
 	def process_data(self):
 		""""Post update hook called each time this node has its dictionary updated"""
 		pass
