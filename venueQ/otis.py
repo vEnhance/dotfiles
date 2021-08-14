@@ -105,5 +105,3 @@ if __name__ == "__main__":
 	pset1 = otis.lookup[Path('trial/Root/Problem sets/1.yaml').absolute().as_posix()]
 	print(pset1.data)
 	# pset1.on_buffer_open(pset1.load())
-
-# vim: ft=venue.python

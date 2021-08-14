@@ -56,7 +56,7 @@ class VenueQNode:
 		self.process_data()
 
 	@property
-	def pk(self) -> Path:
+	def pk(self) -> str:
 		return self.path.absolute().as_posix()
 	@property
 	def is_root(self) -> bool:
