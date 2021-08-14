@@ -400,7 +400,7 @@ nnoremap <silent> <Space>c :CtrlPCurFile<CR>
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
 
 " git status
-nnoremap <Space>s :Git<CR><C-W>T:call ShowFugitiveMiniHelp()<CR>
+nnoremap <Space>s :Git<CR>
 " other git commands
 nnoremap <Space>gb :Git blame<CR>
 nnoremap <Space>gd :Gdiffsplit<CR>
