@@ -8,16 +8,16 @@ VENUE_NAME_FIELD = '_name'
 VENUE_CHILDREN_FIELD = '_children'
 Data = Dict[str, Any]
 
-class VenueNode:
+class VenueQNode:
 	name: str = '' # name must be unique
-	parent: 'VenueNode'
-	root: 'VenueNode'
-	lookup: Dict[str, 'VenueNode']
+	parent: 'VenueQNode'
+	root: 'VenueQNode'
+	lookup: Dict[str, 'VenueQNode']
 	is_directory = False
 
 	def __init__(self,
 			data: Data,
-			parent: Optional['VenueNode'] = None,
+			parent: Optional['VenueQNode'] = None,
 			root_path: Optional[Path] = None,
 			):
 

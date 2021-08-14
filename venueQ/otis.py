@@ -10,7 +10,7 @@ from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-from venueQ import Data, VenueNode
+from venueQ import Data, VenueQNode
 
 
 def send_email(subject, recipient, body):
@@ -41,7 +41,7 @@ load_dotenv()
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
 DASHBOARD_API_URL = 'https://otis.evanchen.cc/dash/api/'
 
-class ProblemSet(VenueNode):
+class ProblemSet(VenueQNode):
 	def get_initial_data(self) -> Data:
 		return {
 				'action' : 'grade_problem_set',
@@ -69,23 +69,23 @@ class ProblemSet(VenueNode):
 		else:
 			super().on_buffer_exit(data)
 
-class ProblemSetCarrier(VenueNode):
+class ProblemSetCarrier(VenueQNode):
 	def get_class_for_child(self, _: Data):
 		return ProblemSet
 
-class Inquiries(VenueNode):
+class Inquiries(VenueQNode):
 	pass
 
-class Suggestion(VenueNode):
+class Suggestion(VenueQNode):
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 	pass
 
-class SuggestionCarrier(VenueNode):
+class SuggestionCarrier(VenueQNode):
 	def get_class_for_child(self, _: Data):
 		return Suggestion
 
-class OTISRoot(VenueNode):
+class OTISRoot(VenueQNode):
 	def get_class_for_child(self, child_dict: Data):
 		if child_dict['_name'] == 'Problem sets':
 			return ProblemSetCarrier
