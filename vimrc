@@ -318,6 +318,7 @@ nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 nmap Q <nop>
 " Don't need colon anymore
 nnoremap ; :
+nnoremap <Enter> ;
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
 	\ call fzf#vim#grep(
