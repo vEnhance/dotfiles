@@ -1,3 +1,5 @@
+*fugmap.txt* Fugitive mappings
+
 Staging/unstaging maps ~
 *fugitive_s* Stage (add) the file or hunk under the cursor.
 *fugitive_u* Unstage (reset) the file or hunk under the cursor.

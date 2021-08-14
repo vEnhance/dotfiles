@@ -58,6 +58,7 @@ ln -s ~/dotfiles/vim/after/ftplugin ~/.vim/after/ftplugin
 ln -s ~/dotfiles/vim/autoload ~/.vim/autoload
 ln -s ~/dotfiles/vim/colors ~/.vim/colors
 ln -s ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
+ln -s ~/dotfiles/vim/doc ~/.vim/doc
 mkdir ~/dotfiles/vim/spell
 ln -s ~/dotfiles/vim/spell ~/.vim/spell
 
