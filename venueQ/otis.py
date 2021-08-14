@@ -1,11 +1,41 @@
 import os
+import smtplib
+import ssl
 import string
+import subprocess
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pathlib import Path
 
 import requests
 from dotenv import load_dotenv
 
 from venueQ import Data, VenueNode
+
+
+def send_email(subject, recipient, body):
+	mail = MIMEMultipart('alternative')
+	mail['From'] = 'Evan Chen, OTIS Overlord <evan@evanchen.cc>'
+	mail['To'] = recipient
+	mail['Subject'] = subject
+	subprocess.run(['python',
+			Path('~/dotfiles/mutt/mutt-markdown.py').expanduser().absolute().as_posix()],
+		input = body,
+		text = True,
+		)
+	html_msg = Path('/tmp/neomutt-alternative.html').read_text()
+	mail.attach(MIMEText(body, 'plain'))
+	mail.attach(MIMEText(html_msg, 'html'))
+
+	password = subprocess.run(
+			['secret-tool', 'lookup', 'user', 'evanchen.mit', 'type', 'gmail'],
+			text = True, capture_output = True
+			).stdout
+
+	session = smtplib.SMTP('smtp.gmail.com', 587)
+	session.starttls(context = ssl.create_default_context())
+	session.login('evanchen.mit@gmail.com', password)
+	session.sendmail('evan@evanchen.cc', recipient, mail.as_string())
 
 load_dotenv()
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
