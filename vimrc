@@ -326,18 +326,19 @@ command! -bang -nargs=* BLinesExtra
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
 " Easymotion
-nmap f <Plug>(easymotion-fl)
-nmap F <Plug>(easymotion-Fl)
-nmap cf c<Plug>(easymotion-fl)
-nmap cF c<Plug>(easymotion-Fl)
-nmap df d<Plug>(easymotion-fl)
-nmap dF d<Plug>(easymotion-Fl)
-nmap t <Plug>(easymotion-tl)
-nmap T <Plug>(easymotion-Tl)
-nmap ct c<Plug>(easymotion-tl)
-nmap cT c<Plug>(easymotion-Tl)
-nmap dt d<Plug>(easymotion-tl)
-nmap dT d<Plug>(easymotion-Tl)
+" these didn't really work out for me
+" nmap f <Plug>(easymotion-fl)
+" nmap F <Plug>(easymotion-Fl)
+" nmap cf c<Plug>(easymotion-fl)
+" nmap cF c<Plug>(easymotion-Fl)
+" nmap df d<Plug>(easymotion-fl)
+" nmap dF d<Plug>(easymotion-Fl)
+" nmap t <Plug>(easymotion-tl)
+" nmap T <Plug>(easymotion-Tl)
+" nmap ct c<Plug>(easymotion-tl)
+" nmap cT c<Plug>(easymotion-Tl)
+" nmap dt d<Plug>(easymotion-tl)
+" nmap dT d<Plug>(easymotion-Tl)
 " incsearch
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
