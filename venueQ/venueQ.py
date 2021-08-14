@@ -71,7 +71,7 @@ class VenueQNode:
 
 	def temp_path(self, extension: str, name: str = None):
 		return Path(f'/tmp/{name or self.name}.venueQ.{extension}')
-	def write_temp(self, extension: str, name: str = None):
+	def edit_temp(self, extension: str, name: str = None):
 		if VIM_ENABLED:
 			vim.command(f":split {self.temp_path(extension, name)}")
 		else:

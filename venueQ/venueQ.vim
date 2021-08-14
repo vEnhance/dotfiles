@@ -1,5 +1,7 @@
 " venueQ.vim
 
+set cmdheight=3
+
 py3 << EOF
 import sys
 from pathlib import Path

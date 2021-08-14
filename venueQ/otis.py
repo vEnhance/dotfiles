@@ -37,9 +37,13 @@ def send_email(subject, recipient, body):
 	session.login('evanchen.mit@gmail.com', password)
 	session.sendmail('evan@evanchen.cc', recipient, mail.as_string())
 
-load_dotenv()
+load_dotenv(Path(__file__).parent / '.env')
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
-DASHBOARD_API_URL = 'https://otis.evanchen.cc/dash/api/'
+PRODUCTION = os.getenv('IS_PRODUCTION', False)
+if PRODUCTION:
+	DASHBOARD_API_URL = 'https://otis.evanchen.cc/dash/api/'
+else:
+	DASHBOARD_API_URL = 'http://127.0.0.1:8000/dash/api/'
 
 class ProblemSet(VenueQNode):
 	def get_initial_data(self) -> Data:
@@ -50,8 +54,6 @@ class ProblemSet(VenueQNode):
 		return str(data['pk'])
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
-		url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
-		pdf_response = requests.get(url=url)
 		def clean(key) -> str:
 			return ''.join(c for c in data[key] if c in string.ascii_letters)
 		pdf_name = \
@@ -62,11 +64,27 @@ class ProblemSet(VenueQNode):
 				+ '-' \
 				+ clean('unit__group__name')
 		pdf_target_path = Path(f"/tmp/otis_{pdf_name}.pdf")
-		pdf_target_path.write_bytes(pdf_response.content)
+		if not pdf_target_path.exists():
+			url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
+			pdf_response = requests.get(url=url)
+			pdf_target_path.write_bytes(pdf_response.content)
 		os.system(f'zathura "{pdf_target_path.as_posix()}"&')
+		self.edit_temp(extension = 'mkd')
 	def on_buffer_close(self, data: Data):
 		if data['approved']:
-			requests.post(DASHBOARD_API_URL, data = data)
+			comments_to_email = self.read_temp(extension = 'mkd')
+			try:
+				send_email("OTIS unit checked off",
+						recipient = data['student__user__email'],
+						body = comments_to_email)
+			except:
+				print("Email failed to send")
+			else:
+				print("Email sent")
+			resp = requests.post(DASHBOARD_API_URL, data = data)
+			if resp.status_code == 200:
+				print("Got a 200 response back from server")
+				self.delete()
 		else:
 			super().on_buffer_close(data)
 
@@ -103,7 +121,7 @@ if __name__ == "__main__":
 			data = {'token' : TOKEN}
 			)
 
-	otis_dir = Path('/tmp/otis')
+	otis_dir = Path('/tmp/otis') if IS_PRODUCTION else Path('/tmp/otis-debug')
 	if not otis_dir.exists():
 		otis_dir.mkdir()
 	ROOT_NODE = OTISRoot(otis_response.json(), root_path = otis_dir)
