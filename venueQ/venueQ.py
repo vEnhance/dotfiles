@@ -127,7 +127,7 @@ class VenueNode:
 	def dump(self):
 		"""This method serializes the dictionary object to save to disk.
 		Override it to change how the data on disk is interpreted."""
-		return yaml.dump(self.data)
+		return yaml.dump(self.data, indent = True, default_flow_style=False)
 
 	def on_buffer_open(self, data: Data):
 		"""This method is called when the buffer is loaded.

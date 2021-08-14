@@ -39,14 +39,18 @@ def send_email(subject, recipient, body):
 
 load_dotenv()
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
+DASHBOARD_API_URL = 'https://otis.evanchen.cc/dash/api/'
 
 class ProblemSet(VenueNode):
+	def get_initial_data(self) -> Data:
+		return {
+				'action' : 'grade_problem_set',
+				}
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 	def on_buffer_open(self, data: Data):
 		url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
 		pdf_response = requests.get(url=url)
-
 		def clean(key) -> str:
 			return ''.join(c for c in data[key] if c in string.ascii_letters)
 		pdf_name = \
@@ -56,11 +60,14 @@ class ProblemSet(VenueNode):
 				+ clean('unit__code') \
 				+ '-' \
 				+ clean('unit__group__name')
-		pdf_target_path = Path(f"/tmp/{pdf_name}.pdf")
+		pdf_target_path = Path(f"/tmp/otis_{pdf_name}.pdf")
 		pdf_target_path.write_bytes(pdf_response.content)
 		os.system(f'zathura "{pdf_target_path.as_posix()}"&')
 	def on_buffer_exit(self, data: Data):
-		super().on_buffer_exit(data)
+		if data['approved']:
+			requests.post(DASHBOARD_API_URL, data = data)
+		else:
+			super().on_buffer_exit(data)
 
 class ProblemSetCarrier(VenueNode):
 	def get_class_for_child(self, _: Data):
@@ -91,9 +98,12 @@ class OTISRoot(VenueNode):
 
 if __name__ == "__main__":
 	otis_response = requests.post(
-			url = 'https://otis.evanchen.cc/dash/api/',
+			url = DASHBOARD_API_URL,
 			data = {'token' : TOKEN}
 			)
 	otis = OTISRoot(otis_response.json(), root_path = Path('trial'))
 	pset1 = otis.lookup[Path('trial/Root/Problem sets/1.yaml').absolute().as_posix()]
-	pset1.on_buffer_open(pset1.load())
+	print(pset1.data)
+	# pset1.on_buffer_open(pset1.load())
+
+# vim: ft=venue.python
