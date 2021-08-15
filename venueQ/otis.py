@@ -10,7 +10,7 @@ from pathlib import Path
 import requests
 from dotenv import load_dotenv
 
-from venueQ import Data, VenueQNode, logger
+from venueQ import Data, VenueQNode, VenueQRoot, logger
 
 OTIS_PDF_PATH = Path('/tmp/otis-pdf')
 if not OTIS_PDF_PATH.exists():
@@ -121,7 +121,7 @@ class SuggestionCarrier(VenueQNode):
 	def get_class_for_child(self, _: Data):
 		return Suggestion
 
-class OTISRoot(VenueQNode):
+class OTISRoot(VenueQRoot):
 	def get_class_for_child(self, child_dict: Data):
 		if child_dict['_name'] == 'Problem sets':
 			return ProblemSetCarrier
@@ -141,4 +141,4 @@ if __name__ == "__main__":
 	otis_dir = Path('/tmp/otis') if PRODUCTION else Path('/tmp/otis-debug')
 	if not otis_dir.exists():
 		otis_dir.mkdir()
-	ROOT_NODE = OTISRoot(otis_response.json(), root_path = otis_dir)
+	ROOT_NODE = OTISRoot(otis_response.json(), root_dir = otis_dir)

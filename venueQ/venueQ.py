@@ -2,7 +2,7 @@ import logging
 import subprocess
 from pathlib import Path
 from pprint import pformat
-from typing import Any, Dict, Optional
+from typing import Any, Dict, List, Optional
 
 import yaml
 
@@ -42,31 +42,18 @@ if VIM_ENABLED:
 class VenueQNode:
 	name: str = '' # name must be unique
 	parent: 'VenueQNode'
-	root: 'VenueQNode'
-	lookup: Dict[str, 'VenueQNode']
+	root: 'VenueQRoot'
 	is_directory = False
+	is_root = False
 
-	def __init__(self,
-			data: Data,
-			parent: Optional['VenueQNode'] = None,
-			root_path: Optional[Path] = None,
-			):
-
+	def __init__(self, data: Data, parent: Optional['VenueQNode'] = None):
 		self.name = self.get_name(data)
-		if parent is not None:
-			self.parent = parent
-			self.root_path = self.parent.root_path
-			# vv linked by ref, which is what we want i think
-			self.lookup = self.parent.lookup
-		else:
-			logger.info(f"Setting root as {root_path}")
+		if parent is None:
 			self.parent = self
-			assert root_path is not None
-			self.root_path = root_path
-			self.lookup = {self.pk : self}
-		self.lookup[self.pk] = self
-		if not self.directory.exists():
-			self.mkdir()
+			assert self.is_root
+		else:
+			self.parent = parent
+			self.root = parent.root
 		self.data = self.get_initial_data()
 		self.update_by_dictionary(data)
 		self.init_hook()
@@ -81,10 +68,10 @@ class VenueQNode:
 				# only to see if it exists already
 				cls = self.get_class_for_child(child_dict)
 				node = cls(data = child_dict, parent = self)
-				if node.pk not in self.lookup:
-					self.lookup[node.pk] = node
+				if node.pk not in self.root.lookup:
+					self.root.lookup[node.pk] = node
 				else:
-					self.lookup[node.pk].update_by_dictionary(child_dict)
+					self.root.lookup[node.pk].update_by_dictionary(child_dict)
 		self.data.update(data)
 		self.process_data()
 	def get_initial_data(self) -> Data:
@@ -92,7 +79,6 @@ class VenueQNode:
 			return self.load()
 		else:
 			return self.get_default_data()
-
 	def temp_path(self, extension: str, name: str = None):
 		return self.directory / f'{name or self.name}.tmp.{extension}'
 	def edit_temp(self, extension: str, name: str = None):
@@ -102,19 +88,16 @@ class VenueQNode:
 			subprocess.run(['vim', self.temp_path(extension, name)], shell = True)
 	def read_temp(self, extension: str, name: str = None):
 		text = self.temp_path(extension, name).read_text()
-		self.temp_path(extension, name).unlink()
+		self.root.queue_wipe(self.temp_path(extension, name))
 		return text
 
 	@property
 	def pk(self) -> str:
 		return self.path.absolute().as_posix()
 	@property
-	def is_root(self) -> bool:
-		return self.parent is self
-	@property
 	def directory(self) -> Path:
 		if self.is_root:
-			return self.root_path
+			return self.root.root_dir
 		else:
 			return self.parent.directory / self.parent.name
 	@property
@@ -124,10 +107,10 @@ class VenueQNode:
 	def __eq__(self, other) -> bool:
 		return self.pk == other.pk
 	def delete(self):
-		self.path.unlink()
-		del self.lookup[self.pk]
+		self.root.queue_wipe(self.path)
+		del self.root.lookup[self.pk]
 	def mkdir(self):
-		if not self.parent.directory.exists() and not self.is_root:
+		if not self.parent.directory.exists():
 			self.parent.mkdir()
 		if not self.directory.exists():
 			self.directory.mkdir()
@@ -194,3 +177,34 @@ class VenueQNode:
 		This is called with an argument data = self.load().
 		Override this to perform actions."""
 		self.data.update(data)
+
+class VenueQRoot(VenueQNode):
+	is_root = True
+	lookup: Dict[str, 'VenueQNode']
+
+	def __init__(self, data: Data, root_dir: Path):
+		if not root_dir.exists():
+			root_dir.mkdir()
+		self.lookup = {}
+		self.wipe_queue: List[int] = []
+		self.root = self
+		self.root_dir = root_dir
+		super().__init__(data, None)
+
+	def queue_wipe(self, p: Path):
+		if VIM_ENABLED:
+			for b in vim.buffers:
+				if b.name == p.absolute().as_posix():
+					logger.info(f"Added {b.number} to wipe queue")
+					self.wipe_queue.append(b.number)
+					logger.debug(f"Wipe queue is {self.wipe_queue}")
+					break
+			else:
+				logger.warn(f"Tried to wipe {p} but found no buffer for it among " \
+						+ ', '.join(b.name for b in vim.buffers))
+		p.unlink()
+	def wipe(self):
+		if VIM_ENABLED:
+			for bn in self.wipe_queue:
+				vim.command(f"bdelete! {bn}")
+			self.wipe_queue = []
