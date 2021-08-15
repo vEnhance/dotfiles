@@ -1,3 +1,5 @@
+import logging
+import subprocess
 from pathlib import Path
 from pprint import pformat
 from typing import Any, Dict, Optional
@@ -8,6 +10,7 @@ try:
 	import vim  # type: ignore
 
 except ImportError:
+	vim: Any = None # squelch type errors, ty pyright
 	VIM_ENABLED = False
 else:
 	VIM_ENABLED = True
@@ -16,6 +19,26 @@ VENUE_NAME_FIELD = '_name'
 VENUE_CHILDREN_FIELD = '_children'
 Data = Dict[str, Any]
 
+logger = logging.getLogger('venueQ')
+logger.setLevel(logging.DEBUG)
+
+if VIM_ENABLED:
+	formatter = logging.Formatter('[{levelname}] {asctime} {module} {name}\n{message}\n',
+			style = '{')
+	for b in vim.buffers:
+		print(b.name)
+		if "venueQlog" in b.name:
+			VIM_LOG_BUFFER = b
+			break
+	else:
+		raise Exception("Couldn't find the venueQ log buffer")
+	class VimLogHandler(logging.Handler):
+		level = 0
+		def emit(self, record: logging.LogRecord):
+			msg = formatter.format(record)
+			for line in msg.splitlines():
+				VIM_LOG_BUFFER.append(line)
+	logger.addHandler(VimLogHandler())
 
 class VenueQNode:
 	name: str = '' # name must be unique
@@ -37,6 +60,7 @@ class VenueQNode:
 			# vv linked by ref, which is what we want i think
 			self.lookup = self.parent.lookup
 		else:
+			logger.info(f"Setting root as {root_path}")
 			self.parent = self
 			assert root_path is not None
 			self.root_path = root_path
@@ -76,7 +100,7 @@ class VenueQNode:
 		if VIM_ENABLED:
 			vim.command(f":split {self.temp_path(extension, name)}")
 		else:
-			raise NotImplementedError
+			subprocess.run(['vim', self.temp_path(extension, name)], shell = True)
 	def read_temp(self, extension: str, name: str = None):
 		text = self.temp_path(extension, name).read_text()
 		self.temp_path(extension, name).unlink()
@@ -103,7 +127,8 @@ class VenueQNode:
 	def delete(self):
 		del self.lookup[self.pk]
 		self.path.unlink()
-
+		if VIM_ENABLED:
+			vim.command("bdelete")
 	def mkdir(self):
 		if not self.parent.directory.exists() and not self.is_root:
 			self.parent.mkdir()

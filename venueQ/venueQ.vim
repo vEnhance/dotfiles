@@ -1,6 +1,9 @@
 " venueQ.vim
 
-set cmdheight=1
+" open a scratch buffer for logging
+edit venueQlog
+setlocal buftype=nofile
+setlocal noswapfile
 
 py3 << EOF
 import sys
@@ -19,7 +22,7 @@ def onVenueBuffer(func_name: str):
 def setup():
 	assert ROOT_NODE is not None, "ROOT_NODE should be set by now"
 	vim.command(f'cd {ROOT_NODE.directory.absolute().as_posix()}')
-	vim.command(f'edit {ROOT_NODE.path.absolute().as_posix()}')
+	vim.command(f'tabnew {ROOT_NODE.path.absolute().as_posix()}')
 EOF
 
 
@@ -29,14 +32,21 @@ if !empty(get(g:, 'venue_entry', ''))
 	exec "py3file " . g:venue_entry
 	py3 setup()
 
-	augroup venueQ
-		au BufReadPost *.venueQ.* py3 onVenueBuffer("on_buffer_open")
-		au BufUnload *.venueQ.* py3 onVenueBuffer("on_buffer_close")
-	augroup END
-
+	" Window setup
 	if get(g:, 'loaded_nerd_tree', 0)
 		NERDTreeFocus
 	endif
+
+	augroup venueQ
+		au BufReadPost *.venueQ.* py3 onVenueBuffer("on_buffer_open")
+		au BufHidden *.venueQ.* py3 onVenueBuffer("on_buffer_close")
+		au BufHidden *.tmp.* set bufhidden=delete
+	augroup END
+
 else
 	echo "g:venue_entry is not set"
 endif
+
+
+
+
