@@ -100,6 +100,10 @@ class ProblemSet(VenueQNode):
 			resp = requests.post(DASHBOARD_API_URL, data = data)
 			if resp.status_code == 200:
 				logger.info("Got a 200 response back from server")
+				subprocess.run([
+					Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser().absolute().as_posix(),
+					'5'
+					])
 				self.delete()
 			else:
 				logger.error(f"OTIS-WEB threw an exception with status code {resp.status_code}\n" \
