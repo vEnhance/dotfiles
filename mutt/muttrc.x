@@ -199,11 +199,11 @@ color signature  brightblack  white
 # color indicator  brightwhite  red
 color attachment black        green
 color error      red          white
-color message    blue         white
+color message    color19         white
 color search     brightwhite  magenta
-# color status     brightyellow blue
-color tree       red          white
-color normal     blue         white
+# color status     brightyellow color19
+color tree       color64          white
+color normal     color19         white
 color tilde      green        white
 color bold       brightyellow white
 color markers    red          white
@@ -220,8 +220,8 @@ color header red         black "^X-Junked-Because: "
 mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
 
 # Colours for items in the index
-color index brightblue  brightyellow  ~N
-color index brightblue  white   ~O
+color index color52  brightyellow  ~N
+color index color130  white   ~O
 color index brightwhite magenta ~F
 color index black       cyan  ~T
 color index brightwhite black ~D
@@ -268,8 +268,8 @@ color index_label default brightgreen
 color index_number magenta white
 color index_size cyan white
 
-color sidebar_divider blue white
-# color sidebar_spoolfile blue white
+color sidebar_divider color19 white
+# color sidebar_spoolfile color19 white
 color sidebar_ordinary black white
 color sidebar_flagged black white
 color sidebar_new brightcyan white
