@@ -18,7 +18,7 @@ if not OTIS_PDF_PATH.exists():
 
 def send_email(subject: str, recipient: str, body: str):
 	mail = MIMEMultipart('alternative')
-	mail['From'] = 'Evan Chen, OTIS Overlord <evan@evanchen.cc>'
+	mail['From'] = 'OTIS Overlord <evan@evanchen.cc>'
 	mail['To'] = recipient
 	mail['Subject'] = subject
 	subprocess.run(['python',
