@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Grayscale Internet
 // @namespace    https://web.evanchen.cc/
-// @version      1.1.4
+// @version      1.1.5
 // @description  Turn things to black and white
 // @author       Evan Chen
 // @match        http://*/*
@@ -37,6 +37,7 @@
 // @exclude      https://usamo.wordpress.com/*
 // @exclude      https://*.archlinux.org/*
 // @exclude      http://localhost:*/*
+// @exclude      https://*.mailchimp.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
