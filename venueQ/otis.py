@@ -81,7 +81,11 @@ class ProblemSet(VenueQNode):
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
 		if data['approved']:
-			comments_to_email = self.read_temp(extension = 'mkd')
+			comments_to_email = self.read_temp(extension = 'mkd').strip()
+			if data.get('next_unit_to_unlock__pk', None):
+				comments_to_email += '\n\n'
+				comments_to_email += \
+						f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
 			recipient = data['student__user__email']
 			subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
 			try:
