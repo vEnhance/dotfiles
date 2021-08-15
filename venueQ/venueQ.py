@@ -26,7 +26,6 @@ if VIM_ENABLED:
 	formatter = logging.Formatter('[{levelname}] {asctime} {module} {name}\n{message}\n',
 			style = '{')
 	for b in vim.buffers:
-		print(b.name)
 		if "venueQlog" in b.name:
 			VIM_LOG_BUFFER = b
 			break
@@ -125,10 +124,8 @@ class VenueQNode:
 	def __eq__(self, other) -> bool:
 		return self.pk == other.pk
 	def delete(self):
-		del self.lookup[self.pk]
 		self.path.unlink()
-		if VIM_ENABLED:
-			vim.command("bdelete")
+		del self.lookup[self.pk]
 	def mkdir(self):
 		if not self.parent.directory.exists() and not self.is_root:
 			self.parent.mkdir()

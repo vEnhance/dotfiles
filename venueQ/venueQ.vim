@@ -40,7 +40,8 @@ if !empty(get(g:, 'venue_entry', ''))
 	augroup venueQ
 		au BufReadPost *.venueQ.* py3 onVenueBuffer("on_buffer_open")
 		au BufHidden *.venueQ.* py3 onVenueBuffer("on_buffer_close")
-		au BufHidden *.tmp.* set bufhidden=delete
+		au BufHidden *.tmp.* setlocal bufhidden=wipe
+		au BufLeave NERDTreeRefreshRoot
 	augroup END
 
 else

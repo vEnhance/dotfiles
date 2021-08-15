@@ -95,11 +95,11 @@ class ProblemSet(VenueQNode):
 			data['token'] = TOKEN
 			resp = requests.post(DASHBOARD_API_URL, data = data)
 			if resp.status_code == 200:
-				logger.info("Got a 200 response back from server, indicating unit checked off")
+				logger.info("Got a 200 response back from server")
 				self.delete()
 			else:
 				logger.error(f"OTIS-WEB threw an exception with status code {resp.status_code}\n" \
-						+ resp.content.encode('utf-8'))
+						+ resp.content.decode('utf-8'))
 
 class ProblemSetCarrier(VenueQNode):
 	def get_class_for_child(self, _: Data):
