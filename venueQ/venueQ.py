@@ -23,7 +23,7 @@ logger = logging.getLogger('venueQ')
 logger.setLevel(logging.DEBUG)
 
 if VIM_ENABLED:
-	formatter = logging.Formatter('[{levelname}] {asctime} {module} {name}\n{message}\n',
+	formatter = logging.Formatter('[{levelname}] {asctime} {module} {name}: {message}\n',
 			style = '{')
 	for b in vim.buffers:
 		if "venueQlog" in b.name:
@@ -189,15 +189,14 @@ class VenueQRoot(VenueQNode):
 		self.wipe_queue: List[int] = []
 		self.root = self
 		self.root_dir = root_dir
+		logger.info(f"Setting root_node at {root_dir}")
 		super().__init__(data, None)
 
 	def queue_wipe(self, p: Path):
 		if VIM_ENABLED:
 			for b in vim.buffers:
 				if b.name == p.absolute().as_posix():
-					logger.info(f"Added {b.number} to wipe queue")
 					self.wipe_queue.append(b.number)
-					logger.debug(f"Wipe queue is {self.wipe_queue}")
 					break
 			else:
 				logger.warn(f"Tried to wipe {p} but found no buffer for it among " \
