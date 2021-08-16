@@ -21,13 +21,15 @@ Otherwise, I find myself constantly interrupted mid-sentence,
 which is pretty annoying. :P
 """
 
-from datetime import datetime, timedelta
 import signal
 import time
-import psutil
+from datetime import datetime, timedelta
+from pathlib import Path
 from subprocess import Popen
 from typing import Optional
-from pathlib import Path
+
+import psutil
+
 
 def cmd(s: str):
 	return Popen(s, shell=True).wait()
@@ -56,7 +58,7 @@ def write_next_time(current_status : int, seconds: Optional[int] = None):
 			emoji = "💙"
 		else:
 			emoji = "🤍"
-		p.write_text(f"{emoji}{t.strftime('%H:%M')}")
+		p.write_text(f"{emoji}{t.strftime(':%M')}")
 
 # we need to make sure the signals don't end the program
 SIGNALS = [signal.SIGALRM, signal.SIGUSR1, signal.SIGTSTP,
