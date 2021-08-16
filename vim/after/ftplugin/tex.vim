@@ -57,8 +57,8 @@ let g:Tex_Leader=',' " No more backtick nonsense
 set iskeyword+=: " Autocomplete for fig: etc. references
 set iskeyword+=_ " Add _ to autocomplete list
 
-" Map <C-M> to 'Put word in math mode'
-nnoremap <C-M> i$<Esc>ea$<Esc>
+" Wrap in dollar signs
+nnoremap <localleader>w i$<Esc>ea$<Esc>
 
 " Spell
 set spell
