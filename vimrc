@@ -285,6 +285,50 @@ onoremap <silent> ]u :call NextIndent(0, 1, 0, 1)<CR>
 onoremap <silent> [U :call NextIndent(1, 0, 1, 1)<CR>
 onoremap <silent> ]U :call NextIndent(1, 1, 1, 1)<CR>
 
+" improved f/F/t/T/semicolon
+autocmd BufEnter * let b:evan_last_finder_line=0
+autocmd BufEnter * let b:evan_last_finder_char=''
+autocmd BufEnter * let b:evan_last_finder_dir=0
+autocmd BufEnter * let b:evan_last_finder_eps=0
+
+function EvanFindChar(direction, epsilon, repeat)
+	let b:evan_last_finder_line = line('.')
+	if ! a:repeat
+		let b:evan_last_finder_char = nr2char(getchar())
+	endif
+	let b:evan_last_finder_dir = a:direction
+	let b:evan_last_finder_eps = a:epsilon
+	while (col('.') < col('$') - 1 && a:direction == 1) || (col('.') > 1 && a:direction == -1)
+		if (a:direction == 1)
+			normal l
+		else
+			normal h
+		endif
+		if getline('.')[col('.') + a:epsilon] ==? b:evan_last_finder_char
+			return
+		endif
+	endwhile
+endfunction
+
+function EvanSemicolon()
+	if b:evan_last_finder_dir == 0
+		call feedkeys(':')
+	elseif b:evan_last_finder_line != line('.')
+		call feedkeys(':')
+	elseif b:evan_last_finder_char ==# ''
+		call feedkeys(':')
+	else
+		call EvanFindChar(b:evan_last_finder_dir, b:evan_last_finder_eps, 1)
+	endif
+endfunction
+
+" Don't need colon anymore
+nnoremap <silent> f :call EvanFindChar(1, -1, 0)<CR>
+nnoremap <silent> F :call EvanFindChar(-1, -1, 0)<CR>
+nnoremap <silent> t :call EvanFindChar(1, 0, 0)<CR>
+nnoremap <silent> T :call EvanFindChar(-1, -2, 0')<CR>
+nnoremap <silent> ; :call EvanSemicolon()<CR>
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -316,9 +360,6 @@ nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 " Disable ex mode entirely
 nmap Q <nop>
-" Don't need colon anymore
-nnoremap ; :
-nnoremap <Enter> ;
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
 	\ call fzf#vim#grep(
