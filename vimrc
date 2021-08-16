@@ -348,6 +348,7 @@ nmap <silent> gr :vsplit<CR><Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
+
 " move page so that cursor is on 7th line
 nnoremap <silent> za zt7k7j
 " system clipboard
@@ -358,8 +359,10 @@ vnoremap <silent> <C-X> "+d
 " Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
+
 " Disable ex mode entirely
 nmap Q <nop>
+
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
 	\ call fzf#vim#grep(
@@ -367,24 +370,14 @@ command! -bang -nargs=* BLinesExtra
 	\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
 nnoremap <C-_> :BLinesExtra<CR>
-" Easymotion
-" these didn't really work out for me
-" nmap f <Plug>(easymotion-fl)
-" nmap F <Plug>(easymotion-Fl)
-" nmap cf c<Plug>(easymotion-fl)
-" nmap cF c<Plug>(easymotion-Fl)
-" nmap df d<Plug>(easymotion-fl)
-" nmap dF d<Plug>(easymotion-Fl)
-" nmap t <Plug>(easymotion-tl)
-" nmap T <Plug>(easymotion-Tl)
-" nmap ct c<Plug>(easymotion-tl)
-" nmap cT c<Plug>(easymotion-Tl)
-" nmap dt d<Plug>(easymotion-tl)
-" nmap dT d<Plug>(easymotion-Tl)
+
 " incsearch
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+
+" write all
+nnoremap <silent> <CR> :wa<CR>
 
 " ------------------------------------------
 " MINUS KEYBINDINGS
@@ -433,8 +426,6 @@ nnoremap <Space><CR> :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --
 nnoremap <Space>z :set foldmethod=indent<CR>
 " NerdTree
 nnoremap <silent> <Space>t :NERDTreeFocus<CR>
-" write all
-nnoremap <silent> <Space>w :wa<CR>
 " smart find and replace
 nnoremap <silent> <Space>h :Farr<CR>
 
