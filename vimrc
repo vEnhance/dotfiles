@@ -377,7 +377,15 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " write all
-nnoremap <CR> :wa<CR>:w<CR>
+function EvanSave()
+	let b:evan_last_finder_line=0
+	let b:evan_last_finder_char=''
+	let b:evan_last_finder_dir=0
+	let b:evan_last_finder_eps=0
+	wall
+	write
+endfunction
+nnoremap <CR> :call EvanSave()<CR>
 
 " ------------------------------------------
 " MINUS KEYBINDINGS
