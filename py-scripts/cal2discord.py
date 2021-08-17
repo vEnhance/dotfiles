@@ -1,14 +1,15 @@
-from typing import List, Tuple, Any
-from calendar import TextCalendar
-from icalendar import Calendar, Event
-from discord_webhook import DiscordWebhook, DiscordEmbed
 import argparse
 import datetime
+from calendar import TextCalendar
+from typing import Any, List, Tuple
+
 import humanize
 import pytz
 import recurring_ical_events
 import requests
 import yaml
+from discord_webhook import DiscordEmbed, DiscordWebhook
+from icalendar import Calendar, Event
 
 parser = argparse.ArgumentParser()
 parser.add_argument('config')
@@ -20,8 +21,8 @@ with open(args.config) as f:
 
 tz = pytz.timezone('US/Eastern')
 now = datetime.datetime.now(tz)
-interval_start = now + datetime.timedelta(hours=-4)
-interval_end = now + datetime.timedelta(hours=60)
+interval_start = now + datetime.timedelta(hours=-options.get('past', 8))
+interval_end = now + datetime.timedelta(hours=options.get('future', 60))
 
 calendars : List[Tuple[str, Any]] = [
 		(_['name'],
