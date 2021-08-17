@@ -421,7 +421,7 @@ nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . 
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " e is for emulator
-nnoremap <Space><CR> :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
+nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
 " fold by indent
 nnoremap <Space>z :set foldmethod=indent<CR>
 " NerdTree
