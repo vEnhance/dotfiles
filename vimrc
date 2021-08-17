@@ -304,7 +304,7 @@ function EvanFindChar(direction, epsilon, repeat)
 		else
 			normal h
 		endif
-		if getline('.')[col('.') + a:epsilon] ==? b:evan_last_finder_char
+		if getline('.')[col('.') + a:epsilon] ==# b:evan_last_finder_char
 			return
 		endif
 	endwhile
@@ -326,7 +326,7 @@ endfunction
 nnoremap <silent> f :call EvanFindChar(1, -1, 0)<CR>
 nnoremap <silent> F :call EvanFindChar(-1, -1, 0)<CR>
 nnoremap <silent> t :call EvanFindChar(1, 0, 0)<CR>
-nnoremap <silent> T :call EvanFindChar(-1, -2, 0')<CR>
+nnoremap <silent> T :call EvanFindChar(-1, -2, 0)<CR>
 nnoremap <silent> ; :call EvanSemicolon()<CR>
 
 " Use K to show documentation in preview window.
