@@ -277,7 +277,6 @@ alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
 alias ls='ls --color=tty --quoting-style=literal' # classify files in color
-alias ll='ls -l --color=tty'                  # long list
 alias l='ls -CF'                              #
 
 # Fish completions
@@ -317,3 +316,15 @@ function fish_mode_prompt
 	end
 end
 tabs -2
+
+function ranger-cd
+  set tempfile "/tmp/(whoami)chosendir"
+  ranger --choosedir=$tempfile (pwd)
+  if test -f $tempfile
+      if [ (cat $tempfile) != (pwd) ]
+        cd (cat $tempfile)
+      end
+  end
+  rm -f $tempfile
+end
+alias ll='ranger-cd'
