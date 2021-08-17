@@ -377,7 +377,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " write all
-nnoremap <silent> <CR> :wa<CR>
+nnoremap <CR> :wa<CR>:w<CR>
 
 " ------------------------------------------
 " MINUS KEYBINDINGS
