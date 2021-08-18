@@ -34,6 +34,7 @@ ln -s ~/dotfiles/picom.conf ~/.config/picom.conf
 ln -s ~/dotfiles/qutebrowser ~/.config/qutebrowser
 ln -s ~/dotfiles/rofi ~/.config/rofi
 ln -s ~/dotfiles/ranger ~/.config/ranger
+ln -s ~/dotfiles/mirage_linemode ~/.config/mirage_linemode
 
 # nested config
 mkdir -p ~/.config/dunst
