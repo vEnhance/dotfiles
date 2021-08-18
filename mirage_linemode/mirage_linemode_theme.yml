@@ -1,0 +1,81 @@
+# Default Theme
+line_format: "{icon} {title}"
+icon:
+    file: "📄"
+    directory: "📁"
+    attr:
+        video: "🎬"
+        audio: "🎵"
+        image: "🎨"
+        document: "📕"
+        container: "📦"
+    extension:
+        asy: "📐"
+        cfg: "⚙️ "
+        conf: "⚙️ "
+        csv: "⏹️ "
+        html: "🌍"
+        ini: "⚙️ "
+        js: "☠️"
+        markdown: "✏️ "
+        md: "✏️ "
+        mkd: "✏️ "
+        pdf: "🖨️ "
+        py: "🐍"
+        sty: "♾️ "
+        tex: "♾️ "
+        tsv: "⏹️ "
+        txt: "🔡"
+        xlsx: "⏹️ "
+        yaml: "🔘"
+        yml: "🔘"
+    file_custom:
+    directory_custom:
+    parent_directory:
+        containers: "🐳"
+        home: "🏠"
+    xdg_user_dirs:
+        DESKTOP: "🪑"
+        DOCUMENTS: "🗃️ "
+        DOWNLOAD: "⬇️ "
+        MUSIC: "🎼"
+        PICTURES: "🖼️ "
+        PUBLICSHARE: "🏞️ "
+        TEMPLATES: "📐"
+        VIDEOS: "🎬"
+
+# Sample Theme
+#line_format: "{icon} {title}"
+#icon:
+#    file: "📄"
+#    directory: "📁"
+#    attr:
+#        video: "🎞️"
+#        audio: "🎵"
+#        image: "🎨"
+#        document: "📕"
+#        container: "📦"
+#    extension:
+#        md: "✏️"
+#        markdown: "✏️"
+#        conf: "⚙️"
+#        cfg: "⚙️"
+#        ini: "⚙️"
+#    file_custom:
+#    directory_custom:
+#        containers: "🔀"
+#        smb: "🔀"
+#        samba: "🔀"
+#        Network: "🔀"
+#    parent_directory:
+#        containers: "🐳"
+#        home: "🏠"
+#    xdg_user_dirs:
+#        DESKTOP: "🕳️"
+#        DOCUMENTS: "🗃️"
+#        DOWNLOAD: "⬇️"
+#        MUSIC: "🎼"
+#        PICTURES: "🖼️"
+#        PUBLICSHARE: "🏞️"
+#        TEMPLATES: "📐"
+#        VIDEOS: "🎬"

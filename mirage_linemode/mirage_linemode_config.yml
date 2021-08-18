@@ -1,0 +1,19 @@
+default_linemode:
+    enabled: true
+fix_chars_width:
+    enabled: false
+
+# example to fix emoji chars width
+# fix_chars_width:
+#     enabled: true
+#     force_right_align: false
+#     for_term:
+#         default:
+#             - "🎞️"
+#             - "✏️"
+#             - "⚙️" 
+#             - "🕳️"
+#             - "🗃️"
+#             - "⬇️"
+#             - "🖼️"
+#             - "🏞️"
