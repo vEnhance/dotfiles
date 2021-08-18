@@ -6,7 +6,7 @@
 from __future__ import absolute_import, division, print_function
 
 import os
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import humanize
@@ -96,10 +96,11 @@ class MarksideLinemode(LinemodeBase):
 		if fobj.stat is None:
 			return ''
 		size = human_readable(fobj.size)
-		since = humanize.naturaldelta(
-				datetime.fromtimestamp(fobj.stat.st_mtime) - datetime.now(),
-				months = True
-				)
+		delta = datetime.now() - datetime.fromtimestamp(fobj.stat.st_mtime)
+		if delta.days < 6 * 30.5:
+			since = str(humanize.naturaldelta(delta, months = True))
+		else:
+			since = f'{int(delta.days / 30.5)}月前'
 		if len(since) > 5:
 			since = ''
 		ret = "%5s %7s" % (since, size)
