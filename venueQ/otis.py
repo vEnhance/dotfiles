@@ -49,6 +49,22 @@ if PRODUCTION:
 else:
 	DASHBOARD_API_URL = 'http://127.0.0.1:8000/dash/api/'
 
+def query_otis_server(payload: Data) -> bool:
+	payload['token'] = TOKEN
+	resp = requests.post(DASHBOARD_API_URL, data = payload)
+	if resp.status_code == 200:
+		logger.info("Got a 200 response back from server")
+		subprocess.run([
+			Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser().absolute().as_posix(),
+			'5'
+			])
+		return True
+	else:
+		logger.error(f"OTIS-WEB threw an exception with status code {resp.status_code}\n" \
+				+ resp.content.decode('utf-8'))
+		return False
+
+
 class ProblemSet(VenueQNode):
 	def get_initial_data(self) -> Data:
 		return {
@@ -96,25 +112,21 @@ class ProblemSet(VenueQNode):
 				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 			else:
 				logger.info(f"Email {subject} to {recipient} sent!")
-			data['token'] = TOKEN
-			resp = requests.post(DASHBOARD_API_URL, data = data)
-			if resp.status_code == 200:
-				logger.info("Got a 200 response back from server")
-				subprocess.run([
-					Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser().absolute().as_posix(),
-					'5'
-					])
+			if query_otis_server(payload = data) is True:
 				self.delete()
-			else:
-				logger.error(f"OTIS-WEB threw an exception with status code {resp.status_code}\n" \
-						+ resp.content.decode('utf-8'))
 
 class ProblemSetCarrier(VenueQNode):
 	def get_class_for_child(self, _: Data):
 		return ProblemSet
 
 class Inquiries(VenueQNode):
-	pass
+	def init_hook(self):
+		self.data['approve_all'] = False
+	def on_buffer_close(self, data: Data):
+		super().on_buffer_close(data)
+		if data['approve_all']:
+			if query_otis_server(payload = {'action' : 'approve_inquiries'}):
+				self.delete()
 
 class Suggestion(VenueQNode):
 	def get_name(self, data: Data) -> str:
@@ -139,7 +151,7 @@ class OTISRoot(VenueQRoot):
 if __name__ == "__main__":
 	otis_response = requests.post(
 			url = DASHBOARD_API_URL,
-			data = {'token' : TOKEN}
+			data = {'token' : TOKEN, 'action' : 'init'}
 			)
 
 	otis_dir = Path('/tmp/otis') if PRODUCTION else Path('/tmp/otis-debug')
