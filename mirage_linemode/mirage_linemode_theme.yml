@@ -1,7 +1,7 @@
 # Default Theme
 line_format: "{icon} {title}"
 icon:
-    file: "📄"
+    file: "🥤"
     directory: "📁"
     attr:
         video: "🎬"
@@ -14,6 +14,7 @@ icon:
         cfg: "⚙️ "
         conf: "⚙️ "
         csv: "⏹️ "
+        fish: "🐟"
         html: "🌍"
         ini: "⚙️ "
         js: "☠️"
@@ -22,6 +23,7 @@ icon:
         mkd: "✏️ "
         pdf: "🖨️ "
         py: "🐍"
+        sh: "🐚"
         sty: "♾️ "
         tex: "♾️ "
         tsv: "⏹️ "

@@ -95,13 +95,13 @@ class MarksideLinemode(LinemodeBase):
 	def infostring(self, fobj, metadata):
 		if fobj.stat is None:
 			return ''
-		size = human_readable(fobj.size)
+		size = humanize.naturalsize(fobj.size, gnu=True)
 		delta = datetime.now() - datetime.fromtimestamp(fobj.stat.st_mtime)
 		if delta.days < 6 * 30.5:
 			since = str(humanize.naturaldelta(delta, months = True))
 		else:
 			since = f'{int(delta.days / 30.5)}月前'
-		if len(since) > 5:
+		if len(since) > 4:
 			since = ''
-		ret = "%5s %7s" % (since, size)
+		ret = "%5s %5s" % (since, size)
 		return ret
