@@ -35,6 +35,7 @@ ln -s ~/dotfiles/qutebrowser ~/.config/qutebrowser
 ln -s ~/dotfiles/rofi ~/.config/rofi
 ln -s ~/dotfiles/ranger ~/.config/ranger
 ln -s ~/dotfiles/mirage_linemode ~/.config/mirage_linemode
+ln -s ~/dotfiles/yapf ~/.config/yapf
 
 # nested config
 mkdir -p ~/.config/dunst
