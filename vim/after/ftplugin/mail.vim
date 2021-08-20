@@ -42,3 +42,6 @@ nnoremap <localleader>b /^Subject:<CR>kA<space>
 nnoremap <localleader>s /^Reply-To:<CR>kA<space>
 nnoremap <localleader>m gg}o
 nnoremap <localleader>e gg}:read ~/dotfiles/mutt/templates/
+
+let g:airline#extensions#whitespace#trailing_regexp = '\t$\|\s\{2,\}$'
+let b:airline_whitespace_trailing_regexp = '\t$\|\s\{2,\}$'
