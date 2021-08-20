@@ -383,7 +383,7 @@ function EvanSave()
 	let b:evan_last_finder_dir=0
 	let b:evan_last_finder_eps=0
 	wall
-	write
+	echo '"' . expand("%") . '" ' . line("$") . "L, " . (line2byte(line("$")+1) - 1) . "B written"
 endfunction
 nnoremap <CR> :call EvanSave()<CR>
 
