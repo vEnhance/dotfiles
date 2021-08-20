@@ -21,7 +21,7 @@ add_cus_dep("pytxcode", "pytxmcr", 0, "pythontex");
 $do_cd = 1;
 $pdf_mode = 1;
 $max_repeat = 7;
-$pdf_previewer = "zathura %O %S &";
+$pdf_previewer = "zathura %O %S &> /dev/null &";
 $pvc_timeout = 1;
 
 $cleanup_includes_generated = 0;
