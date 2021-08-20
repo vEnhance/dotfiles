@@ -82,4 +82,8 @@ fi
 if [ -f /bin/pacman ]; then
 	pacman -Qqtten > ~/Backups/pacman/$(hostname).pacman.paclist
 	pacman -Qqttem >> ~/Backups/pacman/$(hostname).aur.paclist
+	cd ~/Backups/pacam
+	if ! git diff --exit-code; then
+		git commit -a -m "$(date)"
+	fi
 fi
