@@ -117,10 +117,9 @@ class VenueQNode:
 
 	@property
 	def path(self) -> Path:
-		return self.directory \
-        / f'{self.name}.{self.get_extension()}'
+		return self.directory / f'{self.name}.{self.get_extension()}'
 
-	def __eq__(self, other) -> bool:
+	def __eq__(self, other: 'VenueQNode') -> bool:
 		return self.pk == other.pk
 
 	def delete(self):
@@ -223,8 +222,10 @@ class VenueQRoot(VenueQNode):
 					self.wipe_queue.append(b.number)
 					break
 			else:
-				logger.warn(f"Tried to wipe {p} but found no buffer for it among " \
-              + ', '.join(b.name for b in vim.buffers))
+				logger.warn(
+					f"Tried to wipe {p} but found no buffer for it among " +
+					', '.join(b.name for b in vim.buffers)
+				)
 		p.unlink()
 
 	def wipe(self):

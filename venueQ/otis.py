@@ -64,8 +64,10 @@ def query_otis_server(payload: Data) -> bool:
 		)
 		return True
 	else:
-		logger.error(f"OTIS-WEB threw an exception with status code {resp.status_code}\n" \
-        + resp.content.decode('utf-8'))
+		logger.error(
+			f"OTIS-WEB threw an exception with status code {resp.status_code}\n" +
+			resp.content.decode('utf-8')
+		)
 		return False
 
 
@@ -80,15 +82,12 @@ class ProblemSet(VenueQNode):
 
 	@property
 	def pdf_target_path(self):
-		def clean(key) -> str:
+		def clean(key: str) -> str:
 			return ''.join(c for c in self.data[key] if c in string.ascii_letters)
-		fname = \
-        clean('student__user__first_name') \
-        + clean('student__user__last_name') \
-        + '-' \
-        + clean('unit__code') \
-        + '-' \
-        + clean('unit__group__name')
+
+		fname = clean('student__user__first_name') + clean(
+			'student__user__last_name'
+		) + '-' + clean('unit__code') + '-' + clean('unit__group__name')
 		return OTIS_PDF_PATH / f"otis_{fname}.pdf"
 
 	def init_hook(self):
@@ -109,8 +108,7 @@ class ProblemSet(VenueQNode):
 		if data['approved'] and comments_to_email != '':
 			if data.get('next_unit_to_unlock__pk', None):
 				comments_to_email += '\n\n'
-				comments_to_email += \
-              f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
+				comments_to_email += f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
 			recipient = data['student__user__email']
 			subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
 			try:
@@ -124,7 +122,7 @@ class ProblemSet(VenueQNode):
 
 
 class ProblemSetCarrier(VenueQNode):
-	def get_class_for_child(self, _: Data):
+	def get_class_for_child(self, data: Data):
 		return ProblemSet
 
 
@@ -147,20 +145,20 @@ class Suggestion(VenueQNode):
 
 
 class SuggestionCarrier(VenueQNode):
-	def get_class_for_child(self, _: Data):
+	def get_class_for_child(self, data: Data):
 		return Suggestion
 
 
 class OTISRoot(VenueQRoot):
-	def get_class_for_child(self, child_dict: Data):
-		if child_dict['_name'] == 'Problem sets':
+	def get_class_for_child(self, data: Data):
+		if data['_name'] == 'Problem sets':
 			return ProblemSetCarrier
-		elif child_dict['_name'] == 'Inquiries':
+		elif data['_name'] == 'Inquiries':
 			return Inquiries
-		elif child_dict['_name'] == 'Suggestions':
+		elif data['_name'] == 'Suggestions':
 			return SuggestionCarrier
 		else:
-			raise ValueError('wtf is ' + child_dict['_name'])
+			raise ValueError('wtf is ' + data['_name'])
 
 
 if __name__ == "__main__":
