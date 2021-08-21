@@ -382,8 +382,12 @@ function EvanSave()
 	let b:evan_last_finder_char=''
 	let b:evan_last_finder_dir=0
 	let b:evan_last_finder_eps=0
-	wall
-	echo '"' . expand("%") . '" ' . line("$") . "L, " . (line2byte(line("$")+1) - 1) . "B written"
+	if bufnr('$') == 1
+		write
+	else
+		wall
+		echo '"' . expand("%") . '" ' . line("$") . "L, " . (line2byte(line("$")+1) - 1) . "B written"
+	endif
 endfunction
 nnoremap <CR> :call EvanSave()<CR>
 
