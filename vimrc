@@ -106,11 +106,11 @@ if filereadable("/bin/pacman")
 	\ "airline#extensions#ctrlspace#statusline()"
 	function! AirlineSetup()
 		let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
-		let g:airline_section_b = airline#section#create_left(['tagbar',])
-		let g:airline_section_c = airline#section#create_left(['crypt', 'paste', 'iminsert', ])
-		let g:airline_section_gutter = airline#section#create(['%<', 'file', '%='])
-		let g:airline_section_x = airline#section#create_right(['branch', 'hunks'])
-		let g:airline_section_y = airline#section#create(['%3p%%', ':%3v', 'linenr', 'maxlinenr', 'spell',])
+		let g:airline_section_b = airline#section#create_left(['file', ])
+		let g:airline_section_c = airline#section#create_left(['branch', 'hunks'])
+		let g:airline_section_gutter = airline#section#create(['%<', 'tagbar', '%='])
+		let g:airline_section_x = airline#section#create_right(['crypt', 'paste', 'iminsert', ' %v'])
+		let g:airline_section_y = airline#section#create(['spell', 'maxlinenr', ])
 		let g:airline_section_z = airline#section#create(['filetype'])
 		let g:airline_mode_map = {
 				\ '__'     : '-',
