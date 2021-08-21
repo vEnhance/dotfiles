@@ -15,7 +15,83 @@ requests = "^2.26.0"
 jedi = "^0.18.0"
 pdbpp = "^0.10.3"
 ipython = "^7.26.0"
+yapf = "^0.31.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.yapf]
+based_on_style = "facebook"
+column_limit = 96
+use_tabs = true
+continuation_align_style = "VALIGN-RIGHT"
+continuation_indent_width = 2
+indent_width = 2
+align_closing_bracket_with_visual_indent = false
+split_before_dot = true
+split_before_expression_after_opening_paren = true
+
+[tool.pyright]
+enableTypeIgnoreComments = true
+exclude = ["**/node_modules", "**/typings", "**/__pycache__", ".git", "venv", "**/migrations"]
+pythonPlatform = "Linux"
+pythonVersion = "3.9"
+typeCheckingMode = "basic"
+useLibraryCodeForTypes = true
+
+reportAssertAlwaysTrue = "error"
+reportCallInDefaultInitializer = "warning"
+reportConstantRedefinition = "none"
+reportDuplicateImport = "error"
+reportFunctionMemberAccess = "none"
+reportGeneralTypeIssues = "error"
+reportImplicitStringConcatenation = "none"
+reportImportCycles = "none"
+reportIncompatibleMethodOverride = "error"
+reportIncompatibleVariableOverride = "none"
+reportIncompleteStub = "none"
+reportInvalidStringEscapeSequence = "error"
+reportInvalidTypeVarUse = "warning"
+reportMissingImports = "error"
+reportMissingModuleSource = "warning"
+reportMissingTypeArgument = "warning"
+reportMissingTypeStubs = false
+reportOptionalCall = "error"
+reportOptionalContextManager = "error"
+reportOptionalIterable = "error"
+reportOptionalMemberAccess = "error"
+reportOptionalOperand = "error"
+reportOptionalSubscript = "error"
+reportOverlappingOverload = "error"
+reportPrivateUsage = "error"
+reportPropertyTypeMismatch = "error"
+reportSelfClsParameterName = "warning"
+reportTypedDictNotRequiredAccess = "warning"
+reportUnboundVariable = "error"
+reportUndefinedVariable = "error"
+reportUnitializedInstanceVariable = "warning"
+reportUnknownArgumentType = "none"
+reportUnknownMemberType = "none"
+reportUnknownParameterType = "error"
+reportUnknownVariableType = "none"
+reportUnnecessaryCast = "error"
+reportUnnecessaryComparison = "error"
+reportUnnecessaryIsInstance = "error"
+reportUnsupportDunderAll = "warning"
+reportUntypedBaseClass = "none"
+reportUntypedClassDecorator = "none"
+reportUntypedFunctionDecorator = "warning"
+reportUntypedNamedTuple = "error"
+reportUnusedCallResult = "none"
+reportUnusedClass = "error"
+reportUnusedCoroutine = "error"
+reportUnusedFunction = "error"
+reportUnusedImport = "none"
+reportUnusedNamedTuple = "error"
+reportUnusedVariable = "error"
+reportWildcardImportFromLibrary = "warning"
+strictDictionaryInference = false
+strictListInference = false
+strictParameterNoneValue = false
+strictSetInference = false
