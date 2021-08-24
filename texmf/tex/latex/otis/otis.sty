@@ -54,8 +54,8 @@
 	\newlength\FHleft\setlength\FHleft{0in}
 	\newlength\FHright\setlength\FHright{-1in}
 	\newbox\FHline\setbox\FHline=\hbox{\hsize=\paperwidth%
-	  \hspace*{\FHleft}%
-	  \rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
+		\hspace*{\FHleft}%
+		\rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
 	}
 	\renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
 	\newcommand{\olyinfo}[1]{\begin{flushright} \emph{#1} \end{flushright} \medskip}
