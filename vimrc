@@ -412,8 +412,8 @@ nnoremap -a <C-w>o
 nnoremap <silent> -f <C-w>v:CtrlPRoot<CR>
 " recent
 nnoremap <silent> -r <C-w>v:CtrlPMRU<CR>
-" near
-nnoremap <silent> -n <C-w>v:CtrlPCurFile<CR>
+" close
+nnoremap <silent> -c <C-w>v:CtrlPCurFile<CR>
 nnoremap <silent> -b <C-w>v:CtrlPBuffer<CR>
 nnoremap -w <C-w><C-w>
 
@@ -440,7 +440,7 @@ nnoremap <silent> <Space>h :Farr<CR>
 " Ctrl P
 nnoremap <silent> <Space>f :CtrlPRoot<CR>
 nnoremap <silent> <Space>r :CtrlPMRU<CR>
-nnoremap <silent> <Space>n :CtrlPCurFile<CR>
+nnoremap <silent> <Space>c :CtrlPCurFile<CR>
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
 
 " git status
