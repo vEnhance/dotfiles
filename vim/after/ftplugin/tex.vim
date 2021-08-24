@@ -1,4 +1,5 @@
 let b:ale_linters = ['proselint', 'chktex']
+let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace',]
 
 " Always use \\dots
 call IMAP('...', "\\dots",'tex')
