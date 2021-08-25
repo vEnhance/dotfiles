@@ -547,6 +547,7 @@ autocmd BufNewFile,BufRead *.asy setfiletype asy
 autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd BufNewFile,BufRead *.less setfiletype css
 autocmd BufNewFile,BufRead *.ics setfiletype icalendar
+autocmd FileType htmldjango let b:enabled_fixers=['html-beautify', 'remove_trailing_lines', 'trim_whitespace']
 
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_GotoError = 1

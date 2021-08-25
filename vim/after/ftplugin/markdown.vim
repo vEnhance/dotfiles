@@ -7,3 +7,4 @@ set sw=2
 " i dunno if that's too trivial for the community to care about
 let g:airline#extensions#whitespace#trailing_regexp = '\t$\|\s\{3,\}$\|[^ ] $'
 let b:airline_whitespace_trailing_regexp = '\t$\|\s\{3,\}$\|[^ ] $'
+let b:ale_fixers = ['remove_trailing_lines',]
