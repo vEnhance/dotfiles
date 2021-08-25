@@ -3,70 +3,102 @@
 # Use at your own risk ;)
 # makes many symlinks
 
-cd ~/dotfiles/py3status
+cd $HOME/dotfiles/py3status
 make
 
-cd ~
+cd $HOME
 mv .bashrc .bashrc.bak
 
 # symlink in home
-ln -s ~/dotfiles/agignore ~/.aignore
-ln -s ~/dotfiles/asy ~/.asy
-ln -s ~/dotfiles/bashrc ~/.bashrc
-ln -s ~/dotfiles/chktexrc ~/.chktexrc
-ln -s ~/dotfiles/gitconfig ~/.gitconfig
-ln -s ~/dotfiles/latexmkrc ~/.latexmkrc
-ln -s ~/dotfiles/screenrc ~/.screenrc
-# ln -s ~/dotfiles/ssh ~/.ssh
-ln -s ~/dotfiles/taskrc ~/.taskrc
-ln -s ~/dotfiles/texmf ~/.texmf
-ln -s ~/dotfiles/vimrc ~/.vimrc
-ln -s ~/dotfiles/xprofile ~/.xprofile
-echo "[ -f ~/.xprofile ] && . ~/.xprofile" > ~/.xinitrc
-echo "exec i3" > ~/.xinitrc
+if ! test -d "$HOME/.asy"; then ln -s $HOME/dotfiles/asy $HOME/.asy; fi
+if ! test -d "$HOME/.texmf"; then ln -s $HOME/dotfiles/texmf $HOME/.texmf; fi
+
+if ! test -f "$HOME/.agignore"; then ln -s $HOME/dotfiles/agignore $HOME/.agignore; fi
+if ! test -f "$HOME/.bashrc"; then ln -s $HOME/dotfiles/bashrc $HOME/.bashrc; fi
+if ! test -f "$HOME/.chktexrc"; then ln -s $HOME/dotfiles/chktexrc $HOME/.chktexrc; fi
+if ! test -f "$HOME/.gitconfig"; then ln -s $HOME/dotfiles/gitconfig $HOME/.gitconfig; fi
+if ! test -f "$HOME/.latexmkrc"; then ln -s $HOME/dotfiles/latexmkrc $HOME/.latexmkrc; fi
+if ! test -f "$HOME/.pdbrc.py"; then ln -s $HOME/dotfiles/pdbrc.py $HOME/.pdbrc.py; fi
+if ! test -f "$HOME/.screenrc"; then ln -s $HOME/dotfiles/screenrc $HOME/.screenrc; fi
+if ! test -f "$HOME/.taskrc"; then ln -s $HOME/dotfiles/taskrc $HOME/.taskrc; fi
+if ! test -f "$HOME/.vimrc"; then ln -s $HOME/dotfiles/vimrc $HOME/.vimrc; fi
+if ! test -f "$HOME/.xprofile"; then ln -s $HOME/dotfiles/xprofile $HOME/.xprofile; fi
+
+if ! test -f "$HOME/.xinitrc"; then
+	echo "[ -f $HOME/.xprofile ] && . $HOME/.xprofile" > $HOME/.xinitrc
+	echo "exec i3" > $HOME/.xinitrc
+fi
+
+if ! test -f "$HOME/.config/picom.conf"; then
+	ln -s $HOME/dotfiles/picom.conf $HOME/.config/picom.conf;
+fi
 
 # file/dir in .config
 mkdir -p .config
-ln -s ~/dotfiles/fish ~/.config/fish
-ln -s ~/dotfiles/i3 ~/.config/i3
-ln -s ~/dotfiles/mutt ~/.config/mutt
-ln -s ~/dotfiles/picom.conf ~/.config/picom.conf
-ln -s ~/dotfiles/qutebrowser ~/.config/qutebrowser
-ln -s ~/dotfiles/rofi ~/.config/rofi
-ln -s ~/dotfiles/ranger ~/.config/ranger
-ln -s ~/dotfiles/mirage_linemode ~/.config/mirage_linemode
-ln -s ~/dotfiles/yapf ~/.config/yapf
+if ! test -d "$HOME/.config/fish"; then ln -s $HOME/dotfiles/fish $HOME/.config/fish; fi
+if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; fi
+if ! test -d "$HOME/.config/mutt"; then ln -s $HOME/dotfiles/mutt $HOME/.config/mutt; fi
+if ! test -d "$HOME/.config/qutebrowser"; then ln -s $HOME/dotfiles/qutebrowser $HOME/.config/qutebrowser; fi
+if ! test -d "$HOME/.config/rofi"; then ln -s $HOME/dotfiles/rofi $HOME/.config/rofi; fi
+if ! test -d "$HOME/.config/ranger"; then ln -s $HOME/dotfiles/ranger $HOME/.config/ranger; fi
+if ! test -d "$HOME/.config/mirage_linemode"; then ln -s $HOME/dotfiles/mirage_linemode $HOME/.config/mirage_linemode; fi
+if ! test -d "$HOME/.config/yapf"; then ln -s $HOME/dotfiles/yapf $HOME/.config/yapf; fi
+
 
 # nested config
-mkdir -p ~/.config/dunst
-ln -s ~/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
-mkdir -p ~/.config/proselint
-ln -s ~/dotfiles/vim/proselintrc ~/.config/proselint/config
-mkdir -p ~/.config/zathura
-ln -s ~/dotfiles/zathurarc ~/.config/zathura/zathurarc
-mkdir -p ~/.config/py3status
-ln -s ~/dotfiles/py3status/py3status.$(hostname).conf ~/.config/py3status/config
-mkdir -p ~/.vit
-ln -s ~/dotfiles/vit-config.ini ~/.vit/config.ini
-mkdir -p ~/.config/gtk-3.0
-ln -s ~/dotfiles/gtk3-config.ini ~/.config/gtk-3.0/settings.ini
-mkdir -p ~/.config/xfce4/
-ln -s ~/dotfiles/terminal ~/.config/xfce4/terminal
+if ! test -f "$HOME/.config/dunst/dunstrc"; then
+	mkdir -p $HOME/.config/dunst
+	ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
+fi
+if ! test -f "$HOME/.config/proselint/config"; then
+	mkdir -p $HOME/.config/proselint
+	ln -s $HOME/dotfiles/vim/proselintrc $HOME/.config/proselint/config
+fi
+if ! test -f "$HOME/.config/zathura/zathurarc"; then
+	mkdir -p $HOME/.config/zathura
+	ln -s $HOME/dotfiles/zathurarc $HOME/.config/zathura/zathurarc
+fi
+if ! test -d "$HOME/.config/py3status"; then
+	mkdir -p $HOME/.config/py3status
+	ln -s $HOME/dotfiles/py3status/py3status.$(hostname).conf $HOME/.config/py3status/config
+fi
+if ! test -f "$HOME/.vit/config.ini"; then
+	mkdir -p $HOME/.vit
+	ln -s $HOME/dotfiles/vit-config.ini $HOME/.vit/config.ini
+fi
+if ! test -f "$HOME/.config/gtk-3.0/settings.ini"; then
+	mkdir -p $HOME/.config/gtk-3.0
+	ln -s $HOME/dotfiles/gtk3-settings.ini $HOME/.config/gtk-3.0/settings.ini
+fi
+if ! test -d "$HOME/.config/xfce4/terminal"; then
+	mkdir -p $HOME/.config/xfce4/
+	ln -s $HOME/dotfiles/terminal $HOME/.config/xfce4/terminal
+fi
 
 # vim
-mkdir -p ~/.vim/tmp/
-mkdir -p ~/.vim/after
-mkdir -p ~/.vim/tags
-ln -s ~/dotfiles/vim/after/ftplugin ~/.vim/after/ftplugin
-ln -s ~/dotfiles/vim/autoload ~/.vim/autoload
-ln -s ~/dotfiles/vim/colors ~/.vim/colors
-ln -s ~/dotfiles/vim/coc-settings.json ~/.vim/coc-settings.json
-ln -s ~/dotfiles/vim/doc ~/.vim/doc
-mkdir ~/dotfiles/vim/spell
-ln -s ~/dotfiles/vim/spell ~/.vim/spell
+mkdir -p $HOME/.vim/tmp/
+mkdir -p $HOME/.vim/after
+mkdir -p $HOME/.vim/tags
+if ! test -d "$HOME/.vim/after/ftplugin"; then
+	ln -s $HOME/dotfiles/vim/after/ftplugin $HOME/.vim/after/ftplugin
+fi
+if ! test -d "$HOME/.vim/after/syntax"; then
+	ln -s $HOME/dotfiles/vim/after/syntax $HOME/.vim/after/syntax
+fi
+if ! test -d "$HOME/.vim/colors"; then
+	ln -s $HOME/dotfiles/vim/colors $HOME/.vim/colors
+fi
+if ! test -d "$HOME/.vim/doc"; then
+	ln -s $HOME/dotfiles/vim/doc $HOME/.vim/doc
+fi
+if ! test -d "$HOME/.vim/spell"; then
+	ln -s $HOME/dotfiles/vim/spell $HOME/.vim/spell
+fi
 
 # systemd
-mkdir -p ~/.config/systemd/user
-for i in $(ls -D ~/dotfiles/custom-systemd-units/*); do
-	ln -s $i ~/.config/systemd/user/
+mkdir -p $HOME/.config/systemd/user
+for i in $(ls -D $HOME/dotfiles/custom-systemd-units/*); do
+	if ! test -f $HOME/.config/systemd/user/$(basename $i); then
+		ln -s $i $HOME/.config/systemd/user/
+	fi
 done
