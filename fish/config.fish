@@ -137,7 +137,7 @@ alias grep=rg
 
 # alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
-alias dj='python -m pdb manage.py runserver'
+alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
 alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
@@ -145,10 +145,11 @@ alias gvim="gvim --servername ''"
 alias kitty="/bin/cat"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
-alias pdb='python -m pdb'
+alias pdb='python -m pdb -c continue'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias trash='gio trash'
+alias ut='python -m pdb -c continue manage.py test'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
