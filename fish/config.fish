@@ -149,10 +149,11 @@ alias pdb='python -m pdb -c continue'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias trash='gio trash'
-alias ut='python -m pdb -c continue manage.py test'
+alias ut='python manage.py test --pdb'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
+alias wut='watch -b -c -n 10 "python manage.py test"'
 #gd ubuntu
 alias pip='pip3'
 alias pudb='pudb3'
