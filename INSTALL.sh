@@ -37,13 +37,12 @@ fi
 mkdir -p .config
 if ! test -d "$HOME/.config/fish"; then ln -s $HOME/dotfiles/fish $HOME/.config/fish; fi
 if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; fi
+if ! test -d "$HOME/.config/mirage_linemode"; then ln -s $HOME/dotfiles/mirage_linemode $HOME/.config/mirage_linemode; fi
 if ! test -d "$HOME/.config/mutt"; then ln -s $HOME/dotfiles/mutt $HOME/.config/mutt; fi
 if ! test -d "$HOME/.config/qutebrowser"; then ln -s $HOME/dotfiles/qutebrowser $HOME/.config/qutebrowser; fi
-if ! test -d "$HOME/.config/rofi"; then ln -s $HOME/dotfiles/rofi $HOME/.config/rofi; fi
 if ! test -d "$HOME/.config/ranger"; then ln -s $HOME/dotfiles/ranger $HOME/.config/ranger; fi
-if ! test -d "$HOME/.config/mirage_linemode"; then ln -s $HOME/dotfiles/mirage_linemode $HOME/.config/mirage_linemode; fi
+if ! test -d "$HOME/.config/rofi"; then ln -s $HOME/dotfiles/rofi $HOME/.config/rofi; fi
 if ! test -d "$HOME/.config/yapf"; then ln -s $HOME/dotfiles/yapf $HOME/.config/yapf; fi
-
 
 # nested config
 if ! test -f "$HOME/.config/dunst/dunstrc"; then
