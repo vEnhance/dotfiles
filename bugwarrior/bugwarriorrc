@@ -1,0 +1,16 @@
+[general]
+targets = github_issues
+annotation_comments = False
+
+[github_issues]
+service = github
+github.username = vEnhance
+github.token = @oracle:use_keyring
+github.login = vEnhance
+github.query = is:issue assignee:vEnhance
+github.description_template = {{github-repo}}{{githubnumber}}: {{githubtitle}}
+github.filter_pull_requests = True
+github.include_user_issues = False
+github.include_user_repos = False
+
+# vim: ft=toml

@@ -37,3 +37,32 @@ report.undone.sort=status,wait,urgency-
 
 report.next.columns=id,depends,priority,project,tags,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Deps,P,Project,Tag,S,Due,Until,Description,Urg
+
+# Bugwarrior UDAs
+uda.githubtitle.type=string
+uda.githubtitle.label=Github Title
+uda.githubbody.type=string
+uda.githubbody.label=Github Body
+uda.githubcreatedon.type=date
+uda.githubcreatedon.label=Github Created
+uda.githubupdatedat.type=date
+uda.githubupdatedat.label=Github Updated
+uda.githubclosedon.type=date
+uda.githubclosedon.label=GitHub Closed
+uda.githubmilestone.type=string
+uda.githubmilestone.label=Github Milestone
+uda.githubrepo.type=string
+uda.githubrepo.label=Github Repo Slug
+uda.githuburl.type=string
+uda.githuburl.label=Github URL
+uda.githubtype.type=string
+uda.githubtype.label=Github Type
+uda.githubnumber.type=numeric
+uda.githubnumber.label=Github Issue/PR #
+uda.githubuser.type=string
+uda.githubuser.label=Github User
+uda.githubnamespace.type=string
+uda.githubnamespace.label=Github Namespace
+uda.githubstate.type=string
+uda.githubstate.label=GitHub State
+# END Bugwarrior UDAs

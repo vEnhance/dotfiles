@@ -35,6 +35,7 @@ fi
 
 # file/dir in .config
 mkdir -p .config
+if ! test -d "$HOME/.config/bugwarrior"; then ln -s $HOME/dotfiles/bugwarrior $HOME/.config/bugwarrior; fi
 if ! test -d "$HOME/.config/fish"; then ln -s $HOME/dotfiles/fish $HOME/.config/fish; fi
 if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; fi
 if ! test -d "$HOME/.config/mirage_linemode"; then ln -s $HOME/dotfiles/mirage_linemode $HOME/.config/mirage_linemode; fi
