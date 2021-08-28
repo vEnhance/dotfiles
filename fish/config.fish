@@ -227,11 +227,15 @@ end
 function ghi
 	set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
 	if test -z "$argv"
-		gh issue list
-	else if test "$argv" = "$digits"
+		gh issue status
+	else if test "$argv" = "$digits" > /dev/null
 		gh issue view $argv
-	else
+	else if string match -r \
+		"(close|comment|create|delete|edit|list|reopen|status|transfer|view)" \
+		(echo $argv | ag --only-matching "[a-z ]+" --nocolor) > /dev/null
 		gh issue $argv
+	else
+		gh issue status $argv
 	end
 end
 
