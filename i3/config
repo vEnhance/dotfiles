@@ -397,7 +397,6 @@ bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
 bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO"
-for_window [title="VIMTODO"] floating enable
 bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 
