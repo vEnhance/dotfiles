@@ -141,7 +141,46 @@ class Suggestion(VenueQNode):
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 
-	pass
+	def get_initial_data(self) -> Data:
+		return {
+			'action': 'mark_suggestion',
+		}
+
+	def on_buffer_open(self, data: Data):
+		super().on_buffer_open(data)
+		self.edit_temp(extension='mkd')
+		with open('/tmp/suggestion.tex', 'w') as f:
+			print(data['statement'], file=f)
+			print('\n---\n', file=f)
+			if data['acknowledge'] is True:
+				print(
+					r'\emph{This problem and solution were contributed by ' +
+					data['student__user__first_name'] + ' ' + data['student__user__last_name'] + '}.',
+					file=f
+				)
+				print('\n', file=f)
+			print(data['solution'], file=f)
+		subprocess.Popen(
+			[
+				"xfce4-terminal", "-x", "python", "-m", "von", "add", data['source'], "-f",
+				"/tmp/suggestion.tex"
+			]
+		)
+
+	def on_buffer_close(self, data: Data):
+		super().on_buffer_close(data)
+		comments_to_email = self.read_temp(extension='mkd').strip()
+		if comments_to_email != '':
+			recipient = data['student__user__email']
+			subject = f"OTIS: Suggestion {data['source']} processed"
+			try:
+				send_email(subject=subject, recipient=recipient, body=comments_to_email)
+			except Exception as e:
+				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
+			else:
+				logger.info(f"Email {subject} to {recipient} sent!")
+			if query_otis_server(payload=data) is True:
+				self.delete()
 
 
 class SuggestionCarrier(VenueQNode):
