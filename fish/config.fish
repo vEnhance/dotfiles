@@ -224,6 +224,17 @@ function chbs
 	shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
 end
 
+function ghi
+	set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
+	if test -z "$argv"
+		gh issue list
+	else if test "$argv" = "$digits"
+		gh issue view $argv
+	else
+		gh issue $argv
+	end
+end
+
 set -x LESS_TERMCAP_md (printf "\e[01;31m")
 set -x LESS_TERMCAP_me (printf "\e[0m")
 set -x LESS_TERMCAP_se (printf "\e[0m")
