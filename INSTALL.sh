@@ -35,7 +35,9 @@ fi
 
 # file/dir in .config
 mkdir -p .config
+if ! test -d "$HOME/.config/bat"; then ln -s $HOME/dotfiles/bat $HOME/.config/bat; fi
 if ! test -d "$HOME/.config/bugwarrior"; then ln -s $HOME/dotfiles/bugwarrior $HOME/.config/bugwarrior; fi
+if ! test -d "$HOME/.config/dunst"; then ln -s $HOME/dotfiles/dunst $HOME/.config/dunst; fi
 if ! test -d "$HOME/.config/fish"; then ln -s $HOME/dotfiles/fish $HOME/.config/fish; fi
 if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; fi
 if ! test -d "$HOME/.config/mirage_linemode"; then ln -s $HOME/dotfiles/mirage_linemode $HOME/.config/mirage_linemode; fi
@@ -44,19 +46,12 @@ if ! test -d "$HOME/.config/qutebrowser"; then ln -s $HOME/dotfiles/qutebrowser 
 if ! test -d "$HOME/.config/ranger"; then ln -s $HOME/dotfiles/ranger $HOME/.config/ranger; fi
 if ! test -d "$HOME/.config/rofi"; then ln -s $HOME/dotfiles/rofi $HOME/.config/rofi; fi
 if ! test -d "$HOME/.config/yapf"; then ln -s $HOME/dotfiles/yapf $HOME/.config/yapf; fi
+if ! test -d "$HOME/.config/zathura"; then ln -s $HOME/dotfiles/zathura $HOME/.config/zathura; fi
 
 # nested config
-if ! test -f "$HOME/.config/dunst/dunstrc"; then
-	mkdir -p $HOME/.config/dunst
-	ln -s $HOME/dotfiles/dunst/dunstrc $HOME/.config/dunst/dunstrc
-fi
 if ! test -f "$HOME/.config/proselint/config"; then
 	mkdir -p $HOME/.config/proselint
 	ln -s $HOME/dotfiles/vim/proselintrc $HOME/.config/proselint/config
-fi
-if ! test -f "$HOME/.config/zathura/zathurarc"; then
-	mkdir -p $HOME/.config/zathura
-	ln -s $HOME/dotfiles/zathurarc $HOME/.config/zathura/zathurarc
 fi
 if ! test -d "$HOME/.config/py3status"; then
 	mkdir -p $HOME/.config/py3status
