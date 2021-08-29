@@ -33,7 +33,7 @@ report.undone.description=List of tasks that are not done
 report.undone.filter=status:pending or status:waiting
 report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends,description,urgency,priority,project,tags
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
-report.undone.sort=status,wait,urgency-
+report.undone.sort=urgency-
 
 report.next.columns=id,depends,priority,project,tags,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Deps,P,Project,Tag,S,Due,Until,Description,Urg
