@@ -42,6 +42,8 @@ if filereadable("/bin/pacman")
 	let g:ctrlp_max_files = 0
 	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
+	let g:echodoc_enable_at_startup=1
+	let g:echodoc#type='popup'
 	let g:far#source='rg'
 	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
 	let g:gitgutter_map_keys = 0
@@ -53,6 +55,7 @@ if filereadable("/bin/pacman")
 		\ }
 	let g:indent_guides_auto_colors = 0
 	let g:indent_guides_enable_on_vim_startup = 1
+	let g:jedi#show_call_signatures = 0
 	let g:vimwiki_filetypes = ['markdown']
 	let g:yankring_history_dir = '$HOME/.cache/'
 	let grepprg = "ag --nogroup --nocolor"
