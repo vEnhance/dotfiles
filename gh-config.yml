@@ -12,10 +12,8 @@ aliases:
     diff: pr diff
     merge: pr merge
     close: issue close
-    todo: issue create
     add: issue create
-    e: issue edit
-    re: issue comment
+    mine: issue list -a @me
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
 # What web browser gh should use when opening URLs. If blank, will refer to environment.

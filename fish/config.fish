@@ -226,17 +226,35 @@ end
 
 function hub
 	set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
-	if test -z "$argv"
-		gh issue status
-		gh pr status
+	if test -z "$argv" -o (echo $argv | cut -c 1) = "-"
+		gh issue list $argv
+		gh pr list $argv
 	else if test "$argv" = "pr"
-		gh pr status
-	else if test "$argv" = "pr $digits"
-		gh pr comment $digits
-	else if test "$argv" = "$digits"
-		gh issue view --comments $argv 2> /dev/null
+		gh pr list
+	else if test "$argv" = "re $digits"
+		gh issue view --comments $digits 2> /dev/null
+		if test $status -eq 0
+			echo "Enter your comment below, or blank to open Vi..."
+			cat > /tmp/gh-comment.txt
+			if ag "[^\s]+" /tmp/gh-comment.txt > /dev/null
+				gh issue comment $digits -F /tmp/gh-comment.txt
+			else
+				gh issue comment $digits
+			end
+		else
+			gh pr view --comments $digits
+			echo "Enter your comment below, or blank to open Vi..."
+			cat > /tmp/gh-comment.txt
+			if ag "[^\s]+" /tmp/gh-comment.txt > /dev/null
+				gh pr comment $digits -F /tmp/gh-comment.txt
+			else
+				gh pr comment $digits
+			end
+		end
+	else if test (echo $argv | cut -d " " -f 1) = "$digits"
+		gh issue view $argv 2> /dev/null
 		if test $status -ne 0
-			gh pr view --comments $argv
+			gh pr view $argv
 		end
 	else
 		gh $argv
