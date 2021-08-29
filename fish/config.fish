@@ -224,18 +224,22 @@ function chbs
 	shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
 end
 
-function ghi
+function hub
 	set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
 	if test -z "$argv"
 		gh issue status
-	else if test "$argv" = "$digits" > /dev/null
-		gh issue view $argv
-	else if string match -r \
-		"(close|comment|create|delete|edit|list|reopen|status|transfer|view)" \
-		(echo $argv | ag --only-matching "[a-z ]+" --nocolor) > /dev/null
-		gh issue $argv
+		gh pr status
+	else if test "$argv" = "pr"
+		gh pr status
+	else if test "$argv" = "pr $digits"
+		gh pr comment $digits
+	else if test "$argv" = "$digits"
+		gh issue view --comments $argv 2> /dev/null
+		if test $status -ne 0
+			gh pr view --comments $argv
+		end
 	else
-		gh issue status $argv
+		gh $argv
 	end
 end
 

@@ -69,6 +69,10 @@ if ! test -d "$HOME/.config/xfce4/terminal"; then
 	mkdir -p $HOME/.config/xfce4/
 	ln -s $HOME/dotfiles/terminal $HOME/.config/xfce4/terminal
 fi
+if ! test -d "$HOME/.config/gh/config.yml"; then
+	mkdir -p $HOME/.config/gh
+	ln -s $HOME/dotfiles/gh-config.yml $HOME/.config/gh/config.yml
+fi
 
 # vim
 mkdir -p $HOME/.vim/tmp/
