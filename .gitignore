@@ -1,6 +1,3 @@
-!elinks/elinks.conf
-!fish/config.fish
-!fish/fish_plugins
 **/*.pyc
 asy/history
 aws-hmmt
@@ -24,3 +21,8 @@ qutebrowser/quickmarks
 sage/*
 ssh/*
 vim/spell/*
+!fish/config.fish
+!fish/completions
+!fish/completions/*.fish
+!fish/fish_plugins
+!elinks/elinks.conf
