@@ -49,14 +49,14 @@ TOKEN = os.getenv('OTIS_WEB_TOKEN')
 assert TOKEN is not None
 PRODUCTION = os.getenv('PRODUCTION', False)
 if PRODUCTION:
-	DASHBOARD_API_URL = 'https://otis.evanchen.cc/dash/api/'
+	OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
 else:
-	DASHBOARD_API_URL = 'http://127.0.0.1:8000/dash/api/'
+	OTIS_API_URL = 'http://127.0.0.1:8000/aincrad/api/'
 
 
 def query_otis_server(payload: Data) -> bool:
 	payload['token'] = TOKEN
-	resp = requests.post(DASHBOARD_API_URL, data=payload)
+	resp = requests.post(OTIS_API_URL, data=payload)
 	if resp.status_code == 200:
 		logger.info("Got a 200 response back from server")
 		subprocess.run(
@@ -201,7 +201,7 @@ class OTISRoot(VenueQRoot):
 
 
 if __name__ == "__main__":
-	otis_response = requests.post(url=DASHBOARD_API_URL, data={'token': TOKEN, 'action': 'init'})
+	otis_response = requests.post(url=OTIS_API_URL, data={'token': TOKEN, 'action': 'init'})
 
 	otis_dir = Path('/tmp/otis') if PRODUCTION else Path('/tmp/otis-debug')
 	if not otis_dir.exists():
