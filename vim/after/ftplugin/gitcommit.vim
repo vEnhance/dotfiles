@@ -17,7 +17,7 @@ function! s:SetConventionalCommit()
 	let s:choices = ['wtf', 'fix', 'feat', 'docs', 'style', 'refactor', 'chore', 'test', 'polish', 'improvement']
 	if g:categorized == 0
 		let g:categorized = 1
-		call fzf#run({'source' : s:choices, 'sink': 'HandleFZF', 'up' : '13'})
+		call fzf#run({'source' : s:choices, 'sink': 'HandleFZF', 'up' : '15'})
 	endif
 endfunction
 
