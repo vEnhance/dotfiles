@@ -528,7 +528,7 @@ set noshowmode " don't need mode shown if we have airline
 set number
 set omnifunc=ale#completion#OmniFunc
 set ruler      " show the cursor position all the time
-set scrolloff=7
+set scrolloff=5
 set shell=/bin/fish
 set shellslash
 set shiftwidth=2
