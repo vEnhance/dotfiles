@@ -315,11 +315,11 @@ function EvanFindChar(direction, epsilon, repeat)
 endfunction
 
 function EvanSemicolon()
-	if b:evan_last_finder_dir == 0
+	if get(b:, "evan_last_finder_dir", 0) == 0
 		call feedkeys(':')
-	elseif b:evan_last_finder_line != line('.')
+	elseif get(b:, "evan_last_finder_line", 0) != line('.')
 		call feedkeys(':')
-	elseif b:evan_last_finder_char ==# ''
+	elseif get(b:, "evan_last_finder_char", '') ==# ''
 		call feedkeys(':')
 	else
 		call EvanFindChar(b:evan_last_finder_dir, b:evan_last_finder_eps, 1)
