@@ -21,4 +21,4 @@ function! s:SetConventionalCommit()
 	endif
 endfunction
 
-autocmd BufEnter COMMIT_EDITMSG call s:SetConventionalCommit()
+autocmd VimEnter COMMIT_EDITMSG call s:SetConventionalCommit()
