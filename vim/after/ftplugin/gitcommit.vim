@@ -22,3 +22,4 @@ function! s:SetConventionalCommit()
 endfunction
 
 autocmd VimEnter COMMIT_EDITMSG call s:SetConventionalCommit()
+nnoremap <localleader>c :call s:SetConventionalCommit()<CR>
