@@ -13,7 +13,7 @@ endfunction
 command! -nargs=1 HandleFZF call HandleFZF(<f-args>)
 
 let g:categorized = 0
-function! s:SetConventionalCommit()
+function! SetConventionalCommit()
 	let s:choices = ['wtf', 'fix', 'feat', 'docs', 'style', 'refactor', 'chore', 'test', 'polish', 'improvement']
 	if g:categorized == 0
 		let g:categorized = 1
@@ -21,13 +21,13 @@ function! s:SetConventionalCommit()
 	endif
 endfunction
 
-function! s:GitCommitStartup()
+function! GitCommitStartup()
 	normal gg
 	let line = getline('.')
 	if line ==# ''
-		call s:SetConventionalCommit()
+		call SetConventionalCommit()
 	endif
 endfunction
 
-autocmd VimEnter COMMIT_EDITMSG call s:GitCommitStartup()
-nnoremap <localleader>c :call s:SetConventionalCommit()<CR>
+autocmd VimEnter COMMIT_EDITMSG call GitCommitStartup()
+nnoremap <localleader>c :call SetConventionalCommit()<CR>
