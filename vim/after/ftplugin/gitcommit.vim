@@ -21,5 +21,13 @@ function! s:SetConventionalCommit()
 	endif
 endfunction
 
-autocmd VimEnter COMMIT_EDITMSG call s:SetConventionalCommit()
+function! s:GitCommitStartup()
+	normal gg
+	let line = getline('.')
+	if line ==# ''
+		call s:SetConventionalCommit()
+	endif
+endfunction
+
+autocmd VimEnter COMMIT_EDITMSG call s:GitCommitStartup()
 nnoremap <localleader>c :call s:SetConventionalCommit()<CR>
