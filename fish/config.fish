@@ -316,7 +316,7 @@ alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
 alias ls='ls --color=tty --quoting-style=literal'
-alias l='ls -la'
+alias l='ls -l'
 
 # Fish completions
 complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
