@@ -35,4 +35,6 @@ $cleanup_includes_cusdep_generated = 1;
 $hash_calc_ignore_pattern{'map'} = '^';
 $hash_calc_ignore_pattern{'fmt'} = '^';
 
+$silent = 1;
+
 # vim: ft=perl
