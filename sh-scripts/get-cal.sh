@@ -14,5 +14,6 @@ gcalendar --no-of-days 1 --output txt \
 		"Todoist" \
 		"Unfortunate Things" \
 		"Video Calls for OTIS" \
+		"White" \
 		"Zero-Minute Reminders" \
 		"twitch.tv" | cut -b 12-19,31- > /tmp/agenda.txt
