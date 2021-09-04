@@ -44,20 +44,25 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	dunst &
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
-		/home/evan/dotfiles/py-scripts/ctwenty.py &
 		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
 	fi
-	xrandr | grep 2560x1440
-	if [ $? -eq 0 ]; then
+	if [ "$(date +'%Z')" = "EDT" ]; then
+		i3-msg workspace $WS1
+		i3-msg gaps right current set 390
+	else
+		# we are in CA
 		i3-msg workspace $WS2
 		i3-msg workspace $WS9
 		i3-msg move workspace to "DP-1"
 		i3-msg workspace $WS2
 		i3-msg workspace $WS1
 		i3-msg move workspace to "DP-3"
+		if [ "$(whoami)" = "evan" ]; then
+			/home/evan/dotfiles/py-scripts/ctwenty.py &
+		fi
+		i3-msg gaps right current set 390
 	fi
-	i3-msg gaps right current set 390
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then

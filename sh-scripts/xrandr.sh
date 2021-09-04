@@ -14,6 +14,8 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 			--output "DP-1" --mode 2560x1440 --primary \
 			--output "DP-3" --mode 1920x1080 --left-of "DP-1" \
 			--output "DP-2" --mode 1440x900 --right-of "DP-1"
+	else
+		xrandr --output "DP-3" --mode 1920x1080 --primary
 	fi
 fi
 

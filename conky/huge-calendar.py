@@ -132,17 +132,26 @@ def goto_offset(x):
 	return r'${goto ' + str(offset(x)) + '}'
 
 
-for i in (0, 3, 1, 4, 2, 5):
+if str(datetime.now().astimezone().tzinfo) == 'EDT':
+	# we are in boston
+	NUM_COL = 2
+	ORDER = (0, 2, 1, 3)
+else:
+	# we are in cali
+	NUM_COL = 3
+	ORDER = (0, 3, 1, 4, 2, 5)
+
+for i in ORDER:
 	current_day = today + timedelta(days=i)
 	items = all_items.pop(current_day, [])
 	items.sort()
 	with open(Path(f'~/.cache/panel{i}.conky.txt').expanduser(), 'w') as f:
-		x = 1 + (i % 3)
+		x = 1 + (i % NUM_COL)
 		for n, item in enumerate(items[:NUM_ROWS]):
-			y = (n + 1) + (NUM_ROWS if i >= 3 else 0)
+			y = (n + 1) + (NUM_ROWS if i >= NUM_COL else 0)
 			table[y][x] = item.conky_repr(needs_date=False, offset=offset_indented(x))
 
-		y0 = HEADER_Y_FIRST if i < 3 else HEADER_Y_SECOND
+		y0 = HEADER_Y_FIRST if i < NUM_COL else HEADER_Y_SECOND
 		table[y0][x] = current_day.strftime('%a %d %b')
 
 table[HEADER_Y_FIRST][0] = r'${font Exo 2:size=24:bold}${color 55ff99}Upcoming Events'
