@@ -49,7 +49,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	fi
 	if [ "$(date +'%Z')" = "EDT" ]; then
 		i3-msg workspace $WS1
-		i3-msg gaps right current set 390
+		i3-msg gaps right current set 512
 	else
 		# we are in CA
 		i3-msg workspace $WS2
@@ -66,7 +66,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-	picom -b &
+	picom -C -G -b --no-fading-openclose
 	if [ "$(whoami)" = "evan" ]; then
 		source ~/dotfiles/conky/setup.sh &
 		/home/evan/dotfiles/py-scripts/ctwenty.py &
@@ -78,6 +78,8 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	syncthing-gtk &
 	i3-msg workspace $WS1
 	i3-msg move workspace to "DP-4"
+	i3-msg gaps right current set 390
 	i3-msg workspace $WS7
 	i3-msg move workspace to "HDMI-0"
+	systemctl --user start evansync.timer
 fi

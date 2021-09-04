@@ -1,3 +1,5 @@
+#/bin/bash
+
 sleep 5
 if [ "$(hostname)" = ArchDiamond ]; then
 	conky -c ~/dotfiles/conky/conky.conf
@@ -6,4 +8,9 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	else
 		conky -c ~/dotfiles/conky/huge-calendar.conf
 	fi
+fi
+
+if [ "$(hostname)" = ArchMajestic ]; then
+	conky -c ~/dotfiles/conky/conky.conf
+	conky -c ~/dotfiles/conky/huge-calendar.conf
 fi

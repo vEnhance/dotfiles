@@ -1,6 +1,7 @@
 import functools
 import json
 import subprocess
+import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 from enum import IntEnum
@@ -132,14 +133,14 @@ def goto_offset(x):
 	return r'${goto ' + str(offset(x)) + '}'
 
 
-if str(datetime.now().astimezone().tzinfo) == 'EDT':
+if sys.argv[-1] == '--two':
 	# we are in boston
 	NUM_COL = 2
-	ORDER = (0, 2, 1, 3)
+	ORDER = [0, 2, 1, 3]
 else:
 	# we are in cali
 	NUM_COL = 3
-	ORDER = (0, 3, 1, 4, 2, 5)
+	ORDER = [0, 3, 1, 4, 2, 5]
 
 for i in ORDER:
 	current_day = today + timedelta(days=i)
