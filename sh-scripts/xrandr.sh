@@ -20,8 +20,8 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 fi
 
 if [ "$HOSTNAME" = ArchMajestic ]; then
-	xrandr --output "DP-4" --primary \
-		--output "DP-0" --right-of "DP-4" \
+	xrandr --output "DP-0" --primary \
+		--output "DP-4" --left-of "DP-0" \
 		--output "HDMI-0" --below "DP-0" \
 		--output "DP-2" --right-of "DP-0"
 fi

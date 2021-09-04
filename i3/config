@@ -47,6 +47,7 @@ bar {
 	tray_output primary
 }
 workspace $WS2 output primary
+workspace $WS9 output DP-2
 
 # change focus
 bindsym $mod+h focus left

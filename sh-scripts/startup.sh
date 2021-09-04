@@ -76,8 +76,6 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	redshift-gtk &
 	dropbox-cli start
 	syncthing-gtk &
-	i3-msg workspace $WS9
-	i3-msg move workspace to "DP-1"
 	i3-msg workspace $WS1
 	i3-msg move workspace to "DP-4"
 	i3-msg workspace $WS7
