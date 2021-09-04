@@ -12,12 +12,15 @@ aliases:
     diff: pr diff
     merge: pr merge
     close: issue close
-    add: issue create
+    add: issue create --title
     mine: issue list -a @me
     e: issue edit
     label: issue edit --add-label
     claim: issue edit --add-assignee @me
     rmlabel: issue edit --remove-label
+    5c: issue edit --add-project "5♠️"
+    9c: issue edit --add-project "9♠️"
+    17c: issue edit --add-project "17♠️"
 # The path to a unix socket through which send HTTP connections. If blank, HTTP traffic will be handled by net/http.DefaultTransport.
 http_unix_socket:
 # What web browser gh should use when opening URLs. If blank, will refer to environment.
