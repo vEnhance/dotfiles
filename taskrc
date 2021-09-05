@@ -23,6 +23,7 @@ alias.md=priority:M
 alias.hi=priority:H
 
 uda.priority.values=H,M,,L
+recurrence.limit=0
 
 report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
