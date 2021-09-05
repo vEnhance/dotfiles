@@ -2,7 +2,7 @@
 
 sleep 5
 if [ "$(hostname)" = ArchDiamond ]; then
-	conky -c ~/dotfiles/conky/conky.conf
+	conky -c ~/dotfiles/conky/thin-bar.conf
 	if [ "$(date +'%Z')" = "EDT" ]; then
 		conky -c ~/dotfiles/conky/large-calendar.conf
 	else
@@ -11,6 +11,6 @@ if [ "$(hostname)" = ArchDiamond ]; then
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-	conky -c ~/dotfiles/conky/conky.conf
+	conky -c ~/dotfiles/conky/shifted-bar.conf
 	conky -c ~/dotfiles/conky/huge-calendar.conf
 fi
