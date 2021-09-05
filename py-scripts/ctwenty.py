@@ -78,7 +78,7 @@ for s in SIGNALS:
 	signal.signal(s, noop)
 
 current_status = -1
-signal.alarm(120)
+signal.alarm(2)
 write_next_time(-1)
 # -1: manually disabled until next time i3 unlocks
 # 0: neutral state
