@@ -22,6 +22,10 @@ WS0="10: Yod"
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 
+if [ "$(hostname)" = ArchAir ]; then
+	dunst &
+fi
+
 if [ "$(hostname)" = ArchAngel ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
@@ -78,7 +82,6 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	syncthing-gtk &
 	i3-msg workspace $WS1
 	i3-msg move workspace to "DP-4"
-	i3-msg gaps right current set 390
 	i3-msg workspace $WS7
 	i3-msg move workspace to "HDMI-0"
 	systemctl --user start evansync.timer
