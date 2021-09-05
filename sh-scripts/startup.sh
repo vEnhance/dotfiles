@@ -24,6 +24,8 @@ xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy
 
 if [ "$(hostname)" = ArchAir ]; then
 	dunst &
+	synclient RightButtonAreaRight=1
+	synclient VertScrollDelta=-237
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then
