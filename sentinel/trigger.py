@@ -12,6 +12,8 @@ import requests
 from dotenv import load_dotenv
 
 load_dotenv(Path(__file__).parent / '.env')
+IFTTT_KEY = os.getenv("KEY", '').strip()
+assert IFTTT_KEY
 
 
 def is_locked():
@@ -34,16 +36,20 @@ try:
 	panic_path = (Path(__file__).parent / 'audio/panic470504.mp3').absolute()
 
 	if is_locked():
-		for _ in range(10):
+		url = "https://maker.ifttt.com/trigger/door_open/with/key/" + IFTTT_KEY
+		print(url)
+		resp = requests.post(url=url)
+		print(resp.status_code, resp.content)
+		for _ in range(5):
 			subprocess.run(args=["mpg123", alarm_path])
 			time.sleep(4)
 			if not is_locked():
 				break
 		else:  # still locked, PANIC
-			k = os.getenv("KEY")
-			assert k is not None
-			url = "https://maker.ifttt.com/trigger/front_door_opened/with/key/" + k.strip()
-			print(requests.post(url=url))
+			url = "https://maker.ifttt.com/trigger/alarm_fired/with/key/" + IFTTT_KEY
+			print(url)
+			resp = requests.post(url=url)
+			print(resp.status_code, resp.content)
 			while is_locked():
 				subprocess.run(args=["mpg123", panic_path])
 	else:

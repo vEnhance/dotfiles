@@ -52,7 +52,7 @@ def index():
 			camera=CAMERA_DOMAIN,
 		)
 	else:
-		return render_template("login.html", title="Greetings, oh great one")
+		return render_template("login.html", title="Greetings")
 
 
 @app.route("/login", methods=['POST'])
