@@ -195,7 +195,11 @@ if filereadable("/bin/pacman")
 				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p')) | quit | endif
 			endif
 		elseif empty(v:servername)
-			call remote_startserver(l:gitdir)
+			try
+				call remote_startserver(l:gitdir)
+			catch
+				echo "Couldn't start a remote server"
+			endtry
 		endif
 	endfunction
 	autocmd VimEnter * call StartServer()
@@ -433,7 +437,7 @@ nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . 
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " e is for emulator
-nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw<CR>
+nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw!<CR>
 " fold by indent
 nnoremap <Space>z :set foldmethod=indent<CR>
 " NerdTree
