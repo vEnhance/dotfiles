@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Welcome back.</p>
+<table class="table">
+<tbody>
+{% for noun, status in statuses.items() %}
+<tr class="{{ status[1] }}">
+	<th>{{ noun }}</th>
+	<td>{{ status[0] }}</td>
+	{% for verb in verbs %}
+	<td><a href="/command/{{ verb }}/{{ noun }}/">{{ verb }}</a></td>
+	{% endfor %}
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% endblock %}

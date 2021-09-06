@@ -3,8 +3,18 @@
 <p><a href="/">Back to index</a></p>
 <h2>Return code</h2>
 {{ process.returncode }}
+
 <h2>Standard output</h2>
+{% if process.stdout %}
 <pre>{{ process.stdout }}</pre>
+{% else %}
+No standard output.
+{% endif %}
+
 <h2>Standard error</h2>
+{% if process.stderr %}
 <pre>{{ process.stderr }}</pre>
+{% else %}
+No standard output.
+{% endif %}
 {% endblock %}
