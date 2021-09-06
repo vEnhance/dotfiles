@@ -1,0 +1,5 @@
+[Unit]
+Description=Runs the MOSP bot suite
+
+[Service]
+ExecStart=/home/evan/SkyNet/github/mosp-2021/core/run.sh

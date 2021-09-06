@@ -1,0 +1,5 @@
+[Unit]
+Description=Runs the Evil Chin bot
+
+[Service]
+ExecStart=/home/evan/SkyNet/github/evil-chin/run.sh
