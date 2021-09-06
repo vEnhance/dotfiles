@@ -6,14 +6,14 @@
 
 <h2>Standard output</h2>
 {% if process.stdout %}
-<pre>{{ process.stdout }}</pre>
+<code style="white-space: pre;">{{ process.stdout }}</code>
 {% else %}
 No standard output.
 {% endif %}
 
 <h2>Standard error</h2>
 {% if process.stderr %}
-<pre>{{ process.stderr }}</pre>
+<code style="white-space: pre;">{{ process.stderr }}</code>
 {% else %}
 No standard output.
 {% endif %}

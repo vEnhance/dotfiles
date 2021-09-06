@@ -27,8 +27,7 @@ if [ "$(hostname)" = ArchAir ]; then
 	synclient VertScrollDelta=-237
 	systemctl start --user evil-chin.service
 	systemctl start --user mosp-2021.service
-	lt --port 8081 -s $(cat ~/dotfiles/skynetsys/subdomains/camera) &
-	lt --port 5000 -s $(cat ~/dotfiles/skynetsys/subdomains/skynet) &
+	lt --port 5000 -s $(cat ~/dotfiles/skynetsys/subdomain) &
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then

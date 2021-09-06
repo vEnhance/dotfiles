@@ -18,9 +18,10 @@ VERBS = [
 	'restart',
 ]
 NOUNS = [
+	'motion',
+	'skynet',
 	'evil-chin',
 	'mosp-2021',
-	'motion',
 	'evansync',
 ]
 CAMERA_DOMAIN = (Path(__file__).parent / 'subdomains/camera').read_text().strip()
@@ -44,7 +45,11 @@ def index():
 	if session.get('logged_in'):
 		statuses = {noun: check_status(noun) for noun in NOUNS}
 		return render_template(
-			"index.html", title="SkyNet", statuses=statuses, verbs=VERBS, camera=CAMERA_DOMAIN
+			"index.html",
+			title="SkyNet",
+			statuses=statuses,
+			verbs=VERBS,
+			camera=CAMERA_DOMAIN,
 		)
 	else:
 		return render_template("login.html", title="SkyNet")
