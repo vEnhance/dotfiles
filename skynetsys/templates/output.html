@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block content %}
+<p><a href="/">Back to index</a></p>
+<h2>Return code</h2>
+{{ process.returncode }}
+<h2>Standard output</h2>
+<pre>{{ process.stdout }}</pre>
+<h2>Standard error</h2>
+<pre>{{ process.stderr }}</pre>
+{% endblock %}
