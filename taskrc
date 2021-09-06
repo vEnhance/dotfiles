@@ -24,6 +24,9 @@ alias.hi=priority:H
 
 uda.priority.values=H,M,,L
 recurrence.limit=0
+urgency.uda.priority.H.coefficient=4.2
+urgency.uda.priority.M.coefficient=2.1
+urgency.uda.priority.L.coefficient=-1.8
 
 report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
@@ -35,6 +38,7 @@ color.uda.priority.L=rgb040
 color.due=rgb420
 color.due.today=rgb430
 color.overdue=rgb440
+color.scheduled=rgb033
 
 report.undone.description=List of tasks that are not done
 report.undone.filter=status:pending or status:waiting
