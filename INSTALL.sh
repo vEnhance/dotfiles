@@ -3,7 +3,9 @@
 # Use at your own risk ;)
 # makes many symlinks
 
-cd $HOME/dotfiles/py3status
+cd $HOME/dotfiles/i3/
+make
+cd $HOME/dotfiles/py3status/
 make
 
 cd $HOME
@@ -39,7 +41,6 @@ if ! test -d "$HOME/.config/bat"; then ln -s $HOME/dotfiles/bat $HOME/.config/ba
 if ! test -d "$HOME/.config/bugwarrior"; then ln -s $HOME/dotfiles/bugwarrior $HOME/.config/bugwarrior; fi
 if ! test -d "$HOME/.config/dunst"; then ln -s $HOME/dotfiles/dunst $HOME/.config/dunst; fi
 if ! test -d "$HOME/.config/fish"; then ln -s $HOME/dotfiles/fish $HOME/.config/fish; fi
-if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; fi
 if ! test -d "$HOME/.config/mirage_linemode"; then ln -s $HOME/dotfiles/mirage_linemode $HOME/.config/mirage_linemode; fi
 if ! test -d "$HOME/.config/mutt"; then ln -s $HOME/dotfiles/mutt $HOME/.config/mutt; fi
 if ! test -d "$HOME/.config/qutebrowser"; then ln -s $HOME/dotfiles/qutebrowser $HOME/.config/qutebrowser; fi
@@ -47,6 +48,16 @@ if ! test -d "$HOME/.config/ranger"; then ln -s $HOME/dotfiles/ranger $HOME/.con
 if ! test -d "$HOME/.config/rofi"; then ln -s $HOME/dotfiles/rofi $HOME/.config/rofi; fi
 if ! test -d "$HOME/.config/yapf"; then ln -s $HOME/dotfiles/yapf $HOME/.config/yapf; fi
 if ! test -d "$HOME/.config/zathura"; then ln -s $HOME/dotfiles/zathura $HOME/.config/zathura; fi
+
+# i3
+if ! test -d "$HOME/.config/i3"; then
+	if test -f "/home/evan/dotfiles/i3/config.$(hostname)"; then
+		mkdir "$HOME/.config/i3"
+		ln -s "$HOME/dotfiles/i3/config.$(hostname)" $HOME/.config/i3/config;
+	else
+		ln -s $HOME/dotfiles/i3 $HOME/.config/i3;
+	fi
+fi
 
 # nested config
 if ! test -f "$HOME/.config/proselint/config"; then

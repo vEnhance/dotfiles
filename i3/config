@@ -399,5 +399,4 @@ bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-sc
 bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 
-
 # vim: ft=i3config
