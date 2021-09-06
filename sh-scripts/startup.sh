@@ -56,21 +56,8 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
 	fi
-	if [ "$(date +'%Z')" = "EDT" ]; then
-		i3-msg workspace $WS1
-		i3-msg gaps right current set 512
-	else
-		# we are in CA
-		i3-msg workspace $WS2
-		i3-msg workspace $WS9
-		i3-msg move workspace to "DP-1"
-		i3-msg workspace $WS2
-		i3-msg workspace $WS1
-		i3-msg move workspace to "DP-3"
-		if [ "$(whoami)" = "evan" ]; then
-			/home/evan/dotfiles/py-scripts/ctwenty.py &
-		fi
-		i3-msg gaps right current set 390
+	if [ "$(date +'%Z')" = "PDT" -a "$(whoami)" = "evan" ]; then
+		/home/evan/dotfiles/py-scripts/ctwenty.py &
 	fi
 fi
 
@@ -85,9 +72,5 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	redshift-gtk &
 	dropbox-cli start
 	syncthing-gtk &
-	i3-msg workspace $WS1
-	i3-msg move workspace to "DP-4"
-	i3-msg workspace $WS7
-	i3-msg move workspace to "HDMI-0"
 	systemctl --user start evansync.timer
 fi

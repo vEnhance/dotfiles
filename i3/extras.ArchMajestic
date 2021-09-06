@@ -1,5 +1,11 @@
 workspace $WS1 output DP-4
 workspace $WS2 output primary
-workspace $WS7 output HDMI-0
-workspace $WS8 output primary
+workspace $WS3 output primary
+workspace $WS4 output primary
+workspace $WS5 output primary
+workspace $WS6 output primary
+workspace $WS7 output primary
+workspace $WS8 output HDMI-0
 workspace $WS9 output DP-2
+workspace $WS0 output DP-2
+workspace $WS1 gaps right 512
