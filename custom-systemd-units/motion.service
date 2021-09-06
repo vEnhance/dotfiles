@@ -1,0 +1,5 @@
+[Unit]
+Description=Motion camera
+
+[Service]
+ExecStart=motion -c /home/evan/dotfiles/skynetsys/motion.conf
