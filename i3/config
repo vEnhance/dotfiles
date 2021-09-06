@@ -46,9 +46,6 @@ bar {
 	wheel_down_cmd nop
 	tray_output primary
 }
-workspace $WS2 output primary
-workspace $WS8 output primary
-workspace $WS9 output DP-2
 
 # change focus
 bindsym $mod+h focus left

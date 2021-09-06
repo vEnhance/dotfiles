@@ -1,0 +1,5 @@
+workspace $WS1 output DP-4
+workspace $WS2 output primary
+workspace $WS7 output HDMI-0
+workspace $WS8 output primary
+workspace $WS9 output DP-2
