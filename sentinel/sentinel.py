@@ -18,7 +18,7 @@ VERBS = [
 	'restart',
 ]
 NOUNS = [
-	'motion',
+	'motioncam',
 	'sentinel',
 	'evil-chin',
 	'mosp-2021',
