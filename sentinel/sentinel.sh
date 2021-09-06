@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -euxo pipefail
-cd ~/dotfiles/skynetsys/
+cd ~/dotfiles/sentinel/
 source ~/.virtualenvs/skynet/bin/activate
 
 export FLASK_APP=sentinel

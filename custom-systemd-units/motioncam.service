@@ -2,6 +2,6 @@
 Description=Motion camera
 
 [Service]
-ExecStart=/home/evan/dotfiles/skynetsys/motion.sh
+ExecStart=/home/evan/dotfiles/sentinel/motion.sh
 Restart=on-failure
 RestartSec=3s

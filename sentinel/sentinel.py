@@ -46,7 +46,7 @@ def index():
 		statuses = {noun: check_status(noun) for noun in NOUNS}
 		return render_template(
 			"index.html",
-			title="SkyNet Sentinel Server",
+			title="Sentinel server",
 			statuses=statuses,
 			verbs=VERBS,
 			camera=CAMERA_DOMAIN,

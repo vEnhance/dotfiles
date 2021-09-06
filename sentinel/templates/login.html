@@ -2,7 +2,7 @@
 {% block content %}
 Greetings, Evan.
 <form action="/login" method="POST">
-	<input type="password" name="password" />
+	<input type="password" name="password" pattern="[0-9]*" inputmode="numeric" />
 	<input type="submit" value="Login" />
 </form>
 {% endblock %}
