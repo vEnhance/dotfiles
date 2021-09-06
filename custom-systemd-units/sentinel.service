@@ -1,0 +1,8 @@
+[Unit]
+Description=SkyNet Sentinel server
+After=network.target
+
+[Service]
+ExecStart=/home/evan/dotfiles/skynetsys/sentinel.sh
+Restart=on-failure
+RestartSec=30

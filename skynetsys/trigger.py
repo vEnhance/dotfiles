@@ -29,9 +29,9 @@ try:
 			sys.exit(0)
 	fired.write_text(datetime.now().isoformat())
 
-	beep_path = (Path(__file__).parent / 'beep459992.mp3').absolute()
-	alarm_path = (Path(__file__).parent / 'warning543691.mp3').absolute()
-	panic_path = (Path(__file__).parent / 'panic470504.mp3').absolute()
+	beep_path = (Path(__file__).parent / 'audio/beep459992.mp3').absolute()
+	alarm_path = (Path(__file__).parent / 'audio/warning543691.mp3').absolute()
+	panic_path = (Path(__file__).parent / 'audio/panic470504.mp3').absolute()
 
 	if is_locked():
 		for _ in range(10):

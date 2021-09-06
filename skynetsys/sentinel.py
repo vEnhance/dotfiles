@@ -19,7 +19,7 @@ VERBS = [
 ]
 NOUNS = [
 	'motion',
-	'skynet',
+	'sentinel',
 	'evil-chin',
 	'mosp-2021',
 	'evansync',
@@ -46,13 +46,13 @@ def index():
 		statuses = {noun: check_status(noun) for noun in NOUNS}
 		return render_template(
 			"index.html",
-			title="SkyNet",
+			title="SkyNet Sentinel Server",
 			statuses=statuses,
 			verbs=VERBS,
 			camera=CAMERA_DOMAIN,
 		)
 	else:
-		return render_template("login.html", title="SkyNet")
+		return render_template("login.html", title="Greetings, oh great one")
 
 
 @app.route("/login", methods=['POST'])
