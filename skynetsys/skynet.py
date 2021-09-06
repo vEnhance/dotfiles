@@ -1,5 +1,6 @@
 import os
 import subprocess
+from pathlib import Path
 from typing import Tuple
 
 from dotenv import load_dotenv
@@ -20,8 +21,9 @@ NOUNS = [
 	'evil-chin',
 	'mosp-2021',
 	'motion',
-	'dunst',
+	'evansync',
 ]
+CAMERA_DOMAIN = (Path(__file__).parent / 'subdomains/camera').read_text().strip()
 
 
 def check_status(noun: str) -> Tuple[str, str]:
@@ -41,7 +43,9 @@ def check_status(noun: str) -> Tuple[str, str]:
 def index():
 	if session.get('logged_in'):
 		statuses = {noun: check_status(noun) for noun in NOUNS}
-		return render_template("index.html", title="SkyNet", statuses=statuses, verbs=VERBS)
+		return render_template(
+			"index.html", title="SkyNet", statuses=statuses, verbs=VERBS, camera=CAMERA_DOMAIN
+		)
 	else:
 		return render_template("login.html", title="SkyNet")
 

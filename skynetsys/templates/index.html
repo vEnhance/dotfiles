@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<p>Welcome back.</p>
+<p>Welcome back, your majesty.</p>
+<h2>Dashboard</h2>
 <table class="table">
 <tbody>
 {% for noun, status in statuses.items() %}
@@ -14,4 +15,6 @@
 {% endfor %}
 </tbody>
 </table>
+<h2>Camera</h2>
+<img src="{{camera}}.loca.lt/" class="img-fluid" />
 {% endblock %}
