@@ -46,6 +46,9 @@ fi
 if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 fi
+if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
+	xset dpms 10 0 0
+fi
 
 # xset dpms force off
 
@@ -102,8 +105,12 @@ else
 		--pointer=win
 fi
 
+if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
+	xset dpms 900 900 900
+fi
 if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
+	killall -s CONT ctwenty.py
 fi
 if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
