@@ -21,7 +21,8 @@ source ~/dotfiles/sh-scripts/xrandr.sh
 
 if [ "$HOSTNAME" = ArchAngel ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	xset s 540 90 -dpms
+	xset s 540 90
+	xset dpms 600 600 600
 	# export QT_SCALE_FACTOR=2.4
 fi
 

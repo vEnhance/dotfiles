@@ -25,7 +25,7 @@ try:
 	if fired.exists():
 		last_fired_time = datetime.fromisoformat(fired.read_text())
 		if datetime.now() - last_fired_time < timedelta(minutes=10):
-			print("Exiting because a lock file was found")
+			# print("Exiting because a lock file was found")
 			sys.exit(0)
 	fired.write_text(datetime.now().isoformat())
 
