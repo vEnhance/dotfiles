@@ -20,6 +20,7 @@ WS8="8: Het"
 WS9="9: Tet"
 WS0="10: Yod"
 
+xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 
 if [ "$(hostname)" = ArchAir ]; then
 	dunst &
@@ -34,7 +35,6 @@ if [ "$(hostname)" = ArchAngel ]; then
 	picom -C -G -b --no-fading-openclose
 	redshift-gtk &
 	dropbox-cli start
-	xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
@@ -44,7 +44,6 @@ if [ "$(hostname)" = ArchScythe ]; then
 	systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
 	dunst &
 	syncthing-gtk -m &
-	xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
@@ -91,5 +90,4 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	i3-msg workspace $WS7
 	i3-msg move workspace to "HDMI-0"
 	systemctl --user start evansync.timer
-	xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 fi
