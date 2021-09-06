@@ -4,3 +4,5 @@ After=network.target
 
 [Service]
 ExecStart=/home/evan/dotfiles/skynetsys/run.sh
+Restart=on-failure
+RestartSec=30
