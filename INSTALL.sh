@@ -14,6 +14,7 @@ mv .bashrc .bashrc.bak
 # symlink in home
 if ! test -d "$HOME/.asy"; then ln -s $HOME/dotfiles/asy $HOME/.asy; fi
 if ! test -d "$HOME/.texmf"; then ln -s $HOME/dotfiles/texmf $HOME/.texmf; fi
+if ! test -d "$HOME/.vit"; then ln -s $HOME/dotfiles/vit $HOME/.vit; fi
 
 if ! test -f "$HOME/.agignore"; then ln -s $HOME/dotfiles/agignore $HOME/.agignore; fi
 if ! test -f "$HOME/.bashrc"; then ln -s $HOME/dotfiles/bashrc $HOME/.bashrc; fi
