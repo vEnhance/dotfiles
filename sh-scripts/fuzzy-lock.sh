@@ -98,7 +98,8 @@ elif pacman -Q --quiet i3lock-color; then
 		--layout-font="Exo2"        \
 		--color 111117dd            \
 		--show-failed-attempts      \
-		--ignore-empty-password
+		--ignore-empty-password     \
+		--nofork
 else
 	i3lock \
 		--beep \
