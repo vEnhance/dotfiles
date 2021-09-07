@@ -77,7 +77,7 @@ elif pacman -Q --quiet i3lock-color; then
 		--keyhl-color=dd888899      \
 		--bshl-color=dd888899       \
 		--keylayout 2               \
-		--radius 384                \
+		--radius 324                \
 		--ring-width 32             \
 		--date-str="%A %Y年%b%d日"  \
 		--time-size=48              \
@@ -87,6 +87,7 @@ elif pacman -Q --quiet i3lock-color; then
 		--wrong-size=64             \
 		--modif-size=36             \
 		--time-str="%R%Z"           \
+		--ind-pos="x+0.5*w:y+0.4*h" \
 		--date-pos="ix:iy-0.4*r"    \
 		--wrong-pos="ix:iy-0.1*r"   \
 		--verif-pos="ix:iy-0.1*r"   \
