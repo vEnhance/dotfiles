@@ -46,55 +46,59 @@ fi
 if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 fi
-if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
-	xset dpms 10 0 0
-fi
-
-# xset dpms force off
 
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute > /dev/null
 
-# if [ $(stat --printf="%s" /tmp/screen_locked_evan.png) -gt 25000 ]; then
-#	i3lock \
-#		--beep \
-#		--ignore-empty-password \
-#		--show-failed-attempts \
-#		--nofork \
-#		--pointer=win \
-#		--image=/tmp/screen_locked_$(whoami).png
-#fi
-
-if pacman -Q i3lock-color; then
-	export LANG=zh_TW.UTF-8
+if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
 	i3lock \
 		--beep \
 		--ignore-empty-password \
 		--show-failed-attempts \
 		--nofork \
-		--pointer=win \
-		--keylayout 2 \
-		--clock \
-		--time-color=ffffff \
-		--date-color=33ddff \
-		--layout-color=aaaaaa \
-		--verif-color=ffffff \
-		--wrong-color=ffffff \
-		--greeter-color=ffffff \
-		--date-str="%A %Y年%b%d日" \
-		--time-size=36 \
-		--date-size=24 \
-		--layout-size=24 \
-		--time-str="%R%Z" \
-		--radius 160 \
-		--ring-width 20 \
-		--greeter-text="$(whoami)@$(cat /etc/hostname)" \
-		--greeter-pos="ix:iy+0.3*h" \
-		--greeter-color=00ffff \
-		--indicator \
-		--blur 8
-		# --color d33529
-		# --image ~/Pictures/nature/bg-arch-majestic.png \
+		--color=000000
+elif pacman -Q --quiet i3lock-color; then
+	export LANG=zh_TW.UTF-8
+	i3lock \
+		--insidever-color=0a220a66  \
+		--ringver-color=0a550aee    \
+		--insidewrong-color=efaaaabb\
+		--ringwrong-color=ef0a0aff  \
+		--inside-color=00000000     \
+		--ring-color=dd0add66       \
+		--line-color=0a0a0aff       \
+		--separator-color=ff66ff44  \
+		--verif-color=efefef77      \
+		--wrong-color=efefefff      \
+		--modif-color=efefef99      \
+		--time-color=aa33aabb       \
+		--date-color=aa33aabb       \
+		--layout-color=dededebb     \
+		--keyhl-color=dd888899      \
+		--bshl-color=dd888899       \
+		--keylayout 2               \
+		--radius 384                \
+		--ring-width 32             \
+		--date-str="%A %Y年%b%d日"  \
+		--time-size=48              \
+		--date-size=36              \
+		--layout-size=36            \
+		--verif-size=64             \
+		--wrong-size=64             \
+		--modif-size=36             \
+		--time-str="%R%Z"           \
+		--date-pos="ix:iy-0.4*r"    \
+		--wrong-pos="ix:iy-0.1*r"   \
+		--verif-pos="ix:iy-0.1*r"   \
+		--modif-pos="ix:iy+0.1*r"   \
+		--time-pos="ix:iy+0.4*r"    \
+		--layout-pos="ix:iy+1.3*r"  \
+		--date-font="Exo2"          \
+		--time-font="Exo2"          \
+		--layout-font="Exo2"        \
+		--color 111117dd            \
+		--show-failed-attempts      \
+		--ignore-empty-password
 else
 	i3lock \
 		--beep \
@@ -105,9 +109,6 @@ else
 		--pointer=win
 fi
 
-if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
-	xset dpms 900 900 900
-fi
 if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
 	killall -s CONT ctwenty.py
