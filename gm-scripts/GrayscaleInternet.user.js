@@ -46,6 +46,7 @@
 // @exclude      http://*.usaco.org/*
 // @exclude      http://*.loca.lt/*
 // @exclude      https://inthe.am/*
+// @exclude      https://*.mit.edu/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
