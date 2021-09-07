@@ -11,6 +11,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+set $WS0 "0: Kaf"
 set $WS1 "1: Aleph"
 set $WS2 "2: Bet"
 set $WS3 "3: Gimel"
@@ -20,7 +21,7 @@ set $WS6 "6: Vav"
 set $WS7 "7: Zayin"
 set $WS8 "8: Het"
 set $WS9 "9: Tet"
-set $WS0 "10: Yod"
+set $WS10 "10: Yod"
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
@@ -95,6 +96,7 @@ bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
 bindsym $mod+u exec --no-startup-id killall -s USR1 ctwenty.py
 
 # switch to workspace
+bindsym $mod+grave workspace $WS0
 bindsym $mod+1 workspace $WS1
 bindsym $mod+2 workspace $WS2
 bindsym $mod+3 workspace $WS3
@@ -104,9 +106,10 @@ bindsym $mod+6 workspace $WS6
 bindsym $mod+7 workspace $WS7
 bindsym $mod+8 workspace $WS8
 bindsym $mod+9 workspace $WS9
-bindsym $mod+0 workspace $WS0
+bindsym $mod+0 workspace $WS10
 
 # move focused container to workspace
+bindsym $mod+Shift+grave move container to workspace $WS0; workspace $WS0
 bindsym $mod+Shift+1 move container to workspace $WS1; workspace $WS1
 bindsym $mod+Shift+2 move container to workspace $WS2; workspace $WS2
 bindsym $mod+Shift+3 move container to workspace $WS3; workspace $WS3
@@ -116,7 +119,7 @@ bindsym $mod+Shift+6 move container to workspace $WS6; workspace $WS6
 bindsym $mod+Shift+7 move container to workspace $WS7; workspace $WS7
 bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
-bindsym $mod+Shift+0 move container to workspace $WS0; workspace $WS0
+bindsym $mod+Shift+0 move container to workspace $WS10; workspace $WS10
 
 # navigation modes without super key
 mode "move" {
@@ -127,7 +130,7 @@ mode "move" {
 	bindsym a focus parent
 	bindsym b focus child
 
-	bindsym 0 workspace $WS0;
+	bindsym grave workspace $WS0;
 	bindsym 1 workspace $WS1;
 	bindsym 2 workspace $WS2;
 	bindsym 3 workspace $WS3;
@@ -137,13 +140,14 @@ mode "move" {
 	bindsym 7 workspace $WS7;
 	bindsym 8 workspace $WS8;
 	bindsym 9 workspace $WS9;
+	bindsym 0 workspace $WS10;
 
 	bindsym Shift+h move container left
 	bindsym Shift+j move container down
 	bindsym Shift+k move container up
 	bindsym Shift+l move container right
 
-	bindsym Shift+0 move container to workspace $WS0; workspace $WS0;
+	bindsym Shift+grave move container to workspace $WS0; workspace $WS0;
 	bindsym Shift+1 move container to workspace $WS1; workspace $WS1;
 	bindsym Shift+2 move container to workspace $WS2; workspace $WS2;
 	bindsym Shift+3 move container to workspace $WS3; workspace $WS3;
@@ -153,6 +157,7 @@ mode "move" {
 	bindsym Shift+7 move container to workspace $WS7; workspace $WS7;
 	bindsym Shift+8 move container to workspace $WS8; workspace $WS8;
 	bindsym Shift+9 move container to workspace $WS9; workspace $WS9;
+	bindsym Shift+0 move container to workspace $WS10; workspace $WS10;
 
 	# wider, narrower, shorter, taller
 	bindsym w resize grow width 5 px or 5 ppt
@@ -176,7 +181,7 @@ mode "nudge" {
 	bindsym k move up
 	bindsym l move right
 
-	bindsym 0 move container to workspace $WS0; workspace $WS0;
+	bindsym grave move container to workspace $WS0; workspace $WS0;
 	bindsym 1 move container to workspace $WS1; workspace $WS1;
 	bindsym 2 move container to workspace $WS2; workspace $WS2;
 	bindsym 3 move container to workspace $WS3; workspace $WS3;
@@ -186,6 +191,7 @@ mode "nudge" {
 	bindsym 7 move container to workspace $WS7; workspace $WS7;
 	bindsym 8 move container to workspace $WS8; workspace $WS8;
 	bindsym 9 move container to workspace $WS9; workspace $WS9;
+	bindsym 0 move container to workspace $WS10; workspace $WS10;
 
 	# wider, narrower, shorter, taller
 	bindsym w resize grow width 5 px or 5 ppt
