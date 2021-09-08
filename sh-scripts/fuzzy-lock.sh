@@ -51,6 +51,7 @@ fi
 ponymix -t source mute > /dev/null
 
 if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
+	xset dpms force off
 	i3lock \
 		--beep \
 		--ignore-empty-password \
