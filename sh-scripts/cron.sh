@@ -31,3 +31,7 @@ if [ -f /bin/pacman ]; then
 		git commit -a -m "$(hostname) $(date)"
 	fi
 fi
+
+if [ -f /bin/dig ]; then
+	dig @resolver4.opendns.com myip.opendns.com +short > ~/SkyNet/ip/$(hostname)
+fi
