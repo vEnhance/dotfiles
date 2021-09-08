@@ -95,9 +95,6 @@ elif pacman -Q --quiet i3lock-color; then
 		--modif-pos="ix:iy+0.1*r"   \
 		--time-pos="ix:iy+0.4*r"    \
 		--layout-pos="ix:iy+1.3*r"  \
-		--date-font="Exo2"          \
-		--time-font="Exo2"          \
-		--layout-font="Exo2"        \
 		--color 111117dd            \
 		--show-failed-attempts      \
 		--ignore-empty-password     \
