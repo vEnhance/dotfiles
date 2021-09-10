@@ -138,6 +138,9 @@ class Inquiries(VenueQNode):
 
 
 class Suggestion(VenueQNode):
+	statement: str
+	solution: str
+
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 
@@ -146,11 +149,15 @@ class Suggestion(VenueQNode):
 			'action': 'mark_suggestion',
 		}
 
+	def init_hook(self):
+		self.statement = self.data.pop('statement')
+		self.solution = self.data.pop('solution')
+
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
 		self.edit_temp(extension='mkd')
 		with open('/tmp/suggestion.tex', 'w') as f:
-			print(data['statement'], file=f)
+			print(self.statement, file=f)
 			print('\n---\n', file=f)
 			if data['acknowledge'] is True:
 				print(
@@ -159,7 +166,7 @@ class Suggestion(VenueQNode):
 					file=f
 				)
 				print('\n', file=f)
-			print(data['solution'], file=f)
+			print(self.solution, file=f)
 		subprocess.Popen(
 			[
 				"xfce4-terminal", "-x", "python", "-m", "von", "add", data['source'], "-f",
