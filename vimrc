@@ -206,7 +206,7 @@ if filereadable("/bin/pacman")
 endif
 
 " ------------------------------------------
-" CUSTOM KEYBINDINGS (NON-LEADER)
+" CUSTOM KEYBINDINGS (NON-SPACE)
 " ------------------------------------------
 function! DelEmptyLineAbove()
 	if line(".") == 1
@@ -429,7 +429,6 @@ nnoremap -w <C-w><C-w>
 " SPACE BAR KEYBINDINGS
 " Not setting leader key because otherwise extensions mess with me
 " ------------------------------------------
-" LEADER KEY
 " ALE Details
 nnoremap <Space>a :ALEDetail<CR>
 " show syntax group
@@ -572,6 +571,7 @@ let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 
+let mapleader="="
 let maplocalleader = ","
 
 function EvanOpenWikiLinkOrSave()
