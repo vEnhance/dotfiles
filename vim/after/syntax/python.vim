@@ -13,3 +13,6 @@ hi pythonKeywordArgument ctermfg=154 cterm=italic guifg=#228822 gui=italic
 
 syntax match pythonBreakpoint /breakpoint()/
 hi link pythonBreakpoint Error
+
+set fdm=indent
+set foldlevelstart=1
