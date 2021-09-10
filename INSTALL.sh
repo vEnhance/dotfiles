@@ -52,7 +52,7 @@ if ! test -d "$HOME/.config/zathura"; then ln -s $HOME/dotfiles/zathura $HOME/.c
 
 # i3
 if ! test -d "$HOME/.config/i3"; then
-	if test -f "/home/evan/dotfiles/i3/config.$(hostname)"; then
+	if test -f "$HOME/dotfiles/i3/config.$(hostname)"; then
 		mkdir "$HOME/.config/i3"
 		ln -s "$HOME/dotfiles/i3/config.$(hostname)" $HOME/.config/i3/config;
 	else
