@@ -174,8 +174,10 @@ if filereadable("/bin/pacman")
 		\ 'coc-vimlsp',
 		\ 'coc-yaml',
 		\ ]
-	Plug 'neoclide/coc.nvim', {'branch': 'release'}
-	Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+	if $USER ==# 'evan'
+		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+	endif
 	call plug#end()
 
 	" Vim server
