@@ -60,8 +60,8 @@
 	defaultBranch = main
 [url "git@github.com:"]
 	insteadOf = http://github.com/
-
-# vim: ft=gitconfig
 [commit]
 	gpgSign = true
 	verbose = true
+
+# vim: ft=gitconfig
