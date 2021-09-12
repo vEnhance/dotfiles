@@ -1,5 +1,12 @@
 #!/bin/bash
 
+if [ "$(hostname)" = "ArchMajestic" -a "$(whoami)" = "evan" ]; then
+	cd ~/ProGamer/OTIS/
+	# find the largest year
+	cd $(ls | ag "[0-9]{4}" | sort -rn | head -n 1)/billing
+	make
+fi
+
 gcalendar --no-of-days 14 --output json \
 		--calendar "日曆" \
 		"Break" \
@@ -20,6 +27,8 @@ gcalendar --no-of-days 14 --output json \
 		"twitch.tv" > ~/.cache/agenda.json
 	
 mbsync -Va
+
+task sync
 bugwarrior-pull
 task sync
 
