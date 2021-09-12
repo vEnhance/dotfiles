@@ -20,8 +20,8 @@ gcalendar --no-of-days 14 --output json \
 		"twitch.tv" > ~/.cache/agenda.json
 	
 mbsync -Va
+bugwarrior-pull
 task sync
-# bugwarrior-pull
 
 if [ -f /bin/pacman ]; then
 	pacman -Qqtten > ~/Backups/pacman/$(hostname).pacman.paclist

@@ -5,12 +5,18 @@ annotation_comments = False
 [github_issues]
 service = github
 github.username = vEnhance
-github.token = @oracle:use_keyring
+github.token = @oracle:eval:secret-tool lookup user vEnhance type github
 github.login = vEnhance
-github.query = is:issue assignee:vEnhance
+github.query = is:issue assignee:vEnhance is:open
 github.description_template = GH{{githubnumber}} {{githubtitle}}
 github.filter_pull_requests = True
 github.include_user_issues = False
 github.include_user_repos = False
+github.only_if_assigned=vEnhance
+
+# NOTE TO SELF: install taskw via
+# pip install git+https://github.com/ralphbean/taskw@develop
+# in order to avoid death and destruction because of
+# https://github.com/ralphbean/bugwarrior/issues/805
 
 # vim: ft=toml
