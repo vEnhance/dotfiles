@@ -159,7 +159,7 @@ alias pip='pip3'
 alias pudb='pudb3'
 
 # OTIS venue Q
-alias otis='vim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
+alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
 
 alias demacro='/usr/bin/python2 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python2 ~/Documents/Projects/dragon/'
