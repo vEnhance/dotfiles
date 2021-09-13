@@ -1,6 +1,7 @@
 import json
 import os
 import subprocess
+import sys
 import tempfile
 from pathlib import Path
 
@@ -10,25 +11,50 @@ import yaml
 from dotenv import load_dotenv
 from von import api
 
-load_dotenv(Path('~/SkyNet/private/.env'))
+load_dotenv(Path('~/SkyNet/private/.env').expanduser())
+OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
+OTIS_WEB_TOKEN = os.getenv('OTIS_WEB_TOKEN')
+assert OTIS_WEB_TOKEN is not None
 
 ids = json.loads(Path('~/ProGamer/OTIS/upload-to-server/evil.json').expanduser().read_text())
 choices = '\n'.join(k + '\t' + v for k, v in ids.items())
 
-chosen = subprocess.check_output(
-	args=['fzf', '-e', '--tabstop', '12'],
-	input=choices,
-	text=True,
-)
+try:
+	chosen = subprocess.check_output(
+		args=[
+			'fzf', '-e', '--tabstop', '12', '-d', r'\t', '--preview', 'python -m von show {2}',
+			'--preview-window', 'down'
+		],
+		input=choices,
+		text=True,
+	)
+except subprocess.CalledProcessError as e:
+	print(f"Exiting because fzf failed with return code {e.returncode}.")
+	sys.exit(1)
 puid, source = chosen.strip().split('\t')
 
 EDITOR = os.environ.get('EDITOR', 'vim')
+
+resp = requests.post(
+	OTIS_API_URL, data={
+		'action': 'get_hints',
+		'puid': puid,
+		'token': OTIS_WEB_TOKEN,
+	}
+)
+if resp.status_code != 200:
+	print(f"ARCH gave a return code of {resp.status_code} when asked for hints.")
+	sys.exit(2)
+
+old_hints = resp.json()['hints']
+
 initial_message = yaml.dump(
 	{
 		'puid': puid,
 		'keywords': '<++>',
 		'number': '<++>',
 		'content': '<++>',
+		'old_hints': old_hints,
 	}
 )
 initial_message += '\n' * 2
@@ -58,18 +84,28 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
 	tf.seek(0)
 	edited_message = tf.read()
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
-content = result['content'].strip()
 
-pyperclip.copy(content)
+if type(result) == dict and 'content' in result:
+	content = result['content'].strip()
 
-requests.post(
-	'https://otis.evanchen.cc/aincrad/api',
-	data={
+	pyperclip.copy(content)
+	data = {
 		'action': 'add_hints',
-		'token': os.getenv('OTIS_WEB_TOKEN'),
+		'token': OTIS_WEB_TOKEN,
 		'puid': puid,
 		'content': content,
-		'keywords': result['keywords'],
-		'number': int(result['number']),
 	}
-)
+	if 'number' in result and type(result['number']) == int:
+		data['number'] = result['number']
+	if 'keywords' in result and type(result['keywords']) == str and result['keywords'].strip():
+		data['keywords'] = result['keywords']
+	resp = requests.post(OTIS_API_URL, data=data)
+	if resp.status_code == 200:
+		pk = resp.json()['pk']
+		print(f"https://otis.evanchen.cc/arch/pk/{pk}/")
+		pass
+	else:
+		print(f"Got a reply of {resp.status_code} from server when adding hints.")
+else:
+	print("Aborting because no content.")
+	sys.exit(4)
