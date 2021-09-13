@@ -51,11 +51,12 @@ old_hints = resp.json()['hints']
 initial_message = yaml.dump(
 	{
 		'puid': puid,
-		'keywords': '<++>',
 		'number': '<++>',
+		'keywords': '<++>',
 		'content': '<++>',
 		'old_hints': old_hints,
-	}
+	},
+	sort_keys=False
 )
 initial_message += '\n' * 2
 statement = api.get_statement(source)
