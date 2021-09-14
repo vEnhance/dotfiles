@@ -182,8 +182,7 @@
 			\pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
 			\pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
 		}
-
-		\newcommand{\conclusion}{%
+		\newcommand{\printsurvey}{%
 			\begin{probSurvey}
 				Fill out feedback on the OTIS-WEB portal when submitting this problem set.
 				Any thoughts on problems (e.g.\ especially nice, instructive, easy, etc.)
@@ -193,6 +192,10 @@
 				or want to write hints for one problem you really liked,
 				please do so in the ARCH system!
 			\end{probSurvey}
+		}
+
+		\newcommand{\conclusion}{%
+			\printsurvey
 			\newpage
 			\py{'\section{Solutions to the walkthroughs}' if solution_text else ''}
 			\py{solution_text}
