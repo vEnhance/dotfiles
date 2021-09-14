@@ -3,18 +3,20 @@
 <p>Welcome back, your majesty.</p>
 <h2>Dashboard</h2>
 <table class="table">
-<tbody>
-{% for noun, status in statuses.items() %}
-<tr class="{{ status[1] }}">
-	<th>{{ noun }}</th>
-	<td>{{ status[0] }}</td>
-	{% for verb in verbs %}
-	<td><a href="/command/{{ verb }}/{{ noun }}/">{{ verb }}</a></td>
-	{% endfor %}
-</tr>
-{% endfor %}
-</tbody>
+	<tbody>
+		{% for noun, status in statuses.items() %}
+		<tr class="{{ status[1] }}">
+			<th>{{ noun }}</th>
+			<td>{{ status[0] }}</td>
+			{% for verb in verbs %}
+			<td><a href="/command/{{ verb }}/{{ noun }}/">{{ verb }}</a></td>
+			{% endfor %}
+		</tr>
+		{% endfor %}
+	</tbody>
 </table>
 <h2>Camera</h2>
-<img src="http://{{camera}}.loca.lt/" class="img-fluid" />
+<p>
+	<a href="http://{{camera}}.loca.lt/">Open video feed</a>
+</p>
 {% endblock %}
