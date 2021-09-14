@@ -68,9 +68,9 @@ if [ "$(hostname)" = ArchMajestic ]; then
 		/home/evan/dotfiles/py-scripts/ctwenty.py &
 		qtalarm &
 		ibus-daemon -d -r &
+		dropbox-cli start
 	fi
 	redshift-gtk &
-	dropbox-cli start
 	syncthing-gtk &
 	systemctl --user start evansync.timer
 fi
