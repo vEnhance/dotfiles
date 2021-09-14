@@ -33,7 +33,26 @@ if filereadable("/bin/pacman")
 
 	" https://github.com/junegunn/fzf.vim/issues/374
 	let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-	let NERDTreeIgnore = ['\.pyc$']
+	let NERDTreeIgnore = [
+		\	'\.pyc$',
+		\	'\.pyo$',
+		\	'\~$',
+		\	'\.aux$',
+		\	'\.fdb_latexmk$',
+		\	'\.fls$',
+		\	'\.log$',
+		\	'\.out$',
+		\	'\.pre$',
+		\	'\.pytxcode$',
+		\	'\.pytxmcr$',
+		\	'\.pytxpyg$',
+		\	'\.synctex.gz$',
+		\	'pythontex_data.pkl',
+		\	'\.png$',
+		\	'\.jpg$',
+		\	'\.pdf$',
+		\	'-[0-9]\+\.asy$',
+		\	]
 	let NERDTreeShowLineNumbers = 1
 	let g:completor_filetype_map = {}
 	let g:ctrlp_clear_cache_on_exit = 0
