@@ -180,8 +180,13 @@ class Suggestion(VenueQNode):
 		if comments_to_email != '':
 			recipient = data['student__user__email']
 			subject = f"OTIS: Suggestion {data['source']} processed"
+			body = comments_to_email
+			body += '\n\n' + '-' * 40 + '\n\n'
+			body += r"```latex" + "\n"
+			body += self.statement
+			body += "\n" + r"```"
 			try:
-				send_email(subject=subject, recipient=recipient, body=comments_to_email)
+				send_email(subject=subject, recipient=recipient, body=body)
 			except Exception as e:
 				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 			else:
