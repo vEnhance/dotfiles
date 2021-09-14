@@ -14,10 +14,10 @@ command! -nargs=1 HandleFZF call HandleFZF(<f-args>)
 
 let g:categorized = 0
 function! SetConventionalCommit()
-	let s:choices = ['wtf', 'fix', 'feat', 'docs', 'style', 'refactor', 'chore', 'test', 'polish', 'improvement']
+	let s:choices = ['fix', 'feat', 'docs', 'refactor', 'polish', 'edit', 'chore', 'test']
 	if g:categorized == 0
 		let g:categorized = 1
-		call fzf#run({'source' : s:choices, 'sink': 'HandleFZF', 'up' : '15'})
+		call fzf#run({'source' : s:choices, 'sink': 'HandleFZF', 'up' : '10'})
 	endif
 endfunction
 
