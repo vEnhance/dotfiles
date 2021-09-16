@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$(hostname)" = "ArchMajestic" -a "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
 	cd ~/ProGamer/OTIS/
 	# find the largest year
 	cd $(ls | ag "[0-9]{4}" | sort -rn | head -n 1)/billing
@@ -42,8 +42,10 @@ if [ -f /bin/pacman ]; then
 	pacman -Qqtten > ~/Backups/pacman/$(hostname).pacman.paclist
 	pacman -Qqttem > ~/Backups/pacman/$(hostname).aur.paclist
 	cd ~/Backups/pacman/
-	if ! git diff --exit-code; then
-		git commit -a -m "$(hostname) $(date)"
+	if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
+		if ! git diff --exit-code; then
+			git commit -a -m "$(hostname) $(date)"
+		fi
 	fi
 fi
 
