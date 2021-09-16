@@ -5,6 +5,12 @@ if [ "$(hostname)" = "ArchMajestic" -a "$(whoami)" = "evan" ]; then
 	# find the largest year
 	cd $(ls | ag "[0-9]{4}" | sort -rn | head -n 1)/billing
 	make
+
+	cd ~/OlyBase
+	if ! git diff --exit-code; then
+		git commit -a -m "Snapshot $(date)"
+		git push
+	fi
 fi
 
 gcalendar --no-of-days 14 --output json \
