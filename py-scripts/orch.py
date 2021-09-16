@@ -16,7 +16,7 @@ OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
 OTIS_WEB_TOKEN = os.getenv('OTIS_WEB_TOKEN')
 assert OTIS_WEB_TOKEN is not None
 
-ids = json.loads(Path('~/ProGamer/OTIS/upload-to-server/evil.json').expanduser().read_text())
+ids = json.loads(Path('~/SkyNet/otis-evil-data/evil.json').expanduser().read_text())
 choices = '\n'.join(k + '\t' + v for k, v in ids.items())
 
 try:
