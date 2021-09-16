@@ -103,7 +103,9 @@ if type(result) == dict and 'content' in result:
 	resp = requests.post(OTIS_API_URL, data=data)
 	if resp.status_code == 200:
 		pk = resp.json()['pk']
-		print(f"https://otis.evanchen.cc/arch/pk/{pk}/")
+		url = f"https://otis.evanchen.cc/arch/pk/{pk}/"
+		print(url)
+		pyperclip.copy(url)
 		pass
 	else:
 		print(f"Got a reply of {resp.status_code} from server when adding hints.")
