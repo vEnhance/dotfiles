@@ -69,10 +69,6 @@ if ! test -d "$HOME/.config/py3status"; then
 	mkdir -p $HOME/.config/py3status
 	ln -s $HOME/dotfiles/py3status/py3status.$(hostname).conf $HOME/.config/py3status/config
 fi
-if ! test -f "$HOME/.vit/config.ini"; then
-	mkdir -p $HOME/.vit
-	ln -s $HOME/dotfiles/vit-config.ini $HOME/.vit/config.ini
-fi
 if ! test -f "$HOME/.config/gtk-3.0/settings.ini"; then
 	mkdir -p $HOME/.config/gtk-3.0
 	ln -s $HOME/dotfiles/gtk3-settings.ini $HOME/.config/gtk-3.0/settings.ini
