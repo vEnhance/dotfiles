@@ -151,31 +151,31 @@ end
 
 function conky_clock_rings()
   local function setup_rings(cr,pt)
-  local str=''
-  local value=0
+		local str=''
+		local value=0
 
-  str=string.format('${%s %s}',pt['name'],pt['arg'])
-  str=conky_parse(str)
+		str=string.format('${%s %s}',pt['name'],pt['arg'])
+		str=conky_parse(str)
 
-  value=tonumber(str)
-  if value == nil then value = 0 end
+		value=tonumber(str)
+		if value == nil then value = 0 end
 
---Les ajouts suivants permettent de corriger le retard prit par les anneaux
-  --Ajout wlourf : conversion des minutes en centièmes d'heures
-  if pt['arg'] == "%I.%M"  then
-    value=os.date("%I")+os.date("%M")/60
-    if value>12 then value=value-12 end
-  end
+	--Les ajouts suivants permettent de corriger le retard prit par les anneaux
+		--Ajout wlourf : conversion des minutes en centièmes d'heures
+		if pt['arg'] == "%I.%M"  then
+			value=os.date("%I")+os.date("%M")/60
+			if value>12 then value=value-12 end
+		end
 
-  --Ajout Fenouille84 : conversion des secondes en centièmes de minutes
-  if pt['arg'] == "%M.%S"  then
-    value=os.date("%M")+os.date("%S")/60
-  end
-  --Fin ajout
+		--Ajout Fenouille84 : conversion des secondes en centièmes de minutes
+		if pt['arg'] == "%M.%S"  then
+			value=os.date("%M")+os.date("%S")/60
+		end
+		--Fin ajout
 
-  pct=value/pt['max']
-  draw_ring(cr,pct,pt)
-end
+		pct=value/pt['max']
+		draw_ring(cr,pct,pt)
+	end
 
 --Check that Conky has been running for at least 2s
   if conky_window==nil then return end
