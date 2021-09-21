@@ -70,6 +70,9 @@ if [ "$(hostname)" = ArchMajestic ]; then
 		ibus-daemon -d -r &
 		dropbox-cli start
 	fi
+	if [ "$(whoami)" = "star" ]; then
+		conky -c ~/dotfiles/conky/star-bar.conf
+	fi
 	redshift-gtk &
 	syncthing-gtk &
 	systemctl --user start evansync.timer
