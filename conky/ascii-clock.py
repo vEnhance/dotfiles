@@ -38,7 +38,7 @@ for row in data:
 				s += x
 				s += r'${font DejaVu Sans Mono:size=12}'
 			else:
-				s += r'${color #BB7777}'
+				s += r'${color #999999}'
 				s += x
 		elif type(x) == float or type(x) == int:
 			if (minute + second / 60) >= x:
