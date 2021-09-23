@@ -21,7 +21,7 @@ data: List[List[Any]] = [
 
 print('${font DejaVu Sans Mono:size=12}')
 for row in data:
-	s = '${goto 220}'
+	s = '${goto 230}'
 	for x in row:
 		if x is None:
 			s += ' '
