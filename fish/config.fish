@@ -131,10 +131,6 @@ end
 
 umask 007 # set umask
 
-# Aliases: replacement of common functions
-alias cat=bat
-alias grep=rg
-
 # alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
