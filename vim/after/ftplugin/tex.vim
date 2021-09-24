@@ -159,14 +159,37 @@ if filereadable("local.tex.vim")
     so local.tex.vim
 endif
 
-" latex compile continuously
-nnoremap <localleader>p :silent !xfce4-terminal -e "latexmk % -cd -pvc" &<CR>
-" latex compile once
-nnoremap <localleader>c :silent !xfce4-terminal -e "latexmk % -cd -pv" &<CR>
-" latex von compile
-nnoremap <localleader>v :lcd /tmp/preview_$USER<CR>:silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &<CR>
+function EvanCompileLaTeX(continuous)
+	if stridx(expand('%:p'), 'OlyBase') != -1
+		lcd /tmp/preview_$USER
+		if a:continuous
+			silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &
+		else
+			silent !xfce4-terminal -e "latexmk von_preview.tex -pv" &
+		endif
+		return
+	endif
+	let n = 1
+	while n < 10 && n <= line('$')
+		if getline(n) =~ 'documentclass'
+			if a:continuous
+				silent !xfce4-terminal -e "latexmk % -cd -pvc" &
+			else
+				silent !xfce4-terminal -e "latexmk % -cd -pv" &
+			endif
+			return
+		endif
+		let n = n + 1
+	endwhile
+	echo "No documentclass provided. This file won't compile!"
+endfunction
 
-nmap <localleader>s :call SyncTexForward()
+" latex compile continuously
+nnoremap <silent> <localleader>p :call EvanCompileLaTeX(1)<CR>
+" latex compile once
+nnoremap <silent> <localleader>c :call EvanCompileLaTeX(0)<CR>
+" latex von compile
+nmap <silent> <localleader>s :call SyncTexForward()
 
 set cole=2
 " Leader keys that are defined for me
