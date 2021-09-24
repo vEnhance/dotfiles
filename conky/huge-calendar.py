@@ -118,7 +118,7 @@ today = date.today()
 table = [['' for _ in range(4)] for _ in range(NUM_ROWS * 2 + 2)]
 
 HEADER_Y_FIRST = 0
-HEADER_Y_SECOND = NUM_ROWS
+HEADER_Y_SECOND = NUM_ROWS + 1
 
 
 def offset(x):
