@@ -8,8 +8,15 @@ if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
 
 	cd ~/OlyBase
 	if ! git diff --exit-code; then
-		git commit -a -m "Snapshot $(date)"
+		git add .
+		git commit -a -m "Snapshot $(date) on $(hostname)"
 		git push
+	fi
+
+	cd ~/vimwiki
+	if ! git diff --exit-code; then
+		git add .
+		git commit -a -m "Snapshot $(date) on $(hostname)"
 	fi
 fi
 
@@ -31,7 +38,7 @@ gcalendar --no-of-days 14 --output json \
 		"Video Calls for OTIS" \
 		"Zero-Minute Reminders" \
 		"twitch.tv" > ~/.cache/agenda.json
-	
+
 mbsync -Va
 
 task sync
@@ -47,8 +54,4 @@ if [ -f /bin/pacman ]; then
 			git commit -a -m "$(hostname) $(date)"
 		fi
 	fi
-fi
-
-if [ -f /bin/dig ]; then
-	dig @resolver4.opendns.com myip.opendns.com +short > ~/SkyNet/ip/$(hostname)
 fi
