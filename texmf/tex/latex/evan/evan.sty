@@ -179,7 +179,7 @@
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\dang}{\measuredangle} %% Directed angle
-\newcommand{\ray}[1]{\overrightarrow{#1}} 
+\newcommand{\ray}[1]{\overrightarrow{#1}}
 \newcommand{\seg}[1]{\overline{#1}}
 \newcommand{\arc}[1]{\wideparen{#1}}
 
@@ -470,7 +470,7 @@
 			\declaretheorem[name=Proposition,numbered=no]{proposition*}
 			\declaretheorem[name=Corollary,numbered=no]{corollary*}
 		\fi
-			
+
 		\ifevanmdthm
 			\declaretheorem[style=thmgreenbox,name=Algorithm,sibling=theorem]{algorithm}
 			\declaretheorem[style=thmgreenbox,name=Algorithm,numbered=no]{algorithm*}
@@ -573,15 +573,29 @@
 			frame=none
 		}
 		\usepackage[shortlabels]{enumitem}
-		% a list I like for walkthrough's --- Drew-style parts
-		\newlist{walk}{enumerate}{3}
-		\setlist[walk]{label=\bfseries (\alph*)}
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
 		\usepackage{textcomp}
 		\usepackage{multirow}
 		% Tiny tiny optimizations:
 		\usepackage{mathtools}
 		\usepackage{microtype}
+		\usepackage{xstring}
+
+		% a list I like for walkthrough's --- Drew-style parts
+		\newlist{walk}{enumerate}{3}
+		\setlist[walk]{label=\bfseries (\alph*)}
+		% list item for MO style rubrics
+		\newcommand{\worth}[1]{\def\hfill{\hskip 20pt plus 1fill}\dotfill%
+			\IfEq{#1}{0}{\textbf{0~points}}%
+			{\textbf{\color{blue}#1~point\IfEndWith{#1}{1}{}{s}}}%
+			\par}
+		\newcommand{\subworth}[1]{\def\hfill{\hskip 20pt plus 1fill}\dotfill%
+			\IfEq{#1}{0}{{\footnotesize0~points}}%
+			{\textbf{\footnotesize#1~point\IfEndWith{#1}{1}{}{s}}}%
+			\par}
+		\newlist{rubric}{enumerate}{2}
+		\setlist[rubric,1]{label=\Roman*.}
+		\setlist[rubric,2]{label=(\Roman{rubrici}.\alph*)}
 	\fi
 
 	%%fakesection \maketitle configuration
