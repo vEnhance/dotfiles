@@ -160,7 +160,7 @@ if filereadable("local.tex.vim")
 endif
 
 function EvanCompileLaTeX(continuous)
-	if stridx(expand('%:p'), 'OlyBase') != -1
+	if stridx(expand('%:p'), 'OlyBase') != -1 || stridx(expand('%:t'), 'von.tex') != -1
 		lcd /tmp/preview_$USER
 		if a:continuous
 			silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &
