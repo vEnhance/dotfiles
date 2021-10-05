@@ -67,8 +67,7 @@ von_re = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
 if len(args.files) == 0:
 	path_tex = os.path.join(os.environ.get("HOME", ""), "ProGamer/OTIS/Materials/**/*.tex")
 	path_txt = os.path.join(os.environ.get("HOME", ""), "ProGamer/OTIS/Materials/**/*.txt")
-	files = glob.glob(path_tex, recursive=True) \
-     + glob.glob(path_txt, recursive=True)
+	files = glob.glob(path_tex, recursive=True) + glob.glob(path_txt, recursive=True)
 	detect_missing = True
 else:
 	files = args.files
@@ -95,8 +94,7 @@ for fn in files:
 				d, r, _, source = m.groups()
 				w = hardness_chart[d]
 				if detect_missing is False:
-					assert fn not in seen[source] or w == 0, \
-                 f"you dummy you duped {source} in {fn}"
+					assert fn not in seen[source] or w == 0, f"you dummy you duped {source} in {fn}"
 					seen[source][fn] = (w, r)
 				elif detect_missing is True:
 					seen_set.add(source)
@@ -105,9 +103,10 @@ if detect_missing is False:
 	num_repeats = 0
 	for source, data in seen.items():
 		status_string = ''
-		to_show = (args.unique is True and len(data) == 1) \
-       or (args.dup is True and len(data) > 1) \
-       or (args.unique is False and args.dup is False)
+		to_show = (
+			(args.unique is True and len(data) == 1) or (args.dup is True and len(data) > 1) or
+			(args.unique is False and args.dup is False)
+		)
 		if to_show:
 			for fn in files:
 				if fn in data:
@@ -120,8 +119,10 @@ if detect_missing is False:
 					status_string += APPLY_COLOR(color, str(data[fn][0]))
 				else:
 					status_string += '.'
-			print(f"{status_string} {APPLY_COLOR('BOLD_GREEN', source):28} "\
-           + f"{von.api.get(source).desc}")
+			print(
+				f"{status_string} {APPLY_COLOR('BOLD_GREEN', source):28} " +
+				f"{von.api.get(source).desc}"
+			)
 
 		if len(data) > 1:
 			for fn in data.keys():
@@ -138,14 +139,11 @@ if detect_missing is False:
 
 		num_problems = sum(1 for data in seen.values() if fn in data and data[fn][0] > 0)
 		num_points = sum(data[fn][0] for data in seen.values() if fn in data and data[fn][0] > 0)
-		print(APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") \
-        + " "*3
-			+ APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") \
-        + " "*3
-			+ f"{num_points:3}♣"
-			+ " "*3
-			+ APPLY_COLOR("CYAN", basename)
-			)
+		print(
+			APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") + " " * 3 +
+			APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") + " " * 3 + f"{num_points:3}♣" + " " * 3 +
+			APPLY_COLOR("CYAN", basename)
+		)
 
 else:
 	if args.all is True:
@@ -156,8 +154,8 @@ else:
 		entries = cache
 
 	for entry in entries:
-		if not entry.source in seen_set \
-        and not 'waltz' in entry.tags \
-        and not 'unowned' in entry.tags \
-        and not entry.secret:
+		if (
+			not entry.source in seen_set and not 'waltz' in entry.tags and
+			not 'unowned' in entry.tags and not entry.secret
+		):
 			printEntry(entry)
