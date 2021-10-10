@@ -42,8 +42,8 @@ gcalendar --no-of-days 14 --output json \
 mbsync -Va
 
 task sync
-bugwarrior-pull
-task sync
+# bugwarrior-pull
+# task sync
 
 if [ -f /bin/pacman ]; then
 	pacman -Qqtten > ~/Backups/pacman/$(hostname).pacman.paclist
