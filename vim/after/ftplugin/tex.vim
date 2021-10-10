@@ -162,21 +162,17 @@ endif
 function EvanCompileLaTeX(continuous)
 	if stridx(expand('%:p'), 'OlyBase') != -1 || stridx(expand('%:t'), 'von.tex') != -1
 		lcd /tmp/preview_$USER
+		!latexmk von_preview.tex
 		if a:continuous
 			silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &
-		else
-			silent !xfce4-terminal -e "latexmk von_preview.tex -pv" &
-		endif
 		return
 	endif
 	let n = 1
 	while n < 10 && n <= line('$')
+		!latexmk % -cd von_preview.tex
 		if getline(n) =~ 'documentclass'
 			if a:continuous
 				silent !xfce4-terminal -e "latexmk % -cd -pvc" &
-			else
-				silent !xfce4-terminal -e "latexmk % -cd -pv" &
-			endif
 			return
 		endif
 		let n = n + 1
