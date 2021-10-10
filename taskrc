@@ -77,3 +77,4 @@ uda.githubnamespace.label=Github Namespace
 uda.githubstate.type=string
 uda.githubstate.label=GitHub State
 # END Bugwarrior UDAs
+news.version=2.6.0
