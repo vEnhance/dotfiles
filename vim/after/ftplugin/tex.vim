@@ -165,7 +165,9 @@ function EvanCompileLaTeX(continuous)
 		lcd /tmp/preview_$USER
 		Shell latexmk von_preview.tex
 		if a:continuous
-			silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &
+			silent !xfce4-terminal -e "latexmk -pvc von_preview.tex" &
+		else
+			Shell latexmk -cd -pv von_preview.tex 
 		endif
 		return
 	endif
@@ -174,9 +176,10 @@ function EvanCompileLaTeX(continuous)
 	while n < 10 && n <= line('$')
 		if getline(n) =~ 'documentclass'
 			" compile and fire if found
-			Shell latexmk % -cd
 			if a:continuous
-				silent !xfce4-terminal -e "latexmk % -cd -pvc" &
+				silent !xfce4-terminal -e "latexmk -cd -pvc %" &
+			else
+				Shell latexmk -cd -pv %
 			endif
 			return
 		endif
