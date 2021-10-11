@@ -165,6 +165,7 @@ function EvanCompileLaTeX(continuous)
 		!latexmk von_preview.tex
 		if a:continuous
 			silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &
+		endif
 		return
 	endif
 	let n = 1
@@ -173,6 +174,7 @@ function EvanCompileLaTeX(continuous)
 		if getline(n) =~ 'documentclass'
 			if a:continuous
 				silent !xfce4-terminal -e "latexmk % -cd -pvc" &
+			endif
 			return
 		endif
 		let n = n + 1
