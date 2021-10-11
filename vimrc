@@ -358,6 +358,22 @@ nnoremap <silent> t :call EvanFindChar(1, 0, 0)<CR>
 nnoremap <silent> T :call EvanFindChar(-1, -2, 0)<CR>
 nnoremap <silent> ; :call EvanSemicolon()<CR>
 
+" Procedure for shell commands
+" https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
+function! s:ExecuteInShell(command)
+  let command = join(map(split(a:command), 'expand(v:val)'))
+  let winnr = bufwinnr('^' . command . '$')
+  silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+  echo 'Execute ' . command . '...'
+  silent! execute 'silent %!'. command
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+  echo 'Shell command ' . command . ' executed.'
+endfunction
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()

@@ -163,7 +163,7 @@ function EvanCompileLaTeX(continuous)
 	" von complier
 	if stridx(expand('%:p'), 'OlyBase') != -1 || stridx(expand('%:t'), 'von.tex') != -1
 		lcd /tmp/preview_$USER
-		!latexmk von_preview.tex
+		Shell latexmk von_preview.tex
 		if a:continuous
 			silent !xfce4-terminal -e "latexmk von_preview.tex -pvc" &
 		endif
@@ -174,7 +174,7 @@ function EvanCompileLaTeX(continuous)
 	while n < 10 && n <= line('$')
 		if getline(n) =~ 'documentclass'
 			" compile and fire if found
-			!latexmk % -cd
+			Shell latexmk % -cd
 			if a:continuous
 				silent !xfce4-terminal -e "latexmk % -cd -pvc" &
 			endif
