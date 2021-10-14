@@ -167,7 +167,7 @@ function EvanCompileLaTeX(continuous)
 		if a:continuous
 			silent !xfce4-terminal -e "latexmk -pvc von_preview.tex" &
 		else
-			Shell latexmk -cd -pv von_preview.tex 
+			silent !xfce4-terminal -e "latexmk -pv -f von_preview.tex" &
 		endif
 		return
 	endif
@@ -179,7 +179,7 @@ function EvanCompileLaTeX(continuous)
 			if a:continuous
 				silent !xfce4-terminal -e "latexmk -cd -pvc %" &
 			else
-				Shell latexmk -cd -pv %
+				silent !xfce4-terminal -e "latexmk -cd -pv -f %" &
 			endif
 			return
 		endif
