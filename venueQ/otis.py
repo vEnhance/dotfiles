@@ -104,15 +104,25 @@ class ProblemSet(VenueQNode):
 
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
-		comments_to_email = self.read_temp(extension='mkd').strip()
-		if data['approved'] and comments_to_email != '':
+		body = self.read_temp(extension='mkd').strip()
+		if data['approved'] and body != '':
+
+			body += '\n\n' + '-' * 40 + '\n\n'
 			if data.get('next_unit_to_unlock__pk', None):
-				comments_to_email += '\n\n'
-				comments_to_email += f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
+				body += f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
+				body += '\n\n'
+			body += f"Earned: {data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts" + '\n' * 2
+			if data['feedback'] or data['special_notes']:
+				body += r"```latex" + "\n"
+				body += data['feedback']
+				if data['feedback'] and data['special_notes']:
+					body += '\n\n'
+				body += data['special_notes']
+				body += "\n" + r"```"
 			recipient = data['student__user__email']
 			subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
 			try:
-				send_email(subject=subject, recipient=recipient, body=comments_to_email)
+				send_email(subject=subject, recipient=recipient, body=body)
 			except Exception as e:
 				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 			else:
