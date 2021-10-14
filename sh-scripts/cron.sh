@@ -18,6 +18,8 @@ if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
 		git add .
 		git commit -a -m "Snapshot $(date) on $(hostname)"
 	fi
+
+	python -m von index
 fi
 
 gcalendar --no-of-days 14 --output json \
