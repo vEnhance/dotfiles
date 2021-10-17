@@ -172,7 +172,7 @@ class Suggestion(VenueQNode):
 			if data['acknowledge'] is True:
 				print(
 					r'\emph{This problem and solution were contributed by ' +
-					data['student__user__first_name'] + ' ' + data['student__user__last_name'] + '}.',
+					data['user__first_name'] + ' ' + data['user__last_name'] + '}.',
 					file=f
 				)
 				print('\n', file=f)
@@ -188,7 +188,7 @@ class Suggestion(VenueQNode):
 		super().on_buffer_close(data)
 		comments_to_email = self.read_temp(extension='mkd').strip()
 		if comments_to_email != '':
-			recipient = data['student__user__email']
+			recipient = data['user__email']
 			subject = f"OTIS: Suggestion {data['source']} processed"
 			body = comments_to_email
 			body += '\n\n' + '-' * 40 + '\n\n'
