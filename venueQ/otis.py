@@ -1,4 +1,5 @@
 import os
+import random
 import smtplib
 import ssl
 import string
@@ -104,14 +105,29 @@ class ProblemSet(VenueQNode):
 
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
-		body = self.read_temp(extension='mkd').strip()
-		if data['approved'] and body != '':
+		salutation = random.choice(["Hi", "Hello", "Hey"])
+		closing = random.choice([
+			"Cheers",
+			"Cheers",
+			"Best",
+			"Regards",
+			"Warm wishes",
+			"Later",
+			"Cordially",
+			"With appreciation",
+			"Sincerely",
+			])
 
+		body = self.read_temp(extension='mkd').strip()
+		body = f"{salutation} {data['student__user__first_name']}," + "\n\n" + body + "\n\n"
+		if data.get('next_unit_to_unlock__pk', None):
+			body += f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
+			body += '\n\n'
+		body += f"{closing},\n\nEvan (aka OTIS Overlord)"
+		link = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
+		if data['approved'] and body != '':
 			body += '\n\n' + '-' * 40 + '\n\n'
-			if data.get('next_unit_to_unlock__pk', None):
-				body += f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
-				body += '\n\n'
-			body += f"Earned: {data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts" + '\n' * 2
+			body += f"Earned: [{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts]({link})" + '\n' * 2
 			if data['feedback'] or data['special_notes']:
 				body += r"```latex" + "\n"
 				body += data['feedback']
