@@ -51,6 +51,8 @@
 // @exclude      https://*.stripe.com/*
 // @exclude      https://*.dropbox.com/*
 // @exclude      https://*.paypal.com/*
+// @exclude      https://*.yagpdb.xyz/*
+// @exclude      https://yagpdb.xyz/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
