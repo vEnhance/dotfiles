@@ -192,8 +192,10 @@ endfunction
 nnoremap <silent> <localleader>p :call EvanCompileLaTeX(1)<CR>
 " latex compile once
 nnoremap <silent> <localleader>c :call EvanCompileLaTeX(0)<CR>
-" latex von compile
+" latex synctex
 nmap <silent> <localleader>s :call SyncTexForward()
+" latex compile once
+nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 
 set cole=2
 " Leader keys that are defined for me
