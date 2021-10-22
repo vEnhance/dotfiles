@@ -404,5 +404,7 @@ bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
 bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO"
 bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
+bindsym $mod+braceleft exec --no-startup-id dunstctl close-all
+bindsym $mod+braceright exec --no-startup-id dunstctl history-pop
 
 # vim: ft=i3config
