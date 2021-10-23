@@ -163,7 +163,6 @@ function EvanCompileLaTeX(continuous)
 	" von complier
 	if stridx(expand('%:p'), 'OlyBase') != -1 || stridx(expand('%:t'), 'von.tex') != -1
 		lcd /tmp/preview_$USER
-		Shell latexmk von_preview.tex
 		if a:continuous
 			silent !xfce4-terminal -e "latexmk -pvc -f von_preview.tex" &
 		else
