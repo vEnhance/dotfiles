@@ -16,6 +16,7 @@ from venueQ import Data, VenueQNode, VenueQRoot, logger
 OTIS_PDF_PATH = Path('/tmp/otis-pdf')
 if not OTIS_PDF_PATH.exists():
 	OTIS_PDF_PATH.mkdir()
+	OTIS_PDF_PATH.chmod(0o777)
 
 
 def send_email(subject: str, recipient: str, body: str):
@@ -97,6 +98,7 @@ class ProblemSet(VenueQNode):
 			url = f"https://storage.googleapis.com/otisweb-media/{self.data['upload__content']}"
 			pdf_response = requests.get(url=url)
 			self.pdf_target_path.write_bytes(pdf_response.content)
+			self.pdf_target_path.chmod(0o666)
 
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
@@ -106,17 +108,19 @@ class ProblemSet(VenueQNode):
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
 		salutation = random.choice(["Hi", "Hello", "Hey"])
-		closing = random.choice([
-			"Cheers",
-			"Cheers",
-			"Best",
-			"Regards",
-			"Warm wishes",
-			"Later",
-			"Cordially",
-			"With appreciation",
-			"Sincerely",
-			])
+		closing = random.choice(
+			[
+				"Cheers",
+				"Cheers",
+				"Best",
+				"Regards",
+				"Warm wishes",
+				"Later",
+				"Cordially",
+				"With appreciation",
+				"Sincerely",
+			]
+		)
 
 		body = self.read_temp(extension='mkd').strip()
 		body = f"{salutation} {data['student__user__first_name']}," + "\n\n" + body + "\n\n"
@@ -187,8 +191,8 @@ class Suggestion(VenueQNode):
 			print('\n---\n', file=f)
 			if data['acknowledge'] is True:
 				print(
-					r'\emph{This problem and solution were contributed by ' +
-					data['user__first_name'] + ' ' + data['user__last_name'] + '}.',
+					r'\emph{This problem and solution were contributed by ' + data['user__first_name'] +
+					' ' + data['user__last_name'] + '}.',
 					file=f
 				)
 				print('\n', file=f)
@@ -241,7 +245,8 @@ class OTISRoot(VenueQRoot):
 if __name__ == "__main__":
 	otis_response = requests.post(url=OTIS_API_URL, data={'token': TOKEN, 'action': 'init'})
 
-	otis_dir = Path('~/ProGamer/OTIS/queue').expanduser() if PRODUCTION else Path('/tmp/otis-debug')
+	otis_dir = Path('~/ProGamer/OTIS/queue'
+									).expanduser() if PRODUCTION else Path('/tmp/otis-debug')
 	if not otis_dir.exists():
 		otis_dir.mkdir()
 	ROOT_NODE = OTISRoot(otis_response.json(), root_dir=otis_dir)
