@@ -17,7 +17,7 @@ def onVenueBuffer(func_name: str):
 		if hasattr(node, func_name):
 			getattr(node, func_name)(node.load())
 	else:
-		print(f"The file {pk} is not tracked by Venue")
+		vim.command(f"echo 'The file {pk} is not tracked by Venue'")
 
 def setup():
 	assert ROOT_NODE is not None, "ROOT_NODE should be set by now"
@@ -40,7 +40,7 @@ if !empty(get(g:, 'venue_entry', ''))
 	augroup venueQ
 		au BufReadPost *.venueQ.* py3 onVenueBuffer("on_buffer_open")
 		au BufHidden *.venueQ.* py3 onVenueBuffer("on_buffer_close")
-		au BufEnter * NERDTreeRefreshRoot
+		au BufEnter * silent NERDTreeRefreshRoot
 		au BufEnter * py3 ROOT_NODE.wipe()
 	augroup END
 

@@ -106,7 +106,7 @@ class VenueQNode:
 
 	@property
 	def pk(self) -> str:
-		return self.path.absolute().as_posix()
+		return self.path.resolve().as_posix()
 
 	@property
 	def directory(self) -> Path:
@@ -192,12 +192,13 @@ class VenueQNode:
 		"""This method is called when the buffer is loaded.
 		This is called with an argument data = self.load().
 		Override this to perform actions."""
-		pass
+		logging.info(f"Opened buffer {self.path}")
 
 	def on_buffer_close(self, data: Data):
 		"""This method is called when the disk data is edited and saved.
 		This is called with an argument data = self.load().
 		Override this to perform actions."""
+		logging.info(f"Closed buffer {self.path}")
 		self.data.update(data)
 
 
@@ -208,6 +209,7 @@ class VenueQRoot(VenueQNode):
 	def __init__(self, data: Data, root_dir: Path):
 		if not root_dir.exists():
 			root_dir.mkdir()
+		root_dir = root_dir.resolve()
 		self.lookup = {}
 		self.wipe_queue: List[int] = []
 		self.root = self
@@ -218,7 +220,7 @@ class VenueQRoot(VenueQNode):
 	def queue_wipe(self, p: Path):
 		if VIM_ENABLED:
 			for b in vim.buffers:
-				if b.name == p.absolute().as_posix():
+				if Path(b.name).exists() and p.samefile(Path(b.name)):
 					self.wipe_queue.append(b.number)
 					break
 			else:
