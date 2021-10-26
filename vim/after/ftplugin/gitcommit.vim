@@ -29,5 +29,4 @@ function! GitCommitStartup()
 	endif
 endfunction
 
-autocmd VimEnter COMMIT_EDITMSG call GitCommitStartup()
 nnoremap <localleader>c :call SetConventionalCommit()<CR>
