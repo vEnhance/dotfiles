@@ -245,8 +245,10 @@ class OTISRoot(VenueQRoot):
 if __name__ == "__main__":
 	otis_response = requests.post(url=OTIS_API_URL, data={'token': TOKEN, 'action': 'init'})
 
-	otis_dir = Path('~/ProGamer/OTIS/queue'
-									).expanduser() if PRODUCTION else Path('/tmp/otis-debug')
+	if PRODUCTION:
+		otis_dir = Path('~/ProGamer/OTIS/queue').expanduser()
+	else:
+		otis_dir = Path('/tmp/otis-debug')
 	if not otis_dir.exists():
 		otis_dir.mkdir()
 	ROOT_NODE = OTISRoot(otis_response.json(), root_dir=otis_dir)
