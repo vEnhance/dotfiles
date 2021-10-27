@@ -8,8 +8,9 @@ Takes a plaintext email and
 """
 
 import sys
-import markdown
 from pathlib import Path
+
+import markdown
 
 signature_lines = 0
 signature_found = False
@@ -17,10 +18,10 @@ content = ""
 
 for line in sys.stdin:
 	if line == '-- \n':
-		content += '\n'*2
-		content += '**Evan Chen (陳誼廷)**<br>'
+		content += '\n' * 2
+		content += '**Evan Chen (陳誼廷)**<br>' + '\n'
 		content += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
-		content += '\n'*2
+		content += '\n' * 2
 		signature_lines = 3
 		signature_found = True
 	elif signature_lines > 0:
@@ -36,5 +37,4 @@ if output_path.exists():
 	output_path.unlink()
 
 with open(output_path, 'w') as f:
-	print(markdown.markdown(content,
-		extensions=['extra', 'sane_lists', 'smarty']), file=f)
+	print(markdown.markdown(content, extensions=['extra', 'sane_lists', 'smarty']), file=f)
