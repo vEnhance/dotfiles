@@ -38,8 +38,8 @@ if !empty(get(g:, 'venue_entry', ''))
 	endif
 
 	augroup venueQ
-		au BufReadPost *.venueQ.* py3 silent onVenueBuffer("on_buffer_open")
-		au BufHidden *.venueQ.* py3 silent onVenueBuffer("on_buffer_close")
+		au BufReadPost *.venueQ.* silent py3 onVenueBuffer("on_buffer_open")
+		au BufHidden *.venueQ.* silent py3 onVenueBuffer("on_buffer_close")
 		au BufEnter * silent NERDTreeRefreshRoot
 		au BufEnter * py3 ROOT_NODE.wipe()
 	augroup END

@@ -4,10 +4,12 @@ import smtplib
 import ssl
 import string
 import subprocess
+import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
 
+import markdown
 import requests
 from dotenv import load_dotenv
 
@@ -24,14 +26,14 @@ def send_email(subject: str, recipient: str, body: str):
 	mail['From'] = 'OTIS Overlord <evan@evanchen.cc>'
 	mail['To'] = recipient
 	mail['Subject'] = subject
-	subprocess.run(
-		['python',
-			Path('~/dotfiles/mutt/mutt-markdown.py').expanduser().absolute().as_posix()],
-		input=body,
-		text=True,
-	)
-	html_msg = Path('/tmp/neomutt-alternative.html').read_text()
-	mail.attach(MIMEText(body, 'plain'))
+
+	plain_msg = body
+	plain_msg += '\n' * 2
+	plain_msg += '**Evan Chen (陳誼廷)**<br>' + '\n'
+	plain_msg += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
+	html_msg = markdown.markdown(plain_msg,
+			extensions=['extra', 'sane_lists', 'smarty'])
+	mail.attach(MIMEText(plain_msg, 'plain'))
 	mail.attach(MIMEText(html_msg, 'html'))
 
 	password = subprocess.run(
@@ -186,7 +188,9 @@ class Suggestion(VenueQNode):
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
 		self.edit_temp(extension='mkd')
-		with open('/tmp/suggestion.tex', 'w') as f:
+		tmp_path = f"/tmp/sg{int(time.time())}.tex"
+
+		with open(tmp_path, 'w') as f:
 			print(self.statement, file=f)
 			print('\n---\n', file=f)
 			if data['acknowledge'] is True:
@@ -199,8 +203,7 @@ class Suggestion(VenueQNode):
 			print(self.solution, file=f)
 		subprocess.Popen(
 			[
-				"xfce4-terminal", "-x", "python", "-m", "von", "add", data['source'], "-f",
-				"/tmp/suggestion.tex"
+				"xfce4-terminal", "-x", "python", "-m", "von", "add", data['source'], "-f", tmp_path,
 			]
 		)
 
