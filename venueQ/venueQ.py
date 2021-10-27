@@ -1,3 +1,4 @@
+import datetime
 import logging
 import subprocess
 from pathlib import Path
@@ -19,7 +20,7 @@ VENUE_NAME_FIELD = '_name'
 VENUE_CHILDREN_FIELD = '_children'
 Data = Dict[str, Any]
 
-logger = logging.getLogger('venueQ')
+logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
 if VIM_ENABLED:
@@ -40,8 +41,13 @@ if VIM_ENABLED:
 			msg = formatter.format(record)
 			for line in msg.splitlines():
 				VIM_LOG_BUFFER.append(line)
+	vim_handler = VimLogHandler()
+	vim_handler.setLevel(logging.INFO)
+	file_handler = logging.FileHandler(f'/tmp/venueQ:{datetime.datetime.now().isoformat()}.log')
+	file_handler.setLevel(logging.DEBUG)
 
-	logger.addHandler(VimLogHandler())
+	logger.addHandler(vim_handler)
+	logger.addHandler(file_handler)
 
 
 class VenueQNode:
