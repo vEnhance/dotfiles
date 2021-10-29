@@ -86,7 +86,7 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
 	edited_message = tf.read()
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
 
-if type(result) == dict and 'content' in result:
+if type(result) == dict and result.get('content', '<++>') != '<++>':
 	content = result['content'].strip()
 
 	pyperclip.copy(content)
