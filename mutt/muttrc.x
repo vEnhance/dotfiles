@@ -34,23 +34,24 @@ folder-hook ~/Mail/[a-z]*/Trash   color indicator white  black
 folder-hook ~/Mail/[a-z]*/Sent    color indicator black  brightwhite
 
 ## General settings
+set abort_noattach = ask-yes
+set attach_save_dir = "~/Downloads/"
+set auto_tag = yes
+set collapse_unread = yes
+set delete = yes
+set mail_check = 60
 set mbox_type = Maildir
+set pager_context = 15
+set pager_index_lines = 7
+set pipe_decode = yes
+set postpone=no
+set quit = yes
+set simple_search = "~f %s | ~s %s | ~C %s"
+set sleep_time = 0
 set sort = threads
 set sort_aux = last-date-received
 set text_flowed = yes
-set auto_tag = yes
-set collapse_unread = yes
-set pager_context = 15
-set pager_index_lines = 7
-set mail_check = 60
-set quit = yes
 set wrap = 80
-set attach_save_dir = "~/Downloads/"
-set abort_noattach = ask-yes
-set sleep_time = 0
-set simple_search = "~f %s | ~s %s | ~C %s"
-set pipe_decode = yes
-set delete = yes
 
 set date_format = "%a %m月%d日"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
