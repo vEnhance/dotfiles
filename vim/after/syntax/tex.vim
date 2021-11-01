@@ -1,3 +1,6 @@
+" fix spellcheck
+syntax spell toplevel
+
 " Conceal modifications
 if has("gui_running")
 	" Match ^(-1)
