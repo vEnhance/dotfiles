@@ -133,14 +133,15 @@ def goto_offset(x):
 	return r'${goto ' + str(offset(x)) + '}'
 
 
-if sys.argv[-1] == '--two':
-	# we are in boston
+if sys.argv[-1] == '--two':  # laptop
 	NUM_COL = 2
 	ORDER = [0, 2, 1, 3]
-else:
-	# we are in cali
+elif sys.argv[-1] == '--three':  # laptop
 	NUM_COL = 3
 	ORDER = [0, 3, 1, 4, 2, 5]
+else:  # we are in cali
+	NUM_COL = 2
+	ORDER = [0, 2, 1, 3]
 
 for i in ORDER:
 	current_day = today + timedelta(days=i)
