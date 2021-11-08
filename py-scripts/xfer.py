@@ -1,6 +1,7 @@
 import argparse
 import getpass
 import random
+import string
 import sys
 from hashlib import sha512
 from pathlib import Path
@@ -15,9 +16,10 @@ parser = argparse.ArgumentParser(
 	prog='xfer', description='Temporarily upload a file to evanchen.cc/xfer'
 )
 
+random_salt = ''.join(random.choice(string.ascii_letters + string.digits) for _ in range(64))
 parser.add_argument('filename', nargs='?', help='Path of file to upload')
 parser.add_argument('-n', '--name', help='Name of the file to upload.')
-parser.add_argument('-s', '--salt', nargs='?', const=str(random.random()), default='')
+parser.add_argument('-s', '--salt', nargs='?', const=random_salt, default='')
 group = parser.add_mutually_exclusive_group()
 group.add_argument('-p', '--password', help='Path to a password file, else getpass used.')
 group.add_argument('-i', '--insecure', help='Specify the password via command line (insecure)')
@@ -60,7 +62,11 @@ if __name__ == "__main__":
 				f"gsutil -m setmeta -h 'Cache-Control:private, max-age=0, no-transform' {url}",
 				shell=True,
 			)
-		print(f'https://web.evanchen.cc/xfer.html?f={filename}&h={checksum}&s{salt}')
+		url = f'https://web.evanchen.cc/xfer.html?f={filename}&h={checksum}'
+		if salt:
+			url += f'&s={salt}'
+		print('-' * 40)
+		print(url)
 	elif args.wipe:
 		if 'y' in input("Are you sure? ").lower():
 			call(
