@@ -18,13 +18,10 @@ parser = argparse.ArgumentParser(
 parser.add_argument('filename', nargs='?', help='Path of file to upload')
 parser.add_argument('-n', '--name', help='Name of the file to upload.')
 parser.add_argument('-s', '--salt', nargs='?', const=str(random.random()), default='')
-parser.add_argument(
-	'-p', '--password', help='Path to a password file, otherwise read from getpass.'
-)
-parser.add_argument('-i', '--insecure', help='Specify the password via command line (insecure)')
-parser.add_argument(
-	'-e', '--echo', action='store_true', help="Don't hide the password with getpass."
-)
+group = parser.add_mutually_exclusive_group()
+group.add_argument('-p', '--password', help='Path to a password file, else getpass used.')
+group.add_argument('-i', '--insecure', help='Specify the password via command line (insecure)')
+group.add_argument('-e', '--echo', action='store_true', help="Don't hide with getpass.")
 parser.add_argument(
 	'-d', '--dry-run', action='store_true', help='Dry run, do not actually upload file.'
 )
