@@ -34,9 +34,13 @@ if __name__ == "__main__":
 	elif args.echo:
 		password = input('Password: ').strip()
 	else:
-		password = getpass.getpass().strip()
-		password_confirm = getpass.getpass(prompt='Repeat: ').strip()
-		assert password == password_confirm, "nope, try again noob"
+		while True:
+			password = getpass.getpass().strip()
+			password_confirm = getpass.getpass(prompt='Repeat: ').strip()
+			if password == password_confirm:
+				break
+			else:
+				print("Passwords did not match. Try again.")
 	filename = args.name or args.filename
 	kludge = 'evanchen.cc/xfer|' + filename + '|' + password
 	h1 = h(kludge)
