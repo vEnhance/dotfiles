@@ -114,8 +114,16 @@ for d in json.loads(agenda_text.read_text()):
 	)  # remove hashtag
 	all_items[when.date()].append(calitem)
 
+if len(sys.argv) > 1:
+	NUM_COL = int(sys.argv[-1])
+else:
+	NUM_COL = 2
+ORDER = []
+for i in range(NUM_COL):
+	ORDER += [i, i + NUM_COL]
+
 today = date.today()
-table = [['' for _ in range(4)] for _ in range(NUM_ROWS * 2 + 2)]
+table = [['' for _ in range(NUM_COL + 1)] for _ in range(NUM_ROWS * 2 + 2)]
 
 HEADER_Y_FIRST = 0
 HEADER_Y_SECOND = NUM_ROWS + 1
@@ -132,16 +140,6 @@ def offset_indented(x):
 def goto_offset(x):
 	return r'${goto ' + str(offset(x)) + '}'
 
-
-if sys.argv[-1] == '--two':  # laptop
-	NUM_COL = 2
-	ORDER = [0, 2, 1, 3]
-elif sys.argv[-1] == '--three':  # laptop
-	NUM_COL = 3
-	ORDER = [0, 3, 1, 4, 2, 5]
-else:  # we are in cali
-	NUM_COL = 2
-	ORDER = [0, 2, 1, 3]
 
 for i in ORDER:
 	current_day = today + timedelta(days=i)
