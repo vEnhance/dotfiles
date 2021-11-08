@@ -177,4 +177,4 @@ table[HEADER_Y_SECOND][1] = r'${color 66aaff}' + table[HEADER_Y_SECOND][1]
 table[HEADER_Y_SECOND][-1] += r'${font Exo 2:size=18}'
 
 for row in table:
-	print(''.join(goto_offset(i) + row[i] for i in range(4)))
+	print(''.join(goto_offset(i) + row[i] for i in range(NUM_COL + 1)))
