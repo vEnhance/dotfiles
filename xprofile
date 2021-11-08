@@ -46,6 +46,9 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 	if [ $(date +"%Z") = PDT ]; then
 		xset s 510 30
 		xset dpms 600 600 600
+	else
+		export QT_AUTO_SCREEN_SCALE_FACTOR=2
+		export GDK_SCALE=2
 	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	export LANG="en_US.UTF-8"
