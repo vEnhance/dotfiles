@@ -177,7 +177,7 @@ for n, item in enumerate(remaining_calendar[:NUM_ROWS]):
 remaining_tasks = [item for item in remaining if not criteria(item)]
 remaining_tasks.sort(key=lambda item: item.when)
 for n, item in enumerate(remaining_tasks[:NUM_ROWS]):
-	table[n + NUM_ROWS + 1][0] = item.conky_repr(
+	table[HEADER_Y_SECOND + n + 1][0] = item.conky_repr(
 		needs_date=True, truncate=24, offset=offset_indented(0)
 	)
 
