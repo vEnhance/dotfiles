@@ -12,6 +12,18 @@ from typing import Dict, List, Optional
 from dateutil.parser import isoparse
 
 NUM_ROWS = 15
+if len(sys.argv) > 1:
+	NUM_COL = int(sys.argv[-1])
+else:
+	NUM_COL = 2
+if NUM_COL == 2:
+	FONT_SIZE = 10
+elif NUM_COL == 3:
+	FONT_SIZE = 16
+elif NUM_COL >= 4:
+	FONT_SIZE = 20
+else:
+	FONT_SIZE = 18
 
 
 class Type(IntEnum):
@@ -53,7 +65,7 @@ class CalItem:
 
 	def conky_repr(self, offset=None, needs_date=False, truncate=36):
 		s = ''
-		s += r'${font Exo 2:normal:size=18}'
+		s += r'${font Exo 2:normal:size=%d}' % FONT_SIZE
 		if self.type == Type.DUE:
 			s += r"${color ffbbbb}[Due!] "
 		elif self.type == Type.SCHEDULED:
@@ -61,7 +73,7 @@ class CalItem:
 		elif self.type == Type.WAITING:
 			s += r"${color bbffbb}[Wait] "
 		if self.type == Type.CALENDAR:
-			s += r"${color ffffff}${font Exo 2:italic:size=18}"
+			s += r"${color ffffff}${font Exo 2:italic:size=%d}" % FONT_SIZE
 			s += f"{self.when.hour:02d}:{self.when.minute:02d} "
 		if offset is not None:
 			s += r'${goto ' + str(offset) + '}'
@@ -75,13 +87,13 @@ class CalItem:
 			else:
 				s += r"${color 99bb99}"
 			if self.type == Type.CALENDAR or self.type == Type.NOW:
-				s += r'${voffset -1}${font Exo 2:semibold:size=18}'
+				s += r'${voffset -1}${font Exo 2:semibold:size=%d}' % FONT_SIZE
 			else:
-				s += r'${font Exo 2:light:size=18}'
+				s += r'${font Exo 2:light:size=%d}' % FONT_SIZE
 			s += f'{self.when.date().strftime("%a %b%d")} '
 			if self.type == Type.CALENDAR or self.type == Type.NOW:
 				s += r'${voffset 1}'
-		s += r'${font Exo 2:normal:size=18}'
+		s += r'${font Exo 2:normal:size=%d}' % FONT_SIZE
 		s += r"${color " + (self.color or 'dddddd') + r"}"
 		s += f"{self.text[:truncate]}"
 		return s
@@ -114,10 +126,6 @@ for d in json.loads(agenda_text.read_text()):
 	)  # remove hashtag
 	all_items[when.date()].append(calitem)
 
-if len(sys.argv) > 1:
-	NUM_COL = int(sys.argv[-1])
-else:
-	NUM_COL = 2
 ORDER = []
 for i in range(NUM_COL):
 	ORDER += [i, i + NUM_COL]
@@ -154,8 +162,12 @@ for i in ORDER:
 		y0 = HEADER_Y_FIRST if i < NUM_COL else HEADER_Y_SECOND
 		table[y0][x] = current_day.strftime('%a %d %b')
 
-table[HEADER_Y_FIRST][0] = r'${font Exo 2:size=24:bold}${color 55ff99}Upcoming Events'
-table[HEADER_Y_SECOND][0] = r'${font Exo 2:size=24:bold}${color ff5599}Other Tasks'
+table[HEADER_Y_FIRST][0] = r'${font Exo 2:size=%d:bold}${color 55ff99}Upcoming Events' % (
+	FONT_SIZE + 3
+)
+table[HEADER_Y_SECOND][0] = r'${font Exo 2:size=%d:bold}${color ff5599}Other Tasks' % (
+	FONT_SIZE + 3
+)
 remaining = sorted(chain(*all_items.values()))
 
 criteria = lambda item: item.type == Type.CALENDAR or item.type == Type.NOW
@@ -171,10 +183,10 @@ for n, item in enumerate(remaining_tasks[:NUM_ROWS]):
 
 table[HEADER_Y_FIRST][1] = r'${color ddeeff}' + table[HEADER_Y_FIRST][1]
 table[HEADER_Y_FIRST][2] = r'${color 66aaff}' + table[HEADER_Y_FIRST][2]
-table[HEADER_Y_FIRST][-1] += r'${font Exo 2:size=18}'
+table[HEADER_Y_FIRST][-1] += r'${font Exo 2:size=%d}' % FONT_SIZE
 table[HEADER_Y_SECOND - 1][-1] += '\n' + r'${goto 15}${color bbbbbb}${stippled_hr}'
 table[HEADER_Y_SECOND][1] = r'${color 66aaff}' + table[HEADER_Y_SECOND][1]
-table[HEADER_Y_SECOND][-1] += r'${font Exo 2:size=18}'
+table[HEADER_Y_SECOND][-1] += r'${font Exo 2:size=%d}' % FONT_SIZE
 
 for row in table:
 	print(''.join(goto_offset(i) + row[i] for i in range(NUM_COL + 1)))
