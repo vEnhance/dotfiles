@@ -5,7 +5,7 @@ if [ "$(whoami)" != "evan" ]; then
 fi
 
 task rc.verbose=nothing rc.report.min.columns:due.relative,description \
-	min rc.report.min.sort:urgency- status:pending +READY \
+	min rc.gc=off rc.report.min.sort:urgency- status:pending +READY \
 	| sed "s/[\ ]{3,}/\t/" | sed 's/^/ /' | ag -v merged\.$ \
 	> ~/.cache/todo.txt
 

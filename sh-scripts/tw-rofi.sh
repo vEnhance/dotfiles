@@ -1,7 +1,7 @@
 #!/bin/bash
 
 default="$(task undone rc.defaultwidth=200 | sed -n 2p | sed 's/ /-/g')"
-lines="${default}\n$(task undone rc.verbose=nothing rc.defaultwidth=200)"
+lines="${default}\n$(task undone rc.gc=off rc.verbose=nothing rc.defaultwidth=200)"
 chosen=$(echo -e "$lines" | rofi -dmenu -i -p "taskwarrior")
 
 if [ -z "$chosen" ]; then
