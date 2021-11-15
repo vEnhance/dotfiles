@@ -110,7 +110,7 @@ if filereadable("/bin/pacman")
 	let g:airline#extensions#tabline#show_buffers = 1
 	let g:airline#extensions#tabline#show_tabs = 1
 	let g:airline_powerline_fonts = 1
-	let g:airline_theme='wombat'
+	let g:airline_theme='murmur'
 	let g:CtrlSpaceStatuslineFunction =
 	\ "airline#extensions#ctrlspace#statusline()"
 	function! AirlineSetup()
@@ -142,10 +142,11 @@ if filereadable("/bin/pacman")
 				\ ''     : 'V',
 				\ }
 		let s:IA = [ 'gray15', 'gray80', 35, 234 ]
-		let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+		" let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
 		let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 	endfunction
 	autocmd User AirlineAfterTheme call AirlineSetup()
+	call plug#end()
 endif
 
 " ALE + CoC
@@ -416,7 +417,7 @@ nnoremap <Space>- :call EvanClose()<CR>
 " ------------------------------------------
 " SETTINGS
 " ------------------------------------------
-colorscheme reclipse
+colorscheme zellner
 " autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
