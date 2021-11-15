@@ -138,6 +138,7 @@ alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
 alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias gvim="gvim --servername ''"
+alias hvim="vim -u ~/dotfiles/vim/vimrc.min"
 alias kitty="/bin/cat"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
