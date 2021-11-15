@@ -16,10 +16,11 @@ if len(sys.argv) > 1:
 	NUM_COL = int(sys.argv[-1])
 else:
 	NUM_COL = 2
+
 if NUM_COL == 2:
-	FONT_SIZE = 10
+	FONT_SIZE = 14
 elif NUM_COL == 3:
-	FONT_SIZE = 16
+	FONT_SIZE = 18
 elif NUM_COL >= 4:
 	FONT_SIZE = 20
 else:
