@@ -7,10 +7,6 @@ syntax on
 " ARCH LINUX ADDONS
 " ------------------------------------------
 if filereadable("/bin/pacman")
-	" EDIT 2021-07-09: vim-plugins on Arch Linux installs a bunch of these
-	" already so this list got trimmed a lot.
-	" (In fact, having both Plug and system will cause conflicts with ALE).
-
 	call plug#begin('~/.vim/plugged')
 	Plug 'aymericbeaumet/vim-symlink'
 	Plug 'brooth/far.vim'
@@ -29,7 +25,16 @@ if filereadable("/bin/pacman")
 	Plug 'vim-ctrlspace/vim-ctrlspace'
 	Plug 'vim-scripts/YankRing.vim'
 	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-	" Plug 'tpope/vim-unimpaired'
+	" used to be provided by Arch Linux
+	Plug 'airblade/vim-gitgutter'
+	Plug 'dense-analysis/ale'
+	Plug 'kien/ctrlp.vim'
+	Plug 'preservim/nerdtree'
+	Plug 'preservim/tagbar'
+	Plug 'tpope/vim-fugitive'
+	Plug 'vim-airline/vim-airline'
+	Plug 'vim-airline/vim-airline-themes'
+	Plug 'vim-latex/vim-latex'
 
 	" https://github.com/junegunn/fzf.vim/issues/374
 	let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
@@ -93,8 +98,8 @@ if filereadable("/bin/pacman")
 	Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
 	Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
 	Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
+	Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
 	Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
-	" Plug 'relastle/vim-nayvy',          { 'for' : 'python' }
 	Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 	Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 	Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
@@ -161,7 +166,7 @@ if filereadable("/bin/pacman")
 	endfunction
 	autocmd User AirlineAfterTheme call AirlineSetup()
 
-	" ALE + CoC (ALE installed by Arch)
+	" ALE + CoC
 	let g:ale_disable_lsp = 1
 	let g:ale_echo_msg_error_str = 'E'
 	let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
