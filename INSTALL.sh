@@ -24,7 +24,6 @@ if ! test -f "$HOME/.latexmkrc"; then ln -s $HOME/dotfiles/latexmkrc $HOME/.late
 if ! test -f "$HOME/.pdbrc.py"; then ln -s $HOME/dotfiles/pdbrc.py $HOME/.pdbrc.py; fi
 if ! test -f "$HOME/.screenrc"; then ln -s $HOME/dotfiles/screenrc $HOME/.screenrc; fi
 if ! test -f "$HOME/.taskrc"; then ln -s $HOME/dotfiles/taskrc $HOME/.taskrc; fi
-if ! test -f "$HOME/.vimrc"; then ln -s $HOME/dotfiles/vimrc $HOME/.vimrc; fi
 if ! test -f "$HOME/.xprofile"; then ln -s $HOME/dotfiles/xprofile $HOME/.xprofile; fi
 
 if ! test -f "$HOME/.xinitrc"; then
@@ -84,8 +83,8 @@ fi
 
 # vim
 mkdir -p $HOME/.vim/tmp/
-mkdir -p $HOME/.vim/after
-mkdir -p $HOME/.vim/tags
+mkdir -p $HOME/.vim/after/
+mkdir -p $HOME/.vim/tags/
 if ! test -d "$HOME/.vim/after/ftplugin"; then
 	ln -s $HOME/dotfiles/vim/after/ftplugin $HOME/.vim/after/ftplugin
 fi
@@ -100,6 +99,9 @@ if ! test -d "$HOME/.vim/doc"; then
 fi
 if ! test -d "$HOME/.vim/spell"; then
 	ln -s $HOME/dotfiles/vim/spell $HOME/.vim/spell
+fi
+if ! test -f "$HOME/.vim/vimrc"; then
+	ln -s $HOME/dotfiles/vim/vimrc $HOME/.vim/vimrc
 fi
 
 # systemd
