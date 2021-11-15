@@ -43,7 +43,7 @@ gcalendar --no-of-days 14 --output json \
 
 mbsync -Va
 
-task sync
+task rc.gc=on sync
 # bugwarrior-pull
 # task sync
 

@@ -22,6 +22,9 @@ alias.lo=priority:L
 alias.md=priority:M
 alias.hi=priority:H
 
+# turn gc off by default; it'll be run by certain cron's
+gc=off
+
 uda.priority.values=H,M,,L
 recurrence.limit=0
 urgency.uda.priority.H.coefficient=4.2
