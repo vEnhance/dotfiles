@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MoreGrader
 // @namespace    https://web.evanchen.cc/
-// @version      1.1
+// @version      1.2
 // @description  More grader info
 // @author       oneplusone and vEnhance
 // @match        https://artofproblemsolving.com/contests/us*-20*/grade*
@@ -36,7 +36,7 @@ AoPS.the_conflict_bucket = {
 };
 
 const main_template = Handlebars.compile(`
-<td class="id-column {{status}}">
+<td class="id-column {{status}}" {{#if conflict }}style="background-color: #dd8888"{{/if}}>
 		<a class="submission-link" href="{{submission_path}}" target="_blank">{{sub_id}}</a>
         {{#if conflict}}
         [{{ combined_score }}]
@@ -59,10 +59,12 @@ const main_template = Handlebars.compile(`
 		{{/if}}
 	</td>
 	{{#each evals}}
-		<td class="eval-container {{../status}}">
+		<td class="eval-container {{../status}}"
+               {{#if labels.conflict }}style="background-color: #cc7777"{{/if}}>
             <div>
 			{{#if labels.locked}}
 				<h5 class="locked {{state}}"><i class="fas fa-lock"></i> LOCKED</h5>
+
 			{{else}}
 				<div class="entry-label">
 					{{#if labels.unavailable}}
