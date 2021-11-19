@@ -139,7 +139,6 @@ alias getclip="xsel --clipboard"
 alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias gvim="gvim --servername ''"
 alias hvim="vim -u ~/dotfiles/vim/vimrc.min"
-alias kitty="/bin/cat"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias pdb='python -m pdb -c continue'
@@ -312,8 +311,10 @@ alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-alias ls='ls --color=tty --quoting-style=literal'
-alias l='ls -l'
+if test "(uname)" = "Linux"
+	alias ls='ls --color=tty --quoting-style=literal'
+	alias l='ls -l'
+end
 
 # Fish completions
 complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
