@@ -103,10 +103,6 @@ function fish_right_prompt_loading_indicator -a last_prompt
 	echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
 end
 
-if test "(uname)" = Linux
-	shopt -s globstar
-end
-
 # Exports
 export SHELL='/usr/bin/fish'
 export EDITOR='vim'
@@ -311,9 +307,36 @@ alias egrep='egrep --color=auto'              # show differences in color
 alias fgrep='fgrep --color=auto'              # show differences in color
 
 # Some shortcuts for different directory listings
-if test "(uname)" = "Linux"
+
+if test (uname) = "Linux"
 	alias ls='ls --color=tty --quoting-style=literal'
 	alias l='ls -l'
+	function ranger-cd
+		if test -z "$RANGER_LEVEL"
+			set tempfile "/tmp/(whoami)chosendir"
+			ranger --choosedir=$tempfile (pwd)
+			if test -f $tempfile
+					if [ (cat $tempfile) != (pwd) ]
+						cd (cat $tempfile)
+					end
+			end
+			rm -f $tempfile
+		else
+			exit
+		end
+	end
+	if test -n "$RANGER_LEVEL"
+		clear
+		echo "===================="
+		echo "=   RANGER SHELL   ="
+		echo "===================="
+		ls -l
+	end
+	alias ll='ranger-cd'
+else
+	alias ls='ls -G'
+	alias l='ls -lG'
+	alias ll='ls -lG'
 end
 
 # Fish completions
@@ -357,26 +380,4 @@ function fish_mode_prompt
 end
 tabs -2
 
-function ranger-cd
-	if test -z "$RANGER_LEVEL"
-		set tempfile "/tmp/(whoami)chosendir"
-		ranger --choosedir=$tempfile (pwd)
-		if test -f $tempfile
-				if [ (cat $tempfile) != (pwd) ]
-					cd (cat $tempfile)
-				end
-		end
-		rm -f $tempfile
-	else
-		exit
-	end
-end
-alias ll='ranger-cd'
 
-if test -n "$RANGER_LEVEL"
-	clear
-	echo "===================="
-	echo "=   RANGER SHELL   ="
-	echo "===================="
-	ls -l
-end
