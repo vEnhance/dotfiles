@@ -56,7 +56,10 @@
 	unassume = update-index --no-assume-unchanged
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
-	now = diff HEAD origin/main
+
+	now = diff HEAD origin/main  # check comparison to upstream
+	ds = diff --staged # queued changes staged; much shorter
+	dt = difftool # diff eddit
 [init]
 	defaultBranch = main
 [url "git@github.com:"]
@@ -64,5 +67,7 @@
 [commit]
 	gpgSign = true
 	verbose = true
+[diff]
+	tool = meld
 
 # vim: ft=gitconfig
