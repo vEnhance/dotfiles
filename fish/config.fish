@@ -103,7 +103,7 @@ function fish_right_prompt_loading_indicator -a last_prompt
 	echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
 end
 
-if [ "(uname)" = Linux ]
+if test "(uname)" = Linux
 	shopt -s globstar
 end
 
