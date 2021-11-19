@@ -121,57 +121,6 @@ bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
 bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
 bindsym $mod+Shift+0 move container to workspace $WS10; workspace $WS10
 
-# navigation modes without super key
-mode "move" {
-	bindsym h focus left
-	bindsym j focus down
-	bindsym k focus up
-	bindsym l focus right
-	bindsym a focus parent
-	bindsym b focus child
-
-	bindsym grave workspace $WS0;
-	bindsym 1 workspace $WS1;
-	bindsym 2 workspace $WS2;
-	bindsym 3 workspace $WS3;
-	bindsym 4 workspace $WS4;
-	bindsym 5 workspace $WS5;
-	bindsym 6 workspace $WS6;
-	bindsym 7 workspace $WS7;
-	bindsym 8 workspace $WS8;
-	bindsym 9 workspace $WS9;
-	bindsym 0 workspace $WS10;
-
-	bindsym Shift+h move container left
-	bindsym Shift+j move container down
-	bindsym Shift+k move container up
-	bindsym Shift+l move container right
-
-	bindsym Shift+grave move container to workspace $WS0; workspace $WS0;
-	bindsym Shift+1 move container to workspace $WS1; workspace $WS1;
-	bindsym Shift+2 move container to workspace $WS2; workspace $WS2;
-	bindsym Shift+3 move container to workspace $WS3; workspace $WS3;
-	bindsym Shift+4 move container to workspace $WS4; workspace $WS4;
-	bindsym Shift+5 move container to workspace $WS5; workspace $WS5;
-	bindsym Shift+6 move container to workspace $WS6; workspace $WS6;
-	bindsym Shift+7 move container to workspace $WS7; workspace $WS7;
-	bindsym Shift+8 move container to workspace $WS8; workspace $WS8;
-	bindsym Shift+9 move container to workspace $WS9; workspace $WS9;
-	bindsym Shift+0 move container to workspace $WS10; workspace $WS10;
-
-	# wider, narrower, shorter, taller
-	bindsym w resize grow width 5 px or 5 ppt
-	bindsym u resize shrink width 5 px or 5 ppt
-	bindsym s resize shrink height 5 px or 5 ppt
-	bindsym t resize grow height 5 px or 5 ppt
-
-	bindsym m mode "move"
-	bindsym n mode "nudge"
-	# bindsym r mode "resize"
-	bindsym q mode "close"
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
 mode "nudge" {
 	bindsym a focus parent
 	bindsym b focus child
@@ -205,7 +154,6 @@ mode "nudge" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+m mode "move"
 bindsym $mod+n mode "nudge"
 
 # close focused window
