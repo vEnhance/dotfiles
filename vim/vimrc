@@ -212,7 +212,7 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'
 	endif
 	call plug#end()
 endif
-# }}}
+" }}}
 
 " Vim server {{{
 if g:mana >= 100
