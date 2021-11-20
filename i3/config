@@ -11,17 +11,30 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-set $WS0 "0: Kaf"
-set $WS1 "1: Aleph"
-set $WS2 "2: Bet"
-set $WS3 "3: Gimel"
-set $WS4 "4: Dalet"
-set $WS5 "5: Hei"
-set $WS6 "6: Vav"
-set $WS7 "7: Zayin"
-set $WS8 "8: Het"
-set $WS9 "9: Tet"
-set $WS10 "10: Yod"
+#set $WS0 "0: Kaf"
+#set $WS1 "1: Aleph"
+#set $WS2 "2: Bet"
+#set $WS3 "3: Gimel"
+#set $WS4 "4: Dalet"
+#set $WS5 "5: Hei"
+#set $WS6 "6: Vav"
+#set $WS7 "7: Zayin"
+#set $WS8 "8: Het"
+#set $WS9 "9: Tet"
+#set $WS10 "10: Yod"
+set $WS0 number 0
+set $WS1 number 1
+set $WS2 number 2
+set $WS3 number 3
+set $WS4 number 4
+set $WS5 number 5
+set $WS6 number 6
+set $WS7 number 7
+set $WS8 number 8
+set $WS9 number 9
+set $WS10 number 10
+
+exec_always --no-startup-id exec i3-workspace-names-daemon
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
