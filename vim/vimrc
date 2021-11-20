@@ -1,17 +1,20 @@
 " Evan Chen's .vimrc
+
 set nocompatible
 filetype plugin indent on
 syntax on
 
-" ------------------------------------------
-" ARCH LINUX ADDONS
-" ------------------------------------------
-if filereadable("/bin/pacman")
+let g:mana = get(g:, 'mana', 60)
+
+" {{{ PLUG OPTIONS
+" }}}
+
+if g:mana > 0
 	call plug#begin('~/.vim/plugged')
+	Plug 'haya14busa/incsearch.vim'
 	Plug 'aymericbeaumet/vim-symlink'
 	Plug 'brooth/far.vim'
 	Plug 'FelikZ/ctrlp-py-matcher'
-	Plug 'haya14busa/incsearch.vim'
 	Plug 'junegunn/fzf'
 	Plug 'junegunn/fzf.vim'
 	Plug 'ludovicchabant/vim-gutentags'
@@ -203,8 +206,10 @@ if filereadable("/bin/pacman")
 		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 	endif
 	call plug#end()
+endif
 
-	" Vim server
+" Vim server {{{
+if g:mana >= 100
 	function StartServer()
 		if !empty(argv(1)) | return | endif
 		let l:target = expand('%:p')
@@ -230,10 +235,9 @@ if filereadable("/bin/pacman")
 	endfunction
 	autocmd VimEnter * call StartServer()
 endif
+" }}}
 
-" ------------------------------------------
-" CUSTOM KEYBINDINGS (NON-SPACE)
-" ------------------------------------------
+" Arrow key shortcuts {{{
 function! DelEmptyLineAbove()
 	if line(".") == 1
 		return
@@ -274,8 +278,9 @@ map <Left> <
 map <Right> >
 map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
+" }}}
 
-" INDENTATION COMMANDS
+" INDENTATION COMMANDS {{{
 " candidate for deletion since i never use these
 " Jump to the next or previous line that has the same level or a lower
 " level of indentation than the current line.
@@ -318,8 +323,9 @@ onoremap <silent> [u :call NextIndent(0, 0, 0, 1)<CR>
 onoremap <silent> ]u :call NextIndent(0, 1, 0, 1)<CR>
 onoremap <silent> [U :call NextIndent(1, 0, 1, 1)<CR>
 onoremap <silent> ]U :call NextIndent(1, 1, 1, 1)<CR>
+" }}}
 
-" improved f/F/t/T/semicolon
+" improved f/F/t/T/semicolon {{{
 autocmd BufEnter * let b:evan_last_finder_line=0
 autocmd BufEnter * let b:evan_last_finder_char=''
 autocmd BufEnter * let b:evan_last_finder_dir=0
@@ -362,6 +368,7 @@ nnoremap <silent> F :call EvanFindChar(-1, -1, 0)<CR>
 nnoremap <silent> t :call EvanFindChar(1, 0, 0)<CR>
 nnoremap <silent> T :call EvanFindChar(-1, -2, 0)<CR>
 nnoremap <silent> ; :call EvanSemicolon()<CR>
+" }}}
 
 " Procedure for shell commands
 " https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
@@ -652,4 +659,4 @@ function EvanOpenWikiLinkOrSave()
 	endif
 endfunction
 
-" vim: ft=vim
+" vim: ft=vim fdm=marker
