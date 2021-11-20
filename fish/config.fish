@@ -128,12 +128,12 @@ end
 umask 007 # set umask
 
 # Vim aliases (tiny, basic, slim, vanilla, ale, coc)
-alias tvim="vim --cmd 'let g:mana=0'"
-alias bvim="vim --cmd 'let g:mana=20'"
-alias svim="vim --cmd 'let g:mana=40'"
-alias  vim="vim --cmd 'let g:mana=60'"
-alias avim="vim --cmd 'let g:mana=80'"
-alias cvim="vim --cmd 'let g:mana=100'"
+alias bvim="vim --cmd 'let g:mana=0'"
+alias tvim="vim --cmd 'let g:mana=20'"
+alias fvim="vim --cmd 'let g:mana=40'"
+alias vim="vim --cmd 'let g:mana=60'"
+alias ale="vim --cmd 'let g:mana=80'"
+alias coc="vim --cmd 'let g:mana=100'"
 
 alias gvim="gvim --servername ''"
 alias hvim="vim -u ~/dotfiles/vim/vimrc.min"
