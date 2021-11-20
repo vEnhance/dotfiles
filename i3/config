@@ -11,28 +11,27 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
-#set $WS0 "0: Kaf"
-#set $WS1 "1: Aleph"
-#set $WS2 "2: Bet"
-#set $WS3 "3: Gimel"
-#set $WS4 "4: Dalet"
-#set $WS5 "5: Hei"
-#set $WS6 "6: Vav"
-#set $WS7 "7: Zayin"
-#set $WS8 "8: Het"
-#set $WS9 "9: Tet"
-#set $WS10 "10: Yod"
-set $WS0 number 0
-set $WS1 number 1
-set $WS2 number 2
-set $WS3 number 3
-set $WS4 number 4
-set $WS5 number 5
-set $WS6 number 6
-set $WS7 number 7
-set $WS8 number 8
-set $WS9 number 9
-set $WS10 number 10
+set $WS0 number "0: Kaf"
+set $WS1 number "1: Aleph"
+set $WS2 number "2: Bet"
+set $WS3 number "3: Gimel"
+set $WS4 number "4: Dalet"
+set $WS5 number "5: Hei"
+set $WS7 number "7: Zayin"
+set $WS8 number "8: Het"
+set $WS9 number "9: Tet"
+set $WS10 number "10: Yod"
+#set $WS0 number 0
+#set $WS1 number 1
+#set $WS2 number 2
+#set $WS3 number 3
+#set $WS4 number 4
+#set $WS5 number 5
+#set $WS6 number 6
+#set $WS7 number 7
+#set $WS8 number 8
+#set $WS9 number 9
+#set $WS10 number 10
 
 exec_always --no-startup-id exec i3-workspace-names-daemon
 
@@ -47,7 +46,6 @@ floating_modifier $mod
 # Settings
 focus_follows_mouse no
 workspace_auto_back_and_forth no
-workspace_layout stacked
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
@@ -87,6 +85,8 @@ bindsym $mod+f fullscreen
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+s layout stacking
+# Default stacking
+workspace_layout stacking
 
 # toggle tiling / floating
 bindsym $mod+period floating toggle
