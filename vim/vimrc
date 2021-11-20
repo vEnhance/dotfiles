@@ -11,11 +11,13 @@ let g:mana = get(g:, 'mana', 60)
 
 if g:mana > 0
 	call plug#begin('~/.vim/plugged')
-	Plug 'haya14busa/incsearch.vim'
-	Plug 'aymericbeaumet/vim-symlink'
-	Plug 'brooth/far.vim'
+	if g:mana > 20
+		Plug 'haya14busa/incsearch.vim'
+		Plug 'aymericbeaumet/vim-symlink'
+	endif
 	Plug 'FelikZ/ctrlp-py-matcher'
 	Plug 'junegunn/fzf'
+	Plug 'brooth/far.vim'
 	Plug 'junegunn/fzf.vim'
 	Plug 'ludovicchabant/vim-gutentags'
 	Plug 'majutsushi/tagbar'
@@ -370,7 +372,7 @@ nnoremap <silent> T :call EvanFindChar(-1, -2, 0)<CR>
 nnoremap <silent> ; :call EvanSemicolon()<CR>
 " }}}
 
-" Procedure for shell commands
+" Procedure for shell commands {{{
 " https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
 function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
@@ -385,8 +387,9 @@ function! s:ExecuteInShell(command)
   echo 'Shell command ' . command . ' executed.'
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+" }}}
 
-" Use K to show documentation in preview window.
+" CoC based maps {{{
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
 	if (index(['vim','help'], &filetype) >= 0)
@@ -397,17 +400,14 @@ function! s:show_documentation()
 		execute '!' . &keywordprg . " " . expand('<cword>')
 	endif
 endfunction
-
-" CoC based maps
 nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
 nmap <silent> gy :vsplit<CR><Plug>(coc-type-definition)
 nmap <silent> gr :vsplit<CR><Plug>(coc-references)
 nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
+" }}}
 
-" move page so that cursor is on 7th line
-nnoremap <silent> za zt7k7j
 " system clipboard
 vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-c> :%y+<CR>
@@ -416,17 +416,15 @@ vnoremap <silent> <C-X> "+d
 " Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
-
 " Disable ex mode entirely
 nmap Q <nop>
 
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
-	\ call fzf#vim#grep(
-	\ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
-	\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
+			\ call fzf#vim#grep(
+			\ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
+			\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
-nnoremap <C-_> :BLinesExtra<CR>
 
 " incsearch
 map /  <Plug>(incsearch-forward)
@@ -444,8 +442,7 @@ function EvanSave()
 endfunction
 nnoremap <CR> :call EvanSave()<CR>
 
-" ------------------------------------------
-" MINUS KEYBINDINGS
+" MINUS KEYBINDINGS (window manager) {{{
 " CTRL-W is too annoying to type, repurpose minus
 " ------------------------------------------
 nnoremap -h <C-w>h
@@ -464,8 +461,6 @@ nnoremap -. <C-w>K
 nnoremap -e <C-w>J
 " maximize window
 nnoremap -a <C-w>o
-
-" far
 nnoremap <silent> -f <C-w>v:CtrlPRoot<CR>
 " recent
 nnoremap <silent> -r <C-w>v:CtrlPMRU<CR>
@@ -473,11 +468,9 @@ nnoremap <silent> -r <C-w>v:CtrlPMRU<CR>
 nnoremap <silent> -c <C-w>v:CtrlPCurFile<CR>
 nnoremap <silent> -b <C-w>v:CtrlPBuffer<CR>
 nnoremap -w <C-w><C-w>
-
-" ------------------------------------------
-" SPACE BAR KEYBINDINGS
+" }}}
+" SPACE BAR KEYBINDINGS {{{
 " Not setting leader key because otherwise extensions mess with me
-" ------------------------------------------
 " ALE Details
 nnoremap <Space>a :ALEDetail<CR>
 " show syntax group
@@ -517,8 +510,8 @@ nnoremap <Space>gew :Git commit % --amend<CR>
 nnoremap <Space>gea :Git commit --all --amend<CR>
 " git undo (really git read)
 nnoremap <Space>gu :Gread<CR>
-
-" Replacement for :q that is smarter
+" }}}
+" Smart window close replacement for :q {{{
 function! EvanClose()
 	if winnr('$') == 1
 		if tabpagenr('$') == 1
@@ -536,6 +529,7 @@ function! EvanClose()
 	endif
 endfunction
 nnoremap <Space>- :call EvanClose()<CR>
+" }}}
 
 
 " Leader keys that are forced on me by LaTeX
@@ -548,12 +542,13 @@ nnoremap <Space>- :call EvanClose()<CR>
 " ------------------------------------------
 colorscheme reclipse
 " autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+" Settings {{{
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 
-" Personal settings
 set backspace=indent,eol,start
 set backup     " keep a backup file
 set cm=blowfish2
@@ -595,16 +590,19 @@ set textwidth=0
 set updatetime=100
 set wrap
 set wrapmargin=0
+" }}}
 
-" ------------------------------------------
-" SPECIFIC FILETYPE CONFIG
+" {{{ Special filetype configuration
 " ------------------------------------------
 autocmd BufNewFile,BufRead *.asy setfiletype asy
 autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd BufNewFile,BufRead *.less setfiletype css
 autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 autocmd FileType htmldjango let b:enabled_fixers=['html-beautify', 'remove_trailing_lines', 'trim_whitespace']
+set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
+" }}}
 
+" More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_GotoError = 1
 let g:Tex_Leader2='\\'
@@ -618,45 +616,8 @@ function! SyncTexForward()
 endfunction
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
-set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
+" }}}
 
 let mapleader="="
 let maplocalleader = ","
-
-function EvanOpenWikiLinkOrSave()
-	" try WikiLink
-	let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_syntaxlocal('rxWikiLink')),
-				\ vimwiki#vars#get_syntaxlocal('rxWikiLinkMatchUrl'))
-	" try WikiIncl
-	if lnk ==? ''
-		let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_global('rxWikiIncl')),
-					\ vimwiki#vars#get_global('rxWikiInclMatchUrl'))
-	endif
-	" try Weblink
-	if lnk ==? ''
-		let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_syntaxlocal('rxWeblink')),
-					\ vimwiki#vars#get_syntaxlocal('rxWeblinkMatchUrl'))
-	endif
-
-	if vimwiki#vars#get_wikilocal('syntax') ==# 'markdown'
-		" markdown image ![]()
-		if lnk ==# ''
-			let lnk = matchstr(vimwiki#base#matchstr_at_cursor(vimwiki#vars#get_syntaxlocal('rxImage')),
-						\ vimwiki#vars#get_syntaxlocal('rxWeblinkMatchUrl'))
-			if lnk !=# ''
-				if lnk !~# '\%(\%('.vimwiki#vars#get_global('web_schemes1').'\):\%(\/\/\)\?\)\S\{-1,}'
-					" prepend file: scheme so link is opened by sytem handler if it isn't a web url
-					let lnk = 'file:'.lnk
-				endif
-			endif
-		endif
-	endif
-
-	if lnk !=? ''
-		VimwikiFollowLink
-	else
-		call EvanSave()
-	endif
-endfunction
-
 " vim: ft=vim fdm=marker
