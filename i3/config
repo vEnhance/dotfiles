@@ -5,22 +5,47 @@
 # this file and re-run i3-config-wizard(1).
 
 
-
 # i3 config file (v4)
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
-
 set $mod Mod4
-set $WS0 number "0: Kaf"
-set $WS1 number "1: Aleph"
-set $WS2 number "2: Bet"
-set $WS3 number "3: Gimel"
-set $WS4 number "4: Dalet"
-set $WS5 number "5: Hei"
-set $WS7 number "7: Zayin"
-set $WS8 number "8: Het"
-set $WS9 number "9: Tet"
-set $WS10 number "10: Yod"
+
+# Chinese
+set $WS0 number "0: 零"
+set $WS1 number "1: 壹"
+set $WS2 number "2: 贰"
+set $WS3 number "3: 叁"
+set $WS4 number "4: 肆"
+set $WS5 number "5: 伍"
+set $WS6 number "6: 陆"
+set $WS7 number "7: 柒"
+set $WS8 number "8: 捌"
+set $WS9 number "9: 玖"
+set $WS10 number "10: 拾"
+
+# Hebrew
+#set $WS0 number "0: ך"
+## Aleph
+#set $WS1 number "1: א" 
+## Bet
+#set $WS2 number "2: ב"
+## Gimel
+#set $WS3 number "3: "ג"
+## Dalet
+#set $WS4 number "4: "ד"
+## He
+#set $WS5 number "5: "ה"
+## Vav
+#set $WS6 number "6: "ו"
+## Zayin
+#set $WS7 number "7: "ז"
+## Het
+#set $WS8 number "8: "ח"
+## Tet
+#set $WS9 number "9: "ט"
+## Yod
+#set $WS10 number "10:Yod"
+
 #set $WS0 number 0
 #set $WS1 number 1
 #set $WS2 number 2
@@ -37,7 +62,7 @@ exec_always --no-startup-id exec i3-workspace-names-daemon
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
-font pango:DejaVu Sans Mono 11
+font pango:DejaVu Sans Mono 14
 # font pango:Inconsolata 11
 
 # Use Mouse+$mod to nudge floating windows to their wanted position
