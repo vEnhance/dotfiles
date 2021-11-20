@@ -1,0 +1,17 @@
+# The Mana system
+
+The VimRC file provides a set of gradings depending on how many addons are
+desired to become activated. This is determined by a MANA number, which is a
+number between 0 and 100, in multiples of 20. As the mana increases, more
+plugins are added and eventually ALE/COC take the stage at mana level 100.
+
+Silly table:
+
+| Name  | Mana | Term | Notable perks
+|--------------|-----:|
+| Tiny   |  0  | `bvim` | Keybinds only.
+| Basic  | 20  | `tvim` | Airline, multi cursor, git gutter, incsearch
+| Slim   | 40  |  `vim` | Specific file type addons
+| Vim    | 60  | `cvim` | BUffer swichers
+| ALE    | 80  | `svim` | ALE Completion
+| CoC    |100  | `hvim` | Conquerer of Code
