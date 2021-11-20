@@ -127,14 +127,24 @@ end
 
 umask 007 # set umask
 
+# Vim aliases (tiny, basic, slim, vanilla, ale, coc)
+alias tvim="vim --cmd 'let g:evan_mana=0'"
+alias bvim="vim --cmd 'let g:evan_mana=20'"
+alias svim="vim --cmd 'let g:evan_mana=40'"
+alias  vim="vim --cmd 'let g:evan_mana=60'"
+alias avim="vim --cmd 'let g:evan_mana=80'"
+alias cvim="vim --cmd 'let g:evan_mana=100'"
+
+alias gvim="gvim --servername ''"
+alias hvim="vim -u ~/dotfiles/vim/vimrc.min"
+alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
+
+
 # alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
-alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
-alias gvim="gvim --servername ''"
-alias hvim="vim -u ~/dotfiles/vim/vimrc.min"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias pdb='python -m pdb -c continue'
