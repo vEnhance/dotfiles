@@ -7,11 +7,11 @@ plugins are added and eventually ALE/COC take the stage at mana level 100.
 
 Silly table:
 
-| Name  | Mana | Term | Notable perks
-|--------------|-----:|
-| Tiny   |  0  | `bvim` | Keybinds only.
-| Basic  | 20  | `tvim` | Airline, multi cursor, git gutter, incsearch
-| Slim   | 40  |  `vim` | Specific file type addons
-| Vim    | 60  | `cvim` | BUffer swichers
-| ALE    | 80  | `svim` | ALE Completion
-| CoC    |100  | `hvim` | Conquerer of Code
+| Name  | Mana | Term   | Notable perks
+|------:|-----:|-------:|---------------------------------
+| Tiny  |   0  | `bvim` | Keybinds only.
+| Basic |  20  | `tvim` | Airline, git tools, incsearch, yankring
+| Slim  |  40  | `svim` | Specific file type addons,
+| Vim   |  60  |  `vim` | Buffer swichers, completor, multi cursor, NerdTree
+| ALE   |  80  | `avim` | ALE Completion
+| CoC   | 100  | `cvim` | Conquerer of Code

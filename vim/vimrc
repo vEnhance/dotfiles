@@ -6,122 +6,127 @@ syntax on
 
 let g:mana = get(g:, 'mana', 60)
 
-" {{{ PLUG OPTIONS
-" }}}
+" {{{ PLUGINS
 
 if g:mana > 0
 	call plug#begin('~/.vim/plugged')
-	if g:mana > 20
-		Plug 'haya14busa/incsearch.vim'
+	if g:mana >= 20
+		Plug 'airblade/vim-gitgutter'
 		Plug 'aymericbeaumet/vim-symlink'
+		Plug 'haya14busa/incsearch.vim'
+		Plug 'nathanaelkane/vim-indent-guides'
+		Plug 'svintus/vim-editexisting'
+		Plug 'tpope/vim-fugitive'
+		Plug 'vim-airline/vim-airline'
+		Plug 'vim-airline/vim-airline-themes'
+		Plug 'vim-scripts/YankRing.vim'
 	endif
-	Plug 'FelikZ/ctrlp-py-matcher'
-	Plug 'junegunn/fzf'
-	Plug 'brooth/far.vim'
-	Plug 'junegunn/fzf.vim'
-	Plug 'ludovicchabant/vim-gutentags'
-	Plug 'majutsushi/tagbar'
-	Plug 'mg979/vim-visual-multi'
-	Plug 'moll/vim-bbye'
-	Plug 'nathanaelkane/vim-indent-guides'
-	Plug 'powerman/vim-plugin-AnsiEsc'
-	Plug 'svintus/vim-editexisting'
-	Plug 'Shougo/echodoc'
-	Plug 'vim-ctrlspace/vim-ctrlspace'
-	Plug 'vim-scripts/YankRing.vim'
-	Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-	" used to be provided by Arch Linux
-	Plug 'airblade/vim-gitgutter'
-	Plug 'dense-analysis/ale'
-	Plug 'kien/ctrlp.vim'
-	Plug 'preservim/nerdtree'
-	Plug 'preservim/tagbar'
-	Plug 'tpope/vim-fugitive'
-	Plug 'vim-airline/vim-airline'
-	Plug 'vim-airline/vim-airline-themes'
-	Plug 'vim-latex/vim-latex'
+	if g:mana >= 40
+		Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
+		Plug 'cespare/vim-toml',             { 'for' : 'toml' }
+		Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
+		Plug 'dag/vim-fish',                 { 'for' : 'fish' }
+		Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
+		Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
+		Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
+		Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
+		Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
+		Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
+		Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
+		Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
+		Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
+		Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
+		Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
+		Plug 'vim-latex/vim-latex'
+		Plug 'vim-python/python-syntax',     { 'for' : 'python' }
+		Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
+	endif
+	if g:mana >= 60
+		Plug 'FelikZ/ctrlp-py-matcher'
+		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+		Plug 'junegunn/fzf'
+		Plug 'junegunn/fzf.vim'
+		Plug 'mg979/vim-visual-multi'
+		Plug 'preservim/nerdtree'
+		Plug 'vim-ctrlspace/vim-ctrlspace'
+	endif
+	if g:mana >= 80
+		Plug 'Shougo/echodoc'
+		Plug 'dense-analysis/ale'
+	endif
+	if g:mana >= 100
+		Plug 'ludovicchabant/vim-gutentags'
+		Plug 'preservim/tagbar'
+		Plug 'neoclide/coc.nvim', {'branch': 'release'}
+		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+	endif
+" }}}
 
+" A MILLION SETTINS FOR ADDONS {{{
 	" https://github.com/junegunn/fzf.vim/issues/374
-	let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-	let NERDTreeIgnore = [
-		\	'\.pyc$',
-		\	'\.pyo$',
-		\	'\~$',
-		\	'\.aux$',
-		\	'\.fdb_latexmk$',
-		\	'\.fls$',
-		\	'\.log$',
-		\	'\.out$',
-		\	'\.pre$',
-		\	'\.pytxcode$',
-		\	'\.pytxmcr$',
-		\	'\.pytxpyg$',
-		\	'\.synctex.gz$',
-		\	'pythontex_data.pkl',
-		\	'\.png$',
-		\	'\.jpg$',
-		\	'\.pdf$',
-		\	'-[0-9]\+\.asy$',
-		\	]
-	let NERDTreeShowLineNumbers = 1
-	let g:completor_filetype_map = {}
-	let g:ctrlp_clear_cache_on_exit = 0
-	let g:ctrlp_cmd= 'CtrlPBuffer'
-	let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-	let g:ctrlp_map = '<c-b>'
-	let g:ctrlp_max_files = 0
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
-	let g:echodoc_enable_at_startup=1
-	let g:echodoc#type='popup'
-	let g:far#source='rg'
-	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
-	let g:gitgutter_map_keys = 0
-	let g:gutentags_cache_dir = '~/.vim/tags/'
-	let g:gutentags_file_list_command = {
-		\ 'markers': {
-				\ '.git': 'sh /home/evan/dotfiles/sh-scripts/guten-targets-git.sh',
-				\ },
-		\ }
-	let g:indent_guides_auto_colors = 0
-	let g:indent_guides_enable_on_vim_startup = 1
-	let g:jedi#show_call_signatures = 0
-	let g:vimwiki_filetypes = ['markdown']
-	let g:yankring_history_dir = '$HOME/.cache/'
-	let grepprg = "ag --nogroup --nocolor"
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+let NERDTreeIgnore = [
+	\	'\.pyc$',
+	\	'\.pyo$',
+	\	'\~$',
+	\	'\.aux$',
+	\	'\.fdb_latexmk$',
+	\	'\.fls$',
+	\	'\.log$',
+	\	'\.out$',
+	\	'\.pre$',
+	\	'\.pytxcode$',
+	\	'\.pytxmcr$',
+	\	'\.pytxpyg$',
+	\	'\.synctex.gz$',
+	\	'pythontex_data.pkl',
+	\	'\.png$',
+	\	'\.jpg$',
+	\	'\.pdf$',
+	\	'-[0-9]\+\.asy$',
+	\	]
+let NERDTreeShowLineNumbers = 1
+let g:completor_filetype_map = {}
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cmd= 'CtrlPBuffer'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_map = '<c-b>'
+let g:ctrlp_max_files = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
+let g:echodoc_enable_at_startup=1
+let g:echodoc#type='popup'
+let g:far#source='rg'
+let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
+let g:gitgutter_map_keys = 0
+let g:gutentags_cache_dir = '~/.vim/tags/'
+let g:gutentags_file_list_command = {
+	\ 'markers': {
+			\ '.git': 'sh /home/evan/dotfiles/sh-scripts/guten-targets-git.sh',
+			\ },
+	\ }
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:jedi#show_call_signatures = 0
+let g:vimwiki_filetypes = ['markdown']
+let g:yankring_history_dir = '$HOME/.cache/'
+let grepprg = "ag --nogroup --nocolor"
 
-	" File-type specific edits
-	Plug 'maralla/completor.vim', { 'for' :
-		\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
-		\ 'json', 'jsonc', 'tex', 'typescript', 'go',
-		\ 'gitcommit', 'gitconfig'] }
-	Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
-	Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
-	Plug 'dag/vim-fish',                 { 'for' : 'fish' }
-	Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-	Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
-	Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
-	Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
-	Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
-	Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
-	Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
-	Plug 'vim-python/python-syntax',     { 'for' : 'python' }
-	Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
-	Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
-	Plug 'cespare/vim-toml',             { 'for' : 'toml' }
-	Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
-	Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
-	Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
-	" Plug 'leanprover/lean.vim'
-	let g:python_highlight_all = 1
-	let g:taskwiki_disable_concealcursor=1
-	let g:vim_markdown_auto_insert_bullets = 0
-	let g:vim_markdown_conceal = 0
-	let g:vim_markdown_frontmatter = 1
-	let g:vim_markdown_math = 1
-	let g:vim_markdown_new_list_item_indent = 0
-	let g:vimwiki_global_ext = 0
-	let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
+" File-type specific edits
+Plug 'maralla/completor.vim', { 'for' :
+	\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
+	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
+	\ 'gitcommit', 'gitconfig'] }
+" Plug 'leanprover/lean.vim'
+let g:python_highlight_all = 1
+let g:taskwiki_disable_concealcursor=1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 0
+let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
 
 	" Airline auto from vim-plugins
 	let g:airline#extensions#coc#enabled = 1
@@ -204,11 +209,10 @@ if g:mana > 0
 		\ 'coc-yaml',
 		\ ]
 	if $USER ==# 'evan'
-		Plug 'neoclide/coc.nvim', {'branch': 'release'}
-		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 	endif
 	call plug#end()
 endif
+# }}}
 
 " Vim server {{{
 if g:mana >= 100
