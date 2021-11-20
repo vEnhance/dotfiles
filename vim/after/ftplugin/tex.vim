@@ -1,7 +1,8 @@
 let b:ale_linters = ['proselint', 'chktex']
 let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace',]
 
-if executable(IMAP)
+"TODO i think it might be time to switch packages
+try
 	" Always use \\dots
 	call IMAP('...', "\\dots",'tex')
 
@@ -143,11 +144,7 @@ if executable(IMAP)
 	call IMAP('Proof[]::', "\\begin{proof}[<++>]\<CR><++>\<CR>\\end{proof}<++>", 'tex')
 	call IMAP('Subproof::', "\\begin{subproof}\<CR><++>\<CR>\\end{subproof}<++>", 'tex')
 	call IMAP('Subproof[]::', "\\begin{subproof}[<++>]\<CR><++>\<CR>\\end{subproof}<++>", 'tex')
-
-	if filereadable("local.tex.vim")
-			so local.tex.vim
-	endif
-endif
+endtry
 
 function EvanCompileLaTeX(continuous)
 	" von complier
