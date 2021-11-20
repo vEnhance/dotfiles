@@ -62,7 +62,7 @@ exec_always --no-startup-id exec i3-workspace-names-daemon
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
-font pango:DejaVu Sans Mono 14
+font pango:DejaVu Sans Mono 12
 # font pango:Inconsolata 11
 
 # Use Mouse+$mod to nudge floating windows to their wanted position
@@ -257,7 +257,8 @@ mode "config" {
 }
 bindsym $mod+Escape mode "config"
 
-# audio control mode
+# PONYMIX
+bindsym $mod+o mode "ponymix"
 mode "ponymix" {
 	#query
 	bindsym q exec --no-startup-id notify-send -i audio-card "Audio query" "$(ponymix)" -t 5000
@@ -287,7 +288,11 @@ mode "ponymix" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+o mode "ponymix"
+
+
+
+# ----- EXECUTABLE MODE ------
+bindsym $mod+x mode "exec"
 mode "exec" {
 	bindsym a exec i3-sensible-terminal -e \
 		"python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
@@ -307,32 +312,17 @@ mode "exec" {
 	bindsym y exec dynalist &, mode "default"
 	bindsym z exec zoom &, mode "default"
 	bindsym space exec loginctl lock-session, mode "default"
+
+	# Open todo tracker
+	bindsym t exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
+	# Open personal wiki notes
+	bindsym w exec gvim "$HOME/vimwiki/index.mkd", mode "default"
+	# Open lastest chapter of diary
+	bindsym x exec gvim -O ~/Sync/alONE/$(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
+
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+x mode "exec"
-mode "multirun" {
-	bindsym a exec i3-sensible-terminal -e \
-		"python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py"
-	bindsym b exec libreoffice --calc &
-	bindsym c exec caprine &
-	bindsym d exec discord &
-	bindsym e exec epiphany &
-	bindsym f exec firefox &
-	bindsym g exec geogebra &
-	bindsym h exec chromium &
-	bindsym i exec ibus-daemon -d -r
-	bindsym m exec gnucash &
-	bindsym o exec obs &
-	bindsym q exec qutebrowser &
-	bindsym s exec spotify &
-	bindsym v exec gvim &
-	bindsym y exec dynalist &
-	bindsym z exec zoom &
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
-}
-bindsym $mod+Shift+x mode "multirun"
 
 bindsym $mod+Mod1+1 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 1
 bindsym $mod+Mod1+2 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 2
@@ -383,14 +373,12 @@ mode trap {
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
-# Run programs
+# Run programs directly (not through the X-menu)
 bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
-bindsym $mod+r exec gvim "$HOME/vimwiki/index.mkd"
-bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO"
 bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
 
-# vim: ft=i3config
+# vim: ft=i3config fdm=indent
