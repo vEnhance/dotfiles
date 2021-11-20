@@ -7,7 +7,6 @@ syntax on
 let g:mana = get(g:, 'mana', 60)
 
 " {{{ PLUGINS
-
 if g:mana > 0
 	call plug#begin('~/.vim/plugged')
 	if g:mana >= 20
@@ -37,9 +36,13 @@ if g:mana > 0
 		Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 		Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 		Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
-		Plug 'vim-latex/vim-latex'
 		Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 		Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
+		Plug 'vim-latex/vim-latex'
+		" Leader keys that are forced on me by LaTeX
+		" <Leader>ll -> pdflatex compile
+		" <Leader>lv -> latex viewer
+		" <Leader>rf -> refresh folds (LaTeX)
 	endif
 	if g:mana >= 60
 		Plug 'FelikZ/ctrlp-py-matcher'
@@ -472,6 +475,16 @@ nnoremap <silent> -r <C-w>v:CtrlPMRU<CR>
 nnoremap <silent> -c <C-w>v:CtrlPCurFile<CR>
 nnoremap <silent> -b <C-w>v:CtrlPBuffer<CR>
 nnoremap -w <C-w><C-w>
+
+" make notes
+" https://www.gilesorr.com/blog/vim-tips-23-scratch-buffer.html
+function NewScratch()
+    split scratch-buffer.mkd
+    setlocal buftype=nofile
+    setlocal bufhidden=hide
+    setlocal noswapfile
+endfunction
+nnoremap <silent> -s :call NewScratch()<CR>
 " }}}
 " SPACE BAR KEYBINDINGS {{{
 " Not setting leader key because otherwise extensions mess with me
@@ -536,10 +549,6 @@ nnoremap <Space>- :call EvanClose()<CR>
 " }}}
 
 
-" Leader keys that are forced on me by LaTeX
-" <Leader>ll -> pdflatex compile
-" <Leader>lv -> latex viewer
-" <Leader>rf -> refresh folds (LaTeX)
 
 " ------------------------------------------
 " SETTINGS
