@@ -135,9 +135,12 @@ alias vim="vim --cmd 'let g:mana=60'"
 alias ale="vim --cmd 'let g:mana=80'"
 alias coc="vim --cmd 'let g:mana=100'"
 
-alias gvim="gvim --servername ''"
-alias hvim="vim -u ~/dotfiles/vim/vimrc.min"
-alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
+alias gbvim="gvim --cmd 'let g:mana=0'"
+alias gtvim="gvim --cmd 'let g:mana=20'"
+alias gfvim="gvim --cmd 'let g:mana=40'"
+alias gvim="gvim --cmd 'let g:mana=60'"
+alias gale="gvim --cmd 'let g:mana=80'"
+alias gcoc="gvim --servername '' --cmd 'let g:mana=100'"
 
 
 # alias emacs='vim'
@@ -145,6 +148,7 @@ alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
+alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias pdb='python -m pdb -c continue'
