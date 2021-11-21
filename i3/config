@@ -274,8 +274,6 @@ mode "exec" {
 	bindsym z exec zoom &, mode "default"
 	bindsym space exec loginctl lock-session, mode "default"
 
-	# Open todo tracker
-	bindsym t exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
 	# Open personal wiki notes
 	bindsym w exec gvim "$HOME/vimwiki/index.mkd", mode "default"
 	# Open lastest chapter of diary
@@ -335,7 +333,8 @@ exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "" -l 12
 
-# Run programs directly (not through the X-menu)
+# Open todo tracker
+bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
 bindsym $mod+Return exec xfce4-terminal
 bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
