@@ -5,11 +5,12 @@ filetype plugin indent on
 syntax on
 
 " Arch Linux default mana is 80%, all but CoC
-let g:mana = get(g:, 'mana', 60)
-if g:mana = 0
-	if filereadable('archlinux')
+let g:mana = get(g:, 'mana', -1)
+if g:mana < 0
+	if filereadable('/bin/pacman')
 		let g:mana = 80
 	end
+	" TODO darwin
 end
 
 " {{{ PLUGINS
@@ -38,7 +39,6 @@ if g:mana > 0
 		Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
 		Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
 		Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
-		Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
 		Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 		Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 		Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
@@ -68,6 +68,7 @@ if g:mana > 0
 		Plug 'preservim/tagbar'
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
+		Plug 'neoclide/jsonc.vim', { 'for' : 'json' }
 	endif
 	" }}}
 	" A MILLION SETTINS FOR ADDONS {{{
