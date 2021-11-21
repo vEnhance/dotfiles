@@ -35,7 +35,7 @@ urgency.uda.priority.L.coefficient=-1.8
 report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
 
-include /usr/share/doc/task/rc/dark-yellow-green.theme
+include ~/dotfiles/task.theme
 color.uda.priority.H=rgb450
 color.uda.priority.M=rgb520
 color.uda.priority.L=rgb040
