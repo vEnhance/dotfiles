@@ -36,7 +36,7 @@ for suggest_file in suggest_dir.glob('*.venueQ.yaml'):
 		suggestion_timestamps.append(yaml_data['created_at'])
 
 
-def get_presentation(x: List[str]) -> Tuple[timedelta, int]:
+def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 	n = len(x)
 	if n == 0:
 		return (timedelta(0), 0)
@@ -49,6 +49,10 @@ def get_presentation(x: List[str]) -> Tuple[timedelta, int]:
 		return (datetime.now() - datetime.fromisoformat(m), n)
 
 
-print(get_presentation(pset_timestamps))
-print(get_presentation(inquiry_timestamps))
-print(get_presentation(suggestion_timestamps))
+def get_conky_presentation(x: List[str]) -> str:
+	m, n = get_stats(x)
+	return (r'${alignr}${color7}' + f'{m.total_seconds()/3600:.2f}' + ' hr') + ' ' + ( r'${color8}' + f'[{n:3d}]')
+
+print(get_conky_presentation(pset_timestamps))
+print(get_conky_presentation(inquiry_timestamps))
+print(get_conky_presentation(suggestion_timestamps))
