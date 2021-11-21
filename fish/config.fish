@@ -127,21 +127,20 @@ end
 
 umask 007 # set umask
 
-# Vim aliases (tiny, basic, slim, vanilla, ale, coc)
+# Vim aliases (tiny, basic, file, slim, ale, coc)
 alias bvim="vim --cmd 'let g:mana=0'"
 alias tvim="vim --cmd 'let g:mana=20'"
 alias fvim="vim --cmd 'let g:mana=40'"
-alias vim="vim --cmd 'let g:mana=60'"
+alias svim="vim --cmd 'let g:mana=60'"
 alias ale="vim --cmd 'let g:mana=80'"
 alias coc="vim --cmd 'let g:mana=100'"
 
 alias gbvim="gvim --cmd 'let g:mana=0'"
 alias gtvim="gvim --cmd 'let g:mana=20'"
 alias gfvim="gvim --cmd 'let g:mana=40'"
-alias gvim="gvim --cmd 'let g:mana=60'"
+alias gsvim="gvim --cmd 'let g:mana=60'"
 alias gale="gvim --cmd 'let g:mana=80'"
 alias gcoc="gvim --servername '' --cmd 'let g:mana=100'"
-
 
 # alias emacs='vim'
 alias bcsum='paste -sd+ - | bc'
