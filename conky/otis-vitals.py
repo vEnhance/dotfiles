@@ -51,8 +51,12 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 
 def get_conky_presentation(x: List[str]) -> str:
 	m, n = get_stats(x)
-	return (r'${alignr}${color7}' + f'{m.total_seconds()/3600:.2f}' + ' hr') + ' ' + ( r'${color8}' + f'[{n:3d}]')
+	return (
+		r'${alignr}${color7}' + f'{m.total_seconds()/3600:.2f}' + 'hr' + r'${color8}' + f'[{n:3d}]'
+	)
 
+
+print(r'${alignr}${color4}OTIS Vital')
 print(get_conky_presentation(pset_timestamps))
 print(get_conky_presentation(inquiry_timestamps))
 print(get_conky_presentation(suggestion_timestamps))
