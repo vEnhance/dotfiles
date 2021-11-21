@@ -11,11 +11,13 @@
     "vlc": "play",
     "spotify": "play",
     "signal": "comment",
-    "_no_match": "question",
     "xfce4-terminal": "pen-fancy",
     "gvim": "code",
     "gnucash": "envelope-open-dollar",
     "zathura" : "book-reader",
     "obs": "camera",
-    "spotify": "music"
+    "spotify": "music",
+    "discord": "discord",
+    "Syncthing GTK": "sync-alt",
+    "_no_match": "question"
 }

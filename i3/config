@@ -10,9 +10,6 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 set $mod Mod4
 
-
-# exec_always --no-startup-id exec i3-workspace-names-daemon -l 8
-
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
 font pango:DejaVu Sans Mono 12
@@ -30,11 +27,22 @@ workspace_auto_back_and_forth no
 bar {
 	id main-bar
 	status_command py3status
-	font pango:DejaVu Sans Mono 16
+	font pango:DejaVu Sans Mono 14
 	strip_workspace_numbers yes
 	wheel_up_cmd nop
 	wheel_down_cmd nop
 	tray_output primary
+
+	 colors {
+		background #121212
+		statusline #efefef
+		separator #00cca7
+
+		focused_workspace  #efefef #2899aa
+		active_workspace   #dddddd #333388
+		inactive_workspace #cdcdcd #224422
+		urgent_workspace   #ffffff #900000
+	}
 }
 
 # change focus
@@ -325,7 +333,7 @@ mode trap {
 # Exec startup
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
-exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "" -u -l 12
+exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "" -l 12
 
 # Run programs directly (not through the X-menu)
 bindsym $mod+Return exec xfce4-terminal
