@@ -4,7 +4,13 @@ set nocompatible
 filetype plugin indent on
 syntax on
 
+" Arch Linux default mana is 80%, all but CoC
 let g:mana = get(g:, 'mana', 60)
+if g:mana = 0
+	if filereadable('archlinux')
+		let g:mana = 80
+	end
+end
 
 " {{{ PLUGINS
 if g:mana > 0
@@ -63,9 +69,8 @@ if g:mana > 0
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 	endif
-" }}}
-
-" A MILLION SETTINS FOR ADDONS {{{
+	" }}}
+	" A MILLION SETTINS FOR ADDONS {{{
 	" https://github.com/junegunn/fzf.vim/issues/374
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let NERDTreeIgnore = [
