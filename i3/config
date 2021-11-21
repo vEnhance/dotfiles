@@ -10,55 +10,8 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 set $mod Mod4
 
-# Chinese
-set $WS0 number "0: 零"
-set $WS1 number "1: 壹"
-set $WS2 number "2: 贰"
-set $WS3 number "3: 叁"
-set $WS4 number "4: 肆"
-set $WS5 number "5: 伍"
-set $WS6 number "6: 陆"
-set $WS7 number "7: 柒"
-set $WS8 number "8: 捌"
-set $WS9 number "9: 玖"
-set $WS10 number "10: 拾"
 
-# Hebrew
-#set $WS0 number "0: ך"
-## Aleph
-#set $WS1 number "1: א" 
-## Bet
-#set $WS2 number "2: ב"
-## Gimel
-#set $WS3 number "3: "ג"
-## Dalet
-#set $WS4 number "4: "ד"
-## He
-#set $WS5 number "5: "ה"
-## Vav
-#set $WS6 number "6: "ו"
-## Zayin
-#set $WS7 number "7: "ז"
-## Het
-#set $WS8 number "8: "ח"
-## Tet
-#set $WS9 number "9: "ט"
-## Yod
-#set $WS10 number "10:Yod"
-
-#set $WS0 number 0
-#set $WS1 number 1
-#set $WS2 number 2
-#set $WS3 number 3
-#set $WS4 number 4
-#set $WS5 number 5
-#set $WS6 number 6
-#set $WS7 number 7
-#set $WS8 number 8
-#set $WS9 number 9
-#set $WS10 number 10
-
-exec_always --no-startup-id exec i3-workspace-names-daemon
+# exec_always --no-startup-id exec i3-workspace-names-daemon -l 8
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
@@ -134,30 +87,30 @@ bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
 bindsym $mod+u exec --no-startup-id killall -s USR1 ctwenty.py
 
 # switch to workspace
-bindsym $mod+grave workspace $WS0
-bindsym $mod+1 workspace $WS1
-bindsym $mod+2 workspace $WS2
-bindsym $mod+3 workspace $WS3
-bindsym $mod+4 workspace $WS4
-bindsym $mod+5 workspace $WS5
-bindsym $mod+6 workspace $WS6
-bindsym $mod+7 workspace $WS7
-bindsym $mod+8 workspace $WS8
-bindsym $mod+9 workspace $WS9
-bindsym $mod+0 workspace $WS10
+bindsym $mod+grave workspace number 0
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
 
 # move focused container to workspace
-bindsym $mod+Shift+grave move container to workspace $WS0; workspace $WS0
-bindsym $mod+Shift+1 move container to workspace $WS1; workspace $WS1
-bindsym $mod+Shift+2 move container to workspace $WS2; workspace $WS2
-bindsym $mod+Shift+3 move container to workspace $WS3; workspace $WS3
-bindsym $mod+Shift+4 move container to workspace $WS4; workspace $WS4
-bindsym $mod+Shift+5 move container to workspace $WS5; workspace $WS5
-bindsym $mod+Shift+6 move container to workspace $WS6; workspace $WS6
-bindsym $mod+Shift+7 move container to workspace $WS7; workspace $WS7
-bindsym $mod+Shift+8 move container to workspace $WS8; workspace $WS8
-bindsym $mod+Shift+9 move container to workspace $WS9; workspace $WS9
-bindsym $mod+Shift+0 move container to workspace $WS10; workspace $WS10
+bindsym $mod+Shift+grave move container to workspace number 0; workspace number 0
+bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
+bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
+bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
+bindsym $mod+Shift+4 move container to workspace number 4; workspace number 4
+bindsym $mod+Shift+5 move container to workspace number 5; workspace number 5
+bindsym $mod+Shift+6 move container to workspace number 6; workspace number 6
+bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
+bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
+bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
+bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
 
 mode "nudge" {
 	bindsym a focus parent
@@ -168,17 +121,17 @@ mode "nudge" {
 	bindsym k move up
 	bindsym l move right
 
-	bindsym grave move container to workspace $WS0; workspace $WS0;
-	bindsym 1 move container to workspace $WS1; workspace $WS1;
-	bindsym 2 move container to workspace $WS2; workspace $WS2;
-	bindsym 3 move container to workspace $WS3; workspace $WS3;
-	bindsym 4 move container to workspace $WS4; workspace $WS4;
-	bindsym 5 move container to workspace $WS5; workspace $WS5;
-	bindsym 6 move container to workspace $WS6; workspace $WS6;
-	bindsym 7 move container to workspace $WS7; workspace $WS7;
-	bindsym 8 move container to workspace $WS8; workspace $WS8;
-	bindsym 9 move container to workspace $WS9; workspace $WS9;
-	bindsym 0 move container to workspace $WS10; workspace $WS10;
+	bindsym grave move container to workspace number 0; workspace number 0;
+	bindsym 1 move container to workspace number 1; workspace number 1;
+	bindsym 2 move container to workspace number 2; workspace number 2;
+	bindsym 3 move container to workspace number 3; workspace number 3;
+	bindsym 4 move container to workspace number 4; workspace number 4;
+	bindsym 5 move container to workspace number 5; workspace number 5;
+	bindsym 6 move container to workspace number 6; workspace number 6;
+	bindsym 7 move container to workspace number 7; workspace number 7;
+	bindsym 8 move container to workspace number 8; workspace number 8;
+	bindsym 9 move container to workspace number 9; workspace number 9;
+	bindsym 0 move container to workspace number 10; workspace number 10;
 
 	# wider, narrower, shorter, taller
 	bindsym w resize grow width 5 px or 5 ppt
@@ -372,6 +325,7 @@ mode trap {
 # Exec startup
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
+exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "" -u -l 12
 
 # Run programs directly (not through the X-menu)
 bindsym $mod+Return exec xfce4-terminal

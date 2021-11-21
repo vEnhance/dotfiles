@@ -1,0 +1,21 @@
+{
+    "firefox": "firefox",
+    "chromium-browser": "chrome",
+    "chrome": "chrome",
+    "google-chrome": "chrome",
+    "x-terminal-emulator": "terminal",
+    "thunderbird": "envelope",
+    "jetbrains-idea-ce": "edit",
+    "nautilus": "folder-open",
+    "clementine": "music",
+    "vlc": "play",
+    "spotify": "play",
+    "signal": "comment",
+    "_no_match": "question",
+    "xfce4-terminal": "pen-fancy",
+    "gvim": "code",
+    "gnucash": "envelope-open-dollar",
+    "zathura" : "book-reader",
+    "obs": "camera",
+    "spotify": "music"
+}
