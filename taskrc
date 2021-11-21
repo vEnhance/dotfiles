@@ -7,8 +7,7 @@ taskd.trust=strict
 
 alias tmrw=due:tomorrow+24h
 alias.mod=append
-alias.modify=noop
-alias.alter=modify
+alias.amend=modify
 
 alias.E=project:errand
 alias.L=project:leisure
