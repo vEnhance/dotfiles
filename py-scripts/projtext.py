@@ -1,4 +1,4 @@
-from tkinter import Tk, Button, Text, INSERT
+from tkinter import Tk, Button, Text, INSERT, Label
 import pyperclip
 import sys
 
@@ -15,9 +15,12 @@ class Window():
 		self.root = Tk()
 		self.root.option_add('*Font', 'DejaVuSansMono 32')
 
-		textarea = Text(self.root, height=10)
-		textarea.insert(INSERT, pyperclip.paste() or '\n'.join(sys.stdin.readlines()))
+		textarea = Label(self.root, tex="Project-Text")
 		textarea.pack(pady=10)
+
+		mainarea = Text(self.root, height=10)
+		mainarea.insert(INSERT, pyperclip.paste() or '\n'.join(sys.stdin.readlines()))
+		mainarea.pack(pady=10)
 
 		# Button for closing
 		exit_button = Button(self.root, text="Exit", command=self.root.destroy)
