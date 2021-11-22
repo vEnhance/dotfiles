@@ -38,9 +38,9 @@ bar {
 		statusline #efefef
 		separator #00cca7
 
-		focused_workspace #efefef #28aa99
+		focused_workspace #fefefe #289977
 		active_workspace   #dddddd #333388
-		inactive_workspace  #cdcdcd #382a29
+		inactive_workspace  #cdcdcd #121212
 		urgent_workspace   #ffffff #900000
 	}
 }
@@ -331,7 +331,7 @@ mode trap {
 # Exec startup
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
-exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "" -l 12
+exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "." -l 12
 
 # Open todo tracker
 bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
