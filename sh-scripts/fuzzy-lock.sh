@@ -124,3 +124,8 @@ fi
 if [ "$HOSTNAME" = Endor ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
+
+if pgrep -U $(whoami) py3status > /dev/null
+then
+	killall -s USR1 py3status
+fi
