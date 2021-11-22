@@ -11,7 +11,6 @@ alias.amend=append
 alias.reword=modify
 alias.rewrite=modify
 
-
 alias.E=project:errand
 alias.I=project:idea
 alias.L=project:leisure
