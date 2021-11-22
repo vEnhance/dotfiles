@@ -6,7 +6,7 @@ taskd.credentials=inthe_am/chen.evan6/8b9da4fb-2e56-4f33-989c-075adad0013e
 taskd.trust=strict
 
 alias tmrw=due:tomorrow+24h
-alias.mod=append
+alias.alter=append
 alias.amend=modify
 
 alias.E=project:errand
