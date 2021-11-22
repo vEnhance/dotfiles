@@ -267,6 +267,7 @@ mode "exec" {
 	bindsym i exec ibus-daemon -d -r, mode "default"
 	bindsym m exec gnucash &, mode "default"
 	bindsym o exec obs &, mode "default"
+	bindsym p exec python "$HOME/dotfiles/py-scripts/projtext.py" &, mode "default"
 	bindsym q exec qutebrowser &, mode "default"
 	bindsym s exec spotify &, mode "default"
 	bindsym v exec gvim &, mode "default"
@@ -331,7 +332,7 @@ mode trap {
 # Exec startup
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
-exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "." -l 12
+exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -n -d "." -l 12
 
 # Open todo tracker
 bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
