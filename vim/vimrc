@@ -10,7 +10,7 @@ if g:mana < 0
 	if filereadable('/bin/pacman')
 		let g:mana = 80
 	end
-	" TODO darwin
+		let g:mana = 60
 end
 
 " {{{ PLUGINS
@@ -57,9 +57,9 @@ if g:mana > 0
 		Plug 'junegunn/fzf.vim'
 		Plug 'mg979/vim-visual-multi'
 		Plug 'preservim/nerdtree'
-		Plug 'vim-ctrlspace/vim-ctrlspace'
 	endif
 	if g:mana >= 80
+		Plug 'vim-ctrlspace/vim-ctrlspace'
 		Plug 'Shougo/echodoc'
 		Plug 'dense-analysis/ale'
 	endif
