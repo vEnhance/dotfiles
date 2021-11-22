@@ -38,9 +38,9 @@ bar {
 		statusline #efefef
 		separator #00cca7
 
-		focused_workspace  #efefef #2899aa
+		focused_workspace #efefef #28aa99
 		active_workspace   #dddddd #333388
-		inactive_workspace #cdcdcd #224422
+		inactive_workspace  #cdcdcd #382a29
 		urgent_workspace   #ffffff #900000
 	}
 }
@@ -95,7 +95,6 @@ bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
 bindsym $mod+u exec --no-startup-id killall -s USR1 ctwenty.py
 
 # switch to workspace
-bindsym $mod+grave workspace number 0
 bindsym $mod+1 workspace number 1
 bindsym $mod+2 workspace number 2
 bindsym $mod+3 workspace number 3
@@ -106,9 +105,9 @@ bindsym $mod+7 workspace number 7
 bindsym $mod+8 workspace number 8
 bindsym $mod+9 workspace number 9
 bindsym $mod+0 workspace number 10
+bindsym $mod+grave workspace number 0
 
 # move focused container to workspace
-bindsym $mod+Shift+grave move container to workspace number 0; workspace number 0
 bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
 bindsym $mod+Shift+3 move container to workspace number 3; workspace number 3
@@ -119,6 +118,7 @@ bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
+bindsym $mod+Shift+grave move container to workspace number 0; workspace number 0
 
 mode "nudge" {
 	bindsym a focus parent
@@ -331,7 +331,7 @@ mode trap {
 # Exec startup
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
-exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d " " -l 12
+exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -d "" -l 12
 
 # Open todo tracker
 bindsym $mod+i exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
