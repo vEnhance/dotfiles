@@ -7,24 +7,27 @@ import sys
 
 # Class for tkinter window
 
+FONT = 'DejaVuSansMono 32'
+
 
 class Window():
 	def __init__(self):
 
 		# Creating the tkinter Window
 		self.root = Tk()
-		self.root.option_add('*Font', 'DejaVuSansMono 32')
+		self.root.option_add('*Font', FONT)
 
-		textarea = Label(self.root, tex="Project-Text")
-		textarea.pack(pady=10)
+		textarea = Label(self.root, text="Project-Text")
+		textarea.pack(pady=30)
 
-		mainarea = Text(self.root, height=10)
+		mainarea = Text(self.root, height=10, font="DejaVuSansMono 32")
 		mainarea.insert(INSERT, pyperclip.paste() or '\n'.join(sys.stdin.readlines()))
-		mainarea.pack(pady=10)
+		mainarea.option_add("*Font", FONT)
+		mainarea.pack(pady=30)
 
 		# Button for closing
 		exit_button = Button(self.root, text="Exit", command=self.root.destroy)
-		exit_button.pack(pady=20)
+		exit_button.pack(pady=30)
 
 		self.root.mainloop()
 
