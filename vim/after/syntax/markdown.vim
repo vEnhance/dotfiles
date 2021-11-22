@@ -19,3 +19,5 @@ hi link truncate mkdURL
 
 hi link mkdLinkDefTarget mkdURL
 hi mkdURL ctermfg=Gray
+
+set spell
