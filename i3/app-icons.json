@@ -1,4 +1,6 @@
 {
+    "VIMTODO": "tasks",
+    "Terminal - latexmk": "draft2digital",
     "firefox": "firefox",
     "chromium-browser": "chrome",
     "chrome": "chrome",
@@ -11,8 +13,8 @@
     "vlc": "play",
     "spotify": "play",
     "signal": "comment",
-    "xfce4-terminal": "pen-fancy",
-    "gvim": "code",
+    "xfce4-terminal": "digital-tachograph",
+    "gvim": "pen-fancy",
     "gnucash": "envelope-open-dollar",
     "zathura" : "book-reader",
     "obs": "camera",
