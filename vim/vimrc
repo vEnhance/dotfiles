@@ -59,6 +59,7 @@ if g:mana > 0
 		Plug 'preservim/nerdtree'
 	endif
 	if g:mana >= 80
+		Plug 'ctrlpvim/ctrlp.vim'
 		Plug 'vim-ctrlspace/vim-ctrlspace'
 		Plug 'Shougo/echodoc'
 		Plug 'dense-analysis/ale'
