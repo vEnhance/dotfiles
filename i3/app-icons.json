@@ -1,5 +1,8 @@
 {
     "VIMTODO": "tasks",
+    "Terminal - mu  *": "mail-bulk",
+    "Terminal - m1 *": "mail-bulk",
+    "Terminal - m2 *": "mail-bulk",
     "chrome": "chrome",
     "chromium-browser": "chrome",
     "clementine": "music",
@@ -18,9 +21,6 @@
     "syncthing GTK": "sync-alt",
     "terminal - .* - VIM": "code",
     "terminal - latexmk": "draft2digital",
-    " mu - *": "mail-bulk",
-    " m1 - *": "mail-bulk",
-    " m2 - *": "mail-bulk",
     "terminal - latexmk": "draft2digital",
     "thunar": "file-alt",
     "thunderbird": "envelope",
