@@ -6,8 +6,7 @@ taskd.credentials=inthe_am/chen.evan6/8b9da4fb-2e56-4f33-989c-075adad0013e
 taskd.trust=strict
 
 alias tmrw=due:tomorrow+24h
-alias.cw=modify
-# append
+alias alter=append
 
 alias.E=project:errand
 alias.I=project:idea
@@ -30,7 +29,6 @@ alias.hi=priority:H
 # turn gc off by default; it'll be run by certain cron's
 gc=off
 
-alias.modify={ACTION_TASK_NOOP}
 
 uda.priority.values=H,M,,L
 recurrence.limit=0
@@ -56,6 +54,7 @@ report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
 
+report.next.description=List of tasks that could be started
 report.next.columns=id,depends,priority,project,tags,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Deps,P,Project,Tag,S,Due,Until,Description,Urg
 
