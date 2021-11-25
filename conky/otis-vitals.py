@@ -53,8 +53,9 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 
 def get_conky_presentation(s, x: List[str]) -> str:
 	m, n = get_stats(x)
+	hours = m.total_seconds() /3600
 	return (
-		r'${alignr}${color7}' + s + f'{int(m.total_seconds() / 3600):3d}'
+		r'${alignr}${color7}' + s + f'{hours:3d}'
 		('hr' + r'${color8}' + f' [{n:2d}]')
 	)
 
