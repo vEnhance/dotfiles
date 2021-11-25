@@ -4,6 +4,8 @@
     "Terminal - m1 *": "mail-bulk",
     "Terminal - m2 *": "mail-bulk",
     "chrome": "chrome",
+    "chromium": "chrome",
+    "Chromium": "chrome",
     "chromium-browser": "chrome",
     "clementine": "music",
     "discord": "discord",
@@ -27,8 +29,8 @@
     "VIM": "edit",
     "gvim": "edit",
     "vlc": "play",
-    "x-terminal-emulator": "terminal",
-    "xfce4-terminal": "digital-tachograph",
+    "xfce4-terminal": "fish",
+    "x-terminal-emulator": "digital-tachograph",
     "zathura" : "book-reader",
     "_no_match": "question"
 }

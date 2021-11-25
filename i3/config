@@ -30,27 +30,7 @@ bar {
 	font pango:DejaVu Sans Mono 14
 	strip_workspace_numbers yes
 	tray_output primary
-
-	 colors {
-		background #121212
-		statusline #efefef
-		separator #00cca7
-
-		focused_workspace #fefefe #289977
-		active_workspace   #dddddd #333388
-		inactive_workspace  #cdcdcd #121212
-		urgent_workspace   #ffffff #900000
-	}
-}
-
-bar {
-	id top-bar
-	position top
 	status_command py3status
-	font pango:DejaVu Sans Mono 14
-	strip_workspace_numbers yes
-	wheel_up_cmd nop
-	wheel_down_cmd nop
 
 	 colors {
 		background #121212
@@ -63,7 +43,6 @@ bar {
 		urgent_workspace   #ffffff #900000
 	}
 }
-
 
 
 # change focus
