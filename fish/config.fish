@@ -153,6 +153,7 @@ alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -
 alias pdb='python -m pdb -c continue'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
+alias todo='task ready'
 alias trash='gio trash'
 alias ut='python manage.py test --pdb'
 alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
