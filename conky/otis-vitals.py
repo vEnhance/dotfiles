@@ -21,10 +21,12 @@ for pset_file in pset_dir.glob('*.venueQ.yaml'):
 
 # Inquiries
 inquiry_timestamps = []
-with open(OTIS_ROOT / "Inquiries.venueQ.yaml") as f:
-	inquiries = yaml.load(f, Loader=yaml.SafeLoader)
-	for inquiry in inquiries['inquiries']:
-		inquiry_timestamps.append(inquiry['created_at'])
+inquiries_path = OTIS_ROOT / "Inquiries.venueQ.yaml"
+if inquiries_path.exists():
+	with open(inquiries) as f:
+		inquiries = yaml.load(f, Loader=yaml.SafeLoader)
+		for inquiry in inquiries['inquiries']:
+			inquiry_timestamps.append(inquiry['created_at'])
 
 # Suggestions
 suggest_dir = OTIS_ROOT / "Suggestions"
@@ -49,15 +51,15 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 		return (datetime.now() - datetime.fromisoformat(m), n)
 
 
-def get_conky_presentation(x: List[str]) -> str:
+def get_conky_presentation(s, x: List[str]) -> str:
 	m, n = get_stats(x)
 	return (
-		r'${alignr}${color7}' + str(int(m.total_seconds() / 3600)) +
+		r'${alignr}${color7}' + s + f'{int(m.total_seconds() / 3600):3d}'
 		('hr' + r'${color8}' + f' [{n:2d}]')
 	)
 
 
 #print(r'${alignr}${color4}OTIS Vital Signs')
-print(get_conky_presentation(pset_timestamps))
-print(get_conky_presentation(inquiry_timestamps))
-print(get_conky_presentation(suggestion_timestamps))
+print(get_conky_presentation('PS', pset_timestamps))
+print(get_conky_presentation('NQ', inquiry_timestamps))
+print(get_conky_presentation('SG',suggestion_timestamps))
