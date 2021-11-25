@@ -4,6 +4,7 @@
 # Should you change your keyboard layout some time, delete
 # this file and re-run i3-config-wizard(1).
 
+include ~/dotfiles/i3/`hostname`.extras
 
 # i3 config file (v4)
 #
@@ -342,5 +343,6 @@ bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
+
 
 # vim: ft=i3config fdm=indent
