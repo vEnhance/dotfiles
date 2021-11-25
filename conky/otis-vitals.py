@@ -51,13 +51,10 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 		return (datetime.now() - datetime.fromisoformat(m), n)
 
 
-def get_conky_presentation(s, x: List[str]) -> str:
+def get_conky_presentation(s: str, x: List[str]) -> str:
 	m, n = get_stats(x)
-	hours = m.total_seconds() /3600
-	return (
-		r'${alignr}${color7}' + s + f'{hours:3d}'
-		('hr' + r'${color8}' + f' [{n:2d}]')
-	)
+	hours = int(m.total_seconds() /3600)
+	return (r'${alignr}${color7}') + (s + f'{hours:3d}' + 'hr') + (r'${color8}' + f' [{n:2d}]')
 
 
 #print(r'${alignr}${color4}OTIS Vital Signs')
