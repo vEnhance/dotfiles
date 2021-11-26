@@ -23,7 +23,7 @@ for pset_file in pset_dir.glob('*.venueQ.yaml'):
 inquiry_timestamps = []
 inquiries_path = OTIS_ROOT / "Inquiries.venueQ.yaml"
 if inquiries_path.exists():
-	with open(inquiries) as f:
+	with open(inquiries_path) as f:
 		inquiries = yaml.load(f, Loader=yaml.SafeLoader)
 		for inquiry in inquiries['inquiries']:
 			inquiry_timestamps.append(inquiry['created_at'])
