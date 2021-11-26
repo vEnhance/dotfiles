@@ -13,7 +13,6 @@ mutt/abook/addressbook~
 mutt/mbsyncrc
 mutt/muttrc.?
 mutt/templates/*
-qutebrowser/autoconfig.yml
 qutebrowser/bookmarks/*
 qutebrowser/qsettings/
 qutebrowser/quickmarks
