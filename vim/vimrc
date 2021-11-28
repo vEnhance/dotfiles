@@ -217,36 +217,6 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'
 	call plug#end()
 endif
 " }}}
-
-" Vim server {{{
-if g:mana >= 100
-	function StartServer()
-		if !empty(argv(1)) | return | endif
-		let l:target = expand('%:p')
-		let l:gitdir = FugitiveGitDir()
-		" Don't run the server check cases in certain cases
-		if empty(l:gitdir) || empty(l:target) | return | endif
-		if stridx(l:target, ".git") != -1 | return | endif
-		" If we find a server, offer to load there instead
-		if stridx(serverlist(), l:gitdir) != -1
-			let l:response = input("Open in existing server? (y/n) ", "")
-			if stridx(l:response, 'y') != -1 || stridx(l:response, 'Y') != -1
-				bdelete
-				call remote_send(l:gitdir, "<ESC>:vsplit " . l:target . "<CR>")
-				if winnr('$') == 1 && tabpagenr('$') == 1 && empty(expand('%:p')) | quit | endif
-			endif
-		elseif empty(v:servername)
-			try
-				call remote_startserver(l:gitdir)
-			catch
-				echo "Couldn't start a remote server"
-			endtry
-		endif
-	endfunction
-	autocmd VimEnter * call StartServer()
-endif
-" }}}
-
 " Arrow key shortcuts {{{
 function! DelEmptyLineAbove()
 	if line(".") == 1
@@ -288,51 +258,6 @@ map <Left> <
 map <Right> >
 map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
-" }}}
-
-" INDENTATION COMMANDS {{{
-" candidate for deletion since i never use these
-" Jump to the next or previous line that has the same level or a lower
-" level of indentation than the current line.
-"   exclusive (bool): Motion is exclusive / Motion is inclusive
-"   fwd (bool): Go to next line / Go to prev line
-"   lowerlevel (bool): Go to line with (lower/same) indentation level
-"   skipblanks (bool): Skip blank lines
-function! NextIndent(exclusive, fwd, lowerlevel, skipblanks)
-	let line = line('.')
-	let column = col('.')
-	let lastline = line('$')
-	let indent = indent(line)
-	let stepvalue = a:fwd ? 1 : -1
-	while (line > 0 && line <= lastline)
-		let line = line + stepvalue
-		if ( ! a:lowerlevel && indent(line) == indent ||
-					\ a:lowerlevel && indent(line) < indent)
-			if (! a:skipblanks || strlen(getline(line)) > 0)
-				if (a:exclusive)
-					let line = line - stepvalue
-				endif
-				exe line
-				exe "normal " column . "|"
-				return
-			endif
-		endif
-	endwhile
-endfunction
-
-" Moving back and forth between lines of same or lower indentation.
-nnoremap <silent> [u :call NextIndent(0, 0, 0, 1)<CR>
-nnoremap <silent> ]u :call NextIndent(0, 1, 0, 1)<CR>
-nnoremap <silent> [U :call NextIndent(0, 0, 1, 1)<CR>
-nnoremap <silent> ]U :call NextIndent(0, 1, 1, 1)<CR>
-vnoremap <silent> [u <Esc>:call NextIndent(0, 0, 0, 1)<CR>m'gv''
-vnoremap <silent> ]u <Esc>:call NextIndent(0, 1, 0, 1)<CR>m'gv''
-vnoremap <silent> [U <Esc>:call NextIndent(0, 0, 1, 1)<CR>m'gv''
-vnoremap <silent> ]U <Esc>:call NextIndent(0, 1, 1, 1)<CR>m'gv''
-onoremap <silent> [u :call NextIndent(0, 0, 0, 1)<CR>
-onoremap <silent> ]u :call NextIndent(0, 1, 0, 1)<CR>
-onoremap <silent> [U :call NextIndent(1, 0, 1, 1)<CR>
-onoremap <silent> ]U :call NextIndent(1, 1, 1, 1)<CR>
 " }}}
 
 " improved f/F/t/T/semicolon {{{
@@ -383,16 +308,16 @@ nnoremap <silent> ; :call EvanSemicolon()<CR>
 " Procedure for shell commands {{{
 " https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
 function! s:ExecuteInShell(command)
-  let command = join(map(split(a:command), 'expand(v:val)'))
-  let winnr = bufwinnr('^' . command . '$')
-  silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-  echo 'Execute ' . command . '...'
-  silent! execute 'silent %!'. command
-  silent! redraw
-  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
-  echo 'Shell command ' . command . ' executed.'
+	let command = join(map(split(a:command), 'expand(v:val)'))
+	let winnr = bufwinnr('^' . command . '$')
+	silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+	setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+	echo 'Execute ' . command . '...'
+	silent! execute 'silent %!'. command
+	silent! redraw
+	silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+	silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+	echo 'Shell command ' . command . ' executed.'
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 " }}}
@@ -480,10 +405,10 @@ nnoremap -w <C-w><C-w>
 " make notes
 " https://www.gilesorr.com/blog/vim-tips-23-scratch-buffer.html
 function NewScratch()
-    split scratch-buffer.mkd
-    setlocal buftype=nofile
-    setlocal bufhidden=hide
-    setlocal noswapfile
+	split scratch-buffer.mkd
+	setlocal buftype=nofile
+	setlocal bufhidden=hide
+	setlocal noswapfile
 endfunction
 nnoremap <silent> -s :call NewScratch()<CR>
 " }}}
@@ -630,6 +555,7 @@ function! SyncTexForward()
 endfunction
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
+autocmd BufNewFile,BufRead *.tex set spell
 " }}}
 
 let mapleader="="
