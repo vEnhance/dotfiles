@@ -5,7 +5,7 @@ filetype plugin indent on
 syntax on
 
 " Arch Linux default mana is 80%, all but CoC
-let g:mana = get(g:, 'mana', 100)
+let g:mana = get(g:, 'mana', 80)
 
 " {{{ PLUGINS
 if g:mana > 0
