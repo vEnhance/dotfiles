@@ -268,7 +268,7 @@ function hub
 end
 
 function diary
-	vim -O ~/Sync/alONE/(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/)
+	vim -O --cmd 'let g:mana=60' ~/Sync/alONE/(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/) ~/Sync/alONE/alONE.tex
 end
 
 set -x LESS_TERMCAP_md (printf "\e[01;31m")
