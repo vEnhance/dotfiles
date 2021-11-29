@@ -29,6 +29,7 @@ settings:
     '*://tailwindcss.com/*': true
     '*://umeshmk.github.io/*': true
     '*://web.evanchen.cc/*': true
+    '*://web.mit.edu/*': true
     '*://www.w3schools.com/*': true
     file:///*: true
   content.notifications.enabled:
