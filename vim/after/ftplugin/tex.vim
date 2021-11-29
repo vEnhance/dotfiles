@@ -194,6 +194,7 @@ nnoremap <localleader>w i$<Esc>ea$<Esc>
 
 " Spell
 set spell
+syntax spell toplevel
 
 set cole=2
 
