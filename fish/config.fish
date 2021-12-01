@@ -285,7 +285,6 @@ alias bye="echo So long, and thanks for all the fish."
 alias darn="echo Heh."
 alias fml="echo HAHAHAHAHA"
 alias hello="echo Hello!"
-alias hi="echo Hi!"
 alias hm="echo Hm?"
 alias kk="echo Glad you approve."
 alias lolwut="echo idk"
@@ -343,7 +342,7 @@ if test (uname) = "Linux"
 			exit
 		end
 	end
-	alias ll='ranger-cd'
+	alias hi='ranger-cd'
 else
 	alias ls='ls -G'
 	alias l='ls -lG'
