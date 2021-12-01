@@ -250,7 +250,7 @@ mode "ponymix" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-
+bindsym $mod+g exec i3-sensible-terminal -e "ranger"
 
 
 # ----- EXECUTABLE MODE ------

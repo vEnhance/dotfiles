@@ -343,13 +343,6 @@ if test (uname) = "Linux"
 			exit
 		end
 	end
-	if test -n "$RANGER_LEVEL"
-		clear
-		echo "===================="
-		echo "=   RANGER SHELL   ="
-		echo "===================="
-		ls -l
-	end
 	alias ll='ranger-cd'
 else
 	alias ls='ls -G'

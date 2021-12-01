@@ -24,6 +24,7 @@ settings:
     '*://github.com/*': true
     '*://hanab.live/*': true
     '*://nerdcave.com/*': true
+    '*://patientgateway.massgeneralbrigham.org/*': true
     '*://play.tailwindcss.com/*': true
     '*://tailwindcomponents.com/*': true
     '*://tailwindcss.com/*': true
