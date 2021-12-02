@@ -22,6 +22,10 @@ if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
 	python -m von index
 fi
 
+if [ "$(hostname)" = "ArchMajestic" -a "$(whoami)" = "evan" ]; then
+	python ~/dotfiles/venueQ/otis.py
+fi
+
 gcalendar --no-of-days 14 --output json \
 		--calendar "日曆" \
 		"Break" \
