@@ -18,13 +18,12 @@ VERBS = [
 	'restart',
 ]
 NOUNS = [
-	'motioncam',
 	'sentinel',
 	'evil-chin',
 	'mosp-2021',
+	'noip2',
 	'evansync',
 ]
-CAMERA_DOMAIN = (Path(__file__).parent / 'subdomains/camera').read_text().strip()
 
 
 def check_status(noun: str) -> Tuple[str, str]:
@@ -49,7 +48,6 @@ def index():
 			title="Sentinel server",
 			statuses=statuses,
 			verbs=VERBS,
-			camera=CAMERA_DOMAIN,
 		)
 	else:
 		return render_template("login.html", title="Greetings")
