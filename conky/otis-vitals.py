@@ -1,9 +1,10 @@
 #!/bin/python
 
+from datetime import datetime, timedelta
 from pathlib import Path
 from typing import List, Tuple
+
 import yaml
-from datetime import datetime, timedelta
 
 ## DATA COLLECTION ##
 
@@ -45,7 +46,7 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 	else:
 		m = min(x)  # earliest submission not yet covered
 		if not 'Z' in m:
-			m = m[:10] + 'T' + m[11:13] + ':' + m[14:16]
+			m = m[:10] + 'T' + m[11:13] + ':' + '00'
 		else:
 			m = m[:19]
 		return (datetime.now() - datetime.fromisoformat(m), n)
@@ -53,11 +54,11 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 
 def get_conky_presentation(s: str, x: List[str]) -> str:
 	m, n = get_stats(x)
-	hours = int(m.total_seconds() /3600)
+	hours = int(m.total_seconds() / 3600)
 	return (r'${alignr}${color7}') + (s + f'{hours:3d}' + 'hr') + (r'${color8}' + f' [{n:2d}]')
 
 
 #print(r'${alignr}${color4}OTIS Vital Signs')
 print(get_conky_presentation('PS', pset_timestamps))
 print(get_conky_presentation('NQ', inquiry_timestamps))
-print(get_conky_presentation('SG',suggestion_timestamps))
+print(get_conky_presentation('SG', suggestion_timestamps))
