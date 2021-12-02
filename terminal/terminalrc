@@ -34,4 +34,12 @@ BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 BackgroundDarkness=0.850000
 CustomCommand=ranger
 CommandLoginShell=TRUE
+ColorCursorUseDefault=FALSE
+ColorCursorForeground=#3333d1d17a7a
+ColorCursor=#2626a2a26969
+ColorSelectionUseDefault=FALSE
+ColorSelection=#e5e5a5a50a0a
+ColorSelectionBackground=#f9f9f0f06b6b
+ColorBoldUseDefault=FALSE
+ColorBold=#616135358383
 
