@@ -33,5 +33,7 @@
     "xfce4-terminal": "fish",
     "x-terminal-emulator": "digital-tachograph",
     "zathura" : "book-reader",
+    "zoom" : "video",
+    "epiphany" : "flipboard",
     "_no_match": "question"
 }
