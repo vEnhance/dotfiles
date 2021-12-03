@@ -277,6 +277,7 @@ mode "exec" {
 	bindsym w exec gvim "$HOME/vimwiki/index.mkd", mode "default"
 	# Open lastest chapter of diary
 	bindsym x exec gvim -O ~/Sync/alONE/$(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
+	bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
