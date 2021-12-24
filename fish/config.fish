@@ -222,7 +222,7 @@ function hunt ()
 end
 
 function pdfenc --argument-names 'infile' 'outfile' 'password'
-	qpdf --encrypt "$password" "$password" 128 --print=none --modify=none -- $infile $outfile
+	qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
 end
 
 # correct horse battery staple
