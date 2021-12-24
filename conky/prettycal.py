@@ -46,6 +46,9 @@ class CalItem:
 	def __str__(self):
 		return self.text
 
+	def __repr__(self):
+		return self.text
+
 	def __lt__(self, other):
 		if self.when.date() < other.when.date():
 			return True
@@ -154,14 +157,13 @@ for i in ORDER:
 	current_day = today + timedelta(days=i)
 	items = all_items.pop(current_day, [])
 	items.sort()
-	with open(Path(f'~/.cache/panel{i}.conky.txt').expanduser(), 'w') as f:
-		x = 1 + (i % NUM_COL)
-		for n, item in enumerate(items[:NUM_ROWS]):
-			y = (n + 1) + (NUM_ROWS if i >= NUM_COL else 0)
-			table[y][x] = item.conky_repr(needs_date=False, offset=offset_indented(x))
+	x = 1 + (i % NUM_COL)
+	for n, item in enumerate(items[:NUM_ROWS]):
+		y = (n + 1) + (1 + NUM_ROWS if i >= NUM_COL else 0)
+		table[y][x] = item.conky_repr(needs_date=False, offset=offset_indented(x))
 
-		y0 = HEADER_Y_FIRST if i < NUM_COL else HEADER_Y_SECOND
-		table[y0][x] = current_day.strftime('%a %d %b')
+	y0 = HEADER_Y_FIRST if i < NUM_COL else HEADER_Y_SECOND
+	table[y0][x] = current_day.strftime('%a %d %b')
 
 table[HEADER_Y_FIRST][0] = r'${font Exo 2:size=%d:bold}${color 55ff99}Upcoming Events' % (
 	FONT_SIZE + 3
