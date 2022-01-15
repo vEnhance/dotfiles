@@ -1,4 +1,6 @@
 body {
-	filter: grayscale(100%) contrast(3);
-	color: #efefef !important;
+  filter: grayscale(50%);
 }
+
+.user-name:before { content: '<'; }
+.user-name:after { content: '>'; }
