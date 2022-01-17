@@ -46,8 +46,4 @@ that is in turn modified by the user-defined `?` procedure.
 
 ## Documentation
 
-are you kidding i haven't even started writing the code yet
-
-## TODO
-
-[ ] write any amount of code
+when pigs fly
