@@ -55,8 +55,8 @@ report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
 
 report.next.description=List of tasks that could be started
-report.next.columns=id,depends,priority,project,tags,scheduled.remaining,due.relative,until.remaining,description,urgency
-report.next.labels=ID,Deps,P,Project,Tag,S,Due,Until,Description,Urg
+report.next.columns=id,depends,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
+report.next.labels=ID,Deps,P,Project,Tag,R,S,Due,Until,Description,Urg
 
 # Bugwarrior UDAs
 uda.githubtitle.type=string
