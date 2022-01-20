@@ -67,7 +67,6 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	if [ "$(whoami)" = "evan" ]; then
 		source ~/dotfiles/conky/setup.sh &
 		/home/evan/dotfiles/py-scripts/ctwenty.py &
-		qtalarm &
 		ibus-daemon -d -r &
 		dropbox-cli start
 	fi
