@@ -37,13 +37,17 @@ def cmd(s: str):
 
 def audio_block():
 	cmd(r'touch ~/.cache/ctwenty.lock')
-	cmd(r'i3-msg mode trap')
-	cmd(r'i3-msg workspace "Trap"')
+	# cmd(r'i3-msg mode trap')
+	# cmd(r'i3-msg workspace "Trap"')
+	cmd(
+		r'notify-send -i timer-symbolic -u critical -t 20000 "Rest your eyes!" ' +
+		r'"You have a mandatory break now."'
+	)
 	time.sleep(1)
 	cmd(r'mpg123 -f 3084 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
 	time.sleep(2)
-	cmd(r'i3-msg workspace back_and_forth')
-	cmd(r'i3-msg mode default')
+	# cmd(r'i3-msg workspace back_and_forth')
+	# cmd(r'i3-msg mode default')
 	cmd(r'rm -f ~/.cache/ctwenty.lock')
 
 
@@ -113,14 +117,14 @@ while True:
 		write_next_time(0, 1337)
 	elif current_status == 1:
 		cmd(
-			r'notify-send -i timer-symbolic -u low -t 120000 "Rest your eyes!" ' +
+			r'notify-send -i timer-symbolic -u low -t 10000 "Rest your eyes!" ' +
 			r'"You have a mandatory break coming up soon in 6 minutes"'
 		)
 		t = 300
 		write_next_time(1, 337)
 	elif current_status == 2:
 		cmd(
-			r'notify-send -i timer-symbolic -t 30000 "Rest your eyes!" ' +
+			r'notify-send -i timer-symbolic -t 10000 "Rest your eyes!" ' +
 			r'"You have a mandatory break coming up soon in 37 seconds"'
 		)
 		t = 37
