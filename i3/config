@@ -337,6 +337,7 @@ mode trap {
 exec --no-startup-id dex -ae i3 &
 exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 # vvv workspace setup
+# NOTE: requires i3ipc installed via pip to run
 exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -n -d " " -l 12
 
 # Commands {{{
