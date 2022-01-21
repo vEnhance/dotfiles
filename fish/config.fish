@@ -50,7 +50,7 @@ function fish_greeting
 	set_color --italics $fish_color_greeting
 	printf ".\n"
 	set_color --italics $fish_color_date
-	printf "It is is "
+	printf "It is "
 	printf (date)
 	printf ".\n"
 	set_color normal
