@@ -15,7 +15,7 @@ Markdown = "^3.3.4"
 [tool.poetry.dev-dependencies]
 jedi = "^0.18.0"
 pdbpp = "^0.10.3"
-ipython = "^7.26.0"
+ipython = "^7.31.1"
 yapf = "^0.31.0"
 
 [build-system]
