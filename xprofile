@@ -21,13 +21,13 @@ source ~/dotfiles/sh-scripts/xrandr.sh
 
 if [ "$HOSTNAME" = ArchAngel ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	xset s 510 30
+	xset s 900 30
 	xset dpms 600 600 600
 	# export QT_SCALE_FACTOR=2.4
 fi
 
 if [ "$HOSTNAME" = ArchScythe ]; then
-	xset s 510 30
+	xset s 900 30
 	xset dpms 600 600 600
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	synclient TapButton1=0           # Disable tap to click
@@ -44,9 +44,10 @@ fi
 
 if [ "$HOSTNAME" = ArchDiamond ]; then
 	if [ $(date +"%Z") = PDT ]; then
-		xset s 510 30
+		xset s 900 30
 		xset dpms 600 600 600
 	else
+		xset s 2000 60
 		export QT_AUTO_SCREEN_SCALE_FACTOR=2
 		export GDK_SCALE=2
 	fi
@@ -63,13 +64,13 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80
 	if [ "$(whoami)" = "evan" ]; then
-		xset s 510 30
+		xset s 2000 60
 		xset dpms 600 600 600
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 		~/dotfiles/sh-scripts/paswitch.sh speakers
 	fi
 	if [ "$(whoami)" = "star" ]; then
-		xset s 1770 60
+		xset s 2000 60
 		xset dpms 1800 1800 1800
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	fi
