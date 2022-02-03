@@ -1,27 +1,27 @@
 #!/bin/bash
 
-if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
-	## OTIS: UPDATE BILLING
-	## this is when we copy the gnucash record and send them to otis web server
-	## this is done by running `make` in the billing directory
-	# first, let's update the directory
-	cd ~/ProGamer/OTIS/
-	# find the largest year
-	cd $(ls | ag "[0-9]{4}" | sort -rn | head -n 1)/billing
-	make
-
-	## OLYMPIAD: update the von database
-	# this means both committing any recent changes
-	# as well as re-running the index cem
-	cd ~/OlyBase
-	if ! git diff --exit-code; then
-		git add .
-		git commit -a -m "Snapshot $(date) on $(hostname)"
-		git push
-	fi
-	python -m von index
-
-fi
+#if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
+#	## OTIS: UPDATE BILLING
+#	## this is when we copy the gnucash record and send them to otis web server
+#	## this is done by running `make` in the billing directory
+#	# first, let's update the directory
+#	cd ~/ProGamer/OTIS/
+#	# find the largest year
+#	cd $(ls | ag "[0-9]{4}" | sort -rn | head -n 1)/billing
+#	make
+#
+#	## OLYMPIAD: update the von database
+#	# this means both committing any recent changes
+#	# as well as re-running the index cem
+#	cd ~/OlyBase
+#	if ! git diff --exit-code; then
+#		git add .
+#		git commit -a -m "Snapshot $(date) on $(hostname)"
+#		git push
+#	fi
+#	python -m von index
+#
+#fi
 
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
