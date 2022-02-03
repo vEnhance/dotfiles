@@ -13,6 +13,13 @@ then
 	exit
 fi
 
+if pgrep -U $(whoami) zoom > /dev/null
+then
+	echo "Zoom running"
+	exit
+fi
+
+
 if [ -f "$HOME/.cache/ctwenty.lock" ]; then
 	echo "ctwenty.lock running"
 	exit
