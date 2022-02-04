@@ -181,9 +181,9 @@ alias wplatex='/usr/bin/python2 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias xfer='/usr/bin/python3 -m xfer'
 
-alias mu='neomutt'
-alias m1='neomutt -F ~/.config/mutt/neomuttrc.1'
-alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
+alias mu='~/dotfiles/mutt/open-mail.sh'
+alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
+alias m2='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
 
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
 

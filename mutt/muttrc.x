@@ -3,28 +3,19 @@ set use_from = yes
 set signature = "~/.config/mutt/signature"
 
 mailboxes ~/Mail/personal/Inbox
-# mailboxes ~/Mail/personal/All
-mailboxes ~/Mail/personal/Blocked
-mailboxes ~/Mail/personal/Defer
-mailboxes ~/Mail/personal/Pinned
-# mailboxes ~/Mail/personal/Sent
-# mailboxes ~/Mail/personal/Trash
+#mailboxes ~/Mail/personal/All
+#mailboxes ~/Mail/personal/Sent
+#mailboxes ~/Mail/personal/Trash
 
 mailboxes ~/Mail/work/Inbox
-# mailboxes ~/Mail/work/All
-mailboxes ~/Mail/work/Blocked
-mailboxes ~/Mail/work/Defer
-mailboxes ~/Mail/work/Pinned
-# mailboxes ~/Mail/work/Sent
-# mailboxes ~/Mail/work/Trash
+#mailboxes ~/Mail/work/All
+#mailboxes ~/Mail/work/Sent
+#mailboxes ~/Mail/work/Trash
 
 mailboxes ~/Mail/records/Inbox
-# mailboxes ~/Mail/records/All
-mailboxes ~/Mail/records/Blocked
-mailboxes ~/Mail/records/Defer
-mailboxes ~/Mail/records/Pinned
-# mailboxes ~/Mail/records/Sent
-# mailboxes ~/Mail/records/Trash
+#mailboxes ~/Mail/records/All
+#mailboxes ~/Mail/records/Sent
+#mailboxes ~/Mail/records/Trash
 
 folder-hook ~/Mail/personal/[a-zA-Z]* source ~/.config/mutt/muttrc.0
 folder-hook ~/Mail/work/[a-zA-Z]*     source ~/.config/mutt/muttrc.1
@@ -97,9 +88,6 @@ macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager ge "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
-macro index,pager gd "<change-folder>=Defer<enter>" "Go to deferred"
-macro index,pager gb "<change-folder>=Blocked<enter>" "Go to blocked"
-macro index,pager gp "<change-folder>=Pinned<enter>" "Go to pinned"
 
 
 bind index,pager m noop
@@ -107,9 +95,6 @@ macro index,pager mi "<save-message>=Inbox<enter><enter>$<enter-command>echo \"I
 macro index,pager ma "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager me "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager m\043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
-macro index,pager md "<save-message>=Defer<enter><enter>$<enter-command>echo \"Deferred selection\"<enter>" "Defer"
-macro index,pager mb "<save-message>=Blocked<enter><enter>$<enter-command>echo \"Blocked selection\"<enter>" "Block"
-macro index,pager mp "<save-message>=Pinned<enter><enter>$<enter-command>echo \"Pinned selection\"<enter>" "Pin"
 
 bind index t tag-entry
 bind index x tag-thread
