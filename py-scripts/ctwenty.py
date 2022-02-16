@@ -94,8 +94,11 @@ while True:
 	sig = signal.sigwait(SIGNALS)
 	print(sig)
 
+	alive = any(p.name().startswith("i3bar") for p in psutil.process_iter())
+
 	# update
-	if sig == signal.SIGINT or sig == signal.SIGTERM:
+	if sig == signal.SIGINT or sig == signal.SIGTERM or not alive:
+		write_next_time(-1)
 		break
 	elif (
 		sig == signal.SIGTSTP or any(p.name().startswith("i3lock") for p in psutil.process_iter())
