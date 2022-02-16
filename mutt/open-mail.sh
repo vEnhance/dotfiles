@@ -1,3 +1,3 @@
-mbsync -V personal-inbox work-inbox records-inbox
+mbsync personal-inbox work-inbox records-inbox
 neomutt $*
 mbsync -qa &
