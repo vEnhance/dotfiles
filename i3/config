@@ -273,8 +273,6 @@ mode "exec" {
 	bindsym z exec zoom &, mode "default"
 	bindsym space exec loginctl lock-session, mode "default"
 
-	# Open personal wiki notes
-	bindsym w exec gvim "$HOME/vimwiki/index.mkd", mode "default"
 	# Open lastest chapter of diary
 	bindsym x exec gvim -O ~/Sync/alONE/$(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
 	bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"

@@ -57,16 +57,16 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
 	fi
-	if [ "$(date +'%Z')" = "PDT" -a "$(whoami)" = "evan" ]; then
-		/home/evan/dotfiles/py-scripts/ctwenty.py &
-	fi
+	#if [ "$(date +'%Z')" = "PDT" -a "$(whoami)" = "evan" ]; then
+	#	/home/evan/dotfiles/py-scripts/ctwenty.py &
+	#fi
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
 	picom -C -G -b --no-fading-openclose
 	if [ "$(whoami)" = "evan" ]; then
 		source ~/dotfiles/conky/setup.sh &
-		/home/evan/dotfiles/py-scripts/ctwenty.py &
+		#/home/evan/dotfiles/py-scripts/ctwenty.py &
 		ibus-daemon -d -r &
 		dropbox-cli start
 	fi
