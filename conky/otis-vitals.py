@@ -8,7 +8,7 @@ import yaml
 
 ## DATA COLLECTION ##
 
-OTIS_ROOT = Path('~/ProGamer/OTIS/queue/Root/').expanduser()
+OTIS_ROOT = Path('/home/ProGamer/OTIS/queue/Root/').expanduser()
 assert OTIS_ROOT.exists()
 
 # Problem sets
