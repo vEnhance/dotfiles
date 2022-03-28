@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MoreGrader
 // @namespace    https://web.evanchen.cc/
-// @version      1.2
+// @version      1.3
 // @description  More grader info
 // @author       oneplusone and vEnhance
 // @match        https://artofproblemsolving.com/contests/us*-20*/grade*
@@ -278,8 +278,8 @@ $(document).ready(function() {
     <button id="button-progress">Prog</button>
     <button id="button-export">Expo</button>
     <button id="button-unexport">Unex</button>
-    <button id="button-rg">RG</button>
-    <button id="button-uf">UF</button>
+    <button id="button-rg">Regrade</button>
+    <button id="button-uf">Unfinalize</button>
     <div>
     <textarea id="regrade-ids" style="display:none;"></textarea>
     </div>
