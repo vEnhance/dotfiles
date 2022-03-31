@@ -10,6 +10,7 @@ let g:python_space_error_highlight = 1
 let b:ale_linters = ['pyflakes', 'mypy', 'pyright']
 let b:ale_fixers = ['autoimport', 'isort', 'yapf']
 let b:ale_python_isort_options = '-m NOQA'
+let b:ale_python_yapf_options = '--style "{based_on_style: facebook, use_tabs: true}"'
 nnoremap <localleader>b eObreakpoint()<Esc>
 
 nnoremap <localleader>i :ImportName<CR><C-O>
