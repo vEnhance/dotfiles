@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MoreGrader
 // @namespace    https://web.evanchen.cc/
-// @version      1.3
+// @version      1.4
 // @description  More grader info
 // @author       oneplusone and vEnhance
 // @match        https://artofproblemsolving.com/contests/us*-20*/grade*
@@ -324,7 +324,8 @@ $(document).ready(function() {
     });
 
     $("#button-progress").click(function() {
-        var out = `<table cellpadding="6px" style="text-align:right;">`;
+        var out = `<div><small>` + new Date().toString() + `</small></div>`;
+        out += `<table cellpadding="6px" style="text-align:right;">`;
         out += `<tr><th style="color:green;">Qn</th><th style="color:green;">Prcnt</th>`;
         out += `<th>0g</th><th>1g</th><th>2g</th><th>3g</th><th>X</th>`;
         out += `<th style="color:grey; text-align:center;">Total</th>`;
