@@ -347,7 +347,7 @@ $(document).ready(function() {
             // var total = 3*(ret[0]+ret[1]+ret[2]+ret[3]+num_conflict);
             // var score = ret[1]+2*ret[2]+3*ret[3];
             var total = 2*(ret[0]+ret[1]+ret[2]+ret[3]+num_conflict);
-            var score = ret[1] + 2*ret[2] + 2*ret[3] + num_conflict;
+            var score = ret[1] + 2*ret[2] + 2*ret[3];
             var percentage = Math.floor(100*(score/total));
             if (window.location.href.indexOf("jmo") > -1) {
                 out += `<th style="color:green;">J` + p + `</th>`;
