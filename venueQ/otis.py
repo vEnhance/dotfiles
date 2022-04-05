@@ -200,7 +200,7 @@ class Suggestion(VenueQNode):
 					' ' + data['user__last_name'] + '}.',
 					file=f
 				)
-				print('\n', file=f)
+				print('', file=f)
 			print(self.solution, file=f)
 		subprocess.Popen(
 			[
