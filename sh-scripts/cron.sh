@@ -63,10 +63,10 @@ task rc.gc=on sync
 
 ## PACMAN SNAPSHOTS
 if [ -f /bin/pacman ]; then
-	pacman -Qqtten > ~/Backups/pacman/$(hostname).pacman.paclist
-	pacman -Qqttem > ~/Backups/pacman/$(hostname).aur.paclist
-	cd ~/Backups/pacman/
+	pacman -Qqtten > ~/Sync/pacman/$(hostname).pacman.paclist
+	pacman -Qqttem > ~/Sync/pacman/$(hostname).aur.paclist
 	if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
+		cd ~/Sync/pacman/
 		if ! git diff --exit-code; then
 			git commit -a -m "$(hostname) $(date)"
 		fi

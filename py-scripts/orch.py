@@ -11,12 +11,12 @@ import yaml
 from dotenv import load_dotenv
 from von import api
 
-load_dotenv(Path('~/SkyNet/private/.env').expanduser())
+load_dotenv(Path('~/dotfiles/otis.env').expanduser())
 OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
 OTIS_WEB_TOKEN = os.getenv('OTIS_WEB_TOKEN')
 assert OTIS_WEB_TOKEN is not None
 
-ids = json.loads(Path('~/SkyNet/otis-evil-data/evil.json').expanduser().read_text())
+ids = json.loads(Path('~/Sync/otis-evil-data/evil.json').expanduser().read_text())
 choices = '\n'.join(k + '\t' + v for k, v in ids.items())
 
 try:

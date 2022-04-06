@@ -24,3 +24,4 @@ vim/spell/*
 !fish/completions/*.fish
 !fish/fish_plugins
 !elinks/elinks.conf
+otis.env
