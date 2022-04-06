@@ -31,8 +31,7 @@ def send_email(subject: str, recipient: str, body: str):
 	plain_msg += '\n' * 2
 	plain_msg += '**Evan Chen (陳誼廷)**<br>' + '\n'
 	plain_msg += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
-	html_msg = markdown.markdown(plain_msg,
-			extensions=['extra', 'sane_lists', 'smarty'])
+	html_msg = markdown.markdown(plain_msg, extensions=['extra', 'sane_lists', 'smarty'])
 	mail.attach(MIMEText(plain_msg, 'plain'))
 	mail.attach(MIMEText(html_msg, 'html'))
 
@@ -48,7 +47,7 @@ def send_email(subject: str, recipient: str, body: str):
 	session.sendmail('evan@evanchen.cc', recipient, mail.as_string())
 
 
-load_dotenv(Path('~/SkyNet/private/.env').expanduser())
+load_dotenv(Path('~/dotfiles/otis.env').expanduser())
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
 assert TOKEN is not None
 PRODUCTION = os.getenv('PRODUCTION', False)
@@ -204,7 +203,15 @@ class Suggestion(VenueQNode):
 			print(self.solution, file=f)
 		subprocess.Popen(
 			[
-				"xfce4-terminal", "-x", "python", "-m", "von", "add", data['source'], "-f", tmp_path,
+				"xfce4-terminal",
+				"-x",
+				"python",
+				"-m",
+				"von",
+				"add",
+				data['source'],
+				"-f",
+				tmp_path,
 			]
 		)
 
