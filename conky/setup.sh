@@ -20,3 +20,8 @@ if [ "$(hostname)" = ArchScythe ]; then
 	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf
 	conky -c ~/dotfiles/conky/cal2.conf
 fi
+
+if [ "$(hostname)" = ArchSapphire ]; then
+	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf
+	conky -c ~/dotfiles/conky/cal2.conf
+fi
