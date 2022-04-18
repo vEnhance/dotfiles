@@ -47,6 +47,7 @@ if [ "$HOSTNAME" = ArchSapphire ]; then
 	xset s 900 30
 	xset dpms 600 600 600
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	synclient RightButtonAreaTop=0
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
