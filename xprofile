@@ -19,8 +19,6 @@ export SHELL='/usr/bin/fish'
 # For OBS
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
-export GPG_TTY=$(tty)
-
 source ~/dotfiles/sh-scripts/xrandr.sh
 
 if [ "$HOSTNAME" = ArchAngel ]; then

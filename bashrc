@@ -22,6 +22,7 @@ export SUDO_PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;
 # Exports
 export EDITOR='vim'
 export TERM='xterm-256color'
+export GPG_TTY=$(tty)
 if [ -d $HOME/.texmf ]; then
    	export TEXMFHOME=$HOME/.texmf
 fi
