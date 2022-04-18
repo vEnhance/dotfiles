@@ -5,6 +5,8 @@
 setxkbmap dvorak -option caps:escape
 numlockx on
 
+export LANG="en_US.UTF-8"
+
 # for Chinese input
 export GTK_IM_MODULE=ibus
 
@@ -39,7 +41,6 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 	export $(keychain --query --quiet)
-	export LANG="en_US.UTF-8"
 fi
 
 if [ "$HOSTNAME" = ArchDiamond ]; then
@@ -52,7 +53,6 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 		export GDK_SCALE=2
 	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	export LANG="en_US.UTF-8"
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 	export $(keychain --query --quiet)
@@ -75,7 +75,6 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 		xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	fi
 	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
-	export LANG="en_US.UTF-8"
 fi
 
 # Load background image, if not existent already
