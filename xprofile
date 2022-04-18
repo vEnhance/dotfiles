@@ -46,7 +46,7 @@ fi
 if [ "$HOSTNAME" = ArchSapphire ]; then
 	xset s 900 30
 	xset dpms 600 600 600
-	# xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 	export $(keychain --query --quiet)
