@@ -28,7 +28,7 @@ if [ "$(hostname)" = ArchAir ]; then
 	synclient VertScrollDelta=-237
 	systemctl start --user evil-chin.service
 	systemctl start --user mosp-2021.service
-	systemctl start --user sentinel.service
+	# systemctl start --user sentinel.service
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then
@@ -44,6 +44,12 @@ if [ "$(hostname)" = ArchScythe ]; then
 	systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
 	dunst &
 	syncthing-gtk -m &
+	source ~/dotfiles/conky/setup.sh &
+fi
+
+if [ "$(hostname)" = ArchSapphire ]; then
+	picom -C -G -b --no-fading-openclose
+	dunst &
 	source ~/dotfiles/conky/setup.sh &
 fi
 
