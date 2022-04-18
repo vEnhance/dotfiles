@@ -8,7 +8,7 @@ import yaml
 
 ## DATA COLLECTION ##
 
-OTIS_ROOT = Path('/home/ProGamer/OTIS/queue/Root/').expanduser()
+OTIS_ROOT = Path('~/ProGamer/OTIS/queue/Root/').expanduser()
 assert OTIS_ROOT.exists()
 
 # Problem sets
@@ -55,7 +55,12 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
 def get_conky_presentation(s: str, x: List[str]) -> str:
 	m, n = get_stats(x)
 	hours = int(m.total_seconds() / 3600)
-	return (r'${alignr}${color7}') + (s + f'{hours:5d}' + 'hr') + (r'${color8}' + f' [{n:2d}]')
+	if hours > 96:
+		days = int(hours/24)
+		t = f'{days:3d}' + 'd'
+	else:
+		t = f'{hours:3d}' + 'h'
+	return (r'${alignr}${color7}') + (s + t) + (r'${color8}' + f' [{n:2d}]')
 
 
 #print(r'${alignr}${color4}OTIS Vital Signs')
