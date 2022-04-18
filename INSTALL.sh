@@ -3,8 +3,6 @@
 # Use at your own risk ;)
 # makes many symlinks
 
-cd $HOME/dotfiles/i3/
-make
 cd $HOME/dotfiles/py3status/
 make
 
