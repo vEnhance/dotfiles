@@ -46,16 +46,7 @@ if ! test -d "$HOME/.config/ranger"; then ln -s $HOME/dotfiles/ranger $HOME/.con
 if ! test -d "$HOME/.config/rofi"; then ln -s $HOME/dotfiles/rofi $HOME/.config/rofi; fi
 if ! test -d "$HOME/.config/yapf"; then ln -s $HOME/dotfiles/yapf $HOME/.config/yapf; fi
 if ! test -d "$HOME/.config/zathura"; then ln -s $HOME/dotfiles/zathura $HOME/.config/zathura; fi
-
-# i3
-if ! test -d "$HOME/.config/i3"; then
-	if test -f "$HOME/dotfiles/i3/config.$(hostname)"; then
-		mkdir "$HOME/.config/i3"
-		ln -s "$HOME/dotfiles/i3/config.$(hostname)" $HOME/.config/i3/config;
-	else
-		ln -s $HOME/dotfiles/i3 $HOME/.config/i3;
-	fi
-fi
+if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; fi
 
 # nested config
 if ! test -f "$HOME/.config/proselint/config"; then
