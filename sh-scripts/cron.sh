@@ -33,31 +33,40 @@ fi
 # It's a program that'll read the next 14 days of my calendar
 # and output the results under ~/.cache/agenda.json
 # where it can be consumed by e.g. conky
-gcalendar --no-of-days 14 --output json \
-		--calendar "日曆" \
-		"Break" \
-		"Events" \
-		"Friends" \
-		"Garbage" \
-		"Happy Events" \
-		"Important" \
-		"Leisure" \
-		"Office Hours" \
-		"Prison" \
-		"Real Life" \
-		"Schedule" \
-		"Todoist" \
-		"Unfortunate Things" \
-		"Video Calls for OTIS" \
-		"Zero-Minute Reminders" \
-		"twitch.tv" > ~/.cache/agenda.json
+if command -v gcalendar > /dev/null
+then
+	gcalendar --no-of-days 14 --output json \
+			--calendar "日曆" \
+			"Break" \
+			"Events" \
+			"Friends" \
+			"Garbage" \
+			"Happy Events" \
+			"Important" \
+			"Leisure" \
+			"Office Hours" \
+			"Prison" \
+			"Real Life" \
+			"Schedule" \
+			"Todoist" \
+			"Unfortunate Things" \
+			"Video Calls for OTIS" \
+			"Zero-Minute Reminders" \
+			"twitch.tv" > ~/.cache/agenda.json
+fi
 
 ## MBSYNC + MUTT
 # Syncing mailboxes for use with mutt
-mbsync -Va
+if command -v mbsync > /dev/null
+then
+	mbsync -Va
+fi
 
 ## SYNC TASKWARRIOR
-task rc.gc=on sync
+if command -v task > /dev/null
+then
+	task rc.gc=on sync
+fi
 # bugwarrior-pull
 # task sync
 
