@@ -52,6 +52,10 @@ if [ "$HOSTNAME" = ArchSapphire ]; then
 	secret-tool lookup type ssh |
 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 	export $(keychain --query --quiet)
+	# replace the useless menu key with extra ctrl
+	xmodmap -e "remove Control = Control_R"
+	xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R"
+	xmodmap -e "add Control = Control_R"
 fi
 
 if [ "$HOSTNAME" = ArchDiamond ]; then
