@@ -5,9 +5,6 @@ taskd.server=inthe.am:53589
 taskd.credentials=inthe_am/chen.evan6/8b9da4fb-2e56-4f33-989c-075adad0013e
 taskd.trust=strict
 
-alias tmrw=due:tomorrow+24h
-alias alter=append
-
 alias.E=project:errand
 alias.I=project:idea
 alias.L=project:leisure
@@ -18,6 +15,9 @@ alias.S=project:school
 alias.T=project:twitch
 alias.U=project:usamo
 alias.W=project:work
+
+alias.rr=recurring until: parent:
+alias tmrw=due:tomorrow+24h
 
 urgency.user.project.idea.coefficient=-3.0
 urgency.waiting.coefficient=-4.0 # waiting task
