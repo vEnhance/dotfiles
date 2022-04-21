@@ -51,6 +51,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
 	picom -C -G -b --no-fading-openclose
 	dunst &
 	source ~/dotfiles/conky/setup.sh &
+	syncthing-gtk -m &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
