@@ -1,4 +1,4 @@
-gcalendar --no-of-days 1 --output txt \
+gcalendar --no-of-days 14 --output json \
 		--calendar "日曆" \
 		"Break" \
 		"Events" \
@@ -16,4 +16,4 @@ gcalendar --no-of-days 1 --output txt \
 		"Video Calls for OTIS" \
 		"White" \
 		"Zero-Minute Reminders" \
-		"twitch.tv" | cut -b 12-19,31- > /tmp/agenda.txt
+		"twitch.tv" > ~/.cache/agenda.json

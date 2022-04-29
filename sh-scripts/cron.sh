@@ -35,24 +35,7 @@ fi
 # where it can be consumed by e.g. conky
 if command -v gcalendar > /dev/null
 then
-	gcalendar --no-of-days 14 --output json \
-			--calendar "日曆" \
-			"Break" \
-			"Events" \
-			"Friends" \
-			"Garbage" \
-			"Happy Events" \
-			"Important" \
-			"Leisure" \
-			"Office Hours" \
-			"Prison" \
-			"Real Life" \
-			"Schedule" \
-			"Todoist" \
-			"Unfortunate Things" \
-			"Video Calls for OTIS" \
-			"Zero-Minute Reminders" \
-			"twitch.tv" > ~/.cache/agenda.json
+	~/dotfiles/sh-scripts/get-cal.sh
 fi
 
 ## MBSYNC + MUTT
