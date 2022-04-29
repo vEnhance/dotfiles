@@ -160,6 +160,13 @@ bind attach D delete-entry
 bind index q noop
 macro index q "<shell-escape>systemctl start evansync.service --user<enter><quit>"
 
+bind index p noop
+macro index p "<display-message><view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
+bind pager p noop
+macro pager p "<view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
+bind attach p noop
+macro attach p "<pipe-message>vim -R -<enter>" "Pipe in Vim"
+
 ## Hooks
 
 # ----------------------------------------------
