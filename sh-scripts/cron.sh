@@ -51,7 +51,7 @@ then
 	task rc.gc=on sync
 fi
 # bugwarrior-pull
-# task sync
+task sync
 
 ## PACMAN SNAPSHOTS
 if [ -f /bin/pacman ]; then
