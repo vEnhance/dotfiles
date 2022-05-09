@@ -11,7 +11,6 @@ gcalendar --no-of-days 14 --output json \
 		"Prison" \
 		"Real Life" \
 		"Schedule" \
-		"Todoist" \
 		"Unfortunate Things" \
 		"Video Calls for OTIS" \
 		"White" \
