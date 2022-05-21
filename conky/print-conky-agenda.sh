@@ -9,7 +9,7 @@ task rc.verbose=nothing rc.report.min.columns:due.relative,description \
 	| sed "s/[\ ]{3,}/\t/" | sed 's/^/ /' | ag -v merged\.$ \
 	> ~/.cache/todo.txt
 
-cat ~/.cache/agenda.json | python ~/dotfiles/conky/gcal-json-to-text.py > ~/.cache/agenda.txt
+cat ~/.cache/agenda.json | python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt
 echo "\${color4}$(cat ~/.cache/agenda.txt | tail -n +1 | head -n 1)"
 echo "\${color5}$(cat ~/.cache/agenda.txt | tail -n +2 | head -n 1)"
 echo "\${color6}$(cat ~/.cache/agenda.txt | tail -n +3 | head -n 1)"
