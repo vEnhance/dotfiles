@@ -84,3 +84,8 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	syncthing-gtk &
 	systemctl --user start evansync.timer
 fi
+
+if [ "$(hostname)" = dagobah ]; then
+	picom -C -G -b --no-fading-openclose
+	syncthing-gtk -m &
+fi
