@@ -20,6 +20,7 @@ if ! test -f "$HOME/.chktexrc"; then ln -s $HOME/dotfiles/chktexrc $HOME/.chktex
 if ! test -f "$HOME/.gitconfig"; then ln -s $HOME/dotfiles/gitconfig $HOME/.gitconfig; fi
 if ! test -f "$HOME/.gvimrc"; then ln -s $HOME/dotfiles/gvimrc $HOME/.gvimrc; fi
 if ! test -f "$HOME/.latexmkrc"; then ln -s $HOME/dotfiles/latexmkrc $HOME/.latexmkrc; fi
+if ! test -f "$HOME/.mbsyncrc"; then ln -s $HOME/dotfiles/mutt/mbsyncrc $HOME/.mbsyncrc; fi
 if ! test -f "$HOME/.pdbrc.py"; then ln -s $HOME/dotfiles/pdbrc.py $HOME/.pdbrc.py; fi
 if ! test -f "$HOME/.screenrc"; then ln -s $HOME/dotfiles/screenrc $HOME/.screenrc; fi
 if ! test -f "$HOME/.taskrc"; then ln -s $HOME/dotfiles/taskrc $HOME/.taskrc; fi
