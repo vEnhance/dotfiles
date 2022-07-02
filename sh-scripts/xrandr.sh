@@ -27,7 +27,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 fi
 
 if [ "$HOSTNAME" = dagobah ]; then
-	xrandr --output "DP-4" --primary \
-		--output "DP-2" --right-of "DP-4" \
-		--output "HDMI-0" --left-of "DP-4"
+	xrandr --output "DP-2" --primary \
+		--output "DP-4" --right-of "DP-2" \
+		--output "HDMI-0" --left-of "DP-2"
 fi
