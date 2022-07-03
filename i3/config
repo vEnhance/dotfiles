@@ -272,6 +272,7 @@ mode "exec" {
 	bindsym y exec dynalist &, mode "default"
 	bindsym z exec zoom &, mode "default"
 	bindsym space exec loginctl lock-session, mode "default"
+	bindsym l exec --no-startup-id /home/evan/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
 
 	# Open lastest chapter of diary
 	bindsym x exec gvim -O ~/Sync/alONE/$(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
