@@ -25,6 +25,11 @@ if [ -f "$HOME/.cache/ctwenty.lock" ]; then
 	exit
 fi
 
+if [ "$HOSTNAME" = dagobah -a "$(whoami)" = evan ]; then
+	gdmflexiserver
+	exit
+fi
+
 if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
 	# during twitch stream, disable laptop lock screen
 	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -ge 20 ]; then
