@@ -102,9 +102,9 @@ macro pager t "<exit><tag-entry>" "Tag entry"
 macro pager x "<exit><tag-thread>" "Tag thread"
 
 # change mailbox
-macro index,pager mu <change-folder>~/Mail/personal/Inbox/<enter> "Change to account 0"
-macro index,pager m1 <change-folder>~/Mail/work/Inbox/<enter> "Change to account 1"
-macro index,pager m2 <change-folder>~/Mail/records/Inbox/<enter> "change to account 2"
+macro index,pager mu <change-folder>~/Mail/personal/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.0<enter> "Change to account 0"
+macro index,pager m1 <change-folder>~/Mail/work/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.1<enter> "Change to account 1"
+macro index,pager m2 <change-folder>~/Mail/records/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.2<enter> "change to account 2"
 macro index,pager mt <change-folder>
 
 bind index gg first-entry
