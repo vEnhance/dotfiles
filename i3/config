@@ -23,7 +23,7 @@ bar {
 	tray_output primary
 	status_command py3status
 
-	 colors {
+	colors {
 		background #121212
 		statusline #efefef
 		separator #00cca7
