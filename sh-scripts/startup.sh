@@ -88,4 +88,5 @@ fi
 if [ "$(hostname)" = dagobah ]; then
 	picom -C -G -b --no-fading-openclose
 	syncthing-gtk -m &
+	source ~/dotfiles/conky/setup.sh &
 fi
