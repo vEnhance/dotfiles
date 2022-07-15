@@ -1,5 +1,5 @@
 {
-  "settingsVersion": "1.66",
+  "settingsVersion": "1.67.1",
   "exclusionRules": [
     {
       "pattern": "https?://mail.google.com/*",
@@ -38,7 +38,7 @@
   "waitForEnterForFilteredHints": true,
   "hideHud": false,
   "keyMappings": "# Insert your preferred key mappings here.\nmap <c-d> scrollFullPageDown\nmap <c-u> scrollFullPageUp\nmap J nextTab\nmap K previousTab\nmap Z closeOtherTabs",
-  "linkHintCharacters": "sadfjklewcmpgh",
+  "linkHintCharacters": "oaeuhtnjmlid",
   "linkHintNumbers": "0123456789",
   "newTabUrl": "about:newtab",
   "nextPatterns": "next,more,newer,>,›,→,»,≫,>>",
