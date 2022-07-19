@@ -25,12 +25,12 @@ if [ -f "$HOME/.cache/ctwenty.lock" ]; then
 	exit
 fi
 
-if [ "$HOSTNAME" = dagobah -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = dagobah -a "$(whoami)" = evan ]; then
 	gdmflexiserver
 	exit
 fi
 
-if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchScythe -a "$(whoami)" = evan ]; then
 	# during twitch stream, disable laptop lock screen
 	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -ge 20 ]; then
 		exit
@@ -40,7 +40,7 @@ if [ "$HOSTNAME" = ArchScythe -a "$(whoami)" = evan ]; then
 	fi
 fi
 
-if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 	pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
 	(
@@ -55,14 +55,14 @@ if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 fi
 
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute > /dev/null
 
-if [ "$HOSTNAME" = ArchAir -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchAir -a "$(whoami)" = evan ]; then
 	xset dpms force off
 	i3lock \
 		--beep \
@@ -121,19 +121,19 @@ else
 		--pointer=win
 fi
 
-if [ "$HOSTNAME" = ArchMajestic -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
 	killall -s CONT ctwenty.py
 fi
-if [ "$HOSTNAME" = ArchDiamond -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchDiamond -a "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
 	killall -s CONT ctwenty.py
 fi
 
-if [ "$HOSTNAME" = ArchMajestic ]; then
+if [ "$(hostname)" = ArchMajestic ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
-if [ "$HOSTNAME" = Endor ]; then
+if [ "$(hostname)" = Endor ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 

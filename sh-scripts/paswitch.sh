@@ -23,21 +23,21 @@
 
 
 # eventually split this
-if [ "$HOSTNAME" = ArchMajestic ]; then
+if [ "$(hostname)" = ArchMajestic ]; then
 	declare -A sink_names=(
 		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
 		[speakers]=alsa_output.pci-0000_00_1f.3.analog-stereo
 		[hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
 	)
 fi
-if [ "$HOSTNAME" = Endor ]; then
+if [ "$(hostname)" = Endor ]; then
 	declare -A sink_names=(
 		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
 		[speakers]=alsa_output.pci-0000_0a_00.4.analog-stereo
 		[hdmi]=alsa_output.pci-0000_08_00.1.hdmi-stereo
 	)
 fi
-if [ "$HOSTNAME" = ArchDiamond ]; then
+if [ "$(hostname)" = ArchDiamond ]; then
 	declare -A sink_names=(
 		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
 		[speakers]=alsa_output.pci-0000_00_1f.3.hdmi-stereo

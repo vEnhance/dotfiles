@@ -1,4 +1,4 @@
-if [ "$HOSTNAME" = ArchAngel ]; then
+if [ "$(hostname)" = ArchAngel ]; then
 	xrandr | grep 1920x1080
 	if [ $? -eq 0 ]; then
 		xrandr --output "HDMI-2" --primary 1920x1080
@@ -7,7 +7,7 @@ if [ "$HOSTNAME" = ArchAngel ]; then
 	fi
 fi
 
-if [ "$HOSTNAME" = ArchDiamond ]; then
+if [ "$(hostname)" = ArchDiamond ]; then
 	xrandr | grep 3840x2160
 	if [ $? -eq 0 ]; then
 		xrandr \
@@ -19,14 +19,14 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 	fi
 fi
 
-if [ "$HOSTNAME" = ArchMajestic ]; then
+if [ "$(hostname)" = ArchMajestic ]; then
 	xrandr --output "DP-0" --primary \
 		--output "DP-4" --left-of "DP-0" \
 		--output "HDMI-0" --below "DP-0" \
 		--output "DP-2" --right-of "DP-0"
 fi
 
-if [ "$HOSTNAME" = dagobah ]; then
+if [ "$(hostname)" = dagobah ]; then
 	xrandr --output "DP-2" --primary \
 		--output "DP-4" --right-of "DP-2" \
 		--output "HDMI-0" --left-of "DP-2"
