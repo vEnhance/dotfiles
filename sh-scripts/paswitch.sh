@@ -44,6 +44,14 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		[hdmi]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
 	)
 fi
+if [ "$(hostname)" = dagobah ]; then
+	declare -A sink_names=(
+		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+		[speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+		[hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+	)
+fi
+
 
 
 
