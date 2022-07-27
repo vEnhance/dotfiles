@@ -36,3 +36,17 @@
     min-width: 450px !important;
   }
 }
+
+.tabbrowser-tab, .tabs-bottom {
+  font-size: 14pt !important;
+}
+#urlbar {
+  font-size: 14pt !important;
+}
+#status-bar {
+  font-size: 14pt !important;
+}
+
+/*
+ * vim: expandtab
+ */
