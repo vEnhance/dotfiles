@@ -164,6 +164,7 @@ alias wut='watch -b -c -n 10 "python manage.py test"'
 #gd ubuntu
 alias pip='pip3'
 alias pudb='pudb3'
+alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
 # OTIS venue Q
 alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
