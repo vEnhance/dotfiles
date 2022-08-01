@@ -6,7 +6,7 @@ c.backend = 'webengine'
 c.content.pdfjs =  True
 # c.statusbar.hide = False
 c.tabs.show = 'always'
-c.url.default_page = 'file:///home/evan/Documents/www/static/browser-homepage.html'
+c.url.default_page = 'file:///home/evan/Sync/www/static/browser-homepage.html'
 c.url.searchengines = {
 		'DEFAULT' : 'https://duckduckgo.com/?q={}'
 		}
