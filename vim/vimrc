@@ -260,51 +260,6 @@ map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
 " }}}
 
-" improved f/F/t/T/semicolon {{{
-autocmd BufEnter * let b:evan_last_finder_line=0
-autocmd BufEnter * let b:evan_last_finder_char=''
-autocmd BufEnter * let b:evan_last_finder_dir=0
-autocmd BufEnter * let b:evan_last_finder_eps=0
-
-function EvanFindChar(direction, epsilon, repeat)
-	let b:evan_last_finder_line = line('.')
-	if ! a:repeat
-		let b:evan_last_finder_char = nr2char(getchar())
-	endif
-	let b:evan_last_finder_dir = a:direction
-	let b:evan_last_finder_eps = a:epsilon
-	while (col('.') < col('$') - 1 && a:direction == 1) || (col('.') > 1 && a:direction == -1)
-		if (a:direction == 1)
-			normal l
-		else
-			normal h
-		endif
-		if getline('.')[col('.') + a:epsilon] ==# b:evan_last_finder_char
-			return
-		endif
-	endwhile
-endfunction
-
-function EvanSemicolon()
-	if get(b:, "evan_last_finder_dir", 0) == 0
-		call feedkeys(':')
-	elseif get(b:, "evan_last_finder_line", 0) != line('.')
-		call feedkeys(':')
-	elseif get(b:, "evan_last_finder_char", '') ==# ''
-		call feedkeys(':')
-	else
-		call EvanFindChar(b:evan_last_finder_dir, b:evan_last_finder_eps, 1)
-	endif
-endfunction
-
-" Don't need colon anymore
-nnoremap <silent> f :call EvanFindChar(1, -1, 0)<CR>
-nnoremap <silent> F :call EvanFindChar(-1, -1, 0)<CR>
-nnoremap <silent> t :call EvanFindChar(1, 0, 0)<CR>
-nnoremap <silent> T :call EvanFindChar(-1, -2, 0)<CR>
-nnoremap <silent> ; :call EvanSemicolon()<CR>
-" }}}
-
 " Procedure for shell commands {{{
 " https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
 function! s:ExecuteInShell(command)
