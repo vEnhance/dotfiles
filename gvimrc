@@ -6,6 +6,8 @@ elseif hostname() == "ArchDiamond"
 	set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
 elseif hostname() == "ArchMajestic"
 	set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
+elseif hostname() == "dagobah"
+	set guifont=Inconsolata\ Bold\ 21
 endif
 set guioptions-=T  "remove toolbar
 
