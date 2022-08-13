@@ -32,7 +32,6 @@ if g:mana > 0
 		Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
 		Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
 		Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-		Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
 		Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 		Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 		Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
@@ -57,9 +56,10 @@ if g:mana > 0
 		Plug 'vim-ctrlspace/vim-ctrlspace'
 		Plug 'Shougo/echodoc'
 		Plug 'dense-analysis/ale'
+		Plug 'ludovicchabant/vim-gutentags'
+		Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
 	endif
 	if g:mana >= 100
-		Plug 'ludovicchabant/vim-gutentags'
 		Plug 'preservim/tagbar'
 		Plug 'neoclide/coc.nvim', {'branch': 'release'}
 		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
@@ -104,6 +104,7 @@ let g:far#source='rg'
 let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
 let g:gitgutter_map_keys = 0
 let g:gutentags_cache_dir = '~/.vim/tags/'
+let g:gutentags_define_advanced_commands=1
 let g:gutentags_file_list_command = {
 	\ 'markers': {
 			\ '.git': 'sh /home/evan/dotfiles/sh-scripts/guten-targets-git.sh',
@@ -181,7 +182,9 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'
 	autocmd User AirlineAfterTheme call AirlineSetup()
 
 	" ALE + CoC
-	let g:ale_disable_lsp = 1
+	if g:mana >= 100
+		let g:ale_disable_lsp = 1
+	endif
 	let g:ale_echo_msg_error_str = 'E'
 	let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 	let g:ale_echo_msg_warning_str = 'W'
