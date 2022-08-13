@@ -21,14 +21,14 @@ export QT_QPA_PLATFORMTHEME='qt5ct'
 
 source ~/dotfiles/sh-scripts/xrandr.sh
 
-if [ "$HOSTNAME" = ArchAngel ]; then
+if [ "$(hostname)" = ArchAngel ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	xset s 900 30
 	xset dpms 600 600 600
 	# export QT_SCALE_FACTOR=2.4
 fi
 
-if [ "$HOSTNAME" = ArchScythe ]; then
+if [ "$(hostname)" = ArchScythe ]; then
 	xset s 900 30
 	xset dpms 600 600 600
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
@@ -43,7 +43,7 @@ if [ "$HOSTNAME" = ArchScythe ]; then
 	export $(keychain --query --quiet)
 fi
 
-if [ "$HOSTNAME" = ArchSapphire ]; then
+if [ "$(hostname)" = ArchSapphire ]; then
 	xset s 900 30
 	xset dpms 600 600 600
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
@@ -58,7 +58,7 @@ if [ "$HOSTNAME" = ArchSapphire ]; then
 	xmodmap -e "add Control = Control_R"
 fi
 
-if [ "$HOSTNAME" = ArchDiamond ]; then
+if [ "$(hostname)" = ArchDiamond ]; then
 	if [ $(date +"%Z") = PDT ]; then
 		xset s 900 30
 		xset dpms 600 600 600
@@ -73,7 +73,7 @@ if [ "$HOSTNAME" = ArchDiamond ]; then
 	export $(keychain --query --quiet)
 fi
 
-if [ "$HOSTNAME" = ArchMajestic ]; then
+if [ "$(hostname)" = ArchMajestic ]; then
 	# dunst &
 	ponymix set-default -t source \
 		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
@@ -91,7 +91,7 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
-# if [ "$HOSTNAME" = dagobah ]; then
+# if [ "$(hostname)" = dagobah ]; then
 # 	secret-tool lookup type ssh |
 # 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
 # 	export $(keychain --query --quiet)
