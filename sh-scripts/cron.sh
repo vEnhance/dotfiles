@@ -28,6 +28,9 @@
 if [ "$(hostname)" = "ArchMajestic" -a "$(whoami)" = "evan" ]; then
 	python ~/dotfiles/venueQ/otis.py
 fi
+if [ "$(hostname)" = "dagobah" -a "$(whoami)" = "evan" ]; then
+	python ~/dotfiles/venueQ/otis.py
+fi
 
 # This piece of software is not written by me.
 # It's a program that'll read the next 14 days of my calendar
