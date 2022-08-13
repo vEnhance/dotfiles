@@ -81,6 +81,7 @@ bind index - collapse-thread
 bind index _ collapse-all
 
 macro index,pager z "<pipe-message>vim -R -c \"set ft=mail\" -<enter>" "View in Vim"
+macro attach z "<pipe-entry>vim -R -<enter>" "View in Vim"
 
 bind index,pager g noop
 macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
