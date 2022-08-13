@@ -91,5 +91,11 @@ if [ "$HOSTNAME" = ArchMajestic ]; then
 	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
+# if [ "$HOSTNAME" = dagobah ]; then
+# 	secret-tool lookup type ssh |
+# 		sshpass -P passphrase keychain ~/.ssh/id_rsa --nogui
+# 	export $(keychain --query --quiet)
+# fi
+
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
