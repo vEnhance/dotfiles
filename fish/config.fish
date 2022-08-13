@@ -391,8 +391,3 @@ function fish_mode_prompt
 	end
 end
 tabs -2
-
-# keychain
-if type -q keychain
-	eval (keychain --eval --quiet)
-end
