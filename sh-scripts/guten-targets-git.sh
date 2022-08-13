@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # virtualenv
 if [ -n "$VIRTUAL_ENV" ]; then
