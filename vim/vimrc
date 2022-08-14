@@ -324,8 +324,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 " Semicolon/colon swap
-noremap ; :
-noremap : ;
+map ; :
 noremap ;; ;
 
 " MINUS KEYBINDINGS (window manager) {{{
@@ -427,8 +426,6 @@ endfunction
 nnoremap <Space>- :call EvanClose()<CR>
 " }}}
 
-
-
 " ------------------------------------------
 " SETTINGS
 " ------------------------------------------
@@ -471,6 +468,7 @@ set scrolloff=5
 set shell=/bin/fish
 set shellslash
 set shiftwidth=2
+set shortmess=aItT
 set showbreak=_
 set showcmd    " display incomplete commands
 set smartcase
