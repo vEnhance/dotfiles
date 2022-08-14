@@ -309,6 +309,7 @@ nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 " Disable ex mode entirely
 nmap Q <nop>
+nnoremap <CR> :wall<CR>
 
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
@@ -322,16 +323,6 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-" write all
-function EvanSave()
-	let b:evan_last_finder_line=0
-	let b:evan_last_finder_char=''
-	let b:evan_last_finder_dir=0
-	let b:evan_last_finder_eps=0
-	silent wall
-	echo '"' . expand("%") . '" ' . line("$") . "L, " . (line2byte(line("$")+1) - 1) . "B written"
-endfunction
-nnoremap <CR> :call EvanSave()<CR>
 
 " MINUS KEYBINDINGS (window manager) {{{
 " CTRL-W is too annoying to type, repurpose minus
