@@ -323,10 +323,6 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-" Semicolon/colon swap
-map ; :
-noremap ;; ;
-
 " MINUS KEYBINDINGS (window manager) {{{
 " CTRL-W is too annoying to type, repurpose minus
 " ------------------------------------------
