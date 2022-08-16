@@ -49,7 +49,7 @@ T = { "theorem" : 0 , "lemma" : 0 , "proposition" : 0, "definition" : 0,
 			   }
 
 # list of theorem-like environments
-ThmEnvs = T.keys()
+ThmEnvs = list(T.keys())
 
 # the way \begin{theorem}, \begin{lemma} etc are translated in HTML
 # the string _ThmType_ stands for the type of theorem

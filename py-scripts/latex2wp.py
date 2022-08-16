@@ -137,7 +137,7 @@ def extractbody(m) :
     L=ifcommands.split(m)
     I=ifcommands.findall(m)
     m= L[0]
-    for i in range(1,(len(L)+1)/2) :
+    for i in range(1,(len(L)+1)//2) :
         if (I[2*i-2]=="\\ifblog") :
             m=m+L[2*i-1]
         m=m+L[2*i]
@@ -150,7 +150,7 @@ def extractbody(m) :
     doubledollar = re.compile("\\$\\$")
     L=doubledollar.split(m)
     m=L[0]
-    for i in range(1,(len(L)+1)/2) :
+    for i in range(1,(len(L)+1)//2) :
         m = m+ "\\[" + L[2*i-1] + "\\]" + L[2*i]
 
     m=m.replace("\\begin{eqnarray*}","\\[ \\begin{array}{rcl} ")
@@ -581,7 +581,7 @@ def processfontstyle(w) :
         level = i = 0
         while i < len(w):
           special = False
-          for k, v in fontstyle.items():
+          for k, v in list(fontstyle.items()):
             l = len(k)
             if w[i:i+l] == k:
               level += 1
