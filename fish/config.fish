@@ -166,8 +166,10 @@ alias pip='pip3'
 alias pudb='pudb3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
+
 # OTIS venue Q
 alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
+alias psoa='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
 
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
