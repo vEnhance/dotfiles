@@ -23,6 +23,10 @@
 	added = yellow
 	changed = green
 	untracked = cyan
+[color "grep"]
+	filename = magenta
+	linenumber = green
+	match = red bold
 [push]
 	default = simple
 [pull]
