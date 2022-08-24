@@ -75,6 +75,8 @@ def query_otis_server(payload: Data) -> bool:
 
 
 class ProblemSet(VenueQNode):
+	EXTENSIONS = ('pdf', 'txt', 'tex', 'jpg', 'png')
+
 	def get_initial_data(self) -> Data:
 		return {
 			'action': 'grade_problem_set',
@@ -83,28 +85,46 @@ class ProblemSet(VenueQNode):
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 
-	@property
-	def pdf_target_path(self):
-		def clean(key: str) -> str:
-			return ''.join(c for c in self.data[key] if c in string.ascii_letters)
-
-		fname = clean('student__user__first_name') + clean(
-			'student__user__last_name'
-		) + '-' + clean('unit__code') + '-' + clean('unit__group__name')
-		return OTIS_PDF_PATH / f"otis_{fname}.pdf"
+	def get_path(self, ext = 'pdf'):
+		assert ext in ProblemSet.EXTENSIONS
+		fname = f'otis_{self.data["pk"]:06d}'
+		fname += '_'
+		fname += self.data["student__user__first_name"][0]
+		fname += self.data["student__user__last_name"][0]
+		fname += '_'
+		fname += self.data["unit__code"]
+		fname += '_'
+		fname += self.data["unit__group__name"].replace(' ', '_')
+		return OTIS_PDF_PATH / f"{fname}.{ext}"
 
 	def init_hook(self):
 		self.data['approved'] = True
-		if not self.pdf_target_path.exists():
+		for ext in ProblemSet.EXTENSIONS:
+			if self.get_path(ext).exists():
+				break
+		else:
 			url = f"https://storage.googleapis.com/otisweb-media/{self.data['upload__content']}"
-			pdf_response = requests.get(url=url)
-			self.pdf_target_path.write_bytes(pdf_response.content)
-			self.pdf_target_path.chmod(0o666)
+			_, ext = os.path.splitext(self.data['upload__content'])
+			ext = ext.lstrip('.')
+			assert ext in ProblemSet.EXTENSIONS
+			file_response = requests.get(url=url)
+			self.get_path(ext).write_bytes(file_response.content)
+			self.get_path(ext).chmod(0o666)
 
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
 		self.edit_temp(extension='mkd')
-		subprocess.Popen(['zathura', self.pdf_target_path.absolute()])
+		for ext in ProblemSet.EXTENSIONS:
+			if (p := self.get_path(ext)).exists():
+				if ext == 'pdf':
+					tool = 'zathura'
+				elif ext == 'tex' or ext == 'txt':
+					tool = 'gvim'
+				elif ext == 'png' or ext == 'jpg':
+					tool = 'feh'
+				else:
+					raise AssertionError
+				subprocess.Popen([tool, p.absolute()])
 
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
