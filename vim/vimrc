@@ -1,266 +1,212 @@
 " Evan Chen's .vimrc
 
 set nocompatible
+colorscheme reclipse
 filetype plugin indent on
 syntax on
+let mapleader="="
+let maplocalleader = ","
 
-" Arch Linux default mana is 80%, all but CoC
-let g:mana = get(g:, 'mana', 80)
+" {{{ Plugins
+call plug#begin('~/.vim/plugged')
+Plug 'airblade/vim-gitgutter'
+Plug 'aymericbeaumet/vim-symlink'
+Plug 'haya14busa/incsearch.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'svintus/vim-editexisting'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/YankRing.vim'
 
-" {{{ PLUGINS
-if g:mana > 0
-	call plug#begin('~/.vim/plugged')
-	if g:mana >= 20
-		Plug 'airblade/vim-gitgutter'
-		Plug 'aymericbeaumet/vim-symlink'
-		Plug 'haya14busa/incsearch.vim'
-		Plug 'nathanaelkane/vim-indent-guides'
-		Plug 'svintus/vim-editexisting'
-		Plug 'tpope/vim-fugitive'
-		Plug 'vim-airline/vim-airline'
-		Plug 'vim-airline/vim-airline-themes'
-		Plug 'vim-scripts/YankRing.vim'
-	endif
-	if g:mana >= 40
-		Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
-		Plug 'cespare/vim-toml',             { 'for' : 'toml' }
-		Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
-		Plug 'dag/vim-fish',                 { 'for' : 'fish' }
-		Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
-		Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
-		Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
-		Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
-		Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
-		Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-		Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
-		Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
-		Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
-		Plug 'vim-python/python-syntax',     { 'for' : 'python' }
-		Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
-		Plug 'vim-latex/vim-latex'
-		" Leader keys that are forced on me by LaTeX
-		" <Leader>ll -> pdflatex compile
-		" <Leader>lv -> latex viewer
-		" <Leader>rf -> refresh folds (LaTeX)
-	endif
-	if g:mana >= 60
-		Plug 'FelikZ/ctrlp-py-matcher'
-		Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-		Plug 'junegunn/fzf'
-		Plug 'junegunn/fzf.vim'
-		Plug 'mg979/vim-visual-multi'
-		Plug 'preservim/nerdtree'
-	endif
-	if g:mana >= 80
-		Plug 'ctrlpvim/ctrlp.vim'
-		Plug 'vim-ctrlspace/vim-ctrlspace'
-		Plug 'Shougo/echodoc'
-		Plug 'dense-analysis/ale'
-		Plug 'ludovicchabant/vim-gutentags'
-		Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
-	endif
-	if g:mana >= 100
-		Plug 'preservim/tagbar'
-		Plug 'neoclide/coc.nvim', {'branch': 'release'}
-		Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
-		Plug 'neoclide/jsonc.vim', { 'for' : 'json' }
-	endif
-	" }}}
-	" A MILLION SETTINS FOR ADDONS {{{
-	" https://github.com/junegunn/fzf.vim/issues/374
-	let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-	let NERDTreeIgnore = [
-		\	'\.pyc$',
-		\	'\.pyo$',
-		\	'\~$',
-		\	'\.aux$',
-		\	'\.fdb_latexmk$',
-		\	'\.fls$',
-		\	'\.log$',
-		\	'\.out$',
-		\	'\.pre$',
-		\	'\.pytxcode$',
-		\	'\.pytxmcr$',
-		\	'\.pytxpyg$',
-		\	'\.synctex.gz$',
-		\	'pythontex_data.pkl',
-		\	'\.png$',
-		\	'\.jpg$',
-		\	'\.pdf$',
-		\	'-[0-9]\+\.asy$',
-		\	]
-	let NERDTreeShowLineNumbers = 1
-	let g:completor_filetype_map = {}
-	let g:ctrlp_clear_cache_on_exit = 0
-	let g:ctrlp_cmd= 'CtrlPBuffer'
-	let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-	let g:ctrlp_map = '<c-b>'
-	let g:ctrlp_max_files = 0
-	let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-	let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
-	let g:echodoc_enable_at_startup=1
-	let g:echodoc#type='popup'
-	let g:far#source='rg'
-	let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
-	let g:gitgutter_map_keys = 0
-	let g:gutentags_cache_dir = '~/.vim/tags/'
-	let g:gutentags_define_advanced_commands=1
-	let g:gutentags_file_list_command = {
-		\ 'markers': {
-				\ '.git': 'sh /home/evan/dotfiles/sh-scripts/guten-targets-git.sh',
-				\ },
-		\ }
-	let g:indent_guides_auto_colors = 0
-	let g:indent_guides_enable_on_vim_startup = 1
-	let g:jedi#show_call_signatures = 0
-	let g:vimwiki_filetypes = ['markdown']
-	let g:yankring_history_dir = '$HOME/.cache/'
-	let grepprg = "ag --nogroup --nocolor"
+Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
+Plug 'cespare/vim-toml',             { 'for' : 'toml' }
+Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
+Plug 'dag/vim-fish',                 { 'for' : 'fish' }
+Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
+Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
+Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
+Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
+Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
+Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
+Plug 'neoclide/jsonc.vim', { 'for' : 'json' }
+Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
+Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
+Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
+Plug 'vim-python/python-syntax',     { 'for' : 'python' }
+Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
+Plug 'vim-latex/vim-latex'
+" Leader keys that are forced on me by LaTeX
+" <Leader>ll -> pdflatex compile
+" <Leader>lv -> latex viewer
+" <Leader>rf -> refresh folds (LaTeX)
 
-	" File-type specific edits
-	Plug 'maralla/completor.vim', { 'for' :
-		\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
-		\ 'json', 'jsonc', 'tex', 'typescript', 'go',
-		\ 'gitcommit', 'gitconfig'] }
-	" Plug 'leanprover/lean.vim'
-	let g:python_highlight_all = 1
-	let g:taskwiki_disable_concealcursor=1
-	let g:vim_markdown_auto_insert_bullets = 0
-	let g:vim_markdown_conceal = 0
-	let g:vim_markdown_frontmatter = 1
-	let g:vim_markdown_math = 1
-	let g:vim_markdown_new_list_item_indent = 0
-	let g:vimwiki_global_ext = 0
-	let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'mg979/vim-visual-multi'
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 
-	" Airline auto from vim-plugins
-	let g:airline#extensions#coc#enabled = 1
-	let g:airline#extensions#ctrlspace#enabled = 1
-	let g:airline#extensions#fugitive#enabled = 1
-	let g:airline#extensions#tabline#buffer_nr_show = 1
-	let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
-	let g:airline#extensions#tabline#current_first = 0
-	let g:airline#extensions#tabline#enabled = 1
-	let g:airline#extensions#tabline#show_buffers = 1
-	let g:airline#extensions#tabline#show_tabs = 1
-	let g:airline_powerline_fonts = 1
-	let g:airline_theme='wombat'
-	let g:CtrlSpaceStatuslineFunction =
-	\ "airline#extensions#ctrlspace#statusline()"
-	function! AirlineSetup()
-		let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
-		let g:airline_section_b = airline#section#create_left(['file', ])
-		let g:airline_section_c = airline#section#create_left(['branch', 'hunks'])
-		let g:airline_section_gutter = airline#section#create(['%<', 'tagbar', '%='])
-		let g:airline_section_x = airline#section#create_right(['crypt', 'paste', 'iminsert', ' %v'])
-		let g:airline_section_y = airline#section#create(['spell', 'maxlinenr', ])
-		let g:airline_section_z = airline#section#create(['filetype'])
-		let g:airline_mode_map = {
-				\ '__'     : '-',
-				\ 'c'      : 'C',
-				\ 'i'      : 'I',
-				\ 'ic'     : 'I',
-				\ 'ix'     : 'I',
-				\ 'n'      : 'N',
-				\ 'multi'  : 'M',
-				\ 'ni'     : 'N',
-				\ 'no'     : 'N',
-				\ 'R'      : 'R',
-				\ 'Rv'     : 'R',
-				\ 's'      : 'S',
-				\ 'S'      : 'S',
-				\ ''     : 'S',
-				\ 't'      : 'T',
-				\ 'v'      : 'V',
-				\ 'V'      : 'V',
-				\ ''     : 'V',
-				\ }
-		let s:IA = [ 'gray15', 'gray80', 35, 234 ]
-		let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
-		let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
-	endfunction
-	autocmd User AirlineAfterTheme call AirlineSetup()
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dense-analysis/ale'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
+Plug 'Shougo/echodoc'
+Plug 'vim-ctrlspace/vim-ctrlspace'
 
-	" ALE + CoC
-	if g:mana >= 100
-		let g:ale_disable_lsp = 1
-	endif
-	let g:ale_echo_msg_error_str = 'E'
-	let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
-	let g:ale_echo_msg_warning_str = 'W'
-	let g:ale_fix_on_save = 1
-	let g:ale_keep_list_window_open = 0
-	let g:ale_open_list = 0
-	let g:ale_python_mypy_enabled = 0
-	let g:ale_python_mypy_options = "--ignore-missing-imports"
-	let g:ale_set_balloon= 1
-	let g:ale_set_loclist = 1
-	let g:ale_set_quickfix = 1
-	let g:ale_sign_column_always = 1
-	let g:ale_sign_error = '#'
-	let g:ale_sign_warning = '>'
-	let g:coc_global_extensions = [
-		\ 'coc-css',
-		\ 'coc-html',
-		\ 'coc-htmldjango',
-		\ 'coc-json',
-		\ 'coc-markdownlint',
-		\ 'coc-pyright',
-		\ 'coc-sh',
-		\ 'coc-snippets',
-		\ 'coc-tabnine',
-		\ 'coc-tailwind-intellisense',
-		\ 'coc-texlab',
-		\ 'coc-tsserver',
-		\ 'coc-vimlsp',
-		\ 'coc-yaml',
-		\ ]
-	if $USER ==# 'evan'
-	endif
-	call plug#end()
-endif
+" Plug 'preservim/tagbar'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 " }}}
-" Arrow key shortcuts {{{
-function! DelEmptyLineAbove()
-	if line(".") == 1
-		return
-	endif
-	let l:line = getline(line(".") - 1)
-	if l:line =~ '^\s*$'
-		let l:colsave = col(".")
-		.-1d
-		"silent normal!
-		call cursor(line("."), l:colsave)
-	endif
+" A million settins for addons {{{
+" https://github.com/junegunn/fzf.vim/issues/374
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+let NERDTreeIgnore = [
+	\	'\.pyc$',
+	\	'\.pyo$',
+	\	'\~$',
+	\	'\.aux$',
+	\	'\.fdb_latexmk$',
+	\	'\.fls$',
+	\	'\.log$',
+	\	'\.out$',
+	\	'\.pre$',
+	\	'\.pytxcode$',
+	\	'\.pytxmcr$',
+	\	'\.pytxpyg$',
+	\	'\.synctex.gz$',
+	\	'pythontex_data.pkl',
+	\	'\.png$',
+	\	'\.jpg$',
+	\	'\.pdf$',
+	\	'-[0-9]\+\.asy$',
+	\	]
+let NERDTreeShowLineNumbers = 1
+let g:completor_filetype_map = {}
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cmd= 'CtrlPBuffer'
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+let g:ctrlp_map = '<c-b>'
+let g:ctrlp_max_files = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
+let g:echodoc_enable_at_startup=1
+let g:echodoc#type='popup'
+let g:far#source='rg'
+let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
+let g:gitgutter_map_keys = 0
+let g:gutentags_cache_dir = '~/.vim/tags/'
+let g:gutentags_define_advanced_commands=1
+let g:gutentags_file_list_command = {
+	\ 'markers': {
+			\ '.git': 'sh /home/evan/dotfiles/sh-scripts/guten-targets-git.sh',
+			\ },
+	\ }
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_startup = 1
+let g:jedi#show_call_signatures = 0
+let g:vimwiki_filetypes = ['markdown']
+let g:yankring_history_dir = '$HOME/.cache/'
+let grepprg = "ag --nogroup --nocolor"
+
+" File-type specific edits
+Plug 'maralla/completor.vim', { 'for' :
+	\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
+	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
+	\ 'gitcommit', 'gitconfig'] }
+" Plug 'leanprover/lean.vim'
+let g:python_highlight_all = 1
+let g:taskwiki_disable_concealcursor=1
+let g:vim_markdown_auto_insert_bullets = 0
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_frontmatter = 1
+let g:vim_markdown_math = 1
+let g:vim_markdown_new_list_item_indent = 0
+let g:vimwiki_global_ext = 0
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
+
+" Airline auto from vim-plugins
+let g:airline#extensions#coc#enabled = 1
+let g:airline#extensions#ctrlspace#enabled = 1
+let g:airline#extensions#fugitive#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
+let g:airline#extensions#tabline#current_first = 0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 1
+let g:airline_powerline_fonts = 1
+let g:airline_theme='wombat'
+let g:CtrlSpaceStatuslineFunction =
+\ "airline#extensions#ctrlspace#statusline()"
+function! AirlineSetup()
+	let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
+	let g:airline_section_b = airline#section#create_left(['file', ])
+	let g:airline_section_c = airline#section#create_left(['branch', 'hunks'])
+	let g:airline_section_gutter = airline#section#create(['%<', 'tagbar', '%='])
+	let g:airline_section_x = airline#section#create_right(['crypt', 'paste', 'iminsert', ' %v'])
+	let g:airline_section_y = airline#section#create(['spell', 'maxlinenr', ])
+	let g:airline_section_z = airline#section#create(['filetype'])
+	let g:airline_mode_map = {
+			\ '__'     : '-',
+			\ 'c'      : 'C',
+			\ 'i'      : 'I',
+			\ 'ic'     : 'I',
+			\ 'ix'     : 'I',
+			\ 'n'      : 'N',
+			\ 'multi'  : 'M',
+			\ 'ni'     : 'N',
+			\ 'no'     : 'N',
+			\ 'R'      : 'R',
+			\ 'Rv'     : 'R',
+			\ 's'      : 'S',
+			\ 'S'      : 'S',
+			\ ''     : 'S',
+			\ 't'      : 'T',
+			\ 'v'      : 'V',
+			\ 'V'      : 'V',
+			\ ''     : 'V',
+			\ }
+	let s:IA = [ 'gray15', 'gray80', 35, 234 ]
+	let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+	let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 endfunction
-function! AddEmptyLineAbove()
-	let l:scrolloffsave = &scrolloff
-	" Avoid jerky scrolling with ^E at top of window
-	set scrolloff=0
-	call append(line(".") - 1, "")
-	let &scrolloff = l:scrolloffsave
-endfunction
-function! DelEmptyLineBelow()
-	if line(".") == line("$")
-		return
-	endif
-	let l:line = getline(line(".") + 1)
-	if l:line =~ '^\s*$'
-		let l:colsave = col(".")
-		.+1d
-		''
-		call cursor(line("."), l:colsave)
-	endif
-endfunction
-function! AddEmptyLineBelow()
-	call append(line("."), "")
-endfunction
-nnoremap < <<
-nnoremap > >>
-map <Left> <
-map <Right> >
-map <Up> :call DelEmptyLineAbove()<CR>
-map <Down> :call AddEmptyLineAbove()<CR>
+autocmd User AirlineAfterTheme call AirlineSetup()
+
+" ALE + CoC
+" let g:ale_disable_lsp = 1 " only if CoC enabled
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_fix_on_save = 1
+let g:ale_keep_list_window_open = 0
+let g:ale_open_list = 0
+let g:ale_python_mypy_enabled = 0
+let g:ale_python_mypy_options = "--ignore-missing-imports"
+let g:ale_set_balloon= 1
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '#'
+let g:ale_sign_warning = '>'
+let g:coc_global_extensions = [
+	\ 'coc-css',
+	\ 'coc-html',
+	\ 'coc-htmldjango',
+	\ 'coc-json',
+	\ 'coc-markdownlint',
+	\ 'coc-pyright',
+	\ 'coc-sh',
+	\ 'coc-snippets',
+	\ 'coc-tabnine',
+	\ 'coc-tailwind-intellisense',
+	\ 'coc-texlab',
+	\ 'coc-tsserver',
+	\ 'coc-vimlsp',
+	\ 'coc-yaml',
+	\ ]
+call plug#end()
 " }}}
 
 " Procedure for shell commands {{{
@@ -280,6 +226,48 @@ endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 " }}}
 
+" Arrow key shortcuts {{{
+function! DelEmptyLineAbove()
+if line(".") == 1
+	return
+endif
+let l:line = getline(line(".") - 1)
+if l:line =~ '^\s*$'
+	let l:colsave = col(".")
+	.-1d
+	"silent normal!
+	call cursor(line("."), l:colsave)
+endif
+endfunction
+function! AddEmptyLineAbove()
+let l:scrolloffsave = &scrolloff
+" Avoid jerky scrolling with ^E at top of window
+set scrolloff=0
+call append(line(".") - 1, "")
+let &scrolloff = l:scrolloffsave
+endfunction
+function! DelEmptyLineBelow()
+if line(".") == line("$")
+	return
+endif
+let l:line = getline(line(".") + 1)
+if l:line =~ '^\s*$'
+	let l:colsave = col(".")
+	.+1d
+	''
+	call cursor(line("."), l:colsave)
+endif
+endfunction
+function! AddEmptyLineBelow()
+call append(line("."), "")
+endfunction
+nnoremap < <<
+nnoremap > >>
+map <Left> <
+map <Right> >
+map <Up> :call DelEmptyLineAbove()<CR>
+map <Down> :call AddEmptyLineAbove()<CR>
+" }}}
 " CoC based maps {{{
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -298,7 +286,7 @@ nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
 " }}}
-
+" Misc mappings {{{
 " system clipboard
 vnoremap <silent> <C-C> "+y
 nnoremap <silent> <C-c> :%y+<CR>
@@ -322,6 +310,7 @@ nnoremap <C-/> :BLinesExtra<CR>
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
+" }}}
 
 " MINUS KEYBINDINGS (window manager) {{{
 " CTRL-W is too annoying to type, repurpose minus
@@ -422,14 +411,6 @@ endfunction
 nnoremap <Space>- :call EvanClose()<CR>
 " }}}
 
-" ------------------------------------------
-" SETTINGS
-" ------------------------------------------
-colorscheme reclipse
-" autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
 " Settings {{{
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
@@ -477,7 +458,6 @@ set updatetime=100
 set wrap
 set wrapmargin=0
 " }}}
-
 " {{{ Special filetype configuration
 " ------------------------------------------
 autocmd BufNewFile,BufRead *.asy setfiletype asy
@@ -487,7 +467,6 @@ autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 autocmd FileType htmldjango let b:enabled_fixers=['html-beautify', 'remove_trailing_lines', 'trim_whitespace']
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 " }}}
-
 " More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'
 let g:Tex_GotoError = 1
@@ -505,6 +484,4 @@ let g:xml_syntax_folding=1
 autocmd BufNewFile,BufRead *.tex set spell
 " }}}
 
-let mapleader="="
-let maplocalleader = ","
 " vim: ft=vim fdm=marker
