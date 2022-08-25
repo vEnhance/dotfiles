@@ -11,6 +11,7 @@ let maplocalleader = ","
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'aymericbeaumet/vim-symlink'
+Plug 'ciaranm/detectindent'
 Plug 'haya14busa/incsearch.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'svintus/vim-editexisting'
@@ -172,7 +173,6 @@ function! AirlineSetup()
 	let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
 	let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 endfunction
-autocmd User AirlineAfterTheme call AirlineSetup()
 
 " ALE + CoC
 " let g:ale_disable_lsp = 1 " only if CoC enabled
@@ -441,6 +441,7 @@ set noshowmode " don't need mode shown if we have airline
 set number
 set omnifunc=ale#completion#OmniFunc
 set ruler      " show the cursor position all the time
+set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 set scrolloff=5
 set shell=/bin/fish
 set shellslash
@@ -458,14 +459,16 @@ set updatetime=100
 set wrap
 set wrapmargin=0
 " }}}
-" {{{ Special filetype configuration
+" {{{ Auto commands
 " ------------------------------------------
 autocmd BufNewFile,BufRead *.asy setfiletype asy
 autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd BufNewFile,BufRead *.less setfiletype css
 autocmd BufNewFile,BufRead *.ics setfiletype icalendar
 autocmd FileType htmldjango let b:enabled_fixers=['html-beautify', 'remove_trailing_lines', 'trim_whitespace']
-set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
+
+autocmd User AirlineAfterTheme call AirlineSetup()
+autocmd BufRead * DetectIndent
 " }}}
 " More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'
