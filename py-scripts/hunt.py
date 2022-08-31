@@ -9,15 +9,37 @@
 # If file is a path to a file, then hunt will output
 # the associated directory to /tmp/hunt-user.
 
-import sys, os, subprocess
 import getpass
+import os
+import subprocess
+import sys
+
 target = sys.argv[1]
 
+BAD_EXTS = (
+	'.aux',
+	'.fdb_latexmk',
+	'.fls',
+	'.log',
+	'.out',
+	'.pre',
+	'.pytxcode',
+	'.pytxmcr',
+	'.pytxpyg',
+	'.synctex.gz',
+	'.von',
+)
 
 if not '/' in target:
 	locateOut = subprocess.check_output(["locate", target])
 	locations = locateOut.decode().strip().split('\n')
-	if len(locations) > 1:
+	locations = [
+		x for x in locations if not (x.endswith('~') and '.vim' in x) and
+		all(ext in target or not x.endswith(ext) for ext in BAD_EXTS)
+	]
+
+	directories = set(x[:x.rfind('/')] for x in locations)
+	if len(directories) > 1:
 		for i, place in enumerate(locations):
 			print(i, '\t' + place)
 		j = int(input("Please enter an index: "))

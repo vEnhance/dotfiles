@@ -220,9 +220,13 @@ end
 # Uses the locate utility to find a certain file
 function hunt ()
 	python3 ~/dotfiles/py-scripts/hunt.py "$argv"
-	cd (cat /tmp/hunt.(whoami))
-	pwd
-	ls -l --color=tty
+	if test -n (cat /tmp/hunt.(whoami))
+		cd (cat /tmp/hunt.(whoami))
+		pwd
+		ls -l --color=tty
+	else
+		echo Error: (set_color brred)"$argv"(set_color normal) "not found"
+	end
 end
 
 function pdfenc --argument-names 'infile' 'outfile' 'password'
