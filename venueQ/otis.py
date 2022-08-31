@@ -22,6 +22,7 @@ if not OTIS_PDF_PATH.exists():
 	OTIS_PDF_PATH.chmod(0o777)
 HANDOUTS_PATH = Path('/home/evan/ProGamer/OTIS/Materials')
 
+
 def send_email(subject: str, recipient: str, body: str):
 	mail = MIMEMultipart('alternative')
 	mail['From'] = 'OTIS Overlord <evan@evanchen.cc>'
@@ -86,8 +87,7 @@ class ProblemSet(VenueQNode):
 		'I': 0,
 	}
 	VON_RE = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
-	PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI](R?))\}')
-
+	PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI])(R?)\}')
 
 	def get_initial_data(self) -> Data:
 		return {
@@ -97,7 +97,7 @@ class ProblemSet(VenueQNode):
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 
-	def get_path(self, ext = 'pdf'):
+	def get_path(self, ext='pdf'):
 		assert ext in ProblemSet.EXTENSIONS
 		fname = f'otis_{self.data["pk"]:06d}'
 		fname += '_'
@@ -124,7 +124,8 @@ class ProblemSet(VenueQNode):
 			self.get_path(ext).chmod(0o666)
 
 		if HANDOUTS_PATH.exists():
-			handouts = list(HANDOUTS_PATH.glob(f'**/{self.data["unit__code"]}-{self.data["unit__group__slug"]}.tex'))
+			filename = f'**/{self.data["unit__code"]}-{self.data["unit__group__slug"]}.tex'
+			handouts = list(HANDOUTS_PATH.glob(filename))
 			if len(handouts) == 1:
 				total = 0
 				with open(handouts[0]) as f:
