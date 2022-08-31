@@ -62,7 +62,8 @@ parser.add_argument(
 )
 parser.add_argument('files', nargs='*', help='List of files to scrape.')
 args = parser.parse_args()
-von_re = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
+VON_RE = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
+PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI])(R?)\}')
 
 if len(args.files) == 0:
 	path_tex = os.path.join(os.environ.get("HOME", ""), "ProGamer/OTIS/Materials/**/*.tex")
@@ -74,10 +75,8 @@ else:
 	detect_missing = False
 
 repeat_count_dict: DefaultDict[str, int] = collections.defaultdict(int)
-if detect_missing is False:
-	seen: DefaultDict[str, dict] = collections.defaultdict(dict)
-elif detect_missing is True:
-	seen_set = set()
+seen: DefaultDict[str, dict] = collections.defaultdict(dict)  # only if detect_missing is False
+seen_set = set()  # only if detect_missing is True
 
 hardness_chart = {
 	'E': 2,
@@ -89,8 +88,8 @@ hardness_chart = {
 }
 for fn in files:
 	with open(fn) as f:
-		for line in f:
-			if (m := von_re.match(line)) is not None:
+		for n, line in enumerate(f):
+			if (m := VON_RE.match(line)) is not None:
 				d, r, _, source = m.groups()
 				w = hardness_chart[d]
 				if detect_missing is False:
@@ -98,6 +97,10 @@ for fn in files:
 					seen[source][fn] = (w, r)
 				elif detect_missing is True:
 					seen_set.add(source)
+			elif (m := PROB_RE.match(line)) is not None and detect_missing is False:
+				d, r = m.groups()
+				w = hardness_chart[d]
+				seen[f'ANONYMOUS {fn}:{n:03d}'][fn] = (w, r)
 
 if detect_missing is False:
 	num_repeats = 0
@@ -119,10 +122,13 @@ if detect_missing is False:
 					status_string += APPLY_COLOR(color, str(data[fn][0]))
 				else:
 					status_string += '.'
-			print(
-				f"{status_string} {APPLY_COLOR('BOLD_GREEN', source):28} " +
-				f"{von.api.get(source).desc}"
-			)
+			if source.startswith('ANONYMOUS'):
+				src_display = source.replace("ANONYMOUS ", "").replace(".tex", "")
+				desc = ''
+			else:
+				src_display = APPLY_COLOR('BOLD_GREEN', source)
+				desc = von.api.get(source).desc
+			print(f"{status_string} {src_display:28} {desc}")
 
 		if len(data) > 1:
 			for fn in data.keys():
