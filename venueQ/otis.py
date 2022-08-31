@@ -1,5 +1,6 @@
 import os
 import random
+import re
 import smtplib
 import ssl
 import string
@@ -19,7 +20,7 @@ OTIS_PDF_PATH = Path('/tmp/otis-pdf')
 if not OTIS_PDF_PATH.exists():
 	OTIS_PDF_PATH.mkdir()
 	OTIS_PDF_PATH.chmod(0o777)
-
+HANDOUTS_PATH = Path('/home/evan/ProGamer/OTIS/Materials')
 
 def send_email(subject: str, recipient: str, body: str):
 	mail = MIMEMultipart('alternative')
@@ -76,6 +77,17 @@ def query_otis_server(payload: Data) -> bool:
 
 class ProblemSet(VenueQNode):
 	EXTENSIONS = ('pdf', 'txt', 'tex', 'jpg', 'png')
+	HARDNESS_CHART = {
+		'E': 2,
+		'M': 3,
+		'H': 5,
+		'Z': 9,
+		'X': 0,
+		'I': 0,
+	}
+	VON_RE = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
+	PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI](R?))\}')
+
 
 	def get_initial_data(self) -> Data:
 		return {
@@ -110,6 +122,23 @@ class ProblemSet(VenueQNode):
 			file_response = requests.get(url=url)
 			self.get_path(ext).write_bytes(file_response.content)
 			self.get_path(ext).chmod(0o666)
+
+		if HANDOUTS_PATH.exists():
+			handouts = list(HANDOUTS_PATH.glob(f'**/{self.data["unit__code"]}-{self.data["unit__group__slug"]}.tex'))
+			if len(handouts) == 1:
+				total = 0
+				with open(handouts[0]) as f:
+					for line in f:
+						if (m := ProblemSet.VON_RE.match(line)) is not None:
+							d, *_ = m.groups()
+						elif (m := ProblemSet.PROB_RE.match(line)) is not None:
+							d, *_ = m.groups()
+						else:
+							d = None
+						if d is not None:
+							w = ProblemSet.HARDNESS_CHART[d]
+							total += w
+				self.data["clubs_max"] = 1 + total
 
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
