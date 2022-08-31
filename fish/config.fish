@@ -331,7 +331,8 @@ alias fgrep='fgrep --color=auto'              # show differences in color
 
 if test (uname) = "Linux"
 	alias ls='ls --color=tty --quoting-style=literal'
-	alias l='ls -l'
+	alias l='ls -l --block-size=K'
+	alias ll='ls -l --block-size=K'
 	function ranger-cd
 		if test -z "$RANGER_LEVEL"
 			set tempfile "/tmp/(whoami)chosendir"
