@@ -10,13 +10,12 @@
 # the associated directory to /tmp/hunt-user.
 
 import getpass
-import os
 import subprocess
 import sys
 
 target = sys.argv[1]
 
-BAD_EXTS = (
+BAD_EXTS = [
 	'.aux',
 	'.fdb_latexmk',
 	'.fls',
@@ -26,9 +25,11 @@ BAD_EXTS = (
 	'.pytxcode',
 	'.pytxmcr',
 	'.pytxpyg',
+	'.toc',
 	'.synctex.gz',
 	'.von',
-)
+]
+HUNT_OUT_PATH = "/tmp/hunt." + getpass.getuser()
 
 if not '/' in target:
 	locateOut = subprocess.check_output(["locate", target])
@@ -37,12 +38,32 @@ if not '/' in target:
 		x for x in locations if not (x.endswith('~') and '.vim' in x) and
 		all(ext in target or not x.endswith(ext) for ext in BAD_EXTS)
 	]
+	tex_locations = [x for x in locations if x.endswith('.tex')]
+	for t in tex_locations:
+		n = 0
+		while True:
+			n += 1
+			if (pdf_target := f'{t[:-4]}-{n}.pdf') in locations:
+				locations.remove(pdf_target)
+			if (asy_target := f'{t[:-4]}-{n}.asy') in locations:
+				locations.remove(asy_target)
+			else:
+				break
 
 	directories = set(x[:x.rfind('/')] for x in locations)
 	if len(directories) > 1:
 		for i, place in enumerate(locations):
 			print(i, '\t' + place)
-		j = int(input("Please enter an index: "))
+		try:
+			user_input = input("Please enter an index: ")
+		except (KeyboardInterrupt, EOFError):
+			user_input = ''
+			print('')
+		if not user_input:
+			with open(HUNT_OUT_PATH, "w") as f:
+				print('', file=f)
+				sys.exit(1)
+		j = int(user_input)
 	else:
 		j = 0
 	fileLocation = locations[j]
@@ -51,7 +72,7 @@ else:
 	fileLocation = target
 
 destination = fileLocation[:fileLocation.rfind('/')]
-with open("/tmp/hunt." + getpass.getuser(), "w") as f:
+with open(HUNT_OUT_PATH, "w") as f:
 	print(destination, file=f)
 
 #os.system('cd %s' %destination)
