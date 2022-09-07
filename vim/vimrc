@@ -365,6 +365,7 @@ nnoremap <Space>z :set foldmethod=indent<CR>
 nnoremap <silent> <Space>t :NERDTreeFocus<CR>
 " smart find and replace
 nnoremap <silent> <Space>h :Farr<CR>
+nnoremap <Space>o :e <cfile><CR>
 
 " Ctrl P
 nnoremap <silent> <Space>f :CtrlPRoot<CR>
