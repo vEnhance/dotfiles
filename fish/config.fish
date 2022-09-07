@@ -343,8 +343,15 @@ alias fgrep='fgrep --color=auto'              # show differences in color
 
 if test (uname) = "Linux"
 	alias ls='ls --color=tty --quoting-style=literal'
-	alias l='ls -l --block-size=K'
-	alias ll='ls -l --block-size=K'
+	alias la='ls -l --block-size=K'
+	function ll
+		set regex "(\.(aux|fdb_latexmk|fls|log|out|pre|pytxcode|pytxmcr|pytxpyg|toc|synctex\.gz|von)|\-[0-9]{1,2}\.(asy|pdf))\$"
+		ls -l --block-size=K --color=yes | grep -Ev $regex
+		set num_hidden (ls | grep -E $regex | wc --lines)
+		if test $num_hidden -gt 0
+			echo (set_color cyan)"... and" (set_color --bold brgreen)$num_hidden(set_color normal)(set_color cyan) "garbage files not shown"(set_color normal)
+		end
+	end
 	function ranger-cd
 		if test -z "$RANGER_LEVEL"
 			set tempfile "/tmp/(whoami)chosendir"
