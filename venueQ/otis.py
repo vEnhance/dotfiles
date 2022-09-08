@@ -200,8 +200,7 @@ class ProblemSet(VenueQNode):
 				recipient = data['student__user__email']
 				subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
 				try:
-					# send_email(subject=subject, recipient=recipient, body=body)
-					pass
+					send_email(subject=subject, recipient=recipient, body=body)
 				except Exception as e:
 					logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 				else:
