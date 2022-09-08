@@ -45,7 +45,7 @@ color.overdue=rgb440
 color.scheduled=rgb033
 
 report.undone.description=List of tasks that are not done
-report.undone.filter=status:pending
+report.undone.filter=status:pending or wait.after:now
 report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends,description,urgency,priority,project,tags
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
