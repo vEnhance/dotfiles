@@ -38,33 +38,34 @@
 	ll = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]\\ %C(red)%d" --decorate --date=short --stat
 	lt = log --pretty=format:"%C(yellow)%h\\ %C(green)[%cd]\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=local
 	tree = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
-	tracked = ls-tree -r HEAD --name-only
+	all = ls-tree -r HEAD --name-only
 	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
 
 	br = branch
-	cm = commit
 	co = checkout
 	fail = commit --amend # to avoid stupid "oops typo" commits
+	ok = commit --amend --no-edit -a # to avoid stupid "oops typo" commits
+	rekt = push --force-with-lease
 	pushup = push --set-upstream origin HEAD
-	rb = rebase
+	rb = rebase -i HEAD~15
 	rbc = rebase --continue
 	# command for recently ADDED files
 	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status
 	ss = status -s -b
 	sub = submodule
 	undo = reset --mixed HEAD@{1}
-	unstage = reset HEAD
+	unst = reset HEAD
 
 	bis = bisect
-	discard = checkout --
-	assume = update-index --assume-unchanged
-	unassume = update-index --no-assume-unchanged
-	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
-	unassumeall = "!git assumed | xargs git update-index --no-assume-unchanged"
+	dc = checkout -- # discard
+	asu = update-index --assume-unchanged
+	unasu = update-index --no-assume-unchanged
+	asud = "!git ls-files -v | grep ^h | cut -c 3-"
+	unasud = "!git assumed | xargs git update-index --no-assume-unchanged"
 
 	now = diff HEAD origin/main  # check comparison to upstream
 	ds = diff --staged # queued changes staged; much shorter
-	dt = difftool # diff eddit
+	dt = difftool # diff edit
 [init]
 	defaultBranch = main
 [url "git@github.com:"]

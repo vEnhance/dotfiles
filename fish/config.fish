@@ -190,6 +190,7 @@ alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
 alias m2='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
 
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
+export PATH="$PATH:$HOME/dotfiles/bin/"
 
 # Create a new TeX file
 function newtex
