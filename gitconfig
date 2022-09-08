@@ -42,30 +42,30 @@
 	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
 
 	br = branch
+	cm = commit
 	co = checkout
-	fail = commit --amend # to avoid stupid "oops typo" commits
-	ok = commit --amend --no-edit -a # to avoid stupid "oops typo" commits
-	rekt = push --force-with-lease
+	force = push --force-with-lease
 	pushup = push --set-upstream origin HEAD
 	rb = rebase -i HEAD~15
 	rbc = rebase --continue
-	# command for recently ADDED files
-	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status
-	ss = status -s -b
 	sub = submodule
-	undo = reset --mixed HEAD@{1}
-	unst = reset HEAD
 
 	bis = bisect
 	dc = checkout -- # discard
+	undo = reset --mixed HEAD@{1}
+	unst = reset HEAD
+
+	ds = diff --staged # queued changes staged; much shorter
+	dt = difftool # diff edit
+	now = diff HEAD origin/main  # check comparison to upstream
+	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status # command for recently ADDED files
+	ss = status -s -b
+
 	asu = update-index --assume-unchanged
 	unasu = update-index --no-assume-unchanged
 	asud = "!git ls-files -v | grep ^h | cut -c 3-"
 	unasud = "!git assumed | xargs git update-index --no-assume-unchanged"
 
-	now = diff HEAD origin/main  # check comparison to upstream
-	ds = diff --staged # queued changes staged; much shorter
-	dt = difftool # diff edit
 [init]
 	defaultBranch = main
 [url "git@github.com:"]
