@@ -25,18 +25,31 @@ BAD_EXTS = [
 	'.pytxcode',
 	'.pytxmcr',
 	'.pytxpyg',
+	'.trashinfo',
 	'.toc',
 	'.synctex.gz',
 	'.von',
 ]
+BAD_SUBSTRINGS = [
+	'/.stversions/',
+	'/.local/share/Trash',
+]
 HUNT_OUT_PATH = "/tmp/hunt." + getpass.getuser()
 
-if not '/' in target:
-	locateOut = subprocess.check_output(["locate", target])
-	locations = locateOut.decode().strip().split('\n')
+if not target.strip():
+	print('No target was specified!', file=sys.stderr)
+	sys.exit(22)
+elif not '/' in target:
+	locate_out = subprocess.check_output(["locate", target])
+	locations = locate_out.decode().strip().split('\n')
 	locations = [
-		x for x in locations if not (x.endswith('~') and '.vim' in x) and
-		all(ext in target or not x.endswith(ext) for ext in BAD_EXTS)
+		x for x in locations if all(
+			(
+				not (x.endswith('~') and '/.vim/tmp/' in x),
+				all(substr not in x for substr in BAD_SUBSTRINGS),
+				all(ext in target or not x.endswith(ext) for ext in BAD_EXTS),
+			)
+		)
 	]
 	tex_locations = [x for x in locations if x.endswith('.tex')]
 	for t in tex_locations:
@@ -62,7 +75,7 @@ if not '/' in target:
 		if not user_input:
 			with open(HUNT_OUT_PATH, "w") as f:
 				print('', file=f)
-				sys.exit(1)
+				sys.exit(4)
 		j = int(user_input)
 	else:
 		j = 0
