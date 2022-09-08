@@ -3,12 +3,12 @@ import random
 import re
 import smtplib
 import ssl
-import string
 import subprocess
 import time
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
+from typing import Optional
 
 import markdown
 import requests
@@ -20,7 +20,8 @@ OTIS_PDF_PATH = Path('/tmp/otis-pdf')
 if not OTIS_PDF_PATH.exists():
 	OTIS_PDF_PATH.mkdir()
 	OTIS_PDF_PATH.chmod(0o777)
-HANDOUTS_PATH = Path('/home/evan/ProGamer/OTIS/Materials')
+HANDOUTS_PATH = Path('~/ProGamer/OTIS/Materials')
+CHACHING_SOUND_PATH = Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser()
 
 
 def send_email(subject: str, recipient: str, body: str):
@@ -59,21 +60,21 @@ else:
 	OTIS_API_URL = 'http://127.0.0.1:8000/aincrad/api/'
 
 
-def query_otis_server(payload: Data) -> bool:
+def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Response]:
 	payload['token'] = TOKEN
-	resp = requests.post(OTIS_API_URL, data=payload)
+	logger.debug(payload)
+	resp = requests.post(OTIS_API_URL, json=payload)
 	if resp.status_code == 200:
 		logger.info("Got a 200 response back from server")
-		subprocess.run(
-			[Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser().absolute().as_posix(), '5']
-		)
-		return True
+		if play_sound:
+			subprocess.run([CHACHING_SOUND_PATH.absolute().as_posix(), '5'])
+		return resp
 	else:
 		logger.error(
 			f"OTIS-WEB threw an exception with status code {resp.status_code}\n" +
 			resp.content.decode('utf-8')
 		)
-		return False
+		return None
 
 
 class ProblemSet(VenueQNode):
@@ -185,25 +186,26 @@ class ProblemSet(VenueQNode):
 		body += f"{closing},\n\nEvan (aka OTIS Overlord)"
 		link = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
 		if (data['approved'] or data['rejected']) and comments_to_email != '':
-			body += '\n\n' + '-' * 40 + '\n\n'
-			if data['approved']:
-				body += f"Earned: [{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts]({link})" + '\n' * 2
-			if data['feedback'] or data['special_notes']:
-				body += r"```latex" + "\n"
-				body += data['feedback']
-				if data['feedback'] and data['special_notes']:
-					body += '\n\n'
-				body += data['special_notes']
-				body += "\n" + r"```"
-			recipient = data['student__user__email']
-			subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
-			try:
-				send_email(subject=subject, recipient=recipient, body=body)
-			except Exception as e:
-				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
-			else:
-				logger.info(f"Email {subject} to {recipient} sent!")
 			if query_otis_server(payload=data) is True:
+				body += '\n\n' + '-' * 40 + '\n\n'
+				if data['approved']:
+					body += f"Earned: [{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts]({link})" + '\n' * 2
+				if data['feedback'] or data['special_notes']:
+					body += r"```latex" + "\n"
+					body += data['feedback']
+					if data['feedback'] and data['special_notes']:
+						body += '\n\n'
+					body += data['special_notes']
+					body += "\n" + r"```"
+				recipient = data['student__user__email']
+				subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
+				try:
+					# send_email(subject=subject, recipient=recipient, body=body)
+					pass
+				except Exception as e:
+					logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
+				else:
+					logger.info(f"Email {subject} to {recipient} sent!")
 				self.delete()
 
 
@@ -308,7 +310,14 @@ class OTISRoot(VenueQRoot):
 
 
 if __name__ == "__main__":
-	otis_response = requests.post(url=OTIS_API_URL, data={'token': TOKEN, 'action': 'init'})
+	otis_response = query_otis_server(
+		payload={
+			'token': TOKEN,
+			'action': 'init'
+		},
+		play_sound=False,
+	)
+	assert otis_response is not None
 
 	if PRODUCTION:
 		otis_dir = Path('~/ProGamer/OTIS/queue').expanduser()
