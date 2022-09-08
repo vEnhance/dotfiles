@@ -225,7 +225,7 @@ function hunt ()
 			cd (cat /tmp/hunt.(whoami))
 			echo (set_color --bold --italic brcyan)(pwd)(set_color normal)
 			ll | head -n 25
-			set num_hidden (math (ll | wc --lines) - 24)
+			set num_hidden (math (ll | wc --lines) - 25)
 			if test $num_hidden -gt 0
 				echo (set_color yellow)"... and" (set_color --bold yellow)$num_hidden(set_color normal)(set_color yellow) "additional items not shown"(set_color normal)
 			end
