@@ -41,8 +41,9 @@ if VIM_ENABLED:
 			msg = formatter.format(record)
 			for line in msg.splitlines():
 				VIM_LOG_BUFFER.append(line)
+
 	vim_handler = VimLogHandler()
-	vim_handler.setLevel(logging.INFO)
+	vim_handler.setLevel(logging.DEBUG)
 	file_handler = logging.FileHandler(f'/tmp/venueQ:{datetime.datetime.now().isoformat()}.log')
 	file_handler.setLevel(logging.DEBUG)
 
