@@ -174,8 +174,7 @@ function! AirlineSetup()
 	let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 endfunction
 
-" ALE + CoC
-" let g:ale_disable_lsp = 1 " only if CoC enabled
+" ALE
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_echo_msg_warning_str = 'W'
@@ -267,22 +266,6 @@ map <Left> <
 map <Right> >
 map <Up> :call DelEmptyLineAbove()<CR>
 map <Down> :call AddEmptyLineAbove()<CR>
-" }}}
-" CoC based maps {{{
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	elseif (coc#rpc#ready())
-		call CocActionAsync('doHover')
-	else
-		execute '!' . &keywordprg . " " . expand('<cword>')
-	endif
-endfunction
-nmap <silent> gd :vsplit<CR><Plug>(coc-definition)
-nmap <silent> gy :vsplit<CR><Plug>(coc-type-definition)
-nmap <silent> gr :vsplit<CR><Plug>(coc-references)
-nmap cv <Plug>(coc-rename)
 nmap <silent> [g :ALEPreviousWrap<CR>
 nmap <silent> ]g :ALENextWrap<CR>
 " }}}
@@ -332,9 +315,7 @@ nnoremap -e <C-w>J
 " maximize window
 nnoremap -a <C-w>o
 nnoremap <silent> -f <C-w>v:CtrlPRoot<CR>
-" recent
 nnoremap <silent> -r <C-w>v:CtrlPMRU<CR>
-" close
 nnoremap <silent> -c <C-w>v:CtrlPCurFile<CR>
 nnoremap <silent> -b <C-w>v:CtrlPBuffer<CR>
 nnoremap -w <C-w><C-w>
@@ -347,12 +328,24 @@ function NewScratch()
 	setlocal bufhidden=hide
 	setlocal noswapfile
 endfunction
-nnoremap <silent> -s :call NewScratch()<CR>
+nnoremap <silent> -z :call NewScratch()<CR>
 " }}}
 " SPACE BAR KEYBINDINGS {{{
 " Not setting leader key because otherwise extensions mess with me
 " ALE Details
 nnoremap <Space>a :ALEDetail<CR>
+" Jump to definition in tags
+function TagJump()
+	let word = expand("<cword>")
+	vsplit
+	try
+		exec("tjump " . l:word)
+	catch
+		echo l:word . " not found"
+		close
+	endtry
+endfunction
+nnoremap <Space>d :call TagJump()<CR>
 " show syntax group
 nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -391,8 +384,8 @@ nnoremap <Space>gew :Git commit % --amend<CR>
 nnoremap <Space>gea :Git commit --all --amend<CR>
 " git undo (really git read)
 nnoremap <Space>gu :Gread<CR>
-" }}}
-" Smart window close replacement for :q {{{
+
+" Smart window close replacement for :q
 function! EvanClose()
 	if winnr('$') == 1
 		if tabpagenr('$') == 1
