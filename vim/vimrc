@@ -228,35 +228,35 @@ command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 
 " Arrow key shortcuts {{{
 function! DelEmptyLineAbove()
-if line(".") == 1
-	return
-endif
-let l:line = getline(line(".") - 1)
-if l:line =~ '^\s*$'
-	let l:colsave = col(".")
-	.-1d
-	"silent normal!
-	call cursor(line("."), l:colsave)
-endif
+	if line(".") == 1
+		return
+	endif
+	let l:line = getline(line(".") - 1)
+	if l:line =~ '^\s*$'
+		let l:colsave = col(".")
+		.-1d
+		"silent normal!
+		call cursor(line("."), l:colsave)
+	endif
 endfunction
 function! AddEmptyLineAbove()
-let l:scrolloffsave = &scrolloff
-" Avoid jerky scrolling with ^E at top of window
-set scrolloff=0
-call append(line(".") - 1, "")
-let &scrolloff = l:scrolloffsave
-endfunction
-function! DelEmptyLineBelow()
-if line(".") == line("$")
-	return
-endif
-let l:line = getline(line(".") + 1)
-if l:line =~ '^\s*$'
-	let l:colsave = col(".")
-	.+1d
-	''
-	call cursor(line("."), l:colsave)
-endif
+	let l:scrolloffsave = &scrolloff
+	" Avoid jerky scrolling with ^E at top of window
+	set scrolloff=0
+	call append(line(".") - 1, "")
+	let &scrolloff = l:scrolloffsave
+	endfunction
+	function! DelEmptyLineBelow()
+	if line(".") == line("$")
+		return
+	endif
+	let l:line = getline(line(".") + 1)
+	if l:line =~ '^\s*$'
+		let l:colsave = col(".")
+		.+1d
+		''
+		call cursor(line("."), l:colsave)
+	endif
 endfunction
 function! AddEmptyLineBelow()
 call append(line("."), "")
