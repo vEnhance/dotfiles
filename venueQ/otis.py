@@ -205,7 +205,7 @@ class ProblemSet(VenueQNode):
 					logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 				else:
 					logger.info(f"Email {subject} to {recipient} sent!")
-				self.delete()
+					self.delete()
 
 
 class ProblemSetCarrier(VenueQNode):
