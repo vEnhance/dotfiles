@@ -16,6 +16,15 @@ from dotenv import load_dotenv
 
 from venueQ import Data, VenueQNode, VenueQRoot, logger
 
+load_dotenv(Path('~/dotfiles/otis.env').expanduser())
+TOKEN = os.getenv('OTIS_WEB_TOKEN')
+assert TOKEN is not None
+PRODUCTION = os.getenv('PRODUCTION', False)
+if PRODUCTION:
+	OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
+else:
+	OTIS_API_URL = 'http://127.0.0.1:8000/aincrad/api/'
+
 OTIS_PDF_PATH = Path('/tmp/otis-pdf')
 if not OTIS_PDF_PATH.exists():
 	OTIS_PDF_PATH.mkdir()
@@ -44,20 +53,15 @@ def send_email(subject: str, recipient: str, body: str):
 		capture_output=True
 	).stdout
 
-	session = smtplib.SMTP('smtp.gmail.com', 587)
-	session.starttls(context=ssl.create_default_context())
-	session.login('evanchen.mit@gmail.com', password)
-	session.sendmail('evan@evanchen.cc', recipient, mail.as_string())
-
-
-load_dotenv(Path('~/dotfiles/otis.env').expanduser())
-TOKEN = os.getenv('OTIS_WEB_TOKEN')
-assert TOKEN is not None
-PRODUCTION = os.getenv('PRODUCTION', False)
-if PRODUCTION:
-	OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
-else:
-	OTIS_API_URL = 'http://127.0.0.1:8000/aincrad/api/'
+	if PRODUCTION:
+		session = smtplib.SMTP('smtp.gmail.com', 587)
+		session.starttls(context=ssl.create_default_context())
+		session.login('evanchen.mit@gmail.com', password)
+		session.sendmail('evan@evanchen.cc', recipient, mail.as_string())
+	else:
+		assert password
+		print("Testing an email send from <evan@evanchen.cc>")
+		print(mail.as_string())
 
 
 def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Response]:
