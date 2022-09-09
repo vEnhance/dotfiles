@@ -190,24 +190,23 @@ class ProblemSet(VenueQNode):
 		body += f"- **Submission**: [ID {data['pk']}]({link})"
 		body += "\n"
 		if data['approved']:
-			body += f"- **Unit completed**: {data['unit__code']}-{data['unit__group__slug']}" + "\n"
+			body += f"- **Unit completed**: `{data['unit__code']}-{data['unit__group__slug']}`" + "\n"
 			body += r"- **Earned**: "
 			body += f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts"
 			body += "\n\n"
 			if 'next_unit_to_unlock__code' in data:
 				body += r"- **Next unit**: " + "\n"
 				body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
-				body += "\n\n"
 		elif data['rejected']:
 			body += r"- Submission was rejected, see explanation above."
 		if data['feedback']:
 			body += "\n\n"
 			body += r"**Mini-survey response**:" + "\n"
+			if (s := os.getenv('MS_HEADER')) is not None:
+				body += "\n" + s + "\n\n"
 			body += r"```" + "\n"
 			body += data['feedback']
 			body += "\n" + r"```"
-			if (s := os.getenv('MS_SNIPPET')) is not None:
-				body += "\n\n" + s + "\n\n"
 		if data['special_notes']:
 			body += "\n\n"
 			body += r"**Special notes**:" + "\n"
