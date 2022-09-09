@@ -5,6 +5,7 @@ import smtplib
 import ssl
 import subprocess
 import time
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -52,6 +53,10 @@ def send_email(subject: str, recipient: str, body: str):
 		text=True,
 		capture_output=True
 	).stdout
+
+	email_log_filename = f"email{datetime.now().strftime('%Y%M%d-%H%M%S')}.mkd"
+	with open(OTIS_TMP_DOWNLOADS_PATH / email_log_filename, "w") as f:
+		print(plain_msg, file=f)
 
 	if PRODUCTION:
 		session = smtplib.SMTP('smtp.gmail.com', 587)
@@ -193,9 +198,8 @@ class ProblemSet(VenueQNode):
 			body += f"- **Unit completed**: `{data['unit__code']}-{data['unit__group__slug']}`" + "\n"
 			body += r"- **Earned**: "
 			body += f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts"
-			body += "\n\n"
 			if 'next_unit_to_unlock__code' in data:
-				body += r"- **Next unit**: " + "\n"
+				body += r"- **Next unit**: "
 				body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
 		elif data['rejected']:
 			body += r"- Submission was rejected, see explanation above."
