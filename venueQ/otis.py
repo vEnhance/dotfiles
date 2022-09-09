@@ -161,8 +161,7 @@ class ProblemSet(VenueQNode):
 					raise AssertionError
 				subprocess.Popen([tool, p.absolute()])
 
-	def on_buffer_close(self, data: Data):
-		super().on_buffer_close(data)
+	def compose_email_body(self, data: Data, comments: str) -> str:
 		salutation = random.choice(["Hi", "Hello", "Hey"])
 		closing = random.choice(
 			[
@@ -177,32 +176,55 @@ class ProblemSet(VenueQNode):
 				"Sincerely",
 			]
 		)
+		body = f"{salutation} {data['student__user__first_name']},"
+		body += "\n\n" + comments + "\n\n"
+		body += "If you have questions or comments, or need anything else, "
+		body += "reply directly to this email." + "\n\n"
+		body += f"{closing},\n\nEvan (aka OTIS Overlord)"
+		link = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
+		body += '\n\n' + '-' * 40 + '\n\n'
+		body += f"- **Submission**: [ID {data['pk']}]({link})"
+		body += "\n"
+		if data['approved']:
+			body += f"- **Unit completed**: {data['unit__code']}-{data['unit__group__slug']}" + "\n"
+			body += r"- **Earned**: "
+			body += f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts"
+			body += "\n\n"
+			if 'next_unit_to_unlock__code' in data:
+				body += r"- **Next unit**: " + "\n"
+				body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
+				body += "\n\n"
+		elif data['rejected']:
+			body += r"- Submission was rejected, see explanation above."
+		if data['feedback']:
+			body += "\n\n"
+			body += r"**Mini-survey response**:" + "\n"
+			body += r"```" + "\n"
+			body += data['feedback']
+			body += "\n" + r"```"
+			if (s := os.getenv('MS_SNIPPET')) is not None:
+				body += "\n\n" + s + "\n\n"
+		if data['special_notes']:
+			body += "\n\n"
+			body += r"**Special notes**:" + "\n"
+			body += r"```" + "\n"
+			body += data['special_notes']
+			body += "\n" + r"```"
+		return body
+
+	def on_buffer_close(self, data: Data):
+		super().on_buffer_close(data)
 
 		if data['approved'] and data['rejected']:
 			data['approved'] = False  # fix a common mistake :P
 
 		comments_to_email = self.read_temp(extension='mkd').strip()
-		body = comments_to_email
-		body = f"{salutation} {data['student__user__first_name']}," + "\n\n" + body + "\n\n"
-		if data.get('next_unit_to_unlock__pk', None) and data['approved']:
-			body += f"I unlocked {data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}."
-			body += '\n\n'
-		body += f"{closing},\n\nEvan (aka OTIS Overlord)"
-		link = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
 		if (data['approved'] or data['rejected']) and comments_to_email != '':
 			if query_otis_server(payload=data) is not None:
-				body += '\n\n' + '-' * 40 + '\n\n'
-				if data['approved']:
-					body += f"Earned: [{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts]({link})" + '\n' * 2
-				if data['feedback'] or data['special_notes']:
-					body += r"```latex" + "\n"
-					body += data['feedback']
-					if data['feedback'] and data['special_notes']:
-						body += '\n\n'
-					body += data['special_notes']
-					body += "\n" + r"```"
+				body = self.compose_email_body(data, comments_to_email)
 				recipient = data['student__user__email']
-				subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} checked off"
+				verdict = "completed" if data['approved'] else "NOT ACCEPTED (action req'd)"
+				subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} was {verdict}"
 				try:
 					send_email(subject=subject, recipient=recipient, body=body)
 				except Exception as e:
