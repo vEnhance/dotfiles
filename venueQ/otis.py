@@ -25,10 +25,10 @@ if PRODUCTION:
 else:
 	OTIS_API_URL = 'http://127.0.0.1:8000/aincrad/api/'
 
-OTIS_PDF_PATH = Path('/tmp/otis-pdf')
-if not OTIS_PDF_PATH.exists():
-	OTIS_PDF_PATH.mkdir()
-	OTIS_PDF_PATH.chmod(0o777)
+OTIS_TMP_DOWNLOADS_PATH = Path('/tmp/junk-for-otis')
+if not OTIS_TMP_DOWNLOADS_PATH.exists():
+	OTIS_TMP_DOWNLOADS_PATH.mkdir()
+	OTIS_TMP_DOWNLOADS_PATH.chmod(0o777)
 HANDOUTS_PATH = Path('~/ProGamer/OTIS/Materials').expanduser()
 CHACHING_SOUND_PATH = Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser()
 
@@ -112,7 +112,7 @@ class ProblemSet(VenueQNode):
 		fname += self.data["unit__code"]
 		fname += '_'
 		fname += self.data["unit__group__name"].replace(' ', '_')
-		return OTIS_PDF_PATH / f"{fname}.{ext}"
+		return OTIS_TMP_DOWNLOADS_PATH / f"{fname}.{ext}"
 
 	def init_hook(self):
 		self.data['approved'] = True
