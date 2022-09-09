@@ -4,10 +4,10 @@
 # Usage:
 # python hunt.py [file]
 # If file is a filename, then hunt will open the first
-# locate place, then output that directory to /tmp/hunt-user
+# locate place, then output that directory to /tmp/hunt.user
 # If there is more than one target, it will prompt the user to choose one.
 # If file is a path to a file, then hunt will output
-# the associated directory to /tmp/hunt-user.
+# the associated directory to /tmp/hunt.user.
 
 import getpass
 import subprocess
