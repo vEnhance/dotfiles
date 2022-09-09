@@ -20,7 +20,7 @@ OTIS_PDF_PATH = Path('/tmp/otis-pdf')
 if not OTIS_PDF_PATH.exists():
 	OTIS_PDF_PATH.mkdir()
 	OTIS_PDF_PATH.chmod(0o777)
-HANDOUTS_PATH = Path('~/ProGamer/OTIS/Materials')
+HANDOUTS_PATH = Path('~/ProGamer/OTIS/Materials').expanduser()
 CHACHING_SOUND_PATH = Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser()
 
 
@@ -141,6 +141,10 @@ class ProblemSet(VenueQNode):
 							w = ProblemSet.HARDNESS_CHART[d]
 							total += w
 				self.data["clubs_max"] = 1 + total
+			else:
+				self.data["clubs_max"] = None
+		else:
+			self.data["clubs_max"] = None
 
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
@@ -186,7 +190,7 @@ class ProblemSet(VenueQNode):
 		body += f"{closing},\n\nEvan (aka OTIS Overlord)"
 		link = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
 		if (data['approved'] or data['rejected']) and comments_to_email != '':
-			if query_otis_server(payload=data) is True:
+			if query_otis_server(payload=data) is not None:
 				body += '\n\n' + '-' * 40 + '\n\n'
 				if data['approved']:
 					body += f"Earned: [{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts]({link})" + '\n' * 2
@@ -287,7 +291,7 @@ class Suggestion(VenueQNode):
 				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 			else:
 				logger.info(f"Email {subject} to {recipient} sent!")
-			if query_otis_server(payload=data) is True:
+			if query_otis_server(payload=data) is not None:
 				self.delete()
 
 
