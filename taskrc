@@ -32,9 +32,6 @@ urgency.uda.priority.H.coefficient=4.2
 urgency.uda.priority.M.coefficient=2.1
 urgency.uda.priority.L.coefficient=-1.8
 
-report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
-report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
-
 include ~/dotfiles/task.theme
 color.uda.priority.H=rgb450
 color.uda.priority.M=rgb520
@@ -44,15 +41,23 @@ color.due.today=rgb430
 color.overdue=rgb440
 color.scheduled=rgb033
 
+report.brief.columns=due.relative,id,description.truncated,urgency
+report.brief.filter=status:pending
+report.brief.sort=urgency-
+
+report.next.description=List of tasks that could be started
+report.next.columns=id,depends,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
+report.next.labels=ID,Deps,P,Project,Tag,R,S,Due,Until,Description,Urg
+
+report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
+report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
+
 report.undone.description=List of tasks that are not done
 report.undone.filter=status:pending or wait.after:now
 report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends,description,urgency,priority,project,tags
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
 
-report.next.description=List of tasks that could be started
-report.next.columns=id,depends,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
-report.next.labels=ID,Deps,P,Project,Tag,R,S,Due,Until,Description,Urg
 
 # Bugwarrior UDAs
 uda.githubtitle.type=string

@@ -4,12 +4,11 @@ if [ "$(whoami)" != "evan" ]; then
 	exit;
 fi
 
-task rc.verbose=nothing rc.report.min.columns:due.relative,description \
-	min rc.gc=off rc.report.min.sort:urgency- status:pending +READY \
-	| sed "s/[\ ]{3,}/\t/" | sed 's/^/ /' | ag -v merged\.$ \
-	> ~/.cache/todo.txt
+task rc.verbose=nothing rc.gc=off brief | sed -r "s/(^.{32}).*? +([-0-9\.]+)\$/\1 \2/" > ~/.cache/todo.txt
 
-cat ~/.cache/agenda.json | python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt
+cat ~/.cache/agenda.json |
+	python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt
+
 echo "\${color4}$(cat ~/.cache/agenda.txt | tail -n +1 | head -n 1)"
 echo "\${color5}$(cat ~/.cache/agenda.txt | tail -n +2 | head -n 1)"
 echo "\${color6}$(cat ~/.cache/agenda.txt | tail -n +3 | head -n 1)"
