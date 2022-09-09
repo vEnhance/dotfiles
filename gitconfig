@@ -46,7 +46,7 @@
 	co = checkout
 	force = push --force-with-lease
 	pushup = push --set-upstream origin HEAD
-	rb = rebase -i HEAD~15
+	rb = rebase -i
 	rbc = rebase --continue
 	sub = submodule
 
