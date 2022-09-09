@@ -54,7 +54,7 @@ def send_email(subject: str, recipient: str, body: str):
 		capture_output=True
 	).stdout
 
-	email_log_filename = f"email{datetime.now().strftime('%Y%M%d-%H%M%S')}.mkd"
+	email_log_filename = f"email{datetime.now().strftime('%Y%m%d-%H%M%S')}.mkd"
 	with open(OTIS_TMP_DOWNLOADS_PATH / email_log_filename, "w") as f:
 		print(plain_msg, file=f)
 
@@ -195,12 +195,15 @@ class ProblemSet(VenueQNode):
 		body += f"- **Submission**: [ID {data['pk']}]({link})"
 		body += "\n"
 		if data['approved']:
-			body += f"- **Unit completed**: `{data['unit__code']}-{data['unit__group__slug']}`" + "\n"
+			body += r"- **Unit completed**: "
+			body += f"`{data['unit__code']}-{data['unit__group__slug']}`" + "\n"
 			body += r"- **Earned**: "
-			body += f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts"
+			body += f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts" + "\n"
+			body += r"- **Next unit**: "
 			if 'next_unit_to_unlock__code' in data:
-				body += r"- **Next unit**: "
 				body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
+			else:
+				body += r"*None specified*"
 		elif data['rejected']:
 			body += r"- Submission was rejected, see explanation above."
 		if data['feedback']:
