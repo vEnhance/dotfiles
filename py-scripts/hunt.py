@@ -10,24 +10,34 @@
 # the associated directory to /tmp/hunt.user.
 
 import getpass
+import re
 import subprocess
 import sys
+
+REGEX_PTC = re.compile(r'\.ptc[0-9]+$')
 
 target = sys.argv[1]
 
 BAD_EXTS = [
 	'.aux',
+	'.bbl',
+	'.bcf',
+	'.blg',
 	'.fdb_latexmk',
 	'.fls',
 	'.log',
+	'.maf',
+	'.mtc',
+	'.mtc0',
 	'.out',
 	'.pre',
 	'.pytxcode',
 	'.pytxmcr',
 	'.pytxpyg',
-	'.trashinfo',
-	'.toc',
+	'.run.xml',
 	'.synctex.gz',
+	'.toc',
+	'.trashinfo',
 	'.von',
 ]
 BAD_SUBSTRINGS = [
@@ -48,6 +58,7 @@ elif not '/' in target:
 				not (x.endswith('~') and '/.vim/tmp/' in x),
 				all(substr not in x for substr in BAD_SUBSTRINGS),
 				all(ext in target or not x.endswith(ext) for ext in BAD_EXTS),
+				REGEX_PTC.search(x) is None,
 			)
 		)
 	]
