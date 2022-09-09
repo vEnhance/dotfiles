@@ -32,9 +32,12 @@ for line in sys.stdin:
 	else:
 		content += line.strip() + '\n'
 
+output_html = markdown.markdown(content, extensions=['extra', 'sane_lists', 'smarty'])
+
 output_path = Path('/tmp/neomutt-alternative.html')
 if output_path.exists():
 	output_path.unlink()
 
 with open(output_path, 'w') as f:
-	print(markdown.markdown(content, extensions=['extra', 'sane_lists', 'smarty']), file=f)
+	print(output_html, file=f)
+print(output_html)
