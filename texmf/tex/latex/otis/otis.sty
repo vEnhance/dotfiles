@@ -144,9 +144,9 @@
 		% Walkthroughs to examples
 		\newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}
 		\pyc{solution_text = ''}
-		\renewcommand{\vonprehook}[1]{%
-		\marginpar{\footnotesize\ttfamily%
-		\color{green!40!black}\py{api.get_puid("#1")}}}
+
+		\newcommand{\puidmarginpar}[1]{\marginpar{\footnotesize\ttfamily\color{green!40!black}#1}}
+		\renewcommand{\vonprehook}[1]{\puidmarginpar{\py{api.get_puid("#1")}}}
 
 		\def\vonX{\@ifstar\@vonXstar\@vonX}
 		\newcommand{\@vonX}[2][]{%
