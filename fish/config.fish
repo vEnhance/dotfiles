@@ -346,7 +346,7 @@ if test (uname) = "Linux"
 	alias ls='ls --color=tty --quoting-style=literal'
 	alias la='ls -l --block-size=K'
 	function ll
-		set regex "(pythontex_data\.pkl|\.(aux|bbl|bcf|blg|fdb_latexmk|fls|log|maf|mtc0?|out|pre|ptc[0-9]+|pytxcode|pytxmcr|pytxpyg|run\.xml|toc|synctex\.gz|von)|\-[0-9]{1,2}\.(asy|pdf))\$"
+		set regex "(pythontex_data\.pkl|\.(aux|bbl|bcf|blg|fdb_latexmk|fls|log|maf|mtc0?|out|pre|ptc[0-9]+|pytxcode|pytxmcr|pytxpyg|run\.xml|toc|synctex\.gz|von)|-[0-9]{1,2}\.(asy|pdf))\$"
 		ls -l --block-size=K --color=yes | grep -Ev $regex
 		set num_hidden (ls | grep -E $regex | wc --lines)
 		if test $num_hidden -gt 0
