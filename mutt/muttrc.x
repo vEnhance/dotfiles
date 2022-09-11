@@ -90,6 +90,7 @@ macro index,pager ge "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
 
+bind index,pager s view-attachments
 
 bind index,pager m noop
 macro index,pager mi "<save-message>=Inbox<enter><enter>$<enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
