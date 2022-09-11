@@ -8,3 +8,5 @@ set sw=2
 let g:airline#extensions#whitespace#trailing_regexp = '\t$\|\s\{3,\}$\|[^ ] $'
 let b:airline_whitespace_trailing_regexp = '\t$\|\s\{3,\}$\|[^ ] $'
 let b:ale_fixers = ['remove_trailing_lines',]
+
+inoremap <C-R><C-R> As a reminder, it's appreciated if you can include the sources of problems (e.g. "Shortlist 2018 A7") when provided, because the problem numbers can often change during edits.
