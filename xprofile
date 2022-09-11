@@ -59,7 +59,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		xset s 900 30
 		xset dpms 600 600 600
 	else
-		xset s 2000 60
+		xset s 14400 60
 		export QT_AUTO_SCREEN_SCALE_FACTOR=2
 		export GDK_SCALE=2
 	fi
