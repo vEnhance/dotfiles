@@ -1,5 +1,3 @@
-set realname = "Evan Chen"
-
 # MAILBOX + HOOK SETUP {{{
 mailboxes ~/Mail/personal/Inbox
 #mailboxes ~/Mail/personal/All
@@ -40,14 +38,15 @@ set pager_stop=yes
 set pipe_decode = yes
 set postpone=no
 set quit = yes
+set realname = "Evan Chen"
 set simple_search = "~f %s | ~s %s | ~C %s"
 set sleep_time = 0
 set sort = threads
 set sort_aux = last-date-received
 set text_flowed = yes
 set use_from = yes
-set wrap = 80
-set wrap=78
+set wait_key = no
+set wrap = 78
 
 # Date format
 set date_format = "%a %m月%d日"
@@ -90,19 +89,6 @@ set sidebar_sort_method = 'unsorted'
 # KEY BINDINGS {{{
 # \043 is hashtag
 bind index \043 noop
-macro index,pager e "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
-macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
-
-# bind escape to untag all
-bind index . noop
-macro index . "<untag-pattern>.<enter><limit>.<enter>" "Reset view"
-
-bind index,pager a group-reply
-bind index - collapse-thread
-bind index _ collapse-all
-
-macro index,pager z "<pipe-message>vim -R -c \"set ft=mail\" -<enter>" "View in Vim"
-macro attach z "<pipe-entry>vim -R -<enter>" "View in Vim"
 
 bind index,pager g noop
 macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
@@ -110,15 +96,23 @@ macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager ge "<change-folder>=All<enter>" "Go to all mail"
 macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
-
-bind index,pager s view-attachments
-
 bind index,pager m noop
 macro index,pager mi "<save-message>=Inbox<enter><enter>$<enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
 macro index,pager ma "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager me "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager m\043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
 
+bind index,pager a group-reply
+bind index,pager s view-attachments
+macro index,pager z "<pipe-message>vim -R -c \"set ft=mail\" -<enter>" "View in Vim"
+macro index,pager e "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
+
+# bind escape to untag all
+bind index . noop
+macro index . "<untag-pattern>.<enter><limit>.<enter>" "Reset view"
+bind index - collapse-thread
+bind index _ collapse-all
 bind index t tag-entry
 bind index x tag-thread
 macro pager t "<exit><tag-entry>" "Tag entry"
@@ -130,15 +124,6 @@ macro index,pager m1 <change-folder>~/Mail/work/Inbox/<enter><enter-command>sour
 macro index,pager m2 <change-folder>~/Mail/records/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.2<enter> "change to account 2"
 macro index,pager mt <change-folder>
 
-bind index gg first-entry
-bind index G last-entry
-bind index j next-entry
-bind index k previous-entry
-bind index J next-thread
-bind index K previous-thread
-bind index d half-down
-bind index u half-up
-
 bind pager i noop
 bind pager j next-line
 bind pager k previous-line
@@ -149,24 +134,30 @@ bind pager K previous-undeleted
 bind pager <enter> next-undeleted
 bind pager gg top
 bind pager G bottom
-bind pager E edit-raw-message
-bind pager d half-down
-bind pager u half-up
+bind generic,pager d half-down
+bind generic,pager u half-up
 
-bind index,pager r reply
-bind index,pager a group-reply
-#bind index,pager a noop
-#macro index,pager r "<pipe-message>abook --add-email<enter><reply>" "Reply"
-#macro index,pager a "<pipe-message>abook --add-email<enter><group-reply>" "Reply all"
-macro index,pager A "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
-set wait_key = no
+bind index d display-message
+bind index gg first-entry
+bind index G last-entry
+bind index j next-entry
+bind index k previous-entry
+bind index J next-thread
+bind index K previous-thread
 
 bind index,pager c mail
 bind index,pager C compose-to-sender
+bind index,pager r reply
+bind index,pager a group-reply
+macro index,pager A "<pipe-message>abook --add-email-quiet<enter>" "Add to contacts"
 macro index,pager V <pipe-message>urlscan<enter>
 
-bind compose v view-attach
+bind generic,index,pager \Cf       next-page
+bind generic,index,pager \Cb       previous-page
+bind generic,index,pager \Cd       half-down
+bind generic,index,pager \Cu       half-up
 
+bind compose v view-attach
 macro compose <Space> "<first-entry>\
 <pipe-entry>python ~/.config/mutt/mutt-markdown.py<enter>\
 <attach-file>/tmp/neomutt-alternative.html<enter>\
@@ -176,23 +167,23 @@ macro compose <Space> "<first-entry>\
 <shell-escape>~/dotfiles/sh-scripts/noisemaker.sh 5<enter>" \
 "Compile as markdown and send"
 
-bind generic,index,pager \Cf       next-page
-bind generic,index,pager \Cb       previous-page
-bind generic,index,pager \Cd       half-down
-bind generic,index,pager \Cu       half-up
-
 bind attach d noop
 bind attach D delete-entry
+bind attach s save-entry
 
+# on quit also sync
 bind index q noop
 macro index q "<shell-escape>systemctl start evansync.service --user<enter><quit>"
+bind index Q quit
 
+# pipe in vim
 bind index p noop
 macro index p "<display-message><view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
 bind pager p noop
 macro pager p "<view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
 bind attach p noop
 macro attach p "<pipe-message>vim -R -<enter>" "Pipe in Vim"
+bind pager z edit-raw-message
 # }}}
 # COLORS {{{
 color hdrdefault black        cyan
