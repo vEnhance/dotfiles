@@ -94,14 +94,17 @@ class VenueQNode:
 		else:
 			return self.get_default_data()
 
-	def temp_path(self, extension: str, name: str = None):
+	def temp_path(self, extension: str, name: str = None) -> Path:
 		return self.directory / f'{name or self.name}.tmp.{extension}'
 
 	def edit_temp(self, extension: str, name: str = None):
+		p = self.temp_path(extension, name)
+		p.touch()
 		if VIM_ENABLED:
-			vim.command(f":split {self.temp_path(extension, name)}")
+			vim.command(f":split {p}")
+			vim.command(r":filetype detect")
 		else:
-			subprocess.run(['vim', self.temp_path(extension, name)], shell=True)
+			subprocess.run(['vim', p], shell=True)
 
 	def read_temp(self, extension: str, name: str = None):
 		if self.temp_path(extension, name).exists():
