@@ -1,7 +1,6 @@
 set realname = "Evan Chen"
-set use_from = yes
-set signature = "~/.config/mutt/signature"
 
+# MAILBOX + HOOK SETUP {{{
 mailboxes ~/Mail/personal/Inbox
 #mailboxes ~/Mail/personal/All
 #mailboxes ~/Mail/personal/Sent
@@ -23,17 +22,21 @@ folder-hook ~/Mail/records/[a-zA-Z]*  source ~/.config/mutt/muttrc.2
 folder-hook ~/Mail/[a-z]*/All     color indicator black  yellow
 folder-hook ~/Mail/[a-z]*/Trash   color indicator white  black
 folder-hook ~/Mail/[a-z]*/Sent    color indicator black  brightwhite
-
-## General settings
+# }}}
+# SETTINGS {{{
+# General
 set abort_noattach = ask-yes
 set attach_save_dir = "~/Downloads/"
 set auto_tag = yes
 set collapse_unread = yes
 set delete = yes
 set mail_check = 60
+set mailcap_path = "~/.config/mutt/mailcap"
+set markers=no
 set mbox_type = Maildir
 set pager_context = 15
 set pager_index_lines = 7
+set pager_stop=yes
 set pipe_decode = yes
 set postpone=no
 set quit = yes
@@ -42,14 +45,31 @@ set sleep_time = 0
 set sort = threads
 set sort_aux = last-date-received
 set text_flowed = yes
+set use_from = yes
 set wrap = 80
+set wrap=78
 
+# Date format
 set date_format = "%a %m月%d日"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
 set pager_format = "%4C %Z %[%a %m月%d日%R] %.20n %s%* -- (%P)"
 set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4}).*/date +'Date: %a %m月%d日%R' -d '\\1'/e\""
 
-## SIDEBAR
+# Composition settings
+set abort_nosubject = yes
+set attribution = "%f 於%[%A%m月%d日%R]寫道："
+set attribution_locale = "zh_TW.UTF-8"
+set autoedit = yes
+set edit_headers = yes
+set editor = "vim"
+set fast_reply = yes
+set include = yes
+set sig_on_top = yes
+set signature = "~/.config/mutt/signature"
+set use_from = yes
+unset record
+# }}}
+# SIDEBAR CONFIG {{{
 set sidebar_visible = yes
 set sidebar_width = 12
 set sidebar_short_path = yes
@@ -66,8 +86,9 @@ set mail_check_stats
 # Display the Sidebar mailboxes using this format string.
 set sidebar_format = '%D%* %?N?%N/?%S'
 set sidebar_sort_method = 'unsorted'
-
-## Bindings
+# }}}
+# KEY BINDINGS {{{
+# \043 is hashtag
 bind index \043 noop
 macro index,pager e "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
@@ -115,6 +136,8 @@ bind index j next-entry
 bind index k previous-entry
 bind index J next-thread
 bind index K previous-thread
+bind index d half-down
+bind index u half-up
 
 bind pager i noop
 bind pager j next-line
@@ -127,6 +150,8 @@ bind pager <enter> next-undeleted
 bind pager gg top
 bind pager G bottom
 bind pager E edit-raw-message
+bind pager d half-down
+bind pager u half-up
 
 bind index,pager r reply
 bind index,pager a group-reply
@@ -168,34 +193,8 @@ bind pager p noop
 macro pager p "<view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
 bind attach p noop
 macro attach p "<pipe-message>vim -R -<enter>" "Pipe in Vim"
-
-## Hooks
-
-# ----------------------------------------------
-# COMPOSITION SETTINGS
-
-set edit_headers = yes
-set autoedit = yes
-set fast_reply = yes
-set use_from = yes
-set include = yes
-set editor = "vim"
-set sig_on_top = yes
-set attribution_locale = "zh_TW.UTF-8"
-set attribution = "%f 於%[%A%m月%d日%R]寫道："
-set abort_nosubject = yes
-unset record
-
-# ----------------------------------------------
-#  Viewing settings  #
-
-set markers=no
-set wrap=78
-set pager_stop=yes
-set mailcap_path = "~/.config/mutt/mailcap"
-
-# ----------------------------------------------
-
+# }}}
+# COLORS {{{
 color hdrdefault black        cyan
 color quoted     red          white
 color signature  brightblack  white
@@ -277,5 +276,6 @@ color sidebar_ordinary black white
 color sidebar_flagged black white
 color sidebar_new brightcyan white
 color sidebar_unread brightblack white
+# }}}
 
-# vim: ft=neomuttrc
+# vim: ft=neomuttrc fdm=marker
