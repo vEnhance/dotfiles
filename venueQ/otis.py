@@ -9,7 +9,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 import markdown
 import requests
@@ -34,13 +34,22 @@ HANDOUTS_PATH = Path('~/ProGamer/OTIS/Materials').expanduser()
 CHACHING_SOUND_PATH = Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser()
 
 
-def send_email(subject: str, recipient: str, body: str):
+def send_email(
+	subject: str,
+	recipients: List[str] = None,
+	bcc: List[str] = None,
+	body: str = None,
+):
 	mail = MIMEMultipart('alternative')
 	mail['From'] = 'OTIS Overlord <evan@evanchen.cc>'
-	mail['To'] = recipient
+	assert recipients is not None or bcc is not None
+	if recipients is not None:
+		mail['To'] = ', '.join(recipients)
+	if bcc is not None:
+		mail['Bcc'] = ', '.join(bcc)
 	mail['Subject'] = subject
 
-	plain_msg = body
+	plain_msg = body or ''
 	plain_msg += '\n' * 2
 	plain_msg += '**Evan Chen (陳誼廷)**<br>' + '\n'
 	plain_msg += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
@@ -59,10 +68,11 @@ def send_email(subject: str, recipient: str, body: str):
 		print(plain_msg, file=f)
 
 	if PRODUCTION:
+		target_addrs = (recipients or []) + (bcc or [])
 		session = smtplib.SMTP('smtp.gmail.com', 587)
 		session.starttls(context=ssl.create_default_context())
 		session.login('evanchen.mit@gmail.com', password)
-		session.sendmail('evan@evanchen.cc', recipient, mail.as_string())
+		session.sendmail('evan@evanchen.cc', target_addrs, mail.as_string())
 	else:
 		assert password
 		print("Testing an email send from <evan@evanchen.cc>")
@@ -236,7 +246,7 @@ class ProblemSet(VenueQNode):
 				verdict = "completed" if data['approved'] else "NOT ACCEPTED (action req'd)"
 				subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} was {verdict}"
 				try:
-					send_email(subject=subject, recipient=recipient, body=body)
+					send_email(subject=subject, recipients=[recipient], body=body)
 				except Exception as e:
 					logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 				else:
@@ -318,7 +328,7 @@ class Suggestion(VenueQNode):
 			body += self.statement
 			body += "\n" + r"```"
 			try:
-				send_email(subject=subject, recipient=recipient, body=body)
+				send_email(subject=subject, recipients=[recipient], body=body)
 			except Exception as e:
 				logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 			else:
