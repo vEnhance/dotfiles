@@ -15,5 +15,5 @@ inoremap <C-R><C-D> Small LaTeX tip: you should generally use \dots over \cdots 
 inoremap <C-R><C-O> When typing any of the operators \min, \max, \deg, \gcd, \log, \exp, \sin, \cos, \tan you should always remember to include the backslash so that the operator is properly typed in Roman font, rather than interpreted as a string of badly named variables.
 inoremap <C-R><C-T> LaTeX tip: use \mid instead of \| to denote divisibility.
 inoremap <C-R><C-M> Small LaTeX tip: use \pmod{n} to typeset (mod n).
-inoremap <C-R><C-C> Small LaTeX tip: use \cdot to typeset multiplication rather than *.
+inoremap <C-R><C-S> Small LaTeX tip: use \cdot to typeset multiplication rather than *.
 inoremap <C-R><C-Q> In LaTeX, quotes are a bit weird; see https://tex.stackexchange.com/a/10672/76888.
