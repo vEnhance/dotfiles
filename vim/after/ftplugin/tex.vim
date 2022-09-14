@@ -148,7 +148,7 @@ endtry
 
 function EvanCompileLaTeX(continuous)
 	" von complier
-	if stridx(expand('%:p'), 'OlyBase') != -1 || stridx(expand('%:t'), 'von.tex') != -1
+	if stridx(expand('%:p'), 'vondb') != -1 || stridx(expand('%:t'), 'von.tex') != -1
 		lcd /tmp/preview_$USER
 		if a:continuous
 			silent !xfce4-terminal -T "latexmk" -e "latexmk -pvc -f von_preview.tex" &
