@@ -242,6 +242,10 @@ function pdfenc --argument-names 'infile' 'outfile' 'password'
 	qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
 end
 
+function pdfjoin
+	qpdf $argv[1] --pages  $argv[1..-2] -- $argv[-1]
+end
+
 # correct horse battery staple
 function chbs
 	shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
