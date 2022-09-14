@@ -157,6 +157,8 @@ bind generic,index,pager \Cb       previous-page
 bind generic,index,pager \Cd       half-down
 bind generic,index,pager \Cu       half-up
 
+bind compose D noop
+bind compose \043 detach-file
 bind compose v view-attach
 macro compose <Space> "<first-entry>\
 <pipe-entry>python ~/.config/mutt/mutt-markdown.py<enter>\
@@ -168,7 +170,7 @@ macro compose <Space> "<first-entry>\
 "Compile as markdown and send"
 
 bind attach d noop
-bind attach D delete-entry
+bind attach \043 delete-entry
 bind attach s save-entry
 
 # on quit also sync
