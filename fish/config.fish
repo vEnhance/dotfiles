@@ -351,8 +351,8 @@ if test (uname) = "Linux"
 	alias la='ls -l --block-size=K'
 	function ll
 		set regex "(pythontex_data\.pkl|\.(aux|bbl|bcf|blg|fdb_latexmk|fls|log|maf|mtc0?|out|pre|ptc[0-9]+|pytxcode|pytxmcr|pytxpyg|run\.xml|toc|synctex\.gz|von)|-[0-9]{1,2}\.(asy|pdf))\$"
-		ls -l --block-size=K --color=yes | grep -Ev $regex
-		set num_hidden (ls | grep -E $regex | wc --lines)
+		ls -l --block-size=K --color=yes $argv | grep -Ev $regex
+		set num_hidden (ls $argv | grep -E $regex | wc --lines)
 		if test $num_hidden -gt 0
 			echo (set_color cyan)"... and" (set_color --bold brgreen)$num_hidden(set_color normal)(set_color cyan) "garbage files not shown"(set_color normal)
 		end
