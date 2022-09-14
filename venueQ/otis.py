@@ -108,6 +108,7 @@ class ProblemSet(VenueQNode):
 	}
 	VON_RE = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
 	PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI])(R?)\}')
+	GOAL_RE = re.compile(r'^\\goals\{([0-9]+)\}\{([0-9]+)\}')
 
 	def get_initial_data(self) -> Data:
 		return {
@@ -148,18 +149,25 @@ class ProblemSet(VenueQNode):
 			handouts = list(HANDOUTS_PATH.glob(filename))
 			if len(handouts) == 1:
 				total = 0
+				min_clubs = 0
+				high_clubs = 0
 				with open(handouts[0]) as f:
 					for line in f:
 						if (m := ProblemSet.VON_RE.match(line)) is not None:
 							d, *_ = m.groups()
 						elif (m := ProblemSet.PROB_RE.match(line)) is not None:
 							d, *_ = m.groups()
+						elif (m := ProblemSet.GOAL_RE.match(line)) is not None:
+							a, b = m.groups()
+							min_clubs = int(a)
+							high_clubs = int(b)
+							continue
 						else:
-							d = None
-						if d is not None:
-							w = ProblemSet.HARDNESS_CHART[d]
-							total += w
-				self.data["clubs_max"] = 1 + total
+							continue
+						assert d is not None
+						w = ProblemSet.HARDNESS_CHART[d]
+						total += w
+				self.data["clubs_max"] = f"max {1+total} | high {high_clubs} | min {min_clubs}"
 			else:
 				self.data["clubs_max"] = None
 		else:
