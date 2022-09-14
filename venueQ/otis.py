@@ -267,7 +267,19 @@ class Inquiries(VenueQNode):
 		super().on_buffer_close(data)
 		if data['approve_all']:
 			if query_otis_server(payload={'action': 'approve_inquiries'}):
-				self.delete()
+				body = "This is an automated message to notify you that your recent unit petition\n"
+				body += f"was processed on {datetime.utcnow().strftime('%-d %B %Y, %H:%M')} UTC."
+				body += "\n\n"
+				body += f"Have a nice {datetime.utcnow().strftime('%A')}."
+				bcc_addrs = list(set(inquiry['student__user__email'] for inquiry in data['inquiries']))
+				subject = "OTIS unit petition processed"
+				try:
+					send_email(subject=subject, bcc=bcc_addrs, body=body)
+				except Exception as e:
+					logger.error(f"Email {subject} to {bcc_addrs} failed", exc_info=e)
+				else:
+					logger.info(f"Email {subject} to {bcc_addrs} sent!")
+					self.delete()
 
 
 class Suggestion(VenueQNode):
