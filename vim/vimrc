@@ -367,21 +367,22 @@ nnoremap <silent> <Space>c :CtrlPCurFile<CR>
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
 
 " git status
-nnoremap <Space>s :Git<CR>
-" other git commands
+nnoremap <Space>gg :Git<CR>
 nnoremap <Space>gb :Git blame<CR>
 nnoremap <Space>gd :Gdiffsplit<CR>
-nnoremap <Space>gw :Gwrite<CR>
+nnoremap <Space>g<CR> :Gwrite<CR>
+" git commit
+nnoremap <Space>gc :Git commit<CR>
 " git commit (current file)
-nnoremap <Space>gc :Git commit %<CR>
+nnoremap <Space>gw :Git commit %<CR>
 " git commit all
 nnoremap <Space>ga :Git commit --all<CR>
 " git create commit --amend [edit commit]
-nnoremap <Space>gec :Git commit --amend<CR>
+nnoremap <Space>gC :Git commit --amend<CR>
 " git commit --amend current file [edit write]
-nnoremap <Space>gew :Git commit % --amend<CR>
+nnoremap <Space>gW :Git commit % --amend<CR>
 " git commit --amend all [edit all]
-nnoremap <Space>gea :Git commit --all --amend<CR>
+nnoremap <Space>gA :Git commit --all --amend<CR>
 " git undo (really git read)
 nnoremap <Space>gu :Gread<CR>
 
