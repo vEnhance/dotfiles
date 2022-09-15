@@ -411,7 +411,7 @@ set directory=~/.vim/tmp
 
 set backspace=indent,eol,start
 set backup     " keep a backup file
-set cm=blowfish2
+set cryptmethod=blowfish2
 set completeopt=menuone,noselect,preview
 set conceallevel=2
 set cursorline
@@ -446,7 +446,7 @@ set showcmd    " display incomplete commands
 set smartcase
 set spell
 set splitright
-set t_Co=256
+set t_Co=256 " number of colors
 set tabstop=2
 set textwidth=0
 set updatetime=100
