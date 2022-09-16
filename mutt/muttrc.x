@@ -49,14 +49,14 @@ set wait_key = no
 set wrap = 78
 
 # Date format
-set date_format = "%a %m月%d日"
+set date_format = "%a %d日%m月"
 set index_format = "%3C %[%b%d]%Z%M %-10.10L %?X?%X📌&?%s"
-set pager_format = "%4C %Z %[%a %m月%d日%R] %.20n %s%* -- (%P)"
-set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4}).*/date +'Date: %a %m月%d日%R' -d '\\1'/e\""
+set pager_format = "%4C %Z %[%a %d日%m月%R] %.20n %s%* -- (%P)"
+set display_filter="exec sed -r \"s/^Date:\\s*(([F-Wa-u]{3},\\s*)?[[:digit:]]{1,2}\\s+[A-Sa-y]{3}\\s+[[:digit:]]{4}\\s+[[:digit:]]{1,2}:[[:digit:]]{1,2}(:[[:digit:]]{1,2})?\\s+[+-][[:digit:]]{4}).*/date +'Date: %a %d日%m月 %R' -d '\\1'/e\""
 
 # Composition settings
 set abort_nosubject = yes
-set attribution = "%f 於%[%A%m月%d日%R]寫道："
+set attribution = "%f於%[%A%d日%m月%R]寫道："
 set attribution_locale = "zh_TW.UTF-8"
 set autoedit = yes
 set edit_headers = yes
