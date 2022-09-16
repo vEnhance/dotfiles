@@ -559,23 +559,37 @@
 		\usepackage{listings}
 		\usepackage{mathrsfs}
 		\usepackage{textcomp}
-		\lstset{basicstyle=\footnotesize\ttfamily,
+		\lstset{basicstyle=\ttfamily\scriptsize,
+			backgroundcolor=\color{green!2!white},
+			breakatwhitespace=true,
+			breaklines=true,
+			commentstyle=\color{green!70!black},
+			frame=shadowbox,
+			frame=single,
+			identifierstyle=\color{green!20!black},
+			keywordstyle=\bfseries,
+			keywordstyle=\bfseries\color{blue},
 			numbers=left,
 			numbersep=5pt,
-			numberstyle=\tiny,
-			keywordstyle=\bfseries,
-			% title=\lstname,
+			numberstyle=\tiny\sffamily\itshape\color{black!60},
+			rulecolor=\color{blue!70!black},
+			rulesepcolor=\color{blue!30!black},
 			showstringspaces=false,
-			tabsize=4,
-			frame=single,
-			keywordstyle=\bfseries\color{blue},
-			commentstyle=\color{green!70!black},
-			identifierstyle=\color{green!20!black},
 			stringstyle=\color{orange},
-			breaklines=true,
-			breakatwhitespace=true,
-			frame=none
+			tabsize=4,
+		} % chktex 6
+		\lstdefinelanguage{gitcommit}{
+			alsoletter={:},
+			morecomment=[l]{|},
+			morekeywords={commit,Author:,Date:,chore,doc,edit,feat,fix,polish,style,tests,},
+			sensitive=true,
 		}
+		\lstdefinelanguage{gitlog}{
+			morekeywords={chore,doc,edit,feat,fix,polish,style,tests,},
+			morecomment=[s]{[}{]}, % chktex 9
+			sensitive=true,
+		}
+
 		\usepackage[shortlabels]{enumitem}
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
 		\usepackage{textcomp}
