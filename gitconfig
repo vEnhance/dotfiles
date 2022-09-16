@@ -36,7 +36,7 @@
 	ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(green)[%cr]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
 	lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]\\ %C(red)%d" --decorate --date=short
 	ll = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]\\ %C(red)%d" --decorate --date=short --stat
-	lt = log --pretty=format:"%C(yellow)%h\\ %C(green)[%cd]\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=local
+	lt = log --pretty=format:"%C(yellow)%h\\ %C(green)[%cd]\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=format:'%d%b %Y %H:%M'
 	tree = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
 	all = ls-tree -r HEAD --name-only
 	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
