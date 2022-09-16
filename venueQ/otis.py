@@ -110,6 +110,8 @@ class ProblemSet(VenueQNode):
 	PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI])(R?)\}')
 	GOAL_RE = re.compile(r'^\\goals\{([0-9]+)\}\{([0-9]+)\}')
 
+	ext: Optional[str] = None
+
 	def get_initial_data(self) -> Data:
 		return {
 			'action': 'grade_problem_set',
@@ -118,7 +120,10 @@ class ProblemSet(VenueQNode):
 	def get_name(self, data: Data) -> str:
 		return str(data['pk'])
 
-	def get_path(self, ext='pdf'):
+	def get_path(self, ext: Optional[str] = None):
+		if ext is None:
+			assert self.ext is not None
+			ext = self.ext
 		assert ext in ProblemSet.EXTENSIONS
 		fname = f'otis_{self.data["pk"]:06d}'
 		fname += '_'
@@ -134,6 +139,7 @@ class ProblemSet(VenueQNode):
 		self.data['approved'] = True
 		for ext in ProblemSet.EXTENSIONS:
 			if self.get_path(ext).exists():
+				self.ext = ext
 				break
 		else:
 			url = f"https://storage.googleapis.com/otisweb-media/{self.data['upload__content']}"
@@ -141,8 +147,9 @@ class ProblemSet(VenueQNode):
 			ext = ext.lstrip('.')
 			assert ext in ProblemSet.EXTENSIONS
 			file_response = requests.get(url=url)
-			self.get_path(ext).write_bytes(file_response.content)
-			self.get_path(ext).chmod(0o666)
+			self.ext = ext
+			self.get_path().write_bytes(file_response.content)
+			self.get_path().chmod(0o666)
 
 		if HANDOUTS_PATH.exists():
 			filename = f'**/{self.data["unit__code"]}-{self.data["unit__group__slug"]}.tex'
@@ -176,17 +183,15 @@ class ProblemSet(VenueQNode):
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
 		self.edit_temp(extension='mkd')
-		for ext in ProblemSet.EXTENSIONS:
-			if (p := self.get_path(ext)).exists():
-				if ext == 'pdf':
-					tool = 'zathura'
-				elif ext == 'tex' or ext == 'txt':
-					tool = 'gvim'
-				elif ext == 'png' or ext == 'jpg':
-					tool = 'feh'
-				else:
-					raise AssertionError
-				subprocess.Popen([tool, p.absolute()])
+		if self.ext == 'pdf':
+			tool = 'zathura'
+		elif self.ext == 'tex' or self.ext == 'txt':
+			tool = 'gvim'
+		elif self.ext == 'png' or self.ext == 'jpg':
+			tool = 'feh'
+		else:
+			raise AssertionError
+		subprocess.Popen([tool, self.get_path().absolute()])
 
 	def compose_email_body(self, data: Data, comments: str) -> str:
 		salutation = random.choice(["Hi", "Hello", "Hey"])
@@ -259,6 +264,8 @@ class ProblemSet(VenueQNode):
 					logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 				else:
 					logger.info(f"Email {subject} to {recipient} sent!")
+					if data['rejected']:
+						self.get_path().unlink()
 					self.delete()
 
 
