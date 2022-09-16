@@ -65,6 +65,7 @@
 \newif\ifevancolorsec\evancolorsecfalse
 \newif\ifevantitlemark\evantitlemarktrue
 \newif\ifevanvonenabled\evanvonenabledfalse
+\newif\ifevanbritish\evanbritishtrue
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
@@ -104,6 +105,9 @@
 
 \DeclareOption{hints}{\evanhintstrue}
 \DeclareOption{von}{\evanvonenabledtrue}
+
+\DeclareOption{british}{\evanbritishtrue}
+\DeclareOption{american}{\evanbritishfalse}
 
 \ProcessOptions\relax
 
@@ -580,6 +584,10 @@
 		\usepackage{mathtools}
 		\usepackage{microtype}
 		\usepackage{xstring}
+		\ifevanbritish
+			% Use day-first date format
+			\usepackage[cleanlook,british]{isodate}
+		\fi
 
 		% a list I like for walkthrough's --- Drew-style parts
 		\newlist{walk}{enumerate}{3}
