@@ -36,7 +36,7 @@ puid, source = chosen.strip().split('\t')
 EDITOR = os.environ.get('EDITOR', 'vim')
 
 resp = requests.post(
-	OTIS_API_URL, data={
+	OTIS_API_URL, json={
 		'action': 'get_hints',
 		'puid': puid,
 		'token': OTIS_WEB_TOKEN,
@@ -50,10 +50,12 @@ old_hints = resp.json()['hints']
 
 initial_message = yaml.dump(
 	{
-		'puid': puid,
-		'number': '<++>',
-		'keywords': '<++>',
-		'content': '<++>',
+		'new_hints':
+			[{
+				'number': '<++>',
+				'keywords': '<++>',
+				'content': '<++>',
+			} for _ in range(4)],
 		'old_hints': old_hints,
 	},
 	sort_keys=False
@@ -84,29 +86,33 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
 	# for instance:
 	tf.seek(0)
 	edited_message = tf.read()
+	edited_message = edited_message.replace(b'\t', b'  ')
+	edited_message = edited_message.replace(b'<++>', b'null')
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
 
-if type(result) == dict and result.get('content', '<++>') != '<++>':
-	content = result['content'].strip()
+if type(result) == dict and 'new_hints' in result:
+	hint_dicts = [
+		d for d in result['new_hints'] if (
+			(type(d.get('number')) == int) and (d.get('keywords') is not None) and
+			(d.get('content') is not None) and len(d.keys()) == 3
+		)
+	]
+	if len(hint_dicts) == 0:
+		print("Aborting because no content.")
+		sys.exit(4)
 
-	pyperclip.copy(content)
 	data = {
-		'action': 'add_hints',
+		'action': 'add_many_hints',
 		'token': OTIS_WEB_TOKEN,
 		'puid': puid,
-		'content': content,
+		'hints': hint_dicts,
 	}
-	if 'number' in result and type(result['number']) == int:
-		data['number'] = result['number']
-	if 'keywords' in result and type(result['keywords']) == str and result['keywords'].strip():
-		data['keywords'] = result['keywords']
-	resp = requests.post(OTIS_API_URL, data=data)
+	resp = requests.post(OTIS_API_URL, json=data)
+
 	if resp.status_code == 200:
-		pk = resp.json()['pk']
-		url = f"https://otis.evanchen.cc/arch/pk/{pk}/"
-		print(url)
+		url = r'https://otis.evanchen.cc/arch/' + puid
+		print(f"Added {len(resp.json()['pks'])} new hints; see {url}.")
 		pyperclip.copy(url)
-		pass
 	else:
 		print(f"Got a reply of {resp.status_code} from server when adding hints.")
 else:
