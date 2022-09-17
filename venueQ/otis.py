@@ -180,6 +180,11 @@ class ProblemSet(VenueQNode):
 		else:
 			self.data["clubs_max"] = None
 
+		# stop getting trolled by the kids
+		if self.data['unit__group__slug'] == 'dummy':
+			self.data['clubs'] = min(self.data['clubs'], 1)
+			self.data['hours'] = min(self.data['hours'], 2)
+
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
 		self.edit_temp(extension='mkd')
