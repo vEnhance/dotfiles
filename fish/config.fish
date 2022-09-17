@@ -152,6 +152,7 @@ alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias lisp='sbcl --script'
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias pdb='python -m pdb -c continue'
+alias poetry-outdated='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
 alias putclip="xsel --clipboard"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias todo='task ready'
@@ -169,7 +170,7 @@ alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
 # OTIS venue Q
 alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
-alias psoa='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
+
 
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
