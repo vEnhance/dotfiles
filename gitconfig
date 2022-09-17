@@ -51,9 +51,9 @@
 	sub = submodule
 
 	bis = bisect
-	dc = checkout -- # discard
+	discard = checkout --
 	undo = reset --mixed HEAD@{1}
-	unst = reset HEAD
+	unstage = restore --staged
 
 	ds = diff --staged # queued changes staged; much shorter
 	dt = difftool # diff edit
