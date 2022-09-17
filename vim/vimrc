@@ -302,10 +302,10 @@ nnoremap -h <C-w>h
 nnoremap -l <C-w>l
 nnoremap -j <C-w>j
 nnoremap -k <C-w>k
-" split
-nnoremap -s <C-w>s
+" split (match nerdtree)
+nnoremap -i :split<CR>
 " n for new; easier to reach than -v
-nnoremap -n <C-w>v
+nnoremap -s :vsplit<CR>
 " use WASD-like keys for quickly shoving around windows
 " since the minus sign is on the right hand side
 nnoremap -o <C-w>H
