@@ -174,7 +174,7 @@ class ProblemSet(VenueQNode):
 						assert d is not None
 						w = ProblemSet.HARDNESS_CHART[d]
 						total += w
-				self.data["clubs_max"] = f"max {1+total} | high {high_clubs} | min {min_clubs}"
+				self.data["clubs_max"] = f"max {1+total} | hi {high_clubs} | min {min_clubs}"
 			else:
 				self.data["clubs_max"] = None
 		else:
