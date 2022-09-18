@@ -1,3 +1,10 @@
+# Evan Chen's dotfiles
+
+![License](https://img.shields.io/github/license/vEnhance/dotfiles)
+![Last commit](https://img.shields.io/github/last-commit/vEnhance/dotfiles)
+![Forks](https://img.shields.io/github/forks/vEnhance/dotfiles)
+![Stars](https://img.shields.io/github/stars/vEnhance/dotfiles)
+
 These are the dotfiles for [Evan Chen](https://web.evanchen.cc).
 It's obviously mostly meant for personal use in keeping my dotfiles
 synced across all my operating systems.
