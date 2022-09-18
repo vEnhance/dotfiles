@@ -15,14 +15,14 @@ if [ "$#" -eq 0 ]; then
 			echo "Nothing to commit, working tree clean"
 		else
 			echo -e "Nothing staged, so running \e[1;36mgit commit -a --amend --no-edit\e[m."
-			echo -e "\e[0;35m----------------------------------------------------------\e[m"
+			echo -e "\e[0;35m-----------------------------------------------------------\e[m"
 			git commit -a --amend --no-edit
 		fi
 	else
-		echo -e "\e[0;35m----------------------------------------------------------\e[m"
+		echo -e "\e[0;35m-----------------------------------------------------------\e[m"
 		git commit --amend --no-edit
 	fi
 else
-	echo -e "\e[0;35m----------------------------------------------------------\e[m"
+	echo -e "\e[0;35m-----------------------------------------------------------\e[m"
 	git commit --amend "$@"
 fi
