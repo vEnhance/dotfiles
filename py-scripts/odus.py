@@ -9,7 +9,7 @@ import collections
 import glob
 import os
 import re
-from typing import DefaultDict
+from typing import DefaultDict, Dict, Tuple
 
 import von.api
 from von.model import VonCache, VonIndex
@@ -64,6 +64,7 @@ parser.add_argument('files', nargs='*', help='List of files to scrape.')
 args = parser.parse_args()
 VON_RE = re.compile(r'^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}')
 PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI])(R?)\}')
+GOAL_RE = re.compile(r'^\\goals\{([0-9]+)\}\{([0-9]+)\}')
 
 if len(args.files) == 0:
 	path_tex = os.path.join(os.environ.get("HOME", ""), "ProGamer/OTIS/Materials/**/*.tex")
@@ -77,6 +78,7 @@ else:
 repeat_count_dict: DefaultDict[str, int] = collections.defaultdict(int)
 seen: DefaultDict[str, dict] = collections.defaultdict(dict)  # only if detect_missing is False
 seen_set = set()  # only if detect_missing is True
+goals: Dict[str, Tuple[int, int]] = {}
 
 hardness_chart = {
 	'E': 2,
@@ -101,6 +103,9 @@ for fn in files:
 				d, r = m.groups()
 				w = hardness_chart[d]
 				seen[f'ANONYMOUS {fn}:{n:03d}'][fn] = (w, r)
+			elif (m := GOAL_RE.match(line)) is not None:
+				a, b = m.groups()
+				goals[fn] = (int(a), int(b))
 
 if detect_missing is False:
 	num_repeats = 0
@@ -145,11 +150,12 @@ if detect_missing is False:
 
 		num_problems = sum(1 for data in seen.values() if fn in data and data[fn][0] > 0)
 		num_points = sum(data[fn][0] for data in seen.values() if fn in data and data[fn][0] > 0)
-		print(
-			APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") + " " * 3 +
-			APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") + " " * 3 + f"{num_points:3}♣" + " " * 3 +
-			APPLY_COLOR("CYAN", basename)
-		)
+		seperator = "   "
+		summary_output = APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") + seperator
+		summary_output += APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") + seperator
+		summary_output += f"♣[{num_points:3}; hi {goals[fn][1]:2}; min {goals[fn][0]:2}]" + " "
+		summary_output += APPLY_COLOR("CYAN", basename) + seperator
+		print(summary_output)
 
 else:
 	if args.all is True:
