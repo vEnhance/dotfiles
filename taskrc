@@ -42,7 +42,7 @@ color.overdue=rgb440
 color.scheduled=rgb033
 
 report.brief.columns=due.relative,id,description.truncated,urgency
-report.brief.filter=status:pending
+report.brief.filter=+READY
 report.brief.sort=urgency-
 
 report.next.description=List of tasks that could be started
