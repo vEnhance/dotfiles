@@ -48,6 +48,7 @@
 	pushup = push --set-upstream origin HEAD
 	rb = rebase -i
 	rbc = rebase --continue
+	rw = commit --amend # reword
 	sub = submodule
 
 	bis = bisect
