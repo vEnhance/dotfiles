@@ -229,6 +229,10 @@ mode "ponymix" {
 	bindsym j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh j
 	bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh m, mode "default"
 	bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
+	bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh M, mode "default"
+	bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh W, mode "default"
+
+	# switch devices
 	bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh l, mode "default"
 	bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
 	bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh s, mode "default"
@@ -247,7 +251,6 @@ mode "ponymix" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+g exec i3-sensible-terminal -e "ranger"
 # }}}
 
 # executable {{{
