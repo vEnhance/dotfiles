@@ -38,6 +38,7 @@ if [ "$(hostname)" = ArchScythe ]; then
 	synclient RightButtonAreaTop=0
 	# synclient RightButtonAreaLeft=0
 	# synclient RightButtonAreaRight=1560
+	keychain --quiet
 	export $(keychain --query --quiet)
 fi
 
@@ -47,6 +48,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
 	synclient RightButtonAreaTop=0
 	synclient VertScrollDelta=-237   # Natural scroll for touchpads
+	keychain --quiet
 	export $(keychain --query --quiet)
 	# replace the useless menu key with extra ctrl
 	xmodmap -e "remove Control = Control_R"
@@ -65,6 +67,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		export GDK_SCALE=2
 	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	keychain --quiet
 	export $(keychain --query --quiet)
 fi
 
@@ -83,10 +86,13 @@ if [ "$(hostname)" = ArchMajestic ]; then
 		xset dpms 1800 1800 1800
 	fi
 	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
+	keychain --quiet
+	export $(keychain --query --quiet)
+	# export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
 if [ "$(hostname)" = dagobah ]; then
+	keychain --quiet
  	export $(keychain --query --quiet)
 fi
 
