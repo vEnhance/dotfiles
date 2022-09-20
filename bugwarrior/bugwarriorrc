@@ -14,9 +14,4 @@ github.include_user_issues = False
 github.include_user_repos = False
 github.only_if_assigned=vEnhance
 
-# NOTE TO SELF: install taskw via
-# pip install git+https://github.com/ralphbean/taskw@develop
-# in order to avoid death and destruction because of
-# https://github.com/ralphbean/bugwarrior/issues/805
-
 # vim: ft=toml
