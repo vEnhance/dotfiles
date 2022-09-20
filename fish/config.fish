@@ -51,7 +51,7 @@ function fish_greeting
 	printf ".\n"
 	set_color --italics $fish_color_date
 	printf "It is "
-	printf (date)
+	printf (date +'%a %d %b %Y, %R %Z')
 	printf ".\n"
 	set_color normal
 end
@@ -90,12 +90,17 @@ function fish_prompt
 end
 
 function fish_right_prompt
+	set_color normal
 	if set -q VIRTUAL_ENV
-		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal) " "
+		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal)
 	end
 	set_color normal
 	printf '%s ' (__fish_git_prompt)
 	set_color normal
+	set_color $fish_color_date
+	printf "["
+	printf (date +'%R')
+	printf "]"
 end
 
 function fish_right_prompt_loading_indicator -a last_prompt
