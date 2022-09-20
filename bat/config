@@ -8,7 +8,7 @@
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
-#--italic-text=always
+--italic-text=always
 
 # Uncomment the following line to disable automatic paging:
 #--paging=never
