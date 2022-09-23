@@ -28,7 +28,8 @@
 	linenumber = green
 	match = red bold
 [push]
-	default = simple
+	default = current
+	autoSetupRemote = true
 [pull]
 	rebase = true
 
@@ -45,7 +46,6 @@
 	cm = commit
 	co = checkout
 	force = push --force-with-lease
-	pushup = push --set-upstream origin HEAD
 	rb = rebase -i
 	rbc = rebase --continue
 	rw = commit --amend # reword
