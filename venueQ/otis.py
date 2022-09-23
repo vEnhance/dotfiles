@@ -1,4 +1,5 @@
 import os
+import pprint
 import random
 import re
 import smtplib
@@ -110,6 +111,24 @@ class ProblemSet(VenueQNode):
 	PROB_RE = re.compile(r'^\\begin\{prob([EMHZXI])(R?)\}')
 	GOAL_RE = re.compile(r'^\\goals\{([0-9]+)\}\{([0-9]+)\}')
 
+	EXTRA_FIELDS = (
+		'student__user__email',
+		'student__user__first_name',
+		'student__user__last_name',
+		'next_unit_to_unlock__code',
+		'next_unit_to_unlock__group__name',
+		'unit__code',
+		'unit__group__name',
+		'unit__group__slug',
+		'student__reg__aops_username',
+		'student__reg__container__end_year',
+		'student__reg__country',
+		'student__reg__gender',
+		'student__reg__graduation_year',
+		'num_approved_all',
+		'num_approved_current',
+	)
+
 	ext: Optional[str] = None
 
 	def get_initial_data(self) -> Data:
@@ -127,32 +146,35 @@ class ProblemSet(VenueQNode):
 		assert ext in ProblemSet.EXTENSIONS
 		fname = f'otis_{self.data["pk"]:06d}'
 		fname += '_'
-		fname += self.data["student__user__first_name"][0]
-		fname += self.data["student__user__last_name"][0]
+		fname += self.data['name'].replace(' ', '_')
 		fname += '_'
-		fname += self.data["unit__code"]
-		fname += '_'
-		fname += self.data["unit__group__name"].replace(' ', '_')
+		fname += self.data['unit'].replace(' ', '_')
 		return OTIS_TMP_DOWNLOADS_PATH / f"{fname}.{ext}"
 
 	def init_hook(self):
-		self.data['approved'] = True
-		for ext in ProblemSet.EXTENSIONS:
-			if self.get_path(ext).exists():
-				self.ext = ext
-				break
-		else:
-			url = f"https://storage.googleapis.com/otisweb-media/{self.data['upload__content']}"
-			_, ext = os.path.splitext(self.data['upload__content'])
-			ext = ext.lstrip('.')
-			assert ext in ProblemSet.EXTENSIONS
-			file_response = requests.get(url=url)
-			self.ext = ext
-			self.get_path().write_bytes(file_response.content)
-			self.get_path().chmod(0o666)
+		data = self.data
 
+		# add/cleanup fields for grading
+		data['approved'] = True
+		grade = 12 - (
+			data['student__reg__graduation_year'] - data['student__reg__container__end_year']
+		)
+		data['info'] = f"{data['student__reg__country']} "
+		data['info'] += f"({grade}{data['student__reg__gender']}) "
+		data['info'] += f"aka {data['student__reg__aops_username']}"
+		data['info'] += r" | "
+		data['info'] += f"{data['num_approved_current']}u this year; "
+		data['info'] += f"{data['num_approved_all']}u all-time"
+		data['name'] = f"{data['student__user__first_name']} {data['student__user__last_name']}"
+		data['unit'] = f"{data['unit__code']} {data['unit__group__name']}"
+		# stop getting trolled by the kids
+		if data['unit__group__slug'] == 'dummy':
+			data['clubs'] = min(data['clubs'], 1)
+			data['hours'] = min(data['hours'], 2)
+
+		# collect data about the handout
 		if HANDOUTS_PATH.exists():
-			filename = f'**/{self.data["unit__code"]}-{self.data["unit__group__slug"]}.tex'
+			filename = f'**/{data["unit__code"]}-{data["unit__group__slug"]}.tex'
 			handouts = list(HANDOUTS_PATH.glob(filename))
 			if len(handouts) == 1:
 				total = 0
@@ -174,16 +196,31 @@ class ProblemSet(VenueQNode):
 						assert d is not None
 						w = ProblemSet.HARDNESS_CHART[d]
 						total += w
-				self.data["clubs_max"] = f"max {1+total} | hi {high_clubs} | min {min_clubs}"
+				data["clubs_max"] = f"max {1+total} | hi {high_clubs} | min {min_clubs}"
 			else:
-				self.data["clubs_max"] = None
+				data["clubs_max"] = None
 		else:
-			self.data["clubs_max"] = None
+			data["clubs_max"] = None
 
-		# stop getting trolled by the kids
-		if self.data['unit__group__slug'] == 'dummy':
-			self.data['clubs'] = min(self.data['clubs'], 1)
-			self.data['hours'] = min(self.data['hours'], 2)
+		# save file
+		for ext in ProblemSet.EXTENSIONS:
+			if self.get_path(ext).exists():
+				self.ext = ext
+				break
+		else:
+			url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
+			_, ext = os.path.splitext(data['upload__content'])
+			ext = ext.lstrip('.')
+			assert ext in ProblemSet.EXTENSIONS
+			file_response = requests.get(url=url)
+			self.ext = ext
+			self.get_path().write_bytes(file_response.content)
+			self.get_path().chmod(0o666)
+
+		# move extraneous data into an "xtra" dictionary
+		data['xtra'] = {}
+		for k in ProblemSet.EXTRA_FIELDS:
+			data['xtra'][k] = data.pop(k)
 
 	def on_buffer_open(self, data: Data):
 		super().on_buffer_open(data)
@@ -253,8 +290,13 @@ class ProblemSet(VenueQNode):
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
 
+		for k in ProblemSet.EXTRA_FIELDS:
+			data[k] = data['xtra'][k]
+		del data['xtra']
+
 		if data['approved'] and data['rejected']:
 			data['approved'] = False  # fix a common mistake :P
+		logger.debug(data)
 
 		comments_to_email = self.read_temp(extension='mkd').strip()
 		if (data['approved'] or data['rejected']) and comments_to_email != '':
@@ -383,7 +425,7 @@ class OTISRoot(VenueQRoot):
 		elif data['_name'] == 'Suggestions':
 			return SuggestionCarrier
 		else:
-			raise ValueError('wtf is ' + data['_name'])
+			raise ValueError(f"wtf is {data['_name']}")
 
 
 if __name__ == "__main__":
@@ -395,6 +437,9 @@ if __name__ == "__main__":
 		play_sound=False,
 	)
 	assert otis_response is not None
+	logger.debug(f"Server returned {otis_response.status_code}")
+	logger.debug(pprint.pformat(otis_response.headers))
+	logger.debug(pprint.pformat(otis_response.json()))
 
 	if PRODUCTION:
 		otis_dir = Path('~/ProGamer/OTIS/queue').expanduser()
