@@ -15,8 +15,6 @@ elif [[ "$lines" = *"$chosen"* ]]; then
 	killall -s USR1 py3status
 	task sync
 else
-	echo "sad"
-	exit
 	task add $chosen
 	killall -s USR1 py3status
 	task sync
