@@ -3,18 +3,20 @@ import logging
 import subprocess
 from pathlib import Path
 from pprint import pformat
-from typing import Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import yaml
 
-try:
-	import vim  # type: ignore
-
-except ImportError:
-	vim: Any = None  # squelch type errors, ty pyright
-	VIM_ENABLED = False
-else:
+if TYPE_CHECKING:
+	vim: Any = None
 	VIM_ENABLED = True
+else:
+	try:
+		import vim
+	except ImportError:
+		VIM_ENABLED = False
+	else:
+		VIM_ENABLED = True
 
 VENUE_NAME_FIELD = '_name'
 VENUE_CHILDREN_FIELD = '_children'
