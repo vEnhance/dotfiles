@@ -143,7 +143,7 @@ class ProblemSet(VenueQNode):
 		if ext is None:
 			assert self.ext is not None
 			ext = self.ext
-		assert ext in ProblemSet.EXTENSIONS
+		assert ext in ProblemSet.EXTENSIONS, f"{ext} is not a valid extension"
 		fname = f'otis_{self.data["pk"]:06d}'
 		fname += '_'
 		fname += self.data['name'].replace(' ', '_')
@@ -211,9 +211,10 @@ class ProblemSet(VenueQNode):
 			url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
 			_, ext = os.path.splitext(data['upload__content'])
 			ext = ext.lstrip('.')
-			assert ext in ProblemSet.EXTENSIONS
-			file_response = requests.get(url=url)
+			ext = ext.lower()
+			assert ext in ProblemSet.EXTENSIONS, f"{ext} is not a valid extension"
 			self.ext = ext
+			file_response = requests.get(url=url)
 			self.get_path().write_bytes(file_response.content)
 			self.get_path().chmod(0o666)
 
