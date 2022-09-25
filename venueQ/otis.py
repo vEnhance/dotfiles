@@ -439,7 +439,7 @@ if __name__ == "__main__":
 	)
 	assert otis_response is not None
 	logger.debug(f"Server returned {otis_response.status_code}")
-	logger.debug(pprint.pformat(otis_response.headers))
+	logger.debug(f"Headers:\n{pprint.pformat(dict(otis_response.headers))}")
 	logger.debug(pprint.pformat(otis_response.json()))
 
 	if PRODUCTION:
