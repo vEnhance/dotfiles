@@ -258,6 +258,7 @@ bindsym $mod+x mode "exec"
 mode "exec" {
 	bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
 	bindsym b exec libreoffice --calc &, mode "default"
+	bindsym c exec "xfce4-terminal --geometry 120x32 --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
 	bindsym d exec discord &, mode "default"
 	bindsym e exec epiphany &, mode "default"
 	bindsym f exec firefox &, mode "default"
