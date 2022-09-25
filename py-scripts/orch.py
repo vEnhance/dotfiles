@@ -16,6 +16,18 @@ OTIS_API_URL = 'https://otis.evanchen.cc/aincrad/api/'
 OTIS_WEB_TOKEN = os.getenv('OTIS_WEB_TOKEN')
 assert OTIS_WEB_TOKEN is not None
 
+yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str  # type: ignore
+
+
+def repr_str(dumper, data):
+	if '\n' in data:
+		data = data.replace("\r", "")
+		return dumper.represent_scalar(u'tag:yaml.org,2002:str', data, style='|')
+	return dumper.orig_represent_str(data)
+
+
+yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
+
 ids = json.loads(Path('~/Sync/otis-evil-data/evil.json').expanduser().read_text())
 choices = '\n'.join(k + '\t' + v for k, v in ids.items())
 
@@ -50,6 +62,7 @@ old_hints = resp.json()['hints']
 
 initial_message = yaml.dump(
 	{
+		'allow_delete_hints': False,
 		'new_hints':
 			[{
 				'number': '<++>',
@@ -58,7 +71,8 @@ initial_message = yaml.dump(
 			} for _ in range(4)],
 		'old_hints': old_hints,
 	},
-	sort_keys=False
+	sort_keys=False,
+	Dumper=yaml.SafeDumper,
 )
 initial_message += '\n' * 2
 statement = api.get_statement(source)
@@ -90,22 +104,27 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
 	edited_message = edited_message.replace(b'<++>', b'null')
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
 
-if type(result) == dict and 'new_hints' in result:
-	hint_dicts = [
-		d for d in result['new_hints'] if (
-			(type(d.get('number')) == int) and (d.get('keywords') is not None) and
-			(d.get('content') is not None) and len(d.keys()) == 3
-		)
-	]
-	if len(hint_dicts) == 0:
-		print("Aborting because no content.")
-		sys.exit(4)
+if type(result) == dict:
+	if 'new_hints' in result:
+		new_hint_dicts = [
+			d for d in result['new_hints'] if (
+				(type(d.get('number')) == int) and (d.get('keywords') is not None) and
+				(d.get('content') is not None) and len(d.keys()) == 3
+			)
+		]
+		if len(new_hint_dicts) == 0:
+			print("Aborting because no content.")
+			sys.exit(4)
+	else:
+		new_hint_dicts = []
 
 	data = {
 		'action': 'add_many_hints',
 		'token': OTIS_WEB_TOKEN,
 		'puid': puid,
-		'hints': hint_dicts,
+		'new_hints': new_hint_dicts,
+		'old_hints': result['old_hints'],
+		'allow_delete_hints': result['allow_delete_hints'],
 	}
 	resp = requests.post(OTIS_API_URL, json=data)
 
