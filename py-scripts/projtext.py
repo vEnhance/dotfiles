@@ -1,4 +1,4 @@
-#!/bin/python
+#!/bin/python3
 """
 pɹɑdʒɪ̈kt tɛkst"
 
@@ -6,12 +6,12 @@ This trivial script displays the clipboard contents in a large font. It is meant
 
 By default, it reads from standard input.
 If there is no standard input, it uses clipboard contents.
-
 """
 
-from tkinter import Tk, Button, Text, INSERT, Label
-import pyperclip
 import sys
+from tkinter import INSERT, Button, Label, Text, Tk
+
+import pyperclip
 
 # Python program to create a close button
 # using destroy Class method

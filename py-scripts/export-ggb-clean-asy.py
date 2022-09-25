@@ -1,18 +1,24 @@
-import pyperclip
+#!/bin/python3
+
+import io
 import re
 import string
-import io
 import traceback
 
+import pyperclip
+
 banner = "# Evan's GGB to Asy Cleanup script #"
-print("#"*len(banner))
+print("#" * len(banner))
 print("# Evan's GGB to Asy Cleanup script #")
-print("#"*len(banner))
+print("#" * len(banner))
 print()
 
 fat_decimal_regex = re.compile(r'(\d+\.\d{5})\d+')
+
+
 def replace_numbers(s):
 	return fat_decimal_regex.sub(r"\1", s)
+
 
 clipboard_contents = pyperclip.paste()
 try:
@@ -21,14 +27,14 @@ try:
 
 	first_line = input_buffer.readline()
 	assert "Geogebra to Asymptote conversion" in first_line,\
-			"First line is missing header\n" + first_line
+    "First line is missing header\n" + first_line
 	# print(r'/* start ggb to asy preamble */', file=output_buffer)
 	points_dict = {}
 
 	# preamble
 	for line in input_buffer:
 		line = replace_numbers(line).strip()
-		if not line: # end preamble
+		if not line:  # end preamble
 			# print(r'/* end preamble */', file=output_buffer)
 			break
 		elif "real labelscalefactor" in line:
@@ -51,11 +57,11 @@ try:
 	# process figures
 	for line in input_buffer:
 		line = replace_numbers(line).strip()
-		if line == "/* dots and labels */": # end figures
+		if line == "/* dots and labels */":  # end figures
 			break
-		elif line == "/* draw figures */": # ignore this line
+		elif line == "/* draw figures */":  # ignore this line
 			continue
-		elif "grid" in line: # delete grid
+		elif "grid" in line:  # delete grid
 			continue
 		line = line.replace("linewidth(2.)", "linewidth(0.6)")
 		print(line.strip(), file=output_buffer)
@@ -66,7 +72,7 @@ try:
 
 	while True:
 		dot_line = replace_numbers(input_buffer.readline().strip())
-		if dot_line == r"/* end of picture */": # end of file
+		if dot_line == r"/* end of picture */":  # end of file
 			break
 		dot_match = dot_regex.match(dot_line)
 		if dot_match is None:
@@ -86,11 +92,11 @@ try:
 			coords = eval(point)
 
 		if coords is None:
-			print(r'dot("%s", %s, dir(45));' %(label, point), file=output_buffer)
+			print(r'dot("%s", %s, dir(45));' % (label, point), file=output_buffer)
 		else:
-			dx = 100*(label_loc[0]-coords[0])
-			dy = 100*(label_loc[1]-coords[1])
-			print(r'dot("%s", %s, dir((%.3f, %.3f)));' %(label, point, dx, dy), file=output_buffer)
+			dx = 100 * (label_loc[0] - coords[0])
+			dy = 100 * (label_loc[1] - coords[1])
+			print(r'dot("%s", %s, dir((%.3f, %.3f)));' % (label, point, dx, dy), file=output_buffer)
 
 	output = output_buffer.getvalue()
 	print(output[:500] + '\n...\n' + output[-500:])
@@ -102,6 +108,6 @@ except:
 	print("Input:")
 	print()
 	print(clipboard_contents[0:500] + '...')
-	print('-'*40 + '\n')
+	print('-' * 40 + '\n')
 	traceback.print_exc()
 	response = input("Failed. Press ENTER to continue... ")
