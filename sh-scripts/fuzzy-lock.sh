@@ -126,7 +126,7 @@ if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
 	killall -s CONT ctwenty.py
 fi
 if [ "$(hostname)" = ArchDiamond -a "$(whoami)" = evan ]; then
-	xset dpms 900 900 900
+	xset dpms 14400 14400 14400
 	killall -s CONT ctwenty.py
 fi
 
