@@ -7,6 +7,16 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import yaml
 
+yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str  # type: ignore
+
+def repr_str(dumper: yaml.SafeDumper , data: str) -> yaml.ScalarNode:
+	if '\n' in data:
+		data = data.replace("\r", "")
+		return dumper.represent_scalar(u'tag:yaml.org,2002:str', data, style='|')
+	return dumper.orig_represent_str(data) # type: ignore
+
+yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
+
 if TYPE_CHECKING:
 	vim: Any = None
 	VIM_ENABLED = True
@@ -197,8 +207,8 @@ class VenueQNode:
 
 	def dump(self):
 		"""This method serializes the dictionary object to save to disk.
-		Override it to change how the data on disk is interpreted."""
-		return yaml.dump(self.data, indent=True, default_flow_style=False)
+		Override it to change how the data on disk is written."""
+		return yaml.dump(self.data, Dumper=yaml.SafeDumper, allow_unicode=True)
 
 	def on_buffer_open(self, data: Data):
 		"""This method is called when the buffer is loaded.
