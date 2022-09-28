@@ -437,9 +437,12 @@ if __name__ == "__main__":
 		play_sound=False,
 	)
 	assert otis_response is not None
+	json = otis_response.json()
 	logger.debug(f"Server returned {otis_response.status_code}")
 	logger.debug(f"Headers:\n{pprint.pformat(dict(otis_response.headers))}")
-	logger.debug(pprint.pformat(otis_response.json()))
+	logger.debug(f"NAME: {json['_name']}")
+	logger.debug(f"TIME: {json['timestamp']}")
+	logger.debug(f"ITEMS: {pprint.pformat(json['_children'], indent=0, width=100)}")
 
 	if PRODUCTION:
 		otis_dir = Path('~/ProGamer/OTIS/queue').expanduser()
