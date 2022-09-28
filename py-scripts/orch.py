@@ -75,6 +75,7 @@ initial_message = yaml.dump(
 	},
 	sort_keys=False,
 	Dumper=yaml.SafeDumper,
+	allow_unicode=True
 )
 initial_message += '\n' * 2
 statement = api.get_statement(source)
