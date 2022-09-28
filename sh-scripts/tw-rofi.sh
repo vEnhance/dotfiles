@@ -13,9 +13,7 @@ elif [[ "$lines" = *"$chosen"* ]]; then
 	echo $taskid
 	task $taskid done
 	killall -s USR1 py3status
-	task sync
 else
 	task add $chosen
 	killall -s USR1 py3status
-	task sync
 fi
