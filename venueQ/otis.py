@@ -121,12 +121,12 @@ class ProblemSet(VenueQNode):
 		'unit__group__name',
 		'unit__group__slug',
 		'student__reg__aops_username',
-		'student__reg__container__end_year',
+		'student__reg__container__semester__end_year',
 		'student__reg__country',
 		'student__reg__gender',
 		'student__reg__graduation_year',
-		'num_approved_all',
-		'num_approved_current',
+		'num_accepted_all',
+		'num_accepted_current',
 	)
 
 	ext: Optional[str] = None
@@ -155,16 +155,18 @@ class ProblemSet(VenueQNode):
 		data = self.data
 
 		# add/cleanup fields for grading
-		data['approved'] = True
+		if data['status'] == 'P':
+			data['status'] = 'A'
 		grade = 12 - (
-			data['student__reg__graduation_year'] - data['student__reg__container__end_year']
+			data['student__reg__graduation_year'] -
+			data['student__reg__container__semester__end_year']
 		)
 		data['info'] = f"{data['student__reg__country']} "
 		data['info'] += f"({grade}{data['student__reg__gender']}) "
 		data['info'] += f"aka {data['student__reg__aops_username']}"
 		data['info'] += r" | "
-		data['info'] += f"{data['num_approved_current']}u this year; "
-		data['info'] += f"{data['num_approved_all']}u all-time"
+		data['info'] += f"{data['num_accepted_current']}u this year; "
+		data['info'] += f"{data['num_accepted_all']}u all-time"
 		data['name'] = f"{data['student__user__first_name']} {data['student__user__last_name']}"
 		data['unit'] = f"{data['unit__code']} {data['unit__group__name']}"
 		# stop getting trolled by the kids
@@ -260,7 +262,7 @@ class ProblemSet(VenueQNode):
 		body += '\n\n' + '-' * 40 + '\n\n'
 		body += f"- **Submission**: [ID {data['pk']}]({link})"
 		body += "\n"
-		if data['approved']:
+		if data['status'] == 'A':
 			body += r"- **Unit completed**: "
 			body += f"`{data['unit__code']}-{data['unit__group__slug']}`" + "\n"
 			body += r"- **Earned**: "
@@ -270,7 +272,7 @@ class ProblemSet(VenueQNode):
 				body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
 			else:
 				body += r"*None specified*"
-		elif data['rejected']:
+		elif data['status'] == 'R':
 			body += r"- Submission was rejected, see explanation above."
 		if data['feedback']:
 			body += "\n\n"
@@ -294,17 +296,14 @@ class ProblemSet(VenueQNode):
 		for k in ProblemSet.EXTRA_FIELDS:
 			data[k] = data['xtra'][k]
 		del data['xtra']
-
-		if data['approved'] and data['rejected']:
-			data['approved'] = False  # fix a common mistake :P
 		logger.debug(data)
 
 		comments_to_email = self.read_temp(extension='mkd').strip()
-		if (data['approved'] or data['rejected']) and comments_to_email != '':
+		if (data['status'] in ('A', 'R')) and comments_to_email != '':
 			if query_otis_server(payload=data) is not None:
 				body = self.compose_email_body(data, comments_to_email)
 				recipient = data['student__user__email']
-				verdict = "completed" if data['approved'] else "NOT ACCEPTED (action req'd)"
+				verdict = "completed" if data['status'] == 'A' else "NOT ACCEPTED (action req'd)"
 				subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} was {verdict}"
 				try:
 					send_email(subject=subject, recipients=[recipient], body=body)
@@ -312,7 +311,7 @@ class ProblemSet(VenueQNode):
 					logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
 				else:
 					logger.info(f"Email {subject} to {recipient} sent!")
-					if data['rejected']:
+					if data['status'] == 'R':
 						self.get_path().unlink()
 					self.delete()
 
@@ -324,12 +323,12 @@ class ProblemSetCarrier(VenueQNode):
 
 class Inquiries(VenueQNode):
 	def init_hook(self):
-		self.data['approve_all'] = False
+		self.data['accept_all'] = False
 
 	def on_buffer_close(self, data: Data):
 		super().on_buffer_close(data)
-		if data['approve_all']:
-			if query_otis_server(payload={'action': 'approve_inquiries'}):
+		if data['accept_all']:
+			if query_otis_server(payload={'action': 'accept_inquiries'}):
 				body = "This is an automated message to notify you that your recent unit petition\n"
 				body += f"was processed on {datetime.utcnow().strftime('%-d %B %Y, %H:%M')} UTC."
 				body += "\n\n"
