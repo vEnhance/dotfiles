@@ -8,3 +8,6 @@
 **/*Cache*/**
 **.min.js
 migrations/**
+**.pytxcode
+**.pytxmcr
+**.aux
