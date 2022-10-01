@@ -112,6 +112,7 @@ class ProblemSet(VenueQNode):
 	GOAL_RE = re.compile(r'^\\goals\{([0-9]+)\}\{([0-9]+)\}')
 
 	EXTRA_FIELDS = (
+		'student__pk',
 		'student__user__email',
 		'student__user__first_name',
 		'student__user__last_name',
@@ -253,20 +254,34 @@ class ProblemSet(VenueQNode):
 				"Sincerely",
 			]
 		)
-		body = f"{salutation} {data['student__user__first_name']},"
-		body += "\n\n" + comments + "\n\n"
-		body += "If you have questions or comments, or need anything else, "
-		body += "reply directly to this email." + "\n\n"
-		body += f"{closing},\n\nEvan (aka OTIS Overlord)"
-		link = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
+
+		student_name = f"{data['student__user__first_name']} {data['student__user__last_name']}"
+
+		body = (
+			f"{salutation} {data['student__user__first_name']},\n\n"
+			f"{comments}\n\n"
+			"If you have questions or comments, or need anything else, "
+			"reply directly to this email.\n\n"
+			f"{closing},\n\n"
+			"Evan (aka OTIS Overlord)"
+		)
+		link_to_portal = f"https://otis.evanchen.cc/dash/portal/{data['student__pk']}/"
+		link_to_pset = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
+
 		body += '\n\n' + '-' * 40 + '\n\n'
-		body += f"- **Submission**: [ID {data['pk']}]({link})"
-		body += "\n"
+		body += (
+			r"- **Sent to**: "
+			f"[{student_name}]({link_to_portal}) "
+			f"《{data['student__user__email']}》\n"
+			f"- **Submission**: [ID {data['pk']}]({link_to_pset})\n"
+		)
 		if data['status'] == 'A':
-			body += r"- **Unit completed**: "
-			body += f"`{data['unit__code']}-{data['unit__group__slug']}`" + "\n"
-			body += r"- **Earned**: "
-			body += f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts" + "\n"
+			body += (
+				r"- **Unit completed**: "
+				f"`{data['unit__code']}-{data['unit__group__slug']}`\n"
+				r"- **Earned**: "
+				f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts\n"
+			)
 			body += r"- **Next unit**: "
 			if 'next_unit_to_unlock__code' in data:
 				body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
@@ -279,15 +294,11 @@ class ProblemSet(VenueQNode):
 			body += r"**Mini-survey response**:" + "\n"
 			if (s := os.getenv('MS_HEADER')) is not None:
 				body += "\n" + s + "\n\n"
-			body += r"```" + "\n"
-			body += data['feedback']
-			body += "\n" + r"```"
+			body += f"```\n{data['feedback']}\n```"
 		if data['special_notes']:
 			body += "\n\n"
 			body += r"**Special notes**:" + "\n"
-			body += r"```" + "\n"
-			body += data['special_notes']
-			body += "\n" + r"```"
+			body += f"```\n{data['special_notes']}\n```"
 		return body
 
 	def on_buffer_close(self, data: Data):
