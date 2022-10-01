@@ -42,12 +42,12 @@ if [ "$1" = j ]; then
 		"Global volume down" \
 		"Current volume $(ponymix decrease 5)%" -t $time
 fi
-if [ "$1" =  M ]; then
+if [ "$1" =  v ]; then
 	notify-send -i audio-volume-muted-symbolic \
 		"Global volume muted" \
 		"Once was volume $(ponymix mute)%" -t $time
 fi
-if [ "$1" = N ]; then
+if [ "$1" = z ]; then
 	notify-send -i audio-volume-low \
 		"Global volume unmuted" \
 		"Microphone volume is $(ponymix unmute)%" -t $time
