@@ -12,7 +12,6 @@ call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'ciaranm/detectindent'
-Plug 'haya14busa/incsearch.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'svintus/vim-editexisting'
 Plug 'tpope/vim-fugitive'
@@ -288,11 +287,6 @@ command! -bang -nargs=* BLinesExtra
 			\ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
 			\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
-
-" incsearch
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
 " }}}
 
 " MINUS KEYBINDINGS (window manager) {{{
