@@ -258,7 +258,7 @@ bindsym $mod+x mode "exec"
 mode "exec" {
 	bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
 	bindsym b exec libreoffice --calc &, mode "default"
-	bindsym c exec "xfce4-terminal --geometry 120x32 --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
+	bindsym c exec caprine &, mode "default"
 	bindsym d exec discord &, mode "default"
 	bindsym e exec epiphany &, mode "default"
 	bindsym f exec firefox &, mode "default"
@@ -274,10 +274,11 @@ mode "exec" {
 	bindsym o exec obs &, mode "default"
 	bindsym p exec python "$HOME/dotfiles/py-scripts/projtext.py" &, mode "default"
 	bindsym q exec qutebrowser &, mode "default"
+	bindsym r exec "xfce4-terminal --geometry 120x32 --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
 	bindsym s exec spotify &, mode "default"
 	bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
 	bindsym v exec gvim &, mode "default"
- # Open latest chapter of diary
+	# Open latest chapter of diary
 	bindsym x exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
 	bindsym y exec dynalist &, mode "default"
 	bindsym z exec zoom &, mode "default"
