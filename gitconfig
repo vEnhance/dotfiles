@@ -41,11 +41,13 @@
 	tree = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
 	all = ls-tree -r HEAD --name-only
 	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
+	l = ls
 
 	br = branch
 	cm = commit
 	co = checkout
 	force = push --force-with-lease
+	mkroot = commit --allow-empty -m 'Initial commit'
 	rb = rebase -i
 	rbc = rebase --continue
 	rw = commit --amend # reword
@@ -56,21 +58,22 @@
 	undo = reset --mixed HEAD@{1}
 	unstage = restore --staged
 
+	d = diff
 	ds = diff --staged # queued changes staged; much shorter
-	dt = difftool # diff edit
 	now = diff HEAD origin/main  # check comparison to upstream
 	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status # command for recently ADDED files
-	ss = status -s -b
+	s = status -s -b
 
-	asu = update-index --assume-unchanged
-	unasu = update-index --no-assume-unchanged
-	asud = "!git ls-files -v | grep ^h | cut -c 3-"
-	unasud = "!git assumed | xargs git update-index --no-assume-unchanged"
+	assume = update-index --assume-unchanged
+	unassume = update-index --no-assume-unchanged
+	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 
 [init]
 	defaultBranch = main
 [url "git@github.com:"]
 	insteadOf = http://github.com/
+[url "git@github.com:"]
+	insteadOf = https://github.com/
 [commit]
 	gpgSign = true
 	verbose = true
