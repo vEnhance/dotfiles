@@ -63,6 +63,7 @@
 	now = diff HEAD origin/main  # check comparison to upstream
 	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status # command for recently ADDED files
 	s = status -s -b
+	ss = status -s -b
 
 	assume = update-index --assume-unchanged
 	unassume = update-index --no-assume-unchanged
