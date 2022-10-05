@@ -33,6 +33,8 @@ import os
 import re
 import subprocess
 import time
+from pathlib import Path
+from typing import List
 
 import bs4
 import requests
@@ -93,36 +95,26 @@ def login(session, username, password):
 	)
 
 
-def get_foreign_packages():
-	return subprocess.check_output(('pacman', '-Qmq'), universal_newlines=True).splitlines()
+PATH_TO_VOTE = Path('~/Sync/pacman/').expanduser()
 
 
-def get_package_names_from_paclist(lines):
-	return [l.split(' ')[0] for l in lines]
+def get_used_aur_packages() -> set[str]:
+	out: List[str] = []
+	for fname in PATH_TO_VOTE.glob('*.vote.paclist'):
+		with open(fname) as f:
+			for line in f:
+				out.append(line.strip())
+	ret = set(out)
 
-
-def get_chaotic_packages():
-	try:
-		chaotic_lines = subprocess.check_output(
-			('paclist', 'chaotic-aur'),
-			universal_newlines=True,
-		).splitlines()
-	except subprocess.CalledProcessError as e:
-		assert e.returncode == 1
-		return []
-
-	chaotic_packages = get_package_names_from_paclist(chaotic_lines)
-	chaotic_packages = [
-		pkgname for pkgname in chaotic_packages if not pkgname.startswith('chaotic')
-	]
-	normal_lines = subprocess.check_output(
+	normal_packages_lines = subprocess.check_output(
 		('paclist', 'core', 'community', 'extra'),
 		universal_newlines=True,
 	).splitlines()
-	for pkgname in get_package_names_from_paclist(normal_lines):
-		if pkgname in chaotic_packages:
-			chaotic_packages.remove(pkgname)
-	return chaotic_packages
+	for line in normal_packages_lines:
+		pkgname = line.split(' ')[0]
+		if pkgname in ret:
+			ret.remove(pkgname)
+	return ret
 
 
 def get_voted_packages(session):
@@ -157,13 +149,19 @@ def unvote_package(session, package):
 
 # TODO: Handle split packages better
 def main(arguments):
-	password = os.environ.get('AUR_AUTO_VOTE_PASSWORD') or getpass.getpass('Password: ')
+	password = (
+		subprocess.run(
+			['secret-tool', 'lookup', 'user', 'vEnhance', 'type', 'aur'],
+			text=True,
+			capture_output=True,
+		).stdout or os.environ.get('AUR_AUTO_VOTE_PASSWORD') or getpass.getpass('Password: ')
+	)
 	ignores = tuple(re.compile(r) for r in arguments.ignore)
 	session = requests.Session()
 	if not login(session, arguments.username, password):
 		argument_parser.exit(EXIT_FAILURE, 'Could not login.\n')
 
-	voted_packages = tuple(p.name for p in sorted(get_voted_packages(session)))
+	voted_packages = set(tuple(p.name for p in sorted(get_voted_packages(session))))
 
 	# Unvote all packages and return immediately if --unvote-all was passed
 	if arguments.unvote_all:
@@ -177,8 +175,7 @@ def main(arguments):
 
 		return
 
-	good_packages = set(get_foreign_packages() + get_chaotic_packages())
-	voted_packages = set(voted_packages)
+	good_packages = get_used_aur_packages()
 	for package in sorted(good_packages.difference(voted_packages)):
 		if any(i.match(package) for i in ignores):
 			print('Not voting for ignored package:', package)
