@@ -7,34 +7,19 @@ on:
     branches: [ '*' ]
 
 jobs:
-  pyflakes:
+  python:
     runs-on: ubuntu-latest
-    name: "PyFlakes"
+    name: "Python"
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
+    - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pyflakes
+        python -m pip install --upgrade pyflakes yapf tomli
     - name: Run PyFlakes
       run: |
         pyflakes $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
-
-  yapf:
-    runs-on: ubuntu-latest
-    name: "YAPF"
-    steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-    - name: Set up Python
-      uses: actions/setup-python@v2
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade yapf
     - name: Run YAPF
       run: |
         yapf -d --style yapf/style $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
@@ -43,14 +28,47 @@ jobs:
     runs-on: ubuntu-latest
     name: "Spellcheck"
     steps:
-    - uses: actions/checkout@v2
-      with:
-        submodules: recursive
+    - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
     - name: Install dependencies
       run: |
         python -m pip install --upgrade codespell
-    - name: Run spellcheck
+    - name: Run codespell
       run: |
         codespell $(git ls-files '*.py')
+
+  vimscript:
+    runs-on: ubuntu-latest
+    name: "Vimscript"
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python
+      uses: actions/setup-python@v2
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade vim-vint
+    - name: Run vint
+      run: |
+        vint $(git ls-files '*.vim')
+
+  shell:
+    name: "Bash"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@master
+        env:
+          SHELLCHECK_OPTS: -e SC1090 -e SC1091
+        with:
+          ignore_names: git-eat-submodule
+          ignore_paths: '**/*.bash'
+
+      - name: Set up Go
+        uses: actions/setup-go@v3
+      - name: Install shfmt
+        run: go install mvdan.cc/sh/v3/cmd/shfmt@v3
+      - name: Run shfmt
+        run: |
+          $(go env GOPATH)/bin/shfmt -d $(git ls-files '*.sh')
