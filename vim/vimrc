@@ -29,6 +29,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'vim-scripts/YankRing.vim'
+Plug 'ypcrts/securemodelines'
 
 Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
 Plug 'cespare/vim-toml',             { 'for' : 'toml' }
