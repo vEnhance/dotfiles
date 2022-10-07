@@ -1,6 +1,7 @@
 # Evan Chen's dotfiles
 
 ![License](https://img.shields.io/github/license/vEnhance/dotfiles)
+[<img src="https://github.com/vEnhance/dotfiles/actions/workflows/ci.yml/badge.svg" alt="OTIS-WEB status">](https://github.com/vEnhance/otis-web/actions)
 ![Last commit](https://img.shields.io/github/last-commit/vEnhance/dotfiles)
 ![Forks](https://img.shields.io/github/forks/vEnhance/dotfiles)
 ![Stars](https://img.shields.io/github/stars/vEnhance/dotfiles)
