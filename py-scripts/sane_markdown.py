@@ -1,4 +1,5 @@
 import sys
+
 from markdown import markdown as _m
 
 PREAMBLE = r"""<!DOCTYPE html>
@@ -26,10 +27,10 @@ PREAMBLE = r"""<!DOCTYPE html>
 
 <script type="text/javascript">
 MathJax = {
-    tex: {
-        inlineMath: [['$','$'], ['\\(','\\)']],
-        displayMath: [['\\[', '\\]']],
-    }
+	tex: {
+		inlineMath: [['$','$'], ['\\(','\\)']],
+		displayMath: [['\\[', '\\]']],
+	}
 };
 </script>
 <script type="text/javascript" id="MathJax-script" async
@@ -43,8 +44,8 @@ MathJax = {
 
 
 def markdown(content):
-	return _m(content,
-		extensions=['extra', 'sane_lists', 'smarty'])
+	return _m(content, extensions=['extra', 'sane_lists', 'smarty'])
+
 
 if __name__ == "__main__":
 	if len(sys.argv) > 1:

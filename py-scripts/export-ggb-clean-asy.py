@@ -2,7 +2,6 @@
 
 import io
 import re
-import string
 import traceback
 
 import pyperclip
@@ -26,8 +25,7 @@ try:
 	output_buffer = io.StringIO()
 
 	first_line = input_buffer.readline()
-	assert "Geogebra to Asymptote conversion" in first_line,\
-    "First line is missing header\n" + first_line
+	assert "Geogebra to Asymptote conversion" in first_line, f"First line is missing header\n{first_line}"
 	# print(r'/* start ggb to asy preamble */', file=output_buffer)
 	points_dict = {}
 
