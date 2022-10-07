@@ -33,7 +33,7 @@ endfun
 
 setlocal omnifunc=mail#ABookComplete
 " flowed email from plain text
-setlocal fold+=w
+setlocal formatoptions+=w
 
 " r for recipient since ,t* is bound to _something_ (dunno what)
 nnoremap <localleader>r /^Cc:<CR>kA<space>
@@ -45,3 +45,5 @@ nnoremap <localleader>e gg}:read ~/dotfiles/mutt/templates/
 
 let g:airline#extensions#whitespace#trailing_regexp = '\t$\|\s\{2,\}$'
 let b:airline_whitespace_trailing_regexp = '\t$\|\s\{2,\}$'
+let b:ale_fixers = ['remove_trailing_lines',]
+let b:ale_linters = ['proselint', 'languagetool']

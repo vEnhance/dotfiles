@@ -5,4 +5,4 @@ nnoremap <localleader>a :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR><CR>:
 " tsq -> asy but show error
 nnoremap <localleader>o :update<CR>:!python -m tsq -p % \| asy -f pdf -<CR>
 
-let b:ale_linters = ['proselint']
+let b:ale_linters = ['proselint', 'languagetool']

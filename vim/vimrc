@@ -177,6 +177,7 @@ function! AirlineSetup()
 endfunction
 
 " ALE
+let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace' ] " by default
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_echo_msg_warning_str = 'W'
@@ -260,7 +261,7 @@ function! AddEmptyLineAbove()
 	endif
 endfunction
 function! AddEmptyLineBelow()
-call append(line("."), "")
+	call append(line("."), "")
 endfunction
 nnoremap < <<
 nnoremap > >>
@@ -282,7 +283,14 @@ nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 " Disable ex mode entirely
 nmap Q <nop>
-nnoremap <CR> :wall<CR>
+" Save command
+function! EvanSave()
+	if get(b:, 'ale_enabled', get(g:, 'ale_enabled', 0)) && get(b:, 'ale_fix_on_save', get(g:, 'ale_fix_on_save', 0))
+		ALEFix
+	endif
+	wall
+endfunction
+nnoremap <CR> :call EvanSave()<CR>
 
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
@@ -457,8 +465,6 @@ autocmd BufNewFile,BufRead *.asy setfiletype asy
 autocmd BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd BufNewFile,BufRead *.less setfiletype css
 autocmd BufNewFile,BufRead *.ics setfiletype icalendar
-autocmd FileType htmldjango let b:enabled_fixers=['html-beautify', 'remove_trailing_lines', 'trim_whitespace']
-
 autocmd User AirlineAfterTheme call AirlineSetup()
 autocmd BufRead * DetectIndent
 " }}}

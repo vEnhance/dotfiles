@@ -1,4 +1,4 @@
-let b:ale_linters = ['proselint', 'chktex']
+let b:ale_linters = ['proselint', 'chktex', 'languagetool',]
 let b:ale_fixers = ['remove_trailing_lines', 'trim_whitespace',]
 
 "TODO i think it might be time to switch packages
