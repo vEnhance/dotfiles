@@ -1,3 +1,4 @@
+scriptencoding 'utf-8'
 if !has('gui_running')
 	hi mkdLink ctermfg=87
 	hi link mkdHeading Special

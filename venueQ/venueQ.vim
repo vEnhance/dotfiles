@@ -28,8 +28,8 @@ EOF
 
 if !empty(get(g:, 'venue_entry', ''))
 	" Add the path to venueQ.py before this execution
-	exec "py3 sys.path.append('" . expand('<sfile>:p:h') . "')"
-	exec "py3file " . g:venue_entry
+	exec 'py3 sys.path.append("' . expand('<sfile>:p:h') . '")'
+	exec 'py3file ' . g:venue_entry
 	py3 setup()
 
 	" Window setup
@@ -45,5 +45,5 @@ if !empty(get(g:, 'venue_entry', ''))
 	augroup END
 
 else
-	echo "g:venue_entry is not set"
+	echo 'g:venue_entry is not set'
 endif
