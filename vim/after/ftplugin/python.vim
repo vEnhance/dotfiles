@@ -16,7 +16,6 @@ endif
 
 
 let b:ale_python_isort_options = '-m NOQA'
-let b:ale_python_yapf_options = '--style "{based_on_style: facebook, use_tabs: true}"'
 nnoremap <localleader>b eObreakpoint()<Esc>
 
 nnoremap <localleader>i :ImportName<CR><C-O>
