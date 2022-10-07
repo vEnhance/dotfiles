@@ -54,16 +54,16 @@ fi
 sink=${sink_names[$1]:-$1}
 
 (
-	echo set-default-sink $sink
+	echo set-default-sink "$sink"
 	pactl list sink-inputs short |
 		grep -v 'module-loopback.c' |
 		grep -oE '^[0-9]+' |
 		while read input; do
-			echo move-sink-input $input $sink
+			echo move-sink-input "$input" "$sink"
 		done
 ) | pacmd
 
 # if dunst running, send a notification
-if pgrep -U $(whoami) dunst >/dev/null; then
+if pgrep -U "$(whoami)" dunst >/dev/null; then
 	notify-send -i audio-card "Sink changed" "Sound now on sink $sink"
 fi

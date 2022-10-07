@@ -143,7 +143,7 @@ __git_ps1_show_upstream() {
 
 	# parse configuration values
 	local option
-	for option in ${GIT_PS1_SHOWUPSTREAM}; do
+	for option in "$GIT_PS1_SHOWUPSTREAM"; do
 		case "$option" in
 		git | svn) upstream_type="$option" ;;
 		verbose) verbose=1 ;;
@@ -159,8 +159,8 @@ __git_ps1_show_upstream() {
 		# get the upstream from the "git-svn-id: ..." in a commit message
 		# (git-svn uses essentially the same procedure internally)
 		local -a svn_upstream
-		svn_upstream=($(git log --first-parent -1 \
-			--grep="^git-svn-id: \(${svn_url_pattern#??}\)" 2>/dev/null))
+		svn_upstream=("$(git log --first-parent -1 \
+			--grep="^git-svn-id: \(${svn_url_pattern#??}\)" 2>/dev/null)")
 		if [[ 0 -ne ${#svn_upstream[@]} ]]; then
 			svn_upstream=${svn_upstream[${#svn_upstream[@]} - 2]}
 			svn_upstream=${svn_upstream%@*}
@@ -190,7 +190,7 @@ __git_ps1_show_upstream() {
 		local commits
 		if commits="$(git rev-list --left-right "$upstream_type"...HEAD 2>/dev/null)"; then
 			local commit behind=0 ahead=0
-			for commit in $commits; do
+			for commit in "${commits[@]}"; do
 				case "$commit" in
 				"<"*) ((behind++)) ;;
 				*) ((ahead++)) ;;
@@ -232,7 +232,7 @@ __git_ps1_show_upstream() {
 		if [[ -n $count && -n $name ]]; then
 			__git_ps1_upstream_name=$(git rev-parse \
 				--abbrev-ref "$upstream_type" 2>/dev/null)
-			if [ $pcmode = yes ] && [ $ps1_expanded = yes ]; then
+			if [ "$pcmode" = yes ] && [ "$ps1_expanded" = yes ]; then
 				upstream="$upstream \${__git_ps1_upstream_name}"
 			else
 				upstream="$upstream ${__git_ps1_upstream_name}"
@@ -268,26 +268,26 @@ __git_ps1_colorize_gitstring() {
 	local flags_color="$c_lblue"
 
 	local branch_color=""
-	if [ $detached = no ]; then
+	if [ "$detached" = no ]; then
 		branch_color="$ok_color"
 	else
 		branch_color="$bad_color"
 	fi
-	if [ -n "$c" ]; then
+	if [ "$c" != "" ]; then
 		c="$branch_color$c$c_clear"
 	fi
 	b="$branch_color$b$c_clear"
 
-	if [ -n "$w" ]; then
+	if [ "$w" != "" ]; then
 		w="$bad_color$w$c_clear"
 	fi
-	if [ -n "$i" ]; then
+	if [ "$i" != "" ]; then
 		i="$ok_color$i$c_clear"
 	fi
-	if [ -n "$s" ]; then
+	if [ "$s" != "" ]; then
 		s="$flags_color$s$c_clear"
 	fi
-	if [ -n "$u" ]; then
+	if [ "$u" != "" ]; then
 		u="$bad_color$u$c_clear"
 	fi
 }
@@ -361,7 +361,7 @@ __git_ps1() {
 		printf_format="${1:-$printf_format}"
 		;;
 	*)
-		return $exit
+		return "$exit"
 		;;
 	esac
 
@@ -399,8 +399,8 @@ __git_ps1() {
 	# incorrect.)
 	#
 	local ps1_expanded=yes
-	[ -z "${ZSH_VERSION-}" ] || [[ -o PROMPT_SUBST ]] || ps1_expanded=no
-	[ -z "${BASH_VERSION-}" ] || shopt -q promptvars || ps1_expanded=no
+	[ "${ZSH_VERSION-}" = "" ] || [[ -o PROMPT_SUBST ]] || ps1_expanded=no
+	[ "${BASH_VERSION-}" = "" ] || shopt -q promptvars || ps1_expanded=no
 
 	local repo_info rev_parse_exit_code
 	repo_info="$(git rev-parse --git-dir --is-inside-git-dir \
@@ -408,8 +408,8 @@ __git_ps1() {
 		--short HEAD 2>/dev/null)"
 	rev_parse_exit_code="$?"
 
-	if [ -z "$repo_info" ]; then
-		return $exit
+	if [ "$repo_info" = "" ]; then
+		return "$exit"
 	fi
 
 	local short_sha=""
@@ -425,15 +425,15 @@ __git_ps1() {
 	local g="${repo_info%$'\n'*}"
 
 	if [ "true" = "$inside_worktree" ] &&
-		[ -n "${GIT_PS1_HIDE_IF_PWD_IGNORED-}" ] &&
+		[ "${GIT_PS1_HIDE_IF_PWD_IGNORED-}" != "" ] &&
 		[ "$(git config --bool bash.hideIfPwdIgnored)" != "false" ] &&
 		git check-ignore -q .; then
-		return $exit
+		return "$exit"
 	fi
 
 	local sparse=""
-	if [ -z "${GIT_PS1_COMPRESSSPARSESTATE-}" ] &&
-		[ -z "${GIT_PS1_OMITSPARSESTATE-}" ] &&
+	if [ "${GIT_PS1_COMPRESSSPARSESTATE-}" = "" ] &&
+		[ "${GIT_PS1_OMITSPARSESTATE-}" = "" ] &&
 		[ "$(git config --bool core.sparseCheckout)" = "true" ]; then
 		sparse="|SPARSE"
 	fi
@@ -467,7 +467,7 @@ __git_ps1() {
 			r="|BISECTING"
 		fi
 
-		if [ -n "$b" ]; then
+		if [ "$b" != "" ]; then
 			:
 		elif [ -h "$g/HEAD" ]; then
 			# symlink symbolic ref
@@ -475,7 +475,7 @@ __git_ps1() {
 		else
 			local head=""
 			if ! __git_eread "$g/HEAD" head; then
-				return $exit
+				return "$exit"
 			fi
 			# is it a symbolic ref?
 			b="${head#ref: }"
@@ -506,7 +506,7 @@ __git_ps1() {
 		fi
 	fi
 
-	if [ -n "$step" ] && [ -n "$total" ]; then
+	if [ "$step" != "" ] && [ "$total" != "" ]; then
 		r="$r $step/$total"
 	fi
 
@@ -532,31 +532,31 @@ __git_ps1() {
 			b="GIT_DIR!"
 		fi
 	elif [ "true" = "$inside_worktree" ]; then
-		if [ -n "${GIT_PS1_SHOWDIRTYSTATE-}" ] &&
+		if [ "${GIT_PS1_SHOWDIRTYSTATE-}" != "" ] &&
 			[ "$(git config --bool bash.showDirtyState)" != "false" ]; then
 			git diff --no-ext-diff --quiet || w="*"
 			git diff --no-ext-diff --cached --quiet || i="+"
-			if [ -z "$short_sha" ] && [ -z "$i" ]; then
+			if [ "$short_sha" = "" ] && [ "$i" = "" ]; then
 				i="#"
 			fi
 		fi
-		if [ -n "${GIT_PS1_SHOWSTASHSTATE-}" ] &&
+		if [ "${GIT_PS1_SHOWSTASHSTATE-}" != "" ] &&
 			git rev-parse --verify --quiet refs/stash >/dev/null; then
 			s="$"
 		fi
 
-		if [ -n "${GIT_PS1_SHOWUNTRACKEDFILES-}" ] &&
+		if [ "${GIT_PS1_SHOWUNTRACKEDFILES-}" != "" ] &&
 			[ "$(git config --bool bash.showUntrackedFiles)" != "false" ] &&
 			git ls-files --others --exclude-standard --directory --no-empty-directory --error-unmatch -- ':/*' >/dev/null 2>/dev/null; then
 			u="%${ZSH_VERSION+%}"
 		fi
 
-		if [ -n "${GIT_PS1_COMPRESSSPARSESTATE-}" ] &&
+		if [ "${GIT_PS1_COMPRESSSPARSESTATE-}" != "" ] &&
 			[ "$(git config --bool core.sparseCheckout)" = "true" ]; then
 			h="?"
 		fi
 
-		if [ -n "${GIT_PS1_SHOWUPSTREAM-}" ]; then
+		if [ "${GIT_PS1_SHOWUPSTREAM-}" != "" ]; then
 			__git_ps1_show_upstream
 		fi
 	fi
@@ -564,14 +564,14 @@ __git_ps1() {
 	local z="${GIT_PS1_STATESEPARATOR-" "}"
 
 	b=${b##refs/heads/}
-	if [ $pcmode = yes ] && [ $ps1_expanded = yes ]; then
+	if [ "$pcmode" = yes ] && [ "$ps1_expanded" = yes ]; then
 		__git_ps1_branch_name=$b
 		b='${__git_ps1_branch_name}'
 	fi
 
 	# NO color option unless in PROMPT_COMMAND mode or it's Zsh
-	if [ -n "${GIT_PS1_SHOWCOLORHINTS-}" ]; then
-		if [ $pcmode = yes ] || [ -n "${ZSH_VERSION-}" ]; then
+	if [ "${GIT_PS1_SHOWCOLORHINTS-}" != "" ]; then
+		if [ "$pcmode" = yes ] || [ "${ZSH_VERSION-}" != "" ]; then
 			__git_ps1_colorize_gitstring
 		fi
 	fi
@@ -579,7 +579,7 @@ __git_ps1() {
 	local f="$h$w$i$s$u$p"
 	local gitstring="$c$b${f:+$z$f}${sparse}$r${upstream}${conflict}"
 
-	if [ $pcmode = yes ]; then
+	if [ "$pcmode" = yes ]; then
 		if [ "${__git_printf_supports_v-}" != yes ]; then
 			gitstring=$(printf -- "$printf_format" "$gitstring")
 		else
@@ -590,5 +590,5 @@ __git_ps1() {
 		printf -- "$printf_format" "$gitstring"
 	fi
 
-	return $exit
+	return "$exit"
 }

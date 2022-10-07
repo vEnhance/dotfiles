@@ -30,10 +30,10 @@ fi
 
 ## PACMAN SNAPSHOTS
 if [ -f /bin/pacman ]; then
-	pacman -Qqtten >~/Sync/pacman/$(hostname).pacman.paclist
-	pacman -Qqttem >~/Sync/pacman/$(hostname).aur.paclist
-	paclist chaotic-aur | grep -vE "^chaotic" | cut -d " " -f 1 >~/Sync/pacman/$(hostname).vote.paclist
-	pacman -Qqm >>~/Sync/pacman/$(hostname).vote.paclist
+	pacman -Qqtten >~/Sync/pacman/"$(hostname)".pacman.paclist
+	pacman -Qqttem >~/Sync/pacman/"$(hostname)".aur.paclist
+	paclist chaotic-aur | grep -vE "^chaotic" | cut -d " " -f 1 >~/Sync/pacman/"$(hostname)".vote.paclist
+	pacman -Qqm >>~/Sync/pacman/"$(hostname)".vote.paclist
 	if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
 		cd ~/Sync/pacman/
 		if ! git diff --exit-code; then

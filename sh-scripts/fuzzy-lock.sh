@@ -1,17 +1,17 @@
 #!/bin/bash
 
-if pgrep -U $(whoami) i3lock >/dev/null; then
+if pgrep -U "$(whoami)" i3lock >/dev/null; then
 	echo "Already running"
 	exit
 fi
 
-if pgrep -U $(whoami) stepmania >/dev/null; then
+if pgrep -U "$(whoami)" stepmania >/dev/null; then
 	echo "Stepmania running"
 	# xset s off -dpms # don't blank screen if stepmania is running
 	exit
 fi
 
-if pgrep -U $(whoami) zoom >/dev/null; then
+if pgrep -U "$(whoami)" zoom >/dev/null; then
 	echo "Zoom running"
 	exit
 fi
@@ -44,7 +44,7 @@ if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
 			grep -v 'module-loopback.c' |
 			grep -oE '^[0-9]+' |
 			while read input; do
-				echo move-sink-input $input alsa_output.pci-0000_00_1f.3.analog-stereo
+				echo move-sink-input "$input" alsa_output.pci-0000_00_1f.3.analog-stereo
 			done
 	) | pacmd
 	~/dotfiles/sh-scripts/paswitch.sh speakers
@@ -131,6 +131,6 @@ if [ "$(hostname)" = Endor ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-if pgrep -U $(whoami) py3status >/dev/null; then
+if pgrep -U "$(whoami)" py3status >/dev/null; then
 	killall -s USR1 py3status
 fi

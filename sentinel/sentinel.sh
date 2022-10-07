@@ -7,4 +7,4 @@ source ~/.virtualenvs/skynet/bin/activate
 export FLASK_APP=sentinel
 flask run &
 
-lt --port 5000 -s $(cat subdomains/sentinel)
+lt --port 5000 -s "$(cat subdomains/sentinel)"

@@ -45,18 +45,18 @@ PRIMARY_DISPLAY=$(xrandr | perl -ne 'print "$1" if /(\w*)\s*connected\s*primary/
 
 # Add display mode
 RANDR_MODE=$(cvt "$WIDTH" "$HEIGHT" 60 | sed '2s/^.*Modeline\s*\".*\"//;2q;d')
-xrandr --addmode $DIS_NAME $MODE_NAME 2>/dev/null
+xrandr --addmode "$DIS_NAME" "$MODE_NAME" 2>/dev/null
 # If the mode doesn't exist then make mode and retry
 if ! [ $? -eq 0 ]; then
-	xrandr --newmode $MODE_NAME $RANDR_MODE
-	xrandr --addmode $DIS_NAME $MODE_NAME
+	xrandr --newmode "$MODE_NAME" "$RANDR_MODE"
+	xrandr --addmode "$DIS_NAME" "$MODE_NAME"
 fi
 
 # Show display first
-xrandr --output $DIS_NAME --mode $MODE_NAME
+xrandr --output "$DIS_NAME" --mode "$MODE_NAME"
 # Then move display
 sleep 2 # A short delay is needed. Otherwise sometimes the below command is ignored.
-xrandr --output $DIS_NAME $RANDR_POS $PRIMARY_DISPLAY
+xrandr --output "$DIS_NAME" "$RANDR_POS" "$PRIMARY_DISPLAY"
 
 #xmodmap -e "pointer = 1 2 3" &> /dev/null  # left-hand mouse
 #xinput set-button-map "ETPS/2 Elantech Touchpad" 3 2 1

@@ -1,5 +1,5 @@
 #!/bin/bash
 
 mbsync -q personal-inbox work-inbox records-inbox &
-neomutt $*
+neomutt "$@"
 mbsync -q personal-inbox work-inbox records-inbox &
