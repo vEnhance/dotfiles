@@ -1,3 +1,5 @@
+#!/bin/bash
+
 gcalendar --no-of-days 14 --output json \
 	--calendar "日曆" \
 	"Break" \

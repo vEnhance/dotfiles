@@ -1,6 +1,7 @@
+#!/bin/bash
+
 if [ "$(hostname)" = ArchAngel ]; then
-	xrandr | grep 1920x1080
-	if [ $? -eq 0 ]; then
+	if xrandr | grep 1920x1080; then
 		xrandr --output "HDMI-2" --primary 1920x1080
 	else
 		xrandr --output "HDMI-2" --primary
@@ -8,8 +9,7 @@ if [ "$(hostname)" = ArchAngel ]; then
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-	xrandr | grep 3840x2160
-	if [ $? -eq 0 ]; then
+	if xrandr | grep 3840x2160; then
 		xrandr \
 			--output "DP-1" --mode 2560x1440 --primary \
 			--output "DP-3" --mode 1920x1080 --left-of "DP-1" \

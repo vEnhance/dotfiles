@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 sleep 5
 if [ "$(hostname)" = ArchDiamond ]; then

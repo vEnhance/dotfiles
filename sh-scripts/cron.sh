@@ -2,10 +2,10 @@
 
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "ArchMajestic" -a "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "ArchMajestic" ] && [ "$(whoami)" = "evan" ]; then
 	python ~/dotfiles/venueQ/otis.py
 fi
-if [ "$(hostname)" = "dagobah" -a "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "dagobah" ] && [ "$(whoami)" = "evan" ]; then
 	python ~/dotfiles/venueQ/otis.py
 fi
 
@@ -34,8 +34,8 @@ if [ -f /bin/pacman ]; then
 	pacman -Qqttem >~/Sync/pacman/"$(hostname)".aur.paclist
 	paclist chaotic-aur | grep -vE "^chaotic" | cut -d " " -f 1 >~/Sync/pacman/"$(hostname)".vote.paclist
 	pacman -Qqm >>~/Sync/pacman/"$(hostname)".vote.paclist
-	if [ "$(hostname)" = "ArchDiamond" -a "$(whoami)" = "evan" ]; then
-		cd ~/Sync/pacman/
+	if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
+		cd ~/Sync/pacman/ || exit
 		if ! git diff --exit-code; then
 			git commit -a -m "$(hostname) $(date)"
 		fi

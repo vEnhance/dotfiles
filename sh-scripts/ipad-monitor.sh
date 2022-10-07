@@ -45,9 +45,8 @@ PRIMARY_DISPLAY=$(xrandr | perl -ne 'print "$1" if /(\w*)\s*connected\s*primary/
 
 # Add display mode
 RANDR_MODE=$(cvt "$WIDTH" "$HEIGHT" 60 | sed '2s/^.*Modeline\s*\".*\"//;2q;d')
-xrandr --addmode "$DIS_NAME" "$MODE_NAME" 2>/dev/null
 # If the mode doesn't exist then make mode and retry
-if ! [ $? -eq 0 ]; then
+if ! xrandr --addmode "$DIS_NAME" "$MODE_NAME" 2>/dev/null; then
 	xrandr --newmode "$MODE_NAME" "$RANDR_MODE"
 	xrandr --addmode "$DIS_NAME" "$MODE_NAME"
 fi

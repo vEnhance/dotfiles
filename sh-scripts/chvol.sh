@@ -58,28 +58,24 @@ if [ "$1" = l ]; then
 	notify-send -i call-stop \
 		"Microphone muted, speakers on" \
 		"Once was volume $(ponymix -t source mute)%" -t "$time"
-	break
 fi
 if [ "$1" = r ]; then
 	~/dotfiles/sh-scripts/paswitch.sh usb
 	notify-send -i call-start \
 		"Microphone unmuted, speakers off" \
 		"Microphone volume is $(ponymix -t source unmute)%" -t "$time"
-	break
 fi
 if [ "$1" = s ]; then
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 	notify-send -i audio-speakers \
 		"Switched to speakers" \
 		"Current volume is $(ponymix get-volume)%" -t "$time"
-	break
 fi
 if [ "$1" = h ]; then
 	~/dotfiles/sh-scripts/paswitch.sh usb
 	notify-send -i audio-headphones \
 		"Switched to headphones" \
 		"Microphone volume is $(ponymix get-volume)%" -t "$time"
-	break
 fi
 
 # Spotify stuff

@@ -21,43 +21,43 @@ if [ -f "$HOME/.cache/ctwenty.lock" ]; then
 	exit
 fi
 
-if [ "$(hostname)" = dagobah -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = dagobah ] && [ "$(whoami)" = evan ]; then
 	gdmflexiserver
 	exit
 fi
 
-#if [ "$(hostname)" = ArchScythe -a "$(whoami)" = evan ]; then
+#if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
 #	# during twitch stream, disable laptop lock screen
-#	if [ "$(date +%u)" -eq 5 -a "$(date +%H)" -ge 20 ]; then
+#	if [ "$(date +%u)" -eq 5 ] && [ "$(date +%H)" -ge 20 ]; then
 #		exit
 #	fi
-#	if [ "$(date +%u)" -eq 6 -a "$(date +%H)" -le 2 ]; then
+#	if [ "$(date +%u)" -eq 6 ] && [ "$(date +%H)" -le 2 ]; then
 #		exit
 #	fi
 #fi
 #
-if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 	pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
 	(
 		pactl list sink-inputs short |
 			grep -v 'module-loopback.c' |
 			grep -oE '^[0-9]+' |
-			while read input; do
+			while read -r input; do
 				echo move-sink-input "$input" alsa_output.pci-0000_00_1f.3.analog-stereo
 			done
 	) | pacmd
 	~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-if [ "$(hostname)" = ArchDiamond -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 fi
 
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute >/dev/null
 
-if [ "$(hostname)" = ArchAir -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchAir ] && [ "$(whoami)" = evan ]; then
 	xset dpms force off
 	i3lock \
 		--beep \
@@ -115,11 +115,11 @@ else
 		--pointer=win
 fi
 
-if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
 	xset dpms 900 900 900
 	killall -s CONT ctwenty.py
 fi
-if [ "$(hostname)" = ArchDiamond -a "$(whoami)" = evan ]; then
+if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
 	xset dpms 14400 14400 14400
 	killall -s CONT ctwenty.py
 fi
