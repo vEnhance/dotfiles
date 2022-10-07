@@ -53,7 +53,7 @@ if ! test -d "$HOME/.config/i3"; then ln -s $HOME/dotfiles/i3 $HOME/.config/i3; 
 # nested config
 if ! test -f "$HOME/.config/proselint/config"; then
 	mkdir -p $HOME/.config/proselint
-	ln -s $HOME/dotfiles/proselintrc $HOME/.config/proselint/config
+	ln -s $HOME/dotfiles/proselintrc $HOME/.config/proselint/config.json
 fi
 if ! test -d "$HOME/.config/py3status"; then
 	mkdir -p $HOME/.config/py3status
