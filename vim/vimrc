@@ -1,11 +1,13 @@
 " Evan Chen's .vimrc
 
+" vint: -ProhibitSetNoCompatible
 set nocompatible
+
 colorscheme reclipse
 filetype plugin indent on
 syntax on
-let mapleader="="
-let maplocalleader = ","
+let mapleader='='
+let maplocalleader = ','
 
 " {{{ Plugins
 call plug#begin('~/.vim/plugged')
@@ -111,7 +113,7 @@ let g:indent_guides_enable_on_vim_startup = 1
 let g:jedi#show_call_signatures = 0
 let g:vimwiki_filetypes = ['markdown']
 let g:yankring_history_dir = '$HOME/.cache/'
-let grepprg = "ag --nogroup --nocolor"
+let grepprg = 'ag --nogroup --nocolor'
 
 " Plug 'leanprover/lean.vim'
 let g:python_highlight_all = 1
@@ -136,8 +138,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
-let g:CtrlSpaceStatuslineFunction =
-\ "airline#extensions#ctrlspace#statusline()"
+let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
 function! AirlineSetup()
 	let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
 	let g:airline_section_b = airline#section#create_left(['file', ])
@@ -179,9 +180,9 @@ let g:ale_fixers = { '*' : ['remove_trailing_lines', 'trim_whitespace' ] } " by 
 let g:ale_fix_on_save = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_open_list = 0
-let g:ale_languagetool_options = "--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE"
+let g:ale_languagetool_options = '--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE'
 let g:ale_python_mypy_enabled = 0
-let g:ale_python_mypy_options = "--ignore-missing-imports"
+let g:ale_python_mypy_options = '--ignore-missing-imports'
 let g:ale_set_balloon= 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 1
@@ -226,38 +227,38 @@ command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 
 " Arrow key shortcuts {{{
 function! DelEmptyLineAbove()
-	if line(".") == 1
+	if line('.') == 1
 		return
 	endif
-	let l:line = getline(line(".") - 1)
-	if l:line =~ '^\s*$'
-		let l:colsave = col(".")
+	let l:line = getline(line('.') - 1)
+	if l:line =~# '^\s*$'
+		let l:colsave = col('.')
 		.-1d
 		"silent normal!
-		call cursor(line("."), l:colsave)
+		call cursor(line('.'), l:colsave)
 	endif
 endfunction
 function! AddEmptyLineAbove()
 	let l:scrolloffsave = &scrolloff
 	" Avoid jerky scrolling with ^E at top of window
 	set scrolloff=0
-	call append(line(".") - 1, "")
+	call append(line('.') - 1, '')
 	let &scrolloff = l:scrolloffsave
 	endfunction
 	function! DelEmptyLineBelow()
-	if line(".") == line("$")
+	if line('.') == line('$')
 		return
 	endif
-	let l:line = getline(line(".") + 1)
-	if l:line =~ '^\s*$'
-		let l:colsave = col(".")
+	let l:line = getline(line('.') + 1)
+	if l:line =~# '^\s*$'
+		let l:colsave = col('.')
 		.+1d
 		''
-		call cursor(line("."), l:colsave)
+		call cursor(line('.'), l:colsave)
 	endif
 endfunction
 function! AddEmptyLineBelow()
-	call append(line("."), "")
+	call append(line('.'), '')
 endfunction
 nnoremap < <<
 nnoremap > >>
@@ -270,10 +271,10 @@ nmap <silent> ]g :ALENextWrap<CR>
 " }}}
 " Misc mappings {{{
 " system clipboard
-vnoremap <silent> <C-C> "+y
+vnoremap <silent> <C-C> '+y
 nnoremap <silent> <C-c> :%y+<CR>
-nnoremap <silent> <C-V> "+p
-vnoremap <silent> <C-X> "+d
+nnoremap <silent> <C-V> '+p
+vnoremap <silent> <C-X> '+d
 " Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
@@ -340,12 +341,12 @@ nnoremap <silent> -z :call NewScratch()<CR>
 nnoremap <Space>a :ALEDetail<CR>
 " Jump to definition in tags
 function TagJump()
-	let word = expand("<cword>")
+	let word = expand('<cword>')
 	vsplit
 	try
-		exec("tjump " . l:word)
+		exec('tjump ' . l:word)
 	catch
-		echo l:word . " not found"
+		echo l:word . ' not found'
 		close
 	endtry
 endfunction
@@ -395,13 +396,13 @@ function! EvanClose()
 	if winnr('$') == 1
 		if tabpagenr('$') == 1
 			bdelete
-			if expand('%:p') == ''
+			if expand('%:p') ==# ''
 				quit
 			endif
 		else
 			bdelete
 		endif
-	elseif expand('%:l') == '__doc__'
+	elseif expand('%:l') ==# '__doc__'
 		bdelete
 	else
 		close
@@ -460,12 +461,16 @@ set wrapmargin=0
 " }}}
 " {{{ Auto commands
 " ------------------------------------------
-autocmd BufNewFile,BufRead *.asy setfiletype asy
-autocmd BufNewFile,BufRead *.ly setfiletype lilypond
-autocmd BufNewFile,BufRead *.less setfiletype css
-autocmd BufNewFile,BufRead *.ics setfiletype icalendar
-autocmd User AirlineAfterTheme call AirlineSetup()
-autocmd BufRead * DetectIndent
+augroup vimrc
+	autocmd!
+augroup END
+autocmd vimrc BufNewFile,BufRead *.asy setfiletype asy
+autocmd vimrc BufNewFile,BufRead *.ly setfiletype lilypond
+autocmd vimrc BufNewFile,BufRead *.less setfiletype css
+autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
+autocmd vimrc User AirlineAfterTheme call AirlineSetup()
+autocmd vimrc BufRead * DetectIndent
+autocmd vimrc BufNewFile,BufRead *.tex set spell
 " }}}
 " More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'
@@ -477,11 +482,10 @@ let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_comment_nospell= 1
 let g:tex_flavor='latex'
 function! SyncTexForward()
-	exec "silent !zathura --synctex-forward ".line(".").":".col(".").":%:p %:p:r.pdf &"
+	exec 'silent !zathura --synctex-forward '.line('.').':'.col('.').':%:p %:p:r.pdf &'
 endfunction
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
-autocmd BufNewFile,BufRead *.tex set spell
 " }}}
 
 " vim: ft=vim fdm=marker
