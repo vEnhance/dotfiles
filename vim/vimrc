@@ -53,6 +53,11 @@ Plug 'vim-latex/vim-latex'
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
 " <Leader>rf -> refresh folds (LaTeX)
+" File-type specific edits
+Plug 'maralla/completor.vim', { 'for' :
+	\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
+	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
+	\ 'gitcommit', 'gitconfig'] }
 " }}}
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
@@ -108,11 +113,6 @@ let g:vimwiki_filetypes = ['markdown']
 let g:yankring_history_dir = '$HOME/.cache/'
 let grepprg = "ag --nogroup --nocolor"
 
-" File-type specific edits
-Plug 'maralla/completor.vim', { 'for' :
-	\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
-	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
-	\ 'gitcommit', 'gitconfig'] }
 " Plug 'leanprover/lean.vim'
 let g:python_highlight_all = 1
 let g:taskwiki_disable_concealcursor=1
