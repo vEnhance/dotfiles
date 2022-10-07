@@ -258,7 +258,7 @@ __git_reassemble_comp_words_by_ref() {
 			if [ $i = $COMP_CWORD ]; then
 				cword_=$j
 			fi
-			if (($i < ${#COMP_WORDS[@]} - 1)); then
+			if ((i < ${#COMP_WORDS[@]} - 1)); then
 				((i++))
 			else
 				# Done.
@@ -287,7 +287,7 @@ if ! type _get_comp_words_by_ref >/dev/null 2>&1; then
 				cur=$cur_
 				;;
 			prev)
-				prev=${words_[$cword_ - 1]}
+				prev=${words_[cword_ - 1]}
 				;;
 			words)
 				words=("${words_[@]}")
@@ -329,7 +329,7 @@ __gitcomp_direct_append() {
 __gitcompappend() {
 	local x i=${#COMPREPLY[@]}
 	for x in $1; do
-		if [[ "$x" == "$3"* ]]; then
+		if [[ $x == "$3"* ]]; then
 			COMPREPLY[i++]="$2$x$4"
 		fi
 	done
@@ -715,7 +715,7 @@ __git_refs() {
 	fi
 
 	if [ "$list_refs_from" = path ]; then
-		if [[ "$cur_" == ^* ]]; then
+		if [[ $cur_ == ^* ]]; then
 			pfx="$pfx^"
 			fer_pfx="$fer_pfx^"
 			cur_=${cur_#^}
@@ -1108,8 +1108,8 @@ __git_pretty_aliases() {
 __git_aliased_command() {
 	local cur=$1 last list= word cmdline
 
-	while [[ -n "$cur" ]]; do
-		if [[ "$list" == *" $cur "* ]]; then
+	while [[ -n $cur ]]; do
+		if [[ $list == *" $cur "* ]]; then
 			# loop detected
 			return
 		fi
@@ -1142,7 +1142,7 @@ __git_aliased_command() {
 	done
 
 	cur=$last
-	if [[ "$cur" != "$1" ]]; then
+	if [[ $cur != "$1" ]]; then
 		echo "$cur"
 	fi
 }
@@ -1235,7 +1235,7 @@ __git_get_option_value() {
 	values="$3"
 	config_key="$4"
 
-	((c = $cword - 1))
+	((c = cword - 1))
 	while [ $c -ge 0 ]; do
 		word="${words[c]}"
 		for val in $values; do
@@ -1279,7 +1279,7 @@ __git_count_arguments() {
 	local word i c=0
 
 	# Skip "git" (first argument)
-	for ((i = $__git_cmd_idx; i < ${#words[@]}; i++)); do
+	for ((i = __git_cmd_idx; i < ${#words[@]}; i++)); do
 		word="${words[i]}"
 
 		case "$word" in
@@ -2917,7 +2917,7 @@ __gitcomp_directories() {
 	# Get the directory of the current token; this differs from dirname
 	# in that it keeps up to the final trailing slash.  If no slash found
 	# that's fine too.
-	[[ "$cur" =~ .*/ ]]
+	[[ $cur =~ .*/ ]]
 	_tmp_dir=$BASH_REMATCH
 
 	# Find possible directory completions, adding trailing '/' characters,
@@ -2931,7 +2931,7 @@ __gitcomp_directories() {
 		fi
 	done < <(git ls-tree -z -d --name-only HEAD $_tmp_dir)
 
-	if [[ $_found == 0 ]] && [[ "$cur" =~ /$ ]]; then
+	if [[ $_found == 0 ]] && [[ $cur =~ /$ ]]; then
 		# No possible further completions any deeper, so assume we're at
 		# a leaf directory and just consider it complete
 		__gitcomp_direct_append "$cur "

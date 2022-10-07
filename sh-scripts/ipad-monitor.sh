@@ -28,8 +28,8 @@ while [ "$#" -gt 0 ]; do
 		MODE_NAME="$MODE_NAME""_port"
 		;;
 	-h | --hidpi)
-		WIDTH=$(($WIDTH * 2))
-		HEIGHT=$(($HEIGHT * 2))
+		WIDTH=$((WIDTH * 2))
+		HEIGHT=$((HEIGHT * 2))
 		MODE_NAME="$MODE_NAME""_hidpi"
 		;;
 	*)
