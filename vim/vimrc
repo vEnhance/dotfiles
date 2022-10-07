@@ -9,14 +9,25 @@ let maplocalleader = ","
 
 " {{{ Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'Shougo/echodoc'
+Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 Plug 'airblade/vim-gitgutter'
 Plug 'aymericbeaumet/vim-symlink'
 Plug 'ciaranm/detectindent'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'dense-analysis/ale'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'mg979/vim-visual-multi'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'preservim/nerdtree'
 Plug 'svintus/vim-editexisting'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'vim-scripts/YankRing.vim'
 
 Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
@@ -29,7 +40,8 @@ Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
 Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
 Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
 Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-Plug 'neoclide/jsonc.vim', { 'for' : 'json' }
+Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
+Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
 Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
@@ -40,24 +52,6 @@ Plug 'vim-latex/vim-latex'
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
 " <Leader>rf -> refresh folds (LaTeX)
-
-Plug 'FelikZ/ctrlp-py-matcher'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-Plug 'mg979/vim-visual-multi'
-Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'dense-analysis/ale'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
-Plug 'Shougo/echodoc'
-Plug 'vim-ctrlspace/vim-ctrlspace'
-
-" Plug 'preservim/tagbar'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
-" Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 " }}}
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
