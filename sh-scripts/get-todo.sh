@@ -3,14 +3,13 @@
 trap exit SIGINT
 
 touch /tmp/agenda.txt
-while :
-do
+while :; do
 	clear
 	echo "~TODAY~ on Evan's to-do list"
 	date
 	echo "-------------------"
 	todoist sync
-	script --flush --quiet --return /tmp/todo.txt  --command "todoist --color list -f overdue\|today" > /dev/null
+	script --flush --quiet --return /tmp/todo.txt --command "todoist --color list -f overdue\|today" >/dev/null
 	cat /tmp/todo.txt | tail -n +2 | head -n -2 | cut -c 72- | sort -k 1.5
 	echo "-------------------"
 	cat /tmp/agenda.txt | cut -b 12-19,31-
@@ -31,14 +30,14 @@ do
 		"Unfortunate Things" \
 		"Video Calls for OTIS" \
 		"Zero-Minute Reminders" \
-		"twitch.tv" > /tmp/agenda.txt &
+		"twitch.tv" >/tmp/agenda.txt &
 	echo ""
 	echo "Press ENTER to refresh..."
-	if [[ $* == *--email* ]] ; then
-		echo "" >> /tmp/mbsync.log
-		echo "###############################" >> /tmp/mbsync.log
-		date >> /tmp/mbsync.log
-		mbsync -Va >> /tmp/mbsync.log &
+	if [[ $* == *--email* ]]; then
+		echo "" >>/tmp/mbsync.log
+		echo "###############################" >>/tmp/mbsync.log
+		date >>/tmp/mbsync.log
+		mbsync -Va >>/tmp/mbsync.log &
 	fi
-	read -t 1800 &> /dev/null
+	read -t 1800 &>/dev/null
 done

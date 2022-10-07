@@ -7,27 +7,37 @@
 # ----------------------------------------------------------------------------
 
 # Configuration
-WIDTH=1024  # 1368 for iPad Pro
-HEIGHT=768  # 1024 for iPad Pro
-MODE_NAME="ipad"            # Set whatever name you like, you may need to change
-                            # this when you change resolution, or just reboot.
-DIS_NAME="VIRTUAL1"         # Don't change it unless you know what it is
-RANDR_POS="--right-of"      # Default position setting for xrandr command
+WIDTH=1024       # 1368 for iPad Pro
+HEIGHT=768       # 1024 for iPad Pro
+MODE_NAME="ipad" # Set whatever name you like, you may need to change
+# this when you change resolution, or just reboot.
+DIS_NAME="VIRTUAL1"    # Don't change it unless you know what it is
+RANDR_POS="--right-of" # Default position setting for xrandr command
 
 # Parse arguments
 while [ "$#" -gt 0 ]; do
-  case $1 in
-    -l|--left)      RANDR_POS="--left-of"  ;;
-    -r|--right)     RANDR_POS="--right-of" ;;
-    -a|--above)     RANDR_POS="--above"    ;;
-    -b|--below)     RANDR_POS="--below"    ;;
-    -p|--portrait)  TMP=$WIDTH; WIDTH=$HEIGHT; HEIGHT=$TMP
-                    MODE_NAME="$MODE_NAME""_port"  ;;
-    -h|--hidpi)     WIDTH=$(($WIDTH * 2)); HEIGHT=$(($HEIGHT * 2))
-                    MODE_NAME="$MODE_NAME""_hidpi" ;;
-    *) echo "'$1' cannot be a monitor position"; exit 1 ;;
-  esac
-  shift
+	case $1 in
+	-l | --left) RANDR_POS="--left-of" ;;
+	-r | --right) RANDR_POS="--right-of" ;;
+	-a | --above) RANDR_POS="--above" ;;
+	-b | --below) RANDR_POS="--below" ;;
+	-p | --portrait)
+		TMP=$WIDTH
+		WIDTH=$HEIGHT
+		HEIGHT=$TMP
+		MODE_NAME="$MODE_NAME""_port"
+		;;
+	-h | --hidpi)
+		WIDTH=$(($WIDTH * 2))
+		HEIGHT=$(($HEIGHT * 2))
+		MODE_NAME="$MODE_NAME""_hidpi"
+		;;
+	*)
+		echo "'$1' cannot be a monitor position"
+		exit 1
+		;;
+	esac
+	shift
 done
 
 # Detect primary display
@@ -38,8 +48,8 @@ RANDR_MODE=$(cvt "$WIDTH" "$HEIGHT" 60 | sed '2s/^.*Modeline\s*\".*\"//;2q;d')
 xrandr --addmode $DIS_NAME $MODE_NAME 2>/dev/null
 # If the mode doesn't exist then make mode and retry
 if ! [ $? -eq 0 ]; then
-  xrandr --newmode $MODE_NAME $RANDR_MODE
-  xrandr --addmode $DIS_NAME $MODE_NAME
+	xrandr --newmode $MODE_NAME $RANDR_MODE
+	xrandr --addmode $DIS_NAME $MODE_NAME
 fi
 
 # Show display first
@@ -55,7 +65,7 @@ xrandr --output $DIS_NAME $RANDR_POS $PRIMARY_DISPLAY
 
 ## Cleanup before exit
 #function finish {
-#  xrandr --output $DIS_NAME --off 
+#  xrandr --output $DIS_NAME --off
 #  xrandr --delmode $DIS_NAME $MODE_NAME
 #  echo "Second monitor disabled."
 #}

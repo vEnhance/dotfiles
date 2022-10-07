@@ -10,11 +10,9 @@ if [ "$(hostname)" = ArchScythe -a "$(whoami)" = evan ]; then
 	fi
 fi
 
-
 notify-send -i timer-symbolic -t 30000 \
 	"Lock warning" \
 	"The session will automatically lock shortly. Do literally anything to cancel."
-
 
 #if [ "$(hostname)" = ArchMajestic -a "$(whoami)" = evan ]; then
 #	cvlc --play-and-exit "/usr/share/sounds/freedesktop/stereo/complete.oga" vlc://quit

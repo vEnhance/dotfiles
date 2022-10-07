@@ -6,8 +6,7 @@ else
 	PLAYER=mpg123
 fi
 
-if pgrep -U $(whoami) $PLAYER > /dev/null
-then
+if pgrep -U $(whoami) $PLAYER >/dev/null; then
 	if [ "$1" = a ]; then
 		$PLAYER -q -f -18000 $HOME/dotfiles/noisemaker/Sa-horn.mp3 &
 		exit

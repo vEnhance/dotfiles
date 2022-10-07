@@ -29,33 +29,30 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
-
-shrink ()
-{
-	gs					\
-	  -q -dNOPAUSE -dBATCH -dSAFER		\
-	  -sDEVICE=pdfwrite			\
-	  -dCompatibilityLevel=1.3		\
-	  -dPDFSETTINGS=/screen			\
-	  -dEmbedAllFonts=true			\
-	  -dSubsetFonts=true			\
-	  -dAutoRotatePages=/None		\
-	  -dColorImageDownsampleType=/Bicubic	\
-	  -dColorImageResolution=$3		\
-	  -dGrayImageDownsampleType=/Bicubic	\
-	  -dGrayImageResolution=$3		\
-	  -dMonoImageDownsampleType=/Bicubic	\
-	  -dMonoImageResolution=$3		\
-	  -sOutputFile="$2"			\
-	  "$1"
+shrink() {
+	gs \
+		-q -dNOPAUSE -dBATCH -dSAFER \
+		-sDEVICE=pdfwrite \
+		-dCompatibilityLevel=1.3 \
+		-dPDFSETTINGS=/screen \
+		-dEmbedAllFonts=true \
+		-dSubsetFonts=true \
+		-dAutoRotatePages=/None \
+		-dColorImageDownsampleType=/Bicubic \
+		-dColorImageResolution=$3 \
+		-dGrayImageDownsampleType=/Bicubic \
+		-dGrayImageResolution=$3 \
+		-dMonoImageDownsampleType=/Bicubic \
+		-dMonoImageResolution=$3 \
+		-sOutputFile="$2" \
+		"$1"
 }
 
-check_smaller ()
-{
+check_smaller() {
 	# If $1 and $2 are regular files, we can compare file sizes to
 	# see if we succeeded in shrinking. If not, we copy $1 over $2:
 	if [ ! -f "$1" -o ! -f "$2" ]; then
-		return 0;
+		return 0
 	fi
 	ISIZE="$(echo $(wc -c "$1") | cut -f1 -d\ )"
 	OSIZE="$(echo $(wc -c "$2") | cut -f1 -d\ )"
@@ -65,8 +62,7 @@ check_smaller ()
 	fi
 }
 
-usage ()
-{
+usage() {
 	echo "Reduces PDF filesize by lossy recompressing with Ghostscript."
 	echo "Not guaranteed to succeed, but usually works."
 	echo "  Usage: $1 infile [outfile] [resolution_in_dpi]"

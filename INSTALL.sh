@@ -27,12 +27,12 @@ if ! test -f "$HOME/.taskrc"; then ln -s $HOME/dotfiles/taskrc $HOME/.taskrc; fi
 if ! test -f "$HOME/.xprofile"; then ln -s $HOME/dotfiles/xprofile $HOME/.xprofile; fi
 
 if ! test -f "$HOME/.xinitrc"; then
-	echo "[ -f $HOME/.xprofile ] && . $HOME/.xprofile" > $HOME/.xinitrc
-	echo "exec i3" > $HOME/.xinitrc
+	echo "[ -f $HOME/.xprofile ] && . $HOME/.xprofile" >$HOME/.xinitrc
+	echo "exec i3" >$HOME/.xinitrc
 fi
 
 if ! test -f "$HOME/.config/picom.conf"; then
-	ln -s $HOME/dotfiles/picom.conf $HOME/.config/picom.conf;
+	ln -s $HOME/dotfiles/picom.conf $HOME/.config/picom.conf
 fi
 
 # file/dir in .config
