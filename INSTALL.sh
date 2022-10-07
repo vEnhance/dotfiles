@@ -3,10 +3,10 @@
 # Use at your own risk ;)
 # makes many symlinks
 
-cd "$HOME"/dotfiles/py3status/
+cd "$HOME"/dotfiles/py3status/ || exit
 make
 
-cd "$HOME"
+cd "$HOME" || exit
 mv .bashrc .bashrc.bak
 
 # symlink in home
@@ -23,6 +23,7 @@ if ! test -f "$HOME/.latexmkrc"; then ln -s "$HOME"/dotfiles/latexmkrc "$HOME"/.
 if ! test -f "$HOME/.mbsyncrc"; then ln -s "$HOME"/dotfiles/mutt/mbsyncrc "$HOME"/.mbsyncrc; fi
 if ! test -f "$HOME/.pdbrc.py"; then ln -s "$HOME"/dotfiles/pdbrc.py "$HOME"/.pdbrc.py; fi
 if ! test -f "$HOME/.screenrc"; then ln -s "$HOME"/dotfiles/screenrc "$HOME"/.screenrc; fi
+if ! test -f "$HOME/.shellcheckrc"; then ln -s "$HOME"/dotfiles/shellcheckrc "$HOME"/.shellcheckrc; fi
 if ! test -f "$HOME/.taskrc"; then ln -s "$HOME"/dotfiles/taskrc "$HOME"/.taskrc; fi
 if ! test -f "$HOME/.xprofile"; then ln -s "$HOME"/dotfiles/xprofile "$HOME"/.xprofile; fi
 
@@ -97,7 +98,7 @@ fi
 
 # systemd
 mkdir -p "$HOME"/.config/systemd/user
-for i in "$(ls "$HOME"/dotfiles/custom-systemd-units/*)"; do
+for i in "$HOME"/dotfiles/custom-systemd-units/*; do
 	if ! test -f "$HOME/.config/systemd/user/$(basename "$i")"; then
 		ln -s "$i" "$HOME"/.config/systemd/user/
 	fi
