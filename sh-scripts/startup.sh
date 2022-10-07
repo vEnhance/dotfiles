@@ -9,16 +9,16 @@
 #
 # dropbox no longer, started manually
 
-WS1="1: Aleph"
-WS2="2: Bet"
-WS3="3: Gimel"
-WS4="4: Dalet"
-WS5="5: Hei"
-WS6="6: Vav"
-WS7="7: Zayin"
-WS8="8: Het"
-WS9="9: Tet"
-WS0="10: Yod"
+# WS1="1: Aleph"
+# WS2="2: Bet"
+# WS3="3: Gimel"
+# WS4="4: Dalet"
+# WS5="5: Hei"
+# WS6="6: Vav"
+# WS7="7: Zayin"
+# WS8="8: Het"
+# WS9="9: Tet"
+# WS0="10: Yod"
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 

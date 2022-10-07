@@ -58,7 +58,7 @@ sink=${sink_names[$1]:-$1}
 	pactl list sink-inputs short |
 		grep -v 'module-loopback.c' |
 		grep -oE '^[0-9]+' |
-		while read input; do
+		while read -r input; do
 			echo move-sink-input "$input" "$sink"
 		done
 ) | pacmd

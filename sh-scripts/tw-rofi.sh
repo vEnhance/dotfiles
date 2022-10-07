@@ -11,7 +11,7 @@ elif [ "$chosen" = "$default" ]; then
 elif [[ $lines == *"$chosen"* ]]; then
 	taskid=$(echo "$chosen" | sed -r "s/[^ 0-9]//g" | awk '{print $1}')
 	echo "$taskid"
-	task "$taskid" done
+	task "$taskid" "done"
 	killall -s USR1 py3status
 else
 	task add "$chosen"
