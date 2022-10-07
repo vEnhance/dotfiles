@@ -8,6 +8,7 @@ on:
 
 jobs:
   pyflakes:
+    runs-on: ubuntu-latest
     name: "PyFlakes"
     steps:
     - uses: actions/checkout@v2
@@ -23,6 +24,7 @@ jobs:
         pyflakes $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
 
   yapf:
+    runs-on: ubuntu-latest
     name: "YAPF"
     steps:
     - uses: actions/checkout@v2
@@ -38,6 +40,7 @@ jobs:
         yapf $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
 
   spellcheck:
+    runs-on: ubuntu-latest
     name: "Spellcheck"
     steps:
     - uses: actions/checkout@v2
