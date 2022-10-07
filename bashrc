@@ -8,8 +8,8 @@ if [ -f ~/dotfiles/sh-scripts/git-complete.sh ]; then
 	GIT_PS1_SHOWDIRTYSTATE=1
 	GIT_PS1_SHOWSTASHSTATE=1
 	GIT_PS1_SHOWUPSTREAM="auto"
-	source ~/dotfiles/sh-scripts/git-complete.sh
-	source ~/dotfiles/sh-scripts/git-prompt.sh
+	source ~/dotfiles/sh-scripts/git-complete.bash
+	source ~/dotfiles/sh-scripts/git-prompt.bash
 	export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
 else
 	export PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
@@ -24,13 +24,13 @@ export EDITOR='vim'
 export TERM='xterm-256color'
 export GPG_TTY=$(tty)
 if [ -d $HOME/.texmf ]; then
-   	export TEXMFHOME=$HOME/.texmf
+	export TEXMFHOME=$HOME/.texmf
 fi
 if [ -d $HOME/.sage ]; then
-   	export DOT_SAGENB=$HOME/.sage
+	export DOT_SAGENB=$HOME/.sage
 fi
 if [ -f /usr/bin/zathura ]; then
-   	export PDFVIEWER='zathura'
+	export PDFVIEWER='zathura'
 fi
 
 umask 007 # set umask
@@ -69,15 +69,15 @@ export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts"
 export PATH=$PATH:$HOME/.local/bin
 
 # Various functions
-function rot13 () {
+function rot13() {
 	if [ -r $1 ]; then
-		cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
+		cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'
 	else
-		echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]';
-   	fi
+		echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'
+	fi
 }
 # Uses the locate utility to find a certain file
-function hunt () {
+function hunt() {
 	python3 ~/dotfiles/py-scripts/hunt.py "${1}"
 	cd "$(cat /tmp/hunt.$(whoami))"
 	pwd
@@ -125,23 +125,23 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 # Misc :)
-alias less='less -R'                          # raw control characters
-alias diff='diff --color'                     # show differences in color
-alias grep='grep --color'                     # show differences in color
-alias egrep='egrep --color=auto'              # show differences in color
-alias fgrep='fgrep --color=auto'              # show differences in color
+alias less='less -R'             # raw control characters
+alias diff='diff --color'        # show differences in color
+alias grep='grep --color'        # show differences in color
+alias egrep='egrep --color=auto' # show differences in color
+alias fgrep='fgrep --color=auto' # show differences in color
 
 # Some shortcuts for different directory listings
 if [ -f /bin/pacman ]; then
 	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
-	alias ll='ls -l --color=tty'                  # long list
-	alias l='ls -CF'                              #
+	alias ll='ls -l --color=tty'                      # long list
+	alias l='ls -CF'                                  #
 elif [ -f /sbin/apk ]; then
 	alias ls='ls --color=always' # classify files in color
-	alias ll='ls -l --color=tty'                  # long list
-	alias l='ls -CF'                              #
+	alias ll='ls -l --color=tty' # long list
+	alias l='ls -CF'             #
 elif [ "$(uname)" = Darwin ]; then
-	alias ls='ls -G' # classify files in color
-	alias ll='ls -Gl'                             # long list
-	alias l='ls -CF'                              #
+	alias ls='ls -G'  # classify files in color
+	alias ll='ls -Gl' # long list
+	alias l='ls -CF'  #
 fi
