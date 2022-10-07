@@ -2,9 +2,9 @@
 
 set -e # crash on any errors
 
-read -ra SPELL_FILES < <(git ls-files)
-read -ra PYTHON_FILES < <(git ls-files "*.py" | grep -v "qutebrowser/" | grep -v "ranger/")
-read -ra SHELL_FILES < <(git ls-files "*.sh")
+readarray -t SPELL_FILES < <(git ls-files)
+readarray -t PYTHON_FILES < <(git ls-files "**.py" | grep -v "qutebrowser/" | grep -v "ranger/")
+readarray -t SHELL_FILES < <(git ls-files "**.sh")
 
 # Spellcheck
 echo "Running spellcheck..."
@@ -19,3 +19,6 @@ yapf -d "${PYTHON_FILES[@]}"
 # Shell
 echo "Running shfmt..."
 shfmt -d "${SHELL_FILES[@]}"
+echo "Running shellcheck..."
+git ls-files "*.sh"
+shellcheck --format=tty "${SHELL_FILES[@]}"
