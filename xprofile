@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 # vim: ft=sh
 
 # Make sure we're in Dvorak
@@ -22,7 +22,7 @@ export QT_QPA_PLATFORMTHEME='qt5ct'
 source ~/dotfiles/sh-scripts/xrandr.sh
 
 if [ "$(hostname)" = ArchAngel ]; then
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
 	xset s 900 30
 	xset dpms 600 600 600
 	# export QT_SCALE_FACTOR=2.4
@@ -31,24 +31,26 @@ fi
 if [ "$(hostname)" = ArchScythe ]; then
 	xset s 900 30
 	xset dpms 600 600 600
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
-	synclient TapButton1=0           # Disable tap to click
-	synclient VertScrollDelta=-237   # Natural scroll for touchpads
+	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+	synclient TapButton1=0                   # Disable tap to click
+	synclient VertScrollDelta=-237           # Natural scroll for touchpads
 	# remap mouse buttons
 	synclient RightButtonAreaTop=0
 	# synclient RightButtonAreaLeft=0
 	# synclient RightButtonAreaRight=1560
 	keychain --quiet
+	# shellcheck disable=SC2046
 	export $(keychain --query --quiet)
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
 	xset s 900 30
 	xset dpms 600 600 600
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
 	synclient RightButtonAreaTop=0
-	synclient VertScrollDelta=-237   # Natural scroll for touchpads
+	synclient VertScrollDelta=-237 # Natural scroll for touchpads
 	keychain --quiet
+	# shellcheck disable=SC2046
 	export $(keychain --query --quiet)
 	# replace the useless menu key with extra ctrl
 	xmodmap -e "remove Control = Control_R"
@@ -57,7 +59,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-	if [ $(date +"%Z") = PDT ]; then
+	if [ "$(date +"%Z")" = PDT ]; then
 		xset s 900 30
 		xset dpms 600 600 600
 	else
@@ -66,8 +68,9 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		export QT_AUTO_SCREEN_SCALE_FACTOR=2
 		export GDK_SCALE=2
 	fi
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
 	keychain --quiet
+	# shellcheck disable=SC2046
 	export $(keychain --query --quiet)
 fi
 
@@ -85,15 +88,17 @@ if [ "$(hostname)" = ArchMajestic ]; then
 		xset s 2000 60
 		xset dpms 1800 1800 1800
 	fi
-	xmodmap -e "pointer = 3 2 1" &> /dev/null  # left-hand mouse
+	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
 	keychain --quiet
+	# shellcheck disable=SC2046
 	export $(keychain --query --quiet)
 	# export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
 if [ "$(hostname)" = dagobah ]; then
 	keychain --quiet
- 	export $(keychain --query --quiet)
+	# shellcheck disable=SC2046
+	export $(keychain --query --quiet)
 fi
 
 # Load background image, if not existent already

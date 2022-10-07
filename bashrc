@@ -1,33 +1,37 @@
-#
+#!/bin/bash
 # .bashrc
 # Evan Chen
 #
 
-if [ -f ~/dotfiles/sh-scripts/git-complete.sh ]; then
+if [ -f ~/dotfiles/sh-scripts/git-completion.bash ]; then
 	# Git magic / Sourcing
+	# shellcheck disable=SC2034
 	GIT_PS1_SHOWDIRTYSTATE=1
+	# shellcheck disable=SC2034
 	GIT_PS1_SHOWSTASHSTATE=1
+	# shellcheck disable=SC2034
 	GIT_PS1_SHOWUPSTREAM="auto"
-	source ~/dotfiles/sh-scripts/git-complete.bash
+	source ~/dotfiles/sh-scripts/git-completion.bash
 	source ~/dotfiles/sh-scripts/git-prompt.bash
-	export PS1='\[\033[0;32m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
+	export PS1='\[\033[0;32m\]\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
 else
-	export PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
+	export PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
 	if [ -f ~/banner ]; then
 		cat ~/banner
 	fi
 fi
-export SUDO_PS1='\[\033[0;31m\]${debian_chroot:+($debian_chroot)}\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
+export SUDO_PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
 
 # Exports
 export EDITOR='vim'
 export TERM='xterm-256color'
-export GPG_TTY=$(tty)
-if [ -d $HOME/.texmf ]; then
-	export TEXMFHOME=$HOME/.texmf
+GPG_TTY=$(tty)
+export GPG_TTY
+if [ -d "$HOME"/.texmf ]; then
+	export TEXMFHOME="$HOME"/.texmf
 fi
-if [ -d $HOME/.sage ]; then
-	export DOT_SAGENB=$HOME/.sage
+if [ -d "$HOME"/.sage ]; then
+	export DOT_SAGENB="$HOME"/.sage
 fi
 if [ -f /usr/bin/zathura ]; then
 	export PDFVIEWER='zathura'
@@ -70,16 +74,16 @@ export PATH=$PATH:$HOME/.local/bin
 
 # Various functions
 function rot13() {
-	if [ -r $1 ]; then
-		cat $1 | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'
+	if [ -r "$1" ]; then
+		tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9' <"$1"
 	else
-		echo $* | tr '[N-ZA-Mn-za-m5-90-4]' '[A-Za-z0-9]'
+		cat | tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9'
 	fi
 }
 # Uses the locate utility to find a certain file
 function hunt() {
 	python3 ~/dotfiles/py-scripts/hunt.py "${1}"
-	cd "$(cat /tmp/hunt.$(whoami))"
+	cd "$(cat /tmp/hunt."$(whoami)")" || exit
 	pwd
 	ls -l --color=tty
 }

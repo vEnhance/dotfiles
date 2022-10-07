@@ -2,16 +2,14 @@
 
 git status -sb # print nothing to do msg
 if [ "$(git remote | wc --lines)" -gt 0 ]; then
-	if [ $(git rev-list --count @{upstream}..HEAD) -eq 0 ]; then
+	if [ "$(git rev-list --count @\{upstream\}..HEAD)" -eq 0 ]; then
 		echo -e "\e[1;31m**You are not ahead of the upstream remote! Amending seems unwise.**\e[m"
 		exit 1
 	fi
 fi
 if [ "$#" -eq 0 ]; then
-	git diff --staged --stat --exit-code > /dev/null
-	if [ $? -eq 0 ]; then
-		git diff --stat --exit-code > /dev/null
-		if [ $? -eq 0 ]; then
+	if git diff --staged --stat --exit-code >/dev/null; then
+		if git diff --stat --exit-code >/dev/null; then
 			echo "Nothing to commit, working tree clean"
 		else
 			echo -e "Nothing staged, so running \e[1;36mgit commit -a --amend --no-edit\e[m."
