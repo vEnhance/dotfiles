@@ -105,7 +105,7 @@ void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
 pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
 pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }
 pair centroid(pair A, pair B, pair C) { return (A+B+C)/3; }
-// cse5 abbrevations
+// cse5 abbreviations
 path CP(pair P, pair A) { return circle(P, abs(A-P)); }
 path CR(pair P, real r) { return circle(P, r); }
 pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }

@@ -648,7 +648,7 @@ environment, as well as a  flag that tells whether one is
 inside a theorem-like environment or not. Every time a \label{xx}
 command is encountered, we give ref[xx] the value of the section
 in which the command appears, or the number of the theorem-like
-environment in which it appears (if applicable). Each appearence
+environment in which it appears (if applicable). Each appearance
 of \label is replace by an html "name" tag, so that later we can
 replace \ref commands by clickable html links.
 

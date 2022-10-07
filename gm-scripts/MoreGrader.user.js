@@ -168,7 +168,7 @@ AoPS.Contests.Views.ContestGraderEntry = AoPS.Contests.Views.ContestGraderEntry.
             }
 
             /* Extract data for export */
-            // var num_evals = this.model.get("num_evals_completed"); // superceded by actual counter above
+            // var num_evals = this.model.get("num_evals_completed"); // superseded by actual counter above
             // var combined_score = Math.round(this.model.get("combined_score"));
             // var conflict = this.model.get("submission_status") === "conflict";
             var conflict, combined_score;

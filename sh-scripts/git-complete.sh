@@ -425,7 +425,7 @@ __git_remotes ()
 __git_list_merge_strategies ()
 {
 	git merge -s help 2>&1 |
-	sed -n -e '/[Aa]vailable strategies are: /,/^$/{
+	sed -n -e '/(Available|available) strategies are: /,/^$/{
 		s/\.$//
 		s/.*://
 		s/^[ 	]*//

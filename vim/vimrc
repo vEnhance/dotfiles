@@ -59,7 +59,7 @@ Plug 'vim-ctrlspace/vim-ctrlspace'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'rodrigore/coc-tailwind-intellisense', {'do': 'npm install'}
 " }}}
-" A million settins for addons {{{
+" A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let NERDTreeIgnore = [

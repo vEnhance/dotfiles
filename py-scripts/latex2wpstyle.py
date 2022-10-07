@@ -62,7 +62,7 @@ head_string = "<p style=\"margin-bottom: 6px\"><b style=\"color: #ff4d4d !import
 beginthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b></p>"
 
 # translation of \begin{theorem}[...]. The string
-# _ThmName_ stands for the content betwee the
+# _ThmName_ stands for the content between the
 # square brackets
 
 beginnamedthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b>" + " <b>(_ThmName_)</b>" + "</p>"

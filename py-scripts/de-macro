@@ -621,7 +621,7 @@ class Tex_stream(Stream):
 			self.next()
 			item = self.skip_blank_tokens()
 			if not "}" == item.val:
-				raise Error("Definition for commmand %s misses first }., %s" %
+				raise Error("Definition for command %s misses first }., %s" %
 					   (name, item.val))
 		self.next()
 		self.skip_blank_tokens()

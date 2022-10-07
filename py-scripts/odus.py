@@ -150,11 +150,11 @@ if detect_missing is False:
 
 		num_problems = sum(1 for data in seen.values() if fn in data and data[fn][0] > 0)
 		num_points = sum(data[fn][0] for data in seen.values() if fn in data and data[fn][0] > 0)
-		seperator = "   "
-		summary_output = APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") + seperator
-		summary_output += APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") + seperator
+		separator = "   "
+		summary_output = APPLY_COLOR("BOLD_RED", f"{repeat_count_dict[fn]:2}❗") + separator
+		summary_output += APPLY_COLOR("BOLD_GREEN", f"{num_problems:2}🧩") + separator
 		summary_output += f"♣[{num_points:3}; hi {goals[fn][1]:2}; min {goals[fn][0]:2}]" + " "
-		summary_output += APPLY_COLOR("CYAN", basename) + seperator
+		summary_output += APPLY_COLOR("CYAN", basename) + separator
 		print(summary_output)
 
 else:

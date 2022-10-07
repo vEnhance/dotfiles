@@ -147,7 +147,7 @@ try
 endtry
 
 function EvanCompileLaTeX(continuous)
-	" von complier
+	" von compiler
 	if stridx(expand('%:p'), 'vondb') != -1 || stridx(expand('%:t'), 'von.tex') != -1
 		lcd /tmp/preview_$USER
 		if a:continuous

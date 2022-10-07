@@ -138,7 +138,7 @@ function main() {
   # Rewrite submodule history
   local tmpdir="$(mktemp -d -t submodule-rewrite-XXXXXX)"
   git clone -b "${branch}" "${url}" "${tmpdir}"
-  # Be sure to get all tags as well as we will mege them later on
+  # Be sure to get all tags as well as we will merge them later on
   git fetch --tags
   pushd "${tmpdir}"
   local tab="$(printf '\t')"
