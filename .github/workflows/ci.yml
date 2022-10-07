@@ -1,7 +1,10 @@
-name: Lint
+name: CI
 
 on:
-  workflow_call: {}
+  push:
+    branches: [ '*' ]
+  pull_request:
+    branches: [ '*' ]
 
 jobs:
   pyflakes:
