@@ -51,6 +51,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade codespell
-    - name: Run YAPF
+    - name: Run spellcheck
       run: |
         codespell $(git ls-files '*.py')
