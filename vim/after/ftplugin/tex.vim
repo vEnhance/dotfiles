@@ -4,7 +4,7 @@ let b:ale_fixers = g:ale_fixers['*']
 "TODO i think it might be time to switch packages
 try
 	" Always use \\dots
-	call IMAP('...', "\\dots",'tex')
+	call IMAP('...', '\\dots', 'tex')
 
 	" Disable sections
 	call IMAP('SPA', 'SPA', 'tex')
@@ -43,16 +43,16 @@ try
 	call IMAP('.beg ', "\\begin{<++>}\<CR><++>\<CR>\\end{<++>}<++>", 'tex') " BEST IDEA EVER
 
 	"Miscellaneous maps
-	call IMAP('<C-/>', "\\frac{<++>}{<++>}<++>", 'tex')
-	call IMAP('[]', "[]", 'tex')
-	call IMAP('<<', "\\left< <++>\\right><++>", 'tex')
-	call IMAP('||', "\\left\\lvert <++> \\right\\rvert<++>", 'tex')
-	call IMAP('.floor ', "\\left\\lfloor <++> \\right\\rfloor<++>", 'tex')
-	call IMAP('.ceil ', "\\left\\lceil <++> \\right\\rceil<++>", 'tex')
-	call IMAP('.cycsum ', "\\sum_{\\text{cyc}} ", 'tex')
-	call IMAP('.symsum ', "\\sum_{\\text{sym}} ", 'tex')
-	call IMAP('.cycprod ', "\\prod_{\\text{cyc}} ", 'tex')
-	call IMAP('.symprod ', "\\prod_{\\text{sym}} ", 'tex')
+	call IMAP('<C-/>', '\frac{<++>}{<++>}<++>', 'tex')
+	call IMAP('[]', '[]', 'tex')
+	call IMAP('<<', '\left< <++>\right><++>', 'tex')
+	call IMAP('||', '\left\lvert <++> \right\rvert<++>', 'tex')
+	call IMAP('.floor ', '\left\lfloor <++> \right\rfloor<++>', 'tex')
+	call IMAP('.ceil ', '\left\lceil <++> \right\rceil<++>', 'tex')
+	call IMAP('.cycsum ', '\sum_{\text{cyc}} ', 'tex')
+	call IMAP('.symsum ', '\sum_{\text{sym}} ', 'tex')
+	call IMAP('.cycprod ', '\prod_{\text{cyc}} ', 'tex')
+	call IMAP('.symprod ', '\prod_{\text{sym}} ', 'tex')
 
 	" amsthm environments defined in evan.sty
 	" Deferred to end because they're LONG.
@@ -160,7 +160,7 @@ function EvanCompileLaTeX(continuous)
 	" search for documentclass
 	let n = 1
 	while n < 10 && n <= line('$')
-		if getline(n) =~ 'documentclass'
+		if getline(n) =~# 'documentclass'
 			" compile and fire if found
 			if a:continuous
 				silent !xfce4-terminal -e "latexmk -cd -pvc -f %" &
@@ -171,7 +171,7 @@ function EvanCompileLaTeX(continuous)
 		endif
 		let n = n + 1
 	endwhile
-	echo "No documentclass provided. This file won't compile!"
+	echo 'No documentclass provided. This file will not compile!'
 endfunction
 
 " latex compile continuously
@@ -196,7 +196,7 @@ nnoremap <localleader>w i$<Esc>ea$<Esc>
 set spell
 syntax spell toplevel
 
-set cole=2
+set conceallevel=2
 
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile

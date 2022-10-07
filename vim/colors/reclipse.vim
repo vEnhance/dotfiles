@@ -5,11 +5,11 @@
 
 set background=light
 highlight clear
-if exists("syntax_on")
-    syntax reset
+if exists('syntax_on')
+	syntax reset
 endif
 
-let g:colors_name = "reclipse"
+let g:colors_name = 'reclipse'
 
 highlight Normal gui=none guifg=#000000 guibg=#ffffff ctermfg=white
 
@@ -99,7 +99,7 @@ hi link Directory Identifier
 hi IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
 hi IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
 
-if !has("gui_running")
+if !has('gui_running')
 	hi link Float          Number
 	hi link Conditional    Repeat
 	hi link Include        PreProc

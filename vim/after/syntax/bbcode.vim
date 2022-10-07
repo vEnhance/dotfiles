@@ -1,6 +1,6 @@
-if version < 600
+if v:version < 600
     syntax clear
-elseif exists("b:current_syntax")
+elseif exists('b:current_syntax')
     finish
 endif
 
@@ -59,4 +59,4 @@ hi def bbcodeItalic term=italic cterm=italic gui=italic
 hi def bbcodeItalicUnderline term=italic,underline cterm=italic,underline gui=italic,underline
 hi def bbcodeUnderline term=underline cterm=underline gui=underline
 
-let b:current_syntax = "bbcode"
+let b:current_syntax = 'bbcode'

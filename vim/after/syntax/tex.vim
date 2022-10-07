@@ -1,14 +1,15 @@
 " fix spellcheck
 syntax spell toplevel
 set spell
+scriptencoding 'utf-8'
 
 " Conceal modifications
-if has("gui_running")
+if has('gui_running')
 	" Match ^(-1)
 	syntax match Minus contained "\\i" conceal cchar=⁻
 	syntax match One contained "nv" conceal cchar=¹
 	syntax match MinusOne "\\inv\>" containedin=texStatement contains=Minus,One
-	
+
 	" Match 1/2, and other symbols
 	syntax match texMathSymbol "\\half\>" contained conceal cchar=½
 	syntax match texMathSymbol "\\eps\>" contained conceal cchar=ε
@@ -47,12 +48,12 @@ syntax region asySnip matchgroup=Snip start="\\begin{asydef}" end="\\end{asydef}
 hi link Snip PreProc
 
 " wef why were these removed in f0b03c4e98f8a7184d8b4a5d702cbcd602426923
-call TexNewMathZone("V","align",1)
-call TexNewMathZone("W","alignat",1)
-call TexNewMathZone("X","flalign",1)
-call TexNewMathZone("Y","multiline",1)
-call TexNewMathZone("Z","gather",1)
+call TexNewMathZone('V','align',1)
+call TexNewMathZone('W','alignat',1)
+call TexNewMathZone('X','flalign',1)
+call TexNewMathZone('Y','multiline',1)
+call TexNewMathZone('Z','gather',1)
 " Highlight diagram as math environment.
-call TexNewMathZone("Z","diagram",0)
-call TexNewMathZone("Z","tikzcd",0)
-call TexNewMathZone("Z","ytableau",0)
+call TexNewMathZone('Z','diagram',0)
+call TexNewMathZone('Z','tikzcd',0)
+call TexNewMathZone('Z','ytableau',0)
