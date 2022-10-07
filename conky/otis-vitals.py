@@ -56,10 +56,10 @@ def get_conky_presentation(s: str, x: List[str]) -> str:
 	m, n = get_stats(x)
 	hours = int(m.total_seconds() / 3600)
 	if hours > 96:
-		days = int(hours/24)
-		t = f'{days:3d}' + 'd'
+		days = int(hours / 24)
+		t = f'{days:3d}d'
 	else:
-		t = f'{hours:3d}' + 'h'
+		t = f'{hours:3d}h'
 	return (r'${alignr}${color7}') + (s + t) + (r'${color8}' + f' [{n:2d}]')
 
 

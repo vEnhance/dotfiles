@@ -26,9 +26,9 @@ generic_string = r'''call IMAP('Upper::', "\\begin{env}\<CR><++>\<CR>\\end{env}<
 call IMAP('Upper[]::', "\\begin{env}[<++>]\<CR><++>\<CR>\\end{env}<++>", 'tex')
 call IMAP('lower::', "\\begin{env*}\<CR><++>\<CR>\\end{env*}<++>", 'tex')
 call IMAP('lower[]::', "\\begin{env*}[<++>]\<CR><++>\<CR>\\end{env*}<++>", 'tex')'''
-for key, val in calls.iteritems():
+for key, val in calls.items():
 	final = generic_string
 	final = final.replace('Upper', key)
 	final = final.replace('lower', key.lower())
 	final = final.replace('env', val)
-	print final
+	print(final)
