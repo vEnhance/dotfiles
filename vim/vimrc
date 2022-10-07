@@ -176,7 +176,7 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_fixers = { '*' : ['remove_trailing_lines', 'trim_whitespace' ] } " by default
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 0
 let g:ale_keep_list_window_open = 0
 let g:ale_open_list = 0
 let g:ale_languagetool_options = "--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE"
@@ -283,9 +283,8 @@ nmap Q <nop>
 function! EvanSave()
 	" Check if ALE is hard at work...
 	let l:enabled = get(b:, 'ale_enabled', get(g:, 'ale_enabled', 0))
-	let l:fix_on_save = get(b:, 'ale_fix_on_save', get(g:, 'ale_fix_on_save', 0))
 	let l:any_fixers =  get(b:, 'ale_fixers', 'MEOW')
-	if l:enabled && l:fix_on_save && (len(l:any_fixers) != 0)
+	if l:enabled && (len(l:any_fixers) != 0)
 		ALEFix
 	endif
 	wall
