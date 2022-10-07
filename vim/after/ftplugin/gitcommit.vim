@@ -1,5 +1,5 @@
 setlocal ts=4
-" this goes in ~/.vim/after/ftplugin/gitcommit.vim
+let b:ale_fixers = []
 
 " https://www.reddit.com/r/vim/comments/dj37wt/plugin_for_conventional_commits/
 inoreabbrev <buffer> BB BREAKING CHANGE:
