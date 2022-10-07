@@ -4,6 +4,7 @@ set -e # crash on any errors
 
 readarray -t SPELL_FILES < <(git ls-files)
 readarray -t PYTHON_FILES < <(git ls-files "**.py" | grep -v "qutebrowser/" | grep -v "ranger/")
+readarray -t VIM_FILES < <(git ls-files "**.vim")
 readarray -t SHELL_FILES < <(git ls-files "**.sh")
 
 # Spellcheck
@@ -15,6 +16,10 @@ echo "Running pyflakes on ${#PYTHON_FILES[@]} files..."
 pyflakes "${PYTHON_FILES[@]}"
 echo "Running yapf on ${#PYTHON_FILES[@]} files..."
 yapf -d "${PYTHON_FILES[@]}"
+
+# Vim
+echo "Running vint on ${#VIM_FILES[@]} files..."
+vint -t "${VIM_FILES[@]}"
 
 # Shell
 echo "Running shfmt on ${#SHELL_FILES[@]} files..."
