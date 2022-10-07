@@ -281,7 +281,11 @@ nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 nmap Q <nop>
 " Save command
 function! EvanSave()
-	if get(b:, 'ale_enabled', get(g:, 'ale_enabled', 0)) && get(b:, 'ale_fix_on_save', get(g:, 'ale_fix_on_save', 0))
+	" Check if ALE is hard at work...
+	let l:enabled = get(b:, 'ale_enabled', get(g:, 'ale_enabled', 0))
+	let l:fix_on_save = get(b:, 'ale_fix_on_save', get(g:, 'ale_fix_on_save', 0))
+	let l:any_fixers =  get(b:, 'ale_fixers', 'MEOW')
+	if l:enabled && l:fix_on_save && (len(l:any_fixers) != 0)
 		ALEFix
 	endif
 	wall
