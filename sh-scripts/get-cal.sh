@@ -6,7 +6,7 @@ gcalendar --no-of-days 14 --output json \
 	"Events" \
 	"Friends" \
 	"Garbage" \
-	"Happy Events" \
+	"Happiness" \
 	"Important" \
 	"Leisure" \
 	"Office Hours" \
