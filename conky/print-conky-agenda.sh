@@ -21,7 +21,7 @@ echo "\${color6}$(tail ~/.cache/agenda.txt -n +10 | head -n 1)"
 echo "\${color6}$(tail ~/.cache/agenda.txt -n +11 | head -n 1)"
 echo "\${color6}$(tail ~/.cache/agenda.txt -n +12 | head -n 1)"
 # shellcheck disable=SC2016
-echo '${voffset-10}${color0}${stippled_hr}${voffset-2}'
+echo '${voffset -10}${color0}${stippled_hr}${voffset -2}'
 echo "\${color8}$(tail ~/.cache/todo.txt -n +1 | head -n 1)"
 echo "\${color4}$(tail ~/.cache/todo.txt -n +2 | head -n 1)"
 echo "\${color4}$(tail ~/.cache/todo.txt -n +3 | head -n 1)"
