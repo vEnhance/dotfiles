@@ -8,29 +8,19 @@ task rc.verbose=nothing rc.gc=off brief | sed -r "s/(^.{32}).*? +([-0-9\.]+)\$/\
 
 "$HOME"/.cache/agenda.json <python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt
 
-echo "\${color8}$(tail ~/.cache/agenda.txt -n +1 | head -n 1)"
-echo "\${color4}$(tail ~/.cache/agenda.txt -n +2 | head -n 1)"
-echo "\${color4}$(tail ~/.cache/agenda.txt -n +3 | head -n 1)"
-echo "\${color5}$(tail ~/.cache/agenda.txt -n +4 | head -n 1)"
-echo "\${color5}$(tail ~/.cache/agenda.txt -n +5 | head -n 1)"
-echo "\${color5}$(tail ~/.cache/agenda.txt -n +6 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/agenda.txt -n +7 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/agenda.txt -n +8 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/agenda.txt -n +9 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/agenda.txt -n +10 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/agenda.txt -n +11 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/agenda.txt -n +12 | head -n 1)"
+color_num=(8 4 4 5 5 5 6 6 6 6 6 6)
+
+for k in {1..12}; do
+	if [ "$(wc --lines <~/.cache/agenda.txt)" -ge "$k" ]; then
+		echo "\${color${color_num[k - 1]}}$(tail ~/.cache/agenda.txt -n +"${k}" | head -n 1)"
+	fi
+done
+
 # shellcheck disable=SC2016
 echo '${voffset -10}${color0}${stippled_hr}${voffset -2}'
-echo "\${color8}$(tail ~/.cache/todo.txt -n +1 | head -n 1)"
-echo "\${color4}$(tail ~/.cache/todo.txt -n +2 | head -n 1)"
-echo "\${color4}$(tail ~/.cache/todo.txt -n +3 | head -n 1)"
-echo "\${color5}$(tail ~/.cache/todo.txt -n +4 | head -n 1)"
-echo "\${color5}$(tail ~/.cache/todo.txt -n +5 | head -n 1)"
-echo "\${color5}$(tail ~/.cache/todo.txt -n +6 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/todo.txt -n +7 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/todo.txt -n +8 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/todo.txt -n +9 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/todo.txt -n +10 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/todo.txt -n +11 | head -n 1)"
-echo "\${color6}$(tail ~/.cache/todo.txt -n +12 | head -n 1)"
+
+for k in {1..12}; do
+	if [ "$(wc --lines <~/.cache/todo.txt)" -ge "$k" ]; then
+		echo "\${color${color_num[k - 1]}}$(tail ~/.cache/todo.txt -n +"${k}" | head -n 1)"
+	fi
+done
