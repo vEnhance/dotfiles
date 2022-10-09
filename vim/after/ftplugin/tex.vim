@@ -3,8 +3,8 @@ let b:ale_fixers = g:ale_fixers['*']
 
 "TODO i think it might be time to switch packages
 try
-	" Always use \\dots
-	call IMAP('...', '\\dots', 'tex')
+	" Always use \dots
+	call IMAP('...', '\dots', 'tex')
 
 	" Disable sections
 	call IMAP('SPA', 'SPA', 'tex')
