@@ -45,6 +45,7 @@ if [ "$(hostname)" = ArchScythe ]; then
 	dunst &
 	syncthing-gtk -m &
 	source ~/dotfiles/conky/setup.sh &
+	signal-desktop --start-in-tray --use-tray-icon &
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
@@ -52,6 +53,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
 	dunst &
 	source ~/dotfiles/conky/setup.sh &
 	syncthing-gtk -m &
+	signal-desktop --start-in-tray --use-tray-icon &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
@@ -64,18 +66,16 @@ if [ "$(hostname)" = ArchDiamond ]; then
 		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
 	fi
-	#if [ "$(date +'%Z')" = "PDT" -a "$(whoami)" = "evan" ]; then
-	#	/home/evan/dotfiles/py-scripts/ctwenty.py &
-	#fi
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
 	picom -C -G -b --no-fading-openclose
 	if [ "$(whoami)" = "evan" ]; then
 		source ~/dotfiles/conky/setup.sh &
-		#/home/evan/dotfiles/py-scripts/ctwenty.py &
 		ibus-daemon -d -r &
 		dropbox-cli start
+		app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
+		signal-desktop --start-in-tray --use-tray-icon &
 	fi
 	if [ "$(whoami)" = "star" ]; then
 		conky -c ~/dotfiles/conky/star-bar.conf

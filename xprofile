@@ -19,6 +19,11 @@ export SHELL='/usr/bin/fish'
 # For OBS
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
+# For Signal (how is this not in the GUI???)
+# this doesn't seem to work reliably but I guess it can't hurt
+export SIGNAL_USE_TRAY_ICON=True
+export SIGNAL_START_IN_TRAY=True
+
 source ~/dotfiles/sh-scripts/xrandr.sh
 
 if [ "$(hostname)" = ArchAngel ]; then
@@ -75,7 +80,6 @@ if [ "$(hostname)" = ArchDiamond ]; then
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-	# dunst &
 	ponymix set-default -t source \
 		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
 	ponymix set-volume -t source 80
@@ -92,7 +96,6 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	keychain --quiet
 	# shellcheck disable=SC2046
 	export $(keychain --query --quiet)
-	# export $(gnome-keyring-daemon --start --components=pkcs11,secrets,ssh)
 fi
 
 if [ "$(hostname)" = dagobah ]; then
