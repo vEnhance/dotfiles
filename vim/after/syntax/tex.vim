@@ -13,8 +13,8 @@ if has('gui_running')
 	" Match 1/2, and other symbols
 	syntax match texMathSymbol "\\half\>" contained conceal cchar=½
 	syntax match texMathSymbol "\\eps\>" contained conceal cchar=ε
-    syntax match texMathSymbol "\\dang\>" contained conceal cchar=∡
-    syntax match texMathSymbol "\\then\>" contained conceal cchar=⊃
+	syntax match texMathSymbol "\\dang\>" contained conceal cchar=∡
+	syntax match texMathSymbol "\\then\>" contained conceal cchar=⊃
 
 	" Match absolute value bars
 	syntax match texMathSymbol "\\left\\lvert\>" contained conceal cchar=|
