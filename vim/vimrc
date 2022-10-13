@@ -11,6 +11,25 @@ let maplocalleader = ','
 
 " {{{ Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
+Plug 'cespare/vim-toml',             { 'for' : 'toml' }
+Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
+Plug 'dag/vim-fish',                 { 'for' : 'fish' }
+Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
+Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
+Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
+Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
+Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
+Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
+Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
+Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
+Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
+Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
+Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
+Plug 'vim-python/python-syntax',     { 'for' : 'python' }
+Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
+Plug 'vim-latex/vim-latex'
+
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Shougo/echodoc'
 Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
@@ -32,25 +51,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'ypcrts/securemodelines'
-
-Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
-Plug 'cespare/vim-toml',             { 'for' : 'toml' }
-Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
-Plug 'dag/vim-fish',                 { 'for' : 'fish' }
-Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
-Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
-Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
-Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
-Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
-Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
-Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
-Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
-Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
-Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
-Plug 'vim-python/python-syntax',     { 'for' : 'python' }
-Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
-Plug 'vim-latex/vim-latex'
 " Leader keys that are forced on me by LaTeX
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
