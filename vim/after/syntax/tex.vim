@@ -41,11 +41,18 @@ syn region texRefZone		matchgroup=texStatement start="\\Cref{"	end="}\|%stopzone
 syn match texTypeStyle		"\\vocab\>"
 syn match texTypeStyle		"\\alert\>"
 
-"Syntax highlighting: render asymptote
-syntax include @ASY after/ftplugin/asy.vim
-syntax region asySnip matchgroup=Snip start="\\begin{asy}" end="\\end{asy}" contains=@ASY containedin=texPartZone,texChapterZone,texSectionZone,texSubSectionZone,texSubSubSectionZone,texDocZone
-syntax region asySnip matchgroup=Snip start="\\begin{asydef}" end="\\end{asydef}" contains=@ASY containedin=texPartZone,texChapterZone,texSectionZone,texSubSectionZone,texSubSubSectionZone,texDocZone
-hi link Snip PreProc
+" Inline syntax highlighting
+call SyntaxRange#Include('\\begin{asy}', '\\end{asy}', 'asy', 'PreProc')
+call SyntaxRange#Include('\\begin{asydef}', '\\end{asydef}', 'asy', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}', '\\end{lstlisting}', 'text', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=Java*\]', '\\end{lstlisting}', 'java', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=Python*\]', '\\end{lstlisting}', 'python', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=Ruby*\]', '\\end{lstlisting}', 'ruby', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=SQL*\]', '\\end{lstlisting}', 'sql', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=bash*\]', '\\end{lstlisting}', 'bash', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=gitcommit*\]', '\\end{lstlisting}', 'git', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=gitlog*\]', '\\end{lstlisting}', 'git', 'PreProc')
+call SyntaxRange#Include('\\begin{lstlisting}\[language=make*\]', '\\end{lstlisting}', 'make', 'PreProc')
 
 " wef why were these removed in f0b03c4e98f8a7184d8b4a5d702cbcd602426923
 call TexNewMathZone('V','align',1)

@@ -49,6 +49,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-ctrlspace/vim-ctrlspace'
+Plug 'vim-scripts/ingo-library'
+Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'ypcrts/securemodelines'
 " Leader keys that are forced on me by LaTeX
