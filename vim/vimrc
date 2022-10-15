@@ -13,6 +13,7 @@ let maplocalleader = ','
 call plug#begin('~/.vim/plugged')
 Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
 Plug 'cespare/vim-toml',             { 'for' : 'toml' }
+Plug 'chrisbra/csv.vim'
 Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
 Plug 'dag/vim-fish',                 { 'for' : 'fish' }
 Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
@@ -88,6 +89,9 @@ let NERDTreeIgnore = [
 	\	]
 let NERDTreeShowLineNumbers = 1
 let g:completor_filetype_map = {}
+let g:csv_highlight_column = 'y'
+let g:csv_start = 1
+let g:csv_end = 100
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cmd= 'CtrlPBuffer'
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
