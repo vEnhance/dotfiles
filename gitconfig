@@ -55,6 +55,7 @@
 	sub = submodule
 
 	bis = bisect
+	dc = checkout --
 	discard = checkout --
 	undo = reset --mixed HEAD@{1}
 	unstage = restore --staged
