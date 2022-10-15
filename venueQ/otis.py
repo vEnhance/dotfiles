@@ -175,6 +175,9 @@ class ProblemSet(VenueQNode):
 			data['clubs'] = min(data['clubs'], 1)
 			data['hours'] = min(data['hours'], 2)
 
+		data['feedback'] = data['feedback'].replace(r"'", r"’").replace(r'"', r'＂')
+		data['special_notes'] = data['special_notes'].replace(r"'", r"’").replace(r'"', r'＂')
+
 		# collect data about the handout
 		if HANDOUTS_PATH.exists():
 			filename = f'**/{data["unit__code"]}-{data["unit__group__slug"]}.tex'
