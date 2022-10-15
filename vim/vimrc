@@ -27,9 +27,9 @@ Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
 Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
 Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
 Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
+Plug 'vim-latex/vim-latex'
 Plug 'vim-python/python-syntax',     { 'for' : 'python' }
 Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
-Plug 'vim-latex/vim-latex'
 
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Shougo/echodoc'
@@ -54,6 +54,7 @@ Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'ypcrts/securemodelines'
+" Plug 'leanprover/lean.vim'
 " Leader keys that are forced on me by LaTeX
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
@@ -117,11 +118,6 @@ let g:gutentags_file_list_command = {
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:jedi#show_call_signatures = 0
-let g:vimwiki_filetypes = ['markdown']
-let g:yankring_history_dir = '$HOME/.cache/'
-let grepprg = 'ag --nogroup --nocolor'
-
-" Plug 'leanprover/lean.vim'
 let g:python_highlight_all = 1
 let g:taskwiki_disable_concealcursor=1
 let g:vim_markdown_auto_insert_bullets = 0
@@ -129,8 +125,11 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
+let g:vimwiki_filetypes = ['markdown']
 let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
+let g:yankring_history_dir = '$HOME/.cache/'
+let grepprg = 'ag --nogroup --nocolor'
 
 " Airline auto from vim-plugins
 let g:airline#extensions#coc#enabled = 1
