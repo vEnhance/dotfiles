@@ -18,7 +18,7 @@ from dotenv import load_dotenv
 
 from venueQ import Data, VenueQNode, VenueQRoot, logger
 
-load_dotenv(Path('~/dotfiles/otis.env').expanduser())
+load_dotenv(Path('~/dotfiles/secrets/otis.env').expanduser())
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
 assert TOKEN is not None
 PRODUCTION = os.getenv('PRODUCTION', False)
