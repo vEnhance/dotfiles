@@ -7,8 +7,6 @@ fish/*
 !fish/fish_plugins
 mutt/abook/addressbook
 mutt/abook/addressbook~
-mutt/mbsyncrc
-mutt/muttrc.?
 mutt/templates/*
 qutebrowser/bookmarks/*
 qutebrowser/qsettings/

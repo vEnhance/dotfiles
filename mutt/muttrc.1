@@ -1,0 +1,20 @@
+unalternates *
+alternates '@evanchen\.cc' '^evanchen@alum.mit\.edu$'
+
+set folder=~/Mail/work/
+set header_cache=~/.cache/mutt/work
+
+set smtp_url=`echo smtps://$(cat ~/dotfiles/secrets/mailuser1)@gmail.com@smtp.gmail.com:465`
+set smtp_pass = `secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser1) type gmail`
+set from = "evan@evanchen.cc"
+
+set imap_user = `echo $(cat ~/dotfiles/secrets/mailuser1)@gmail.com`
+set imap_pass = `secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser1) type gmail`
+set spoolfile = +Inbox
+set postponed = +Drafts
+
+color indicator  brightwhite  green
+color status     brightwhite  green
+
+color sidebar_divider green white
+# vim: ft=neomuttrc

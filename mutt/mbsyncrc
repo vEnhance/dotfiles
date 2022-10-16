@@ -1,0 +1,155 @@
+SyncState *
+Create near
+
+# evanchen.personal account info
+IMAPAccount personal-gmail
+Host imap.gmail.com
+UserCmd "echo $(cat ~/dotfiles/secrets/mailuser0)@gmail.com"
+PassCmd "secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser0) type gmail"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore personal-remote
+Account personal-gmail
+
+# evanchen.personal local storage
+MaildirStore personal-local
+SubFolders Verbatim
+Path ~/Mail/personal/
+# Inbox ~/Mail/personal/INBOX
+
+# evanchen.personal sync
+Group personal
+Channel personal-inbox
+Channel personal-all
+Channel personal-sent
+Channel personal-trash
+
+Channel personal-inbox
+Far :personal-remote:"INBOX"
+Near :personal-local:"Inbox"
+
+Channel personal-all
+Far :personal-remote:"[Gmail]/&UWiQ6JD1TvY-"
+Near :personal-local:All
+MaxMessages 50
+ExpireUnread yes
+
+Channel personal-sent
+Far :personal-remote:"[Gmail]/&W8RO9lCZTv0-"
+Near :personal-local:Sent
+MaxMessages 50
+ExpireUnread yes
+
+Channel personal-trash
+Far :personal-remote:"[Gmail]/&V4NXPmh2-"
+Near :personal-local:Trash
+MaxMessages 50
+ExpireUnread yes
+
+
+
+
+# -------------------------------------------
+
+# evanchen.work account info
+IMAPAccount work-gmail
+Host imap.gmail.com
+UserCmd "echo $(cat ~/dotfiles/secrets/mailuser1)@gmail.com"
+PassCmd "secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser1) type gmail"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore work-remote
+Account work-gmail
+
+# evanchen.work local storage
+MaildirStore work-local
+SubFolders Verbatim
+Path ~/Mail/work/
+# Inbox ~/Mail/work/INBOX
+
+# evanchen.work sync
+Group work
+Channel work-inbox
+Channel work-all
+Channel work-sent
+Channel work-trash
+
+Channel work-inbox
+Far :work-remote:"INBOX"
+Near :work-local:Inbox
+ExpireUnread no
+
+Channel work-all
+Far :work-remote:"[Gmail]/&UWiQ6JD1TvY-"
+Near :work-local:All
+MaxMessages 50
+ExpireUnread yes
+
+Channel work-sent
+Far :work-remote:"[Gmail]/&W8RO9lCZTv0-"
+Near :work-local:Sent
+MaxMessages 50
+ExpireUnread yes
+
+Channel work-trash
+Far :work-remote:"[Gmail]/&V4NXPmh2-"
+Near :work-local:Trash
+MaxMessages 50
+ExpireUnread yes
+
+
+
+
+
+# -------------------------------------------
+
+# evanchen.records account info
+IMAPAccount records-gmail
+Host imap.gmail.com
+UserCmd "echo $(cat ~/dotfiles/secrets/mailuser2)@gmail.com"
+PassCmd "secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser2) type gmail"
+SSLType IMAPS
+CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+IMAPStore records-remote
+Account records-gmail
+
+# evanchen.records local storage
+MaildirStore records-local
+SubFolders Verbatim
+Path ~/Mail/records/
+# Inbox ~/Mail/records/INBOX
+
+# evanchen.records sync
+Group records
+Channel records-inbox
+Channel records-all
+Channel records-sent
+Channel records-trash
+
+Channel records-inbox
+Far :records-remote:"INBOX"
+Near :records-local:Inbox
+ExpireUnread no
+
+Channel records-all
+Far :records-remote:"[Gmail]/&UWiQ6JD1TvY-"
+Near :records-local:All
+MaxMessages 50
+ExpireUnread yes
+
+Channel records-sent
+Far :records-remote:"[Gmail]/&W8RO9lCZTv0-"
+Near :records-local:Sent
+MaxMessages 10
+ExpireUnread yes
+
+Channel records-trash
+Far :records-remote:"[Gmail]/&V4NXPmh2-"
+Near :records-local:Trash
+MaxMessages 50
+ExpireUnread yes
+
+# ---------------------
