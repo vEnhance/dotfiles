@@ -26,16 +26,13 @@ if [ "$(hostname)" = dagobah ] && [ "$(whoami)" = evan ]; then
 	exit
 fi
 
-#if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
-#	# during twitch stream, disable laptop lock screen
-#	if [ "$(date +%u)" -eq 5 ] && [ "$(date +%H)" -ge 20 ]; then
-#		exit
-#	fi
-#	if [ "$(date +%u)" -eq 6 ] && [ "$(date +%H)" -le 2 ]; then
-#		exit
-#	fi
-#fi
-#
+if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
+	# during twitch stream, disable laptop lock screen
+	if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance; then
+		exit
+	fi
+fi
+
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
 	xset dpms 10 0 0
 	pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
