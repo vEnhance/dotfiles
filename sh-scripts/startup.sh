@@ -44,16 +44,18 @@ if [ "$(hostname)" = ArchScythe ]; then
 	systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
 	dunst &
 	syncthing-gtk -m &
-	source ~/dotfiles/conky/setup.sh &
 	signal-desktop --start-in-tray --use-tray-icon &
+	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+	conky -c ~/dotfiles/conky/cal2.conf &
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
 	picom -C -G -b --no-fading-openclose
 	dunst &
-	source ~/dotfiles/conky/setup.sh &
 	syncthing-gtk -m &
 	signal-desktop --start-in-tray --use-tray-icon &
+	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+	conky -c ~/dotfiles/conky/cal2.conf &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
@@ -63,22 +65,29 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	dunst &
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
-		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
+		if [ "$(date +'%Z')" = "EDT" ] || [ "$(date +'%Z')" = "EST" ]; then
+			conky -c ~/dotfiles/conky/thin-bar-3840x2160.conf &
+			conky -c ~/dotfiles/conky/cal5.conf &
+		else
+			conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+			conky -c ~/dotfiles/conky/cal3.conf &
+		fi
 	fi
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
 	picom -C -G -b --no-fading-openclose
 	if [ "$(whoami)" = "evan" ]; then
-		source ~/dotfiles/conky/setup.sh &
 		ibus-daemon -d -r &
 		dropbox-cli start
 		app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
 		signal-desktop --start-in-tray --use-tray-icon &
+		conky -c ~/dotfiles/conky/shifted-bar.conf &
+		conky -c ~/dotfiles/conky/cal3.conf &
 	fi
 	if [ "$(whoami)" = "star" ]; then
-		conky -c ~/dotfiles/conky/star-bar.conf
+		conky -c ~/dotfiles/conky/star-bar.conf &
 	fi
 	redshift-gtk &
 	syncthing-gtk &
@@ -88,5 +97,6 @@ fi
 if [ "$(hostname)" = dagobah ]; then
 	picom -C -G -b --no-fading-openclose
 	syncthing-gtk -m &
-	source ~/dotfiles/conky/setup.sh &
+	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+	conky -c ~/dotfiles/conky/cal3.conf &
 fi
