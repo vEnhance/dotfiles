@@ -20,6 +20,7 @@ from venueQ import Data, VenueQNode, VenueQRoot, logger
 
 load_dotenv(Path('~/dotfiles/secrets/otis.env').expanduser())
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
+OTIS_GMAIL_USERNAME = os.getenv('OTIS_GMAIL_USERNAME')
 assert TOKEN is not None
 PRODUCTION = os.getenv('PRODUCTION', False)
 if PRODUCTION:
@@ -59,7 +60,7 @@ def send_email(
 	mail.attach(MIMEText(html_msg, 'html'))
 
 	password = subprocess.run(
-		['secret-tool', 'lookup', 'user', 'evanchen.mit', 'type', 'gmail'],
+		['secret-tool', 'lookup', 'user', OTIS_GMAIL_USERNAME, 'type', 'gmail'],
 		text=True,
 		capture_output=True
 	).stdout
@@ -72,7 +73,7 @@ def send_email(
 		target_addrs = (recipients or []) + (bcc or [])
 		session = smtplib.SMTP('smtp.gmail.com', 587)
 		session.starttls(context=ssl.create_default_context())
-		session.login('evanchen.mit@gmail.com', password)
+		session.login(f'{OTIS_GMAIL_USERNAME}@gmail.com', password)
 		session.sendmail('evan@evanchen.cc', target_addrs, mail.as_string())
 	else:
 		assert password
