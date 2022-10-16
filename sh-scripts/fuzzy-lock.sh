@@ -28,7 +28,7 @@ fi
 
 if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
 	# during twitch stream, disable laptop lock screen
-	if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance; then
+	if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
 		exit
 	fi
 fi

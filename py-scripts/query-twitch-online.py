@@ -1,3 +1,6 @@
+#!/bin/python3
+
+import argparse
 import os
 import sys
 from pathlib import Path
@@ -6,14 +9,29 @@ from pprint import pformat
 import requests
 from dotenv import load_dotenv
 
-if len(sys.argv) != 2:
-	print("WTF tell me who to look at", file=sys.stderr)
-	sys.exit(2)
+parser = argparse.ArgumentParser(description='Check Twitch status')
+parser.add_argument('username', type=str, help='Username to check')
+parser.add_argument(
+	'-s',
+	'--status',
+	dest='use_status',
+	action='store_true',
+	help="Use status code 1 if the streamer is offline"
+)
+parser.add_argument(
+	'-q',
+	'--quiet',
+	dest='is_quiet',
+	action='store_true',
+	help="Don't output anything",
+)
+
+args = parser.parse_args()
 
 load_dotenv(Path('~/dotfiles/secrets/twitch.env').expanduser())
 client_id = os.getenv('CLIENT_ID')
 client_secret = os.getenv('CLIENT_SECRET')
-streamer_name = sys.argv[1]
+streamer_name = args.username
 assert client_id is not None
 assert client_secret is not None
 
@@ -33,8 +51,11 @@ stream = requests.get(
 )
 data = stream.json().get('data', [])
 if len(data) > 0:
-	print('Online')
+	print(f'{streamer_name}上線')
+	print('#00FF00')
 	sys.exit(0)
 else:
-	print('Offline')
-	sys.exit(1)
+	print(f'{streamer_name}離線')
+	print('#FF0000')
+	if args.use_status:
+		sys.exit(1)
