@@ -467,6 +467,7 @@ autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
 autocmd vimrc BufRead * DetectIndent
 autocmd vimrc BufNewFile,BufRead *.tex set spell
+autocmd vimrc VimEnter .git/COMMIT_EDITMSG set filetype=gitcommit
 " }}}
 " More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'
