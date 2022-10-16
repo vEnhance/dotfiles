@@ -6,7 +6,7 @@ fi
 
 task rc.verbose=nothing rc.gc=off brief | sed -r "s/(^.{32}).*? +([-0-9\.]+)\$/\1 \2/" >~/.cache/todo.txt
 
-"$HOME"/.cache/agenda.json <python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt
+python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt <"$HOME"/.cache/agenda.json
 
 color_num=(8 4 4 5 5 5 6 6 6 6 6 6)
 
