@@ -26,10 +26,9 @@ for line in sys.stdin:
 		subprocess.call(
 			[
 				'notify-send',
-				'-i',
-				'chat-message-new-symbolic',
-				'-t',
-				'10000',
+				'--icon=chat-message-new-symbolic',
+				'--expire-time=10000',
+				'--urgency=low',
 				sender,
 				content,
 			]
