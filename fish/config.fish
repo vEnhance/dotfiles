@@ -252,7 +252,11 @@ function pdfenc --argument-names 'infile' 'outfile' 'password'
 end
 
 function pdfjoin
-	qpdf $argv[1] --pages  $argv[1..-2] -- $argv[-1]
+	qpdf $argv[1] --pages $argv[1..-2] -- $argv[-1]
+end
+
+function pdfsplit
+	qpdf --split-pages=1 $argv[1] page%d-$argv[1]
 end
 
 # correct horse battery staple
