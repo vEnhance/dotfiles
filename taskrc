@@ -58,6 +58,11 @@ report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
 
+report.rofi.description=Tasks for Rofi
+report.rofi.filter=status:pending or wait.after:now
+report.rofi.columns=id,urgency,due.relative,priority,description
+report.rofi.labels=ID,Urg,Due,P,Description
+report.rofi.sort=urgency-
 
 # Bugwarrior UDAs
 uda.githubtitle.type=string

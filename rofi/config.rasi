@@ -3,5 +3,9 @@ configuration {
 	matching: "fuzzy";
 	sorting-method: "fzf";
 }
-@import "/usr/share/rofi/themes/fancy.rasi"
-@theme "/usr/share/rofi/themes/paper-float.rasi"
+/* @import "/usr/share/rofi/themes/fancy.rasi" */
+/* @theme "/usr/share/rofi/themes/paper-float.rasi" */
+
+@theme "~/.config/rofi/latte.rasi"
+
+/* vim: ft=css */
