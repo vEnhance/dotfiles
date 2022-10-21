@@ -33,13 +33,13 @@ fi
 
 if [ "$(hostname)" = ArchAngel ]; then
 	picom -C -G -b --no-fading-openclose
-	redshift-gtk &
+	~/dotfiles/sh-scripts/redshift.sh
 	dropbox-cli start
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
 	picom -C -G -b --no-fading-openclose
-	redshift-gtk &
+	~/dotfiles/sh-scripts/redshift.sh
 	dropbox-cli start
 	systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
 	dunst &
@@ -60,7 +60,7 @@ fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
 	picom -C -G -b --no-fading-openclose
-	redshift-gtk &
+	~/dotfiles/sh-scripts/redshift.sh
 	systemctl --user start evansync.timer
 	dunst &
 	syncthing-gtk -m &
@@ -89,7 +89,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
 	if [ "$(whoami)" = "star" ]; then
 		conky -c ~/dotfiles/conky/star-bar.conf &
 	fi
-	redshift-gtk &
+	~/dotfiles/sh-scripts/redshift.sh
 	syncthing-gtk &
 	systemctl --user start evansync.timer
 fi
