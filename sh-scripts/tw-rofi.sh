@@ -1,7 +1,7 @@
 #!/bin/bash
 
-default="$(task undone rc.gc=off | sed -n 2p | sed 's/ /-/g' | sed 's/^ID/-ID-/')"
-lines="${default}\n$(task undone rc.gc=off rc.verbose=nothing | sed -r 's/^([0-9]+)/#\1;/')"
+default="Available tasks"
+lines="${default}\n$(task rofi rc.gc=off rc.verbose=nothing | sed -r 's/^([0-9]+)/#\1;/')"
 chosen=$(echo -e "$lines" | rofi -dmenu -i -p "taskwarrior")
 
 if [ "$chosen" = "" ]; then
