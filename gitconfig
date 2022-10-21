@@ -42,6 +42,7 @@
 	all = ls-tree -r HEAD --name-only
 	entire = !git log --pretty=format: --name-only --diff-filter=ACR | sort -u
 	l = ls
+	find = ls-files
 
 	br = branch
 	cm = commit
