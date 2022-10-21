@@ -12,7 +12,7 @@ It's another crappy wrapper script that I wrote in Python.
 The basic premise is the following. You are, say, a teacher, and you have some
 [crummy website written by obviously-not-a-programmer](https://github.com/vEnhance/otis-web)
 where students are submitting their work.
-This means you have a batch of tasks that you want to do for each submissions,
+This means you have a batch of tasks that you want to do for each submission,
 which are all pretty straightforward:
 maybe you want to read each file, email a few short comments to the student,
 choose what the student should work on next, and log it into a website.
