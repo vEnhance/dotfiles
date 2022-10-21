@@ -347,8 +347,8 @@ exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemo
 
 # Commands {{{
 bindsym $mod+Return exec xfce4-terminal
-bindsym $mod+space exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
-bindsym $mod+d exec --no-startup-id rofi -modi drun#run -show drun -show-icons
+bindsym $mod+semicolon exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
+bindsym $mod+space exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
