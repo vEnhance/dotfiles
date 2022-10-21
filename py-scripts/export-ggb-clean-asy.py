@@ -32,7 +32,7 @@ try:
 	# preamble
 	for line in input_buffer:
 		line = replace_numbers(line).strip()
-		if not line:  # end preamble
+		if line == "" or r"/* draw figures */" in line:  # end preamble
 			# print(r'/* end preamble */', file=output_buffer)
 			break
 		elif "real labelscalefactor" in line:
@@ -50,16 +50,18 @@ try:
 			for assn in assignments:
 				point_name, pair = assn.split(' = ')
 				points_dict[point_name] = eval(pair)
-		print(line, file=output_buffer)
+		for statement in line.split(';'):
+			if statement.strip():
+				print(statement.strip() + ';', file=output_buffer)
 
 	# process figures
 	for line in input_buffer:
 		line = replace_numbers(line).strip()
-		if line == "/* dots and labels */":  # end figures
+		if r"dots and labels" in line:  # end figures
 			break
-		elif line == "/* draw figures */":  # ignore this line
+		elif r"draw figures" in line:  # ignore this line
 			continue
-		elif "grid" in line:  # delete grid
+		elif r"grid" in line:  # delete grid
 			continue
 		line = line.replace("linewidth(2.)", "linewidth(0.6)")
 		print(line.strip(), file=output_buffer)
@@ -70,7 +72,7 @@ try:
 
 	while True:
 		dot_line = replace_numbers(input_buffer.readline().strip())
-		if dot_line == r"/* end of picture */":  # end of file
+		if dot_line == r"/* end of picture */" or dot_line == '':  # end of file
 			break
 		dot_match = dot_regex.match(dot_line)
 		if dot_match is None:
