@@ -3,11 +3,13 @@
 # Use at your own risk ;)
 # makes many symlinks
 
+set -e
+set -o xtrace
+
 cd "$HOME"/dotfiles/py3status/ || exit
 make
 
 cd "$HOME" || exit
-mv .bashrc .bashrc.bak
 
 # symlink in home
 if ! test -d "$HOME/.asy"; then ln -s "$HOME"/dotfiles/asy "$HOME"/.asy; fi
@@ -52,7 +54,7 @@ if ! test -d "$HOME/.config/zathura"; then ln -s "$HOME"/dotfiles/zathura "$HOME
 if ! test -d "$HOME/.config/i3"; then ln -s "$HOME"/dotfiles/i3 "$HOME"/.config/i3; fi
 
 # nested config
-if ! test -f "$HOME/.config/proselint/config"; then
+if ! test -f "$HOME/.config/proselint/config.json"; then
 	mkdir -p "$HOME"/.config/proselint
 	ln -s "$HOME"/dotfiles/proselintrc "$HOME"/.config/proselint/config.json
 fi
