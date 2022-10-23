@@ -21,6 +21,7 @@ alias tmrw=due:tomorrow+24h
 
 urgency.user.project.idea.coefficient=-3.0
 urgency.waiting.coefficient=-4.0 # waiting task
+urgency.scheduled.coefficient=2
 
 alias.lo=priority:L
 alias.md=priority:M
