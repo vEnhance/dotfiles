@@ -72,6 +72,10 @@ if ! test -f "$HOME/.config/gh/config.yml"; then
 	mkdir -p "$HOME"/.config/gh
 	ln -s "$HOME"/dotfiles/gh-config.yml "$HOME"/.config/gh/config.yml
 fi
+if ! test -f "$HOME/.config/redshift/redshift.conf"; then
+	mkdir -p "$HOME"/.config/redshift/
+	ln -s "$HOME"/dotfiles/redshift.conf "$HOME"/.config/redshift/redshift.conf
+fi
 
 # vim
 mkdir -p "$HOME"/.vim/tmp/
