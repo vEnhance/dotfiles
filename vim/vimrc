@@ -269,12 +269,13 @@ function! AddEmptyLineBelow()
 endfunction
 nnoremap < <<
 nnoremap > >>
-map <Left> <
-map <Right> >
-map <Up> :call DelEmptyLineAbove()<CR>
-map <Down> :call AddEmptyLineAbove()<CR>
-nmap <silent> [g :ALEPreviousWrap<CR>
-nmap <silent> ]g :ALENextWrap<CR>
+noremap <Left> <
+noremap <Right> >
+noremap <Up> :call DelEmptyLineAbove()<CR>
+noremap <Down> :call AddEmptyLineAbove()<CR>
+nnoremap <silent> [g :ALEPreviousWrap<CR>
+nnoremap <silent> ]g :ALENextWrap<CR>
+nnoremap gf :e<cfile><CR>
 " }}}
 " Misc mappings {{{
 " system clipboard
