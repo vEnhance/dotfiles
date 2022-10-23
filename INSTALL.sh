@@ -101,6 +101,9 @@ fi
 if ! test -f "$HOME/.vim/vimrc"; then
 	ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vim/vimrc
 fi
+if ! test -f "$HOME/.vimrc"; then
+	ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vimrc
+fi
 
 # systemd
 mkdir -p "$HOME"/.config/systemd/user
