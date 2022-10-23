@@ -89,7 +89,7 @@ if [ "$1" = J ]; then
 		"Spotify volume down" \
 		"Spotify volume $(ponymix -d Spotify --sink-input decrease 5)%" -t "$stime"
 fi
-if [ "$1" = z ]; then
+if [ "$1" = "q" ]; then
 	notify-send -i edit-delete-symbolic \
 		"Spotify stream killed" \
 		"$(ponymix kill -d Spotify)%" -t "$stime"
