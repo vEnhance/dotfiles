@@ -122,6 +122,7 @@
 %Small commands
 \ifevanpkg
 	\usepackage{amsmath,amssymb}
+	\usepackage[minimal]{yhmath}
 \fi
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
@@ -139,9 +140,10 @@
 \providecommand{\half}{\frac{1}{2}}
 \newcommand{\catname}{\mathsf}
 \newcommand{\hrulebar}{
-  \par\hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
-  \par\nointerlineskip \vspace{\baselineskip}
+	\par\hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
+	\par\nointerlineskip \vspace{\baselineskip}
 }
+\providecommand{\arc}[1]{\wideparen{#1}}
 
 %For use in author command
 \newcommand{\plusemail}[1]{\\ \normalfont \texttt{\mailto{#1}}}
@@ -185,7 +187,6 @@
 \newcommand{\dang}{\measuredangle} %% Directed angle
 \newcommand{\ray}[1]{\overrightarrow{#1}}
 \newcommand{\seg}[1]{\overline{#1}}
-\newcommand{\arc}[1]{\wideparen{#1}}
 
 %From M275 "Topology" at SJSU
 \newcommand{\id}{\mathrm{id}}
@@ -594,7 +595,7 @@
 		\usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
 		\usepackage{textcomp}
 		\usepackage{multirow}
-		% Tiny tiny optimizations:
+		% Tiny optimizations:
 		\usepackage{mathtools}
 		\usepackage{microtype}
 		\usepackage{xstring}
