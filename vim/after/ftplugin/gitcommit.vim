@@ -31,3 +31,4 @@ function! GitCommitStartup()
 endfunction
 
 nnoremap <localleader>c :call SetConventionalCommit()<CR>
+let g:airline#extensions#whitespace#checks = []
