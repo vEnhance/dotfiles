@@ -457,6 +457,8 @@ set textwidth=0
 set updatetime=100
 set wrap
 set wrapmargin=0
+
+hi SpecialKey ctermfg=253 ctermbg=53
 " }}}
 " {{{ Auto commands
 " ------------------------------------------
