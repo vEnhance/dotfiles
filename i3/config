@@ -253,7 +253,7 @@ mode "ponymix" {
 # executable {{{
 bindsym $mod+x mode "exec"
 mode "exec" {
-	bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py", mode "default"
+	bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
 	bindsym b exec libreoffice --calc &, mode "default"
 	bindsym c exec caprine &, mode "default"
 	bindsym d exec discord &, mode "default"
