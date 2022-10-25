@@ -1,3 +1,3 @@
 set expandtab
-set sw=2
-set ft=jsonc
+set shiftwidth=2
+set filetype=jsonc
