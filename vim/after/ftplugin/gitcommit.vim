@@ -31,4 +31,4 @@ function! GitCommitStartup()
 endfunction
 
 nnoremap <localleader>c :call SetConventionalCommit()<CR>
-let g:airline#extensions#whitespace#checks = []
+let b:airline_whitespace_disabled = 1
