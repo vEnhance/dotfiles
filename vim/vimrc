@@ -469,6 +469,7 @@ autocmd vimrc BufNewFile,BufRead *.asy setfiletype asy
 autocmd vimrc BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd vimrc BufNewFile,BufRead *.less setfiletype css
 autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
+autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
 autocmd vimrc BufRead * DetectIndent
 autocmd vimrc BufNewFile,BufRead *.tex set spell
