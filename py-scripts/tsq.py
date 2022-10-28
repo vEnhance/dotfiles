@@ -35,6 +35,10 @@ short_names = {
 # The following is really bad
 for letter in string.ascii_uppercase:
 	fn_names['-%s+2*foot' % letter] = 3
+	fn_names['-%sp+2*foot' % letter] = 3
+	fn_names['-%ss+2*foot' % letter] = 3
+	for digit in '0123456789':
+		fn_names['-%s_%s+2*foot' % (letter, digit)] = 3
 
 
 def autoParen(tokens):
