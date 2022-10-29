@@ -3,7 +3,7 @@
 ## OSCAR (OLY SCORER)
 # Takes a TSV and produces pretty LaTeX for statistics
 
-__version__ = "2022-10"
+__version__ = "2022-10-28"
 
 import argparse
 import os
@@ -15,6 +15,10 @@ from typing import List
 
 def ssum(S):
 	return sum(_ or 0 for _ in S)
+
+
+def quadratic_mean(S):
+	return statistics.mean(x**2 for x in S)**0.5
 
 
 parser = argparse.ArgumentParser(description="Process some scores")
@@ -126,6 +130,36 @@ def main(tsv_file, outfile, name):
 		intensity = int(round((n / N)**(0.6) * 100))
 		return r"{\cellcolor{%s!%d!white} %d}" % (color, int(intensity), n)
 
+	def get_bottom_cell(n: int, percent: bool):
+		r = n / N
+		assert 0 <= r <= 1
+		if r >= 0.7:
+			intensity = 5
+			colorA = 'black'
+			colorB = 'white'
+			textcolor = 'black'
+		elif r >= 0.2:
+			intensity = int(35 - (r - 0.2) * 60)
+			colorA = 'black'
+			colorB = 'white'
+			textcolor = 'black'
+		else:
+			intensity = 100 - 60 * 0.2**(5 * r)
+			colorA = 'white!40!black'
+			colorB = 'red'
+			textcolor = 'white'
+		# intensity = int(round(0.01**(n / N) * 100))
+		# textcolor = 'white' if n / N < 0.2 else 'black'
+
+		if percent:
+			content = f'{100*r:.1f}\\%'
+		else:
+			content = r'\textbf{' + str(n) + '}'
+
+		return r"{\cellcolor{%s!%d!%s}\color{%s}%s}" % (
+			colorA, int(intensity), colorB, textcolor, content
+		)
+
 	# Now read scores by problem
 	scores_by_pr: List[List[int]] = [[] for i in range(NUM_PROBLEMS)]  # scores by problem
 	for line in tsv_lines:
@@ -159,9 +193,41 @@ def main(tsv_file, outfile, name):
 		)
 		print(r"\\", file=outfile)
 	print(r"\hline", file=outfile)
-	print(r"\text{Avg} & ", file=outfile)
+	# Compute mean
+	print(r"\text{Average} &", file=outfile)
 	print(
 		r" & ".join(["%.2f" % statistics.mean(scores_by_pr[i]) for i in range(NUM_PROBLEMS)]),
+		file=outfile
+	)
+	print(r"\\", file=outfile)
+	# Compute quadratic mean
+	print(r"\text{Qd.\ mean} &", file=outfile)
+	print(
+		r" & ".join(["%.2f" % quadratic_mean(scores_by_pr[i]) for i in range(NUM_PROBLEMS)]),
+		file=outfile
+	)
+	print(r"\\", file=outfile)
+	# Compute #(solve)
+	print(r"\#(5+) &", file=outfile)
+	print(
+		r" & ".join(
+			[
+				get_bottom_cell(sum(int(x >= 5) for x in scores_by_pr[i]), percent=False)
+				for i in range(NUM_PROBLEMS)
+			]
+		),
+		file=outfile
+	)
+	print(r"\\", file=outfile)
+	# Compute %(solve)
+	print(r"\%(5+) &", file=outfile)
+	print(
+		r" & ".join(
+			[
+				get_bottom_cell(sum(int(x >= 5) for x in scores_by_pr[i]), percent=True)
+				for i in range(NUM_PROBLEMS)
+			]
+		),
 		file=outfile
 	)
 	print(r"\\ \hline", file=outfile)
