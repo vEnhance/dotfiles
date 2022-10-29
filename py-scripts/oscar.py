@@ -152,7 +152,7 @@ def main(tsv_file, outfile, name):
 		# textcolor = 'white' if n / N < 0.2 else 'black'
 
 		if percent:
-			content = f'{100*r:.1f}\\%'
+			content = r'{}^{\%}' + f'{100*r:.1f}'
 		else:
 			content = r'\textbf{' + str(n) + '}'
 
@@ -175,11 +175,17 @@ def main(tsv_file, outfile, name):
 
 	print(r"\section{Problem statistics for %s}" % name, file=outfile)
 	print(r"\[", file=outfile)
-	print(r"\arraycolsep=1em\def\arraystretch{1.2}", file=outfile)
+	print(r"\arraycolsep=0.4em\def\arraystretch{1.2}", file=outfile)
 	print(r"\begin{array}{|r|" + "r" * NUM_PROBLEMS + "|}", file=outfile)
 	print(r'\hline', file=outfile)
+	width = round(18 / NUM_PROBLEMS + 1, ndigits=2)
 	print(
-		''.join([r" & \textsf{\bfseries P%d} " % (i + 1) for i in range(NUM_PROBLEMS)]),
+		''.join(
+			[
+				r" & \multicolumn{1}{p{%sem}|}{\sffamily\bfseries\centering P%d} " % (width, i + 1)
+				for i in range(NUM_PROBLEMS)
+			]
+		),
 		end=' ',
 		file=outfile
 	)
@@ -194,21 +200,21 @@ def main(tsv_file, outfile, name):
 		print(r"\\", file=outfile)
 	print(r"\hline", file=outfile)
 	# Compute mean
-	print(r"\text{Average} &", file=outfile)
+	print(r"\text{Avg} &", file=outfile)
 	print(
 		r" & ".join(["%.2f" % statistics.mean(scores_by_pr[i]) for i in range(NUM_PROBLEMS)]),
 		file=outfile
 	)
 	print(r"\\", file=outfile)
 	# Compute quadratic mean
-	print(r"\text{Qd.\ mean} &", file=outfile)
+	print(r"\text{QM} &", file=outfile)
 	print(
 		r" & ".join(["%.2f" % quadratic_mean(scores_by_pr[i]) for i in range(NUM_PROBLEMS)]),
 		file=outfile
 	)
 	print(r"\\", file=outfile)
 	# Compute #(solve)
-	print(r"\#(5+) &", file=outfile)
+	print(r"{}^{\#}5+ &", file=outfile)
 	print(
 		r" & ".join(
 			[
@@ -220,7 +226,7 @@ def main(tsv_file, outfile, name):
 	)
 	print(r"\\", file=outfile)
 	# Compute %(solve)
-	print(r"\%(5+) &", file=outfile)
+	print(r"{}^{\%}5+ &", file=outfile)
 	print(
 		r" & ".join(
 			[
