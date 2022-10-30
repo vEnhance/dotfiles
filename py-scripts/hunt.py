@@ -48,7 +48,7 @@ HUNT_OUT_PATH = "/tmp/hunt." + getpass.getuser()
 
 if not target.strip():
 	print('No target was specified!', file=sys.stderr)
-	sys.exit(22)
+	sys.exit(64)
 elif not '/' in target:
 	locate_out = subprocess.check_output(["locate", target])
 	locations = locate_out.decode().strip().split('\n')
@@ -86,7 +86,7 @@ elif not '/' in target:
 		if not user_input:
 			with open(HUNT_OUT_PATH, "w") as f:
 				print('', file=f)
-				sys.exit(4)
+				sys.exit(65)
 		j = int(user_input)
 	else:
 		j = 0

@@ -75,4 +75,4 @@ if __name__ == "__main__":
 			)
 	else:
 		print("Need to specify a file to upload (or use --wipe to erase all).")
-		sys.exit(1)
+		sys.exit(64)

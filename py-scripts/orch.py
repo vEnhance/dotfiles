@@ -44,7 +44,7 @@ try:
 	)
 except subprocess.CalledProcessError as e:
 	print(f"Exiting because fzf failed with return code {e.returncode}.")
-	sys.exit(1)
+	sys.exit(70)
 puid, source = chosen.strip().split('\t')
 
 EDITOR = os.environ.get('EDITOR', 'vim')
@@ -58,7 +58,7 @@ resp = requests.post(
 )
 if resp.status_code != 200:
 	print(f"ARCH gave a return code of {resp.status_code} when asked for hints.")
-	sys.exit(2)
+	sys.exit(75)
 
 old_hints = resp.json()['hints']
 
@@ -117,7 +117,7 @@ if type(result) == dict:
 		]
 		if len(new_hint_dicts) == 0:
 			print("Aborting because no content.")
-			sys.exit(4)
+			sys.exit(65)
 	else:
 		new_hint_dicts = []
 
@@ -139,4 +139,4 @@ if type(result) == dict:
 		print(f"Got a reply of {resp.status_code} from server when adding hints.")
 else:
 	print("Aborting because no content.")
-	sys.exit(4)
+	sys.exit(65)
