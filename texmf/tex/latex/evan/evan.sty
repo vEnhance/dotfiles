@@ -16,7 +16,7 @@
 %
 % Boost Software License - Version 1.0 - August 17th, 2003
 %
-% Copyright (c) 2020 Evan Chen [evan at evanchen.cc]
+% Copyright (c) 2022 Evan Chen [evan at evanchen.cc]
 % https://web.evanchen.cc/ || github.com/vEnhance
 %
 % Permission is hereby granted, free of charge, to any person or organization
@@ -121,6 +121,7 @@
 %%fakesection Some macros
 %Small commands
 \usepackage{amsmath,amssymb}
+\usepackage{iftex}
 \ifevanpkg
 	\usepackage[minimal]{yhmath}
 \fi
@@ -337,7 +338,11 @@
 	%%fakesection Set up author and date
 	\ifevanauthor
 		\title{} % empty title to avoid crashes
-		\author{Evan Chen}
+		\ifluatex
+			\author{Evan Chen《陳誼廷》}
+		\else
+			\author{Evan Chen}
+		\fi
 		\date{\today}
 	\fi
 	%%fakesection Hyperref
@@ -683,7 +688,6 @@
 	\fi
 
 	%%fakesection Unicode
-	\usepackage{iftex}
 	\ifevanpkg
 		\ifluatex
 			\usepackage{fontspec}
