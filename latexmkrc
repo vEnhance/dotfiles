@@ -18,8 +18,12 @@ sub pythontex {
 }
 add_cus_dep("pytxcode", "pytxmcr", 0, "pythontex");
 
+
+$dvi_mode = 0;
+$postscript_mode = 0;
+$pdf_mode = 4;
+
 $do_cd = 1;
-$pdf_mode = 1;
 $max_repeat = 7;
 $pdf_previewer = "zathura %O %S &> /dev/null &";
 $pvc_timeout = 1;

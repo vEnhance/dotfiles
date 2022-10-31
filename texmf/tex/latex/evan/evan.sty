@@ -120,8 +120,8 @@
 
 %%fakesection Some macros
 %Small commands
+\usepackage{amsmath,amssymb}
 \ifevanpkg
-	\usepackage{amsmath,amssymb}
 	\usepackage[minimal]{yhmath}
 \fi
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
@@ -519,12 +519,14 @@
 		\declaretheorem[name=Question,sibling=theorem]{ques}
 		\declaretheorem[name=Question,numbered=no]{ques*}
 
-		\Crefname{claim}{Claim}{Claims}
-		\Crefname{conjecture}{Conjecture}{Conjectures}
-		\Crefname{exercise}{Exercise}{Exercises}
-		\Crefname{fact}{Fact}{Facts}
-		\Crefname{problem}{Problem}{Problems}
-		\Crefname{ques}{Question}{Questions}
+		\ifevanpkg
+			\Crefname{claim}{Claim}{Claims}
+			\Crefname{conjecture}{Conjecture}{Conjectures}
+			\Crefname{exercise}{Exercise}{Exercises}
+			\Crefname{fact}{Fact}{Facts}
+			\Crefname{problem}{Problem}{Problems}
+			\Crefname{ques}{Question}{Questions}
+		\fi
 	\fi
 
 	%%fakesection Fancy section and chapter heads
@@ -680,15 +682,47 @@
 		}
 	\fi
 
-	%%fakesection Chinese support
-	\ifevanchinese
-		\usepackage[encapsulated]{CJK}
-		\usepackage{ucs}
-		\usepackage[utf8x]{inputenc}
-		\newenvironment{bsmi}{\begin{CJK}{UTF8}{bsmi}}{\end{CJK}}
-		\newcommand{\cn}[1]{\begin{bsmi}#1\end{bsmi}}
-		\AtBeginDocument{\begin{CJK}{UTF8}{bsmi}}
-		\AtEndDocument{\end{CJK}}
+	%%fakesection Unicode
+	\usepackage{iftex}
+	\ifevanpkg
+		\ifluatex
+			\usepackage{fontspec}
+			% https://tex.stackexchange.com/a/572220/76888
+			\directlua{luaotfload.add_fallback
+				 ("evans_fallbacks",
+					{
+						"NotoColorEmoji:mode=harf;",
+						"Source Han Sans TW:style=Regular;",
+						"Noto Serif CJK SC:style=Regular;",
+					}
+				 )}
+			\setmainfont{lmroman10-regular}[
+				BoldFont=lmroman10-bold,
+				ItalicFont=lmroman10-italic,
+				BoldItalicFont=lmroman10-bolditalic,
+				SlantedFont=lmromanslant10-regular,
+				BoldSlantedFont=lmromanslant10-bold,
+				SmallCapsFont=lmromancaps10-regular,
+				RawFeature={fallback=evans_fallbacks}
+			]
+			\setsansfont{lmsans10-regular}[
+				BoldFont=lmsans10-bold,
+				ItalicFont=lmsans10-oblique,
+				BoldItalicFont=lmsans10-boldoblique,
+				RawFeature={fallback=evans_fallbacks}
+			]
+		\else
+			\ifevanchinese
+				\usepackage{babel}
+				\usepackage[encapsulated]{CJK}
+				\usepackage{ucs}
+				\usepackage[utf8x]{inputenc}
+				\newenvironment{bsmi}{\begin{CJK}{UTF8}{bsmi}}{\end{CJK}}
+				\newcommand{\cn}[1]{\begin{bsmi}#1\end{bsmi}}
+				\AtBeginDocument{\begin{CJK}{UTF8}{bsmi}}
+				\AtEndDocument{\end{CJK}}
+			\fi
+		\fi
 	\fi
 
 	%%fakesection Hints
