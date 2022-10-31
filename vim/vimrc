@@ -267,12 +267,10 @@ endfunction
 function! AddEmptyLineBelow()
 	call append(line('.'), '')
 endfunction
-nnoremap < <<
-nnoremap > >>
-noremap <Left> <
-noremap <Right> >
-noremap <Up> :call DelEmptyLineAbove()<CR>
-noremap <Down> :call AddEmptyLineAbove()<CR>
+nnoremap <Left> <<
+nnoremap <Right> >>
+nnoremap <Up> :call DelEmptyLineAbove()<CR>
+nnoremap <Down> :call AddEmptyLineAbove()<CR>
 nnoremap <silent> [g :ALEPreviousWrap<CR>
 nnoremap <silent> ]g :ALENextWrap<CR>
 nnoremap gf :e<cfile><CR>
