@@ -243,7 +243,6 @@ mode "ponymix" {
 	# control Spotify volume
 	bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
 	bindsym Shift+j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh J
-	bindsym q exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh q
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"

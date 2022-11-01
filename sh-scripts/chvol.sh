@@ -79,20 +79,23 @@ if [ "$1" = h ]; then
 fi
 
 # Spotify stuff
+function kill_extra_spotify() {
+	while [ "$(ponymix list | ag 'sink-input [0-9]+: Spotify' | wc --lines)" -ge 2 ]; do
+		notify-send -i edit-delete-symbolic "Spotify stream killed" -u low -t "$stime"
+		ponymix kill -d Spotify
+	done
+}
 if [ "$1" = K ]; then
+	kill_extra_spotify
 	notify-send -i media-playback-start-symbolic \
 		"Spotify volume up" \
 		"Spotify volume $(ponymix -d Spotify --sink-input increase 5)%" -t "$stime"
 fi
 if [ "$1" = J ]; then
+	kill_extra_spotify
 	notify-send -i media-playback-start-rtl-symbolic \
 		"Spotify volume down" \
 		"Spotify volume $(ponymix -d Spotify --sink-input decrease 5)%" -t "$stime"
-fi
-if [ "$1" = "q" ]; then
-	notify-send -i edit-delete-symbolic \
-		"Spotify stream killed" \
-		"$(ponymix kill -d Spotify)%" -t "$stime"
 fi
 
 # playerctl play/pause prev next
