@@ -2,7 +2,7 @@ from datetime import date
 from decimal import Decimal
 from typing import Optional, Union
 
-from gnucash import Account, Book, GncNumeric, Session, SessionOpenMode, Split, Transaction  # NOQA
+from gnucash import Account, GncNumeric, Session, SessionOpenMode, Split, Transaction  # NOQA
 
 
 def to_dollars(x: Union[str, int, float, Decimal, GncNumeric]) -> Decimal:
@@ -17,6 +17,9 @@ class GNCTxn:
 		self._txn = split.parent
 		self.amount = to_dollars(split.GetValue())
 		self.reconciled = (split.GetReconcile() == 'y')
+
+	def __repr__(self):
+		return str(self)
 
 	def __str__(self):
 		return self.description
@@ -51,15 +54,18 @@ class GNCAccount:
 		self._account = _account
 		self.is_root = _account.get_parent() is None
 
+	def __repr__(self):
+		return str(self)
+
 	def __str__(self):
 		if self.is_root:
-			return None
+			return 'ROOT'
 		parent = GNCAccount(self._account.get_parent())
 		name = self._account.GetName()
 		if parent.is_root:
 			return name
 		else:
-			return f'{parent}:{name}'
+			return f'{str(parent)}:{name}'
 
 	@property
 	def transactions(self) -> list[GNCTxn]:
@@ -67,27 +73,27 @@ class GNCAccount:
 
 	def add(
 		self,
-		description: str,
 		amount: Union[Decimal, int, float],
+		description: str,
 		target: 'GNCAccount',
-		date: date = date.today(),  # sigh
+		txn_date: date = date.today(),  # sigh
 	):
-		book = self._account.GetBook()
+		book = self._account.get_book()
 		currency = book.get_table().lookup("CURRENCY", "USD")
 
 		trans = Transaction(book)
 		trans.BeginEdit()
 		trans.SetCurrency(currency)
-		trans.SetDate(date.day, date.month, date.year)
+		trans.SetDate(txn_date.day, txn_date.month, txn_date.year)
 		trans.SetDescription(description)
 
 		split1 = Split(book)
-		split1.SetValue(GncNumeric(amount))
+		split1.SetValue(GncNumeric(str(amount)))
 		split1.SetAccount(self._account)
 		split1.SetParent(trans)
 
 		split2 = Split(book)
-		split2.SetValue(GncNumeric(-amount))
+		split2.SetValue(GncNumeric(str(-amount)))
 		split2.SetAccount(target._account)
 		split2.SetParent(trans)
 
