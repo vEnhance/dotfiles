@@ -51,6 +51,7 @@
 	force = push --force-with-lease
 	mkroot = commit --allow-empty -m 'Initial commit'
 	rb = rebase -i
+	rba = rebase --abort
 	rbc = rebase --continue
 	rw = commit --amend # reword
 	squash = merge --squash
