@@ -1,22 +1,33 @@
-from datetime import datetime
+from datetime import date
 from decimal import Decimal
 from typing import Optional, Union
 
-from gnucash import Account, Book, GncNumeric, Split, Transaction  # NOQA
+from gnucash import Account, Book, GncNumeric, Session, SessionOpenMode, Split, Transaction  # NOQA
+
+
+def to_dollars(x: Union[str, int, float, Decimal, GncNumeric]) -> Decimal:
+	if type(x) == GncNumeric:
+		x = float(x)
+	return round(Decimal(float(x)), 2)
 
 
 class GNCTxn:
 	def __init__(self, split: Split):
+		self._split = split
 		self._txn = split.parent
-		self.amount = round(Decimal(float(split.GetValue())), 2)
+		self.amount = to_dollars(split.GetValue())
+		self.reconciled = (split.GetReconcile() == 'y')
+
+	def __str__(self):
+		return self.description
 
 	@property
 	def description(self) -> str:
 		return self._txn.GetDescription()
 
 	@property
-	def date(self) -> str:
-		return self._txn.GetDate()
+	def date(self) -> date:
+		return self._txn.GetDate().date()
 
 	@property
 	def is_split(self) -> bool:
@@ -59,12 +70,10 @@ class GNCAccount:
 		description: str,
 		amount: Union[Decimal, int, float],
 		target: 'GNCAccount',
-		date: Optional[datetime] = None,
+		date: date = date.today(),  # sigh
 	):
 		book = self._account.GetBook()
 		currency = book.get_table().lookup("CURRENCY", "USD")
-		if date is None:
-			date = datetime.now()
 
 		trans = Transaction(book)
 		trans.BeginEdit()
@@ -86,9 +95,17 @@ class GNCAccount:
 		return GNCTxn(split1)
 
 
-def get_account(book: Book, account_name: str) -> GNCAccount:
+def get_account(session: Session, account_name: str) -> GNCAccount:
+	book = session.book
 	account = book.get_root_account()
 	for chunk in account_name.split(':'):
 		account = account.lookup_by_name(chunk)
 		assert account is not None, f'On {chunk} of {account_name}'
 	return GNCAccount(account)
+
+
+DEFAULT_PATH = '/home/evan/Sync/Grownup/Finance/gnucash/main.gnucash'
+
+
+def get_session(path: str = DEFAULT_PATH) -> Session:
+	return Session(path, SessionOpenMode.SESSION_NORMAL_OPEN)
