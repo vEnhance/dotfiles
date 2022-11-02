@@ -7,6 +7,10 @@
 VenueQ is short for VIM-Menue-Queue (while not so subtly referencing AvenueQ).
 It's another crappy wrapper script that I wrote in Python.
 
+## Screenshots
+
+![venueQ](media/checkoff-system.png)
+
 ## Premise
 
 The basic premise is the following. You are, say, a teacher, and you have some
