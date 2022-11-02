@@ -4,7 +4,7 @@ setlocal shiftwidth=2
 setlocal softtabstop=2
 setlocal tabstop=2
 
-DetectIndent
+call DetectIndentIfNoLocalRC()
 
 let g:python_space_error_highlight = 1
 " set omnifunc=syntaxcomplete#Complete

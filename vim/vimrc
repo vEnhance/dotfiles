@@ -46,6 +46,7 @@ Plug 'mg979/vim-visual-multi'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'preservim/nerdtree'
 Plug 'svintus/vim-editexisting'
+Plug 'thinca/vim-localrc'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -65,6 +66,7 @@ Plug 'maralla/completor.vim', { 'for' :
 	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
 	\ 'gitcommit', 'gitconfig'] }
 " }}}
+
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
@@ -459,6 +461,11 @@ set wrapmargin=0
 hi SpecialKey ctermfg=253 ctermbg=53
 " }}}
 " {{{ Auto commands
+function! DetectIndentIfNoLocalRC()
+	if !exists('g:loaded_localrc')
+		DetectIndent
+	endif
+endfunction
 " ------------------------------------------
 augroup vimrc
 	autocmd!
@@ -469,7 +476,7 @@ autocmd vimrc BufNewFile,BufRead *.less setfiletype css
 autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
 autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
-autocmd vimrc BufRead * DetectIndent
+autocmd vimrc BufRead * call DetectIndentIfNoLocalRC()
 autocmd vimrc BufNewFile,BufRead *.tex set spell
 autocmd vimrc VimEnter .git/COMMIT_EDITMSG set filetype=gitcommit
 " }}}
