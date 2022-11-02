@@ -59,6 +59,15 @@ with get_session() as session:
 				elif row_description.startswith('Steam Purchase') and row_amount < 0:
 					account_name = 'E:Extra:VidGame'
 					row_description = 'Steam Purchase (TODO)'
+				elif row_description.startswith('Github San Francisco Ca') and row_amount == -7:
+					account_name = 'E:Donate'
+					row_description = 'Sponsor TaskWarrior'
+				elif row_description.startswith('Cvs/Pharmacy') and row_amount < 0:
+					account_name = 'E:Life:Medical'
+					row_description = 'CVS drugs'
+				elif row_description.startswith('Mit Dining Cafe Qps Cambridge') and row_amount < 0:
+					account_name = 'E:Life:Food'
+					row_description = 'Stata grill of sorts'
 				else:
 					account_name = 'Orphan-USD'
 
