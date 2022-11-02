@@ -79,7 +79,7 @@ with get_session() as session:
 					account_name = 'L:Citi'
 				elif row_description.startswith('ACH Deposit Twitch') and row_amount > 0:
 					row_description = 'Twitch streamer payout'
-					account_name = 'I:Math'
+					account_name = 'I:Twitch'
 				elif row_description.startswith('ACH Withdrawal TD BANK') and row_amount < 0:
 					row_description = 'TD payment'
 					account_name = 'L:TD'
