@@ -1,8 +1,8 @@
 from gnucash import Session, SessionOpenMode
-
 from gnucash_api import get_account
 
-with Session('../gnucash/main.gnucash', SessionOpenMode.SESSION_NORMAL_OPEN) as s:
+GNUCASH_PATH = '/home/evan/Sync/Grownup/Finance/gnucash/main.gnucash'
+with Session(GNUCASH_PATH, SessionOpenMode.SESSION_NORMAL_OPEN) as s:
 	book = s.book
 
 	amazon = get_account(book, 'A:AmznBal')

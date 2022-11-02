@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 today = _date.today
 
-from gnucash_api import get_account, get_session, to_dollars
+from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 
 def get_child_string(tr: BeautifulSoup, tag_name='td', class_name: Optional[str] = None) -> str:
@@ -23,9 +23,9 @@ with get_session() as session:
 	for bank_account_name in ('TCS', 'TCC'):
 		bank = get_account(session, f'A:BANK:{bank_account_name}')
 		recent_txn = [txn for txn in bank.transactions if txn.date >= today() + timedelta(days=-60)]
-		args_txn_to_create = []
+		args_txn_to_create: list[TxnAddArgsDict] = []
 
-		with open('data/TechCU.html') as htmlfile:
+		with open('/home/evan/Sync/Grownup/Finance/txn-importer/TechCU.html') as htmlfile:
 			soup = BeautifulSoup(htmlfile, features='lxml')
 
 		for tr in soup.find_all('tr', class_='Data'):

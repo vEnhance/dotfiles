@@ -5,16 +5,15 @@ from pprint import pprint
 
 today = _date.today
 
-from gnucash_api import get_account, get_session, to_dollars
+from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 with get_session() as session:
 	citi = get_account(session, 'L:Citi')
 
 	recent_txn = [txn for txn in citi.transactions if txn.date >= today() + timedelta(days=-60)]
 
-	args_txn_to_create = []
-
-	with open('data/Citi.csv') as csvfile:
+	args_txn_to_create: list[TxnAddArgsDict] = []
+	with open('/home/evan/Sync/Grownup/Finance/txn-importer/Citi.csv') as csvfile:
 		reader = csv.DictReader(csvfile)
 		for row in reader:
 			row_amount = -to_dollars(row['Debit'] or row['Credit'])

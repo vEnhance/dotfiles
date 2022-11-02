@@ -1,8 +1,15 @@
 from datetime import date
 from decimal import Decimal
-from typing import Optional, Union
+from typing import Optional, TypedDict, Union
 
 from gnucash import Account, GncNumeric, Session, SessionOpenMode, Split, Transaction  # NOQA
+
+
+class TxnAddArgsDict(TypedDict):
+	amount: Decimal
+	description: str
+	target: 'GNCAccount'
+	txn_date: date
 
 
 def to_dollars(x: Union[str, int, float, Decimal, GncNumeric]) -> Decimal:
@@ -76,10 +83,13 @@ class GNCAccount:
 		amount: Union[Decimal, int, float],
 		description: str,
 		target: 'GNCAccount',
-		txn_date: date = date.today(),  # sigh
+		txn_date: Optional[date] = None
 	):
 		book = self._account.get_book()
 		currency = book.get_table().lookup("CURRENCY", "USD")
+
+		if txn_date is None:
+			txn_date = date.today()
 
 		trans = Transaction(book)
 		trans.BeginEdit()
