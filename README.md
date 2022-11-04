@@ -6,6 +6,8 @@
 ![Forks](https://img.shields.io/github/forks/vEnhance/dotfiles)
 ![Stars](https://img.shields.io/github/stars/vEnhance/dotfiles)
 
+![XKCD 974](https://imgs.xkcd.com/comics/the_general_problem.png)
+
 These are the dotfiles for [Evan Chen](https://web.evanchen.cc).
 It's obviously mostly meant for personal use in keeping my dotfiles
 synced across all my operating systems.
