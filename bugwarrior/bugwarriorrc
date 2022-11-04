@@ -14,5 +14,6 @@ github.filter_pull_requests = True
 github.include_user_issues = False
 github.include_user_repos = False
 github.only_if_assigned=vEnhance
+github.default_priority =
 
 # vim: ft=toml
