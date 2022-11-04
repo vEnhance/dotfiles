@@ -11,6 +11,7 @@ let maplocalleader = ','
 
 " {{{ Plugins
 call plug#begin('~/.vim/plugged')
+Plug 'alunny/pegjs-vim',             { 'for' : 'pegjs' }
 Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
 Plug 'cespare/vim-toml',             { 'for' : 'toml' }
 Plug 'chrisbra/csv.vim'
@@ -474,6 +475,7 @@ autocmd vimrc BufNewFile,BufRead *.asy setfiletype asy
 autocmd vimrc BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd vimrc BufNewFile,BufRead *.less setfiletype css
 autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
+autocmd vimrc BufNewFile,BufRead *.pegjs setfiletype pegjs
 autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
 autocmd vimrc BufRead * call DetectIndentIfNoLocalRC()
