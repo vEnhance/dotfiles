@@ -79,6 +79,15 @@ if ! test -f "$HOME/.config/redshift/redshift.conf"; then
 	ln -s "$HOME"/dotfiles/redshift.conf "$HOME"/.config/redshift/redshift.conf
 fi
 
+# taskwarrior hooks
+mkdir -p .task
+if [ -z "$(ls -A "$HOME/.task/hooks")" ]; then
+	rmdir "$HOME/.task/hooks"
+fi
+if ! test -d "$HOME/.task/hooks"; then
+	ln -s "$HOME"/dotfiles/tw-hooks "$HOME"/.task/hooks
+fi
+
 # vim
 mkdir -p "$HOME"/.vim/tmp/
 mkdir -p "$HOME"/.vim/after/
