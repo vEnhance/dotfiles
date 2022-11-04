@@ -24,11 +24,11 @@ if command -v mbsync >/dev/null; then
 fi
 
 ## SYNC TASKWARRIOR
-if command -v task >/dev/null; then
-	task rc.gc=on sync
-fi
 if command -v bugwarrior-pull >/dev/null; then
 	bugwarrior-pull
+fi
+if command -v task >/dev/null; then
+	task rc.gc=on sync
 fi
 
 ## PACMAN SNAPSHOTS
