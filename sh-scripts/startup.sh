@@ -85,6 +85,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
 		signal-desktop --start-in-tray --use-tray-icon &
 		conky -c ~/dotfiles/conky/shifted-bar.conf &
 		conky -c ~/dotfiles/conky/cal3.conf &
+		gnome-calendar &
 	fi
 	if [ "$(whoami)" = "star" ]; then
 		conky -c ~/dotfiles/conky/star-bar.conf &
