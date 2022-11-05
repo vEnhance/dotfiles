@@ -1,52 +1,266 @@
 #nav-bar {
-  position: absolute !important;
-  top: 4em;
-  display: block;
-  width: 100%;
+	position: absolute !important;
+	top: 4em;
+	display: block;
+	width: 100%;
+}
+
+toolbar .toolbarbutton-1 {
+	padding: 0px 0px !important;
+}
+toolbar .toolbarbutton-1 > .toolbarbutton-badge-stack {
+	padding: 4px !important;
+}
+
+/* Compact toolbar and main toolbarbuttons *******************************************************/
+#main-window[uidensity="compact"]
+	#nav-bar-customization-target
+	> toolbarpaletteitem
+	> :is(toolbarbutton, toolbaritem),
+#main-window[uidensity="compact"] #nav-bar-customization-target > * {
+	padding: 0 !important;
+	padding-top: 1px !important;
+	margin: 0 !important;
 }
 
 /* Hamburger menu near address bar needs tweak */
 #PanelUI-button {
-  position: absolute;
-  right: 0.5em;
-  display: inline;
-  top: 0.5em;
+	position: absolute;
+	right: 0.5em;
+	display: inline;
+	top: 0.5em;
 }
 
 #PersonalToolbar {
-  overflow: clip;
-  height: 7em !important;
-  padding-top: 4.5em !important;
-  max-height: unset !important;
+	overflow: clip;
+	height: 7em !important;
+	padding-top: 4.5em !important;
+	max-height: unset !important;
 }
 
 #TabsToolbar {
-  --toolbarbutton-inner-padding: 0px;
+	--toolbarbutton-inner-padding: 0px;
 }
 #TabsToolbar .tabbrowser-tab {
-  min-height: 0px;
-  --tab-min-height: 0px;
+	min-height: 0px;
+	--tab-min-height: 0px;
 }
 
 #urlbar-container {
-  min-width: 800px !important;
+	min-width: 800px !important;
 }
 @media (max-width: 1000px) {
-  #urlbar-container {
-    min-width: 450px !important;
-  }
+	#urlbar-container {
+		min-width: 450px !important;
+	}
 }
 
-.tabbrowser-tab, .tabs-bottom {
-  font-size: 14pt !important;
+.tabbrowser-tab,
+.tabs-bottom {
+	font-size: 14pt !important;
 }
 #urlbar {
-  font-size: 14pt !important;
+	font-size: 14pt !important;
 }
 #status-bar {
-  font-size: 14pt !important;
+	font-size: 14pt !important;
 }
 
+menupopup:not(.in-menulist) > menuitem,
+menupopup:not(.in-menulist) > menu {
+	padding-block: 0px !important; /* reduce to 3px, 2px, 1px or 0px as needed */
+	min-height: unset !important; /* v92.0 - for padding below 4px */
+}
+:root {
+	--arrowpanel-menuitem-padding: 4px 8px !important;
+}
+
+/*** Proton Tabs Tweaks ***/
+
+/* Adjust tab corner shape, optionally remove space below tabs */
+
+#tabbrowser-tabs {
+	--user-tab-rounding: 8px;
+}
+
+.tab-background {
+	border-radius: var(--user-tab-rounding) var(--user-tab-rounding) 0px 0px !important; /* Connected */
+	margin-block: 1px 0 !important; /* Connected */
+}
+#scrollbutton-up,
+#scrollbutton-down {
+	/* 6/10/2021 */
+	border-top-width: 1px !important;
+	border-bottom-width: 0 !important;
+}
+
+/* 1/16/2022 Tone down the Fx96 tab border with add-on themes in certain fallback situations */
+.tab-background:is([selected], [multiselected]):-moz-lwtheme {
+	--lwt-tabs-border-color: rgba(0, 0, 0, 0.5) !important;
+	border-bottom-color: transparent !important;
+}
+[brighttext="true"]
+	.tab-background:is([selected], [multiselected]):-moz-lwtheme {
+	--lwt-tabs-border-color: rgba(255, 255, 255, 0.5) !important;
+	border-bottom-color: transparent !important;
+}
+
+/* Container color bar visibility */
+.tabbrowser-tab[usercontextid]
+	> .tab-stack
+	> .tab-background
+	> .tab-context-line {
+	margin: 0px max(calc(var(--user-tab-rounding) - 3px), 0px) !important;
+}
+
+/* Override Normal Density height to Compact Density height only for tabs */
+
+#TabsToolbar,
+#tabbrowser-tabs {
+	--tab-min-height: 29px !important;
+}
+/* Tweak for covering a line at the bottom of the active tab on some themes 8/11/2021 */
+#main-window[sizemode="normal"]
+	#toolbar-menubar[autohide="true"]
+	+ #TabsToolbar,
+#main-window[sizemode="normal"]
+	#toolbar-menubar[autohide="true"]
+	+ #TabsToolbar
+	#tabbrowser-tabs {
+	--tab-min-height: 30px !important;
+}
+#scrollbutton-up,
+#scrollbutton-down {
+	border-top-width: 0 !important;
+	border-bottom-width: 0 !important;
+}
+
+/* [Connected Tabs] Set a max height based on min-height plus margin-block: 1px 0 */
+#TabsToolbar,
+#TabsToolbar > hbox,
+#TabsToolbar-customization-target,
+#tabbrowser-arrowscrollbox {
+	max-height: calc(var(--tab-min-height) + 1px) !important;
+}
+/* [Connected Tabs] Adjust padding around icons on buttons to avoid crushed images */
+#TabsToolbar-customization-target toolbarbutton > .toolbarbutton-icon,
+#TabsToolbar-customization-target .toolbarbutton-text,
+#TabsToolbar-customization-target .toolbarbutton-badge-stack,
+#scrollbutton-up,
+#scrollbutton-down {
+	padding-top: 7px !important;
+	padding-bottom: 6px !important;
+}
+
+/* Inactive tabs: Shadow style */
+
+.tabbrowser-tab:not([selected="true"]):not([multiselected="true"])
+	.tab-background {
+	background-color: color-mix(in srgb, currentColor 8%, transparent);
+}
+
+/* Move container color bar to bottom of tab - updated 1/16/2022 */
+
+.tab-background {
+	--context-line-margin-adjust: 3px; /* 1/16/2022 */
+	--context-line-active-adjust: 1px; /* 1/16/2022 */
+}
+.tabbrowser-tab[usercontextid]:is([selected="true"], [visuallyselected="true"], [multiselected])
+	.tab-background {
+	border-top: 1px solid transparent; /* 1/16/2022 Default border for consistency */
+}
+
+.tabbrowser-tab[usercontextid]
+	> .tab-stack
+	> .tab-background
+	> .tab-context-line {
+	margin-top: calc(
+		var(--tab-min-height) - var(--context-line-margin-adjust) - 2px
+	) !important;
+}
+.tabbrowser-tab[usercontextid]:is([selected="true"], [visuallyselected="true"], [multiselected])
+	> .tab-stack
+	> .tab-background
+	> .tab-context-line {
+	margin-top: calc(
+		var(--tab-min-height) - var(--context-line-margin-adjust) -
+			var(--context-line-active-adjust) - 2px
+	) !important;
+}
+
+/* Emulate blue tab line from Photon 57-88 UI */
+
+/* Set size and position of the bar relative to background */
+.tab-background::before {
+	content: "";
+	display: block;
+	height: 3px;
+	margin: -1px var(--user-tab-rounding) 0;
+}
+/* Set color for active tab */
+.tabbrowser-tab[selected] .tab-background::before {
+	background-color: #0a84ff;
+}
+/* Set color for other selected tabs */
+.tabbrowser-tab[multiselected]:not([selected]) .tab-background::before {
+	background-color: color-mix(in srgb, #0a84ff 66%, transparent);
+}
+/* Set color for hovering on non-active/non-selected tabs */
+.tabbrowser-tab:not([selected], [multiselected]):hover .tab-background::before {
+	background-color: color-mix(in srgb, currentColor 33%, transparent);
+	transform: none;
+}
+/* [Optional] Animation when hovering non-active/non-selected tabs */
 /*
- * vim: expandtab
- */
+.tabbrowser-tab:not([selected], [multiselected]) .tab-background::before {
+  transform: scaleX(.8);
+  transition: transform 100ms linear;
+}
+*/
+
+/*** Audio Playing / Mute Button side-by-side when sound is playing ***/
+
+#TabsToolbar {
+	--user-mute-button-height: 20px; /* default size is 12px, site icon is 16px */
+}
+
+/* Move the mute/unmute button to the right and enlarge it */
+.tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) {
+	width: var(--user-mute-button-height) !important;
+	height: var(--user-mute-button-height) !important;
+	margin-left: calc(
+		var(--user-mute-button-height) / 2 + 2px
+	) !important; /* pushes icon to the right */
+	margin-right: 2px !important; /* closes up some space before the text */
+	padding: 0 !important; /* allows icon to expand to full size */
+}
+
+/* Move the site icon to the left a bit and adjust position */
+.tab-icon-stack:not([pinned], [sharing], [crashed]):is([soundplaying], [muted])
+	> :not(.tab-icon-overlay) {
+	margin-left: -4px !important; /* pushes icon to the left */
+	margin-top: calc(
+		(var(--user-mute-button-height) - 16px) / 2
+	) !important; /* keep site icon reasonably positioned */
+}
+
+/* Override the rules for hover/not hover visibility */
+/* for mute button */
+.tabbrowser-tab:not(:hover) .tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]),
+   /* for site icon */
+.tabbrowser-tab:hover .tab-icon-stack:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) > :not(.tab-icon-overlay),
+   /* for site icon with Compact density */
+:root[uidensity="compact"] .tab-icon-stack:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) > :not(.tab-icon-overlay) {
+	opacity: 1 !important; /* overrides full transparency with full opacity */
+}
+
+/* Color the icon on hover for confirmation or avoidance */
+.tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]):hover {
+	fill: green !important;
+}
+[lwthemetextcolor="bright"]
+	.tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]):hover {
+	fill: lightgreen !important; /* for dark themes */
+}
+
+/* Tweak Options as of 1/12/2022; Generated Fri Nov 04 2022 23:03:15 GMT-0400 (Eastern Daylight Time) */
