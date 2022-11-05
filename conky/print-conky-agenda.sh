@@ -4,7 +4,7 @@ if [ "$(whoami)" != "evan" ]; then
 	exit
 fi
 
-task rc.verbose=nothing rc.gc=off brief | sed -r 's/#/\\#/' | sed -r "s/(^.{32}).*? +([-0-9\.]+)\$/\1 \2/" >~/.cache/todo.txt
+task rc.verbose=nothing rc.gc=off brief | sed -r "s/(^.{32}).*? +([-0-9\.]+)\$/\1 \2/" | sed -r 's/#/\\#/' >~/.cache/todo.txt
 
 python ~/dotfiles/conky/gcal-json-to-text.py ~/.cache/agenda.txt <"$HOME"/.cache/agenda.json
 
