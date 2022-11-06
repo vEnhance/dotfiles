@@ -1,6 +1,7 @@
 import datetime
 import logging
 import subprocess
+import time
 from pathlib import Path
 from pprint import pformat
 from typing import TYPE_CHECKING, Any, Dict, List, Optional
@@ -230,7 +231,7 @@ class VenueQRoot(VenueQNode):
 	is_root = True
 	lookup: Dict[str, 'VenueQNode']
 
-	def __init__(self, data: Data, root_dir: Path):
+	def __init__(self, data: Data, root_dir: Path, shelf_life: Optional[float] = None):
 		if not root_dir.exists():
 			root_dir.mkdir()
 		root_dir = root_dir.resolve()
@@ -238,8 +239,19 @@ class VenueQRoot(VenueQNode):
 		self.wipe_queue: List[int] = []
 		self.root = self
 		self.root_dir = root_dir
+		self.shelf_life = shelf_life  # in hours: redownload any nodes older than this
+
 		logger.info(f"Setting root_node at {root_dir}")
+		self.erase_stale_files()
 		super().__init__(data, None)
+
+	def erase_stale_files(self):
+		for p in self.root_dir.rglob('*.yaml'):
+			if (
+				p.is_file() and self.shelf_life is not None and
+				((age_hours := (time.time() - p.stat().st_mtime) / (60 * 60)) > self.shelf_life)
+			):
+				logger.info(f"Erasing stale file {p} which is {age_hours} hours old")
 
 	def queue_wipe(self, p: Path):
 		if VIM_ENABLED:

@@ -465,4 +465,8 @@ if __name__ == "__main__":
 		otis_dir = Path('/tmp/otis-debug')
 	if not otis_dir.exists():
 		otis_dir.mkdir()
-	ROOT_NODE = OTISRoot(otis_response.json(), root_dir=otis_dir)
+	ROOT_NODE = OTISRoot(
+		data=otis_response.json(),
+		root_dir=otis_dir,
+		shelf_life=12,
+	)
