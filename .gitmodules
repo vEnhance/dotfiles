@@ -4,3 +4,6 @@
 [submodule "i3-workspace-names-daemon"]
 	path = i3/3kon
 	url = https://github.com/cboddy/i3-workspace-names-daemon
+[submodule "gm-scripts/aops-enhanced"]
+	path = gm-scripts/aops-enhanced
+	url = https://github.com/epiccakeking/aops-enhanced
