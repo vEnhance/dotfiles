@@ -9,7 +9,7 @@ syn match tsqRotate "\([\\.0-9]*\)R[\\.0-9]\+" contains=@NoSpell
 syn region tsqCommentOneLine start="//" end="$" contains=@Spell
 syn region tsqCommentMultiLine start="/\*" end="\*/" contains=@Spell
 
-syn match tsqPenName "\(pale\|light\|medium\|heavy\|dark\)\?\(red\|green\|blue\|cyan\|black\|white\|gray\|purple\|magenta\|pink\|yellow\|olive\)" contains=@NoSpell
+syn match tsqPenName "\(pale\|light\|medium\|heavy\|dark\|deep\)\?\(red\|green\|blue\|cyan\|black\|white\|gray\|purple\|magenta\|pink\|yellow\|olive\)" contains=@NoSpell
 syn match tsqPenName "dashed\|dotted" contains=@NoSpell
 
 hi def link tsqBuiltinName Constant
