@@ -22,6 +22,7 @@ Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
 Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
 Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
 Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
+Plug 'leanprover/lean.vim',          { 'for' : 'lean' }
 Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
 Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
 Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
@@ -56,12 +57,7 @@ Plug 'vim-scripts/ingo-library'
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'ypcrts/securemodelines'
-" Plug 'leanprover/lean.vim'
-" Leader keys that are forced on me by LaTeX
-" <Leader>ll -> pdflatex compile
-" <Leader>lv -> latex viewer
-" <Leader>rf -> refresh folds (LaTeX)
-" File-type specific edits
+
 Plug 'maralla/completor.vim', { 'for' :
 	\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
 	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
@@ -472,6 +468,7 @@ augroup vimrc
 	autocmd!
 augroup END
 autocmd vimrc BufNewFile,BufRead *.asy setfiletype asy
+autocmd vimrc BufNewFile,BufRead *.lean setfiletype lean
 autocmd vimrc BufNewFile,BufRead *.ly setfiletype lilypond
 autocmd vimrc BufNewFile,BufRead *.less setfiletype css
 autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
@@ -496,6 +493,10 @@ function! SyncTexForward()
 endfunction
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1
+" Leader keys that are forced on me by LaTeX
+" <Leader>ll -> pdflatex compile
+" <Leader>lv -> latex viewer
+" <Leader>rf -> refresh folds (LaTeX)
 " }}}
 
 " vim: ft=vim fdm=marker
