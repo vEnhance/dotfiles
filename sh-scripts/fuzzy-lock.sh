@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -o xtrace
+
 if pgrep -U "$(whoami)" i3lock >/dev/null; then
 	echo "Already running"
 	exit
