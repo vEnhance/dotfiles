@@ -155,7 +155,7 @@ alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
 alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias lisp='sbcl --script'
-alias lt="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
+alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
 alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias pdb='python -m pdb -c continue'
 alias poetry-outdated='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
@@ -270,6 +270,12 @@ function chbs
 	shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
 end
 
+
+function lt
+	j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
+end
+
+# github CLI extension
 function hub
 	set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
 	if test -z "$argv" -o (echo $argv | cut -c 1) = "-"
