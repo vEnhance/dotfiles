@@ -28,23 +28,25 @@ but your TA's are undergraduates who are notoriously unreliable.
 is both a diehard Vim user and are also willing to write code that automates the
 repetitive parts. The idea is:
 
-* Each workflow is abstracted into a **VenueQPlate**.
-	The plate has a method that will fetch a list of things to do.
-* The Plate generates a bunch of **VenueQNode** objects.
-	Some of the nodes are folders.
-	And others are files that correspond to tasks.
-	For example, maybe it's a YAML file with some data,
-	plus a few blanks for you to input some comments in.
-* A short Vim script ties into the popular NerdTree plugin
-	which lets you browse through all these tasks.
-* The unfortunate teacher deals with the tasks one by one.
-	When they write the file, if certain user-defined conditions are met,
-	it marks the task as done and clears it off your plate.
+- Each workflow is abstracted into a **VenueQPlate**.
+  The plate has a method that will fetch a list of things to do.
+- The Plate generates a bunch of **VenueQNode** objects.
+  Some of the nodes are folders.
+  And others are files that correspond to tasks.
+  For example, maybe it's a YAML file with some data,
+  plus a few blanks for you to input some comments in.
+- A short Vim script ties into the popular NerdTree plugin
+  which lets you browse through all these tasks.
+- The unfortunate teacher deals with the tasks one by one.
+  When they write the file, if certain user-defined conditions are met,
+  it marks the task as done and clears it off your plate.
 
 In short, the flow of data looks like:
+
 ```
 External data ==> VenueQPlate ==> VenueQNode (edit in Vim) ==> ?
 ```
+
 In many cases I imagine the plate is populated by a remote server
 that is in turn modified by the user-defined `?` procedure.
 
