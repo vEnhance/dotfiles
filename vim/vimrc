@@ -285,6 +285,13 @@ nmap Q <nop>
 " Save command
 nnoremap <CR> :wall<CR>
 
+" CoC
+nnoremap <silent> cv <Plug>(coc-rename)
+nnoremap <silent> gd <Plug>(coc-definition)
+nnoremap <silent> gy <Plug>(coc-type-definition)
+nnoremap <silent> gl <Plug>(coc-implementation)
+nnoremap <silent> gr <Plug>(coc-references)
+
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
 			\ call fzf#vim#grep(
@@ -356,13 +363,7 @@ nnoremap <Space>z :set foldmethod=indent<CR>
 nnoremap <silent> <Space>t :NERDTreeFocus<CR>
 " smart find and replace
 nnoremap <silent> <Space>h :Farr<CR>
-" CoC
-nnoremap <silent> <Space>v <Plug>(coc-rename)
-nnoremap <silent> <Space>od <Plug>(coc-definition)
-nnoremap <silent> <Space>oy <Plug>(coc-type-definition)
-nnoremap <silent> <Space>oi <Plug>(coc-implementation)
-nnoremap <silent> <Space>or <Plug>(coc-references)
-
+"
 " Ctrl P
 nnoremap <silent> <Space>f :CtrlPRoot<CR>
 nnoremap <silent> <Space>r :CtrlPMRU<CR>
