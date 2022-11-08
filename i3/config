@@ -5,7 +5,7 @@ floating_modifier $mod
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below (it is).
-font pango:DejaVu Sans Mono 15
+font pango:DejaVu Sans Mono 13
 # font pango:Inconsolata 11
 
 # Settings
@@ -18,7 +18,7 @@ workspace_auto_back_and_forth no
 bar {
 	id bottom-bar
 	position bottom
-	font pango:DejaVu Sans Mono, FontAwesome 14
+	font pango:Inconsolata, FontAwesome 12
 	strip_workspace_numbers yes
 	tray_output primary
 	status_command py3status
