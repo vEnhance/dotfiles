@@ -107,6 +107,9 @@ fi
 if ! test -d "$HOME/.vim/spell"; then
 	ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
 fi
+if ! test -f "$HOME/.vim/coc-settings.json"; then
+	ln -s "$HOME"/dotfiles/vim/coc-settings.json "$HOME"/.vim/coc-settings.json
+fi
 if ! test -f "$HOME/.vim/vimrc"; then
 	ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vim/vimrc
 fi

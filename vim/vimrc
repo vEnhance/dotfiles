@@ -9,6 +9,7 @@ syntax on
 let mapleader='='
 let maplocalleader = ','
 
+
 " {{{ Plugins
 call plug#begin('~/.vim/plugged')
 Plug 'alunny/pegjs-vim',             { 'for' : 'pegjs' }
@@ -17,7 +18,6 @@ Plug 'cespare/vim-toml',             { 'for' : 'toml' }
 Plug 'chrisbra/csv.vim'
 Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
 Plug 'dag/vim-fish',                 { 'for' : 'fish' }
-Plug 'davidhalter/jedi-vim',         { 'for' : 'python' }
 Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
 Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
 Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
@@ -57,10 +57,7 @@ Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/YankRing.vim'
 Plug 'ypcrts/securemodelines'
 
-Plug 'maralla/completor.vim', { 'for' :
-	\ ['css', 'python', 'javascript', 'sh', 'fish', 'vim',
-	\ 'json', 'jsonc', 'tex', 'typescript', 'go',
-	\ 'gitcommit', 'gitconfig'] }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " }}}
 
 " A million settings for addons {{{
@@ -178,6 +175,7 @@ function! AirlineSetup()
 endfunction
 
 " ALE
+let g:ale_disable_lsp = 1 " because of CoC
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_echo_msg_warning_str = 'W'
@@ -198,18 +196,18 @@ let g:coc_global_extensions = [
 	\ 'coc-css',
 	\ 'coc-html',
 	\ 'coc-htmldjango',
+	\ 'coc-jedi',
 	\ 'coc-json',
-	\ 'coc-markdownlint',
 	\ 'coc-pyright',
 	\ 'coc-sh',
 	\ 'coc-snippets',
 	\ 'coc-tabnine',
-	\ 'coc-tailwind-intellisense',
 	\ 'coc-texlab',
 	\ 'coc-tsserver',
 	\ 'coc-vimlsp',
 	\ 'coc-yaml',
 	\ ]
+
 call plug#end()
 " }}}
 
@@ -358,7 +356,12 @@ nnoremap <Space>z :set foldmethod=indent<CR>
 nnoremap <silent> <Space>t :NERDTreeFocus<CR>
 " smart find and replace
 nnoremap <silent> <Space>h :Farr<CR>
-nnoremap <Space>o :e <cfile><CR>
+" CoC
+nnoremap <silent> <Space>v <Plug>(coc-rename)
+nnoremap <silent> <Space>od <Plug>(coc-definition)
+nnoremap <silent> <Space>oy <Plug>(coc-type-definition)
+nnoremap <silent> <Space>oi <Plug>(coc-implementation)
+nnoremap <silent> <Space>or <Plug>(coc-references)
 
 " Ctrl P
 nnoremap <silent> <Space>f :CtrlPRoot<CR>
@@ -454,7 +457,9 @@ set updatetime=100
 set wrap
 set wrapmargin=0
 
-hi SpecialKey ctermfg=253 ctermbg=53
+highlight SpecialKey ctermfg=253 ctermbg=53
+highlight CocFloating ctermbg=238
+
 " }}}
 " {{{ Auto commands
 function! DetectIndentIfNoLocalRC()
