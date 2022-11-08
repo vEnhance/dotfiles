@@ -50,14 +50,16 @@ function fish_greeting
 	set_color --italics $fish_color_greeting
 	printf ".\n"
 
-	if test $hostname = "ArchScythe"
-		archey3 --config ~/dotfiles/archey3.cfg --color=green
-	else if test $hostname = "ArchSapphire"
-		archey3 --config ~/dotfiles/archey3.cfg --color=cyan
-	else if test $hostname = "ArchMajestic"
-		archey3 --config ~/dotfiles/archey3.cfg --color=magenta
-	else if test $hostname = "ArchDiamond"
-		archey3 --config ~/dotfiles/archey3.cfg --color=yellow
+	if test (pwd) = "$HOME"
+		if test $hostname = "ArchScythe"
+			archey3 --config ~/dotfiles/archey3.cfg --color=green
+		else if test $hostname = "ArchSapphire"
+			archey3 --config ~/dotfiles/archey3.cfg --color=cyan
+		else if test $hostname = "ArchMajestic"
+			archey3 --config ~/dotfiles/archey3.cfg --color=magenta
+		else if test $hostname = "ArchDiamond"
+			archey3 --config ~/dotfiles/archey3.cfg --color=yellow
+		end
 	end
 
 	set_color --italics $fish_color_date
