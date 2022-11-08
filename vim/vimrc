@@ -22,7 +22,6 @@ Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
 Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
 Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
 Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
-Plug 'leanprover/lean.vim',          { 'for' : 'lean' }
 Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
 Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
 Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
