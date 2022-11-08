@@ -291,6 +291,9 @@ command! -bang -nargs=* BLinesExtra
 			\ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
 			\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
+
+" CoC completion goodies
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 " }}}
 
 " MINUS KEYBINDINGS (window manager) {{{

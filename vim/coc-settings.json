@@ -1,6 +1,7 @@
 {
     "diagnostic.displayByAle": true,
     "suggest.echodocSupport": true,
+    "suggest.removeDuplicateItems": true,
     "signature.target": "echo",
     "python.venvPath": "~/.virtualenvs/",
     "python.analysis.typeCheckingMode": "basic",
