@@ -1,6 +1,7 @@
 {
     "diagnostic.displayByAle": true,
     "suggest.echodocSupport": true,
+    "suggest.noselect": true,
     "suggest.removeDuplicateItems": true,
     "signature.target": "echo",
     "python.venvPath": "~/.virtualenvs/",
@@ -13,15 +14,5 @@
       ".hg",
       ".projections.json"
     ],
-    "markdownlint.config": {
-      "first-line-h1": false,
-      "no-hard-tabs": false,
-      "no-inline-html": false,
-      "no-trailing-punctuation": false,
-      "single-h1": false,
-      "ul-indent": false,
-      "line-length": false,
-      "ol-prefix": false
-    },
     "tabnine.priority" : -1
 }

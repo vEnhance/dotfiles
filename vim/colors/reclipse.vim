@@ -66,7 +66,7 @@ highlight PMenuThumb ctermbg=white ctermfg=red
 highlight Directory  gui=none guifg=#7050ff guibg=bg ctermfg=39
 highlight LineNr     gui=none guifg=#6b6b6b guibg=#cccccc
 highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
-highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=105
+highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=253 ctermbg=53
 highlight Title      gui=bold guifg=#0033cc guibg=bg
 highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=105
 highlight CursorLineNr ctermfg=122 ctermbg=239 cterm=bold guibg=#eeeeee
@@ -118,4 +118,10 @@ endif
 hi mkdURL guifg=#999999
 highlight! link SignColumn LineNr
 
-" vim:ff=unix:
+
+" CoC
+highlight CocFloating ctermbg=238
+highlight CocMenuSel ctermbg=22
+highlight CocInlayHint cterm=italic ctermfg=212 ctermbg=18
+
+" vim: ff=unix
