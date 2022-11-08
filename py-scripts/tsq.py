@@ -2,6 +2,9 @@
 ## TSQ ##
 #########
 
+# See https://github.com/cjquines/tsqx for a better version
+# Also see https://github.com/vEnhance/dotfiles/blob/main/vim/after/syntax/tsq.vim for a syntax highlighter
+
 import argparse
 import string
 import sys
