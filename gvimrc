@@ -7,7 +7,7 @@ elseif hostname() ==# 'ArchDiamond'
 elseif hostname() ==# 'ArchMajestic'
 	set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
 elseif hostname() ==# 'ArchSapphire'
-	set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 22
+	set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
 elseif hostname() ==# 'dagobah'
 	set guifont=Inconsolata\ Bold\ 21
 endif
