@@ -49,6 +49,17 @@ function fish_greeting
 	set_color normal
 	set_color --italics $fish_color_greeting
 	printf ".\n"
+
+	if test $hostname = "ArchScythe"
+		archey3 --config ~/dotfiles/archey3.cfg --color=green
+	else if test $hostname = "ArchSapphire"
+		archey3 --config ~/dotfiles/archey3.cfg --color=cyan
+	else if test $hostname = "ArchMajestic"
+		archey3 --config ~/dotfiles/archey3.cfg --color=magenta
+	else if test $hostname = "ArchDiamond"
+		archey3 --config ~/dotfiles/archey3.cfg --color=yellow
+	end
+
 	set_color --italics $fish_color_date
 	printf "It is "
 	printf (date +'%a %d %b %Y, %R %Z')
@@ -211,7 +222,7 @@ function newtex
 	echo '\documentclass[11pt]{scrartcl}' > "$argv.tex"
 	echo '\usepackage{evan}' >> "$argv.tex"
 	echo '\begin{document}' >> "$argv.tex"
-	echo '\title{<++>}' >> "$argv.tex"
+	echo '\title{}' >> "$argv.tex"
 	echo '<++>' >> "$argv.tex"
 	echo '\end{document}' >> "$argv.tex"
 	gvim "$argv.tex"
