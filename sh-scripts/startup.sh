@@ -22,6 +22,8 @@
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 
+~/dotfiles/conky/run-conky.sh
+
 if [ "$(hostname)" = ArchAir ]; then
 	dunst &
 	synclient RightButtonAreaRight=1
@@ -45,8 +47,6 @@ if [ "$(hostname)" = ArchScythe ]; then
 	dunst &
 	syncthing-gtk -m &
 	signal-desktop --start-in-tray --use-tray-icon &
-	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
-	conky -c ~/dotfiles/conky/cal2.conf &
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
@@ -54,8 +54,6 @@ if [ "$(hostname)" = ArchSapphire ]; then
 	dunst &
 	syncthing-gtk -m &
 	signal-desktop --start-in-tray --use-tray-icon &
-	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
-	conky -c ~/dotfiles/conky/cal2.conf &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
@@ -66,13 +64,6 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
 		ibus-daemon -d -r &
-		if [ "$(date +'%Z')" = "EDT" ] || [ "$(date +'%Z')" = "EST" ]; then
-			conky -c ~/dotfiles/conky/thin-bar-3840x2160.conf &
-			conky -c ~/dotfiles/conky/cal5.conf &
-		else
-			conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
-			conky -c ~/dotfiles/conky/cal3.conf &
-		fi
 	fi
 fi
 
@@ -83,12 +74,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
 		dropbox-cli start
 		app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
 		signal-desktop --start-in-tray --use-tray-icon &
-		conky -c ~/dotfiles/conky/shifted-bar.conf &
-		conky -c ~/dotfiles/conky/cal3.conf &
 		gnome-calendar &
-	fi
-	if [ "$(whoami)" = "star" ]; then
-		conky -c ~/dotfiles/conky/star-bar.conf &
 	fi
 	~/dotfiles/sh-scripts/redshift.sh
 	syncthing-gtk &
@@ -98,6 +84,4 @@ fi
 if [ "$(hostname)" = dagobah ]; then
 	picom -C -G -b --no-fading-openclose
 	syncthing-gtk -m &
-	conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
-	conky -c ~/dotfiles/conky/cal3.conf &
 fi
