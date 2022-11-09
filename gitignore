@@ -1,3 +1,6 @@
+# Global gitignore file
+# vim: ft=gitignore
+
 **.pyc
 .*.swp
 .DS_Store
@@ -5,3 +8,4 @@
 __pycache__
 node_modules
 .mypy_cache/
+.venv
