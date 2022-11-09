@@ -205,7 +205,7 @@ class Parser:
 				exp, idx = self.parse_subexp(tokens, idx)
 				res.append(list(filter(None, exp)))
 			except IndexError:
-				raise SyntaxError("Unexpected end of line")
+				raise SyntaxError(f"Unexpected end of line: {tokens}")
 		return res
 
 	def parse_special(self, tokens: list[T_TOKEN], comment: str | None):
