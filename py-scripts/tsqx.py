@@ -112,6 +112,7 @@ class Point(Op):
 		self.label = name if label else None
 		if self.label:
 			self.label = label.replace("_prime", "'")
+			self.label = label.replace("_asterisk", r"^{\ast}")
 		self.direction = direction or f"dir({name})"
 
 	def emit(self) -> str:
@@ -184,6 +185,7 @@ class Parser:
 			("/ ", "/"),
 			# ' not allowed in variable names
 			("'", "_prime"),
+			("&", "_asterisk"),
 		]:
 			line = line.replace(old, new)
 		return list(filter(None, line.split()))
