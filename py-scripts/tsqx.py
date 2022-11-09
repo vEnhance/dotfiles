@@ -239,7 +239,9 @@ class Parser:
 		if rest:
 			dirs, *rest = rest
 			assert isinstance(dirs, str)
-			if dir_pairs := re.findall(r"(\d+)([A-Z]+)", dirs):
+			if m := re.fullmatch(r"([\d\.]+)R([\d\.]+)", dirs):
+				options["direction"] = f"{m.groups()[0]}*dir({m.groups()[1]})"
+			elif dir_pairs := re.findall(r"(\d+)([A-Z]+)", dirs):
 				options["direction"] = "+".join(f"{n}*plain.{w}" for n, w in dir_pairs)
 			elif dirs.isdigit():
 				options["direction"] = f"dir({dirs})"
