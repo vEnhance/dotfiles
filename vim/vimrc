@@ -185,7 +185,7 @@ let g:ale_keep_list_window_open = 0
 let g:ale_open_list = 0
 let g:ale_languagetool_options = '--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE'
 let g:ale_python_mypy_enabled = 0
-let g:ale_python_mypy_options = '--ignore-missing-imports'
+let g:ale_python_mypy_options = '--ignore-missing-imports --enable-recursive-aliases'
 let g:ale_set_balloon= 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 1
@@ -291,6 +291,15 @@ nnoremap <silent> gd <Plug>(coc-definition)
 nnoremap <silent> gy <Plug>(coc-type-definition)
 nnoremap <silent> gl <Plug>(coc-implementation)
 nnoremap <silent> gr <Plug>(coc-references)
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
