@@ -14,8 +14,9 @@ let g:colors_name = 'reclipse'
 highlight Normal gui=none guifg=#000000 guibg=#ffffff ctermfg=white
 
 " Search
-highlight IncSearch gui=underline guifg=#404040 guibg=#e0e040
-highlight Search    gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=1
+highlight IncSearch gui=underline guifg=#404040 guibg=#e0e040 ctermbg=228 ctermfg=4 cterm=underline
+highlight CurSearch gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=57 cterm=underline
+highlight Search    gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=242 cterm=underline
 
 " Messages
 highlight ErrorMsg   gui=none guifg=#f8f8f8 guibg=#4040ff
@@ -120,8 +121,8 @@ highlight! link SignColumn LineNr
 
 
 " CoC
-highlight CocFloating ctermbg=238
-highlight CocMenuSel ctermbg=22
-highlight CocInlayHint cterm=italic ctermfg=212 ctermbg=18
+highlight CocFloating ctermbg=238 guibg=#bbbbbb
+highlight CocMenuSel ctermbg=22 guibg=#aaccaa
+highlight CocInlayHint cterm=italic ctermbg=18 ctermfg=112 guibg=#cceeee guifg=#004400 gui=italic
 
 " vim: ff=unix
