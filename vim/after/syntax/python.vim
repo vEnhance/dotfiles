@@ -1,5 +1,4 @@
 " https://vi.stackexchange.com/a/9917/1851
-highlight SpecialKey    ctermfg=236
 
 hi PythonFuncCall ctermfg=218 cterm=none guifg=#0000dd gui=none
 hi PythonClassVar ctermfg=194 cterm=none guifg=#770077 gui=none
@@ -14,5 +13,5 @@ hi pythonKeywordArgument ctermfg=154 cterm=italic guifg=#228822 gui=italic
 syntax match pythonBreakpoint /breakpoint()/
 hi link pythonBreakpoint Error
 
-set fdm=indent
+set foldmethod=indent
 set foldlevelstart=1
