@@ -66,6 +66,7 @@ highlight PMenuThumb ctermbg=white ctermfg=red
 " Other
 highlight Directory  gui=none guifg=#7050ff guibg=bg ctermfg=39
 highlight LineNr     gui=none guifg=#6b6b6b guibg=#cccccc
+highlight! link SignColumn LineNr
 highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
 highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=253 ctermbg=53
 highlight Title      gui=bold guifg=#0033cc guibg=bg
@@ -92,33 +93,32 @@ highlight Identifier gui=bold guifg=#006633 guibg=bg      ctermfg=LightGreen cte
 highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
 highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
 
+" File-specific syntax groups
 highlight texComment    gui=none guifg=#ff1cae guibg=bg      ctermfg=2
 highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=bold
-hi link pythonString String
-hi link Directory Identifier
+highlight link pythonString String
+highlight link Directory Identifier
+highlight mkdURL guifg=#999999
 
-hi IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
-hi IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
+highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
+highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
 
 if !has('gui_running')
-	hi link Float          Number
-	hi link Conditional    Repeat
-	hi link Include        PreProc
-	hi link Macro          PreProc
-	hi link PreCondit      PreProc
-	hi link StorageClass   Type
-	hi link Structure      Type
-	hi link Typedef        Type
-	hi link Tag            Special
-	hi link Delimiter      Normal
-	hi link SpecialComment Special
-	hi link Debug          Special
-	hi link pythonBuiltin   Special
-	hi link pythonStatement Statement
+	highlight link Float          Number
+	highlight link Conditional    Repeat
+	highlight link Include        PreProc
+	highlight link Macro          PreProc
+	highlight link PreCondit      PreProc
+	highlight link StorageClass   Type
+	highlight link Structure      Type
+	highlight link Typedef        Type
+	highlight link Tag            Special
+	highlight link Delimiter      Normal
+	highlight link SpecialComment Special
+	highlight link Debug          Special
+	highlight link pythonBuiltin   Special
+	highlight link pythonStatement Statement
 endif
-hi mkdURL guifg=#999999
-highlight! link SignColumn LineNr
-
 
 " CoC
 highlight CocFloating ctermbg=238 guibg=#bbbbbb
