@@ -86,6 +86,17 @@ class Blank(Op):
 		return ""
 
 
+class DirectCommand(Op):
+	def __init__(self, exp: str):
+		self.exp = exp
+
+	def emit(self):
+		return self.exp
+
+	def post_emit(self):
+		return None
+
+
 class Point(Op):
 	def __init__(
 		self,
@@ -282,7 +293,13 @@ class Parser:
 
 		return {"fill": "+".join(fill), "outline": "+".join(outline)}
 
-	def parse(self, line: str) -> Generator[tuple[Draw | Blank | Point, str | None], None, None]:
+	def parse(
+		self, line: str
+	) -> Generator[tuple[Draw | Blank | Point | DirectCommand, str | None], None, None]:
+		# escape sequence
+		if line.startswith('!'):
+			yield DirectCommand(line[1:]), None
+			return
 		if '#' in line:
 			line, comment = line.split("#", 1)
 		else:
