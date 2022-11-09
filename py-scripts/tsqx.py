@@ -326,11 +326,7 @@ class Emitter:
 
 	def emit(self):
 		if self.preamble:
-			self.print("import olympiad;")
-			self.print("import cse5;")
-			self.print("size(%s);" % self.size)
-			self.print("defaultpen(fontsize(9pt));")
-			self.print('settings.outformat="pdf";')
+			self.print(GENERIC_PREAMBLE % self.size)
 
 		ops = [oc for line in self.lines for oc in self.parser.parse(line)]
 		for op, comment in ops:
