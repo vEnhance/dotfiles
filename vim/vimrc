@@ -476,6 +476,7 @@ autocmd vimrc BufNewFile,BufRead *.less setfiletype css
 autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
 autocmd vimrc BufNewFile,BufRead *.pegjs setfiletype pegjs
 autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
+autocmd vimrc BufNewFile,BufRead *.tsqx setfiletype tsqx
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
 autocmd vimrc BufRead * call DetectIndentIfNoLocalRC()
 autocmd vimrc BufNewFile,BufRead *.tex set spell
