@@ -1,14 +1,15 @@
-##########
+#st#########
 ## TSQX ##
 ##########
 
 # original TSQX by CJ Quines: https://github.com/cjquines/tsqx
 # original TSQ by evan chen
 
+from typing import Any, Generator
 import re, sys
 
 
-def generate_points(kind, n):
+def generate_points(kind, n) -> list[str]:
 	if kind == "triangle":
 		return ["dir(110)", "dir(210)", "dir(330)"]
 	elif kind == "regular":
@@ -16,23 +17,31 @@ def generate_points(kind, n):
 	raise SyntaxError("Special command not recognized")
 
 
+T_TOKEN = str | list[str] | list['T_TOKEN']
+
+
 class Op:
-	def _join_exp(self, exp, join_str):
+	exp: T_TOKEN
+
+	def _join_exp(self, exp: T_TOKEN, join_str: str) -> str:
 		return join_str.join(self._emit_exp(e) for e in exp)
 
-	def _emit_exp(self, exp):
+	def _emit_exp(self, exp: T_TOKEN) -> str:
 		if not isinstance(exp, list):
 			return exp
 		if "," in exp:
 			return f"({self._join_exp(exp, ' ')})"
 		head, *tail = exp
 		if not tail:
-			return head
+			if not isinstance(head, list):
+				return head
+			else:
+				return self._emit_exp(head)
 		if tail[0] in ["--", "..", "^^"]:
 			return self._join_exp(exp, ", ")
 		return f"{head}({self._join_exp(tail, ', ')})"
 
-	def emit_exp(self):
+	def emit_exp(self) -> str:
 		res = self._join_exp(self.exp, "*")
 		for j in ["--", "..", "^^"]:
 			res = res.replace(f", {j}, ", j)
@@ -51,16 +60,23 @@ class Blank(Op):
 
 
 class Point(Op):
-	def __init__(self, name, exp, **options):
+	def __init__(
+		self,
+		name: str,
+		exp: T_TOKEN,
+		dot=True,
+		label='',
+		direction='',
+	):
 		self.name = name
 		self.exp = exp
-		self.dot = options.get("dot", True)
-		self.label = options.get("label", name)
+		self.dot = dot
+		self.label = name if label else None
 		if self.label:
-			self.label = self.label.replace("_prime", "'")
-		self.direction = options.get("direction", f"dir({name})")
+			self.label = label.replace("_prime", "'")
+		self.direction = direction or f"dir({name})"
 
-	def emit(self):
+	def emit(self) -> str:
 		return f"pair {self.name} = {self.emit_exp()};"
 
 	def post_emit(self):
@@ -71,13 +87,19 @@ class Point(Op):
 			return f"dot({', '.join(args)});"
 		if len(args) > 1:
 			return f"label({', '.join(args)});"
+		return ''
 
 
 class Draw(Op):
-	def __init__(self, exp, **options):
+	def __init__(
+		self,
+		exp: T_TOKEN,
+		fill: str | None = None,
+		outline: str | None = None,
+	):
 		self.exp = exp
-		self.fill = options.get("fill", None)
-		self.outline = options.get("outline", None)
+		self.fill = fill
+		self.outline = outline
 
 	def emit(self):
 		exp = self.emit_exp()
@@ -91,14 +113,14 @@ class Draw(Op):
 
 
 class Parser:
-	def __init__(self, **args):
-		self.soft_label = args.get("soft_label", False)
+	def __init__(self, soft_label: str | None = None, **_: Any):
+		self.soft_label = soft_label
 		self.alias_map = {"": "dl", ":": "", ".": "d", ";": "l"}
 		if self.soft_label:
 			self.alias_map |= {"": "l", ";": "dl"}
 		self.aliases = self.alias_map.keys() | self.alias_map.values()
 
-	def tokenize(self, line):
+	def tokenize(self, line: str) -> list[T_TOKEN]:
 		line = line.strip() + " "
 		for old, new in [
 			# ~ and = are separate tokens
@@ -128,11 +150,16 @@ class Parser:
 			line = line.replace(old, new)
 		return list(filter(None, line.split()))
 
-	def parse_subexp(self, tokens, idx, func_mode=False):
+	def parse_subexp(
+		self,
+		tokens: list[T_TOKEN],
+		idx: int,
+		func_mode=False,
+	) -> tuple[T_TOKEN, int]:
 		token = tokens[idx]
 		if token[-1] == "(":
 			is_func = len(token) > 1
-			res = []
+			res: list[T_TOKEN] = []
 			idx += 1
 			if is_func:
 				res.append(token[:-1])
@@ -144,10 +171,10 @@ class Parser:
 			return "", idx + 1
 		return token, idx + 1
 
-	def parse_exp(self, tokens):
+	def parse_exp(self, tokens: list[T_TOKEN]):
 		if tokens[0][-1] != "(" or tokens[-1] != ")":
 			tokens = ["(", *tokens, ")"]
-		res = []
+		res: list[T_TOKEN] = []
 		idx = 0
 		while idx != len(tokens):
 			try:
@@ -157,33 +184,37 @@ class Parser:
 				raise SyntaxError("Unexpected end of line")
 		return res
 
-	def parse_special(self, tokens, comment):
+	def parse_special(self, tokens: list[T_TOKEN], comment: str | None):
 		if not tokens:
 			raise SyntaxError("Can't parse special command")
 		head, *tail = tokens
-		if comment:
+		if comment is not None:
 			yield Blank(), comment
 		if head in ["triangle", "regular"]:
 			for name, exp in zip(tail, generate_points(head, len(tail))):
+				assert isinstance(name, str)
 				yield Point(name, [exp]), None
 			return
 		else:
 			raise SyntaxError("Special command not recognized")
 
-	def parse_name(self, tokens):
+	def parse_name(self, tokens: list[T_TOKEN]) -> tuple[str, dict[str, Any]]:
 		if not tokens:
 			raise SyntaxError("Can't parse point name")
 		name, *rest = tokens
+		assert isinstance(name, str)
 
 		if rest and rest[-1] in self.aliases:
 			*rest, opts = rest
+			assert isinstance(opts, str)
 		else:
 			opts = ""
 		opts = self.alias_map.get(opts, opts)
-		options = {"dot": "d" in opts, "label": "l" in opts and name}
+		options = {"dot": "d" in opts, "label": name if "l" in opts else None}
 
 		if rest:
 			dirs, *rest = rest
+			assert isinstance(dirs, str)
 			if dir_pairs := re.findall(r"(\d+)([A-Z]+)", dirs):
 				options["direction"] = "+".join(f"{n}*plain.{w}" for n, w in dir_pairs)
 			elif dirs.isdigit():
@@ -199,17 +230,22 @@ class Parser:
 			raise SyntaxError("Can't parse point name")
 		return name, options
 
-	def parse_draw(self, tokens):
+	def parse_draw(self, tokens: list[T_TOKEN]):
 		try:
 			idx = tokens.index("/")
-			fill_ = tokens[:idx]
-			outline = tokens[idx + 1:]
 		except ValueError:
-			fill_ = []
-			outline = tokens
+			fill_: list[T_TOKEN] = []
+			outline_ = tokens
+		else:
+			fill_ = tokens[:idx]
+			outline_ = tokens[idx + 1:]
 
-		fill = []
+		assert all(isinstance(_, str) for _ in outline_)
+		outline: list[str] = [str(_) for _ in outline_]  # this is idiotic, what did i miss?
+
+		fill: list[str] = []
 		for pen in fill_:
+			assert isinstance(pen, str)
 			if re.fullmatch(r"\d*\.?\d*", pen):
 				fill.append(f"opacity({pen})")
 			else:
@@ -217,8 +253,11 @@ class Parser:
 
 		return {"fill": "+".join(fill), "outline": "+".join(outline)}
 
-	def parse(self, line):
-		line, *comment = line.split("#", 1)
+	def parse(self, line: str) -> Generator[tuple[Draw | Blank | Point, str | None], None, None]:
+		if '#' in line:
+			line, comment = line.split("#", 1)
+		else:
+			comment = None
 		tokens = self.tokenize(line)
 		if not tokens:
 			yield (Blank(), comment)
@@ -252,7 +291,7 @@ class Parser:
 
 
 class Emitter:
-	def __init__(self, lines, print_=print, **args):
+	def __init__(self, lines, print_=print, **args: Any):
 		self.lines = lines
 		self.print = print_
 		self.preamble = args.get("preamble", False)
@@ -270,7 +309,7 @@ class Emitter:
 		ops = [oc for line in self.lines for oc in self.parser.parse(line)]
 		for op, comment in ops:
 			out = op.emit()
-			if comment:
+			if comment is not None:
 				out = f"{out} //{comment[0]}".strip()
 			self.print(out)
 		self.print()
