@@ -43,6 +43,8 @@ pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
 path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
 '''.strip()
 
+ARITHMETIC_OPERATORS = {'plus': '+', 'minus': '-', 'mult': '*', 'divide': '/'}
+
 
 class Op:
 	exp: T_TOKEN
@@ -57,13 +59,13 @@ class Op:
 			return f"({self._join_exp(exp, ' ')})"
 		head, *tail = exp
 		if not tail:
-			if not isinstance(head, list):
-				return head
-			else:
-				return self._emit_exp(head)
-		if tail[0] in ["--", "..", "^^"]:
+			return self._emit_exp(head) if isinstance(head, list) else head
+		elif tail[0] in ["--", "..", "^^"]:
 			return self._join_exp(exp, ", ")
-		return f"{head}({self._join_exp(tail, ', ')})"
+		elif (binop := ARITHMETIC_OPERATORS.get(str(head))) is not None:
+			return '(' + self._join_exp(tail, binop) + ')'
+		else:
+			return f"{head}({self._join_exp(tail, ', ')})"
 
 	def emit_exp(self) -> str:
 		res = self._join_exp(self.exp, "*")
