@@ -363,18 +363,32 @@ class Emitter:
 		self.preamble = args.get("preamble", False)
 		self.size = args.get("size", "8cm")
 		self.parser = Parser(**args)
+		self.terse = args.get("terse", False)
 
 	def emit(self):
 		if self.preamble:
 			self.print(GENERIC_PREAMBLE % self.size)
 
 		ocrs = [ocr for line in self.lines for ocr in self.parser.parse(line)]
+
 		for ocr in ocrs:
 			self.print(ocr['op'].emit() + (f" //{c}" if (c := ocr['comment'].rstrip()) else ''))
-		self.print('\n/* ' + ('-' * 40) + ' */\n')  # some space before post_emit's
+		self.print()
+
 		for ocr in ocrs:
 			if out := ocr['op'].post_emit():
 				self.print(out)
+
+		if not self.terse:
+			self.print('')
+			self.print(r'/* -----------------------------------------------------------------+')
+			self.print(r'|                 TSQX: by CJ Quines and Evan Chen                  |')
+			self.print(r'| https://github.com/vEnhance/dotfiles/blob/main/py-scripts/tsqx.py |')
+			self.print(r'+-------------------------------------------------------------------+')
+			for ocr in ocrs:
+				if (x := ocr['raw'].strip()):
+					self.print(x)
+			self.print('*/')
 
 
 def main():
@@ -405,13 +419,22 @@ def main():
 		default="8cm",
 	)
 	argparser.add_argument(
-		"-sl",
+		"-b",
 		"--soft-label",
 		help="Don't draw dots on points by default.",
 		action="store_true",
 		dest="soft_label",
 		default=False,
 	)
+	argparser.add_argument(
+		"-t",
+		"--terse",
+		help="Hide the advertisement and orig source",
+		action="store_true",
+		dest="terse",
+		default=False,
+	)
+
 	args = argparser.parse_args()
 	stream = open(args.fname, "r") if args.fname else sys.stdin
 	emitter = Emitter(stream, print, **vars(args))
