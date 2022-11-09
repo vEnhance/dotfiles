@@ -5,8 +5,8 @@ syn match tsqFunctionName "circumcenter\|orthocenter\|incircle\|circumcircle\|ce
 syn match tsqBuiltinName "unitcircle" contains=@NoSpell
 syn match tsqCycle "cycle"
 syn match tsqNumber "[\\.0-9]\+"
-syn region tsqCommentOneLine start="//" end="$" contains=@Spell
-syn region tsqCommentMultiLine start="/\*" end="\*/" contains=@Spell
+
+syn region tsqComment start="#" end="$" contains=@Spell
 
 syn match tsqDefineHeader "^\([A-Za-z\\&\\'\\_0-9]\+\)\( [0-9A-Z\\.]\+\)\? [:\\.]\?= " contains=tsqRotate
 syn match tsqRotate contained "\( [0-9A-Z\\.]\+\)"
@@ -18,8 +18,7 @@ syn match tsqPenName "dashed\|dotted" contains=@NoSpell
 
 hi def link tsqArithmeticName PreProc
 hi def link tsqBuiltinName Constant
-hi def link tsqCommentOneLine Comment
-hi def link tsqCommentMultiLine Comment
+hi def link tsqComment Comment
 hi def link tsqCycle PreProc
 hi def link tsqDefineHeader Structure
 hi def link tsqEscapeLine String
