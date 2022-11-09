@@ -5,7 +5,8 @@
 # original TSQX by CJ Quines: https://github.com/cjquines/tsqx
 # original TSQ by evan chen
 
-from typing import Any, Generator
+from io import TextIOWrapper
+from typing import Any, Generator, TextIO, TypedDict
 import re, sys
 
 
@@ -18,6 +19,13 @@ def generate_points(kind, n) -> list[str]:
 
 
 T_TOKEN = str | list[str] | list['T_TOKEN']
+
+
+class T_OCR(TypedDict):  # op, comment, raw
+	op: 'Op'
+	comment: str
+	raw: str
+
 
 GENERIC_PREAMBLE = r'''
 usepackage("amsmath");
@@ -224,16 +232,21 @@ class Parser:
 				raise SyntaxError(f"Unexpected end of line: {tokens}")
 		return res
 
-	def parse_special(self, tokens: list[T_TOKEN], comment: str | None):
+	def parse_special(
+		self,
+		tokens: list[T_TOKEN],
+		comment: str | None,
+		raw_line: str,
+	) -> Generator[T_OCR, None, None]:
 		if not tokens:
 			raise SyntaxError("Can't parse special command")
 		head, *tail = tokens
 		if comment is not None:
-			yield Blank(), comment
+			yield {'op': Blank(), 'comment': comment, 'raw': raw_line}
 		if head in ["triangle", "regular"]:
 			for name, exp in zip(tail, generate_points(head, len(tail))):
 				assert isinstance(name, str)
-				yield Point(name, [exp]), None
+				yield {'op': Point(name, [exp]), 'comment': '', 'raw': raw_line}
 			return
 		else:
 			raise SyntaxError("Special command not recognized")
@@ -295,31 +308,31 @@ class Parser:
 
 		return {"fill": "+".join(fill), "outline": "+".join(outline)}
 
-	def parse(
-		self, line: str
-	) -> Generator[tuple[Draw | Blank | Point | DirectCommand, str | None], None, None]:
+	def parse(self, line: str) -> Generator[T_OCR, None, None]:
 		# escape sequence
-		if line.startswith('!'):
-			yield DirectCommand(line[1:]), None
+		raw_line = line
+		if raw_line.startswith('!'):
+			yield {'op': DirectCommand(line[1:]), 'comment': '', 'raw': raw_line}
 			return
+
 		if '#' in line:
 			line, comment = line.split("#", 1)
 		else:
-			comment = None
+			comment = ''
 		tokens = self.tokenize(line)
 		if not tokens:
-			yield (Blank(), comment)
+			yield {'op': Blank(), 'comment': comment, 'raw': raw_line}
 			return
 		# special
 		if tokens[0] == "~":
-			yield from self.parse_special(tokens[1:], comment)
+			yield from self.parse_special(tokens[1:], comment, raw_line)
 			return
 		# point
 		try:
 			idx = tokens.index("=")
 			name, options = self.parse_name(tokens[:idx])
 			exp = self.parse_exp(tokens[idx + 1:])
-			yield Point(name, exp, **options), comment
+			yield {'op': Point(name, exp, **options), 'comment': comment, 'raw': raw_line}
 			return
 		except ValueError:
 			pass
@@ -328,18 +341,23 @@ class Parser:
 			idx = tokens.index("/")
 			exp = self.parse_exp(tokens[:idx])
 			options = self.parse_draw(tokens[idx + 1:])
-			yield Draw(exp, **options), comment
+			yield {'op': Draw(exp, **options), 'comment': comment, 'raw': raw_line}
 			return
 		except ValueError:
 			pass
 		# draw without options
 		exp = self.parse_exp(tokens)
-		yield Draw(exp), comment
+		yield {'op': Draw(exp), 'comment': comment, 'raw': raw_line}
 		return
 
 
 class Emitter:
-	def __init__(self, lines, print_=print, **args: Any):
+	def __init__(
+		self,
+		lines: TextIOWrapper | TextIO,
+		print_=print,
+		**args: Any,
+	):
 		self.lines = lines
 		self.print = print_
 		self.preamble = args.get("preamble", False)
@@ -350,15 +368,12 @@ class Emitter:
 		if self.preamble:
 			self.print(GENERIC_PREAMBLE % self.size)
 
-		ops = [oc for line in self.lines for oc in self.parser.parse(line)]
-		for op, comment in ops:
-			out = op.emit()
-			if comment is not None:
-				out = f"{out} //{comment[0]}".strip()
-			self.print(out)
-		self.print()
-		for op, comment in ops:
-			if out := op.post_emit():
+		ocrs = [ocr for line in self.lines for ocr in self.parser.parse(line)]
+		for ocr in ocrs:
+			self.print(ocr['op'].emit() + (f" //{c}" if (c := ocr['comment'].rstrip()) else ''))
+		self.print('\n/* ' + ('-' * 40) + ' */\n')  # some space before post_emit's
+		for ocr in ocrs:
+			if out := ocr['op'].post_emit():
 				self.print(out)
 
 
