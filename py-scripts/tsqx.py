@@ -41,6 +41,7 @@ path CR(pair P, real r) { return circle(P, r); }
 pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
 pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
 path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
+size(%s);
 '''.strip()
 
 ARITHMETIC_OPERATORS = {'plus': '+', 'minus': '-', 'mult': '*', 'divide': '/'}
