@@ -105,7 +105,10 @@ end
 function fish_right_prompt
 	set_color normal
 	if set -q VIRTUAL_ENV
-		echo -n -s (set_color -b blue white) "(" (basename "$VIRTUAL_ENV") ")" (set_color normal)
+		echo -n -s (set_color -b blue white) (basename "$VIRTUAL_ENV" | string sub -l 2) "🐍" (set_color normal)
+	end
+	if set -q nvm_current_version
+		echo -n -s (set_color -b blue white) (string sub -l 3 "$nvm_current_version") "☕"  (set_color normal)
 	end
 	set_color normal
 	printf '%s ' (__fish_git_prompt)
@@ -127,7 +130,7 @@ export EDITOR='vim'
 export TERM='xterm-256color'
 export GPG_TTY=(tty)
 
-# the auto prompt-edited detetction is not enabled somehow
+# the auto prompt-edited detection is not enabled somehow
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
@@ -139,9 +142,6 @@ if [ -d $HOME/.sage ]
 end
 if [ -f /usr/bin/zathura ]
 		export PDFVIEWER='zathura'
-end
-if [ -f ~/dotfiles/aws-hmmt ]
-		source ~/dotfiles/aws-hmmt
 end
 
 umask 007 # set umask
@@ -462,4 +462,3 @@ function fish_mode_prompt
 			echo -n ' '
 	end
 end
-tabs -2
