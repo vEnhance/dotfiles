@@ -144,8 +144,15 @@
 		\newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}
 		\pyc{solution_text = ''}
 
-		\newcommand{\puidmarginpar}[1]{\marginpar{\footnotesize\ttfamily\color{green!40!black}#1}}
-		\renewcommand{\vonprehook}[1]{\puidmarginpar{\py{api.get_puid("#1")}}}
+		\newcommand{\puidmarginpar}[1]{
+			\marginpar{\footnotesize\ttfamily\color{green!40!black}#1}
+		}
+		\renewcommand{\vonprehook}[1]{\py{
+			r'\marginpar{\href{https://otis.evanchen.cc/arch/'
+			+ api.get_puid('#1') + r'/}'
+			+ r'{\footnotesize🗼\ttfamily\color{green!40!black}'
+			+ api.get_puid('#1') + r'}}'
+		}}
 
 		\def\vonX{\@ifstar\@vonXstar\@vonX}
 		\newcommand{\@vonX}[2][]{%
