@@ -33,17 +33,13 @@ import von.api as api
 \def\von{\@ifstar\@vonstar\@von}
 \newcommand{\vonenvname}{problem}
 \newcommand{\@von}[2][]{%
-	\ifthenelse{\isempty{#1}}%
-	{\begin{\vonenvname}[#2]%
+	\pyc{entry = api.get("#2")}
+	\pyc{src = "#1" or "#2"}
+	\begin{\vonenvname}[\py{(r'\href{' + entry.url + '}{' + src + '}') if entry.url is not None else src}]%
 		\vonprehook{#2}
 		\voninclude{#2}%
 		\vonposthook{#2}
-	\end{\vonenvname}}%
-	{\begin{\vonenvname}[#1]%
-		\vonprehook{#2}%
-		\voninclude{#2}%
-		\vonposthook{#2}
-	\end{\vonenvname}}%
+	\end{\vonenvname}%
 }
 \newcommand{\@vonstar}[1]{%
 	\begin{\vonenvname}
