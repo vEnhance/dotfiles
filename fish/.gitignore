@@ -1,6 +1,5 @@
 fish_variables
 
-completions/fisher.fish
 completions/fzf_configure_bindings.fish
 completions/nvm.fish
 completions/spark.fish
@@ -9,7 +8,6 @@ conf.d/done.fish
 conf.d/fzf.fish
 conf.d/nvm.fish
 conf.d/z.fish
-functions/fisher.fish
 functions/fzf_configure_bindings.fish
 functions/_fzf_configure_bindings_help.fish
 functions/_fzf_extract_var_info.fish
