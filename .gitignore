@@ -1,10 +1,5 @@
 **/*.pyc
 asy/history
-fish/*
-!fish/config.fish
-!fish/completions
-!fish/completions/*.fish
-!fish/fish_plugins
 mutt/abook/addressbook
 mutt/abook/addressbook~
 mutt/templates/*
