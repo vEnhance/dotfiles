@@ -23,15 +23,17 @@ urgency.user.project.idea.coefficient=-3.0
 urgency.waiting.coefficient=-4.0 # waiting task
 urgency.scheduled.coefficient=2
 
+alias.ne=priority:N # none, non-essential, negligible, etc.
 alias.lo=priority:L
 alias.md=priority:M
 alias.hi=priority:H
 
-uda.priority.values=H,M,,L
+uda.priority.values=H,M,,L,N
 recurrence.limit=0
 urgency.uda.priority.H.coefficient=4.2
 urgency.uda.priority.M.coefficient=2.1
 urgency.uda.priority.L.coefficient=-1.8
+urgency.uda.priority.N.coefficient=-3.6
 
 include ~/dotfiles/task.theme
 color.uda.priority.H=rgb450
