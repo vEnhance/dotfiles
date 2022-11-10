@@ -462,3 +462,6 @@ function fish_mode_prompt
 			echo -n ' '
 	end
 end
+
+# https://github.com/jorgebucaran/fisher/issues/747
+status is-interactive && tabs -4
