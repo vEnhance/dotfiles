@@ -4,6 +4,7 @@ completions/fisher.fish
 completions/fzf_configure_bindings.fish
 completions/nvm.fish
 completions/spark.fish
+conf.d/auto_nvm.fish
 conf.d/done.fish
 conf.d/fzf.fish
 conf.d/nvm.fish
