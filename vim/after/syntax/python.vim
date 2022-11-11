@@ -13,5 +13,8 @@ hi pythonKeywordArgument ctermfg=154 cterm=italic guifg=#228822 gui=italic
 syntax match pythonBreakpoint /breakpoint()/
 hi link pythonBreakpoint Error
 
+syn match pythonStrFormatNotFString "{\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)\=\%(\.\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\[\%(\d\+\|[^!:\}]\+\)\]\)*\%(![rsa]\)\=\%(:\%({\%(\%([^[:cntrl:][:space:][:punct:][:digit:]]\|_\)\%([^[:cntrl:][:punct:][:space:]]\|_\)*\|\d\+\)}\|\%([^}]\=[<>=^]\)\=[ +-]\=#\=0\=\d*,\=\%(\.\d\+\)\=[bcdeEfFgGnosxX%]\=\)\=\)\=}" contained containedin=pythonString,pythonRawString
+hi pythonStrFormatNotFString ctermbg=94 ctermfg=229 guibg=#875f00 guifg=#ffffaf
+
 set foldmethod=indent
 set foldlevelstart=1
