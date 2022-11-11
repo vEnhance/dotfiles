@@ -1,23 +1,42 @@
-% evan.sty
-% If you don't know how to use this file, read:
-% https://web.evanchen.cc/faq-latex.html#L-4
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                                    |  \               %
+%   ______  __     __  ______  _______      _______ _| ▓▓_   __    __   %
+%  /      \|  \   /  \|      \|       \    /       \   ▓▓ \ |  \  |  \  %
+% |  ▓▓▓▓▓▓\\▓▓\ /  ▓▓ \▓▓▓▓▓▓\ ▓▓▓▓▓▓▓\  |  ▓▓▓▓▓▓▓\▓▓▓▓▓▓ | ▓▓  | ▓▓  %
+% | ▓▓    ▓▓ \▓▓\  ▓▓ /      ▓▓ ▓▓  | ▓▓   \▓▓    \  | ▓▓ __| ▓▓  | ▓▓  %
+% | ▓▓▓▓▓▓▓▓  \▓▓ ▓▓ |  ▓▓▓▓▓▓▓ ▓▓  | ▓▓__ _\▓▓▓▓▓▓\ | ▓▓|  \ ▓▓__/ ▓▓  %
+%  \▓▓     \   \▓▓▓   \▓▓    ▓▓ ▓▓  | ▓▓  \       ▓▓  \▓▓  ▓▓\▓▓    ▓▓  %
+%   \▓▓▓▓▓▓▓    \▓     \▓▓▓▓▓▓▓\▓▓   \▓▓\▓▓\▓▓▓▓▓▓▓    \▓▓▓▓ _\▓▓▓▓▓▓▓  %
+%                                                           |  \__| ▓▓  %
+%                                                            \▓▓    ▓▓  %
+%                                                             \▓▓▓▓▓▓   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-% %%%%%%%%%%%%%%%%%%%%%%
-% %%     evan.sty     %%
-% %%%%%%%%%%%%%%%%%%%%%%
+% https://github.com/vEnhance/dotfiles/blob/main/texmf/tex/latex/evan/evan.sty
+
+% ░█▄█░▄▀▄░█░░▒█░░░▀█▀░▄▀▄░░░█▒█░▄▀▀▒██▀
+% ▒█▒█░▀▄▀░▀▄▀▄▀▒░░▒█▒░▀▄▀▒░░▀▄█▒▄██░█▄▄
 %
-% This file is licensed under the BOOST software license 1.0.
-% This basically means you can do whatever you want with it,
-% as long as any TeX source versions published
-% include my name and this copyright notice.
-% The compiled PDF itself is NOT required to have an attribution,
-% although of course such attributions are greatly appreciated :D
-% Here is the text of the license:
+% If you don't know how to use this file, read:
+% +--------------------------------------------+
+% | https://web.evanchen.cc/faq-latex.html#L-4 |
+% +--------------------------------------------+
 %
-% Boost Software License - Version 1.0 - August 17th, 2003
+% TL;DR of the Boost license conditions are as follows:
+%
+% 1. Any SOURCE VERSIONS must cite evan.sty and the Boost license below.
+% 2. For COMPILED PDF OUTPUT, attribution of evan.sty is OPTIONAL (but nice).
+% 3. NO OTHER REQUIREMENTS; you may modify, redistribute, sell freely.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% BOOST SOFTWARE LICENSE - VERSION 1.0 - 17 AUGUST 2003
 %
 % Copyright (c) 2022 Evan Chen [evan at evanchen.cc]
 % https://web.evanchen.cc/ || github.com/vEnhance
+%
+% Available for download at:
+% https://github.com/vEnhance/dotfiles/blob/main/texmf/tex/latex/evan/evan.sty
 %
 % Permission is hereby granted, free of charge, to any person or organization
 % obtaining a copy of the software and accompanying documentation covered by
@@ -40,6 +59,7 @@
 % FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
 % ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 % DEALINGS IN THE SOFTWARE.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \ProvidesPackage{evan}
 %%fakesection Argument processing
@@ -606,6 +626,7 @@
 		\usepackage{mathtools}
 		\usepackage{microtype}
 		\usepackage{xstring}
+		\usepackage{wrapfig}
 		\ifevanbritish
 			% Use day-first date format
 			\usepackage[cleanlook,british]{isodate}
@@ -693,13 +714,13 @@
 			\usepackage{fontspec}
 			% https://tex.stackexchange.com/a/572220/76888
 			\directlua{luaotfload.add_fallback
-				 ("evans_fallbacks",
+				("evans_fallbacks",
 					{
 						"NotoColorEmoji:mode=harf;",
 						"Source Han Sans TW:style=Regular;",
 						"Noto Serif CJK SC:style=Regular;",
 					}
-				 )}
+				)}
 			\setmainfont{lmroman10-regular}[
 				BoldFont=lmroman10-bold,
 				ItalicFont=lmroman10-italic,
