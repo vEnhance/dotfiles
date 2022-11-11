@@ -63,7 +63,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 	picom -C -G -b --no-fading-openclose
 	~/dotfiles/sh-scripts/redshift.sh
 	systemctl --user start evansync.timer
-	dunst &
+	# dunst & # this has been causing problems apparently?
 	syncthing-gtk -m &
 	if [ "$(whoami)" = "evan" ]; then
 		ibus-daemon -d -r &
