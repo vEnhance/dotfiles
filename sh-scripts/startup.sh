@@ -20,6 +20,7 @@
 # WS9="9: Tet"
 # WS0="10: Yod"
 
+setxkbmap dvorak -options caps:escape
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
 
 ~/dotfiles/conky/run-conky.sh

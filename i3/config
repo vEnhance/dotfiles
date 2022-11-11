@@ -332,10 +332,6 @@ mode trap {
 }
 # }}}
 
-# Exec startup
-exec --no-startup-id dex -ae i3 &
-exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
-
 # vvv workspace setup
 # NOTE: requires i3ipc installed via pip to run
 exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -n -d " " -l 12
@@ -351,5 +347,10 @@ bindsym $mod+slash exec --no-startup-id find-cursor -r 1 -f -t -c '#00cca7'
 # }}}
 
 include ~/dotfiles/i3/extras.`hostname`
+
+
+# Exec startup
+exec --no-startup-id dex -ae i3 &
+exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
 # vim: ft=i3config fdm=marker
