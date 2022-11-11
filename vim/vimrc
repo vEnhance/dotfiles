@@ -202,7 +202,6 @@ let g:coc_global_extensions = [
 	\ 'coc-sh',
 	\ 'coc-snippets',
 	\ 'coc-tabnine',
-	\ 'coc-texlab',
 	\ 'coc-tsserver',
 	\ 'coc-vimlsp',
 	\ 'coc-yaml',

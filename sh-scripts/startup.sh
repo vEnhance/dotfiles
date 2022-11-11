@@ -47,7 +47,6 @@ if [ "$(hostname)" = ArchScythe ]; then
 	dunst &
 	syncthing-gtk -m &
 	signal-desktop --start-in-tray --use-tray-icon &
-	ibus-daemon -d -r &
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
@@ -55,7 +54,6 @@ if [ "$(hostname)" = ArchSapphire ]; then
 	dunst &
 	syncthing-gtk -m &
 	signal-desktop --start-in-tray --use-tray-icon &
-	ibus-daemon -d -r &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
