@@ -1,6 +1,7 @@
 [general]
 targets = github_issues
 annotation_comments = False
+legacy_matching  = True
 
 [github_issues]
 service = github
@@ -8,7 +9,7 @@ github.username = vEnhance
 github.token = @oracle:eval:secret-tool lookup user vEnhance type github
 github.login = vEnhance
 github.query = is:issue assignee:vEnhance is:open
-github.description_template = {{project}}#{{githubnumber}} {{githubtitle}}
+github.description_template = {{project|title|replace("a", "")|replace("b", "")|replace("c", "")|replace("d", "")|replace("e", "")|replace("f", "")|replace("g", "")|replace("h", "")|replace("i", "")|replace("j", "")|replace("k", "")|replace("l", "")|replace("m", "")|replace("n", "")|replace("o", "")|replace("p", "")|replace("q", "")|replace("r", "")|replace("s", "")|replace("t", "")|replace("u", "")|replace("v", "")|replace("w", "")|replace("x", "")|replace("y", "")|replace("z", "")|replace("-", "")|replace("_", "")|replace(".","") }}-{{githubnumber}} {{githubtitle|truncate(24)}}
 github.project_template = github
 github.filter_pull_requests = True
 github.include_user_issues = False

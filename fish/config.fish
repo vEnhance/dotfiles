@@ -325,6 +325,11 @@ function hub
 	else
 		gh $argv
 	end
+	if command -q bugwarrior-pull && command -q task && test -n "$argv"
+		if test $argv[1] = "add" -o $argv[1] = "todo" -o $argv[1] = "close" -o $argv[1] = "done"
+			bugwarrior-pull
+		end
+	end
 end
 
 function diary
