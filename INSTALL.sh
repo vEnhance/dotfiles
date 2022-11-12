@@ -124,3 +124,8 @@ for i in "$HOME"/dotfiles/custom-systemd-units/*; do
 		ln -s "$i" "$HOME"/.config/systemd/user/
 	fi
 done
+
+if [ "$USER" = "evan" ]; then
+	xdg-settings set default-web-browser https firefox.desktop
+	xdg-settings set default-url-scheme-handler https firefox.desktop
+fi
