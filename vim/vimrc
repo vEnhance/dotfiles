@@ -283,6 +283,8 @@ nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 nmap Q <nop>
 " Save command
 nnoremap <CR> :wall<CR>
+" alias :bdelete to :bc (for buffer-close)
+cnoreabbrev bc bdelete
 
 " CoC
 nnoremap <silent> cv <Plug>(coc-rename)
