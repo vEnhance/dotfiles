@@ -1,6 +1,10 @@
 #!/bin/bash
 # vim: ft=sh
 
+# Make sure we're in Dvorak
+setxkbmap dvorak -option caps:escape
+numlockx on
+
 export LANG="en_US.UTF-8"
 
 # for Chinese input
@@ -102,7 +106,3 @@ fi
 
 # Load background image, if not existent already
 [[ -f ~/.fehbg ]] && source ~/.fehbg
-
-# Make sure we're in Dvorak
-setxkbmap dvorak -option caps:escape
-numlockx on
