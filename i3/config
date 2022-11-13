@@ -141,13 +141,10 @@ mode "nudge" {
 	bindsym s resize shrink height 5 px or 5 ppt
 	bindsym t resize grow height 5 px or 5 ppt
 
-	bindsym m mode "move"
-	bindsym n mode "nudge"
-	# bindsym r mode "resize"
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+n mode "nudge"
+bindsym $mod+n exec --no-startup-id $HOME/dotfiles/i3/reminder-nudge.sh, mode "nudge"
 # }}}
 
 # close focused window {{{
@@ -155,7 +152,6 @@ bindsym $mod+n mode "nudge"
 # (and so that if we hold down the key by accident nothing happens
 bindsym $mod+q mode "close"
 mode "close" {
-	bindsym m mode "move"
 	bindsym Return kill window, mode "default"
 	bindsym Escape mode "default"
 }
@@ -173,7 +169,7 @@ mode "danger" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+Shift+backslash mode "danger"
+bindsym $mod+Shift+backslash exec --no-startup-id $HOME/dotfiles/i3/reminder-danger.sh, mode "danger"
 # }}}
 
 # config/reset mode {{{
@@ -214,11 +210,10 @@ mode "config" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
-bindsym $mod+Escape mode "config"
+bindsym $mod+Escape exec --no-startup-id $HOME/dotfiles/i3/reminder-config.sh, mode "config"
 # }}}
 
 # Ponymix {{{
-bindsym $mod+o mode "ponymix"
 mode "ponymix" {
 	# volume
 	bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
@@ -248,21 +243,19 @@ mode "ponymix" {
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
+bindsym $mod+o exec --no-startup-id $HOME/dotfiles/i3/reminder-ponymix.sh, mode "ponymix"
 # }}}
 
 # executable {{{
-bindsym $mod+x mode "exec"
 mode "exec" {
 	bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
 	bindsym b exec libreoffice --calc &, mode "default"
 	bindsym c exec caprine &, mode "default"
 	bindsym d exec discord &, mode "default"
-	bindsym e exec epiphany &, mode "default"
 	bindsym f exec firefox &, mode "default"
 	bindsym g exec geogebra &, mode "default"
 	# short for hanabi
 	bindsym h exec chromium &, mode "default"
-	bindsym i exec ibus-daemon -d -r, mode "default"
 	bindsym l exec --no-startup-id /home/evan/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
 	# short for money
 	bindsym m exec gnucash &, mode "default"
@@ -273,17 +266,16 @@ mode "exec" {
 	bindsym q exec qutebrowser &, mode "default"
 	bindsym r exec "xfce4-terminal --geometry 120x32 --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
 	bindsym s exec spotify &, mode "default"
-	bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
-	bindsym v exec gvim &, mode "default"
+	bindsym v exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
 	# Open latest chapter of diary
-	bindsym x exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
-	bindsym y exec dynalist &, mode "default"
+	bindsym y exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
 	bindsym z exec zoom &, mode "default"
 	bindsym space exec loginctl lock-session, mode "default"
 
 	bindsym Return mode "default"
 	bindsym Escape mode "default"
 }
+bindsym $mod+x exec --no-startup-id $HOME/dotfiles/i3/reminder-exec.sh, mode "exec"
 # }}}
 
 # noisemaker {{{
@@ -299,37 +291,6 @@ bindsym $mod+Mod1+9 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh
 bindsym $mod+Mod1+0 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 0
 bindsym $mod+Mod1+apostrophe exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh a
 bindsym $mod+Mod1+grave exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh g
-# }}}
-
-# trap mode {{{
-mode trap {
-	bindsym a nop
-	bindsym b nop
-	bindsym c nop
-	bindsym d nop
-	bindsym e nop
-	bindsym f nop
-	bindsym g nop
-	bindsym h nop
-	bindsym i nop
-	bindsym j nop
-	bindsym k nop
-	bindsym l nop
-	bindsym m nop
-	bindsym n nop
-	bindsym o nop
-	bindsym p nop
-	bindsym q nop
-	bindsym r nop
-	bindsym s nop
-	bindsym t nop
-	bindsym u nop
-	bindsym v nop
-	bindsym w nop
-	bindsym x nop
-	bindsym y nop
-	bindsym z nop
-}
 # }}}
 
 # Exec startup
