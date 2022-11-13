@@ -126,6 +126,6 @@ for i in "$HOME"/dotfiles/custom-systemd-units/*; do
 done
 
 if [ "$USER" = "evan" ]; then
-	xdg-settings set default-web-browser https firefox.desktop
+	xdg-settings set default-web-browser firefox.desktop
 	xdg-settings set default-url-scheme-handler https firefox.desktop
 fi
