@@ -7,3 +7,9 @@
 [submodule "gm-scripts/aops-enhanced"]
 	path = gm-scripts/aops-enhanced
 	url = https://github.com/epiccakeking/aops-enhanced
+[submodule "gh-extensions/gh-done"]
+	path = gh-extensions/gh-done
+	url = https://github.com/vEnhance/gh-done
+[submodule "gh-extensions/gh-dash"]
+	path = gh-extensions/gh-dash
+	url = https://github.com/dlvhdr/gh-dash
