@@ -79,6 +79,12 @@ if ! test -f "$HOME/.config/redshift/redshift.conf"; then
 	ln -s "$HOME"/dotfiles/redshift.conf "$HOME"/.config/redshift/redshift.conf
 fi
 
+# .local
+if ! test -d "$HOME/.local/share/gh/extensions"; then
+	mkdir -p "$HOME"/.local/share/gh
+	ln -s "$HOME"/dotfiles/gh-extensions "$HOME"/.local/share/gh/extensions
+fi
+
 # taskwarrior hooks
 mkdir -p .task
 if [ -z "$(ls -A "$HOME/.task/hooks")" ]; then
