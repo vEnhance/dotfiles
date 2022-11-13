@@ -27,11 +27,7 @@ fi
 if command -v task >/dev/null; then
 	task rc.gc=on sync
 fi
-if command -v bugwarrior-pull >/dev/null; then
-	bugwarrior-pull
-	task rc.gc=on sync
-fi
-
+#
 ## PACMAN SNAPSHOTS
 if [ -f /bin/pacman ]; then
 	pacman -Qqtten >~/Sync/pacman/"$(hostname)".pacman.paclist
