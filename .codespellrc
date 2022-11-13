@@ -1,4 +1,4 @@
 [codespell]
 skip=vim/autoload/plug.vim,i3/3kon/*,i18n/zh_TW/LC_MESSAGES/*,ranger/*,vim/after/ftplugin/asy.vim,sh-scripts/git-prompt.bash,sh-scripts/git-completion.bash
 count=
-ignore-words-list=ques,alph,mor,nd,inthe,progamer,iterm,oly
+ignore-words-list=ques,alph,mor,nd,inthe,progamer,iterm,oly,scaleable
