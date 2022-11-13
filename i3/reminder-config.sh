@@ -9,4 +9,6 @@ notify-send "i3: config mode" \
 <b>h/l</b>: left-hand/right-hand mouse
 <b>n/s</b>: normal/SC2 mode
 <b>p</b>: present mode
-<b>c</b>: trigger caps lock"
+<b>c</b>: trigger caps lock
+<b>b</b>: bugwarrior-pull
+<b>t</b>: task sync"
