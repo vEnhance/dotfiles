@@ -6,6 +6,7 @@ taskd.credentials=inthe_am/chen.evan6/f8102e77-169f-40b2-9491-ba20a3c8c2d1
 taskd.trust=strict
 
 alias.E=project:errand
+alias.G=project:github
 alias.I=project:idea
 alias.L=project:leisure
 alias.M=project:math
