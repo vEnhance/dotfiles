@@ -18,7 +18,7 @@ alias.U=project:usamo
 alias.W=project:work
 
 alias.rr=recurring until: parent:
-alias tmrw=due:tomorrow+24h
+alias.tmrw=due:eod+24h
 
 urgency.user.project.idea.coefficient=-3.0
 urgency.waiting.coefficient=-4.0 # waiting task
@@ -28,6 +28,11 @@ alias.ne=priority:N # none, non-essential, negligible, etc.
 alias.lo=priority:L
 alias.md=priority:M
 alias.hi=priority:H
+
+# halted tasks
+alias.halted=all haltedon.any:
+alias.halt=modify haltedon:now wait:later
+alias.unhalt=modify haltedon: wait:
 
 uda.priority.values=H,M,,L,N
 recurrence.limit=0
@@ -67,6 +72,10 @@ report.rofi.filter=status:pending or wait.after:now
 report.rofi.columns=id,urgency,due.relative,priority,description
 report.rofi.labels=ID,Urg,Due,P,Description
 report.rofi.sort=urgency-
+
+# Evan's UDA's
+uda.haltedon.type=date
+uda.haltedon.label=Halted On
 
 # Bugwarrior UDAs
 uda.githubtitle.type=string

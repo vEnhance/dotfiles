@@ -1,7 +1,7 @@
 [general]
 targets = github_issues
 annotation_comments = False
-legacy_matching  = True
+legacy_matching = False
 
 [notifications]
 notifications = True
@@ -10,6 +10,7 @@ only_on_new_tasks = True
 
 [github_issues]
 service = github
+github.body_length = 80
 github.username = vEnhance
 github.token = @oracle:eval:secret-tool lookup user vEnhance type github
 github.login = vEnhance
@@ -21,6 +22,6 @@ github.include_user_issues = False
 github.include_user_repos = False
 github.only_if_assigned=vEnhance
 github.default_priority = L
-github.static_fields = githubbody,status,priority
+github.static_fields = priority
 
 # vim: ft=toml
