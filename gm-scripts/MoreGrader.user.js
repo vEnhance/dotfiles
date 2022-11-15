@@ -37,7 +37,7 @@ AoPS.the_conflict_bucket = {
 
 const main_template = Handlebars.compile(`
 <td class="id-column {{status}}" {{#if conflict }}style="background-color: #dd8888"{{/if}}>
-		<a class="submission-link" href="{{submission_path}}" target="_blank">{{sub_id}}</a>
+    <a class="submission-link" href="{{submission_path}}" target="_blank">{{sub_id}}</a>
         {{#if conflict}}
         [{{ combined_score }}]
         {{else}}
@@ -49,88 +49,88 @@ const main_template = Handlebars.compile(`
                 {{/if}}
             {{/if}}
         {{/if}}
-		{{#if admin}}
-			<br>
-			{{#if ../locked}}
-			<a class="btn btn-primary unfinalize-btn" data-sub-id="{{id}}"><i class="fas fa-lock-open"></i> UNFINALIZE</a>
-			{{else}}
-			<a class="btn btn-primary finalize-btn" data-sub-id="{{id}}"><i class="fas fa-lock"></i> FINALIZE</a>
-			{{/if}}
-		{{/if}}
-	</td>
-	{{#each evals}}
-		<td class="eval-container {{../status}}"
+    {{#if admin}}
+      <br>
+      {{#if ../locked}}
+      <a class="btn btn-primary unfinalize-btn" data-sub-id="{{id}}"><i class="fas fa-lock-open"></i> UNFINALIZE</a>
+      {{else}}
+      <a class="btn btn-primary finalize-btn" data-sub-id="{{id}}"><i class="fas fa-lock"></i> FINALIZE</a>
+      {{/if}}
+    {{/if}}
+  </td>
+  {{#each evals}}
+    <td class="eval-container {{../status}}"
                {{#if labels.conflict }}style="background-color: #cc7777"{{/if}}>
             <div>
-			{{#if labels.locked}}
-				<h5 class="locked {{state}}"><i class="fas fa-lock"></i> LOCKED</h5>
+      {{#if labels.locked}}
+        <h5 class="locked {{state}}"><i class="fas fa-lock"></i> LOCKED</h5>
 
-			{{else}}
-				<div class="entry-label">
-					{{#if labels.unavailable}}
-						<h5 class="unavailable {{state}}"><i class="fas fa-ban"></i> UNAVAILABLE</h5>
-					{{/if}}
-					{{#if labels.claimed}}
-						<h5 class="unavailable {{state}}"><i class="fas fa-exclamation-circle"></i> IN PROGRESS</h5>
-					{{/if}}
-					{{#if labels.done}}
-						<h5 class="unavailable {{state}}"><i class="fas fa-check-circle"></i> DONE</h5>
-					{{/if}}
-					{{#if labels.conflict}}
-						<h5 class="unavailable {{state}}"><i class="fas fa-ban"></i> CONFLICT</h5>
-					{{/if}}
+      {{else}}
+        <div class="entry-label">
+          {{#if labels.unavailable}}
+            <h5 class="unavailable {{state}}"><i class="fas fa-ban"></i> UNAVAILABLE</h5>
+          {{/if}}
+          {{#if labels.claimed}}
+            <h5 class="unavailable {{state}}"><i class="fas fa-exclamation-circle"></i> IN PROGRESS</h5>
+          {{/if}}
+          {{#if labels.done}}
+            <h5 class="unavailable {{state}}"><i class="fas fa-check-circle"></i> DONE</h5>
+          {{/if}}
+          {{#if labels.conflict}}
+            <h5 class="unavailable {{state}}"><i class="fas fa-ban"></i> CONFLICT</h5>
+          {{/if}}
                     {{#if buttons.admin_override}}
                         <a class="btn btn-primary override-btn" data-eval-id="{{id}}"><i class="fas fa-user-cog"></i> ADMIN</a>
                     {{/if}}
-				</div>
-			{{/if}}
+        </div>
+      {{/if}}
             </div>
 
-			{{#if graded}}
+      {{#if graded}}
                 {{#if i_am_done}}
                 [<span class="own-score">{{score}}</span>]
                 {{else}}
                 [<span class="hidden-indiv-score toggle-indiv-score">{{score}}</span>]
                 {{/if}}
             {{/if}}
-			{{#if graded}}
-				<a class="usemo-hide-heading" onclick="$(this).next().toggle();$(this).toggleClass('usemo-hide-open');return false;">{{ grader_display_name }}</a>
-				<div class="usemo-hide-content" style="display:none;">
-					<b>Score: </b>{{score}}
-					<br><b>Comments: </b> {{comments}}
-				</div>
+      {{#if graded}}
+        <a class="usemo-hide-heading" onclick="$(this).next().toggle();$(this).toggleClass('usemo-hide-open');return false;">{{ grader_display_name }}</a>
+        <div class="usemo-hide-content" style="display:none;">
+          <b>Score: </b>{{score}}
+          <br><b>Comments: </b> {{comments}}
+        </div>
             {{ else }}
                 {{#if buttons.grade}}
                 {{else}}
                 {{grader_display_name}}
                 {{/if}}
-			{{/if}}
-			{{#if labels.locked}}
-			{{else}}
+      {{/if}}
+      {{#if labels.locked}}
+      {{else}}
                 <div class="entry-buttons">
-					{{#if buttons.grade}}
-						<a class="btn btn-primary claim-btn" data-eval-id="{{id}}"><i class="fas fa-book-reader"></i> GRADE</a>
-					{{/if}}
-					{{#if buttons.edit}}
-						<a class="btn btn-primary edit-btn" data-eval-id="{{id}}"><i class="fas fa-pencil-alt"></i> EDIT</a>
-					{{/if}}
-					{{#if buttons.conflict}}
-						<a class="btn btn-danger edit-btn" data-eval-id="{{id}}"><i class="fas fa-exclamation"></i> RESOLVE CONFLICT</a>
-					{{/if}}
-					{{#if buttons.unclaim}}
-						<a class="btn btn-primary unclaim-btn" data-eval-id="{{id}}"><i class="fas fa-undo"></i> UNCLAIM</a>
-					{{/if}}
-				</div>
+          {{#if buttons.grade}}
+            <a class="btn btn-primary claim-btn" data-eval-id="{{id}}"><i class="fas fa-book-reader"></i> GRADE</a>
+          {{/if}}
+          {{#if buttons.edit}}
+            <a class="btn btn-primary edit-btn" data-eval-id="{{id}}"><i class="fas fa-pencil-alt"></i> EDIT</a>
+          {{/if}}
+          {{#if buttons.conflict}}
+            <a class="btn btn-danger edit-btn" data-eval-id="{{id}}"><i class="fas fa-exclamation"></i> RESOLVE CONFLICT</a>
+          {{/if}}
+          {{#if buttons.unclaim}}
+            <a class="btn btn-primary unclaim-btn" data-eval-id="{{id}}"><i class="fas fa-undo"></i> UNCLAIM</a>
+          {{/if}}
+        </div>
             {{/if}}
-		</td>
-	{{/each}}
-	<td class="eval-container {{status}}">
-		{{#if topic}}
-			<a class="aops-font open-topic" category_id={{topic/c}} topic_id="{{topic/t}}"
-				title="View discussion about this entry"
-				href="/community/c{{topic/c}}h{{topic/t}}" target="_blank">t</a>
-		{{/if}}
-	</td>`);
+    </td>
+  {{/each}}
+  <td class="eval-container {{status}}">
+    {{#if topic}}
+      <a class="aops-font open-topic" category_id={{topic/c}} topic_id="{{topic/t}}"
+        title="View discussion about this entry"
+        href="/community/c{{topic/c}}h{{topic/t}}" target="_blank">t</a>
+    {{/if}}
+  </td>`);
 
 AoPS.Contests.Views.ContestGraderEntry =
   AoPS.Contests.Views.ContestGraderEntry.extend({
