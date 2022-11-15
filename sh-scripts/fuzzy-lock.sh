@@ -3,134 +3,134 @@
 set -o xtrace
 
 if pgrep -U "$(whoami)" i3lock >/dev/null; then
-	echo "Already running"
-	exit
+  echo "Already running"
+  exit
 fi
 
 if pgrep -U "$(whoami)" stepmania >/dev/null; then
-	echo "Stepmania running"
-	# xset s off -dpms # don't blank screen if stepmania is running
-	exit
+  echo "Stepmania running"
+  # xset s off -dpms # don't blank screen if stepmania is running
+  exit
 fi
 
 if pgrep -U "$(whoami)" zoom >/dev/null; then
-	echo "Zoom running"
-	exit
+  echo "Zoom running"
+  exit
 fi
 
 if [ -f "$HOME/.cache/ctwenty.lock" ]; then
-	echo "ctwenty.lock running"
-	exit
+  echo "ctwenty.lock running"
+  exit
 fi
 
 if [ "$(hostname)" = dagobah ] && [ "$(whoami)" = evan ]; then
-	gdmflexiserver
-	exit
+  gdmflexiserver
+  exit
 fi
 
 if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
-	# during twitch stream, disable laptop lock screen
-	if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
-		exit
-	fi
+  # during twitch stream, disable laptop lock screen
+  if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
+    exit
+  fi
 fi
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
-	xset dpms 10 0 0
-	pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
-	(
-		pactl list sink-inputs short |
-			grep -v 'module-loopback.c' |
-			grep -oE '^[0-9]+' |
-			while read -r input; do
-				echo move-sink-input "$input" alsa_output.pci-0000_00_1f.3.analog-stereo
-			done
-	) | pacmd
-	~/dotfiles/sh-scripts/paswitch.sh speakers
+  xset dpms 10 0 0
+  pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
+  (
+    pactl list sink-inputs short |
+      grep -v 'module-loopback.c' |
+      grep -oE '^[0-9]+' |
+      while read -r input; do
+        echo move-sink-input "$input" alsa_output.pci-0000_00_1f.3.analog-stereo
+      done
+  ) | pacmd
+  ~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
 if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
-	xset dpms 10 0 0
+  xset dpms 10 0 0
 fi
 
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute >/dev/null
 
 if [ "$(hostname)" = ArchAir ] && [ "$(whoami)" = evan ]; then
-	xset dpms force off
-	i3lock \
-		--beep \
-		--ignore-empty-password \
-		--show-failed-attempts \
-		--nofork \
-		--color=000000
+  xset dpms force off
+  i3lock \
+    --beep \
+    --ignore-empty-password \
+    --show-failed-attempts \
+    --nofork \
+    --color=000000
 elif pacman -Q --quiet i3lock-color; then
-	export LANG=zh_TW.UTF-8
-	i3lock \
-		--insidever-color=0a220a66 \
-		--ringver-color=0a550aee \
-		--insidewrong-color=efaaaabb --ringwrong-color=ef0a0aff \
-		--inside-color=00000000 \
-		--ring-color=dd0add66 \
-		--line-color=0a0a0aff \
-		--separator-color=ff66ff44 \
-		--verif-color=efefef77 \
-		--wrong-color=efefefff \
-		--modif-color=efefef99 \
-		--time-color=aa33aabb \
-		--date-color=aa33aabb \
-		--layout-color=dededebb \
-		--keyhl-color=dd888899 \
-		--bshl-color=dd888899 \
-		--keylayout 2 \
-		--radius 324 \
-		--ring-width 32 \
-		--date-str="%A %Y年%b%d日" \
-		--time-size=48 \
-		--date-size=36 \
-		--layout-size=36 \
-		--verif-size=64 \
-		--wrong-size=64 \
-		--modif-size=36 \
-		--time-str="%R%Z" \
-		--ind-pos="x+0.5*w:y+0.4*h" \
-		--date-pos="ix:iy-0.4*r" \
-		--wrong-pos="ix:iy-0.1*r" \
-		--verif-pos="ix:iy-0.1*r" \
-		--modif-pos="ix:iy+0.1*r" \
-		--time-pos="ix:iy+0.4*r" \
-		--layout-pos="ix:iy+1.3*r" \
-		--color 111117dd \
-		--show-failed-attempts \
-		--ignore-empty-password \
-		--nofork
+  export LANG=zh_TW.UTF-8
+  i3lock \
+    --insidever-color=0a220a66 \
+    --ringver-color=0a550aee \
+    --insidewrong-color=efaaaabb --ringwrong-color=ef0a0aff \
+    --inside-color=00000000 \
+    --ring-color=dd0add66 \
+    --line-color=0a0a0aff \
+    --separator-color=ff66ff44 \
+    --verif-color=efefef77 \
+    --wrong-color=efefefff \
+    --modif-color=efefef99 \
+    --time-color=aa33aabb \
+    --date-color=aa33aabb \
+    --layout-color=dededebb \
+    --keyhl-color=dd888899 \
+    --bshl-color=dd888899 \
+    --keylayout 2 \
+    --radius 324 \
+    --ring-width 32 \
+    --date-str="%A %Y年%b%d日" \
+    --time-size=48 \
+    --date-size=36 \
+    --layout-size=36 \
+    --verif-size=64 \
+    --wrong-size=64 \
+    --modif-size=36 \
+    --time-str="%R%Z" \
+    --ind-pos="x+0.5*w:y+0.4*h" \
+    --date-pos="ix:iy-0.4*r" \
+    --wrong-pos="ix:iy-0.1*r" \
+    --verif-pos="ix:iy-0.1*r" \
+    --modif-pos="ix:iy+0.1*r" \
+    --time-pos="ix:iy+0.4*r" \
+    --layout-pos="ix:iy+1.3*r" \
+    --color 111117dd \
+    --show-failed-attempts \
+    --ignore-empty-password \
+    --nofork
 else
-	i3lock \
-		--beep \
-		--ignore-empty-password \
-		--show-failed-attempts \
-		--nofork \
-		--color=d33529 \
-		--pointer=win
+  i3lock \
+    --beep \
+    --ignore-empty-password \
+    --show-failed-attempts \
+    --nofork \
+    --color=d33529 \
+    --pointer=win
 fi
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
-	xset dpms 900 900 900
-	# killall -s CONT ctwenty.py
+  xset dpms 900 900 900
+  # killall -s CONT ctwenty.py
 fi
 if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
-	xset set 14400 14400
-	xset dpms 14400 14400 14400
-	# killall -s CONT ctwenty.py
+  xset set 14400 14400
+  xset dpms 14400 14400 14400
+  # killall -s CONT ctwenty.py
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-	~/dotfiles/sh-scripts/paswitch.sh speakers
+  ~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 if [ "$(hostname)" = Endor ]; then
-	~/dotfiles/sh-scripts/paswitch.sh speakers
+  ~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
 if pgrep -U "$(whoami)" py3status >/dev/null; then
-	killall -s USR1 py3status
+  killall -s USR1 py3status
 fi

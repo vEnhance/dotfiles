@@ -16,28 +16,28 @@ RANDR_POS="--right-of" # Default position setting for xrandr command
 
 # Parse arguments
 while [ "$#" -gt 0 ]; do
-	case $1 in
-	-l | --left) RANDR_POS="--left-of" ;;
-	-r | --right) RANDR_POS="--right-of" ;;
-	-a | --above) RANDR_POS="--above" ;;
-	-b | --below) RANDR_POS="--below" ;;
-	-p | --portrait)
-		TMP=$WIDTH
-		WIDTH=$HEIGHT
-		HEIGHT=$TMP
-		MODE_NAME="$MODE_NAME""_port"
-		;;
-	-h | --hidpi)
-		WIDTH=$((WIDTH * 2))
-		HEIGHT=$((HEIGHT * 2))
-		MODE_NAME="$MODE_NAME""_hidpi"
-		;;
-	*)
-		echo "'$1' cannot be a monitor position"
-		exit 1
-		;;
-	esac
-	shift
+  case $1 in
+    -l | --left) RANDR_POS="--left-of" ;;
+    -r | --right) RANDR_POS="--right-of" ;;
+    -a | --above) RANDR_POS="--above" ;;
+    -b | --below) RANDR_POS="--below" ;;
+    -p | --portrait)
+      TMP=$WIDTH
+      WIDTH=$HEIGHT
+      HEIGHT=$TMP
+      MODE_NAME="$MODE_NAME""_port"
+      ;;
+    -h | --hidpi)
+      WIDTH=$((WIDTH * 2))
+      HEIGHT=$((HEIGHT * 2))
+      MODE_NAME="$MODE_NAME""_hidpi"
+      ;;
+    *)
+      echo "'$1' cannot be a monitor position"
+      exit 1
+      ;;
+  esac
+  shift
 done
 
 # Detect primary display
@@ -47,8 +47,8 @@ PRIMARY_DISPLAY=$(xrandr | perl -ne 'print "$1" if /(\w*)\s*connected\s*primary/
 RANDR_MODE=$(cvt "$WIDTH" "$HEIGHT" 60 | sed '2s/^.*Modeline\s*\".*\"//;2q;d')
 # If the mode doesn't exist then make mode and retry
 if ! xrandr --addmode "$DIS_NAME" "$MODE_NAME" 2>/dev/null; then
-	xrandr --newmode "$MODE_NAME" "$RANDR_MODE"
-	xrandr --addmode "$DIS_NAME" "$MODE_NAME"
+  xrandr --newmode "$MODE_NAME" "$RANDR_MODE"
+  xrandr --addmode "$DIS_NAME" "$MODE_NAME"
 fi
 
 # Show display first

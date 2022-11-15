@@ -23,47 +23,47 @@
 
 # eventually split this
 if [ "$(hostname)" = ArchMajestic ]; then
-	declare -A sink_names=(
-		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-		[speakers]=alsa_output.pci-0000_00_1f.3.analog-stereo
-		[hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
-	)
+  declare -A sink_names=(
+    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+    [speakers]=alsa_output.pci-0000_00_1f.3.analog-stereo
+    [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+  )
 fi
 if [ "$(hostname)" = Endor ]; then
-	declare -A sink_names=(
-		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-		[speakers]=alsa_output.pci-0000_0a_00.4.analog-stereo
-		[hdmi]=alsa_output.pci-0000_08_00.1.hdmi-stereo
-	)
+  declare -A sink_names=(
+    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+    [speakers]=alsa_output.pci-0000_0a_00.4.analog-stereo
+    [hdmi]=alsa_output.pci-0000_08_00.1.hdmi-stereo
+  )
 fi
 if [ "$(hostname)" = ArchDiamond ]; then
-	declare -A sink_names=(
-		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-		[speakers]=alsa_output.pci-0000_00_1f.3.hdmi-stereo
-		[hdmi]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-	)
+  declare -A sink_names=(
+    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+    [speakers]=alsa_output.pci-0000_00_1f.3.hdmi-stereo
+    [hdmi]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+  )
 fi
 if [ "$(hostname)" = dagobah ]; then
-	declare -A sink_names=(
-		[usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-		[speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
-		[hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
-	)
+  declare -A sink_names=(
+    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+    [speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+    [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+  )
 fi
 
 sink=${sink_names[$1]:-$1}
 
 (
-	echo set-default-sink "$sink"
-	pactl list sink-inputs short |
-		grep -v 'module-loopback.c' |
-		grep -oE '^[0-9]+' |
-		while read -r input; do
-			echo move-sink-input "$input" "$sink"
-		done
+  echo set-default-sink "$sink"
+  pactl list sink-inputs short |
+    grep -v 'module-loopback.c' |
+    grep -oE '^[0-9]+' |
+    while read -r input; do
+      echo move-sink-input "$input" "$sink"
+    done
 ) | pacmd
 
 # if dunst running, send a notification
 if pgrep -U "$(whoami)" dunst >/dev/null; then
-	notify-send -i audio-card "Sink changed" "Sound now on sink $sink"
+  notify-send -i audio-card "Sink changed" "Sound now on sink $sink"
 fi

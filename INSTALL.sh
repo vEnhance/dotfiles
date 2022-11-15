@@ -30,12 +30,12 @@ if ! test -f "$HOME/.taskrc"; then ln -s "$HOME"/dotfiles/taskrc "$HOME"/.taskrc
 if ! test -f "$HOME/.xprofile"; then ln -s "$HOME"/dotfiles/xprofile "$HOME"/.xprofile; fi
 
 if ! test -f "$HOME/.xinitrc"; then
-	echo "[ -f $HOME/.xprofile ] && . $HOME/.xprofile" >"$HOME"/.xinitrc
-	echo "exec i3" >"$HOME"/.xinitrc
+  echo "[ -f $HOME/.xprofile ] && . $HOME/.xprofile" >"$HOME"/.xinitrc
+  echo "exec i3" >"$HOME"/.xinitrc
 fi
 
 if ! test -f "$HOME/.config/picom.conf"; then
-	ln -s "$HOME"/dotfiles/picom.conf "$HOME"/.config/picom.conf
+  ln -s "$HOME"/dotfiles/picom.conf "$HOME"/.config/picom.conf
 fi
 
 # file/dir in .config
@@ -55,43 +55,43 @@ if ! test -d "$HOME/.config/i3"; then ln -s "$HOME"/dotfiles/i3 "$HOME"/.config/
 
 # nested config
 if ! test -f "$HOME/.config/proselint/config.json"; then
-	mkdir -p "$HOME"/.config/proselint
-	ln -s "$HOME"/dotfiles/proselintrc "$HOME"/.config/proselint/config.json
+  mkdir -p "$HOME"/.config/proselint
+  ln -s "$HOME"/dotfiles/proselintrc "$HOME"/.config/proselint/config.json
 fi
 if ! test -d "$HOME/.config/py3status"; then
-	mkdir -p "$HOME"/.config/py3status
-	ln -s "$HOME/dotfiles/py3status/py3status.$(hostname)".conf "$HOME"/.config/py3status/config
+  mkdir -p "$HOME"/.config/py3status
+  ln -s "$HOME/dotfiles/py3status/py3status.$(hostname)".conf "$HOME"/.config/py3status/config
 fi
 if ! test -f "$HOME/.config/gtk-3.0/settings.ini"; then
-	mkdir -p "$HOME"/.config/gtk-3.0
-	ln -s "$HOME"/dotfiles/gtk3-settings.ini "$HOME"/.config/gtk-3.0/settings.ini
+  mkdir -p "$HOME"/.config/gtk-3.0
+  ln -s "$HOME"/dotfiles/gtk3-settings.ini "$HOME"/.config/gtk-3.0/settings.ini
 fi
 if ! test -d "$HOME/.config/xfce4/terminal"; then
-	mkdir -p "$HOME"/.config/xfce4/
-	ln -s "$HOME"/dotfiles/terminal "$HOME"/.config/xfce4/terminal
+  mkdir -p "$HOME"/.config/xfce4/
+  ln -s "$HOME"/dotfiles/terminal "$HOME"/.config/xfce4/terminal
 fi
 if ! test -f "$HOME/.config/gh/config.yml"; then
-	mkdir -p "$HOME"/.config/gh
-	ln -s "$HOME"/dotfiles/gh-config.yml "$HOME"/.config/gh/config.yml
+  mkdir -p "$HOME"/.config/gh
+  ln -s "$HOME"/dotfiles/gh-config.yml "$HOME"/.config/gh/config.yml
 fi
 if ! test -f "$HOME/.config/redshift/redshift.conf"; then
-	mkdir -p "$HOME"/.config/redshift/
-	ln -s "$HOME"/dotfiles/redshift.conf "$HOME"/.config/redshift/redshift.conf
+  mkdir -p "$HOME"/.config/redshift/
+  ln -s "$HOME"/dotfiles/redshift.conf "$HOME"/.config/redshift/redshift.conf
 fi
 
 # .local
 if ! test -d "$HOME/.local/share/gh/extensions"; then
-	mkdir -p "$HOME"/.local/share/gh
-	ln -s "$HOME"/dotfiles/gh-extensions "$HOME"/.local/share/gh/extensions
+  mkdir -p "$HOME"/.local/share/gh
+  ln -s "$HOME"/dotfiles/gh-extensions "$HOME"/.local/share/gh/extensions
 fi
 
 # taskwarrior hooks
 mkdir -p .task
 if [ -z "$(ls -A "$HOME/.task/hooks")" ]; then
-	rmdir "$HOME/.task/hooks"
+  rmdir "$HOME/.task/hooks"
 fi
 if ! test -d "$HOME/.task/hooks"; then
-	ln -s "$HOME"/dotfiles/tw-hooks "$HOME"/.task/hooks
+  ln -s "$HOME"/dotfiles/tw-hooks "$HOME"/.task/hooks
 fi
 
 # vim
@@ -99,39 +99,39 @@ mkdir -p "$HOME"/.vim/tmp/
 mkdir -p "$HOME"/.vim/after/
 mkdir -p "$HOME"/.vim/tags/
 if ! test -d "$HOME/.vim/after/ftplugin"; then
-	ln -s "$HOME"/dotfiles/vim/after/ftplugin "$HOME"/.vim/after/ftplugin
+  ln -s "$HOME"/dotfiles/vim/after/ftplugin "$HOME"/.vim/after/ftplugin
 fi
 if ! test -d "$HOME/.vim/after/syntax"; then
-	ln -s "$HOME"/dotfiles/vim/after/syntax "$HOME"/.vim/after/syntax
+  ln -s "$HOME"/dotfiles/vim/after/syntax "$HOME"/.vim/after/syntax
 fi
 if ! test -d "$HOME/.vim/colors"; then
-	ln -s "$HOME"/dotfiles/vim/colors "$HOME"/.vim/colors
+  ln -s "$HOME"/dotfiles/vim/colors "$HOME"/.vim/colors
 fi
 if ! test -d "$HOME/.vim/doc"; then
-	ln -s "$HOME"/dotfiles/vim/doc "$HOME"/.vim/doc
+  ln -s "$HOME"/dotfiles/vim/doc "$HOME"/.vim/doc
 fi
 if ! test -d "$HOME/.vim/spell"; then
-	ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
+  ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
 fi
 if ! test -f "$HOME/.vim/coc-settings.json"; then
-	ln -s "$HOME"/dotfiles/vim/coc-settings.json "$HOME"/.vim/coc-settings.json
+  ln -s "$HOME"/dotfiles/vim/coc-settings.json "$HOME"/.vim/coc-settings.json
 fi
 if ! test -f "$HOME/.vim/vimrc"; then
-	ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vim/vimrc
+  ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vim/vimrc
 fi
 if ! test -f "$HOME/.vimrc"; then
-	ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vimrc
+  ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vimrc
 fi
 
 # systemd
 mkdir -p "$HOME"/.config/systemd/user
 for i in "$HOME"/dotfiles/custom-systemd-units/*; do
-	if ! test -f "$HOME/.config/systemd/user/$(basename "$i")"; then
-		ln -s "$i" "$HOME"/.config/systemd/user/
-	fi
+  if ! test -f "$HOME/.config/systemd/user/$(basename "$i")"; then
+    ln -s "$i" "$HOME"/.config/systemd/user/
+  fi
 done
 
 if [ "$USER" = "evan" ]; then
-	xdg-settings set default-web-browser firefox.desktop
-	xdg-settings set default-url-scheme-handler https firefox.desktop
+  xdg-settings set default-web-browser firefox.desktop
+  xdg-settings set default-url-scheme-handler https firefox.desktop
 fi

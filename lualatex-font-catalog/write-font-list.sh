@@ -14,7 +14,7 @@ CACHE_DIR="$HOME"/.texlive/texmf-var/luatex-cache/generic/names
 GZIP_TARGET="$CACHE_DIR"/luaotfload-names.luc.gz
 TARGET=$CACHE_DIR/luatfload-names.luc
 if test -f "$GZIP_TARGET"; then
-	gunzip -c >"$TARGET"
+  gunzip -c >"$TARGET"
 fi
 
 ./list-luatex-fonts | sort | uniq >"$DIR"/fontlist

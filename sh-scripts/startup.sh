@@ -25,65 +25,65 @@ xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy
 ~/dotfiles/conky/run-conky.sh
 
 if [ "$(hostname)" = ArchAir ]; then
-	dunst &
-	synclient RightButtonAreaRight=1
-	synclient VertScrollDelta=-237
-	systemctl start --user evil-chin.service
-	systemctl start --user mosp-2021.service
-	# systemctl start --user sentinel.service
+  dunst &
+  synclient RightButtonAreaRight=1
+  synclient VertScrollDelta=-237
+  systemctl start --user evil-chin.service
+  systemctl start --user mosp-2021.service
+  # systemctl start --user sentinel.service
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then
-	picom -C -G -b --no-fading-openclose
-	~/dotfiles/sh-scripts/redshift.sh
-	dropbox-cli start
+  picom -C -G -b --no-fading-openclose
+  ~/dotfiles/sh-scripts/redshift.sh
+  dropbox-cli start
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
-	picom -C -G -b --no-fading-openclose
-	~/dotfiles/sh-scripts/redshift.sh
-	dropbox-cli start
-	systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
-	dunst &
-	syncthing-gtk -m &
-	signal-desktop --start-in-tray --use-tray-icon &
-	ibus-daemon -d -r &
+  picom -C -G -b --no-fading-openclose
+  ~/dotfiles/sh-scripts/redshift.sh
+  dropbox-cli start
+  systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
+  dunst &
+  syncthing-gtk -m &
+  signal-desktop --start-in-tray --use-tray-icon &
+  ibus-daemon -d -r &
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
-	picom -C -G -b --no-fading-openclose
-	dunst &
-	syncthing-gtk -m &
-	signal-desktop --start-in-tray --use-tray-icon &
-	ibus-daemon -d -r &
+  picom -C -G -b --no-fading-openclose
+  dunst &
+  syncthing-gtk -m &
+  signal-desktop --start-in-tray --use-tray-icon &
+  ibus-daemon -d -r &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-	picom -C -G -b --no-fading-openclose
-	~/dotfiles/sh-scripts/redshift.sh
-	systemctl --user start evansync.timer
-	# dunst & # this has been causing problems apparently?
-	syncthing-gtk -m &
-	if [ "$(whoami)" = "evan" ]; then
-		ibus-daemon -d -r &
-	fi
+  picom -C -G -b --no-fading-openclose
+  ~/dotfiles/sh-scripts/redshift.sh
+  systemctl --user start evansync.timer
+  # dunst & # this has been causing problems apparently?
+  syncthing-gtk -m &
+  if [ "$(whoami)" = "evan" ]; then
+    ibus-daemon -d -r &
+  fi
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-	picom -C -G -b --no-fading-openclose
-	if [ "$(whoami)" = "evan" ]; then
-		ibus-daemon -d -r &
-		dropbox-cli start
-		app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
-		signal-desktop --start-in-tray --use-tray-icon &
-		gnome-calendar &
-	fi
-	~/dotfiles/sh-scripts/redshift.sh
-	syncthing-gtk &
-	systemctl --user start evansync.timer
+  picom -C -G -b --no-fading-openclose
+  if [ "$(whoami)" = "evan" ]; then
+    ibus-daemon -d -r &
+    dropbox-cli start
+    app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
+    signal-desktop --start-in-tray --use-tray-icon &
+    gnome-calendar &
+  fi
+  ~/dotfiles/sh-scripts/redshift.sh
+  syncthing-gtk &
+  systemctl --user start evansync.timer
 fi
 
 if [ "$(hostname)" = dagobah ]; then
-	picom -C -G -b --no-fading-openclose
-	syncthing-gtk -m &
+  picom -C -G -b --no-fading-openclose
+  syncthing-gtk -m &
 fi
