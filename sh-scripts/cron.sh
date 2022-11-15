@@ -41,7 +41,7 @@ if [ -f /bin/pacman ]; then
 	if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
 		cd ~/Sync/pacman/ || exit
 		if ! git diff --exit-code; then
-			git commit -a -m "$(hostname) $(date)"
+			git commit -a -m "$(date), snapshot taken on $(hostname)"
 		fi
 	fi
 fi
