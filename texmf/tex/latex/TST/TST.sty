@@ -19,123 +19,123 @@
 
 %% Use VON problem manager
 \ifTSTbrave
-	\usepackage[brave]{von}
+  \usepackage[brave]{von}
 \else
-	\usepackage{von}
+  \usepackage{von}
 \fi
 
 %% Typeset a TST style exam
 %% Only used for older exams that we're too lazy to edit
 %% For other exams, better to use natoly.sty instead
 \ifTSTexam
-	\usepackage[noauthor,nohdr,diagrams]{evan}
-	\usepackage{titling}
-	\setlength{\labelsep}{10pt}
-	\setlength{\parindent}{0pt}
-	\setlength{\parskip}{0.8ex plus 0.5ex minus 0.2ex}
-	\pagestyle{empty}
-	\setlength{\droptitle}{-4em}
-	\renewcommand{\maketitlehooka}{\centering\bfseries}
-	\renewcommand{\maketitlehookd}{\par\vspace*{0.4in}}
-	\newcommand{\theday}{}
-	\newcommand{\dayinfo}[1]{\renewcommand{\theday}{#1}}
-	\pretitle{\par}
-	\posttitle{\par\vspace{0.20in}}
-	\preauthor{\par}
-	\postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
-	\predate{\par\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
-	\postdate{}
+  \usepackage[noauthor,nohdr,diagrams]{evan}
+  \usepackage{titling}
+  \setlength{\labelsep}{10pt}
+  \setlength{\parindent}{0pt}
+  \setlength{\parskip}{0.8ex plus 0.5ex minus 0.2ex}
+  \pagestyle{empty}
+  \setlength{\droptitle}{-4em}
+  \renewcommand{\maketitlehooka}{\centering\bfseries}
+  \renewcommand{\maketitlehookd}{\par\vspace*{0.4in}}
+  \newcommand{\theday}{}
+  \newcommand{\dayinfo}[1]{\renewcommand{\theday}{#1}}
+  \pretitle{\par}
+  \posttitle{\par\vspace{0.20in}}
+  \preauthor{\par}
+  \postauthor{\ifx\theauthor\empty\else\par\vspace{0.10in}\fi}
+  \predate{\par\ifx\theday\empty\else\theday\par\vspace{0.10in}\fi}
+  \postdate{}
 
-	% for enumerate-style exam
-	\usepackage{enumitem} % also supports [resume]
-	\newlist{problems}{enumerate}{3}
-	\setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
+  % for enumerate-style exam
+  \usepackage{enumitem} % also supports [resume]
+  \newlist{problems}{enumerate}{3}
+  \setlist*[problems]{topsep=6ex,itemsep=4ex,label=\arabic*.}
 
-	% for theorem-style exam
-	\usepackage{amsthm}
-	\newtheoremstyle{TST}%
-	{3ex} % space before
-	{5ex} % space after
-	{\normalfont} % body font
-	{0pt} % indent
-	{\bfseries} % head font
-	{.} % head punctuation
-	{0.7em plus 0.2em minus 0.2em} % space after head
-	{} % manually specify head
-	\theoremstyle{TST}
+  % for theorem-style exam
+  \usepackage{amsthm}
+  \newtheoremstyle{TST}%
+  {3ex} % space before
+  {5ex} % space after
+  {\normalfont} % body font
+  {0pt} % indent
+  {\bfseries} % head font
+  {.} % head punctuation
+  {0.7em plus 0.2em minus 0.2em} % space after head
+  {} % manually specify head
+  \theoremstyle{TST}
 
-	% for footnotes
-	\renewcommand{\thefootnote}{\fnsymbol{footnote}}
+  % for footnotes
+  \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 \fi
 
 %% Typeset solutions packet
 \ifTSTsols
-	\usepackage[sexy,diagrams]{evan}
-	\newenvironment{TSTprob}%
-		{\color{Maroon}\small}
-		{\medskip\hrulebar\medskip}
-	\newcommand{\TSTpvon}[1]{%
-		\begin{TSTprob}
-		\voninclude[0]{#1}
-		\end{TSTprob}}
-	\newcommand{\TSTpsvon}[1]{%
-		\begin{TSTprob}
-		\voninclude[0]{#1}
-		\end{TSTprob}
-		\voninclude[1]{#1}
-		\pagebreak}
-	\newcommand{\TST}[2]{\subsection{#2}\TSTpsvon{#1}}
+  \usepackage[sexy,diagrams]{evan}
+  \newenvironment{TSTprob}%
+    {\color{Maroon}\small}
+    {\medskip\hrulebar\medskip}
+  \newcommand{\TSTpvon}[1]{%
+    \begin{TSTprob}
+    \voninclude[0]{#1}
+    \end{TSTprob}}
+  \newcommand{\TSTpsvon}[1]{%
+    \begin{TSTprob}
+    \voninclude[0]{#1}
+    \end{TSTprob}
+    \voninclude[1]{#1}
+    \pagebreak}
+  \newcommand{\TST}[2]{\subsection{#2}\TSTpsvon{#1}}
 
-	\usepackage{pdfpages}
-	\ihead{\footnotesize\bfseries\thetitle}
-	\ohead{\footnotesize\theauthor}
-	\theoremstyle{definition}
-	\newtheorem{prob}{Problem}
-	\renewcommand{\vonenvname}{prob}
+  \usepackage{pdfpages}
+  \ihead{\footnotesize\bfseries\thetitle}
+  \ohead{\footnotesize\theauthor}
+  \theoremstyle{definition}
+  \newtheorem{prob}{Problem}
+  \renewcommand{\vonenvname}{prob}
 \fi
 
 %% Typeset shortlist packet
 \ifTSTsl
-	\usepackage[nosecthm,sexy,diagrams,noauthor]{evan}
-	\usepackage{datetime}
-	\renewcommand{\dateseparator}{-}
-	\yyyymmdddate
-	\@ifundefined{KOMAClassName}
-	{
-		\lhead{\footnotesize\textbf{\@title}}
-		\rhead{\footnotesize \today\ \currenttime}
-	}
-	{
-		\ihead{\footnotesize\textbf{\@title}}
-		\ohead{\footnotesize \today\ \currenttime}
-	}
+  \usepackage[nosecthm,sexy,diagrams,noauthor]{evan}
+  \usepackage{datetime}
+  \renewcommand{\dateseparator}{-}
+  \yyyymmdddate
+  \@ifundefined{KOMAClassName}
+  {
+    \lhead{\footnotesize\textbf{\@title}}
+    \rhead{\footnotesize \today\ \currenttime}
+  }
+  {
+    \ihead{\footnotesize\textbf{\@title}}
+    \ohead{\footnotesize \today\ \currenttime}
+  }
 
-	% formatting for shortlist problems
-	\newtheoremstyle{shortlist}%
-	{3pt} % space before
-	{2em} % space after
-	{\normalfont} % body font
-	{0pt} % indent
-	{\Large\bfseries\sffamily\color{blue}} % head font
-	{.} % head punctuation
-	{ } % space after head
-	{} % manually specify head
-	\theoremstyle{shortlist}
-	\newtheorem{prob}{}[section]
+  % formatting for shortlist problems
+  \newtheoremstyle{shortlist}%
+  {3pt} % space before
+  {2em} % space after
+  {\normalfont} % body font
+  {0pt} % indent
+  {\Large\bfseries\sffamily\color{blue}} % head font
+  {.} % head punctuation
+  { } % space after head
+  {} % manually specify head
+  \theoremstyle{shortlist}
+  \newtheorem{prob}{}[section]
 
-	\numberwithin{theorem}{subsection}
-	\renewcommand{\thetheorem}{\arabic{theorem}}
+  \numberwithin{theorem}{subsection}
+  \renewcommand{\thetheorem}{\arabic{theorem}}
 
-	\allowdisplaybreaks
+  \allowdisplaybreaks
 \fi
 
 
 %% If requested, draft watermark
 \ifTSTwatermark
-	\usepackage{draftwatermark}
-	\SetWatermarkAngle{32}
-	\SetWatermarkLightness{0.95}
-	\SetWatermarkFontSize{32pt}
-	\SetWatermarkScale{2.718}
-	\SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
+  \usepackage{draftwatermark}
+  \SetWatermarkAngle{32}
+  \SetWatermarkLightness{0.95}
+  \SetWatermarkFontSize{32pt}
+  \SetWatermarkScale{2.718}
+  \SetWatermarkText{\shortstack{CONFIDENTIAL \\ Internal Use}}
 \fi

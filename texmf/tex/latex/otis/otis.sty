@@ -20,204 +20,204 @@
 \newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
 
 \ifotisexam
-	\usepackage[nofancy,diagrams,sexy]{evan}
-	\usepackage{mdframed}
+  \usepackage[nofancy,diagrams,sexy]{evan}
+  \usepackage{mdframed}
 
-	\newtheoremstyle{problem}% name of the style to be used
-	{6pt}% measure of space to leave above the theorem. E.g.: 3pt
-	{24pt}% measure of space to leave below the theorem. E.g.: 3pt
-	{\normalfont}% name of font to use in the body of the theorem
-	{0pt}% measure of space to indent
-	{\bfseries}% name of head font
-	{.}% punctuation between head and body
-	{ }% space after theorem head; " " = normal interword space
-	{\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
-	\theoremstyle{problem}
-	\newtheorem{jprob}{JMO}
-	\newtheorem{uprob}{USAMO}
-	\newtheorem{tprob}{TST}
+  \newtheoremstyle{problem}% name of the style to be used
+  {6pt}% measure of space to leave above the theorem. E.g.: 3pt
+  {24pt}% measure of space to leave below the theorem. E.g.: 3pt
+  {\normalfont}% name of font to use in the body of the theorem
+  {0pt}% measure of space to indent
+  {\bfseries}% name of head font
+  {.}% punctuation between head and body
+  { }% space after theorem head; " " = normal interword space
+  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
+  \theoremstyle{problem}
+  \newtheorem{jprob}{JMO}
+  \newtheorem{uprob}{USAMO}
+  \newtheorem{tprob}{TST}
 
-	\usepackage{fancyhdr}
-	\pagestyle{fancy}
-	\cfoot{}
-	\lhead{\makelogo}
-	\rhead{\righthead\vspace{-1em}}
-	\rfoot{\emph{\sevenpoints}}
-	\setlength{\headheight}{9em}
-	\setlength{\headsep}{2em}
-	\setlength{\voffset}{-1in}
-	\setlength{\hoffset}{-0.5in}
-	\addtolength{\textwidth}{1in}
-	\addtolength{\textheight}{0.25in}
-	\newlength\FHoffset\setlength\FHoffset{0.5in}
-	\addtolength\headwidth{2\FHoffset}
-	\fancyheadoffset{\FHoffset}
-	\newlength\FHleft\setlength\FHleft{0in}
-	\newlength\FHright\setlength\FHright{-1in}
-	\newbox\FHline\setbox\FHline=\hbox{\hsize=\paperwidth%
-		\hspace*{\FHleft}%
-		\rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
-	}
-	\renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
-	\newcommand{\olyinfo}[1]{\begin{flushright} \emph{#1} \end{flushright} \medskip}
-	\newcommand{\nmbox}[1]{\fbox{\sffamily\LARGE\vphantom{y}#1} \par\vspace{1em}} % normal box
-	\newcommand{\fdbox}[2]{\fbox{\sffamily\LARGE\vphantom{y}#1: \bfseries #2} \par\vspace{1em}} % field box
+  \usepackage{fancyhdr}
+  \pagestyle{fancy}
+  \cfoot{}
+  \lhead{\makelogo}
+  \rhead{\righthead\vspace{-1em}}
+  \rfoot{\emph{\sevenpoints}}
+  \setlength{\headheight}{9em}
+  \setlength{\headsep}{2em}
+  \setlength{\voffset}{-1in}
+  \setlength{\hoffset}{-0.5in}
+  \addtolength{\textwidth}{1in}
+  \addtolength{\textheight}{0.25in}
+  \newlength\FHoffset\setlength\FHoffset{0.5in}
+  \addtolength\headwidth{2\FHoffset}
+  \fancyheadoffset{\FHoffset}
+  \newlength\FHleft\setlength\FHleft{0in}
+  \newlength\FHright\setlength\FHright{-1in}
+  \newbox\FHline\setbox\FHline=\hbox{\hsize=\paperwidth%
+    \hspace*{\FHleft}%
+    \rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
+  }
+  \renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
+  \newcommand{\olyinfo}[1]{\begin{flushright} \emph{#1} \end{flushright} \medskip}
+  \newcommand{\nmbox}[1]{\fbox{\sffamily\LARGE\vphantom{y}#1} \par\vspace{1em}} % normal box
+  \newcommand{\fdbox}[2]{\fbox{\sffamily\LARGE\vphantom{y}#1: \bfseries #2} \par\vspace{1em}} % field box
 
-	\newcommand{\makelogo}{\thelogo}
+  \newcommand{\makelogo}{\thelogo}
 
-	\newcommand{\righthead}{%
-		{\sffamily \Huge OTIS Mock Olympiad}  \\[1em]
-		{\sffamily \LARGE \textbf{\StrSubstitute{\jobname}{-}{ }}}
-			\par\vspace{1em}
-		}
-	\newcommand{\sevenpoints}{Time limit: 4.5 hours. \\
-		Each problem is worth $7$ points.}
+  \newcommand{\righthead}{%
+    {\sffamily \Huge OTIS Mock Olympiad}  \\[1em]
+    {\sffamily \LARGE \textbf{\StrSubstitute{\jobname}{-}{ }}}
+      \par\vspace{1em}
+    }
+  \newcommand{\sevenpoints}{Time limit: 4.5 hours. \\
+    Each problem is worth $7$ points.}
 
-	\usepackage{titlesec}
-	\titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
+  \usepackage{titlesec}
+  \titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
-	\usepackage[sexy,diagrams]{evan}
-	\addtolength{\textheight}{-36pt}
-	\setlength{\footskip}{36pt}
-	\setkomafont{publishers}{\small}
-	\AtBeginDocument{\publishers{\MakeUppercase{\jobname},
-		OTIS\thanks{Internal use only.
-		Selected problems belong to their
-		respective authors and organizations, as attributed.
-		Otherwise, no part of this document may be reproduced
-		or transmitted in any form or by any means,
-		without prior written permission from the author.}}}%
-	\titlehead{\includegraphics[width=2cm]{\logopath}\dotfill
-		\emph{\sffamily\Large Olympiad Training for Individual Study}}
-	\def\twodigits#1{\ifnum#1<10 0\fi\the#1}
-	\def\lastupdate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
-	\ihead{\footnotesize\textbf{\theauthor} (OTIS, updated \lastupdate)}
-	\ohead{\footnotesize\textbf{\thetitle}}
-	% OTIS logo at bottom
-	\cfoot{}
-	\ifoot{\thelogo}
-	\ofoot{\thepage}
+  \usepackage[sexy,diagrams]{evan}
+  \addtolength{\textheight}{-36pt}
+  \setlength{\footskip}{36pt}
+  \setkomafont{publishers}{\small}
+  \AtBeginDocument{\publishers{\MakeUppercase{\jobname},
+    OTIS\thanks{Internal use only.
+    Selected problems belong to their
+    respective authors and organizations, as attributed.
+    Otherwise, no part of this document may be reproduced
+    or transmitted in any form or by any means,
+    without prior written permission from the author.}}}%
+  \titlehead{\includegraphics[width=2cm]{\logopath}\dotfill
+    \emph{\sffamily\Large Olympiad Training for Individual Study}}
+  \def\twodigits#1{\ifnum#1<10 0\fi\the#1}
+  \def\lastupdate{\leavevmode\hbox{\the\year-\twodigits\month-\twodigits\day}}
+  \ihead{\footnotesize\textbf{\theauthor} (OTIS, updated \lastupdate)}
+  \ohead{\footnotesize\textbf{\thetitle}}
+  % OTIS logo at bottom
+  \cfoot{}
+  \ifoot{\thelogo}
+  \ofoot{\thepage}
 
-	\ifotishandout
-		\usepackage{von}
-		\renewcommand{\vonenvname}{example}
-		\newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
-		\newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
-		\newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
-		\newcommand{\clubc}[1]{\bgroup\color{cyan}[$#1\clubsuit$]\egroup}
-		%\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
-		%	including any problem marked in {\color{red} red}.}
-		\newcommand{\goals}[2]{\bgroup
-			\sffamily\small \emph{Instructions}: Solve \clubg{#1}.
-			If you have time, solve \clubg{#2}.
-			Problems with {\color{red} red} weights are mandatory.
-			\egroup\par}
-		\newtheorem{probOTIS}{Problem}
-		\newtheorem{probE}[probOTIS]{\clubs{2} Problem}
-		\newtheorem{probM}[probOTIS]{\clubs{3} Problem}
-		\newtheorem{probH}[probOTIS]{\clubs{5} Problem}
-		\newtheorem{probZ}[probOTIS]{\clubs{9} Problem}
-		\newtheorem{probER}[probOTIS]{\clubr{2} Required Problem}
-		\newtheorem{probMR}[probOTIS]{\clubr{3} Required Problem}
-		\newtheorem{probHR}[probOTIS]{\clubr{5} Required Problem}
-		\newtheorem{probZR}[probOTIS]{\clubr{9} Required Problem}
-		\newtheorem*{probSurvey}{\clubs{1} Mini Survey}
-		\newtheorem{probJ}[probOTIS]{\clubc{17} Problem}
-		\newtheorem{probK}[probOTIS]{\clubc{33} Problem}
-		\newtheorem{probL}[probOTIS]{\clubc{65} Problem}
+  \ifotishandout
+    \usepackage{von}
+    \renewcommand{\vonenvname}{example}
+    \newcommand{\clubs}[1]{\bgroup\color{blue!70!black}[$#1\clubsuit$]\egroup}
+    \newcommand{\clubr}[1]{\bgroup\color{red!80!black}[$#1\clubsuit$]\egroup}
+    \newcommand{\clubg}[1]{\bgroup\color{green!40!black}[$#1\clubsuit$]\egroup}
+    \newcommand{\clubc}[1]{\bgroup\color{cyan}[$#1\clubsuit$]\egroup}
+    %\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
+    %  including any problem marked in {\color{red} red}.}
+    \newcommand{\goals}[2]{\bgroup
+      \sffamily\small \emph{Instructions}: Solve \clubg{#1}.
+      If you have time, solve \clubg{#2}.
+      Problems with {\color{red} red} weights are mandatory.
+      \egroup\par}
+    \newtheorem{probOTIS}{Problem}
+    \newtheorem{probE}[probOTIS]{\clubs{2} Problem}
+    \newtheorem{probM}[probOTIS]{\clubs{3} Problem}
+    \newtheorem{probH}[probOTIS]{\clubs{5} Problem}
+    \newtheorem{probZ}[probOTIS]{\clubs{9} Problem}
+    \newtheorem{probER}[probOTIS]{\clubr{2} Required Problem}
+    \newtheorem{probMR}[probOTIS]{\clubr{3} Required Problem}
+    \newtheorem{probHR}[probOTIS]{\clubr{5} Required Problem}
+    \newtheorem{probZR}[probOTIS]{\clubr{9} Required Problem}
+    \newtheorem*{probSurvey}{\clubs{1} Mini Survey}
+    \newtheorem{probJ}[probOTIS]{\clubc{17} Problem}
+    \newtheorem{probK}[probOTIS]{\clubc{33} Problem}
+    \newtheorem{probL}[probOTIS]{\clubc{65} Problem}
 
-		\newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
-		\newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
-		\newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
-		\newcommand{\vonZ}{\renewcommand{\vonenvname}{probZ}\von}
-		\newcommand{\vonER}{\renewcommand{\vonenvname}{probER}\von}
-		\newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
-		\newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
-		\newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
-		\newcommand{\vonJ}{\renewcommand{\vonenvname}{probJ}\von}
-		\newcommand{\vonK}{\renewcommand{\vonenvname}{probK}\von}
-		\newcommand{\vonL}{\renewcommand{\vonenvname}{probL}\von}
+    \newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
+    \newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
+    \newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
+    \newcommand{\vonZ}{\renewcommand{\vonenvname}{probZ}\von}
+    \newcommand{\vonER}{\renewcommand{\vonenvname}{probER}\von}
+    \newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
+    \newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
+    \newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
+    \newcommand{\vonJ}{\renewcommand{\vonenvname}{probJ}\von}
+    \newcommand{\vonK}{\renewcommand{\vonenvname}{probK}\von}
+    \newcommand{\vonL}{\renewcommand{\vonenvname}{probL}\von}
 
-		\reversemarginpar
-		% Walkthroughs to examples
-		\newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}
-		\pyc{solution_text = ''}
+    \reversemarginpar
+    % Walkthroughs to examples
+    \newenvironment{walkthrough}{\noindent\textbf{\color{green!40!black}Walkthrough.}}{}
+    \pyc{solution_text = ''}
 
-		\newcommand{\puidmarginpar}[1]{
-			\marginpar{\footnotesize\ttfamily\color{green!40!black}#1}
-		}
-		\renewcommand{\vonprehook}[1]{\py{
-			r'\marginpar{\href{https://otis.evanchen.cc/arch/'
-			+ api.get_puid('#1') + r'/otis/}'
-			+ r'{\footnotesize🗼\ttfamily\color{green!40!black}'
-			+ api.get_puid('#1') + r'}}'
-		}}
+    \newcommand{\puidmarginpar}[1]{
+      \marginpar{\footnotesize\ttfamily\color{green!40!black}#1}
+    }
+    \renewcommand{\vonprehook}[1]{\py{
+      r'\marginpar{\href{https://otis.evanchen.cc/arch/'
+      + api.get_puid('#1') + r'/otis/}'
+      + r'{\footnotesize🗼\ttfamily\color{green!40!black}'
+      + api.get_puid('#1') + r'}}'
+    }}
 
-		\def\vonX{\@ifstar\@vonXstar\@vonX}
-		\newcommand{\@vonX}[2][]{%
-			\ifthenelse{\isempty{#1}}%
-			{\begin{example}[#2] \label{ex:#2} \voninclude{#2} \end{example}
-			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #2}"}}%
-			{\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
-			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
-			\begin{walkthrough}
-			\voninclude[2]{#2} % body 2 = walkthrough
-			\end{walkthrough}
-			\pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
-		}
-		\newcommand{\@vonXstar}[1]{%
-			\begin{example} \label{ex:#1} \voninclude{#1} \end{example}
-			\begin{walkthrough}
-			\voninclude[2]{#1} % body 2 = walkthrough
-			\end{walkthrough}
-			\pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
-			\pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
-		}
+    \def\vonX{\@ifstar\@vonXstar\@vonX}
+    \newcommand{\@vonX}[2][]{%
+      \ifthenelse{\isempty{#1}}%
+      {\begin{example}[#2] \label{ex:#2} \voninclude{#2} \end{example}
+      \pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #2}"}}%
+      {\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
+      \pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
+      \begin{walkthrough}
+      \voninclude[2]{#2} % body 2 = walkthrough
+      \end{walkthrough}
+      \pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
+    }
+    \newcommand{\@vonXstar}[1]{%
+      \begin{example} \label{ex:#1} \voninclude{#1} \end{example}
+      \begin{walkthrough}
+      \voninclude[2]{#1} % body 2 = walkthrough
+      \end{walkthrough}
+      \pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
+      \pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
+    }
 
-		\def\vonI{\@ifstar\@vonIstar\@vonI}
-		\newcommand{\@vonI}[2][]{%
-			\ifthenelse{\isempty{#1}}%
-			{\begin{example}[#2] \label{ex:#2} \voninclude{#2} \end{example}
-			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #2}"}}%
-			{\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
-			\pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
-			\pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
-		}
-		\newcommand{\@vonIstar}[1]{%
-			\begin{example} \label{ex:#1} \voninclude{#1} \end{example}
-			\pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
-			\pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
-		}
-		\newcommand{\printsurvey}{%
-			\begin{probSurvey}
-				Fill out feedback on the OTIS-WEB portal when submitting this problem set.
-				Any thoughts on problems (e.g.\ especially nice, instructive, easy, etc.)
-				or overall comments on the unit are welcome.
+    \def\vonI{\@ifstar\@vonIstar\@vonI}
+    \newcommand{\@vonI}[2][]{%
+      \ifthenelse{\isempty{#1}}%
+      {\begin{example}[#2] \label{ex:#2} \voninclude{#2} \end{example}
+      \pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #2}"}}%
+      {\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
+      \pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
+      \pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
+    }
+    \newcommand{\@vonIstar}[1]{%
+      \begin{example} \label{ex:#1} \voninclude{#1} \end{example}
+      \pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
+      \pyc{solution_text += '\n' + api.get_solution("#1") + '\n'}
+    }
+    \newcommand{\printsurvey}{%
+      \begin{probSurvey}
+        Fill out feedback on the OTIS-WEB portal when submitting this problem set.
+        Any thoughts on problems (e.g.\ especially nice, instructive, easy, etc.)
+        or overall comments on the unit are welcome.
 
-				In addition, if you have any suggestions for problems to add,
-				or want to write hints for one problem you really liked,
-				please do so in the ARCH system!
-			\end{probSurvey}
-		}
+        In addition, if you have any suggestions for problems to add,
+        or want to write hints for one problem you really liked,
+        please do so in the ARCH system!
+      \end{probSurvey}
+    }
 
-		\newcommand{\conclusion}{%
-			\printsurvey
-			\newpage
-			\py{'\section{Solutions to the walkthroughs}' if solution_text else ''}
-			\py{solution_text}
-		}
-		\usepackage{epigraph}
-		%\renewcommand{\epigraphflush}{flushleft}
-		\renewcommand{\epigraphsize}{\scriptsize}
-		\renewcommand{\epigraphwidth}{60ex}
-	\fi
+    \newcommand{\conclusion}{%
+      \printsurvey
+      \newpage
+      \py{'\section{Solutions to the walkthroughs}' if solution_text else ''}
+      \py{solution_text}
+    }
+    \usepackage{epigraph}
+    %\renewcommand{\epigraphflush}{flushleft}
+    \renewcommand{\epigraphsize}{\scriptsize}
+    \renewcommand{\epigraphwidth}{60ex}
+  \fi
 \fi
 
 \ifotiswater
-	\usepackage{draftwatermark}
-	\SetWatermarkAngle{32}
-	\SetWatermarkLightness{0.97}
-	\SetWatermarkFontSize{32pt}
-	\SetWatermarkScale{2.718}
-	\SetWatermarkText{\shortstack{By \theauthor \\ OTIS, Internal Use}}
+  \usepackage{draftwatermark}
+  \SetWatermarkAngle{32}
+  \SetWatermarkLightness{0.97}
+  \SetWatermarkFontSize{32pt}
+  \SetWatermarkScale{2.718}
+  \SetWatermarkText{\shortstack{By \theauthor \\ OTIS, Internal Use}}
 \fi

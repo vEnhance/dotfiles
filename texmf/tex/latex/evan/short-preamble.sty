@@ -13,12 +13,12 @@
 
 %%% Colored sections
 \renewcommand*{\sectionformat}%
-	{\color{purple}\S\thesection\enskip}
-	\renewcommand*{\subsectionformat}%
-	{\color{purple}\S\thesubsection\enskip}
-	\renewcommand*{\subsubsectionformat}%
-	{\color{purple}\S\thesubsubsection\enskip}
-	\KOMAoptions{numbers=noenddot}
+  {\color{purple}\S\thesection\enskip}
+  \renewcommand*{\subsectionformat}%
+  {\color{purple}\S\thesubsection\enskip}
+  \renewcommand*{\subsubsectionformat}%
+  {\color{purple}\S\thesubsubsection\enskip}
+  \KOMAoptions{numbers=noenddot}
 
 %%% Title
 \addtokomafont{subtitle}{\Large}
@@ -67,74 +67,74 @@
 \usepackage{thmtools}
 \usepackage[framemethod=TikZ]{mdframed}
 \mdfdefinestyle{mdbluebox}{%
-	roundcorner=10pt,
-	linewidth=1pt,
-	skipabove=12pt,
-	innerbottommargin=9pt,
-	skipbelow=2pt,
-	linecolor=blue,
-	nobreak=true,
-	backgroundcolor=TealBlue!5,
+  roundcorner=10pt,
+  linewidth=1pt,
+  skipabove=12pt,
+  innerbottommargin=9pt,
+  skipbelow=2pt,
+  linecolor=blue,
+  nobreak=true,
+  backgroundcolor=TealBlue!5,
 }
 \declaretheoremstyle[
-	headfont=\sffamily\bfseries\color{MidnightBlue},
-	mdframed={style=mdbluebox},
-	headpunct={\\[3pt]},
-	postheadspace={0pt}
+  headfont=\sffamily\bfseries\color{MidnightBlue},
+  mdframed={style=mdbluebox},
+  headpunct={\\[3pt]},
+  postheadspace={0pt}
 ]{thmbluebox}
 \mdfdefinestyle{mdredbox}{%
-	linewidth=0.5pt,
-	skipabove=12pt,
-	frametitleaboveskip=5pt,
-	frametitlebelowskip=0pt,
-	skipbelow=2pt,
-	frametitlefont=\bfseries,
-	innertopmargin=4pt,
-	innerbottommargin=8pt,
-	nobreak=true,
-	backgroundcolor=Salmon!5,
-	linecolor=RawSienna,
+  linewidth=0.5pt,
+  skipabove=12pt,
+  frametitleaboveskip=5pt,
+  frametitlebelowskip=0pt,
+  skipbelow=2pt,
+  frametitlefont=\bfseries,
+  innertopmargin=4pt,
+  innerbottommargin=8pt,
+  nobreak=true,
+  backgroundcolor=Salmon!5,
+  linecolor=RawSienna,
 }
 \declaretheoremstyle[
-	headfont=\bfseries\color{RawSienna},
-	mdframed={style=mdredbox},
-	headpunct={\\[3pt]},
-	postheadspace={0pt},
+  headfont=\bfseries\color{RawSienna},
+  mdframed={style=mdredbox},
+  headpunct={\\[3pt]},
+  postheadspace={0pt},
 ]{thmredbox}
 \mdfdefinestyle{mdgreenbox}{%
-	skipabove=8pt,
-	linewidth=2pt,
-	rightline=false,
-	leftline=true,
-	topline=false,
-	bottomline=false,
-	linecolor=ForestGreen,
-	backgroundcolor=ForestGreen!5,
+  skipabove=8pt,
+  linewidth=2pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=ForestGreen,
+  backgroundcolor=ForestGreen!5,
 }
 \declaretheoremstyle[
-	headfont=\bfseries\sffamily\color{ForestGreen!70!black},
-	bodyfont=\normalfont,
-	spaceabove=2pt,
-	spacebelow=1pt,
-	mdframed={style=mdgreenbox},
-	headpunct={ --- },
+  headfont=\bfseries\sffamily\color{ForestGreen!70!black},
+  bodyfont=\normalfont,
+  spaceabove=2pt,
+  spacebelow=1pt,
+  mdframed={style=mdgreenbox},
+  headpunct={ --- },
 ]{thmgreenbox}
 \mdfdefinestyle{mdblackbox}{%
-	skipabove=8pt,
-	linewidth=3pt,
-	rightline=false,
-	leftline=true,
-	topline=false,
-	bottomline=false,
-	linecolor=black,
-	backgroundcolor=RedViolet!5!gray!5,
+  skipabove=8pt,
+  linewidth=3pt,
+  rightline=false,
+  leftline=true,
+  topline=false,
+  bottomline=false,
+  linecolor=black,
+  backgroundcolor=RedViolet!5!gray!5,
 }
 \declaretheoremstyle[
-	headfont=\bfseries,
-	bodyfont=\normalfont\small,
-	spaceabove=0pt,
-	spacebelow=0pt,
-	mdframed={style=mdblackbox}
+  headfont=\bfseries,
+  bodyfont=\normalfont\small,
+  spaceabove=0pt,
+  spacebelow=0pt,
+  mdframed={style=mdblackbox}
 ]{thmblackbox}
 
 \declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
