@@ -333,10 +333,10 @@ function hub
 	else if test (echo $argv | cut -d " " -f 1) = "$digits"
 		hub $flavor view $argv
 	else if test (echo $argv | cut -d " " -f 1) = "done"
-		hub $argv
+		gh $argv
 		bugwarrior-pull &
 	else if test (echo $argv | cut -d " " -f 1) = "close"
-		hub $argv
+		gh $argv
 		bugwarrior-pull &
 	else
 		gh $argv
