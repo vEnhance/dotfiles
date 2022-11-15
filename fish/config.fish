@@ -152,6 +152,7 @@ alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
+alias getip='ip addr | ag inet -w | ag -w "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
 alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias lisp='sbcl --script'
 alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
@@ -171,6 +172,7 @@ alias wut='watch -b -c -n 10 "python manage.py test"'
 alias pip='pip3'
 alias pudb='pudb3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
+
 
 # OTIS venue Q
 alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
