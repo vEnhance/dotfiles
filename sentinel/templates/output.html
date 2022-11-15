@@ -1,20 +1,14 @@
-{% extends 'base.html' %}
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <p><a href="/">Back to index</a></p>
 <h2>Return code</h2>
 {{ process.returncode }}
 
 <h2>Standard output</h2>
 {% if process.stdout %}
-<code style="white-space: pre;">{{ process.stdout }}</code>
-{% else %}
-No standard output.
-{% endif %}
+<code style="white-space: pre">{{ process.stdout }}</code>
+{% else %} No standard output. {% endif %}
 
 <h2>Standard error</h2>
 {% if process.stderr %}
-<code style="white-space: pre;">{{ process.stderr }}</code>
-{% else %}
-No standard output.
-{% endif %}
-{% endblock %}
+<code style="white-space: pre">{{ process.stderr }}</code>
+{% else %} No standard output. {% endif %} {% endblock %}
