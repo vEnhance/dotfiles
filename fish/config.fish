@@ -1,6 +1,6 @@
 function dn
-	set -l escaped_argv (string escape --no-quoted $argv)
-	bash -c "$escaped_argv &" > /dev/null
+  set -l escaped_argv (string escape --no-quoted $argv)
+  bash -c "$escaped_argv &" > /dev/null
 end
 
 # Status Chars
@@ -34,94 +34,94 @@ set __fish_git_prompt_color_upstream_ahead green
 set __fish_git_prompt_color_upstream_behind red
 
 function fish_greeting
-	set_color --italics $fish_color_greeting
-	printf "Hello "
-	set_color --bold $fish_color_name
-	printf $USER
-	set_color normal
-	set_color --italics $fish_color_host
-	printf @
-	printf (hostname)
-	set_color $fish_color_greeting
-	printf "! You are filled with "
-	set_color --bold $fish_color_determination
-	printf "determination"
-	set_color normal
-	set_color --italics $fish_color_greeting
-	printf ".\n"
+  set_color --italics $fish_color_greeting
+  printf "Hello "
+  set_color --bold $fish_color_name
+  printf $USER
+  set_color normal
+  set_color --italics $fish_color_host
+  printf @
+  printf (hostname)
+  set_color $fish_color_greeting
+  printf "! You are filled with "
+  set_color --bold $fish_color_determination
+  printf "determination"
+  set_color normal
+  set_color --italics $fish_color_greeting
+  printf ".\n"
 
-	if test (pwd) = "$HOME"
-		if test $hostname = "ArchScythe"
-			archey3 --config ~/dotfiles/archey3.cfg --color=green
-		else if test $hostname = "ArchSapphire"
-			archey3 --config ~/dotfiles/archey3.cfg --color=cyan
-		else if test $hostname = "ArchMajestic"
-			archey3 --config ~/dotfiles/archey3.cfg --color=magenta
-		else if test $hostname = "ArchDiamond"
-			archey3 --config ~/dotfiles/archey3.cfg --color=yellow
-		end
-	end
+  if test (pwd) = "$HOME"
+    if test $hostname = "ArchScythe"
+      archey3 --config ~/dotfiles/archey3.cfg --color=green
+    else if test $hostname = "ArchSapphire"
+      archey3 --config ~/dotfiles/archey3.cfg --color=cyan
+    else if test $hostname = "ArchMajestic"
+      archey3 --config ~/dotfiles/archey3.cfg --color=magenta
+    else if test $hostname = "ArchDiamond"
+      archey3 --config ~/dotfiles/archey3.cfg --color=yellow
+    end
+  end
 
-	set_color --italics $fish_color_date
-	printf "It is "
-	printf (date +'%a %d %b %Y, %R %Z')
-	printf ".\n"
-	set_color normal
+  set_color --italics $fish_color_date
+  printf "It is "
+  printf (date +'%a %d %b %Y, %R %Z')
+  printf ".\n"
+  set_color normal
 end
 
 function fish_prompt
-	set last_status $status
-	if set -q SUDO_USER
-		or set -q SSH_TTY
-		set_color --italics yellow
-		printf (prompt_pwd)
-	else
-		set_color --italics $fish_color_cwd
-		printf (prompt_pwd)
-	end
-	set_color normal
-	if not test $last_status -eq 0
-		set_color $fish_color_error
-		printf ' ['
-		printf $last_status
-		printf ']'
-	end
-	if set -q SUDO_USER
-		or set -q SSH_TTY
-		printf ' '
-		set_color -b blue yellow --bold
-		printf '('
-		printf $USER
-		printf ')'
-		set_color normal
-		printf ' '
-	else
-		set_color --bold $fish_color_arrows
-		printf ' >> '
-	end
-	set_color normal
+  set last_status $status
+  if set -q SUDO_USER
+    or set -q SSH_TTY
+    set_color --italics yellow
+    printf (prompt_pwd)
+  else
+    set_color --italics $fish_color_cwd
+    printf (prompt_pwd)
+  end
+  set_color normal
+  if not test $last_status -eq 0
+    set_color $fish_color_error
+    printf ' ['
+    printf $last_status
+    printf ']'
+  end
+  if set -q SUDO_USER
+    or set -q SSH_TTY
+    printf ' '
+    set_color -b blue yellow --bold
+    printf '('
+    printf $USER
+    printf ')'
+    set_color normal
+    printf ' '
+  else
+    set_color --bold $fish_color_arrows
+    printf ' >> '
+  end
+  set_color normal
 end
 
 function fish_right_prompt
-	set_color normal
-	if set -q VIRTUAL_ENV
-		echo -n -s (set_color -b blue white) (basename "$VIRTUAL_ENV" | string sub -l 2) "🐍" (set_color normal)
-	end
-	if set -q nvm_current_version
-		echo -n -s (set_color -b blue white) (string sub -l 3 "$nvm_current_version") "☕"  (set_color normal)
-	end
-	set_color normal
-	printf '%s ' (__fish_git_prompt)
-	set_color normal
-	set_color $fish_color_date
-	printf "["
-	printf (date +'%R')
-	printf "]"
+  set_color normal
+  if set -q VIRTUAL_ENV
+    echo -n -s (set_color -b blue white) (basename "$VIRTUAL_ENV" | string sub -l 2) "🐍" (set_color normal)
+  end
+  if set -q nvm_current_version
+    echo -n -s (set_color -b blue white) (string sub -l 3 "$nvm_current_version") "☕"  (set_color normal)
+  end
+  set_color normal
+  printf '%s ' (__fish_git_prompt)
+  set_color normal
+  set_color $fish_color_date
+  printf "["
+  printf (date +'%R')
+  printf "]"
 end
 
 function fish_right_prompt_loading_indicator -a last_prompt
-	echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
-	echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
+  echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
+  echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
 end
 
 # Exports
@@ -135,13 +135,13 @@ export VIRTUAL_ENV_DISABLE_PROMPT=1
 set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
 if [ -d $HOME/.texmf ]
-		export TEXMFHOME=$HOME/.texmf
+    export TEXMFHOME=$HOME/.texmf
 end
 if [ -d $HOME/.sage ]
-		export DOT_SAGENB=$HOME/.sage
+    export DOT_SAGENB=$HOME/.sage
 end
 if [ -f /usr/bin/zathura ]
-		export PDFVIEWER='zathura'
+    export PDFVIEWER='zathura'
 end
 
 umask 007 # set umask
@@ -202,149 +202,149 @@ export PATH="$PATH:$HOME/dotfiles/bin/"
 
 # Create a new TeX file
 function newtex
-	if string match '*.tex' $argv
-		echo "That's probably not what you meant to do"
-		return 1
-	end
-	mkdir "$argv"
-	cd "$argv"
-	echo '\documentclass[11pt]{scrartcl}' > "$argv.tex"
-	echo '\usepackage{evan}' >> "$argv.tex"
-	echo '\begin{document}' >> "$argv.tex"
-	echo '\title{}' >> "$argv.tex"
-	echo '' >> "$argv.tex"
-	echo '\end{document}' >> "$argv.tex"
-	gvim "$argv.tex"
+  if string match '*.tex' $argv
+    echo "That's probably not what you meant to do"
+    return 1
+  end
+  mkdir "$argv"
+  cd "$argv"
+  echo '\documentclass[11pt]{scrartcl}' > "$argv.tex"
+  echo '\usepackage{evan}' >> "$argv.tex"
+  echo '\begin{document}' >> "$argv.tex"
+  echo '\title{}' >> "$argv.tex"
+  echo '' >> "$argv.tex"
+  echo '\end{document}' >> "$argv.tex"
+  gvim "$argv.tex"
 end
 
 function pikaur
-	if set -q VIRTUAL_ENV
-		set existing_venv (basename $VIRTUAL_ENV)
-		echo "Temporarily disabling" (set_color --bold brcyan)"$existing_venv"
-		vf deactivate
-		/usr/bin/pikaur $argv
-		echo "Re-enabling" (set_color --bold brcyan)"$existing_venv"
-		vf activate "$existing_venv"
-		set_color normal
-	else
-		/usr/bin/pikaur $argv
-	end
+  if set -q VIRTUAL_ENV
+    set existing_venv (basename $VIRTUAL_ENV)
+    echo "Temporarily disabling" (set_color --bold brcyan)"$existing_venv"
+    vf deactivate
+    /usr/bin/pikaur $argv
+    echo "Re-enabling" (set_color --bold brcyan)"$existing_venv"
+    vf activate "$existing_venv"
+    set_color normal
+  else
+    /usr/bin/pikaur $argv
+  end
 end
 
 # Shortcut for editors and the like
 function pdf
-	string match '*.pdf' "$argv" > /dev/null
-	if test \( -f "$argv" \) -a \( $status -eq 0 \)
-		dn zathura $argv &> /dev/null
-	else if test -f (echo $argv | cut -f 1 -d '.').pdf
-		dn zathura (echo $argv | cut -f 1 -d '.').pdf &> /dev/null
-	else if test -f "$argv""pdf"
-		dn zathura "$argv""pdf" &> /dev/null
-	else if test -f "$argv.pdf"
-		dn zathura "$argv.pdf" &> /dev/null
-	else
-		echo "Cannot found a suitable file."
-	end
+  string match '*.pdf' "$argv" > /dev/null
+  if test \( -f "$argv" \) -a \( $status -eq 0 \)
+    dn zathura $argv &> /dev/null
+  else if test -f (echo $argv | cut -f 1 -d '.').pdf
+    dn zathura (echo $argv | cut -f 1 -d '.').pdf &> /dev/null
+  else if test -f "$argv""pdf"
+    dn zathura "$argv""pdf" &> /dev/null
+  else if test -f "$argv.pdf"
+    dn zathura "$argv.pdf" &> /dev/null
+  else
+    echo "Cannot found a suitable file."
+  end
 end
 
 # Uses the locate utility to find a certain file
 function hunt ()
-	python3 ~/dotfiles/py-scripts/hunt.py "$argv"
-	if test $status -eq 0
-		if test -n (cat /tmp/hunt.(whoami))
-			cd (cat /tmp/hunt.(whoami))
-			echo (set_color --bold --italic brcyan)(pwd)(set_color normal)
-			ll | head -n 25
-			set num_hidden (math (ll | wc --lines) - 25)
-			if test $num_hidden -gt 0
-				echo (set_color yellow)"... and" (set_color --bold yellow)$num_hidden(set_color normal)(set_color yellow) "additional items not shown"(set_color normal)
-			end
-		else
-			echo Error: (set_color bryellow)\""$argv"\"(set_color normal) "not found"
-		end
-	else
-		echo Search for (set_color brred)\""$argv"\"(set_color normal) aborted
-	end
+  python3 ~/dotfiles/py-scripts/hunt.py "$argv"
+  if test $status -eq 0
+    if test -n (cat /tmp/hunt.(whoami))
+      cd (cat /tmp/hunt.(whoami))
+      echo (set_color --bold --italic brcyan)(pwd)(set_color normal)
+      ll | head -n 25
+      set num_hidden (math (ll | wc --lines) - 25)
+      if test $num_hidden -gt 0
+        echo (set_color yellow)"... and" (set_color --bold yellow)$num_hidden(set_color normal)(set_color yellow) "additional items not shown"(set_color normal)
+      end
+    else
+      echo Error: (set_color bryellow)\""$argv"\"(set_color normal) "not found"
+    end
+  else
+    echo Search for (set_color brred)\""$argv"\"(set_color normal) aborted
+  end
 end
 
 function pdfenc --argument-names 'infile' 'outfile' 'password'
-	qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
+  qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
 end
 
 function pdfjoin
-	qpdf $argv[1] --pages $argv[1..-2] -- $argv[-1]
+  qpdf $argv[1] --pages $argv[1..-2] -- $argv[-1]
 end
 
 function pdfsplit
-	qpdf --split-pages=1 $argv[1] page%d-$argv[1]
+  qpdf --split-pages=1 $argv[1] page%d-$argv[1]
 end
 
 # correct horse battery staple
 function chbs
-	shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
+  shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
 end
 
 
 function lt
-	j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
+  j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
 end
 
 # github CLI wrapper
 function hub
-	set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
-	# first decide if we are a PR or an issue
-	if test -n "$digits"
-		gh issue view $digits &> /dev/null
-		if test $status -eq 0
-			set flavor "issue"
-		else
-			set flavor "pr"
-		end
-	end
-	if test -z "$argv" -o (echo $argv | cut -c 1) = "-"
-		gh issue list $argv --limit 10
-		gh pr list $argv --limit 10
-	else if test "$argv" = "issue"
-		gh issue list
-	else if test "$argv" = "pr"
-		gh pr list
-	else if test "$argv" = "claim $digits"
-		gh $flavor edit --add-assignee "@me"
-		if command -q bugwarrior-pull
-			bugwarrior-pull
-		end
-	else if test "$argv" = "lb $digits"
-		GH_FORCE_TTY=50% gh $flavor view $digits | head -n 8
-		set_color --bold cyan
-		echo "Choose a label to add..."
-		set_color normal
-		gh $flavor edit $digits --add-label (GH_FORCE_TTY='50%' gh label list | fzf --height 15 --ansi --header-first --header-lines 3 | sed "s/  /\t/" | cut -f 1)
-	else if test "$argv" = "re $digits"
-		gh $flavor view --comments $digits
-		set_color --bold yellow
-		echo "Enter your comment below, or blank to open Vi..."
-		set_color normal
-		cat > /tmp/gh-comment.txt
-		if ag "[^\s]+" /tmp/gh-comment.txt > /dev/null
-			gh $flavor comment $digits -F /tmp/gh-comment.txt
-		else
-			gh $flavor comment $digits
-		end
-	else if test (echo $argv | cut -d " " -f 1) = "$digits"
-		hub $flavor view $argv
-	else if test (echo $argv | cut -d " " -f 1) = "done"
-		gh $argv
-		bugwarrior-pull &
-	else if test (echo $argv | cut -d " " -f 1) = "close"
-		gh $argv
-		bugwarrior-pull &
-	else
-		gh $argv
-	end
+  set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
+  # first decide if we are a PR or an issue
+  if test -n "$digits"
+    gh issue view $digits &> /dev/null
+    if test $status -eq 0
+      set flavor "issue"
+    else
+      set flavor "pr"
+    end
+  end
+  if test -z "$argv" -o (echo $argv | cut -c 1) = "-"
+    gh issue list $argv --limit 10
+    gh pr list $argv --limit 10
+  else if test "$argv" = "issue"
+    gh issue list
+  else if test "$argv" = "pr"
+    gh pr list
+  else if test "$argv" = "claim $digits"
+    gh $flavor edit --add-assignee "@me"
+    if command -q bugwarrior-pull
+      bugwarrior-pull
+    end
+  else if test "$argv" = "lb $digits"
+    GH_FORCE_TTY=50% gh $flavor view $digits | head -n 8
+    set_color --bold cyan
+    echo "Choose a label to add..."
+    set_color normal
+    gh $flavor edit $digits --add-label (GH_FORCE_TTY='50%' gh label list | fzf --height 15 --ansi --header-first --header-lines 3 | sed "s/  /\t/" | cut -f 1)
+  else if test "$argv" = "re $digits"
+    gh $flavor view --comments $digits
+    set_color --bold yellow
+    echo "Enter your comment below, or blank to open Vi..."
+    set_color normal
+    cat > /tmp/gh-comment.txt
+    if ag "[^\s]+" /tmp/gh-comment.txt > /dev/null
+      gh $flavor comment $digits -F /tmp/gh-comment.txt
+    else
+      gh $flavor comment $digits
+    end
+  else if test (echo $argv | cut -d " " -f 1) = "$digits"
+    hub $flavor view $argv
+  else if test (echo $argv | cut -d " " -f 1) = "done"
+    gh $argv
+    bugwarrior-pull &
+  else if test (echo $argv | cut -d " " -f 1) = "close"
+    gh $argv
+    bugwarrior-pull &
+  else
+    gh $argv
+  end
 end
 
 function diary
-	vim -O ~/Sync/alONE/(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/) ~/Sync/alONE/alONE.tex
+  vim -O ~/Sync/alONE/(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/) ~/Sync/alONE/alONE.tex
 end
 
 set -x LESS_TERMCAP_md (printf "\e[01;31m")
@@ -402,41 +402,41 @@ alias fgrep='fgrep --color=auto'              # show differences in color
 # Some shortcuts for different directory listings
 
 if test (uname) = "Linux"
-	alias ls='ls --color=tty --quoting-style=literal'
-	alias la='ls -l --block-size=K'
-	function ll
-		if test (count *.tex) -eq 0
-			ls -l --block-size=K --color=yes $argv
-			return
-		end
-		set --function regex '('(string join '|' (string sub --end=-5 (string escape --style=regex *.tex)))')'
-		set --function regex $regex'\.(aux|bbl|bcf|blg|fdb_latexmk|fls|log|maf|mtc0?|nav|out|pre|ptc[0-9]+|pytxcode|pytxmcr|pytxpyg|run\.xml|snm|synctex(\.gz|\(busy\))|toc|von|vrb|xdv)|-[0-9]{1,2}\.(asy|pdf)$'
-		set --function regex '('$regex')|pythontex_data\.pkl'
-		set num_hidden (ls -l --block-size=K --color=yes $argv | grep -E $regex 2> /dev/null | wc --lines)
-		ls -l --block-size=K --color=yes $argv | grep -Ev $regex 2> /dev/null
-		if test $num_hidden -gt 0
-			echo (set_color cyan)"... and" (set_color --bold brgreen)$num_hidden(set_color normal)(set_color cyan) "garbage files not shown"(set_color normal)
-			end
-	end
-	function ranger-cd
-		if test -z "$RANGER_LEVEL"
-			set tempfile "/tmp/(whoami)chosendir"
-			ranger --choosedir=$tempfile (pwd)
-			if test -f $tempfile
-					if [ (cat $tempfile) != (pwd) ]
-						cd (cat $tempfile)
-					end
-			end
-			rm -f $tempfile
-		else
-			exit
-		end
-	end
-	alias hi='ranger-cd'
+  alias ls='ls --color=tty --quoting-style=literal'
+  alias la='ls -l --block-size=K'
+  function ll
+    if test (count *.tex) -eq 0
+      ls -l --block-size=K --color=yes $argv
+      return
+    end
+    set --function regex '('(string join '|' (string sub --end=-5 (string escape --style=regex *.tex)))')'
+    set --function regex $regex'\.(aux|bbl|bcf|blg|fdb_latexmk|fls|log|maf|mtc0?|nav|out|pre|ptc[0-9]+|pytxcode|pytxmcr|pytxpyg|run\.xml|snm|synctex(\.gz|\(busy\))|toc|von|vrb|xdv)|-[0-9]{1,2}\.(asy|pdf)$'
+    set --function regex '('$regex')|pythontex_data\.pkl'
+    set num_hidden (ls -l --block-size=K --color=yes $argv | grep -E $regex 2> /dev/null | wc --lines)
+    ls -l --block-size=K --color=yes $argv | grep -Ev $regex 2> /dev/null
+    if test $num_hidden -gt 0
+      echo (set_color cyan)"... and" (set_color --bold brgreen)$num_hidden(set_color normal)(set_color cyan) "garbage files not shown"(set_color normal)
+      end
+  end
+  function ranger-cd
+    if test -z "$RANGER_LEVEL"
+      set tempfile "/tmp/(whoami)chosendir"
+      ranger --choosedir=$tempfile (pwd)
+      if test -f $tempfile
+          if [ (cat $tempfile) != (pwd) ]
+            cd (cat $tempfile)
+          end
+      end
+      rm -f $tempfile
+    else
+      exit
+    end
+  end
+  alias hi='ranger-cd'
 else
-	alias ls='ls -G'
-	alias l='ls -lG'
-	alias ll='ls -lG'
+  alias ls='ls -G'
+  alias l='ls -lG'
+  alias ll='ls -lG'
 end
 
 # Fish completions
@@ -455,28 +455,28 @@ bind -M insert \ce 'accept-autosuggestion'
 fzf_configure_bindings --git_log=\cg --directory=\cf --git_status=\cs
 
 function fish_mode_prompt
-	if test "$fish_key_bindings" = "fish_vi_key_bindings"
-			or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
-			switch $fish_bind_mode
-				case default
-					set_color --bold --background red white
-					echo 'N'
-				case insert
-					set_color --bold --background green white
-					echo 'I'
-				case replace_one
-					set_color --bold --background green white
-					echo 'R'
-				case replace
-					set_color --bold --background cyan white
-					echo 'R'
-				case visual
-					set_color --bold --background magenta white
-					echo 'V'
-				end
-			set_color normal
-			echo -n ' '
-	end
+  if test "$fish_key_bindings" = "fish_vi_key_bindings"
+      or test "$fish_key_bindings" = "fish_hybrid_key_bindings"
+      switch $fish_bind_mode
+        case default
+          set_color --bold --background red white
+          echo 'N'
+        case insert
+          set_color --bold --background green white
+          echo 'I'
+        case replace_one
+          set_color --bold --background green white
+          echo 'R'
+        case replace
+          set_color --bold --background cyan white
+          echo 'R'
+        case visual
+          set_color --bold --background magenta white
+          echo 'V'
+        end
+      set_color normal
+      echo -n ' '
+  end
 end
 
 # https://github.com/jorgebucaran/fisher/issues/747
