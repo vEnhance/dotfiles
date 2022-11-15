@@ -207,8 +207,24 @@ let g:coc_global_extensions = [
   \ 'coc-vimlsp',
   \ 'coc-yaml',
   \ ]
-
 call plug#end()
+" }}}
+" Register ALE {{{
+call ale#Set('djlint_executable', 'djlint')
+call ale#Set('djlint_options', '')
+
+function! ALEFixDjlint(buffer) abort
+    let l:executable = ale#Var(a:buffer, 'djlint_executable')
+    let l:options = ale#Var(a:buffer, 'djlint_options')
+
+    return {
+    \   'command': ale#Escape(l:executable)
+    \       . ' --reformat'
+    \       . (empty(l:options) ? '': ' ' . l:options)
+    \       . ' -',
+    \}
+endfunction
+execute ale#fix#registry#Add('djlint', 'ALEFixDjlint', ['htmljdjango'], 'Fixer for Django templates')
 " }}}
 
 " Procedure for shell commands {{{
@@ -432,6 +448,7 @@ set completeopt=menuone,noselect,preview
 set conceallevel=2
 set cursorline
 set cursorlineopt=number
+set expandtab " :(
 set foldlevelstart=3
 set guicursor+=n-v-c:blinkon0
 set guifont=Monospace\ 11
