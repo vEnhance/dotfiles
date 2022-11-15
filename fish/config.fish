@@ -147,6 +147,7 @@ end
 umask 007 # set umask
 
 # alias emacs='vim'
+
 alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
@@ -171,10 +172,8 @@ alias pip='pip3'
 alias pudb='pudb3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
-
 # OTIS venue Q
 alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
-
 
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
@@ -214,6 +213,20 @@ function newtex
 	echo '' >> "$argv.tex"
 	echo '\end{document}' >> "$argv.tex"
 	gvim "$argv.tex"
+end
+
+function pikaur
+	if set -q VIRTUAL_ENV
+		set existing_venv (basename $VIRTUAL_ENV)
+		echo "Temporarily disabling" (set_color --bold bryellow)"$existing_venv"
+		vf deactivate
+		/usr/bin/pikaur $argv
+		echo "Re-enabling" (set_color --bold bryellow)"$existing_venv"
+		vf activate "$existing_venv"
+		set_color normal
+	else
+		/usr/bin/pikaur $argv
+	end
 end
 
 # Shortcut for editors and the like
