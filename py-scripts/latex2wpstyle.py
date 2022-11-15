@@ -41,20 +41,20 @@ colorchoice = ["red", "green", "blue"]
 # maxcounter is an upper bound to the any counter being used
 
 T = {
-	"theorem": 0,
-	"lemma": 0,
-	"proposition": 0,
-	"definition": 0,
-	"corollary": 0,
-	"remark": 0,
-	"example": 0,
-	"claim": 0,
-	"exercise": 0,
-	"axiom": 1,
-	"problem": 2,
-	"ques": 0,  # Napkin
-	"sproblem": 2,
-	"dproblem": 2
+    "theorem": 0,
+    "lemma": 0,
+    "proposition": 0,
+    "definition": 0,
+    "corollary": 0,
+    "remark": 0,
+    "example": 0,
+    "claim": 0,
+    "exercise": 0,
+    "axiom": 1,
+    "problem": 2,
+    "ques": 0,  # Napkin
+    "sproblem": 2,
+    "dproblem": 2
 }
 
 # list of theorem-like environments
@@ -65,9 +65,8 @@ ThmEnvs = list(T.keys())
 # the string _ThmNumb_ is the theorem number
 
 box_string = (
-	"<div style=\"color: #000000 !important; border: 1px red solid;"
-	"padding-left: 8px; padding-top: 4px; margin-bottom: 8px !important; \">"
-)
+    "<div style=\"color: #000000 !important; border: 1px red solid;"
+    "padding-left: 8px; padding-top: 4px; margin-bottom: 8px !important; \">")
 head_string = "<p style=\"margin-bottom: 6px\"><b style=\"color: #ff4d4d !important;\">"
 
 beginthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b></p>"
@@ -94,15 +93,15 @@ subsectionstar = "\n<h3> _SecName_ </h3>\n"
 # Font styles. Feel free to add others. The key *must* contain
 # an open curly bracket. The value is the namem of a HTML tag.
 fontstyle = {
-	r'{\em ': 'em',
-	r'{\bf ': 'b',
-	r'{\it ': 'i',
-	r'{\sl ': 'i',
-	r'\textit{': 'i',
-	r'\textsl{': 'i',
-	r'\emph{': 'em',
-	r'\textbf{': 'b',
-	r'\vocab{': 'b',
+    r'{\em ': 'em',
+    r'{\bf ': 'b',
+    r'{\it ': 'i',
+    r'{\sl ': 'i',
+    r'\textit{': 'i',
+    r'\textsl{': 'i',
+    r'\emph{': 'em',
+    r'\textbf{': 'b',
+    r'\vocab{': 'b',
 }
 
 # Macro definitions
@@ -115,28 +114,28 @@ fontstyle = {
 # and \" instead of "
 
 M = [
-	[r"\ii", r"\item"],
-	[r"\to", r"\rightarrow"],
-	[r"\NN", r"{\mathbb N}"],
-	[r"\ZZ", r"{\mathbb Z}"],
-	[r"\CC", r"{\mathbb C}"],
-	[r"\RR", r"{\mathbb R}"],
-	[r"\QQ", r"{\mathbb Q}"],
-	[r"\FF", r"{\mathbb F}"],
-	[r"\OO", r"{\mathcal O}"],
-	[r"\pp", r"{\mathfrak p}"],
-	[r"\qq", r"{\mathfrak q}"],
-	[r"\Norm", r"\text{N}"],
-	[r"\End", r"\text{End}"],
-	[r"\xor", r"\oplus"],
-	[r"\eps", r"\epsilon"],
-	[r"\dg", r"^{\circ}"],
-	[r"\ol", r"\overline"],
-	[r"\inv", r"^{-1}"],
-	[r"\half", r"\frac{1}{2}"],
-	[r"\defeq", r"\overset{\text{def}}{=}"],
-	[r"\id", r"\mathrm{id}"],
-	[r"\qedhere", r""],  # sigh
-	[r"\injto", r"\hookrightarrow"],
-	[r"\img", r"\text{Im }"],  # :(
+    [r"\ii", r"\item"],
+    [r"\to", r"\rightarrow"],
+    [r"\NN", r"{\mathbb N}"],
+    [r"\ZZ", r"{\mathbb Z}"],
+    [r"\CC", r"{\mathbb C}"],
+    [r"\RR", r"{\mathbb R}"],
+    [r"\QQ", r"{\mathbb Q}"],
+    [r"\FF", r"{\mathbb F}"],
+    [r"\OO", r"{\mathcal O}"],
+    [r"\pp", r"{\mathfrak p}"],
+    [r"\qq", r"{\mathfrak q}"],
+    [r"\Norm", r"\text{N}"],
+    [r"\End", r"\text{End}"],
+    [r"\xor", r"\oplus"],
+    [r"\eps", r"\epsilon"],
+    [r"\dg", r"^{\circ}"],
+    [r"\ol", r"\overline"],
+    [r"\inv", r"^{-1}"],
+    [r"\half", r"\frac{1}{2}"],
+    [r"\defeq", r"\overset{\text{def}}{=}"],
+    [r"\id", r"\mathrm{id}"],
+    [r"\qedhere", r""],  # sigh
+    [r"\injto", r"\hookrightarrow"],
+    [r"\img", r"\text{Im }"],  # :(
 ]

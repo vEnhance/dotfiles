@@ -21,34 +21,33 @@ FONT = 'DejaVuSansMono 36'
 
 
 class Window():
-	def __init__(self):
 
-		# Creating the tkinter Window
-		self.root = Tk()
-		self.root.option_add('*Font', FONT)
+    def __init__(self):
 
-		textarea = Label(self.root, text="pɹɑdʒɪ̈kt tɛkst", foreground='blue')
-		textarea.pack(pady=15)
+        # Creating the tkinter Window
+        self.root = Tk()
+        self.root.option_add('*Font', FONT)
 
-		mainarea = Text(self.root, height=6, font="DejaVuSansMono 72")
-		mainarea.insert(
-			INSERT, '\n'.join(sys.stdin.readlines()) or pyperclip.paste() or "Type text here..."
-		)
+        textarea = Label(self.root, text="pɹɑdʒɪ̈kt tɛkst", foreground='blue')
+        textarea.pack(pady=15)
 
-		mainarea.option_add("*Font", FONT)
-		mainarea.pack(pady=15)
+        mainarea = Text(self.root, height=6, font="DejaVuSansMono 72")
+        mainarea.insert(
+            INSERT, '\n'.join(sys.stdin.readlines()) or pyperclip.paste() or
+            "Type text here...")
 
-		# Button for closing
-		exit_button = Button(
-			self.root,
-			text="Exit",
-			command=self.root.destroy,
-			background='red',
-			activebackground='orange'
-		)
-		exit_button.pack(pady=10)
+        mainarea.option_add("*Font", FONT)
+        mainarea.pack(pady=15)
 
-		self.root.mainloop()
+        # Button for closing
+        exit_button = Button(self.root,
+                             text="Exit",
+                             command=self.root.destroy,
+                             background='red',
+                             activebackground='orange')
+        exit_button.pack(pady=10)
+
+        self.root.mainloop()
 
 
 Window()

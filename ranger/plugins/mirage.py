@@ -28,32 +28,32 @@ i18n.activate("zh_TW", path=Path('~/dotfiles/i18n/').expanduser())
 
 
 def get_icon(theme_icon, fobj, metadata):
-	if fobj.is_directory:
-		icon = theme_icon['directory_custom'].get(fobj.relative_path, '')
-	else:
-		icon = theme_icon['file_custom'].get(fobj.relative_path, '')
+    if fobj.is_directory:
+        icon = theme_icon['directory_custom'].get(fobj.relative_path, '')
+    else:
+        icon = theme_icon['file_custom'].get(fobj.relative_path, '')
 
-	if icon == '':
-		parent_directory = os.path.basename(os.path.dirname(fobj.path))
-		icon = theme_icon['parent_directory'].get(parent_directory, '')
+    if icon == '':
+        parent_directory = os.path.basename(os.path.dirname(fobj.path))
+        icon = theme_icon['parent_directory'].get(parent_directory, '')
 
-	if icon == '':
-		icon = theme_icon['extension'].get(fobj.extension, '')
+    if icon == '':
+        icon = theme_icon['extension'].get(fobj.extension, '')
 
-	if icon == '':
-		icon = theme_icon['extension'].get(fobj.extension, '')
+    if icon == '':
+        icon = theme_icon['extension'].get(fobj.extension, '')
 
-	if icon == '':
-		for attr_name in theme_icon['attr']:
-			if getattr(fobj, attr_name, False):
-				icon = theme_icon['attr'][attr_name]
+    if icon == '':
+        for attr_name in theme_icon['attr']:
+            if getattr(fobj, attr_name, False):
+                icon = theme_icon['attr'][attr_name]
 
-	if icon == '':
-		icon = theme_icon['file']
-		if fobj.is_directory:
-			icon = theme_icon['directory']
+    if icon == '':
+        icon = theme_icon['file']
+        if fobj.is_directory:
+            icon = theme_icon['directory']
 
-	return icon
+    return icon
 
 
 config = get_config(get_config_path())
@@ -61,14 +61,13 @@ config_fix_chars_width = config['fix_chars_width']
 theme = get_theme(get_theme_path())
 theme_icon = theme['icon']
 
-
 HOOK_INIT_OLD = ranger.api.hook_init
 
 
 def hook_init(fm):
-	if config['default_linemode']['enabled']:
-		fm.execute_console("default_linemode mirage")
-	return HOOK_INIT_OLD(fm)
+    if config['default_linemode']['enabled']:
+        fm.execute_console("default_linemode mirage")
+    return HOOK_INIT_OLD(fm)
 
 
 ranger.api.hook_init = hook_init
@@ -76,32 +75,29 @@ ranger.api.hook_init = hook_init
 
 @ranger.api.register_linemode
 class MarksideLinemode(LinemodeBase):
-	name = plugin_name
-	uses_metadata = False
+    name = plugin_name
+    uses_metadata = False
 
-	def filetitle(self, fobj, metadata):
-		title = fobj.relative_path
-		icon = get_icon(theme_icon, fobj, metadata)
-		if config_fix_chars_width['enabled'] and \
-				(icon in config_fix_chars_width['for_term']['default']
-				or icon in config_fix_chars_width['for_both']['default']):
-			icon = icon + ' '
+    def filetitle(self, fobj, metadata):
+        title = fobj.relative_path
+        icon = get_icon(theme_icon, fobj, metadata)
+        if config_fix_chars_width['enabled'] and \
+          (icon in config_fix_chars_width['for_term']['default']
+          or icon in config_fix_chars_width['for_both']['default']):
+            icon = icon + ' '
 
-		return theme['line_format'].format(
-			icon=icon,
-			title=title
-		)
+        return theme['line_format'].format(icon=icon, title=title)
 
-	def infostring(self, fobj, metadata):
-		if fobj.stat is None:
-			return ''
-		size = humanize.naturalsize(fobj.size, gnu=True)
-		delta = datetime.now() - datetime.fromtimestamp(fobj.stat.st_mtime)
-		if delta.days < 6 * 30.5:
-			since = str(humanize.naturaldelta(delta, months = True))
-		else:
-			since = f'{int(delta.days / 30.5)}月前'
-		if len(since) > 4:
-			since = ''
-		ret = "%5s %5s" % (since, size)
-		return ret
+    def infostring(self, fobj, metadata):
+        if fobj.stat is None:
+            return ''
+        size = humanize.naturalsize(fobj.size, gnu=True)
+        delta = datetime.now() - datetime.fromtimestamp(fobj.stat.st_mtime)
+        if delta.days < 6 * 30.5:
+            since = str(humanize.naturaldelta(delta, months=True))
+        else:
+            since = f'{int(delta.days / 30.5)}月前'
+        if len(since) > 4:
+            since = ''
+        ret = "%5s %5s" % (since, size)
+        return ret

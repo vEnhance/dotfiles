@@ -1,5 +1,4 @@
-print(
-	r'''\documentclass[11pt]{article}
+print(r'''\documentclass[11pt]{article}
 \usepackage[landscape,margin=1in]{geometry}
 \newcounter{tablenum}
 \setcounter{tablenum}{0}
@@ -7,35 +6,35 @@ print(
 \usepackage{fontspec}
 \usepackage{longtable}
 \begin{document}
-\begin{longtable}{rll}'''
-)
+\begin{longtable}{rll}''')
 
 banned_words = [
-	'bold',
-	'italic',
-	'light',
-	'oblique',
-	'semi',
-	'slanted',
-	'braille',
-	'icons',
-	'symbol',
-	'fontawesome',
-	'fourierorns',
-	'gfs',
-	'keyboard',
-	'ifinitialsregular',
-	'ntxsups',
-	'philokalia',
+    'bold',
+    'italic',
+    'light',
+    'oblique',
+    'semi',
+    'slanted',
+    'braille',
+    'icons',
+    'symbol',
+    'fontawesome',
+    'fourierorns',
+    'gfs',
+    'keyboard',
+    'ifinitialsregular',
+    'ntxsups',
+    'philokalia',
 ]
 with open('languages.txt') as f:
-	banned_words += [line.strip() for line in f]
+    banned_words += [line.strip() for line in f]
 
 with open('fontlist') as f:
-	for i, line in enumerate(f):
-		fontname = line.strip()
-		if 'regular' in fontname and not any(bw in fontname for bw in banned_words):
-			print(r'\s{' + fontname + r'} \\ %' + str(i + 1))
+    for i, line in enumerate(f):
+        fontname = line.strip()
+        if 'regular' in fontname and not any(bw in fontname
+                                             for bw in banned_words):
+            print(r'\s{' + fontname + r'} \\ %' + str(i + 1))
 
 print(r'\end{longtable}')
 print(r'\end{document}')
