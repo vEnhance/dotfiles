@@ -27,81 +27,81 @@ export SIGNAL_START_IN_TRAY=True
 source ~/dotfiles/sh-scripts/xrandr.sh
 
 if [ "$(hostname)" = ArchAngel ]; then
-	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
-	xset s 900 30
-	xset dpms 600 600 600
-	# export QT_SCALE_FACTOR=2.4
+  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+  xset s 900 30
+  xset dpms 600 600 600
+  # export QT_SCALE_FACTOR=2.4
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
-	xset s 900 30
-	xset dpms 600 600 600
-	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
-	synclient TapButton1=0                   # Disable tap to click
-	synclient VertScrollDelta=-237           # Natural scroll for touchpads
-	# remap mouse buttons
-	synclient RightButtonAreaTop=0
-	# synclient RightButtonAreaLeft=0
-	# synclient RightButtonAreaRight=1560
-	keychain --quiet
-	# shellcheck disable=SC2046
-	export $(keychain --query --quiet)
+  xset s 900 30
+  xset dpms 600 600 600
+  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+  synclient TapButton1=0                   # Disable tap to click
+  synclient VertScrollDelta=-237           # Natural scroll for touchpads
+  # remap mouse buttons
+  synclient RightButtonAreaTop=0
+  # synclient RightButtonAreaLeft=0
+  # synclient RightButtonAreaRight=1560
+  keychain --quiet
+  # shellcheck disable=SC2046
+  export $(keychain --query --quiet)
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
-	xset s 900 30
-	xset dpms 600 600 600
-	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
-	synclient RightButtonAreaTop=0
-	synclient VertScrollDelta=-237 # Natural scroll for touchpads
-	keychain --quiet
-	# shellcheck disable=SC2046
-	export $(keychain --query --quiet)
-	# replace the useless menu key with extra ctrl
-	xmodmap -e "remove Control = Control_R"
-	xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R"
-	xmodmap -e "add Control = Control_R"
+  xset s 900 30
+  xset dpms 600 600 600
+  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+  synclient RightButtonAreaTop=0
+  synclient VertScrollDelta=-237 # Natural scroll for touchpads
+  keychain --quiet
+  # shellcheck disable=SC2046
+  export $(keychain --query --quiet)
+  # replace the useless menu key with extra ctrl
+  xmodmap -e "remove Control = Control_R"
+  xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R"
+  xmodmap -e "add Control = Control_R"
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-	if [ "$(date +"%Z")" = PDT ]; then
-		xset s 900 30
-		xset dpms 600 600 600
-	else
-		xset s 14400 14400
-		xset dpms 14400 14400 14400
-		export QT_AUTO_SCREEN_SCALE_FACTOR=2
-		export GDK_SCALE=2
-	fi
-	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
-	keychain --quiet
-	# shellcheck disable=SC2046
-	export $(keychain --query --quiet)
+  if [ "$(date +"%Z")" = PDT ]; then
+    xset s 900 30
+    xset dpms 600 600 600
+  else
+    xset s 14400 14400
+    xset dpms 14400 14400 14400
+    export QT_AUTO_SCREEN_SCALE_FACTOR=2
+    export GDK_SCALE=2
+  fi
+  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+  keychain --quiet
+  # shellcheck disable=SC2046
+  export $(keychain --query --quiet)
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-	ponymix set-default -t source \
-		-d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
-	ponymix set-volume -t source 80
-	if [ "$(whoami)" = "evan" ]; then
-		xset s 2000 60
-		xset dpms 600 600 600
-		~/dotfiles/sh-scripts/paswitch.sh speakers
-	fi
-	if [ "$(whoami)" = "star" ]; then
-		xset s 2000 60
-		xset dpms 1800 1800 1800
-	fi
-	xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
-	keychain --quiet
-	# shellcheck disable=SC2046
-	export $(keychain --query --quiet)
+  ponymix set-default -t source \
+    -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
+  ponymix set-volume -t source 80
+  if [ "$(whoami)" = "evan" ]; then
+    xset s 2000 60
+    xset dpms 600 600 600
+    ~/dotfiles/sh-scripts/paswitch.sh speakers
+  fi
+  if [ "$(whoami)" = "star" ]; then
+    xset s 2000 60
+    xset dpms 1800 1800 1800
+  fi
+  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+  keychain --quiet
+  # shellcheck disable=SC2046
+  export $(keychain --query --quiet)
 fi
 
 if [ "$(hostname)" = dagobah ]; then
-	keychain --quiet
-	# shellcheck disable=SC2046
-	export $(keychain --query --quiet)
+  keychain --quiet
+  # shellcheck disable=SC2046
+  export $(keychain --query --quiet)
 fi
 
 # Load background image, if not existent already

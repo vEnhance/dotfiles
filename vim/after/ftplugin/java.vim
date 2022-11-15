@@ -1,4 +1,4 @@
-syn keyword javaType		String
+syn keyword javaType    String
 set foldmethod=marker
 set expandtab
 set tabstop=4

@@ -64,25 +64,25 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " https://github.com/junegunn/fzf.vim/issues/374
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let NERDTreeIgnore = [
-	\	'\.pyc$',
-	\	'\.pyo$',
-	\	'\~$',
-	\	'\.aux$',
-	\	'\.fdb_latexmk$',
-	\	'\.fls$',
-	\	'\.log$',
-	\	'\.out$',
-	\	'\.pre$',
-	\	'\.pytxcode$',
-	\	'\.pytxmcr$',
-	\	'\.pytxpyg$',
-	\	'\.synctex.gz$',
-	\	'pythontex_data.pkl',
-	\	'\.png$',
-	\	'\.jpg$',
-	\	'\.pdf$',
-	\	'-[0-9]\+\.asy$',
-	\	]
+  \  '\.pyc$',
+  \  '\.pyo$',
+  \  '\~$',
+  \  '\.aux$',
+  \  '\.fdb_latexmk$',
+  \  '\.fls$',
+  \  '\.log$',
+  \  '\.out$',
+  \  '\.pre$',
+  \  '\.pytxcode$',
+  \  '\.pytxmcr$',
+  \  '\.pytxpyg$',
+  \  '\.synctex.gz$',
+  \  'pythontex_data.pkl',
+  \  '\.png$',
+  \  '\.jpg$',
+  \  '\.pdf$',
+  \  '-[0-9]\+\.asy$',
+  \  ]
 let NERDTreeShowLineNumbers = 1
 let g:completor_filetype_map = {}
 let g:csv_highlight_column = 'y'
@@ -108,10 +108,10 @@ let g:gitgutter_map_keys = 0
 let g:gutentags_cache_dir = '~/.vim/tags/'
 let g:gutentags_define_advanced_commands=1
 let g:gutentags_file_list_command = {
-	\ 'markers': {
-			\ '.git': 'sh ' . $HOME . '/dotfiles/sh-scripts/guten-targets-git.sh',
-			\ },
-	\ }
+  \ 'markers': {
+      \ '.git': 'sh ' . $HOME . '/dotfiles/sh-scripts/guten-targets-git.sh',
+      \ },
+  \ }
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:jedi#show_call_signatures = 0
@@ -143,36 +143,36 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
 let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
 function! AirlineSetup()
-	let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
-	let g:airline_section_b = airline#section#create_left(['branch', 'hunks'])
-	let g:airline_section_c = airline#section#create_left(['file', ])
-	let g:airline_section_gutter = airline#section#create(['%<', 'tagbar', '%='])
-	let g:airline_section_x = airline#section#create_right(['crypt', 'paste', 'iminsert', ' %v'])
-	let g:airline_section_y = airline#section#create(['maxlinenr', ])
-	let g:airline_section_z = airline#section#create(['filetype'])
-	let g:airline_mode_map = {
-			\ '__'     : '-',
-			\ 'c'      : 'C',
-			\ 'i'      : 'I',
-			\ 'ic'     : 'I',
-			\ 'ix'     : 'I',
-			\ 'n'      : 'N',
-			\ 'multi'  : 'M',
-			\ 'ni'     : 'N',
-			\ 'no'     : 'N',
-			\ 'R'      : 'R',
-			\ 'Rv'     : 'R',
-			\ 's'      : 'S',
-			\ 'S'      : 'S',
-			\ ''     : 'S',
-			\ 't'      : 'T',
-			\ 'v'      : 'V',
-			\ 'V'      : 'V',
-			\ ''     : 'V',
-			\ }
-	let s:IA = [ 'gray15', 'gray80', 35, 234 ]
-	let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
-	let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
+  let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
+  let g:airline_section_b = airline#section#create_left(['branch', 'hunks'])
+  let g:airline_section_c = airline#section#create_left(['file', ])
+  let g:airline_section_gutter = airline#section#create(['%<', 'tagbar', '%='])
+  let g:airline_section_x = airline#section#create_right(['crypt', 'paste', 'iminsert', ' %v'])
+  let g:airline_section_y = airline#section#create(['maxlinenr', ])
+  let g:airline_section_z = airline#section#create(['filetype'])
+  let g:airline_mode_map = {
+      \ '__'     : '-',
+      \ 'c'      : 'C',
+      \ 'i'      : 'I',
+      \ 'ic'     : 'I',
+      \ 'ix'     : 'I',
+      \ 'n'      : 'N',
+      \ 'multi'  : 'M',
+      \ 'ni'     : 'N',
+      \ 'no'     : 'N',
+      \ 'R'      : 'R',
+      \ 'Rv'     : 'R',
+      \ 's'      : 'S',
+      \ 'S'      : 'S',
+      \ ''     : 'S',
+      \ 't'      : 'T',
+      \ 'v'      : 'V',
+      \ 'V'      : 'V',
+      \ ''     : 'V',
+      \ }
+  let s:IA = [ 'gray15', 'gray80', 35, 234 ]
+  let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
+  let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 endfunction
 
 " ALE
@@ -194,19 +194,19 @@ let g:ale_sign_column_always = 1
 let g:ale_sign_error = '#'
 let g:ale_sign_warning = '>'
 let g:coc_global_extensions = [
-	\ 'coc-css',
-	\ 'coc-html',
-	\ 'coc-htmldjango',
-	\ 'coc-jedi',
-	\ 'coc-json',
-	\ 'coc-pyright',
-	\ 'coc-sh',
-	\ 'coc-snippets',
-	\ 'coc-tabnine',
-	\ 'coc-tsserver',
-	\ 'coc-vimlsp',
-	\ 'coc-yaml',
-	\ ]
+  \ 'coc-css',
+  \ 'coc-html',
+  \ 'coc-htmldjango',
+  \ 'coc-jedi',
+  \ 'coc-json',
+  \ 'coc-pyright',
+  \ 'coc-sh',
+  \ 'coc-snippets',
+  \ 'coc-tabnine',
+  \ 'coc-tsserver',
+  \ 'coc-vimlsp',
+  \ 'coc-yaml',
+  \ ]
 
 call plug#end()
 " }}}
@@ -214,54 +214,54 @@ call plug#end()
 " Procedure for shell commands {{{
 " https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
 function! s:ExecuteInShell(command)
-	let command = join(map(split(a:command), 'expand(v:val)'))
-	let winnr = bufwinnr('^' . command . '$')
-	silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-	setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-	echo 'Execute ' . command . '...'
-	silent! execute 'silent %!'. command
-	silent! redraw
-	silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-	silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
-	echo 'Shell command ' . command . ' executed.'
+  let command = join(map(split(a:command), 'expand(v:val)'))
+  let winnr = bufwinnr('^' . command . '$')
+  silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
+  echo 'Execute ' . command . '...'
+  silent! execute 'silent %!'. command
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
+  echo 'Shell command ' . command . ' executed.'
 endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 " }}}
 
 " Arrow key shortcuts {{{
 function! DelEmptyLineAbove()
-	if line('.') == 1
-		return
-	endif
-	let l:line = getline(line('.') - 1)
-	if l:line =~# '^\s*$'
-		let l:colsave = col('.')
-		.-1d
-		"silent normal!
-		call cursor(line('.'), l:colsave)
-	endif
+  if line('.') == 1
+    return
+  endif
+  let l:line = getline(line('.') - 1)
+  if l:line =~# '^\s*$'
+    let l:colsave = col('.')
+    .-1d
+    "silent normal!
+    call cursor(line('.'), l:colsave)
+  endif
 endfunction
 function! AddEmptyLineAbove()
-	let l:scrolloffsave = &scrolloff
-	" Avoid jerky scrolling with ^E at top of window
-	set scrolloff=0
-	call append(line('.') - 1, '')
-	let &scrolloff = l:scrolloffsave
-	endfunction
-	function! DelEmptyLineBelow()
-	if line('.') == line('$')
-		return
-	endif
-	let l:line = getline(line('.') + 1)
-	if l:line =~# '^\s*$'
-		let l:colsave = col('.')
-		.+1d
-		''
-		call cursor(line('.'), l:colsave)
-	endif
+  let l:scrolloffsave = &scrolloff
+  " Avoid jerky scrolling with ^E at top of window
+  set scrolloff=0
+  call append(line('.') - 1, '')
+  let &scrolloff = l:scrolloffsave
+  endfunction
+  function! DelEmptyLineBelow()
+  if line('.') == line('$')
+    return
+  endif
+  let l:line = getline(line('.') + 1)
+  if l:line =~# '^\s*$'
+    let l:colsave = col('.')
+    .+1d
+    ''
+    call cursor(line('.'), l:colsave)
+  endif
 endfunction
 function! AddEmptyLineBelow()
-	call append(line('.'), '')
+  call append(line('.'), '')
 endfunction
 nnoremap <Left> <<
 nnoremap <Right> >>
@@ -305,9 +305,9 @@ nnoremap <silent> K :call ShowDocumentation()<CR>
 
 " Buffer and ctrlP
 command! -bang -nargs=* BLinesExtra
-			\ call fzf#vim#grep(
-			\ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
-			\ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
+      \ call fzf#vim#grep(
+      \ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
+      \ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
 nnoremap <C-/> :BLinesExtra<CR>
 " }}}
 
@@ -339,10 +339,10 @@ nnoremap -w <C-w><C-w>
 " make notes
 " https://www.gilesorr.com/blog/vim-tips-23-scratch-buffer.html
 function NewScratch()
-	split scratch-buffer.mkd
-	setlocal buftype=nofile
-	setlocal bufhidden=hide
-	setlocal noswapfile
+  split scratch-buffer.mkd
+  setlocal buftype=nofile
+  setlocal bufhidden=hide
+  setlocal noswapfile
 endfunction
 nnoremap <silent> -z :call NewScratch()<CR>
 " }}}
@@ -352,14 +352,14 @@ nnoremap <silent> -z :call NewScratch()<CR>
 nnoremap <Space>a :ALEDetail<CR>
 " Jump to definition in tags
 function TagJump()
-	let word = expand('<cword>')
-	vsplit
-	try
-		exec('tjump ' . l:word)
-	catch
-		echo l:word . ' not found'
-		close
-	endtry
+  let word = expand('<cword>')
+  vsplit
+  try
+    exec('tjump ' . l:word)
+  catch
+    echo l:word . ' not found'
+    close
+  endtry
 endfunction
 nnoremap <Space>d :call TagJump()<CR>
 " show syntax group
@@ -403,20 +403,20 @@ nnoremap <Space>gu :Gread<CR>
 
 " Smart window close replacement for :q
 function! EvanClose()
-	if (winnr('$') == 1 || (winnr('$') == 2 && winnr() == 2 && bufname('^NERD_tree') !=# ''))
-		if tabpagenr('$') == 1
-			bdelete
-			if expand('%:p') ==# ''
-				quit
-			endif
-		else
-			bdelete
-		endif
-	elseif expand('%:l') ==# '__doc__'
-		bdelete
-	else
-		close
-	endif
+  if (winnr('$') == 1 || (winnr('$') == 2 && winnr() == 2 && bufname('^NERD_tree') !=# ''))
+    if tabpagenr('$') == 1
+      bdelete
+      if expand('%:p') ==# ''
+        quit
+      endif
+    else
+      bdelete
+    endif
+  elseif expand('%:l') ==# '__doc__'
+    bdelete
+  else
+    close
+  endif
 endfunction
 nnoremap <Space>- :call EvanClose()<CR>
 " }}}
@@ -472,13 +472,13 @@ set wrapmargin=0
 " }}}
 " {{{ Auto commands
 function! DetectIndentIfNoLocalRC()
-	if !exists('g:loaded_localrc')
-		DetectIndent
-	endif
+  if !exists('g:loaded_localrc')
+    DetectIndent
+  endif
 endfunction
 " ------------------------------------------
 augroup vimrc
-	autocmd!
+  autocmd!
 augroup END
 autocmd vimrc BufNewFile,BufRead *.asy setfiletype asy
 autocmd vimrc BufNewFile,BufRead *.lean setfiletype lean
@@ -503,7 +503,7 @@ let g:Tex_ViewRule_pdf = 'zathura'
 let g:Tex_comment_nospell= 1
 let g:tex_flavor='latex'
 function! SyncTexForward()
-	exec 'silent !zathura --synctex-forward '.line('.').':'.col('.').':%:p %:p:r.pdf &'
+  exec 'silent !zathura --synctex-forward '.line('.').':'.col('.').':%:p %:p:r.pdf &'
 endfunction
 let g:tex_conceal='agms'
 let g:xml_syntax_folding=1

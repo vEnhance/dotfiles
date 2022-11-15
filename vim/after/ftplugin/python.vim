@@ -10,7 +10,7 @@ let g:python_space_error_highlight = 1
 
 let b:ale_linters = ['pyflakes', 'mypy', 'pyright']
 if &expandtab == 0
-	let b:ale_fixers = ['autoimport', 'isort', 'yapf']
+  let b:ale_fixers = ['autoimport', 'isort', 'yapf']
 endif
 
 
