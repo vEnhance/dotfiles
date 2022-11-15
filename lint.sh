@@ -23,6 +23,6 @@ vint -t "${VIM_FILES[@]}"
 
 # Shell
 echo "Running shfmt on ${#SHELL_FILES[@]} files..."
-shfmt -d "${SHELL_FILES[@]}"
+shfmt -i 2 -ci -d "${SHELL_FILES[@]}"
 echo "Running shellcheck on ${#SHELL_FILES[@]} files..."
 shellcheck --format=tty "${SHELL_FILES[@]}"
