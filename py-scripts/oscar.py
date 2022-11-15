@@ -272,28 +272,28 @@ def main(tsv_file, outfile, name):
     print(r"\begin{center}", file=outfile)
     print(r"\begin{asy}", file=outfile)
     print('\t' + r"""size(14cm, 0);
-	real[] hist;
-	real x = 2;
-	real y = %f;""" % yscale,
+    real[] hist;
+    real x = 2;
+    real y = %f;""" % yscale,
           file=outfile)
 
     for i in range(MAX_SCORE + 1):
         print('\t' + "hist[%d] = %d;" % (i, scores_total.count(i)),
               file=outfile)
     print(r"""
-	draw ((-x,0)--(%d*x,0));
-	for(int i = 0; i <= %d; ++i) {
-		filldraw(((i - 1)*x,0)--((i - 1)*x,hist[i]*y)--(i*x,hist[i]*y)--(i*x,0)--cycle, palecyan, black);
-		if (hist[i] > 0) {
-			label("$\mathsf{" + (string) hist[i] + "}$",((i - 0.5)*x,(hist[i])*y), dir(90), blue+fontsize(8pt));
-		}
-		if (i-i#7*7 == 0) {
-			label((string) i, ((i-0.5)*x,0), 3*dir(-90), black+fontsize(8pt));
-		}
-		else {
-			label((string) (i-i#10*10), ((i-0.5)*x,0), dir(-90), grey+fontsize(7pt));
-		}
-	}""" % (MAX_SCORE, MAX_SCORE),
+    draw ((-x,0)--(%d*x,0));
+    for(int i = 0; i <= %d; ++i) {
+        filldraw(((i - 1)*x,0)--((i - 1)*x,hist[i]*y)--(i*x,hist[i]*y)--(i*x,0)--cycle, palecyan, black);
+        if (hist[i] > 0) {
+            label("$\mathsf{" + (string) hist[i] + "}$",((i - 0.5)*x,(hist[i])*y), dir(90), blue+fontsize(8pt));
+        }
+        if (i-i#7*7 == 0) {
+            label((string) i, ((i-0.5)*x,0), 3*dir(-90), black+fontsize(8pt));
+        }
+        else {
+            label((string) (i-i#10*10), ((i-0.5)*x,0), dir(-90), grey+fontsize(7pt));
+        }
+    }""" % (MAX_SCORE, MAX_SCORE),
           file=outfile)
     print(r"\end{asy}", file=outfile)
     print(r"\end{center}", file=outfile)

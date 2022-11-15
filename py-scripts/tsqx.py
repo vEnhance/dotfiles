@@ -36,9 +36,9 @@ settings.outformat="pdf";
 import geometry;
 // recalibrate fill and filldraw for conics
 void filldraw(picture pic = currentpicture, conic g, pen fillpen=defaultpen, pen drawpen=defaultpen)
-	{ filldraw(pic, (path) g, fillpen, drawpen); }
+    { filldraw(pic, (path) g, fillpen, drawpen); }
 void fill(picture pic = currentpicture, conic g, pen p=defaultpen)
-	{ filldraw(pic, (path) g, p); }
+    { filldraw(pic, (path) g, p); }
 // some geometry
 pair foot(pair P, pair A, pair B) { return foot(triangle(A,B,P).VC); }
 pair orthocenter(pair A, pair B, pair C) { return orthocentercenter(A,B,C); }

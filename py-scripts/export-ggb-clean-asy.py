@@ -12,8 +12,8 @@ import pyperclip
 ALLOWED_CHARS = string.ascii_letters + string.digits + '_'
 
 ADVERTISEMENT = r"""/*
-	Converted from GeoGebra by User:Azjps using Evan's magic cleaner
-	https://github.com/vEnhance/dotfiles/blob/main/py-scripts/export-ggb-clean-asy.py
+    Converted from GeoGebra by User:Azjps using Evan's magic cleaner
+    https://github.com/vEnhance/dotfiles/blob/main/py-scripts/export-ggb-clean-asy.py
 */
 """
 

@@ -27,10 +27,10 @@ PREAMBLE = r"""<!DOCTYPE html>
 
 <script type="text/javascript">
 MathJax = {
-	tex: {
-		inlineMath: [['$','$'], ['\\(','\\)']],
-		displayMath: [['\\[', '\\]']],
-	}
+    tex: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        displayMath: [['\\[', '\\]']],
+    }
 };
 </script>
 <script type="text/javascript" id="MathJax-script" async
