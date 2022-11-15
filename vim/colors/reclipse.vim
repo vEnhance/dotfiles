@@ -99,6 +99,7 @@ highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=b
 highlight link pythonString String
 highlight link Directory Identifier
 highlight mkdURL guifg=#999999
+highlight htmlBold       ctermbg=237 ctermfg=195 cterm=bold
 
 highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
