@@ -1,13 +1,13 @@
 scriptencoding 'utf-8'
 if !has('gui_running')
-	hi mkdLink ctermfg=87
-	hi link mkdHeading Special
-	hi htmlH1 ctermfg=red
-	hi htmlH2 ctermfg=red
-	hi htmlH3 ctermfg=red
-	hi htmlH4 ctermfg=red
-	hi htmlH5 ctermfg=red
-	hi htmlH6 ctermfg=red
+  hi mkdLink ctermfg=87
+  hi link mkdHeading Special
+  hi htmlH1 ctermfg=red
+  hi htmlH2 ctermfg=red
+  hi htmlH3 ctermfg=red
+  hi htmlH4 ctermfg=red
+  hi htmlH5 ctermfg=red
+  hi htmlH6 ctermfg=red
 endif
 
 syn region mkdURL matchgroup=mkdDelimiter   start="("     end=")"  contained oneline contains=protocol,truncate

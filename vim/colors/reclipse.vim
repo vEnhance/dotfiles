@@ -6,7 +6,7 @@
 set background=light
 highlight clear
 if exists('syntax_on')
-	syntax reset
+  syntax reset
 endif
 
 let g:colors_name = 'reclipse'
@@ -105,20 +105,20 @@ highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
 
 if !has('gui_running')
-	highlight link Float          Number
-	highlight link Conditional    Repeat
-	highlight link Include        PreProc
-	highlight link Macro          PreProc
-	highlight link PreCondit      PreProc
-	highlight link StorageClass   Type
-	highlight link Structure      Type
-	highlight link Typedef        Type
-	highlight link Tag            Special
-	highlight link Delimiter      Normal
-	highlight link SpecialComment Special
-	highlight link Debug          Special
-	highlight link pythonBuiltin   Special
-	highlight link pythonStatement Statement
+  highlight link Float          Number
+  highlight link Conditional    Repeat
+  highlight link Include        PreProc
+  highlight link Macro          PreProc
+  highlight link PreCondit      PreProc
+  highlight link StorageClass   Type
+  highlight link Structure      Type
+  highlight link Typedef        Type
+  highlight link Tag            Special
+  highlight link Delimiter      Normal
+  highlight link SpecialComment Special
+  highlight link Debug          Special
+  highlight link pythonBuiltin   Special
+  highlight link pythonStatement Statement
 endif
 
 " CoC
