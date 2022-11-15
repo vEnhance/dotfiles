@@ -254,6 +254,7 @@ mode "exec" {
 	bindsym b exec libreoffice --calc &, mode "default"
 	bindsym c exec caprine &, mode "default"
 	bindsym d exec discord &, mode "default"
+	bindsym e exec epiphany &, mode "default"
 	bindsym f exec firefox &, mode "default"
 	bindsym g exec geogebra &, mode "default"
 	# short for hanabi
