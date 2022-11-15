@@ -16,67 +16,67 @@ workspace_auto_back_and_forth no
 # finds out, if available)
 # bar {{{
 bar {
-	id bottom-bar
-	position bottom
-	font pango:Inconsolata, FontAwesome 12
-	strip_workspace_numbers yes
-	tray_output primary
-	status_command py3status
+  id bottom-bar
+  position bottom
+  font pango:Inconsolata, FontAwesome 12
+  strip_workspace_numbers yes
+  tray_output primary
+  status_command py3status
 
-	colors {
-		background #121212
-		statusline #efefef
-		separator #00cca7
+  colors {
+    background #121212
+    statusline #efefef
+    separator #00cca7
 
-		focused_workspace #fefefe #289977
-		active_workspace   #dddddd #333388
-		inactive_workspace  #cdcdcd #121212
-		urgent_workspace   #ffffff #900000
-	}
+    focused_workspace #fefefe #289977
+    active_workspace   #dddddd #333388
+    inactive_workspace  #cdcdcd #121212
+    urgent_workspace   #ffffff #900000
+  }
 }
 # }}}
 
 # hjkl navigation {{{
 # change focus
-	bindsym $mod+h focus left
-	bindsym $mod+j focus down
-	bindsym $mod+k focus up
-	bindsym $mod+l focus right
-	bindsym $mod+Left  workspace prev
-	bindsym $mod+Right workspace next
+  bindsym $mod+h focus left
+  bindsym $mod+j focus down
+  bindsym $mod+k focus up
+  bindsym $mod+l focus right
+  bindsym $mod+Left  workspace prev
+  bindsym $mod+Right workspace next
 
-	# move focused window
-	bindsym $mod+Shift+h move left
-	bindsym $mod+Shift+j move down
-	bindsym $mod+Shift+k move up
-	bindsym $mod+Shift+l move right
+  # move focused window
+  bindsym $mod+Shift+h move left
+  bindsym $mod+Shift+j move down
+  bindsym $mod+Shift+k move up
+  bindsym $mod+Shift+l move right
 # }}}
 
 # window layouts [svftes.\tab] {{{
-	# split in horizontal orientation
-	bindsym $mod+z split h
-	# split in vertical orientation
-	bindsym $mod+v split v
+  # split in horizontal orientation
+  bindsym $mod+z split h
+  # split in vertical orientation
+  bindsym $mod+v split v
 
-	# enter fullscreen mode for the focused container
-	bindsym $mod+f fullscreen
+  # enter fullscreen mode for the focused container
+  bindsym $mod+f fullscreen
 
-	# change container layout (stacked, tabbed, toggle split)
-	bindsym $mod+t layout tabbed
-	bindsym $mod+e layout toggle split
-	bindsym $mod+s layout stacking
-	# Default stacking
-	workspace_layout stacking
+  # change container layout (stacked, tabbed, toggle split)
+  bindsym $mod+t layout tabbed
+  bindsym $mod+e layout toggle split
+  bindsym $mod+s layout stacking
+  # Default stacking
+  workspace_layout stacking
 
-	# toggle tiling / floating
-	bindsym $mod+period floating toggle
-	# change focus between tiling / floating windows
-	bindsym $mod+Tab focus mode_toggle
+  # toggle tiling / floating
+  bindsym $mod+period floating toggle
+  # change focus between tiling / floating windows
+  bindsym $mod+Tab focus mode_toggle
 
-	# focus the parent container
-	bindsym $mod+a focus parent
-	# focus the child container
-	bindsym $mod+b focus child
+  # focus the parent container
+  bindsym $mod+a focus parent
+  # focus the child container
+  bindsym $mod+b focus child
 # }}}
 
 bindsym $mod+minus move scratchpad; exec --no-startup-id killall -s USR1 py3status
@@ -115,34 +115,34 @@ bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
 
 # nudge {{{
 mode "nudge" {
-	bindsym a focus parent
-	bindsym b focus child
+  bindsym a focus parent
+  bindsym b focus child
 
-	bindsym h move left
-	bindsym j move down
-	bindsym k move up
-	bindsym l move right
+  bindsym h move left
+  bindsym j move down
+  bindsym k move up
+  bindsym l move right
 
-	bindsym grave move container to workspace number 0; workspace number 0;
-	bindsym 1 move container to workspace number 1; workspace number 1;
-	bindsym 2 move container to workspace number 2; workspace number 2;
-	bindsym 3 move container to workspace number 3; workspace number 3;
-	bindsym 4 move container to workspace number 4; workspace number 4;
-	bindsym 5 move container to workspace number 5; workspace number 5;
-	bindsym 6 move container to workspace number 6; workspace number 6;
-	bindsym 7 move container to workspace number 7; workspace number 7;
-	bindsym 8 move container to workspace number 8; workspace number 8;
-	bindsym 9 move container to workspace number 9; workspace number 9;
-	bindsym 0 move container to workspace number 10; workspace number 10;
+  bindsym grave move container to workspace number 0; workspace number 0;
+  bindsym 1 move container to workspace number 1; workspace number 1;
+  bindsym 2 move container to workspace number 2; workspace number 2;
+  bindsym 3 move container to workspace number 3; workspace number 3;
+  bindsym 4 move container to workspace number 4; workspace number 4;
+  bindsym 5 move container to workspace number 5; workspace number 5;
+  bindsym 6 move container to workspace number 6; workspace number 6;
+  bindsym 7 move container to workspace number 7; workspace number 7;
+  bindsym 8 move container to workspace number 8; workspace number 8;
+  bindsym 9 move container to workspace number 9; workspace number 9;
+  bindsym 0 move container to workspace number 10; workspace number 10;
 
-	# wider, narrower, shorter, taller
-	bindsym w resize grow width 5 px or 5 ppt
-	bindsym u resize shrink width 5 px or 5 ppt
-	bindsym s resize shrink height 5 px or 5 ppt
-	bindsym t resize grow height 5 px or 5 ppt
+  # wider, narrower, shorter, taller
+  bindsym w resize grow width 5 px or 5 ppt
+  bindsym u resize shrink width 5 px or 5 ppt
+  bindsym s resize shrink height 5 px or 5 ppt
+  bindsym t resize grow height 5 px or 5 ppt
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+n exec --no-startup-id $HOME/dotfiles/i3/reminder-nudge.sh, mode "nudge"
 # }}}
@@ -152,131 +152,131 @@ bindsym $mod+n exec --no-startup-id $HOME/dotfiles/i3/reminder-nudge.sh, mode "n
 # (and so that if we hold down the key by accident nothing happens
 bindsym $mod+q mode "close"
 mode "close" {
-	bindsym Return kill window, mode "default"
-	bindsym Escape mode "default"
+  bindsym Return kill window, mode "default"
+  bindsym Escape mode "default"
 }
 # }}}
 
 # power mode {{{
 mode "danger" {
-	bindsym e exit
-	bindsym n exec --no-startup-id systemctl suspend, mode "default"
-	bindsym p exec --no-startup-id systemctl poweroff
-	bindsym z exec --no-startup-id systemctl reboot
-	bindsym x exec --no-startup-id $HOME/dotfiles/sh-scripts/xrandr.sh, mode "default"
+  bindsym e exit
+  bindsym n exec --no-startup-id systemctl suspend, mode "default"
+  bindsym p exec --no-startup-id systemctl poweroff
+  bindsym z exec --no-startup-id systemctl reboot
+  bindsym x exec --no-startup-id $HOME/dotfiles/sh-scripts/xrandr.sh, mode "default"
 
-	# back to normal: Enter or Escape
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+Shift+backslash exec --no-startup-id $HOME/dotfiles/i3/reminder-danger.sh, mode "danger"
 # }}}
 
 # config/reset mode {{{
 mode "config" {
-	# reload the configuration file
-	bindsym r reload, mode "default"
-	# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-	bindsym i restart, mode "default"
-	bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
-	bindsym f exec --no-startup-id source ~/.fehbg, mode "default"
-	bindsym c exec --no-startup-id xdotool key Caps_Lock, mode "default"
+  # reload the configuration file
+  bindsym r reload, mode "default"
+  # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+  bindsym i restart, mode "default"
+  bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh, mode "default"
+  bindsym f exec --no-startup-id source ~/.fehbg, mode "default"
+  bindsym c exec --no-startup-id xdotool key Caps_Lock, mode "default"
 
-	# switch mouse buttons
-	bindsym h exec --no-startup-id notify-send -i actions/format-justify-left-symbolic \
-		"Left hand mouse" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)",\
-		mode "default"
-	bindsym l exec --no-startup-id notify-send -i actions/format-justify-right-symbolic \
-		"Right hand mouse" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)", \
-		mode "default"
+  # switch mouse buttons
+  bindsym h exec --no-startup-id notify-send -i actions/format-justify-left-symbolic \
+    "Left hand mouse" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)",\
+    mode "default"
+  bindsym l exec --no-startup-id notify-send -i actions/format-justify-right-symbolic \
+    "Right hand mouse" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)", \
+    mode "default"
 
-	# starcraft mode
-	bindsym s exec --no-startup-id notify-send -i status/starred-symbolic "SC2 mode glhf" \
-		"$(xmodmap -e \"pointer = 1 2 3\" 2>&1)\n$(xset r rate 150 40 2>&1)", \
-		mode "default"
-	# normal mode
-	bindsym n exec --no-startup-id notify-send -i actions/mail-reply-symbolic \
-		"Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", \
-		mode "default"
+  # starcraft mode
+  bindsym s exec --no-startup-id notify-send -i status/starred-symbolic "SC2 mode glhf" \
+    "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)\n$(xset r rate 150 40 2>&1)", \
+    mode "default"
+  # normal mode
+  bindsym n exec --no-startup-id notify-send -i actions/mail-reply-symbolic \
+    "Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", \
+    mode "default"
 
-	bindsym p exec xfconf-query -c xfce4-power-manager \
-		-p /xfce4-power-manager/presentation-mode -T \
-		&& notify-send -i dialog-information-symbolic "xfce4 power manager presentation mode" \
-		"$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)", \
-		mode "default"
+  bindsym p exec xfconf-query -c xfce4-power-manager \
+    -p /xfce4-power-manager/presentation-mode -T \
+    && notify-send -i dialog-information-symbolic "xfce4 power manager presentation mode" \
+    "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)", \
+    mode "default"
 
-	bindsym b exec --no-startup-id bugwarrior-pull, mode "default"
-	bindsym t exec --no-startup-id task sync, mode "default"
+  bindsym b exec --no-startup-id bugwarrior-pull, mode "default"
+  bindsym t exec --no-startup-id task sync, mode "default"
 
-	# back to normal: Enter or Escape
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  # back to normal: Enter or Escape
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+Escape exec --no-startup-id $HOME/dotfiles/i3/reminder-config.sh, mode "config"
 # }}}
 
 # Ponymix {{{
 mode "ponymix" {
-	# volume
-	bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
-	bindsym d exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh d
-	bindsym k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh k
-	bindsym j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh j
-	bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh m, mode "default"
-	bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
-	bindsym v exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh v, mode "default"
-	bindsym z exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh z, mode "default"
+  # volume
+  bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
+  bindsym d exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh d
+  bindsym k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh k
+  bindsym j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh j
+  bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh m, mode "default"
+  bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
+  bindsym v exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh v, mode "default"
+  bindsym z exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh z, mode "default"
 
-	# switch devices
-	bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh l, mode "default"
-	bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
-	bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh s, mode "default"
-	bindsym h exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh h, mode "default"
+  # switch devices
+  bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh l, mode "default"
+  bindsym r exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh r, mode "default"
+  bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh s, mode "default"
+  bindsym h exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh h, mode "default"
 
-	# playerctl
-	bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
-	bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p
-	bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n
+  # playerctl
+  bindsym space exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh space, mode "default"
+  bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p
+  bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n
 
-	# control Spotify volume
-	bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
-	bindsym Shift+j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh J
+  # control Spotify volume
+  bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
+  bindsym Shift+j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh J
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+o exec --no-startup-id $HOME/dotfiles/i3/reminder-ponymix.sh, mode "ponymix"
 # }}}
 
 # executable {{{
 mode "exec" {
-	bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
-	bindsym b exec libreoffice --calc &, mode "default"
-	bindsym c exec caprine &, mode "default"
-	bindsym d exec discord &, mode "default"
-	bindsym e exec epiphany &, mode "default"
-	bindsym f exec firefox &, mode "default"
-	bindsym g exec geogebra &, mode "default"
-	# short for hanabi
-	bindsym h exec chromium &, mode "default"
-	bindsym l exec --no-startup-id /home/evan/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
-	# short for money
-	bindsym m exec gnucash &, mode "default"
-	# short for next
-	bindsym n exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
-	bindsym o exec obs &, mode "default"
-	bindsym p exec python "$HOME/dotfiles/py-scripts/projtext.py" &, mode "default"
-	bindsym q exec qutebrowser &, mode "default"
-	bindsym r exec "xfce4-terminal --geometry 120x32 --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
-	bindsym s exec spotify &, mode "default"
-	bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
-	# Open latest chapter of diary
-	bindsym y exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
-	bindsym z exec zoom &, mode "default"
-	bindsym space exec loginctl lock-session, mode "default"
+  bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
+  bindsym b exec libreoffice --calc &, mode "default"
+  bindsym c exec caprine &, mode "default"
+  bindsym d exec discord &, mode "default"
+  bindsym e exec epiphany &, mode "default"
+  bindsym f exec firefox &, mode "default"
+  bindsym g exec geogebra &, mode "default"
+  # short for hanabi
+  bindsym h exec chromium &, mode "default"
+  bindsym l exec --no-startup-id /home/evan/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
+  # short for money
+  bindsym m exec gnucash &, mode "default"
+  # short for next
+  bindsym n exec "xfce4-terminal --geometry 120x32 --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
+  bindsym o exec obs &, mode "default"
+  bindsym p exec python "$HOME/dotfiles/py-scripts/projtext.py" &, mode "default"
+  bindsym q exec qutebrowser &, mode "default"
+  bindsym r exec "xfce4-terminal --geometry 120x32 --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
+  bindsym s exec spotify &, mode "default"
+  bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
+  # Open latest chapter of diary
+  bindsym y exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
+  bindsym z exec zoom &, mode "default"
+  bindsym space exec loginctl lock-session, mode "default"
 
-	bindsym Return mode "default"
-	bindsym Escape mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
 }
 bindsym $mod+x exec --no-startup-id $HOME/dotfiles/i3/reminder-exec.sh, mode "exec"
 # }}}
