@@ -7,15 +7,15 @@ DE-MACRO
 
 Version 1.4.1 - A small typo corrected.
 
-Version 1.4	 - Luca Citi made it python2.7 and python3 compatible.
-	Peter Gacs improved the parsing of \input{<filename>},
-	and made @ a letter in the style files.
-Version 1.3	 - this version is much more conservative about deleting
-	comments and inserting or deleting blank space: tries to
-	leave in all comments, adds space only when necessary, and
-	tries not to delete space in the main text.
-	The motivating comments came from Daniel Webb.
-Version 1.2	 - a syntactical bug corrected, thanks Brian de Alwis!
+Version 1.4     - Luca Citi made it python2.7 and python3 compatible.
+    Peter Gacs improved the parsing of \input{<filename>},
+    and made @ a letter in the style files.
+Version 1.3     - this version is much more conservative about deleting
+    comments and inserting or deleting blank space: tries to
+    leave in all comments, adds space only when necessary, and
+    tries not to delete space in the main text.
+    The motivating comments came from Daniel Webb.
+Version 1.2     - a syntactical bug corrected, thanks Brian de Alwis!
 
 
 PURPOSE
@@ -25,7 +25,7 @@ Applications:
 - your publisher has difficulty dealing with many private macros
 - you cooperate with colleagues who do not understand your macros
 - preprocessing before a system like latex2html, which is somewhat
-	unpredictable with private macros.
+    unpredictable with private macros.
 
 It cannot be used to eliminate more complex macros that rely on
 more programming-like constructs in style files.  In particular, it will
@@ -35,7 +35,7 @@ USAGE
 
 de-macro [--defs <defs-db>] <tex-file-1>[.tex] [<tex-file-2>[.tex] ...]
 
-Simplest example:	 de-macro testament
+Simplest example:     de-macro testament
 
 (As you see, the <> is used only in the notation of this documentation,
 you should not type it.)
@@ -103,10 +103,10 @@ class Error(Exception):
 class Empty_text_error(Error):
     r"""Exception raised for errors in the input.
 
-	Attributes:
-		data -- data that was found empty
-		message
-	"""
+    Attributes:
+        data -- data that was found empty
+        message
+    """
 
     def __init__(self, data, message):
         self.data = data
@@ -160,9 +160,9 @@ def newer(file1, file2):
 
 def cut_extension(filename, ext):
     r"""
-	If filename has extension ext (including the possible dot),
-	it will be cut off.
-	"""
+    If filename has extension ext (including the possible dot),
+    it will be cut off.
+    """
     file = filename
     index = filename.rfind(ext)
     if 0 <= index and len(file) - len(ext) == index:
@@ -218,8 +218,8 @@ def isletter(c, isatletter=False):
 
 class Token:
     r"""Type 0 means ordinary character, types 1,2 mean escape sequence
-	(without the \ ), type 3 means comment.
-	"""
+    (without the \ ), type 3 means comment.
+    """
     simple_ty = 0
     esc_symb_ty = 1
     esc_str_ty = 2
@@ -252,9 +252,9 @@ esc_str_ty = g_token.esc_str_ty
 
 def detokenize(text, isatletter=False):
     r"""
-	Input is a list of tokens.
-	Output is a string.
-	"""
+    Input is a list of tokens.
+    Output is a string.
+    """
     out = ""
     if 0 == len(text):
         return
@@ -265,7 +265,7 @@ def detokenize(text, isatletter=False):
         previtem = text[pos - 1]
         item = text[pos]
         r"""Insert a separating space after an escape sequence if it is a
-		string and is followed by a letter."""
+        string and is followed by a letter."""
         if (esc_str_ty == previtem.type and simple_ty == item.type and
                 isletter(item.val[0], isatletter)):
             out += " "
@@ -276,9 +276,9 @@ def detokenize(text, isatletter=False):
 
 def strip_comments(text):
     r"""
-	Input is a list of tokens.
-	Output is the same list except the comment tokens.
-	"""
+    Input is a list of tokens.
+    Output is the same list except the comment tokens.
+    """
     out = []
     for token in text:
         if not comment_ty == token.type:
@@ -288,7 +288,7 @@ def strip_comments(text):
 
 class Group:
     r"""type 0 means a token, type 1 means contents of a group within {}
-	"""
+    """
     token_ty = 0
     group_ty = 1
     type = token_ty
@@ -314,7 +314,7 @@ group_ty = g_group.group_ty
 
 def tokenize(in_str, isatletter=False):
     r"""Returns a list of tokens.
-	"""
+    """
     text = []
     cs = Char_stream(in_str)
     cs.reset()
@@ -418,9 +418,9 @@ class Char_stream(Stream):
 
     def scan_escape_token(self, isatletter=False):
         r"""
-		Starts after the escape sign, assumes that it is scanning a symbol.
-		Returns a token-string.
-		"""
+        Starts after the escape sign, assumes that it is scanning a symbol.
+        Returns a token-string.
+        """
         out = self.item  # Continue only if this is a letter.
         item = self.next()
         if isletter(out, isatletter):
@@ -431,10 +431,10 @@ class Char_stream(Stream):
 
     def scan_comment_token(self):
         r"""
-		Starts at the comment sign %, assumes that it is scanning a comment.
-		Returns the whole comment string,
-		including the % and all empty space after it.
-		"""
+        Starts at the comment sign %, assumes that it is scanning a comment.
+        Returns the whole comment string,
+        including the % and all empty space after it.
+        """
         comment = ""
         while self.uplegal() and "\n" != self.item:
             comment += self.item
@@ -446,9 +446,9 @@ class Char_stream(Stream):
 
     def scan_input_filename(self):
         r"""We have just read an \input token.  The next group or word will be
-		interpreted as a filename (possibly without .tex).	Filenames should not begin with spaces.
-		Return the filename.
-		"""
+        interpreted as a filename (possibly without .tex).    Filenames should not begin with spaces.
+        Return the filename.
+        """
         item = self.item
         file = ""
         while self.uplegal() and blank_re.match(self.item):
@@ -467,9 +467,9 @@ class Char_stream(Stream):
 
     def scan_package_filenames(self):
         r"""We just read a \usepackage token.  The next group will be
-		interpreted as a list of filenames (without .sty) separated by commas.
-		Return the list.
-		"""
+        interpreted as a list of filenames (without .sty) separated by commas.
+        Return the list.
+        """
         item = self.item
         while self.uplegal() and blank_re.match(item):
             item = self.next()
@@ -493,8 +493,8 @@ class Tex_stream(Stream):
 
     def smart_tokenize(self, in_str, handle_inputs=False, isatletter=False):
         r"""Returns a list of tokens.
-		It may interpret and carry out all \input commands.
-		"""
+        It may interpret and carry out all \input commands.
+        """
         self.data = []
         text = self.data
         cs = Char_stream(in_str)
@@ -556,10 +556,10 @@ class Tex_stream(Stream):
 
     def smart_detokenize(self, isatletter=False):
         r"""
-		Output is a string.
-		If the list contains an \input{file} then the content of file
-		file-clean.tex replaces it in the output.
-		"""
+        Output is a string.
+        If the list contains an \input{file} then the content of file
+        file-clean.tex replaces it in the output.
+        """
         self.reset()
         if not self.legal():
             return ""
@@ -568,7 +568,7 @@ class Tex_stream(Stream):
         while self.uplegal():
             item = self.item
             r"""Insert a separating space after an escape sequence if it is a
-			string and is followed by a letter."""
+            string and is followed by a letter."""
             if (None != previtem and esc_str_ty == previtem.type and
                     simple_ty == item.type and
                     isletter(item.val[0], isatletter)):
@@ -601,7 +601,7 @@ class Tex_stream(Stream):
 
     def scan_group(self):
         r"""Returns group.
-		"""
+        """
         if not self.legal():
             raise Error("No group to scan.")
         item = self.item
@@ -625,7 +625,7 @@ class Tex_stream(Stream):
 
     def scan_command_name(self):
         r"""Returns name.
-		"""
+        """
         if not self.legal():
             raise Error("No command name to scan.")
         item = self.item
@@ -652,13 +652,13 @@ class Tex_stream(Stream):
 
     def scan_numargs(self, name):
         r"""
-		name is the name of the command or environment definition being
-		scanned.
-		Starts on a nonblank token.
-		Returns numargs
-		where numargs is the number of arguments in a command or environment
-		definition,
-		"""
+        name is the name of the command or environment definition being
+        scanned.
+        Starts on a nonblank token.
+        Returns numargs
+        where numargs is the number of arguments in a command or environment
+        definition,
+        """
         if not self.legal():
             raise Error("No numargs to scan.")
         item = self.item
@@ -690,9 +690,9 @@ class Tex_stream(Stream):
 
     def scan_command_def(self):
         r"""Scan a command definition.
-		Return command_def.
-		Assumes that the number of arguments is at most 9.
-		"""
+        Return command_def.
+        Assumes that the number of arguments is at most 9.
+        """
         if not self.legal():
             raise Error("No command definition to scan.")
         item = self.item
@@ -720,8 +720,8 @@ class Tex_stream(Stream):
 
     def scan_env_name(self):
         r"""Starts on a {.
-		Returns name.
-		"""
+        Returns name.
+        """
         if not self.legal():
             raise Error("No environment name to scan.")
         item = self.item
@@ -752,9 +752,9 @@ class Tex_stream(Stream):
 
     def scan_env_def(self):
         r"""Scan an environment definition.
-		Return env_def
-		Assumes that the number of arguments is at most 9.
-		"""
+        Return env_def
+        Assumes that the number of arguments is at most 9.
+        """
         if not self.legal():
             raise Error("No environment definition to scan.")
         item = self.item
@@ -810,8 +810,8 @@ class Tex_stream(Stream):
 
     def scan_args(self, command_or_env_def):
         r"""Scan the arguments of a command or environment.
-		Return [args].
-		"""
+        Return [args].
+        """
         if not self.legal():
             raise Error("No arguments to scan.")
         numargs = command_or_env_def.numargs
@@ -831,8 +831,8 @@ class Tex_stream(Stream):
 
     def scan_command(self, command_def):
         r"""Scan the arguments of a command.
-		Return command_instance
-		"""
+        Return command_instance
+        """
         if not self.legal():
             raise Error("No command to scan.")
         if not self.item.type in [esc_symb_ty, esc_str_ty]:
@@ -848,8 +848,8 @@ class Tex_stream(Stream):
 
     def test_env_boundary(self, item):
         r"""Check whether an environment begin or end follows.
-		Return 1 if \begin, -1 if \end, 0 otherwise.
-		"""
+        Return 1 if \begin, -1 if \end, 0 otherwise.
+        """
         d = 0
         if esc_str_ty == item.type:
             if "begin" == item.val:
@@ -860,8 +860,8 @@ class Tex_stream(Stream):
 
     def scan_env_begin(self):
         r"""Scan an environment name.
-		Return env_name.
-		"""
+        Return env_name.
+        """
         if not self.legal():
             raise Error("No environment begin to scan.")
         item = self.item
@@ -874,8 +874,8 @@ class Tex_stream(Stream):
 
     def scan_env_end(self):
         r"""Scan an environment end.
-		Return env_name.
-		"""
+        Return env_name.
+        """
         if not self.legal():
             raise Error("No environment end to scan.")
         item = self.item
@@ -888,8 +888,8 @@ class Tex_stream(Stream):
 
     def scan_env_rest(self, env_def):
         r"""Scanning starts after \begin{envname}.
-		Returns env_instance.
-		"""
+        Returns env_instance.
+        """
         if not self.legal():
             raise Error("No environment rest to scan.")
         count = 1  # We are already within a boundary.
@@ -1053,7 +1053,7 @@ class Tex_stream(Stream):
 
     def process_file(self, file):
         r"""Returns the new defs.
-		"""
+        """
         file = cut_extension(file, ".tex")
         source_file = "%s.tex" % (file)
         print("File %s [" % (source_file))
@@ -1084,10 +1084,10 @@ class Tex_stream(Stream):
 
     def process_if_newer(self, file):
         r"""
-		\input{file} is added to the token list.
-		If the input file is newer it is processed.
-		Returns tokenized \input{file}.
-		"""
+        \input{file} is added to the token list.
+        If the input file is newer it is processed.
+        Returns tokenized \input{file}.
+        """
         file = cut_extension(file, ".tex")
         tex_file = file + ".tex"
         clean_tex_file = file + "-clean.tex"
