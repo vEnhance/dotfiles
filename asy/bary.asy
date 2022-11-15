@@ -8,11 +8,11 @@ real c = abs(A-B);
 real s = (a+b+c)/2;
 
 pair bary(real x, real y, real z) {
-	real k = x+y+z;
-	x /= k;
-	y /= k;
-	z /= k;
-	return x*A + y*B + z*C;
+    real k = x+y+z;
+    x /= k;
+    y /= k;
+    z /= k;
+    return x*A + y*B + z*C;
 }
 
 real S_A = (b*b+c*c-a*a)/2;

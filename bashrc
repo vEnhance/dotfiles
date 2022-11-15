@@ -4,21 +4,21 @@
 #
 
 if [ -f ~/dotfiles/sh-scripts/git-completion.bash ]; then
-	# Git magic / Sourcing
-	# shellcheck disable=SC2034
-	GIT_PS1_SHOWDIRTYSTATE=1
-	# shellcheck disable=SC2034
-	GIT_PS1_SHOWSTASHSTATE=1
-	# shellcheck disable=SC2034
-	GIT_PS1_SHOWUPSTREAM="auto"
-	source ~/dotfiles/sh-scripts/git-completion.bash
-	source ~/dotfiles/sh-scripts/git-prompt.bash
-	export PS1='\[\033[0;32m\]\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
+  # Git magic / Sourcing
+  # shellcheck disable=SC2034
+  GIT_PS1_SHOWDIRTYSTATE=1
+  # shellcheck disable=SC2034
+  GIT_PS1_SHOWSTASHSTATE=1
+  # shellcheck disable=SC2034
+  GIT_PS1_SHOWUPSTREAM="auto"
+  source ~/dotfiles/sh-scripts/git-completion.bash
+  source ~/dotfiles/sh-scripts/git-prompt.bash
+  export PS1='\[\033[0;32m\]\u@\h \[\033[0;33m\]\w$(__git_ps1 " \[\033[1;31m\]#%s")\n\[\033[0m\]\$ '
 else
-	export PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
-	if [ -f ~/banner ]; then
-		cat ~/banner
-	fi
+  export PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
+  if [ -f ~/banner ]; then
+    cat ~/banner
+  fi
 fi
 export SUDO_PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
 
@@ -28,13 +28,13 @@ export TERM='xterm-256color'
 GPG_TTY=$(tty)
 export GPG_TTY
 if [ -d "$HOME"/.texmf ]; then
-	export TEXMFHOME="$HOME"/.texmf
+  export TEXMFHOME="$HOME"/.texmf
 fi
 if [ -d "$HOME"/.sage ]; then
-	export DOT_SAGENB="$HOME"/.sage
+  export DOT_SAGENB="$HOME"/.sage
 fi
 if [ -f /usr/bin/zathura ]; then
-	export PDFVIEWER='zathura'
+  export PDFVIEWER='zathura'
 fi
 
 umask 007 # set umask
@@ -74,18 +74,18 @@ export PATH=$PATH:$HOME/.local/bin
 
 # Various functions
 function rot13() {
-	if [ -r "$1" ]; then
-		tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9' <"$1"
-	else
-		cat | tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9'
-	fi
+  if [ -r "$1" ]; then
+    tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9' <"$1"
+  else
+    cat | tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9'
+  fi
 }
 # Uses the locate utility to find a certain file
 function hunt() {
-	python3 ~/dotfiles/py-scripts/hunt.py "${1}"
-	cd "$(cat /tmp/hunt."$(whoami)")" || exit
-	pwd
-	ls -l --color=tty
+  python3 ~/dotfiles/py-scripts/hunt.py "${1}"
+  cd "$(cat /tmp/hunt."$(whoami)")" || exit
+  pwd
+  ls -l --color=tty
 }
 
 #It speaks!
@@ -137,15 +137,15 @@ alias fgrep='fgrep --color=auto' # show differences in color
 
 # Some shortcuts for different directory listings
 if [ -f /bin/pacman ]; then
-	alias ls='ls --color=tty --quoting-style=literal' # classify files in color
-	alias ll='ls -l --color=tty'                      # long list
-	alias l='ls -CF'                                  #
+  alias ls='ls --color=tty --quoting-style=literal' # classify files in color
+  alias ll='ls -l --color=tty'                      # long list
+  alias l='ls -CF'                                  #
 elif [ -f /sbin/apk ]; then
-	alias ls='ls --color=always' # classify files in color
-	alias ll='ls -l --color=tty' # long list
-	alias l='ls -CF'             #
+  alias ls='ls --color=always' # classify files in color
+  alias ll='ls -l --color=tty' # long list
+  alias l='ls -CF'             #
 elif [ "$(uname)" = Darwin ]; then
-	alias ls='ls -G'  # classify files in color
-	alias ll='ls -Gl' # long list
-	alias l='ls -CF'  #
+  alias ls='ls -G'  # classify files in color
+  alias ll='ls -Gl' # long list
+  alias l='ls -CF'  #
 fi
