@@ -204,24 +204,24 @@ class VenueQNode:
 
     def load(self):
         """This method loads a dictionary object from disk.
-		Override it to change how the data on disk is interpreted."""
+        Override it to change how the data on disk is interpreted."""
         return yaml.load(self.read(), Loader=yaml.SafeLoader)
 
     def dump(self):
         """This method serializes the dictionary object to save to disk.
-		Override it to change how the data on disk is written."""
+        Override it to change how the data on disk is written."""
         return yaml.dump(self.data, Dumper=yaml.SafeDumper, allow_unicode=True)
 
     def on_buffer_open(self, data: Data):
         """This method is called when the buffer is loaded.
-		This is called with an argument data = self.load().
-		Override this to perform actions."""
+        This is called with an argument data = self.load().
+        Override this to perform actions."""
         logging.info(f"Opened buffer {self.path}")
 
     def on_buffer_close(self, data: Data):
         """This method is called when the disk data is edited and saved.
-		This is called with an argument data = self.load().
-		Override this to perform actions."""
+        This is called with an argument data = self.load().
+        Override this to perform actions."""
         logging.info(f"Closed buffer {self.path}")
         self.data.update(data)
 
