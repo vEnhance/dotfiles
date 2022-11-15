@@ -2,6 +2,7 @@
 targets = github_issues
 annotation_comments = False
 legacy_matching = False
+log.level = WARNING
 
 [notifications]
 notifications = True
