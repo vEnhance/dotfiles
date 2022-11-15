@@ -24,15 +24,9 @@ requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.yapf]
-based_on_style = "facebook"
+based_on_style = "google"
 column_limit = 96
-use_tabs = true
-continuation_align_style = "VALIGN-RIGHT"
-continuation_indent_width = 2
-indent_width = 2
-align_closing_bracket_with_visual_indent = false
-split_before_dot = true
-split_before_expression_after_opening_paren = true
+use_tabs = false
 
 [tool.pyright]
 enableTypeIgnoreComments = true
