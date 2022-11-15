@@ -310,6 +310,9 @@ function hub
 		gh pr list
 	else if test "$argv" = "claim $digits"
 		gh $flavor edit --add-assignee "@me"
+		if command -q bugwarrior-pull
+			bugwarrior-pull
+		end
 	else if test "$argv" = "lb $digits"
 		GH_FORCE_TTY=50% gh $flavor view $digits | head -n 8
 		set_color --bold cyan
@@ -329,6 +332,12 @@ function hub
 		end
 	else if test (echo $argv | cut -d " " -f 1) = "$digits"
 		hub $flavor view $argv
+	else if test (echo $argv | cut -d " " -f 1) = "done"
+		hub $argv
+		bugwarrior-pull &
+	else if test (echo $argv | cut -d " " -f 1) = "close"
+		hub $argv
+		bugwarrior-pull &
 	else
 		gh $argv
 	end
