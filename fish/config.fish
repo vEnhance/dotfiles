@@ -168,11 +168,22 @@ alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
 alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias wut='watch -b -c -n 10 "python manage.py test"'
+
+function aes-encode
+    openssl aes-256-cbc -a -salt -pbkdf2 -pass pass:$argv
+end
+function aes-decode
+    openssl aes-256-cbc -a -d -pbkdf2 -pass pass:$argv
+end
+function bw-unlock
+    export BW_SESSION=(bw unlock --raw)
+    bw status --pretty | jq
+end
+
 #gd ubuntu
 alias pip='pip3'
 alias pudb='pudb3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
-
 
 # OTIS venue Q
 alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
