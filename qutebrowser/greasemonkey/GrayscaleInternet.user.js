@@ -4,8 +4,6 @@
 // @version      1.1.11111
 // @description  Turn things to black and white
 // @author       Evan Chen
-// @match        http://*/*
-// @match        https://*/*
 // @exclude      https://github.com/*
 // @exclude      https://*.github.com/*
 // @exclude      https://*.djangoproject.com/*
