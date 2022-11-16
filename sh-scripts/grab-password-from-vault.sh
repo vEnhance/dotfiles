@@ -27,7 +27,7 @@ else
 fi
 
 if test -n "$COPIED_PASSWORD"; then
-  echo "$COPIED_PASSWORD" | xsel --primary
+  echo -n "$COPIED_PASSWORD" | xsel --primary
   notify-send -i 'status/dialog-password' -u low -t 5000 \
     "Password copied to primary clipboard" \
     "$(echo "$TARGET_DATA" | jq -C '.name + " for " + .user' -r), valid for 30 seconds"
