@@ -390,7 +390,10 @@ nnoremap <Space>z :set foldmethod=indent<CR>
 nnoremap <silent> <Space>t :NERDTreeFocus<CR>
 " smart find and replace
 nnoremap <silent> <Space>h :Farr<CR>
-"
+
+nnoremap <silent> <Space>w :set wrap<CR>
+nnoremap <silent> <Space>n :set nowrap<CR>
+
 " Ctrl P
 nnoremap <silent> <Space>f :CtrlPRoot<CR>
 nnoremap <silent> <Space>r :CtrlPMRU<CR>
