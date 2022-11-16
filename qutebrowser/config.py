@@ -3,35 +3,33 @@
 config.load_autoconfig()
 
 c.backend = 'webengine'
+c.content.blocking.method = "both"
+c.content.javascript.enabled = False
 c.content.pdfjs = True
-# c.statusbar.hide = False
+c.content.pdfjs = True
+c.fonts.default_size = '16pt'
+c.hints.chars = '1234567890'
+c.input.insert_mode.auto_leave = False
+c.input.insert_mode.auto_load = True
+c.tabs.background = False
+c.tabs.last_close = 'close'
 c.tabs.show = 'always'
 c.url.default_page = 'https://web.evanchen.cc/static/browser-homepage.html'
 c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
 c.url.start_pages = c.url.default_page
-# config.unbind('<Escape>', mode='insert')
-
-c.input.insert_mode.auto_load = True
-c.input.insert_mode.auto_leave = False
-c.content.javascript.enabled = False
-c.content.pdfjs = True
 c.zoom.default = 100
-c.fonts.default_size = '16pt'
 
-c.content.blocking.method = "both"
-c.hints.chars = '1234567890'
-c.tabs.background = False
-
-config.bind(r'x', 'tab-close')
-config.bind(r'<Ctrl-W>', 'close')
+config.bind(r'<Backspace>', 'config-source')
+config.bind(r'<Ctrl-W>', 'tab-close')
+config.bind(r'<Return>', 'tab-clone')
+config.bind(r'E', 'spawn firefox "{url}"')
+config.bind(r'W', 'spawn --userscript qute-bitwarden')
+config.bind(r'Z', 'tab-only')
 config.bind(r'd', 'scroll-page 0 0.5')
 config.bind(r'u', 'scroll-page 0 -0.5')
-config.bind(r'E', 'spawn firefox "{url}"')
-config.bind(r'Z', 'tab-only')
-config.bind(r'<Backspace>', 'config-source')
-config.bind(r'<Return>', 'tab-clone')
-config.bind(r'<Space>', 'tab-give')
+config.bind(r'x', 'tab-close')
 config.bind(r'|', 'mode-enter passthrough')
+config.bind('\\', 'tab-give')
 
 ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://web.evanchen.cc/*',
@@ -45,6 +43,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://*.www.twitch.tv/*',
     r'*://hanab.live/*',
     r'*://artofproblemsolving.com/*',
+    r'*://bitwarden.com/*',
 )
 for site in ALLOW_JAVASCRIPT_WEBSITES:
     config.set('content.javascript.enabled', True, site)
