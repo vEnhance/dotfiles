@@ -15,7 +15,7 @@ highlight Normal gui=none guifg=#000000 guibg=#ffffff ctermfg=white
 
 " Search
 highlight IncSearch gui=underline guifg=#404040 guibg=#e0e040 ctermbg=228 ctermfg=4 cterm=underline
-highlight CurSearch gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=57 cterm=underline
+highlight CurSearch gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=57  cterm=underline
 highlight Search    gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=242 cterm=underline
 
 " Messages
@@ -32,15 +32,15 @@ highlight VertSplit    gui=none guifg=#f8f8f8 guibg=#904838 ctermfg=darkgrey cte
 highlight WildMenu     gui=none guifg=#f8f8f8 guibg=#ff3030
 
 " Diff
-highlight DiffText       gui=none guifg=red   guibg=#ffd0d0 cterm=bold    ctermbg=5  ctermfg=3
-highlight DiffChange     gui=none guifg=black guibg=#ffe7e7 cterm=none    ctermbg=5  ctermfg=7
-highlight DiffDelete     gui=none guifg=bg    guibg=#e7e7ff ctermbg=black
-highlight DiffAdd        gui=none guifg=blue  guibg=#e7e7ff ctermbg=green cterm=bold
-highlight DiffRemoved    gui=none guifg=red   guibg=#e7e7ff ctermfg=red   cterm=none
+highlight DiffText       gui=none guifg=red     guibg=#ffd0d0 cterm=bold    ctermbg=5  ctermfg=3
+highlight DiffChange     gui=none guifg=black   guibg=#ffe7e7 cterm=none    ctermbg=5  ctermfg=7
+highlight DiffDelete     gui=none guifg=bg      guibg=#e7e7ff ctermbg=black
+highlight DiffAdd        gui=none guifg=blue    guibg=#e7e7ff ctermbg=green cterm=bold
+highlight DiffRemoved    gui=none guifg=red     guibg=#e7e7ff ctermfg=red   cterm=none
 highlight DiffAdded      gui=none guifg=#007700 guibg=#e7e7ff ctermfg=green cterm=none
-highlight DiffSubname    gui=none guifg=blue  guibg=#ffd0d0 ctermfg=blue  cterm=none
-highlight DiffLine       gui=bold guifg=blue  guibg=#ffd0d0 ctermfg=blue  cterm=bold
-highlight DiffIndexLine  gui=bold guifg=blue  guibg=#ffd0d0 ctermfg=3     cterm=bold
+highlight DiffSubname    gui=none guifg=blue  ctermfg=blue  cterm=none
+highlight DiffLine       gui=bold guifg=blue  ctermfg=blue  cterm=bold
+highlight DiffIndexLine  gui=bold guifg=blue  ctermfg=3     cterm=bold
 
 " Cursor
 highlight Cursor   gui=none guifg=#ffffff guibg=#0080f0
@@ -64,38 +64,38 @@ highlight PMenuSBar  ctermbg=red   ctermfg=white
 highlight PMenuThumb ctermbg=white ctermfg=red
 
 " Other
-highlight Directory  gui=none guifg=#7050ff guibg=bg ctermfg=39
-highlight LineNr     gui=none guifg=#6b6b6b guibg=#cccccc
 highlight! link SignColumn LineNr
-highlight NonText    gui=none guifg=#707070 guibg=#e7e7e7
-highlight SpecialKey gui=none guifg=#c0c0c0 guibg=bg      ctermfg=253 ctermbg=53
-highlight Title      gui=bold guifg=#0033cc guibg=bg
-highlight Visual     gui=none guifg=#804020 guibg=#ffc0a0 ctermfg=105
-highlight CursorLineNr ctermfg=122 ctermbg=239 cterm=bold guibg=#eeeeee
+highlight Directory  gui=none guibg=bg      guifg=#7050ff ctermfg=39
+highlight LineNr     gui=none guibg=#cccccc guifg=#6b6b6b
+highlight NonText    gui=none guibg=#e7e7e7 guifg=#707070
+highlight SpecialKey gui=none guibg=bg      guifg=#c0c0c0 ctermbg=53  ctermfg=253
+highlight Title      gui=bold guibg=bg      guifg=#0033cc
+highlight Visual     gui=none guibg=#ffc0a0 guifg=#804020 ctermfg=105
+highlight CursorLineNr        guibg=#eeeeee               ctermbg=239 ctermfg=122 cterm=bold
 
 " Syntax group
-highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan cterm=bold
-highlight Error      gui=none guifg=#f8f8f8 guibg=#4040ff term=reverse        ctermbg=Red    ctermfg=White
+highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan                 cterm=bold
+highlight Error      gui=none guifg=#f8f8f8 guibg=#4040ff ctermbg=Red    ctermfg=White  term=reverse
 highlight Ignore     gui=none guifg=bg      guibg=bg      ctermfg=Black
-highlight Statement  gui=none guifg=#0066FF guibg=bg      cterm=Bold ctermfg=117
-highlight Todo       gui=none guifg=#ff5050 guibg=white   term=standout       ctermbg=Brown ctermfg=Black
+highlight Statement  gui=none guifg=#0066FF guibg=bg      ctermfg=117                  cterm=Bold
+highlight Todo       gui=none guifg=#ff5050 guibg=white   ctermbg=Brown  ctermfg=Black  term=standout
 highlight Underlined gui=none guifg=blue    guibg=bg
-highlight Conceal    gui=none guifg=#4a9400 guibg=bg      ctermfg=Yellow ctermbg=none
+highlight Conceal    gui=none guifg=#4a9400 guibg=bg      ctermbg=none   ctermfg=Yellow
 
 " Further changes
 highlight Comment    gui=none guifg=#4a9400 guibg=bg      ctermfg=2
 highlight PreProc    gui=none guifg=#7f0055 guibg=bg      ctermfg=Red
-highlight Type       gui=bold guifg=#006600 guibg=bg      ctermfg=47 cterm=bold
+highlight Type       gui=bold guifg=#006600 guibg=bg      ctermfg=47         cterm=bold
 highlight String     gui=none guifg=#b07800 guibg=bg      ctermfg=Yellow
-highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=85 cterm=bold
+highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=85         cterm=bold
 highlight Number     gui=none guifg=#cc0033 guibg=bg      ctermfg=Magenta
 highlight Identifier gui=bold guifg=#006633 guibg=bg      ctermfg=LightGreen cterm=bold
 highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
 highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
 
 " File-specific syntax groups
-highlight texComment    gui=none guifg=#ff1cae guibg=bg      ctermfg=2
-highlight texSection    gui=none guifg=#ff1cae guibg=bg      ctermfg=Red cterm=bold
+highlight texComment    gui=none guifg=#ff1cae guibg=bg   ctermfg=2
+highlight texSection    gui=none guifg=#ff1cae guibg=bg   ctermfg=Red cterm=bold
 highlight link pythonString String
 highlight link Directory Identifier
 highlight mkdURL guifg=#999999
@@ -124,8 +124,8 @@ if !has('gui_running')
 endif
 
 " CoC
-highlight CocFloating ctermbg=238 guibg=#bbbbbb
-highlight CocMenuSel ctermbg=22 guibg=#aaccaa
-highlight CocInlayHint cterm=italic ctermbg=18 ctermfg=112 guibg=#cceeee guifg=#004400 gui=italic
+highlight CocFloating  ctermbg=238            guibg=#bbbbbb
+highlight CocMenuSel   ctermbg=22             guibg=#aaccaa
+highlight CocInlayHint ctermbg=18 ctermfg=112 guibg=#cceeee guifg=#004400 cterm=italic gui=italic
 
 " vim: ff=unix
