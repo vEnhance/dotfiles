@@ -9,11 +9,12 @@ notify-send "i3: exec mode" \
 <b>e/f</b>: epiphany/firefox
 <b>g</b>: geogebra
 <b>h</b>: chromium (hanabi)
+<b>q</b>: qutebrowser
 <b>l</b>: lock
 <b>m</b>: gnucash          <b>n</b>: vit
 <b>o</b>: obs              <b>p</b>: projtext
-<b>q</b>: qutebrowser      <b>r</b>: oRch
-<b>s</b>: spotify          <b>t</b>: oTis
+<b>r</b>: oRch             <b>s</b>: spotify
+<b>t</b>: oTis             <b>v</b>: vault
 <b>y</b>: diary            <b>z</b>: zoom
 <b>Space</b>: loginctl lock
 "
