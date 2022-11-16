@@ -21,7 +21,7 @@ c.zoom.default = 100
 
 config.bind(r'<Backspace>', 'config-source')
 config.bind(r'<Ctrl-W>', 'tab-close')
-config.bind(r'<Return>', 'tab-clone')
+config.bind(r'e', 'tab-clone')
 config.bind(r'E', 'spawn firefox "{url}"')
 config.bind(r'W', 'spawn --userscript qute-bitwarden')
 config.bind(r'Z', 'tab-only')
