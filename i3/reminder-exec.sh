@@ -6,15 +6,13 @@ notify-send "i3: exec mode" \
   -u low \
   "<b>a</b>: asy                <b>b</b>: libreoffice
 <b>c</b>: caprine         <b>d</b>: discord
-<b>e/f</b>: epiphany/firefox
-<b>g</b>: geogebra
-<b>h</b>: chromium (hanabi)
-<b>q</b>: qutebrowser
-<b>l</b>: lock
+<b>e</b>: epiphany        <b>g</b>: geogebra
+<b>h</b>: cHromium         <b>l</b>: lock
 <b>m</b>: gnucash          <b>n</b>: vit
 <b>o</b>: obs              <b>p</b>: projtext
-<b>r</b>: oRch             <b>s</b>: spotify
-<b>t</b>: oTis             <b>v</b>: vault
-<b>y</b>: diary            <b>z</b>: zoom
+<b>q</b>: qutebrowse       <b>r</b>: oRch
+<b>s</b>: spotify          <b>t</b>: oTis
+<b>v</b>: vault            <b>x</b>: firefoX
+<b>y</b>: diarY            <b>z</b>: zoom
 <b>Space</b>: loginctl lock
 "

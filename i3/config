@@ -252,7 +252,6 @@ mode "exec" {
   bindsym c exec caprine &, mode "default"
   bindsym d exec discord &, mode "default"
   bindsym e exec epiphany &, mode "default"
-  bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
   # short for hanabi
   bindsym h exec chromium &, mode "default"
@@ -268,6 +267,7 @@ mode "exec" {
   bindsym s exec spotify &, mode "default"
   bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
   bindsym v exec --no-startup-id "xfce4-terminal --command ~/dotfiles/sh-scripts/grab-password-from-vault.sh", mode "default"
+  bindsym x exec firefox &, mode "default"
   # Open latest chapter of diary
   bindsym y exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
   bindsym z exec zoom &, mode "default"
