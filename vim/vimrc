@@ -443,6 +443,8 @@ set directory=~/.vim/tmp
 
 set backspace=indent,eol,start
 set backup     " keep a backup file
+set breakindent
+set colorcolumn=+1
 set cryptmethod=blowfish2
 set completeopt=menuone,noselect,preview
 set conceallevel=2

@@ -104,6 +104,8 @@ highlight htmlBold       ctermbg=237 ctermfg=195 cterm=bold
 highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=236  ctermfg=45
 
+highlight ColorColumn guibg=#ffeeee ctermbg=17
+
 if !has('gui_running')
   highlight link Float          Number
   highlight link Conditional    Repeat
