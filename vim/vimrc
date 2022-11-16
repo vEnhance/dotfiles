@@ -465,6 +465,7 @@ set mouse=a    " mouse enabled
 set noautoindent
 set nohlsearch
 set noshowmode " don't need mode shown if we have airline
+set nowrap
 set number
 set omnifunc=ale#completion#OmniFunc
 set ruler      " show the cursor position all the time
@@ -483,7 +484,6 @@ set t_Co=256 " number of colors
 set tabstop=2
 set textwidth=0
 set updatetime=100
-set wrap
 set wrapmargin=0
 
 " }}}
