@@ -9,16 +9,25 @@ settings:
   bindings.commands:
     global:
       normal:
+        <Backspace>: config-source
+        <Ctrl+w>: close
+        <Return>: tab-clone
         d: scroll-page 0 0.5
         edit-text: insert
-        gt: tab-next
         u: scroll-page 0 -0.5
         x: tab-close
+        z: spawn firefox "{url}"
   content.javascript.enabled:
     '*://*.duckduckgo.com/*': true
+    '*://*.miro.com/*': true
+    '*://*.play.pretzel.rocks/*': true
+    '*://*.vault.bitwarden.com/*': true
+    '*://*.www.twitch.tv/*': true
     '*://127.0.0.1/*': true
     '*://ace.c9.io/*': true
+    '*://artofproblemsolving.com/*': true
     '*://asymptote.sourceforge.io/*': true
+    '*://blog.rzg.one/*': false
     '*://discord.com/*': true
     '*://django-tailwind.readthedocs.io/*': true
     '*://github.com/*': true
@@ -31,6 +40,7 @@ settings:
     '*://umeshmk.github.io/*': true
     '*://web.evanchen.cc/*': true
     '*://web.mit.edu/*': true
+    '*://www.pretzel.rocks/*': true
     '*://www.w3schools.com/*': true
     file:///*: true
   content.notifications.enabled:
