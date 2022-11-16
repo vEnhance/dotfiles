@@ -55,7 +55,8 @@ def send_email(
     plain_msg += '\n' * 2
     plain_msg += '**Evan Chen (陳誼廷)**<br>' + '\n'
     plain_msg += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
-    html_msg = markdown.markdown(plain_msg, extensions=['extra', 'sane_lists', 'smarty'])
+    html_msg = markdown.markdown(plain_msg,
+                                 extensions=['extra', 'sane_lists', 'smarty'])
     mail.attach(MIMEText(plain_msg, 'plain'))
     mail.attach(MIMEText(html_msg, 'html'))
 
@@ -80,7 +81,8 @@ def send_email(
         print(mail.as_string())
 
 
-def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Response]:
+def query_otis_server(payload: Data,
+                      play_sound=True) -> Optional[requests.Response]:
     payload['token'] = TOKEN
     logger.debug(payload)
     resp = requests.post(OTIS_API_URL, json=payload)
@@ -90,8 +92,9 @@ def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Respo
             subprocess.run([CHACHING_SOUND_PATH.absolute().as_posix(), '5'])
         return resp
     else:
-        logger.error(f"OTIS-WEB threw an exception with status code {resp.status_code}\n" +
-                     resp.content.decode('utf-8'))
+        logger.error(
+            f"OTIS-WEB threw an exception with status code {resp.status_code}\n"
+            + resp.content.decode('utf-8'))
         return None
 
 
@@ -164,15 +167,19 @@ class ProblemSet(VenueQNode):
         data['info'] += r" | "
         data['info'] += f"{data['num_accepted_current']}u this year; "
         data['info'] += f"{data['num_accepted_all']}u all-time"
-        data['name'] = f"{data['student__user__first_name']} {data['student__user__last_name']}"
+        data[
+            'name'] = f"{data['student__user__first_name']} {data['student__user__last_name']}"
         data['unit'] = f"{data['unit__code']} {data['unit__group__name']}"
         # stop getting trolled by the kids
         if data['unit__group__slug'] == 'dummy':
             data['clubs'] = min(data['clubs'], 1)
             data['hours'] = min(data['hours'], 2)
 
-        data['feedback'] = data['feedback'].replace(r"'", r"’").replace(r'"', r'＂')
-        data['special_notes'] = data['special_notes'].replace(r"'", r"’").replace(r'"', r'＂')
+        data['feedback'] = data['feedback'].replace(r"'",
+                                                    r"’").replace(r'"', r'＂')
+        data['special_notes'] = data['special_notes'].replace(r"'",
+                                                              r"’").replace(
+                                                                  r'"', r'＂')
 
         # collect data about the handout
         if HANDOUTS_PATH.exists():
@@ -198,7 +205,8 @@ class ProblemSet(VenueQNode):
                         assert d is not None
                         w = ProblemSet.HARDNESS_CHART[d]
                         total += w
-                data["clubs_max"] = f"max {1+total} | hi {high_clubs} | min {min_clubs}"
+                data[
+                    "clubs_max"] = f"max {1+total} | hi {high_clubs} | min {min_clubs}"
             else:
                 data["clubs_max"] = None
         else:
@@ -269,10 +277,12 @@ class ProblemSet(VenueQNode):
                  f"《{data['student__user__email']}》\n"
                  f"- **Submission**: [ID {data['pk']}]({link_to_pset})\n")
         if data['status'] == 'A':
-            body += (r"- **Unit completed**: "
-                     f"`{data['unit__code']}-{data['unit__group__slug']}`\n"
-                     r"- **Earned**: "
-                     f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts\n")
+            body += (
+                r"- **Unit completed**: "
+                f"`{data['unit__code']}-{data['unit__group__slug']}`\n"
+                r"- **Earned**: "
+                f"{data.get('clubs', 0)} clubs and {data.get('hours', 0)} hearts\n"
+            )
             body += r"- **Next unit**: "
             if 'next_unit_to_unlock__code' in data:
                 body += f"{data['next_unit_to_unlock__code']} {data['next_unit_to_unlock__group__name']}"
@@ -305,12 +315,16 @@ class ProblemSet(VenueQNode):
             if query_otis_server(payload=data) is not None:
                 body = self.compose_email_body(data, comments_to_email)
                 recipient = data['student__user__email']
-                verdict = "completed" if data['status'] == 'A' else "NOT ACCEPTED (action req'd)"
+                verdict = "completed" if data[
+                    'status'] == 'A' else "NOT ACCEPTED (action req'd)"
                 subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} was {verdict}"
                 try:
-                    send_email(subject=subject, recipients=[recipient], body=body)
+                    send_email(subject=subject,
+                               recipients=[recipient],
+                               body=body)
                 except Exception as e:
-                    logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
+                    logger.error(f"Email {subject} to {recipient} failed",
+                                 exc_info=e)
                 else:
                     logger.info(f"Email {subject} to {recipient} sent!")
                     if data['status'] == 'R':
@@ -338,12 +352,14 @@ class Inquiries(VenueQNode):
                 body += "\n\n"
                 body += f"Have a nice {datetime.utcnow().strftime('%A')}."
                 bcc_addrs = list(
-                    set(inquiry['student__user__email'] for inquiry in data['inquiries']))
+                    set(inquiry['student__user__email']
+                        for inquiry in data['inquiries']))
                 subject = "OTIS unit petition processed"
                 try:
                     send_email(subject=subject, bcc=bcc_addrs, body=body)
                 except Exception as e:
-                    logger.error(f"Email {subject} to {bcc_addrs} failed", exc_info=e)
+                    logger.error(f"Email {subject} to {bcc_addrs} failed",
+                                 exc_info=e)
                 else:
                     logger.info(f"Email {subject} to {bcc_addrs} sent!")
                     self.delete()
@@ -375,7 +391,8 @@ class Suggestion(VenueQNode):
             print('\n---\n', file=f)
             if data['acknowledge'] is True:
                 print(r'\emph{This problem and solution were contributed by ' +
-                      data['user__first_name'] + ' ' + data['user__last_name'] + '}.',
+                      data['user__first_name'] + ' ' + data['user__last_name'] +
+                      '}.',
                       file=f)
                 print('', file=f)
             print(self.solution, file=f)
@@ -405,7 +422,8 @@ class Suggestion(VenueQNode):
             try:
                 send_email(subject=subject, recipients=[recipient], body=body)
             except Exception as e:
-                logger.error(f"Email {subject} to {recipient} failed", exc_info=e)
+                logger.error(f"Email {subject} to {recipient} failed",
+                             exc_info=e)
             else:
                 logger.info(f"Email {subject} to {recipient} sent!")
             if query_otis_server(payload=data) is not None:
@@ -445,7 +463,8 @@ if __name__ == "__main__":
     logger.debug(f"Headers:\n{pprint.pformat(dict(otis_response.headers))}")
     logger.debug(f"NAME: {json['_name']}")
     logger.debug(f"TIME: {json['timestamp']}")
-    logger.debug(f"ITEMS: {pprint.pformat(json['_children'], indent=0, width=100)}")
+    logger.debug(
+        f"ITEMS: {pprint.pformat(json['_children'], indent=0, width=100)}")
 
     if PRODUCTION:
         otis_dir = Path('~/ProGamer/OTIS/queue').expanduser()

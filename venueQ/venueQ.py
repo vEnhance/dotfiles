@@ -14,7 +14,9 @@ yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str  # type: igno
 def repr_str(dumper: yaml.SafeDumper, data: str) -> yaml.ScalarNode:
     if '\n' in data:
         data = data.replace("\r", "")
-        return dumper.represent_scalar(u'tag:yaml.org,2002:str', data, style='|')
+        return dumper.represent_scalar(u'tag:yaml.org,2002:str',
+                                       data,
+                                       style='|')
     return dumper.orig_represent_str(data)  # type: ignore
 
 
@@ -39,8 +41,8 @@ logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
 
 if VIM_ENABLED:
-    formatter = logging.Formatter('[{levelname}] {asctime} {module} {name}: {message}\n',
-                                  style='{')
+    formatter = logging.Formatter(
+        '[{levelname}] {asctime} {module} {name}: {message}\n', style='{')
     for b in vim.buffers:
         if "venueQlog" in b.name:
             VIM_LOG_BUFFER = b
@@ -58,7 +60,8 @@ if VIM_ENABLED:
 
     vim_handler = VimLogHandler()
     vim_handler.setLevel(logging.DEBUG)
-    file_handler = logging.FileHandler(f'/tmp/venueQ:{datetime.datetime.now().isoformat()}.log')
+    file_handler = logging.FileHandler(
+        f'/tmp/venueQ:{datetime.datetime.now().isoformat()}.log')
     file_handler.setLevel(logging.DEBUG)
 
     logger.addHandler(vim_handler)
@@ -230,7 +233,10 @@ class VenueQRoot(VenueQNode):
     is_root = True
     lookup: Dict[str, 'VenueQNode']
 
-    def __init__(self, data: Data, root_dir: Path, shelf_life: Optional[float] = None):
+    def __init__(self,
+                 data: Data,
+                 root_dir: Path,
+                 shelf_life: Optional[float] = None):
         if not root_dir.exists():
             root_dir.mkdir()
         root_dir = root_dir.resolve()
@@ -247,9 +253,10 @@ class VenueQRoot(VenueQNode):
     def erase_stale_files(self):
         for p in self.root_dir.rglob('*.yaml'):
             if (p.is_file() and self.shelf_life is not None and
-                ((age_hours :=
-                  (time.time() - p.stat().st_mtime) / (60 * 60)) > self.shelf_life)):
-                logger.info(f"Erasing stale file {p} which is {age_hours} hours old")
+                ((age_hours := (time.time() - p.stat().st_mtime) /
+                  (60 * 60)) > self.shelf_life)):
+                logger.info(
+                    f"Erasing stale file {p} which is {age_hours} hours old")
 
     def queue_wipe(self, p: Path):
         if VIM_ENABLED:
@@ -258,8 +265,9 @@ class VenueQRoot(VenueQNode):
                     self.wipe_queue.append(b.number)
                     break
             else:
-                logger.warn(f"Tried to wipe {p} but found no buffer for it among " +
-                            ', '.join(b.name for b in vim.buffers))
+                logger.warn(
+                    f"Tried to wipe {p} but found no buffer for it among " +
+                    ', '.join(b.name for b in vim.buffers))
         p.unlink()
 
     def wipe(self):
