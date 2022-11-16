@@ -13,11 +13,19 @@ c.url.start_pages = c.url.default_page
 
 c.input.insert_mode.auto_load = True
 c.input.insert_mode.auto_leave = False
+c.content.javascript.clipboard = False
 c.content.javascript.enabled = False
-c.zoom.default = 140
+c.zoom.default = 100
 c.fonts.default_size = '16pt'
+
+c.content.blocking.method = "both"
+c.hints.chars = '1234567890'
+c.tabs.background = False
 
 config.bind('gt', 'tab-next')
 config.bind('x', 'tab-close')
+config.bind('<Ctrl-W>', 'close')
 config.bind('d', 'scroll-page 0 0.5')
 config.bind('u', 'scroll-page 0 -0.5')
+config.bind('z', 'spawn firefox "{url}"')
+config.bind('Backspace', 'config-source')
