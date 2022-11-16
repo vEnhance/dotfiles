@@ -16,27 +16,35 @@ if test -z "$BW_SESSION"; then
   BW_SESSION=$(bw unlock "$MASTER_PASSWORD" --raw)
 fi
 
-TARGET_DATA="$(bw list items --pretty --session "$BW_SESSION" |
+readarray -t BW_LIST < <(bw list items --pretty --session "$BW_SESSION")
+if [ "${#BW_LIST[@]}" -eq 0 ]; then
+  notify-send -i 'status/dialog-password' -u critical -t 3000 \
+    "Vault retrieval failed" \
+    "We could not access the BitWarden vault."
+  exit 1
+fi
+
+TARGET_ROW="$(echo "${BW_LIST[@]}" |
   jq -C '.[]|{name, user:.login.username, favorite, notes, password_updated:.login.passwordRevisionDate, last_updated:.login.revisionDate, id}' -r --compact-output |
   fzf -d "," --nth 1,2,3,4 --with-nth 1,2 --tac --ansi --preview 'echo {} | jq -C')"
-
-if test -n "$TARGET_DATA"; then
-  COPIED_PASSWORD="$(bw get password --session "$BW_SESSION" "$(echo "$TARGET_DATA" | jq -C '.id' -r)")"
+if test -n "$TARGET_ROW"; then
+  TARGET_ID="$(echo "$TARGET_ROW" | jq -r ".id")"
+  TARGET_PASSWORD="$(echo "${BW_LIST[@]}" | jq ".[]|select(.id == \"$TARGET_ID\")|.login.password" -r)"
 else
   exit 1
 fi
 
-if test -n "$COPIED_PASSWORD"; then
-  echo -n "$COPIED_PASSWORD" | xsel --primary
+if test -n "$TARGET_PASSWORD"; then
+  echo -n "$TARGET_PASSWORD" | xsel --primary
   notify-send -i 'status/dialog-password' -u low -t 5000 \
     "Password copied to primary clipboard" \
-    "$(echo "$TARGET_DATA" | jq -C '.name + " for " + .user' -r), valid for 30 seconds"
+    "$(echo "$TARGET_ROW" | jq -C '.user + " at " + .name' -r), valid for 30 seconds"
   sleep 30 && xsel --primary --clear &
   bw lock
   exit 0
 else
-  notify-send -i 'status/dialog-password' -u error -t 3000 \
+  notify-send -i 'status/dialog-password' -u critical -t 3000 \
     "Password grab failed" \
-    "We could not get a password"
+    "We could not get a password."
   exit 0
 fi
