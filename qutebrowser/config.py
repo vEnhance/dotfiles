@@ -6,7 +6,7 @@ c.backend = 'webengine'
 c.content.pdfjs = True
 # c.statusbar.hide = False
 c.tabs.show = 'always'
-c.url.default_page = 'file:///home/evan/Sync/www/static/browser-homepage.html'
+c.url.default_page = 'https://web.evanchen.cc/static/browser-homepage.html'
 c.url.searchengines = {'DEFAULT': 'https://duckduckgo.com/?q={}'}
 c.url.start_pages = c.url.default_page
 # config.unbind('<Escape>', mode='insert')
