@@ -83,7 +83,7 @@ bindsym $mod+minus move scratchpad; exec --no-startup-id killall -s USR1 py3stat
 bindsym $mod+Shift+minus scratchpad show; exec --no-startup-id killall -s USR1 py3status
 
 # refresh i3 status bar
-bindsym $mod+p exec --no-startup-id killall -s USR1 py3status
+bindsym $mod+u exec --no-startup-id killall -s USR1 py3status
 
 # switch to workspace 0-10 {{{
 bindsym $mod+grave workspace number 0; exec --no-startup-id find-cursor -f -t -c '#aaaaaa'
@@ -154,15 +154,23 @@ mode "close" {
 }
 # }}}
 
+# clipboard {{{
+mode "clipboard" {
+  bindsym p exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --primary)", mode "default"
+  bindsym s exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --secondary)", mode "default"
+  bindsym b exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --clipboard)", mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+}
+bindsym $mod+p mode "clipboard"
+# }}}
+
 # power mode {{{
 mode "danger" {
-  bindsym e exit
   bindsym n exec --no-startup-id systemctl suspend, mode "default"
   bindsym p exec --no-startup-id systemctl poweroff
   bindsym z exec --no-startup-id systemctl reboot
   bindsym x exec --no-startup-id $HOME/dotfiles/sh-scripts/xrandr.sh, mode "default"
-
-  # back to normal: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }

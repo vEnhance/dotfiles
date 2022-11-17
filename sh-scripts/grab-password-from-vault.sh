@@ -35,11 +35,11 @@ else
 fi
 
 if test -n "$TARGET_PASSWORD"; then
-  echo -n "$TARGET_PASSWORD" | xsel --primary
+  echo -n "$TARGET_PASSWORD" | xsel --secondary
   notify-send -i 'status/dialog-password' -u low -t 5000 \
-    "Password copied to primary clipboard" \
+    "Password copied to secondary clipboard" \
     "$(echo "$TARGET_ROW" | jq -C '.user + " at " + .name' -r), valid for 30 seconds"
-  sleep 30 && xsel --primary --clear &
+  sleep 30 && xsel --secondary --clear &
   bw lock
   exit 0
 else
