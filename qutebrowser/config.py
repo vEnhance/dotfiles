@@ -32,6 +32,7 @@ config.bind(r'|', 'mode-enter passthrough')
 config.bind('\\', 'tab-give')
 
 ALLOW_JAVASCRIPT_WEBSITES = (
+    r'*://*.archlinux.org/*',
     r'*://*.bitwarden.com/*',
     r'*://*.duckduckgo.com/*',
     r'*://*.evanchen.cc/*',
