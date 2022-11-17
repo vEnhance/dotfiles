@@ -34,6 +34,7 @@ endfun
 setlocal omnifunc=mail#ABookComplete
 " flowed email from plain text
 setlocal formatoptions+=w
+setlocal wrap
 
 " r for recipient since ,t* is bound to _something_ (dunno what)
 nnoremap <localleader>r /^Cc:<CR>kA<space>
