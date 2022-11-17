@@ -2,10 +2,11 @@
 from __future__ import print_function
 
 from datetime import time
-
-from tasklib import local_zone
+from zoneinfo import ZoneInfo
 
 DEFAULT_TIME = time(22, 0, 0)  # Your wanted default time
+
+local_zone = ZoneInfo('localtime')
 
 
 def is_local_midnight(timestamp):
