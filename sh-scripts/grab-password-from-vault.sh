@@ -44,17 +44,21 @@ TARGET_ROW="$(echo "${BW_LIST[@]}" |
   fzf --height 12 -d ',' --nth 1,2,3,4 --with-nth 1,2 --tac --ansi --preview 'echo {} | jq -C')"
 if test -n "$TARGET_ROW"; then
   TARGET_ID="$(echo "$TARGET_ROW" | jq -r ".id")"
+  TARGET_USER="$(echo "$TARGET_ROW" | jq -r ".user")"
   TARGET_PASSWORD="$(echo "${BW_LIST[@]}" | jq ".[]|select(.id == \"$TARGET_ID\")|.login.password" -r)"
 else
   exit 1
 fi
 
 if test -n "$TARGET_PASSWORD"; then
+  if test -n "$TARGET_USER"; then
+    echo -n "$TARGET_USER" | xsel --primary
+  fi
   echo -n "$TARGET_PASSWORD" | xsel --secondary
   notify-send -i 'status/security-high-symbolic' -u low -t 5000 \
     "Password copied to secondary clipboard" \
     "$(echo "$TARGET_ROW" | jq -C '.user + " at " + .name' -r), valid for 30 seconds"
-  sleep 30 && xsel --secondary --clear &
+  sleep 30 && xsel --secondary --delet &
   # sleep 0.2 && xdotool type "$TARGET_PASSWORD" && bw lock &
   exit 0
 else
