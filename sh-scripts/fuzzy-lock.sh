@@ -56,6 +56,11 @@ fi
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute >/dev/null
 
+# clear the clipboards for security reasons
+xsel --clipboard --delete
+xsel --primary --delete
+xsel --secondary --delete
+
 # pause dunst
 killall -s USR1 dunst
 
