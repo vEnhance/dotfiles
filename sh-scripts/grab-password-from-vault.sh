@@ -6,28 +6,29 @@ echo -e "| (yet another hack written by \033[1;33mEvan Chen\033[m) |"
 echo "+=========================================+"
 
 if test -z "$BW_SESSION"; then
-  echo -e "\033[1;35mEnter the PIN to continue.\033[m"
-  read -r -s -p "[echo hidden]: " USER_PIN
-  echo -e "\n-------------------------------------------"
-  if test -z "$USER_PIN"; then
-    notify-send -u critical -t 3000 -i 'status/security-high-symbolic' 'No PIN' \
-      'No PIN was entered to get the BitWarden master password.'
-    exit 1
-    exit 1
-  else
-    echo ""
-    echo "Received PIN from the command line."
-  fi
+  while true; do
+    echo -e "\033[1;35mEnter the PIN to continue.\033[m"
+    read -r -s -p "[echo hidden]: " USER_PIN
+    echo -e "\n-------------------------------------------"
+    if test -z "$USER_PIN"; then
+      notify-send -u critical -t 3000 -i 'status/security-high-symbolic' 'No PIN' \
+        'No PIN was entered to get the BitWarden master password.'
+      exit 1
+    else
+      echo ""
+      echo "Received PIN from the command line."
+    fi
 
-  if ! MASTER_PASSWORD=$(secret-tool lookup type bitwarden user local |
-    openssl aes-256-cbc -a -d -pbkdf2 -pass "pass:$USER_PIN"); then
-    notify-send -u critical -t 5000 -i 'status/security-high-symbolic' 'Wrong PIN' \
-      'Either that or master password retrieval failed'
-    exit 1
-  else
-    echo -e "\033[42mAuthentication successful!\033[0m"
-    echo -e "Retrieving data from vault..."
-  fi
+    if ! MASTER_PASSWORD=$(secret-tool lookup type bitwarden user local |
+      openssl aes-256-cbc -a -d -pbkdf2 -pass "pass:$USER_PIN"); then
+      echo -e "\033[41mAuthentication failed\033[0m"
+      echo "-------------------------------------------"
+    else
+      echo -e "\033[42mAuthentication successful!\033[0m"
+      echo -e "Retrieving data from vault..."
+      break
+    fi
+  done
   BW_SESSION=$(bw unlock "$MASTER_PASSWORD" --raw)
 fi
 
