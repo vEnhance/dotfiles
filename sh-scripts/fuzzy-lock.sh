@@ -56,6 +56,13 @@ fi
 # mute microphone so I'm not recorded while afk
 ponymix -t source mute >/dev/null
 
+# pause dunst
+killall -s USR1 dunst
+
+#################################################
+# RUN THE LOCKER
+#################################################
+
 if [ "$(hostname)" = ArchAir ] && [ "$(whoami)" = evan ]; then
   xset dpms force off
   i3lock \
@@ -113,6 +120,13 @@ else
     --color=d33529 \
     --pointer=win
 fi
+
+#################################################
+# POST LOCK CLEANUP
+#################################################
+
+# resume dunst
+killall -s USR2 dunst
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 900 900 900
