@@ -43,6 +43,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://*.tailwindcss.com/*',
     r'*://*.www.twitch.tv/*',
     r'*://127.0.0.1/*',
+    r'*://accounts.google.com/*',
     r'*://artofproblemsolving.com/*',
     r'*://bitwarden.com/*',
     r'*://discord.com/*',
