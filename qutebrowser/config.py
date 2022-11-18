@@ -5,10 +5,12 @@ from qutebrowser.api import interceptor
 config.load_autoconfig()
 
 c.backend = 'webengine'
+c.colors.downloads.stop.bg = r'#00cca7'
 c.content.blocking.method = "both"
 c.content.javascript.enabled = False
 c.content.pdfjs = False
 c.downloads.position = 'bottom'
+c.downloads.remove_finished = 5000
 c.fonts.default_size = '16pt'
 c.hints.auto_follow = 'unique-match'
 c.hints.auto_follow_timeout = 700
@@ -26,7 +28,7 @@ c.zoom.default = 100
 
 config.bind(r'<Backspace>', 'config-source')
 config.bind(r'<Ctrl-W>', 'tab-close')
-config.bind(r'<Return>', 'download-clear')
+# config.bind(r'<Return>', 'download-clear')
 config.bind(r'e', 'tab-clone')
 config.bind(r'E', 'spawn firefox "{url}"')
 config.bind(r'W', 'spawn --userscript qute-bitwarden')
@@ -60,6 +62,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://calendar.google.com/*',
     r'*://calendly.com/*',
     r'*://discord.com/*',
+    r'*://duckduckgo.com/*',
     r'*://github.com/*',
     r'*://hanab.live/*',
     r'*://localhost/*',
