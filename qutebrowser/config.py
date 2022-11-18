@@ -13,6 +13,7 @@ c.fonts.default_size = '16pt'
 c.hints.auto_follow = 'unique-match'
 c.hints.auto_follow_timeout = 700
 c.hints.mode = 'number'
+c.input.insert_mode.auto_enter = True
 c.input.insert_mode.auto_leave = True
 c.input.insert_mode.auto_load = True
 c.tabs.background = False
@@ -48,6 +49,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://*.mit.edu/*',
     r'*://*.pretzel.rocks/*',
     r'*://*.readthedocs.io/*',
+    r'*://*.stackexchange.com/*',
     r'*://*.tailwindcss.com/*',
     r'*://*.www.twitch.tv/*',
     r'*://*.youtube.com/*',
@@ -56,10 +58,12 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://artofproblemsolving.com/*',
     r'*://bitwarden.com/*',
     r'*://calendar.google.com/*',
+    r'*://calendly.com/*',
     r'*://discord.com/*',
     r'*://github.com/*',
     r'*://hanab.live/*',
     r'*://localhost/*',
+    r'*://mathoverflow.net/*',
     r'*://mit.edu/*',
     r'*://tailwindcomponents.com/*',
     r'*://tailwindcss.com/*',
