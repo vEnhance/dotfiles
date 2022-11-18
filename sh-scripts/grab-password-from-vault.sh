@@ -1,12 +1,13 @@
 #!/bin/bash
 
 echo "+=========================================+"
-echo "| Welcome to the BITWARDEN Vault grabber! |"
-echo "| (yet another hack written by Evan Chen) |"
+echo -e "| Welcome to the \033[1;36mBITWARDEN Vault grabber\033[m! |"
+echo -e "| (yet another hack written by \033[1;33mEvan Chen\033[m) |"
 echo "+=========================================+"
 
 if test -z "$BW_SESSION"; then
-  read -r -s -p "Enter the PIN [echo hidden]: " USER_PIN
+  echo -e "\033[1;35mEnter the PIN to continue.\033[m"
+  read -r -s -p "[echo hidden]: " USER_PIN
   echo -e "\n-------------------------------------------"
   if test -z "$USER_PIN"; then
     notify-send -u critical -t 3000 -i 'status/security-high-symbolic' 'No PIN' \
@@ -40,7 +41,7 @@ fi
 
 TARGET_ROW="$(echo "${BW_LIST[@]}" |
   jq -C '.[]|{name, user:.login.username, favorite, notes, password_updated:.login.passwordRevisionDate, last_updated:.login.revisionDate, id}' -r --compact-output |
-  fzf --height 36 -d ',' --nth 1,2,3,4 --with-nth 1,2 --tac --ansi --preview 'echo {} | jq -C')"
+  fzf --height 12 -d ',' --nth 1,2,3,4 --with-nth 1,2 --tac --ansi --preview 'echo {} | jq -C')"
 if test -n "$TARGET_ROW"; then
   TARGET_ID="$(echo "$TARGET_ROW" | jq -r ".id")"
   TARGET_PASSWORD="$(echo "${BW_LIST[@]}" | jq ".[]|select(.id == \"$TARGET_ID\")|.login.password" -r)"
