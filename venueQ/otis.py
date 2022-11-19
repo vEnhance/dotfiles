@@ -1,3 +1,4 @@
+import json
 import os
 import pprint
 import random
@@ -10,7 +11,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, List, Optional
 
 import markdown
 import requests
@@ -20,7 +21,7 @@ from venueQ import Data, VenueQNode, VenueQRoot, logger
 
 load_dotenv(Path('~/dotfiles/secrets/otis.env').expanduser())
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
-OTIS_GMAIL_USERNAME = os.getenv('OTIS_GMAIL_USERNAME')
+OTIS_GMAIL_USERNAME = os.getenv('OTIS_GMAIL_USERNAME') or ''
 assert TOKEN is not None
 PRODUCTION = os.getenv('PRODUCTION', False)
 if PRODUCTION:
@@ -85,17 +86,22 @@ def query_otis_server(payload: Data,
                       play_sound=True) -> Optional[requests.Response]:
     payload['token'] = TOKEN
     logger.debug(payload)
-    resp = requests.post(OTIS_API_URL, json=payload)
-    if resp.status_code == 200:
-        logger.info("Got a 200 response back from server")
-        if play_sound:
-            subprocess.run([CHACHING_SOUND_PATH.absolute().as_posix(), '5'])
-        return resp
-    else:
-        logger.error(
-            f"OTIS-WEB threw an exception with status code {resp.status_code}\n"
-            + resp.content.decode('utf-8'))
+    try:
+        resp = requests.post(OTIS_API_URL, json=payload)
+    except requests.exceptions.ConnectionError:
+        logger.warning("Could not connect to server")
         return None
+    else:
+        if resp.status_code == 200:
+            logger.info("Got a 200 response back from server")
+            if play_sound:
+                subprocess.run([CHACHING_SOUND_PATH.absolute().as_posix(), '5'])
+            return resp
+        else:
+            logger.error(
+                f"OTIS-WEB threw an exception with status code {resp.status_code}\n"
+                + resp.content.decode('utf-8'))
+            return None
 
 
 class ProblemSet(VenueQNode):
@@ -224,9 +230,12 @@ class ProblemSet(VenueQNode):
             ext = ext.lower()
             assert ext in ProblemSet.EXTENSIONS, f"{ext} is not a valid extension"
             self.ext = ext
-            file_response = requests.get(url=url)
-            self.get_path().write_bytes(file_response.content)
-            self.get_path().chmod(0o666)
+            try:
+                file_response = requests.get(url=url)
+                self.get_path().write_bytes(file_response.content)
+                self.get_path().chmod(0o666)
+            except ConnectionError:
+                logger.warning(f"Could not get {url}")
 
         # move extraneous data into an "xtra" dictionary
         data['xtra'] = {}
@@ -329,7 +338,12 @@ class ProblemSet(VenueQNode):
                     logger.info(f"Email {subject} to {recipient} sent!")
                     if data['status'] == 'R':
                         self.get_path().unlink()
+                    self.erase_temp(extension='mkd')
                     self.delete()
+            else:
+                logger.warning("Server query failed, so no action taken")
+        else:
+            logger.info("Did not attempt to process submission")
 
 
 class ProblemSetCarrier(VenueQNode):
@@ -428,6 +442,7 @@ class Suggestion(VenueQNode):
                 logger.info(f"Email {subject} to {recipient} sent!")
             if query_otis_server(payload=data) is not None:
                 self.delete()
+                self.erase_temp(extension='mkd')
 
 
 class SuggestionCarrier(VenueQNode):
@@ -449,6 +464,9 @@ class OTISRoot(VenueQRoot):
             raise ValueError(f"wtf is {data['_name']}")
 
 
+QUEUE_FOLDER = Path('~/ProGamer/OTIS/queue').expanduser()
+JSON_SAVED = QUEUE_FOLDER / 'init.json'
+
 if __name__ == "__main__":
     otis_response = query_otis_server(
         payload={
@@ -457,23 +475,33 @@ if __name__ == "__main__":
         },
         play_sound=False,
     )
-    assert otis_response is not None
-    json = otis_response.json()
-    logger.debug(f"Server returned {otis_response.status_code}")
-    logger.debug(f"Headers:\n{pprint.pformat(dict(otis_response.headers))}")
-    logger.debug(f"NAME: {json['_name']}")
-    logger.debug(f"TIME: {json['timestamp']}")
-    logger.debug(
-        f"ITEMS: {pprint.pformat(json['_children'], indent=0, width=100)}")
+    if otis_response is not None:
+        otis_json: dict[str, Any] = otis_response.json()
+        logger.debug(f"Server returned {otis_response.status_code}")
+        logger.debug(f"Headers:\n{pprint.pformat(dict(otis_response.headers))}")
+        logger.debug(f"NAME: {otis_json['_name']}")
+        logger.debug(f"TIME: {otis_json['timestamp']}")
+        logger.debug(
+            f"ITEMS: {pprint.pformat(otis_json['_children'], indent=0, width=100)}"
+        )
+        with open(JSON_SAVED, 'w') as f:
+            json.dump(otis_json, f, indent=2)
+    elif JSON_SAVED.exists():
+        with open(JSON_SAVED) as f:
+            otis_json = json.load(f)
+        logger.info("Using saved JSON file...")
+        assert otis_json is not None
+    else:
+        raise ValueError('o no')
 
     if PRODUCTION:
-        otis_dir = Path('~/ProGamer/OTIS/queue').expanduser()
+        otis_dir = QUEUE_FOLDER
     else:
         otis_dir = Path('/tmp/otis-debug')
     if not otis_dir.exists():
         otis_dir.mkdir()
     ROOT_NODE = OTISRoot(
-        data=otis_response.json(),
+        data=otis_json,
         root_dir=otis_dir,
         shelf_life=12,
     )

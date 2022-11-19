@@ -112,7 +112,7 @@ class VenueQNode:
             return self.get_default_data()
 
     def temp_path(self, extension: str, name: str = None) -> Path:
-        return self.directory / f'{name or self.name}.tmp.{extension}'
+        return self.directory / f'{name or self.name}.vtmp.{extension}'
 
     def edit_temp(self, extension: str, name: str = None):
         p = self.temp_path(extension, name)
@@ -126,10 +126,12 @@ class VenueQNode:
     def read_temp(self, extension: str, name: str = None):
         if self.temp_path(extension, name).exists():
             text = self.temp_path(extension, name).read_text()
-            self.root.queue_wipe(self.temp_path(extension, name))
             return text
         else:
             return ''
+
+    def erase_temp(self, extension: str, name: str = None):
+        self.root.queue_wipe(self.temp_path(extension, name))
 
     @property
     def pk(self) -> str:
@@ -257,6 +259,7 @@ class VenueQRoot(VenueQNode):
                   (60 * 60)) > self.shelf_life)):
                 logger.info(
                     f"Erasing stale file {p} which is {age_hours} hours old")
+                p.unlink()
 
     def queue_wipe(self, p: Path):
         if VIM_ENABLED:
