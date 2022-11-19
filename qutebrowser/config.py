@@ -68,6 +68,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://localhost/*',
     r'*://mathoverflow.net/*',
     r'*://mit.edu/*',
+    r'*://stackoverflow.com/*',
     r'*://tailwindcomponents.com/*',
     r'*://tailwindcss.com/*',
     r'*://youtube.com/*',
