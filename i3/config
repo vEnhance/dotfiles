@@ -167,6 +167,7 @@ bindsym $mod+p mode "clipboard"
 
 # power mode {{{
 mode "danger" {
+  bindsym e exit
   bindsym n exec --no-startup-id systemctl suspend, mode "default"
   bindsym p exec --no-startup-id systemctl poweroff
   bindsym z exec --no-startup-id systemctl reboot
