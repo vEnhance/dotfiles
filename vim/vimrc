@@ -175,8 +175,7 @@ function! AirlineSetup()
   let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
 endfunction
 
-" ALE
-let g:ale_disable_lsp = 1 " because of CoC
+" ALE + CoC
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_echo_msg_warning_str = 'W'
@@ -193,6 +192,7 @@ let g:ale_set_quickfix = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '#'
 let g:ale_sign_warning = '>'
+let g:coc_start_at_startup = 0
 let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-html',
@@ -225,6 +225,12 @@ function! ALEFixDjlint(buffer) abort
     \}
 endfunction
 execute ale#fix#registry#Add('djlint', 'ALEFixDjlint', ['htmljdjango'], 'Fixer for Django templates')
+function! CocStartAndDisableALELSP()
+  CocStart
+  CocEnable
+  let g:ale_disable_lsp = 1
+  echo 'CoC has been started!'
+endfunction
 " }}}
 
 " Procedure for shell commands {{{
@@ -311,7 +317,9 @@ nnoremap <silent> gl <Plug>(coc-implementation)
 nnoremap <silent> gr <Plug>(coc-references)
 
 function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
+  if !get(g:, 'coc_service_initialized', 0)
+    call feedkeys('K', 'in')
+  elseif CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
     call feedkeys('K', 'in')
@@ -390,6 +398,8 @@ nnoremap <Space>z :set foldmethod=indent<CR>
 nnoremap <silent> <Space>t :NERDTreeFocus<CR>
 " smart find and replace
 nnoremap <silent> <Space>h :Farr<CR>
+" Start up CoC
+nnoremap <silent> <Space>c :call CocStartAndDisableALELSP()<CR>
 
 nnoremap <silent> <Space>w :set wrap<CR>
 nnoremap <silent> <Space>n :set nowrap<CR>
@@ -397,7 +407,7 @@ nnoremap <silent> <Space>n :set nowrap<CR>
 " Ctrl P
 nnoremap <silent> <Space>f :CtrlPRoot<CR>
 nnoremap <silent> <Space>r :CtrlPMRU<CR>
-nnoremap <silent> <Space>c :CtrlPCurFile<CR>
+nnoremap <silent> <Space>p :CtrlPCurFile<CR>
 nnoremap <silent> <Space>b :CtrlPBuffer<CR>
 
 " git status
