@@ -169,6 +169,7 @@ alias winf='wine winefile'
 alias winx='startx /bin/wine winefile --kiosk --'
 alias wut='watch -b -c -n 10 "python manage.py test"'
 
+# password management and stuff
 function aes-encode
     openssl aes-256-cbc -a -salt -pbkdf2 -pass pass:$argv
 end
@@ -180,7 +181,6 @@ function bw-unlock
     echo "Enter PIN to continue (or leave blank if none):"
     set_color normal
     read -s -P "[echo hidden]: " USER_PIN
-
     set MASTER_PASSWORD ""
     if test -n "$USER_PIN"
         set MASTER_PASSWORD (secret-tool lookup type bitwarden user local |
@@ -192,6 +192,36 @@ function bw-unlock
         export BW_SESSION=(bw unlock "$MASTER_PASSWORD" --raw)
     end
     bw status | jq
+end
+function bw-new
+    set new_password (bw generate $argv)
+    set_color brpurple
+    echo "New password generated: "
+    set_color normal
+    echo $new_password
+    read -P "Username: " new_user
+    read -P "Website: " new_uri
+
+    set new_name (echo $new_uri |
+        sed "s/^https\?\:\/\///" |
+        sed "s/\/.*//")
+    set revision_date (date -Iseconds --utc)
+
+    set item_login_uri (bw get template item.login.uri |
+        jq ".uri=\"$new_uri\"")
+    set item_login (bw get template item.login |
+        jq ".username=\"$new_user\" |
+        .password=\"$new_password\" |
+        .passwordRevisionDate=null |
+        .uris=[$item_login_uri]"
+    )
+    set item (bw get template item |
+        jq ".name=\"$new_name\" |
+        .revisionDate=\"$revision_date\" |
+        .notes=null |
+        .collectionIds = [] |
+        .login = $item_login")
+    echo $item | bw encode | bw create item | jq
 end
 
 #gd ubuntu
