@@ -3,6 +3,8 @@ setlocal shiftwidth=4
 setlocal softtabstop=4
 setlocal tabstop=4
 
+setlocal formatoptions-=t
+
 call DetectIndentIfNoLocalRC()
 
 let g:python_space_error_highlight = 1
