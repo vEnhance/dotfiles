@@ -376,7 +376,7 @@
     \usepackage[nameinlink]{cleveref}
   \fi
 
-  %%fakesection New Theorem Styles
+  %%fakesection New theorem styles
   \ifevanthm
     \usepackage{amsthm}
     \usepackage{thmtools}
@@ -622,15 +622,13 @@
     \usepackage[obeyFinal,textsize=scriptsize,shadow]{todonotes}
     \usepackage{textcomp}
     \usepackage{multirow}
+    \usepackage{ellipsis} % don't use ugly unicode ellipsis
     % Tiny optimizations:
     \usepackage{mathtools}
     \usepackage{microtype}
     \usepackage{xstring}
     \usepackage{wrapfig}
-    \ifevanbritish
-      % Use day-first date format
-      \usepackage[cleanlook,british]{isodate}
-    \fi
+    \ifevanbritish\usepackage[cleanlook,british]{isodate}\fi % day-first date
 
     % a list I like for walkthrough's --- Drew-style parts
     \newlist{walk}{enumerate}{3}
@@ -667,7 +665,7 @@
     \usetikzlibrary{decorations.pathmorphing}
   \fi
 
-  %%fakesection Page Setup
+  %%fakesection Page setup
   \ifevanfancy
     \@ifundefined{KOMAClassName}
     {
