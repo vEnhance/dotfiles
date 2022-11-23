@@ -64,6 +64,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://calendar.google.com/*',
     r'*://calendly.com/*',
     r'*://discord.com/*',
+    r'*://docs.google.com/*',
     r'*://drive.google.com/*',
     r'*://duckduckgo.com/*',
     r'*://github.com/*',
