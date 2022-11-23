@@ -59,8 +59,6 @@ if test -n "$TARGET_PASSWORD"; then
   notify-send -i 'status/security-high-symbolic' -u low -t 5000 \
     "Password copied to secondary clipboard" \
     "$(echo "$TARGET_ROW" | jq -C '.user + " at " + .name' -r), valid for 30 seconds"
-  sleep 30 && xsel --secondary --delete &
-  # sleep 0.2 && xdotool type "$TARGET_PASSWORD" && bw lock &
   exit 0
 else
   notify-send -i 'status/security-high-symbolic' -u critical -t 3000 \
