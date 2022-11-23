@@ -21,6 +21,7 @@ from venueQ import Data, VenueQNode, VenueQRoot, logger
 
 load_dotenv(Path('~/dotfiles/secrets/otis.env').expanduser())
 TOKEN = os.getenv('OTIS_WEB_TOKEN')
+AK = os.getenv('AK')
 OTIS_GMAIL_USERNAME = os.getenv('OTIS_GMAIL_USERNAME') or ''
 assert TOKEN is not None
 PRODUCTION = os.getenv('PRODUCTION', False)
@@ -181,42 +182,50 @@ class ProblemSet(VenueQNode):
             data['clubs'] = min(data['clubs'], 1)
             data['hours'] = min(data['hours'], 2)
 
-        data['feedback'] = data['feedback'].replace(r"'",
-                                                    r"’").replace(r'"', r'＂')
-        data['special_notes'] = data['special_notes'].replace(r"'",
-                                                              r"’").replace(
-                                                                  r'"', r'＂')
+        data['feedback'] = data['feedback']\
+                .replace(r"'", r"’").replace(r'"', r'＂')
+        data['special_notes'] = data['special_notes']\
+                .replace(r"'", r"’").replace(r'"', r'＂')
 
         # collect data about the handout
         if HANDOUTS_PATH.exists():
             filename = f'**/{data["unit__code"]}-{data["unit__group__slug"]}.tex'
             handouts = list(HANDOUTS_PATH.glob(filename))
-            if len(handouts) == 1:
-                total = 0
-                min_clubs = 0
-                high_clubs = 0
-                with open(handouts[0]) as f:
-                    for line in f:
-                        if (m := ProblemSet.VON_RE.match(line)) is not None:
-                            d, *_ = m.groups()
-                        elif (m := ProblemSet.PROB_RE.match(line)) is not None:
-                            d, *_ = m.groups()
-                        elif (m := ProblemSet.GOAL_RE.match(line)) is not None:
-                            a, b = m.groups()
-                            min_clubs = int(a)
-                            high_clubs = int(b)
-                            continue
-                        else:
-                            continue
-                        assert d is not None
-                        w = ProblemSet.HARDNESS_CHART[d]
-                        total += w
-                data[
-                    "clubs_max"] = f"max {1+total} | hi {high_clubs} | min {min_clubs}"
-            else:
-                data["clubs_max"] = None
+            assert len(handouts) == 1
+            total = 0
+            min_clubs = 0
+            high_clubs = 0
+            num_problems = 0
+            with open(handouts[0]) as f:
+                for line in f:
+                    if (m := ProblemSet.VON_RE.match(line)) is not None:
+                        d, *_ = m.groups()
+                    elif (m := ProblemSet.PROB_RE.match(line)) is not None:
+                        d, *_ = m.groups()
+                    elif (m := ProblemSet.GOAL_RE.match(line)) is not None:
+                        a, b = m.groups()
+                        min_clubs = int(a)
+                        high_clubs = int(b)
+                        continue
+                    else:
+                        continue
+                    assert d is not None
+                    w = ProblemSet.HARDNESS_CHART[d]
+                    total += w
+                    num_problems += 1
+            data["clubs_max"] = (f"max {1+total} | "
+                                 f"hi {high_clubs} | "
+                                 f"min {min_clubs}")
         else:
             data["clubs_max"] = None
+            total = None
+            num_problems = None
+
+        if (total is not None and num_problems is not None and total > 1 and
+                num_problems > 2 and data['clubs'] >= total - 1 and
+                not self.temp_path('mkd').exists()):
+            with open(self.temp_path('mkd'), 'w') as f:
+                print(AK, file=f)
 
         # save file
         for ext in ProblemSet.EXTENSIONS:
