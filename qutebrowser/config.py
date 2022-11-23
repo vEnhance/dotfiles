@@ -76,6 +76,8 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://stackoverflow.com/*',
     r'*://tailwindcomponents.com/*',
     r'*://tailwindcss.com/*',
+    r'*://usamo.wordpress.com/*',
+    r'*://wordpress.com/*',
     r'*://youtube.com/*',
 )
 
