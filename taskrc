@@ -61,6 +61,10 @@ report.next.labels=ID,Deps,P,Project,Tag,R,S,Due,Until,Description,Urg
 report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
 
+report.recurring.columns=id,start.age,entry.age,depends.indicator,priority,parent.short,project,recur,due,until,description,urgency
+report.recurring.labels=ID,Active,Age,D,P,Parent,Project,Recur,Due,Until,Description,Urg
+report.recurring.sort=until-,parent,recur-,due
+
 report.undone.description=List of tasks that are not done
 report.undone.filter=status:pending or wait.after:now
 report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends,description,urgency,priority,project,tags
