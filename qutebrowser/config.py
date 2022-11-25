@@ -31,7 +31,6 @@ config.bind(r'<Ctrl-W>', 'tab-close')
 # config.bind(r'<Return>', 'download-clear')
 config.bind(r'e', 'tab-clone')
 config.bind(r'E', 'spawn firefox "{url}"')
-config.bind(r'W', 'spawn --userscript qute-bitwarden')
 config.bind(r'Z', 'tab-only')
 config.bind(r'd', 'scroll-page 0 0.5')
 config.bind(r'u', 'scroll-page 0 -0.5')
@@ -52,6 +51,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r'*://*.pretzel.rocks/*',
     r'*://*.readthedocs.io/*',
     r'*://*.stackexchange.com/*',
+    r'*://*.steampowered.com/*',
     r'*://*.stripe.com/*',
     r'*://*.tailwindcss.com/*',
     r'*://*.twitch.tv/*',
@@ -83,6 +83,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
 
 for site in ALLOW_JAVASCRIPT_WEBSITES:
     config.set('content.javascript.enabled', True, site)
+    config.set('content.javascript.can_access_clipboard', True, site)
 
 
 # Block youtube ads
