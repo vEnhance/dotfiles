@@ -35,7 +35,7 @@ alias.halt=modify haltedon:now wait:later
 alias.unhalt=modify haltedon: wait:
 
 uda.priority.values=H,M,,L,N
-recurrence.limit=0
+recurrence.limit=1
 urgency.uda.priority.H.coefficient=4.2
 urgency.uda.priority.M.coefficient=2.1
 urgency.uda.priority.L.coefficient=-1.8
