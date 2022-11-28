@@ -181,7 +181,7 @@ nnoremap <silent> <localleader>p :call EvanCompileLaTeX(1)<CR>
 nnoremap <silent> <localleader>c :call EvanCompileLaTeX(0)<CR>
 " latex synctex
 nmap <silent> <localleader>s :call SyncTexForward()
-" latex compile once
+" latex remove all double dollar signs
 nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 
 " TeX Customizations
@@ -192,10 +192,6 @@ set iskeyword+=_ " Add _ to autocomplete list
 
 " Wrap in dollar signs
 nnoremap <localleader>w i$<Esc>ea$<Esc>
-
-" Spell
-set spell
-syntax spell toplevel
 
 set conceallevel=2
 

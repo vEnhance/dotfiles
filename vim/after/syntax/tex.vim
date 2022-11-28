@@ -1,6 +1,4 @@
 " fix spellcheck
-syntax spell toplevel
-set spell
 scriptencoding 'utf-8'
 
 " Conceal modifications
