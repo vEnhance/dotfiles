@@ -1,7 +1,7 @@
 from datetime import date as _date
 from datetime import datetime, timedelta
 from pprint import pprint
-from typing import Optional
+from typing import Any
 
 from bs4 import BeautifulSoup
 
@@ -12,7 +12,7 @@ from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 def get_child_string(tr: BeautifulSoup,
                      tag_name='td',
-                     class_name: Optional[str] = None) -> str:
+                     class_name: str | None = None) -> str:
     if class_name is None:
         elm = tr.find(tag_name)
     else:
@@ -21,6 +21,8 @@ def get_child_string(tr: BeautifulSoup,
     return ' '.join(
         line.strip() for line in elm.strings if line.strip()).strip()
 
+
+rows_for_csv: list[Any] = []
 
 with get_session() as session:
     for bank_account_name in ('TCS', 'TCC'):
@@ -54,6 +56,8 @@ with get_session() as session:
 
             if row_date < today() + timedelta(days=-60):
                 continue
+
+            rows_for_csv.append([row_description, row_amount, row_date])
 
             for txn in recent_txn:
                 if abs(row_date - txn.date) <= timedelta(
@@ -114,3 +118,8 @@ with get_session() as session:
             if user_response.startswith('y') or user_response == '':
                 for args_dict in args_txn_to_create:
                     bank.add(**args_dict)
+
+with open('data/auto-gen-techcu.csv', 'w') as f:
+    print('description,amount,date', file=f)
+    for row in rows_for_csv:
+        print(','.join(str(_) for _ in row), file=f)
