@@ -17,7 +17,7 @@ with get_session() as session:
 
     args_txn_to_create: list[TxnAddArgsDict] = []
     with open(
-            '/home/evan/Sync/Grownup/Finance/txn-importer/Citi.csv') as csvfile:
+            '/home/evan/dotfiles/gnucash-txn-import/data/citi.csv') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             row_amount = -to_dollars(row['Debit'] or row['Credit'])
@@ -45,8 +45,12 @@ with get_session() as session:
                      ) and row_amount < 0:
                     account_name = 'E:Life:Food'
                     row_description = 'Uber Eats (TODO)'
+                elif row_description.startswith('Uber Trip') and row_amount < 0:
+                    account_name = 'E:Transp:Uber'
                 elif row_description.startswith(
-                        'Starry Plus Boston Ma') and row_amount < 0:
+                        'Uber* Trip') and row_amount < 0:
+                    account_name = 'E:Transp:Uber'
+                elif row_description.startswith('Starry') and row_amount < 0:
                     account_name = 'E:House:Util'
                     row_description = 'Starry Internet'
                 elif row_description.startswith(

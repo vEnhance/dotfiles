@@ -31,7 +31,7 @@ with get_session() as session:
         ]
         args_txn_to_create: list[TxnAddArgsDict] = []
 
-        with open('/home/evan/Sync/Grownup/Finance/txn-importer/TechCU.html'
+        with open('/home/evan/dotfiles/gnucash-txn-import/data/techcu.html'
                  ) as htmlfile:
             soup = BeautifulSoup(htmlfile, features='lxml')
 
