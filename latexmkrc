@@ -3,7 +3,7 @@ push @extra_pdflatex_options, '-synctex=1' ;
 # This version is better than the one given by official asy doc
 # because it will work with latexmk -cd as well.
 # Unfortunately, I doubt it works on windows,
-# because dirname is not a linux command.
+# because dirname is a linux command.
 sub run_asy {
     return system("asy -o \$(dirname '$_[0]') '$_[0]'");
 }
