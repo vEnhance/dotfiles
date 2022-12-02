@@ -200,12 +200,21 @@
       \end{probSurvey}
     }
 
+    \newcommand{\artwork}[1]{
+      \begin{center}
+        \fboxrule=4pt
+        \fbox{\includegraphics[width=0.9\textwidth]{#1}}
+      \end{center}
+      \newpage
+    }
+
     \newcommand{\conclusion}{%
       \printsurvey
       \newpage
       \py{'\section{Solutions to the walkthroughs}' if solution_text else ''}
       \py{solution_text}
     }
+
     \usepackage{epigraph}
     %\renewcommand{\epigraphflush}{flushleft}
     \renewcommand{\epigraphsize}{\scriptsize}
