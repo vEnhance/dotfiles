@@ -23,6 +23,7 @@ alias.tmrw=due:eod+24h
 urgency.user.project.idea.coefficient=-3.0
 urgency.waiting.coefficient=-4.0 # waiting task
 urgency.scheduled.coefficient=2
+urgency.active.coefficient=9
 
 alias.ne=priority:N # none, non-essential, negligible, etc.
 alias.lo=priority:L
