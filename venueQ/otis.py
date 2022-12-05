@@ -460,6 +460,54 @@ class SuggestionCarrier(VenueQNode):
         return Suggestion
 
 
+class Job(VenueQNode):
+
+    def get_name(self, data: Data) -> str:
+        return str(data['pk'])
+
+    def get_initial_data(self) -> Data:
+        return {
+            'action': 'triage_job',
+        }
+
+    def init_hook(self):
+        pass
+
+    def on_buffer_open(self, data: Data):
+        super().on_buffer_open(data)
+        self.edit_temp(extension='mkd')
+
+    def on_buffer_close(self, data: Data):
+        super().on_buffer_close(data)
+        comments_to_email = self.read_temp(extension='mkd').strip()
+        if comments_to_email != '' and self.data['progress'] != 'SUB':
+            verdict = 'ACCEPTED' if self.data['progress'] == 'VFD' \
+                    else 'CHANGES REQUESTED'
+            recipient = data['assignee__user__email']
+            subject = f"OTIS: Task {data['name']} from {data['folder__name']} triaged: {verdict}"
+            body = comments_to_email
+            body += '\n\n' + '-' * 40 + '\n\n'
+            body += '**Deliverable**: ' + data['worker_deliverable']
+            body += '\n\n'
+            body += '**Notes**: ' + data['worker_notes']
+            try:
+                send_email(subject=subject, recipients=[recipient], body=body)
+            except Exception as e:
+                logger.error(f"Email {subject} to {recipient} failed",
+                             exc_info=e)
+            else:
+                logger.info(f"Email {subject} to {recipient} sent!")
+            if query_otis_server(payload=data) is not None:
+                self.delete()
+                self.erase_temp(extension='mkd')
+
+
+class JobCarrier(VenueQNode):
+
+    def get_class_for_child(self, data: Data):
+        return Job
+
+
 class OTISRoot(VenueQRoot):
 
     def get_class_for_child(self, data: Data):
@@ -469,6 +517,8 @@ class OTISRoot(VenueQRoot):
             return Inquiries
         elif data['_name'] == 'Suggestions':
             return SuggestionCarrier
+        elif data['_name'] == 'Jobs':
+            return JobCarrier
         else:
             raise ValueError(f"wtf is {data['_name']}")
 

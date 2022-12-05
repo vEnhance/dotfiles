@@ -276,5 +276,9 @@ class VenueQRoot(VenueQNode):
     def wipe(self):
         if VIM_ENABLED:
             for bn in self.wipe_queue:
-                vim.command(f"bdelete! {bn}")
+                try:
+                    vim.command(f"bdelete! {bn}")
+                except vim.error:
+                    logging.warn(f"Could not delete buffer {bn}, "
+                                 "maybe it was deleted already.")
             self.wipe_queue = []
