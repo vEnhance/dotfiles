@@ -38,6 +38,15 @@ for suggest_file in suggest_dir.glob('*.venueQ.yaml'):
         yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
         suggestion_timestamps.append(yaml_data['created_at'])
 
+# Jobs
+job_dir = OTIS_ROOT / "Jobs"
+assert job_dir.exists()
+job_timestamps: List[str] = []
+for job_file in job_dir.glob('*.venueQ.yaml'):
+    with open(job_file) as f:
+        yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
+        job_timestamps.append(yaml_data['updated_at'])
+
 
 def get_stats(x: List[str]) -> Tuple[timedelta, int]:
     n = len(x)
@@ -67,3 +76,4 @@ def get_conky_presentation(s: str, x: List[str]) -> str:
 print(get_conky_presentation('Inqr', inquiry_timestamps))
 print(get_conky_presentation('PSet', pset_timestamps))
 print(get_conky_presentation('Sugg', suggestion_timestamps))
+print(get_conky_presentation('Jobs', job_timestamps))
