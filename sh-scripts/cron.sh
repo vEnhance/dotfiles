@@ -24,6 +24,9 @@ if command -v mbsync >/dev/null; then
 fi
 
 ## SYNC TASKWARRIOR
+if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
+  task rc.recurrence.limit=1 list
+fi
 if command -v task >/dev/null; then
   task rc.gc=on sync
 fi
