@@ -81,7 +81,7 @@ def main(tsv_file, outfile, name):
         scores_raw.append(pr_data)
         scores_total.append(total)
 
-    scores_raw.sort(key=lambda s: (-ssum(s), str(s)))
+    scores_raw.sort(key=lambda s: (-ssum(s), tuple(-x for x in s)))
     scores_total.sort()
     N = len(scores_total)
     assert len(scores_raw) == N
