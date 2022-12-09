@@ -400,6 +400,7 @@ nnoremap <silent> <Space>t :NERDTreeFocus<CR>
 nnoremap <silent> <Space>h :Farr<CR>
 " Start up CoC
 nnoremap <silent> <Space>c :call CocStartAndDisableALELSP()<CR>
+nnoremap <silent> <Space>l :lcd %:p:h<CR>
 
 nnoremap <silent> <Space>w :set wrap<CR>
 nnoremap <silent> <Space>n :set nowrap<CR>
