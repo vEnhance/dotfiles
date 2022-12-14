@@ -12,7 +12,7 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from typing import Any, List, Optional, Type
+from typing import Any, Callable, List, Optional, Type
 
 import markdown
 import requests
@@ -44,6 +44,7 @@ def send_email(
     recipients: None | List[str] = None,
     bcc: None | List[str] = None,
     body: None | str = None,
+    callback: None | Callable[[], None] = None,
 ):
     mail = MIMEMultipart('alternative')
     mail['From'] = 'OTIS Overlord <evan@evanchen.cc>'
@@ -77,18 +78,31 @@ def send_email(
 
         def do_send():
             session = smtplib.SMTP('smtp.gmail.com', 587)
-            session.starttls(context=ssl.create_default_context())
-            session.login(f'{OTIS_GMAIL_USERNAME}@gmail.com', password)
-            session.sendmail('evan@evanchen.cc', target_addrs, mail.as_string())
-            logger.info(f"Email {subject} to {target_addrs} sent successfully!")
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), '4'])
+            try:
+                session.starttls(context=ssl.create_default_context())
+                session.login(f'{OTIS_GMAIL_USERNAME}@gmail.com', password)
+                session.sendmail('evan@evanchen.cc', target_addrs,
+                                 mail.as_string())
+            except Exception as e:
+                logger.error(f"Email '{subject}' failed to send", exc_info=e)
+                subprocess.run(
+                    [NOISEMAKER_SOUND_PATH.absolute().as_posix(), '7'])
+            else:
+                logger.info(f"Email '{subject}' sent successfully!")
+                subprocess.run(
+                    [NOISEMAKER_SOUND_PATH.absolute().as_posix(), '4'])
+                if callback is not None:
+                    callback()
 
+        logger.debug(f"Email '{subject}' to {target_addrs} queued.")
         t = threading.Thread(target=do_send)
         t.start()
     else:
         assert password
         print("Testing an email send from <evan@evanchen.cc>")
         print(mail.as_string())
+        if callback is not None:
+            callback()
 
 
 def query_otis_server(payload: Data,
@@ -345,19 +359,19 @@ class ProblemSet(VenueQNode):
                 verdict = "completed" if data[
                     'status'] == 'A' else "NOT ACCEPTED (action req'd)"
                 subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} was {verdict}"
-                try:
-                    send_email(subject=subject,
-                               recipients=[recipient],
-                               body=body)
-                except Exception as e:
-                    logger.error(f"Email {subject} to {recipient} failed",
-                                 exc_info=e)
-                else:
-                    logger.debug(f"Email {subject} to {recipient} queued")
+
+                def callback():
                     if data['status'] == 'R':
                         self.get_path().unlink()
                     self.erase_temp(extension='mkd')
                     self.delete()
+
+                send_email(
+                    subject=subject,
+                    recipients=[recipient],
+                    body=body,
+                    callback=callback,
+                )
             else:
                 logger.warning("Server query failed, so no action taken")
         else:
@@ -388,14 +402,7 @@ class Inquiries(VenueQNode):
                     set(inquiry['student__user__email']
                         for inquiry in data['inquiries']))
                 subject = "OTIS unit petition processed"
-                try:
-                    send_email(subject=subject, bcc=bcc_addrs, body=body)
-                except Exception as e:
-                    logger.error(f"Email {subject} to {bcc_addrs} failed",
-                                 exc_info=e)
-                else:
-                    logger.info(f"Email {subject} to {bcc_addrs} queued")
-                    self.delete()
+                send_email(subject=subject, bcc=bcc_addrs, body=body)
 
 
 class Suggestion(VenueQNode):
@@ -452,16 +459,18 @@ class Suggestion(VenueQNode):
             body += r"```latex" + "\n"
             body += self.statement
             body += "\n" + r"```"
-            try:
-                send_email(subject=subject, recipients=[recipient], body=body)
-            except Exception as e:
-                logger.error(f"Email {subject} to {recipient} failed",
-                             exc_info=e)
-            else:
-                logger.debug(f"Email {subject} to {recipient} queued")
-            if query_otis_server(payload=data) is not None:
-                self.delete()
-                self.erase_temp(extension='mkd')
+
+            def callback():
+                if query_otis_server(payload=data) is not None:
+                    self.delete()
+                    self.erase_temp(extension='mkd')
+
+            send_email(
+                subject=subject,
+                recipients=[recipient],
+                body=body,
+                callback=callback,
+            )
 
 
 class SuggestionCarrier(VenueQNode):
@@ -500,16 +509,18 @@ class Job(VenueQNode):
             body += '**Deliverable**: ' + data['worker_deliverable']
             body += '\n\n'
             body += '**Notes**: ' + data['worker_notes']
-            try:
-                send_email(subject=subject, recipients=[recipient], body=body)
-            except Exception as e:
-                logger.error(f"Email {subject} to {recipient} failed",
-                             exc_info=e)
-            else:
-                logger.info(f"Email {subject} to {recipient} queued.")
-            if query_otis_server(payload=data) is not None:
-                self.delete()
-                self.erase_temp(extension='mkd')
+
+            def callback():
+                if query_otis_server(payload=data) is not None:
+                    self.delete()
+                    self.erase_temp(extension='mkd')
+
+            send_email(
+                subject=subject,
+                recipients=[recipient],
+                body=body,
+                callback=callback,
+            )
 
 
 class JobCarrier(VenueQNode):
