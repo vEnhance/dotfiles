@@ -6,12 +6,13 @@ import re
 import smtplib
 import ssl
 import subprocess
+import threading
 import time
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Type
 
 import markdown
 import requests
@@ -35,14 +36,14 @@ if not OTIS_TMP_DOWNLOADS_PATH.exists():
     OTIS_TMP_DOWNLOADS_PATH.mkdir()
     OTIS_TMP_DOWNLOADS_PATH.chmod(0o777)
 HANDOUTS_PATH = Path('~/ProGamer/OTIS/Materials').expanduser()
-CHACHING_SOUND_PATH = Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser()
+NOISEMAKER_SOUND_PATH = Path('~/dotfiles/sh-scripts/noisemaker.sh').expanduser()
 
 
 def send_email(
     subject: str,
-    recipients: List[str] = None,
-    bcc: List[str] = None,
-    body: str = None,
+    recipients: None | List[str] = None,
+    bcc: None | List[str] = None,
+    body: None | str = None,
 ):
     mail = MIMEMultipart('alternative')
     mail['From'] = 'OTIS Overlord <evan@evanchen.cc>'
@@ -73,10 +74,17 @@ def send_email(
 
     if PRODUCTION:
         target_addrs = (recipients or []) + (bcc or [])
-        session = smtplib.SMTP('smtp.gmail.com', 587)
-        session.starttls(context=ssl.create_default_context())
-        session.login(f'{OTIS_GMAIL_USERNAME}@gmail.com', password)
-        session.sendmail('evan@evanchen.cc', target_addrs, mail.as_string())
+
+        def do_send():
+            session = smtplib.SMTP('smtp.gmail.com', 587)
+            session.starttls(context=ssl.create_default_context())
+            session.login(f'{OTIS_GMAIL_USERNAME}@gmail.com', password)
+            session.sendmail('evan@evanchen.cc', target_addrs, mail.as_string())
+            logger.info(f"Email {subject} to {target_addrs} sent successfully!")
+            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), '4'])
+
+        t = threading.Thread(target=do_send)
+        t.start()
     else:
         assert password
         print("Testing an email send from <evan@evanchen.cc>")
@@ -96,7 +104,8 @@ def query_otis_server(payload: Data,
         if resp.status_code == 200:
             logger.info("Got a 200 response back from server")
             if play_sound:
-                subprocess.run([CHACHING_SOUND_PATH.absolute().as_posix(), '5'])
+                subprocess.run(
+                    [NOISEMAKER_SOUND_PATH.absolute().as_posix(), '5'])
             return resp
         else:
             logger.error(
@@ -344,7 +353,7 @@ class ProblemSet(VenueQNode):
                     logger.error(f"Email {subject} to {recipient} failed",
                                  exc_info=e)
                 else:
-                    logger.info(f"Email {subject} to {recipient} sent!")
+                    logger.debug(f"Email {subject} to {recipient} queued")
                     if data['status'] == 'R':
                         self.get_path().unlink()
                     self.erase_temp(extension='mkd')
@@ -357,7 +366,8 @@ class ProblemSet(VenueQNode):
 
 class ProblemSetCarrier(VenueQNode):
 
-    def get_class_for_child(self, data: Data):
+    def get_class_for_child(self, data: Data) -> Type[ProblemSet]:
+        del data
         return ProblemSet
 
 
@@ -384,7 +394,7 @@ class Inquiries(VenueQNode):
                     logger.error(f"Email {subject} to {bcc_addrs} failed",
                                  exc_info=e)
                 else:
-                    logger.info(f"Email {subject} to {bcc_addrs} sent!")
+                    logger.info(f"Email {subject} to {bcc_addrs} queued")
                     self.delete()
 
 
@@ -448,7 +458,7 @@ class Suggestion(VenueQNode):
                 logger.error(f"Email {subject} to {recipient} failed",
                              exc_info=e)
             else:
-                logger.info(f"Email {subject} to {recipient} sent!")
+                logger.debug(f"Email {subject} to {recipient} queued")
             if query_otis_server(payload=data) is not None:
                 self.delete()
                 self.erase_temp(extension='mkd')
@@ -496,7 +506,7 @@ class Job(VenueQNode):
                 logger.error(f"Email {subject} to {recipient} failed",
                              exc_info=e)
             else:
-                logger.info(f"Email {subject} to {recipient} sent!")
+                logger.info(f"Email {subject} to {recipient} queued.")
             if query_otis_server(payload=data) is not None:
                 self.delete()
                 self.erase_temp(extension='mkd')

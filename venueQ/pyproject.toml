@@ -32,7 +32,7 @@ use_tabs = false
 enableTypeIgnoreComments = true
 exclude = ["**/node_modules", "**/typings", "**/__pycache__", ".git", "venv", "**/migrations"]
 pythonPlatform = "Linux"
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 typeCheckingMode = "basic"
 useLibraryCodeForTypes = true
 
