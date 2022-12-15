@@ -420,6 +420,7 @@ class Suggestion(VenueQNode):
     def init_hook(self):
         self.statement = self.data.pop('statement')
         self.solution = self.data.pop('solution')
+        self.data['status'] = 'SUGG_OK'
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
@@ -453,7 +454,13 @@ class Suggestion(VenueQNode):
         comments_to_email = self.read_temp(extension='mkd').strip()
         if comments_to_email != '':
             recipient = data['user__email']
-            subject = f"OTIS: Suggestion {data['source']} processed"
+            subject = f"OTIS: Suggestion {data['source']}: "
+            if data['status'] == 'SUGG_OK' or data['status'] == 'SUGG_NOK':
+                subject += 'Accepted'
+            if data['status'] == 'SUGG_REJ':
+                subject += 'Rejected'
+            if data['status'] == 'SUGG_EDT':
+                subject += 'REVISIONS REQUESTED'
             body = comments_to_email
             body += '\n\n' + '-' * 40 + '\n\n'
             body += r"```latex" + "\n"
@@ -499,8 +506,8 @@ class Job(VenueQNode):
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
         comments_to_email = self.read_temp(extension='mkd').strip()
-        if comments_to_email != '' and self.data['progress'] != 'SUB':
-            verdict = 'ACCEPTED' if self.data['progress'] == 'VFD' \
+        if comments_to_email != '' and self.data['progress'] != 'JOB_SUB':
+            verdict = 'Accepted' if self.data['progress'] == 'JOB_VFD' \
                     else 'CHANGES REQUESTED'
             recipient = data['assignee__user__email']
             subject = f"OTIS: Task {data['name']} from {data['folder__name']} triaged: {verdict}"
