@@ -463,7 +463,9 @@ set cryptmethod=blowfish2
 set completeopt=menuone,noselect,preview
 set conceallevel=2
 set cursorline
-set cursorlineopt=number
+if v:version >= 800
+  set cursorlineopt=number
+endif
 set expandtab " :(
 set foldlevelstart=3
 set guicursor+=n-v-c:blinkon0
