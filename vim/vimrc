@@ -209,7 +209,9 @@ let g:coc_global_extensions = [
   \ 'coc-vimlsp',
   \ 'coc-yaml',
   \ ]
-call plug#end()
+if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
+  call plug#end()
+endif
 " }}}
 " Register ALE {{{
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
