@@ -513,7 +513,7 @@ set wrapmargin=0
 " }}}
 " {{{ Auto commands
 function! DetectIndentIfNoLocalRC()
-  if !exists('g:loaded_localrc')
+  if !exists('g:loaded_localrc') && !empty(globpath(&runtimepath, 'autoload/plug.vim'))
     DetectIndent
   endif
 endfunction
