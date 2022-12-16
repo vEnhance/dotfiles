@@ -51,7 +51,7 @@ def send_email(
     assert recipients is not None or bcc is not None
     if recipients is not None:
         mail['To'] = ', '.join(recipients)
-    # ... i did NOT realize that gmail did not strip thins
+    # ... i did NOT realize that gmail did not strip this header
     # https://mail.python.org/pipermail/email-sig/2004-September/000151.html
     # if bcc is not None:
     #    mail['Bcc'] = ', '.join(bcc)
@@ -469,7 +469,7 @@ class Suggestion(VenueQNode):
                 body += f"https://otis.evanchen.cc/suggestions/{pk}/*."
                 body += '\n\n' + '-' * 40 + '\n\n'
             elif status == 'SUGG_NEW':
-                pass
+                return
             else:
                 raise ValueError(f"Invalid status {status}")
             body += comments_to_email
