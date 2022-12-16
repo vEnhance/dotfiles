@@ -51,8 +51,10 @@ def send_email(
     assert recipients is not None or bcc is not None
     if recipients is not None:
         mail['To'] = ', '.join(recipients)
-    if bcc is not None:
-        mail['Bcc'] = ', '.join(bcc)
+    # ... i did NOT realize that gmail did not strip thins
+    # https://mail.python.org/pipermail/email-sig/2004-September/000151.html
+    # if bcc is not None:
+    #    mail['Bcc'] = ', '.join(bcc)
     mail['Subject'] = subject
 
     plain_msg = body or ''
@@ -420,7 +422,6 @@ class Suggestion(VenueQNode):
     def init_hook(self):
         self.statement = self.data.pop('statement')
         self.solution = self.data.pop('solution')
-        self.data['status'] = 'SUGG_OK'
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
@@ -455,13 +456,23 @@ class Suggestion(VenueQNode):
         if comments_to_email != '':
             recipient = data['user__email']
             subject = f"OTIS: Suggestion {data['source']}: "
-            if data['status'] == 'SUGG_OK' or data['status'] == 'SUGG_NOK':
+            pk = data['pk']
+            body = ''
+            status = data['status']
+            if status == 'SUGG_OK' or status == 'SUGG_NOK':
                 subject += 'Accepted'
-            if data['status'] == 'SUGG_REJ':
+            elif status == 'SUGG_REJ':
                 subject += 'Rejected'
-            if data['status'] == 'SUGG_EDT':
+            elif status == 'SUGG_EDIT':
                 subject += 'REVISIONS REQUESTED'
-            body = comments_to_email
+                body += "*You can submit your revisions at the following URL: "
+                body += f"https://otis.evanchen.cc/suggestions/{pk}/*."
+                body += '\n\n' + '-' * 40 + '\n\n'
+            elif status == 'SUGG_NEW':
+                pass
+            else:
+                raise ValueError(f"Invalid status {status}")
+            body += comments_to_email
             body += '\n\n' + '-' * 40 + '\n\n'
             body += r"```latex" + "\n"
             body += self.statement
