@@ -194,13 +194,25 @@ function bw-unlock
     bw status | jq
 end
 function bw-new
-    set new_password (bw generate $argv)
+    if count $argv >/dev/null
+        set new_password (bw generate $argv)
+    else
+        set new_password (bw generate -ulns)
+    end
     set_color brpurple
     echo "New password generated: "
     set_color normal
     echo $new_password
     read -P "Username: " new_user
+    if test -z "$new_user"
+        echo "Error: No user provided"
+        return 1
+    end
     read -P "Website: " new_uri
+    if test -z "$new_uri"
+        echo "Error: No URI provided"
+        return 1
+    end
 
     set new_name (echo $new_uri |
         sed "s/^https\?\:\/\///" |
