@@ -58,3 +58,13 @@ fi
 if [ "$1" = a ]; then
   "$PLAYER" -q -f -18000 "$HOME"/dotfiles/noisemaker/Sa-horn.mp3 &
 fi
+
+if [ "$1" = B ]; then
+  "$PLAYER" -q -f -80000 "$HOME"/dotfiles/noisemaker/SB-buzz.mp3 &
+fi
+if [ "$1" = N ]; then
+  "$PLAYER" -q -f -80000 "$HOME"/dotfiles/noisemaker/SN-nooo.mp3 &
+fi
+if [ "$1" = H ]; then
+  "$PLAYER" -q -f -80000 "$HOME"/dotfiles/noisemaker/SH-holy.mp3 &
+fi

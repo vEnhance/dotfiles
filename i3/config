@@ -301,6 +301,9 @@ bindsym $mod+Mod1+9 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh
 bindsym $mod+Mod1+0 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 0
 bindsym $mod+Mod1+apostrophe exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh a
 bindsym $mod+Mod1+grave exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh g
+bindsym $mod+Mod1+b exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh B
+bindsym $mod+Mod1+h exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh H
+bindsym $mod+Mod1+n exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh N
 # }}}
 
 # Exec startup
