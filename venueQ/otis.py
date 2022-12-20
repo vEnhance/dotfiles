@@ -524,6 +524,8 @@ class Job(VenueQNode):
             subject = f"OTIS: Task {data['name']} from {data['folder__name']} triaged: {verdict}"
             body = comments_to_email
             body += '\n\n' + '-' * 40 + '\n\n'
+            body += f"**URL**: https://otis.evanchen.cc/payments/job/{data['pk']}/ "
+            body += '(update task using this URL)\n'
             body += '**Deliverable**: ' + data['worker_deliverable']
             body += '\n\n'
             body += '**Notes**: ' + data['worker_notes']
