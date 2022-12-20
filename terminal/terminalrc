@@ -1,5 +1,5 @@
 [Configuration]
-FontName=Inconsolata Semi-Bold Semi-Condensed 18
+FontName=Inconsolata Semi-Bold Semi-Condensed 16
 MiscAlwaysShowTabs=FALSE
 MiscBell=TRUE
 MiscBellUrgent=TRUE
@@ -40,4 +40,3 @@ ColorSelection=#e5e5a5a50a0a
 ColorSelectionBackground=#f9f9f0f06b6b
 ColorBold=#9999c1c1f1f1
 ColorCursorUseDefault=FALSE
-
