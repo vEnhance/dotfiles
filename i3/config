@@ -307,6 +307,7 @@ mode "exec" {
   bindsym y exec gvim -O ~/diary/$(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/), mode "default"
   bindsym z exec zoom &, mode "default"
   bindsym space exec loginctl lock-session, mode "default"
+  bindsym equal exec flameshot gui &, mode "default"
 
   bindsym Return mode "default"
   bindsym Escape mode "default"

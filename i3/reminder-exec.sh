@@ -14,5 +14,5 @@ notify-send "i3: exec mode" \
 <b>r</b>: oRch             <b>s</b>: spotify
 <b>t</b>: oTis             <b>x</b>: qutebrowser
 <b>y</b>: diarY            <b>z</b>: zoom
-<b>Space</b>: loginctl lock
+<b>Space</b>: loginctl lock <b>=</b>: screenshot
 "
