@@ -1,6 +1,6 @@
 - Hard tabs are no longer used. 😢
 - Python/Perl uses 4 spaces for indentation.
-- Python is formatted using YAPF google style, more broadly.
+- Python is formatted using `black`, more broadly.
 - Fish uses 4 spaces for indentation as well.
 - Shell, Typescript, JS, CSS, VimScript use 2 spaces for indentation.
 - Markdown/JS/CSS use prettier for formatting.

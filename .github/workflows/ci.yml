@@ -16,13 +16,13 @@ jobs:
         uses: actions/setup-python@v2
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pyflakes yapf tomli
+          python -m pip install --upgrade pyflakes black tomli
       - name: Run PyFlakes
         run: |
           pyflakes $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
-      - name: Run YAPF
+      - name: Run black
         run: |
-          yapf -d --style yapf/style $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
+          black --check $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
 
   spellcheck:
     runs-on: ubuntu-latest

@@ -14,8 +14,8 @@ codespell "${SPELL_FILES[@]}"
 # Python
 echo "Running pyflakes on ${#PYTHON_FILES[@]} files..."
 pyflakes "${PYTHON_FILES[@]}"
-echo "Running yapf on ${#PYTHON_FILES[@]} files..."
-yapf -d "${PYTHON_FILES[@]}"
+echo "Running black on ${#PYTHON_FILES[@]} files..."
+black --check "${PYTHON_FILES[@]}"
 
 # Vim
 echo "Running vint on ${#VIM_FILES[@]} files..."

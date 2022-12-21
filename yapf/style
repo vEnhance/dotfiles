@@ -1,5 +1,0 @@
-[style]
-based_on_style = google
-column_limit = 80
-use_tabs = false
-# vim: ft=toml
