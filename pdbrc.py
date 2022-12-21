@@ -24,7 +24,7 @@ def _pdb_reload(pdb, modules):
     ## Derive sys-lib path prefix.
     #
     SYS_PREFIX = importlib.__file__
-    SYS_PREFIX = SYS_PREFIX[:SYS_PREFIX.index("importlib")]
+    SYS_PREFIX = SYS_PREFIX[: SYS_PREFIX.index("importlib")]
 
     ## Parse args to decide prefixes to Include/Exclude.
     #
@@ -48,9 +48,10 @@ def _pdb_reload(pdb, modules):
     to_reload = [
         (k, v)
         for k, v in sys.modules.items()
-        if (not to_include or any(k.startswith(i) for i in to_include)) and
-        not any(k.startswith(i) for i in to_exclude) and
-        getattr(v, "__file__", None) and not v.__file__.startswith(SYS_PREFIX)
+        if (not to_include or any(k.startswith(i) for i in to_include))
+        and not any(k.startswith(i) for i in to_exclude)
+        and getattr(v, "__file__", None)
+        and not v.__file__.startswith(SYS_PREFIX)
     ]
     print(
         f"PDB-reloading {len(to_reload)} modules:",
@@ -73,4 +74,4 @@ Pdb.do_re = _pdb_reload  # type: ignore
 
 
 class Config(DefaultConfig):
-    prompt = '\033[1;31m(PDB++) \033[m'
+    prompt = "\033[1;31m(PDB++) \033[m"

@@ -2,13 +2,20 @@ from datetime import date
 from decimal import Decimal
 from typing import Optional, TypedDict, Union
 
-from gnucash import Account, GncNumeric, Session, SessionOpenMode, Split, Transaction  # NOQA
+from gnucash import (
+    Account,
+    GncNumeric,
+    Session,
+    SessionOpenMode,
+    Split,
+    Transaction,
+)  # NOQA
 
 
 class TxnAddArgsDict(TypedDict):
     amount: Decimal
     description: str
-    target: 'GNCAccount'
+    target: "GNCAccount"
     txn_date: date
 
 
@@ -19,12 +26,11 @@ def to_dollars(x: Union[str, int, float, Decimal, GncNumeric]) -> Decimal:
 
 
 class GNCTxn:
-
     def __init__(self, split: Split):
         self._split = split
         self._txn = split.parent
         self.amount = to_dollars(split.GetValue())
-        self.reconciled = (split.GetReconcile() == 'y')
+        self.reconciled = split.GetReconcile() == "y"
 
     def __repr__(self):
         return str(self)
@@ -45,20 +51,19 @@ class GNCTxn:
         return len(self._txn.GetSplitList()) > 2
 
     @property
-    def cause(self) -> Optional['GNCAccount']:
+    def cause(self) -> Optional["GNCAccount"]:
         if self.is_split:
             return None
         return GNCAccount(self._txn.GetSplitList()[0].GetAccount())
 
     @property
-    def effect(self) -> Optional['GNCAccount']:
+    def effect(self) -> Optional["GNCAccount"]:
         if self.is_split:
             return None
         return GNCAccount(self._txn.GetSplitList()[1].GetAccount())
 
 
 class GNCAccount:
-
     def __init__(self, _account: Account):
         self._account = _account
         self.is_root = _account.get_parent() is None
@@ -68,23 +73,25 @@ class GNCAccount:
 
     def __str__(self):
         if self.is_root:
-            return 'ROOT'
+            return "ROOT"
         parent = GNCAccount(self._account.get_parent())
         name = self._account.GetName()
         if parent.is_root:
             return name
         else:
-            return f'{str(parent)}:{name}'
+            return f"{str(parent)}:{name}"
 
     @property
     def transactions(self) -> list[GNCTxn]:
         return [GNCTxn(split) for split in self._account.GetSplitList()]
 
-    def add(self,
-            amount: Union[Decimal, int, float],
-            description: str,
-            target: 'GNCAccount',
-            txn_date: Optional[date] = None):
+    def add(
+        self,
+        amount: Union[Decimal, int, float],
+        description: str,
+        target: "GNCAccount",
+        txn_date: Optional[date] = None,
+    ):
         book = self._account.get_book()
         currency = book.get_table().lookup("CURRENCY", "USD")
 
@@ -114,13 +121,13 @@ class GNCAccount:
 def get_account(session: Session, account_name: str) -> GNCAccount:
     book = session.book
     account = book.get_root_account()
-    for chunk in account_name.split(':'):
+    for chunk in account_name.split(":"):
         account = account.lookup_by_name(chunk)
-        assert account is not None, f'On {chunk} of {account_name}'
+        assert account is not None, f"On {chunk} of {account_name}"
     return GNCAccount(account)
 
 
-DEFAULT_PATH = '/home/evan/Sync/Grownup/Finance/gnucash/main.gnucash'
+DEFAULT_PATH = "/home/evan/Sync/Grownup/Finance/gnucash/main.gnucash"
 
 
 def get_session(path: str = DEFAULT_PATH) -> Session:

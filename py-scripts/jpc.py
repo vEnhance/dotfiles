@@ -4,7 +4,7 @@ import time
 
 
 def timedOS(s):
-    add_args = ''.join([" \"%s\"" % blah for blah in sys.argv[2:]])
+    add_args = "".join([' "%s"' % blah for blah in sys.argv[2:]])
     start = time.time()
     signal = os.system(s + add_args)
     end = time.time()
@@ -12,8 +12,8 @@ def timedOS(s):
 
 
 class_name = sys.argv[1].strip()
-if class_name.find('.') != -1:
-    class_name = class_name[0:class_name.find('.')]
+if class_name.find(".") != -1:
+    class_name = class_name[0 : class_name.find(".")]
 
 if os.path.isfile(".build"):
     print("This is jpc, parsing %s" % class_name)
@@ -38,8 +38,7 @@ elif os.path.isfile(class_name + ".java"):
     if os.system("javac %s.java" % class_name) != 0:
         exit()
     if os.path.isfile("%s.in" % class_name):
-        signal, elapsed = timedOS("cat %s.in | java -ea %s" %
-                                  (class_name, class_name))
+        signal, elapsed = timedOS("cat %s.in | java -ea %s" % (class_name, class_name))
     else:
         signal, elapsed = timedOS("java -ea %s" % (class_name))
     if signal != 0:
@@ -47,8 +46,7 @@ elif os.path.isfile(class_name + ".java"):
 elif os.path.isfile(class_name + ".py"):
     print("This is piglet, parsing %s.py" % class_name)
     if os.path.isfile("%s.in" % class_name):
-        signal, elapsed = timedOS("cat %s.in | python %s.py" %
-                                  (class_name, class_name))
+        signal, elapsed = timedOS("cat %s.in | python %s.py" % (class_name, class_name))
     else:
         signal, elapsed = timedOS("python %s.py" % class_name)
     if signal != 0:
@@ -58,7 +56,7 @@ else:
     exit()
 
 try:
-    f = open("%s.out" % class_name, 'r')
+    f = open("%s.out" % class_name, "r")
     for line in f:
         print(line.strip())
     f.close()

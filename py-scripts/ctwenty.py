@@ -36,21 +36,23 @@ def cmd(s: str):
 
 
 def audio_block():
-    cmd(r'touch ~/.cache/ctwenty.lock')
+    cmd(r"touch ~/.cache/ctwenty.lock")
     # cmd(r'i3-msg mode trap')
     # cmd(r'i3-msg workspace "Trap"')
-    cmd(r'notify-send -i timer-symbolic -u critical -t 20000 "Rest your eyes!" '
-        + r'"You have a mandatory break now."')
+    cmd(
+        r'notify-send -i timer-symbolic -u critical -t 20000 "Rest your eyes!" '
+        + r'"You have a mandatory break now."'
+    )
     time.sleep(1)
-    cmd(r'mpg123 -f 3084 ~/dotfiles/noisemaker/435923_luhenriking.mp3')
+    cmd(r"mpg123 -f 3084 ~/dotfiles/noisemaker/435923_luhenriking.mp3")
     time.sleep(2)
     # cmd(r'i3-msg workspace back_and_forth')
     # cmd(r'i3-msg mode default')
-    cmd(r'rm -f ~/.cache/ctwenty.lock')
+    cmd(r"rm -f ~/.cache/ctwenty.lock")
 
 
 def write_next_time(current_status: int, seconds: Optional[int] = None):
-    p = Path('~/.cache/ctwenty.target').expanduser()
+    p = Path("~/.cache/ctwenty.target").expanduser()
     if current_status == -1:
         if p.exists():
             p.unlink()
@@ -68,8 +70,12 @@ def write_next_time(current_status: int, seconds: Optional[int] = None):
 
 # we need to make sure the signals don't end the program
 SIGNALS = [
-    signal.SIGALRM, signal.SIGUSR1, signal.SIGTSTP, signal.SIGINT,
-    signal.SIGTERM, signal.SIGCONT
+    signal.SIGALRM,
+    signal.SIGUSR1,
+    signal.SIGTSTP,
+    signal.SIGINT,
+    signal.SIGTERM,
+    signal.SIGCONT,
 ]
 
 
@@ -99,8 +105,9 @@ while True:
     if sig == signal.SIGINT or sig == signal.SIGTERM or not alive:
         write_next_time(-1)
         break
-    elif (sig == signal.SIGTSTP or
-          any(p.name().startswith("i3lock") for p in psutil.process_iter())):
+    elif sig == signal.SIGTSTP or any(
+        p.name().startswith("i3lock") for p in psutil.process_iter()
+    ):
         current_status = -1
         signal.alarm(0)  # clear any pending alarms
     elif sig == signal.SIGUSR1 or current_status == 2:
@@ -117,13 +124,17 @@ while True:
         t = 1000
         write_next_time(0, 1337)
     elif current_status == 1:
-        cmd(r'notify-send -i timer-symbolic -u low -t 10000 "Rest your eyes!" '
-            + r'"You have a mandatory break coming up soon in 6 minutes"')
+        cmd(
+            r'notify-send -i timer-symbolic -u low -t 10000 "Rest your eyes!" '
+            + r'"You have a mandatory break coming up soon in 6 minutes"'
+        )
         t = 300
         write_next_time(1, 337)
     elif current_status == 2:
-        cmd(r'notify-send -i timer-symbolic -t 10000 "Rest your eyes!" ' +
-            r'"You have a mandatory break coming up soon in 37 seconds"')
+        cmd(
+            r'notify-send -i timer-symbolic -t 10000 "Rest your eyes!" '
+            + r'"You have a mandatory break coming up soon in 37 seconds"'
+        )
         t = 37
         write_next_time(2, 37)
     else:

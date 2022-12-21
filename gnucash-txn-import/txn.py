@@ -5,9 +5,7 @@ from typing import Tuple, Union
 
 @total_ordering
 class Txn:
-
-    def __init__(self, dt: Union[str, date], key: str, sender: str,
-                 value: float):
+    def __init__(self, dt: Union[str, date], key: str, sender: str, value: float):
         if isinstance(dt, str):
             self.dt = date.fromisoformat(dt)
         else:
@@ -20,12 +18,12 @@ class Txn:
         return self.sender
 
     def csv(self) -> str:
-        return f'{self.key},{self.sender},{self.value:.2f}'
+        return f"{self.key},{self.sender},{self.value:.2f}"
 
     def sortkey(self) -> Tuple[str, float, str, date]:
         return (self.key, self.value, self.sender, self.dt)
 
-    def __lt__(self, other: 'Txn'):
+    def __lt__(self, other: "Txn"):
         return self.sortkey() < other.sortkey()
 
     def __eq__(self, other: object):

@@ -1,4 +1,4 @@
-#st#########
+# st#########
 ## TSQX ##
 ##########
 
@@ -18,16 +18,16 @@ def generate_points(kind, n) -> list[str]:
     raise SyntaxError("Special command not recognized")
 
 
-T_TOKEN = str | list[str] | list['T_TOKEN']
+T_TOKEN = str | list[str] | list["T_TOKEN"]
 
 
 class T_OCR(TypedDict):  # op, comment, raw
-    op: 'Op'
+    op: "Op"
     comment: str
     raw: str
 
 
-GENERIC_PREAMBLE = r'''
+GENERIC_PREAMBLE = r"""
 usepackage("amsmath");
 usepackage("amssymb");
 settings.tex="pdflatex";
@@ -50,9 +50,9 @@ pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
 pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
 path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
 size(%s);
-'''.strip()
+""".strip()
 
-ARITHMETIC_OPERATORS = {'plus': '+', 'minus': '-', 'mult': '*', 'divide': '/'}
+ARITHMETIC_OPERATORS = {"plus": "+", "minus": "-", "mult": "*", "divide": "/"}
 
 
 class Op:
@@ -72,7 +72,7 @@ class Op:
         elif tail[0] in ["--", "..", "^^"]:
             return self._join_exp(exp, ", ")
         elif (binop := ARITHMETIC_OPERATORS.get(str(head))) is not None:
-            return '(' + self._join_exp(tail, binop) + ')'
+            return "(" + self._join_exp(tail, binop) + ")"
         else:
             return f"{head}({self._join_exp(tail, ', ')})"
 
@@ -90,13 +90,11 @@ class Op:
 
 
 class Blank(Op):
-
     def emit(self):
         return ""
 
 
 class DirectCommand(Op):
-
     def __init__(self, exp: str):
         self.exp = exp
 
@@ -108,14 +106,13 @@ class DirectCommand(Op):
 
 
 class Point(Op):
-
     def __init__(
         self,
         name: str,
         exp: T_TOKEN,
         dot=True,
-        label='',
-        direction='',
+        label="",
+        direction="",
     ):
         self.name = name
         self.exp = exp
@@ -137,11 +134,10 @@ class Point(Op):
             return f"dot({', '.join(args)});"
         if len(args) > 1:
             return f"label({', '.join(args)});"
-        return ''
+        return ""
 
 
 class Draw(Op):
-
     def __init__(
         self,
         exp: T_TOKEN,
@@ -164,7 +160,6 @@ class Draw(Op):
 
 
 class Parser:
-
     def __init__(self, soft_label: str | None = None, **_: Any):
         self.soft_label = soft_label
         self.alias_map = {"": "dl", ":": "", ".": "d", ";": "l"}
@@ -175,28 +170,28 @@ class Parser:
     def tokenize(self, line: str) -> list[T_TOKEN]:
         line = line.strip() + " "
         for old, new in [
-                # ~ and = are separate tokens
+            # ~ and = are separate tokens
             ("~", " ~ "),
             ("=", " = "),
-                # for tsqx syntax processing
+            # for tsqx syntax processing
             ("(", "( "),
             (")", " ) "),
             (",", " , "),
-                # spline joiners
+            # spline joiners
             ("--", " --  "),
             ("..", " .. "),
             ("^^", " ^^ "),
-                # no spaces around asymptote arithmetic
+            # no spaces around asymptote arithmetic
             (" +", "+"),
             ("+ ", "+"),
             ("- ", "-"),
             (" *", "*"),
             ("* ", "*"),
-                # but slashes in draw ops should remain tokens
+            # but slashes in draw ops should remain tokens
             (" / ", "  /  "),
             (" /", "/"),
             ("/ ", "/"),
-                # ' not allowed in variable names
+            # ' not allowed in variable names
             ("'", "_prime"),
             ("&", "_asterisk"),
         ]:
@@ -247,11 +242,11 @@ class Parser:
             raise SyntaxError("Can't parse special command")
         head, *tail = tokens
         if comment is not None:
-            yield {'op': Blank(), 'comment': comment, 'raw': raw_line}
+            yield {"op": Blank(), "comment": comment, "raw": raw_line}
         if head in ["triangle", "regular"]:
             for name, exp in zip(tail, generate_points(head, len(tail))):
                 assert isinstance(name, str)
-                yield {'op': Point(name, [exp]), 'comment': '', 'raw': raw_line}
+                yield {"op": Point(name, [exp]), "comment": "", "raw": raw_line}
             return
         else:
             raise SyntaxError("Special command not recognized")
@@ -276,8 +271,7 @@ class Parser:
             if m := re.fullmatch(r"([\d\.]+)R([\d\.]+)", dirs):
                 options["direction"] = f"{m.groups()[0]}*dir({m.groups()[1]})"
             elif dir_pairs := re.findall(r"(\d+)([A-Z]+)", dirs):
-                options["direction"] = "+".join(
-                    f"{n}*plain.{w}" for n, w in dir_pairs)
+                options["direction"] = "+".join(f"{n}*plain.{w}" for n, w in dir_pairs)
             elif dirs.isdigit():
                 options["direction"] = f"dir({dirs})"
             elif re.fullmatch(r"N?S?E?W?", dirs):
@@ -299,11 +293,12 @@ class Parser:
             outline_ = tokens
         else:
             fill_ = tokens[:idx]
-            outline_ = tokens[idx + 1:]
+            outline_ = tokens[idx + 1 :]
 
         assert all(isinstance(_, str) for _ in outline_)
-        outline: list[str] = [str(_) for _ in outline_
-                             ]  # this is idiotic, what did i miss?
+        outline: list[str] = [
+            str(_) for _ in outline_
+        ]  # this is idiotic, what did i miss?
 
         fill: list[str] = []
         for pen in fill_:
@@ -318,21 +313,17 @@ class Parser:
     def parse(self, line: str) -> Generator[T_OCR, None, None]:
         # escape sequence
         raw_line = line
-        if raw_line.startswith('!'):
-            yield {
-                'op': DirectCommand(line[1:]),
-                'comment': '',
-                'raw': raw_line
-            }
+        if raw_line.startswith("!"):
+            yield {"op": DirectCommand(line[1:]), "comment": "", "raw": raw_line}
             return
 
-        if '#' in line:
+        if "#" in line:
             line, comment = line.split("#", 1)
         else:
-            comment = ''
+            comment = ""
         tokens = self.tokenize(line)
         if not tokens:
-            yield {'op': Blank(), 'comment': comment, 'raw': raw_line}
+            yield {"op": Blank(), "comment": comment, "raw": raw_line}
             return
         # special
         if tokens[0] == "~":
@@ -342,11 +333,11 @@ class Parser:
         try:
             idx = tokens.index("=")
             name, options = self.parse_name(tokens[:idx])
-            exp = self.parse_exp(tokens[idx + 1:])
+            exp = self.parse_exp(tokens[idx + 1 :])
             yield {
-                'op': Point(name, exp, **options),
-                'comment': comment,
-                'raw': raw_line
+                "op": Point(name, exp, **options),
+                "comment": comment,
+                "raw": raw_line,
             }
             return
         except ValueError:
@@ -355,23 +346,18 @@ class Parser:
         try:
             idx = tokens.index("/")
             exp = self.parse_exp(tokens[:idx])
-            options = self.parse_draw(tokens[idx + 1:])
-            yield {
-                'op': Draw(exp, **options),
-                'comment': comment,
-                'raw': raw_line
-            }
+            options = self.parse_draw(tokens[idx + 1 :])
+            yield {"op": Draw(exp, **options), "comment": comment, "raw": raw_line}
             return
         except ValueError:
             pass
         # draw without options
         exp = self.parse_exp(tokens)
-        yield {'op': Draw(exp), 'comment': comment, 'raw': raw_line}
+        yield {"op": Draw(exp), "comment": comment, "raw": raw_line}
         return
 
 
 class Emitter:
-
     def __init__(
         self,
         lines: TextIOWrapper | TextIO,
@@ -392,32 +378,33 @@ class Emitter:
         ocrs = [ocr for line in self.lines for ocr in self.parser.parse(line)]
 
         for ocr in ocrs:
-            self.print(ocr['op'].emit() +
-                       (f" //{c}" if (c := ocr['comment'].rstrip()) else ''))
+            self.print(
+                ocr["op"].emit() + (f" //{c}" if (c := ocr["comment"].rstrip()) else "")
+            )
         self.print()
 
         for ocr in ocrs:
-            if out := ocr['op'].post_emit():
+            if out := ocr["op"].post_emit():
                 self.print(out)
 
         if not self.terse:
-            self.print('')
+            self.print("")
             self.print(
-                r'/* -----------------------------------------------------------------+'
+                r"/* -----------------------------------------------------------------+"
             )
             self.print(
-                r'|                 TSQX: by CJ Quines and Evan Chen                  |'
+                r"|                 TSQX: by CJ Quines and Evan Chen                  |"
             )
             self.print(
-                r'| https://github.com/vEnhance/dotfiles/blob/main/py-scripts/tsqx.py |'
+                r"| https://github.com/vEnhance/dotfiles/blob/main/py-scripts/tsqx.py |"
             )
             self.print(
-                r'+-------------------------------------------------------------------+'
+                r"+-------------------------------------------------------------------+"
             )
             for ocr in ocrs:
-                if (x := ocr['raw'].strip()):
+                if x := ocr["raw"].strip():
                     self.print(x)
-            self.print('*/')
+            self.print("*/")
 
 
 def main():

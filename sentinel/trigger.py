@@ -11,8 +11,8 @@ import psutil
 import requests
 from dotenv import load_dotenv
 
-load_dotenv(Path(__file__).parent / '.env')
-IFTTT_KEY = os.getenv("KEY", '').strip()
+load_dotenv(Path(__file__).parent / ".env")
+IFTTT_KEY = os.getenv("KEY", "").strip()
 assert IFTTT_KEY
 
 
@@ -22,7 +22,7 @@ def is_locked():
 
 print("Triggered", datetime.now())
 
-fired = Path('~/.cache/motion.lock').expanduser()
+fired = Path("~/.cache/motion.lock").expanduser()
 try:
     if fired.exists():
         last_fired_time = datetime.fromisoformat(fired.read_text())
@@ -31,9 +31,9 @@ try:
             sys.exit(0)
     fired.write_text(datetime.now().isoformat())
 
-    beep_path = (Path(__file__).parent / 'audio/beep459992.mp3').absolute()
-    alarm_path = (Path(__file__).parent / 'audio/warning543691.mp3').absolute()
-    panic_path = (Path(__file__).parent / 'audio/panic470504.mp3').absolute()
+    beep_path = (Path(__file__).parent / "audio/beep459992.mp3").absolute()
+    alarm_path = (Path(__file__).parent / "audio/warning543691.mp3").absolute()
+    panic_path = (Path(__file__).parent / "audio/panic470504.mp3").absolute()
 
     if is_locked():
         url = "https://maker.ifttt.com/trigger/door_open/with/key/" + IFTTT_KEY

@@ -6,7 +6,7 @@ from zoneinfo import ZoneInfo
 
 DEFAULT_TIME = time(22, 0, 0)  # Your wanted default time
 
-local_zone = ZoneInfo('localtime')
+local_zone = ZoneInfo("localtime")
 
 
 def is_local_midnight(timestamp):
@@ -22,6 +22,6 @@ def set_default_time(timestamp):
 
 
 def hook_default_time(task):
-    if task['due'] and is_local_midnight(task['due']):
-        task['due'] = set_default_time(task['due'])
+    if task["due"] and is_local_midnight(task["due"]):
+        task["due"] = set_default_time(task["due"])
         print(f"Default due time has been set to {task['due']}.")

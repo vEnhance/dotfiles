@@ -44,16 +44,16 @@ MathJax = {
 
 
 def markdown(content):
-    return _m(content, extensions=['extra', 'sane_lists', 'smarty'])
+    return _m(content, extensions=["extra", "sane_lists", "smarty"])
 
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         with open(sys.argv[1]) as f:
-            content = ''.join(f.readlines())
+            content = "".join(f.readlines())
     else:
-        content = ''.join(sys.stdin.readlines())
+        content = "".join(sys.stdin.readlines())
     print(PREAMBLE)
     print(markdown(content))
-    print('</div></div>')
-    print(r'</body></html>')
+    print("</div></div>")
+    print(r"</body></html>")

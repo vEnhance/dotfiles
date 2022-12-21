@@ -12,7 +12,7 @@ for line in sys.stdin.readlines():
         continue
     line = line.rstrip()
     line = line.replace("$$", "$")
-    num_spaces = len(line) - len(line.lstrip(' '))
+    num_spaces = len(line) - len(line.lstrip(" "))
     curr_indent = int(num_spaces / 4)
     while curr_indent > prev_indent:
         print("\t" * prev_indent + r"\begin{itemize}")

@@ -36,21 +36,31 @@ ns = {
     "vendor": "http://www.gnucash.org/XML/vendor",
 }
 
-tree = ET.parse('/tmp/gnucash.xml')
+tree = ET.parse("/tmp/gnucash.xml")
 root = tree.getroot()
 
 
 def strip_recurring(s: str) -> str:
     months = [
-        'january', 'february', 'march', 'april', 'may', 'june', 'july',
-        'august', 'september', 'october', 'november', 'december'
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
     ]
     s = s.strip()
     for i in range(3, 10):
         for m in months:
-            needle = f' for {m[:i]} 20'
+            needle = f" for {m[:i]} 20"
             if s.lower()[:-2].endswith(needle):
-                return s[:-(len(needle) + 2)].strip() + ' recurring'
+                return s[: -(len(needle) + 2)].strip() + " recurring"
     return s
 
 
@@ -58,67 +68,81 @@ def strip_recurring(s: str) -> str:
 
 account_guids: DefaultDict[str, list] = collections.defaultdict(list)
 
-desired = ('Paypal', 'BOA', 'TCS', 'TCC')
-book = root.find('gnc:book', ns)
+desired = ("Paypal", "BOA", "TCS", "TCC")
+book = root.find("gnc:book", ns)
 assert book is not None
 
-for account_elm in book.findall('gnc:account', ns):
-    name_elm = account_elm.find('act:name', ns)
+for account_elm in book.findall("gnc:account", ns):
+    name_elm = account_elm.find("act:name", ns)
     if name_elm is not None and name_elm.text in desired:
-        guid_elm = account_elm.find('act:id', ns)
-        assert guid_elm is not None and guid_elm.text is not None and name_elm.text is not None
+        guid_elm = account_elm.find("act:id", ns)
+        assert (
+            guid_elm is not None
+            and guid_elm.text is not None
+            and name_elm.text is not None
+        )
         account_guids[name_elm.text].append(guid_elm.text)
 
 rows: List[Txn] = []
 
 # Get all transactions
-for transaction_elm in book.findall('gnc:transaction', ns):
-    date_container = transaction_elm.find('trn:date-posted', ns)
+for transaction_elm in book.findall("gnc:transaction", ns):
+    date_container = transaction_elm.find("trn:date-posted", ns)
     assert date_container is not None
-    date = date_container.find('ts:date', ns)
+    date = date_container.find("ts:date", ns)
     assert date is not None and date.text is not None
 
-    splits = transaction_elm.find('trn:splits', ns)
+    splits = transaction_elm.find("trn:splits", ns)
     assert splits is not None
-    assert len(splits.findall('trn:split', ns)) > 0
+    assert len(splits.findall("trn:split", ns)) > 0
 
-    for split in splits.findall('trn:split', ns):
-        reconciled = split.find('split:reconciled-state', ns)
+    for split in splits.findall("trn:split", ns):
+        reconciled = split.find("split:reconciled-state", ns)
         assert reconciled is not None
-        if reconciled.text == 'y':
+        if reconciled.text == "y":
             continue
-        guid = split.find('split:account', ns)
+        guid = split.find("split:account", ns)
         assert guid is not None and guid.text is not None
         for account_name in desired:
             if guid.text in account_guids[account_name]:
-                description = transaction_elm.find('trn:description', ns)
+                description = transaction_elm.find("trn:description", ns)
                 if description is None or description.text is None:
-                    description_text = ''
+                    description_text = ""
                 else:
                     description_text = description.text
-                amount = split.find('split:value', ns)
+                amount = split.find("split:value", ns)
                 assert amount is not None and amount.text is not None
                 value = eval(amount.text)
 
-                if 'from ' in description_text and '(' in description_text and ')' in description_text:
-                    i = description_text.index('from ') + 5
-                    j = description_text.index(')')
+                if (
+                    "from " in description_text
+                    and "(" in description_text
+                    and ")" in description_text
+                ):
+                    i = description_text.index("from ") + 5
+                    j = description_text.index(")")
                     description_text = description_text[i:j]
-                elif 'via ' in description_text and '(' in description_text and ')' in description_text:
-                    i = description_text.index('via ') + 4
-                    j = description_text.index(')')
+                elif (
+                    "via " in description_text
+                    and "(" in description_text
+                    and ")" in description_text
+                ):
+                    i = description_text.index("via ") + 4
+                    j = description_text.index(")")
                     description_text = description_text[i:j]
-                elif '(' in description_text:
-                    description_text = description_text[:description_text.
-                                                        index('(')].strip()
+                elif "(" in description_text:
+                    description_text = description_text[
+                        : description_text.index("(")
+                    ].strip()
                 description_text = strip_recurring(description_text)
                 rows.append(
                     Txn(
-                        f'{date.text[0:10]}',
+                        f"{date.text[0:10]}",
                         account_name,
                         description_text.title(),
                         value,
-                    ))
+                    )
+                )
 
 rows.sort()
 for row in rows:

@@ -16,24 +16,24 @@ from colorama import Back, Fore, Style, init
 from git.objects.commit import Commit  # for typing
 from git.repo import Repo
 
-DATE_STRING = '%a %b%d %H:%M'
+DATE_STRING = "%a %b%d %H:%M"
 
 init()
 
 
-def pretty_print_commit(commit: Commit, time_color: str, time_symbol: str,
-                        time_delta: datetime.timedelta):
-    num_insertions = commit.stats.total['insertions']
-    num_deletions = commit.stats.total['deletions']
+def pretty_print_commit(
+    commit: Commit, time_color: str, time_symbol: str, time_delta: datetime.timedelta
+):
+    num_insertions = commit.stats.total["insertions"]
+    num_deletions = commit.stats.total["deletions"]
     if time_delta > datetime.timedelta(hours=10):
-        time_symbol = ''
+        time_symbol = ""
     print(
         Fore.YELLOW + commit.hexsha[0:6],
         Style.RESET_ALL + commit.committed_datetime.strftime(DATE_STRING),
         time_color + time_symbol + str(time_delta) + Style.RESET_ALL,
-        Style.RESET_ALL + f'+{num_insertions:4d} -{num_deletions:4d}',
-        Fore.CYAN + str(commit.summary or 'no commit message')[0:60] +
-        Style.RESET_ALL,
+        Style.RESET_ALL + f"+{num_insertions:4d} -{num_deletions:4d}",
+        Fore.CYAN + str(commit.summary or "no commit message")[0:60] + Style.RESET_ALL,
     )
 
 
@@ -41,82 +41,93 @@ def save(path, data):
     path.write_text(yaml.dump(data))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        'wah',
-        description=
-        'Gives a crappy estimation of how long you wasted on this crappy code ;)',
-        epilog='Brought to you by Evan Chen')
-    parser.add_argument('repo',
-                        nargs='?',
-                        default='.',
-                        help='Path of the git repository you want to run on '
-                        '(defaults to current directory).')
+        "wah",
+        description="Gives a crappy estimation of how long you wasted on this crappy code ;)",
+        epilog="Brought to you by Evan Chen",
+    )
     parser.add_argument(
-        '-e',
-        '--emails',
-        nargs='+',
+        "repo",
+        nargs="?",
+        default=".",
+        help="Path of the git repository you want to run on "
+        "(defaults to current directory).",
+    )
+    parser.add_argument(
+        "-e",
+        "--emails",
+        nargs="+",
         default=[],
-        help="The list of emails to use (filter by a committer).")
-    parser.add_argument('-t',
-                        '--min-time',
-                        help="Assume any interval less than this counts.")
+        help="The list of emails to use (filter by a committer).",
+    )
     parser.add_argument(
-        '-T',
-        '--max-time',
-        help="Assume any interval more than this doesn't count.")
+        "-t", "--min-time", help="Assume any interval less than this counts."
+    )
     parser.add_argument(
-        '-l',
-        '--min-lpm',
-        help="The minimum lines/minute expected when working over min_time.")
+        "-T", "--max-time", help="Assume any interval more than this doesn't count."
+    )
     parser.add_argument(
-        '-L',
-        '--max-lpm',
-        help="Assume that any lines/minutes exceeding this counts.")
+        "-l",
+        "--min-lpm",
+        help="The minimum lines/minute expected when working over min_time.",
+    )
     parser.add_argument(
-        '-w',
-        '--write',
-        help=("Store the values of the [lLtT] flags into the WAH file "
-              "so you don't have to put them again later."))
+        "-L", "--max-lpm", help="Assume that any lines/minutes exceeding this counts."
+    )
+    parser.add_argument(
+        "-w",
+        "--write",
+        help=(
+            "Store the values of the [lLtT] flags into the WAH file "
+            "so you don't have to put them again later."
+        ),
+    )
 
     input_group = parser.add_mutually_exclusive_group()
     input_group.add_argument(
-        '-i',
-        '--interactive',
-        action='store_true',
-        help="In cases not covered by heuristics, ask the user.")
+        "-i",
+        "--interactive",
+        action="store_true",
+        help="In cases not covered by heuristics, ask the user.",
+    )
     input_group.add_argument(
-        '-n',
-        '--no',
-        action='store_true',
-        help="In cases not covered by heuristics, assume no.")
+        "-n",
+        "--no",
+        action="store_true",
+        help="In cases not covered by heuristics, assume no.",
+    )
     input_group.add_argument(
-        '-y',
-        '--yes',
-        action='store_true',
-        help="In cases not covered by heuristics, assume yes.")
+        "-y",
+        "--yes",
+        action="store_true",
+        help="In cases not covered by heuristics, assume yes.",
+    )
 
     verbose_group = parser.add_mutually_exclusive_group()
     verbose_group.add_argument(
-        '-v',
-        '--verbose',
-        action='store_true',
-        help="Verbose mode: print commit messages and notes.")
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Verbose mode: print commit messages and notes.",
+    )
     verbose_group.add_argument(
-        '-q',
-        '--quiet',
-        action='store_true',
-        help="Quiet mode: don't print stuff if not necessary.")
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="Quiet mode: don't print stuff if not necessary.",
+    )
 
     args = parser.parse_args()
     committers: List[str] = args.emails
     repo = Repo(args.repo, search_parent_directories=True)
     assert isinstance(repo.git_dir, str)
     git_dir_path = Path(repo.git_dir)
-    save_path = git_dir_path / 'wah'
+    save_path = git_dir_path / "wah"
 
     commits = [
-        commit for commit in repo.iter_commits('main')
+        commit
+        for commit in repo.iter_commits("main")
         if (not committers) or (commit.committer.email in committers)
     ]
     commits.sort(key=lambda commit: commit.committed_datetime)
@@ -127,39 +138,38 @@ if __name__ == '__main__':
         data = yaml.load(save_path.read_text(), Loader=yaml.SafeLoader)
     else:
         data = {
-            'min_hours': None,
-            'max_hours': None,
-            'min_lpm': None,
-            'max_lpm': None,
-            'decision': {}
+            "min_hours": None,
+            "max_hours": None,
+            "min_lpm": None,
+            "max_lpm": None,
+            "decision": {},
         }
         needs_save = True
     if args.min_time is not None:
-        data['min_hours'] = args.min_time
+        data["min_hours"] = args.min_time
         needs_save = True
     if args.max_time is not None:
-        data['max_hours'] = args.max_hours
+        data["max_hours"] = args.max_hours
         needs_save = True
     if args.min_time is not None:
-        data['min_lpm'] = args.min_lpm
+        data["min_lpm"] = args.min_lpm
         needs_save = True
     if args.min_time is not None:
-        data['max_lpm'] = args.max_lpm
+        data["max_lpm"] = args.max_lpm
         needs_save = True
     if needs_save is True:
         save(save_path, data)
 
-    min_hours: float = _ if (_ := data['min_hours']) is not None else 0.75
-    max_hours: float = _ if (_ := data['max_hours']) is not None else 4.0
-    min_lpm: float = _ if (_ := data['min_lpm']) is not None else 0.1
-    max_lpm: float = _ if (_ := data['max_lpm']) is not None else 1
+    min_hours: float = _ if (_ := data["min_hours"]) is not None else 0.75
+    max_hours: float = _ if (_ := data["max_hours"]) is not None else 4.0
+    min_lpm: float = _ if (_ := data["min_lpm"]) is not None else 0.1
+    max_lpm: float = _ if (_ := data["max_lpm"]) is not None else 1
 
-    decision: Dict[str, bool] = data.get('decision',
-                                         {})  # hexsha -> true or false
+    decision: Dict[str, bool] = data.get("decision", {})  # hexsha -> true or false
     time = datetime.timedelta(hours=0)
     if args.verbose:
         print(
-            f'Root commit was at {commits[0].committed_datetime.strftime(DATE_STRING)}'
+            f"Root commit was at {commits[0].committed_datetime.strftime(DATE_STRING)}"
         )
     for i in range(len(commits) - 1):
         a = commits[i]
@@ -167,30 +177,30 @@ if __name__ == '__main__':
         delta: datetime.timedelta = b.committed_datetime - a.committed_datetime
         hours = max(delta.total_seconds() / 3600, 1.0 / 3600)
         minutes = hours * 60
-        lines_per_minute = b.stats.total['lines'] / minutes
+        lines_per_minute = b.stats.total["lines"] / minutes
 
         if b.hexsha in decision:
             if decision[b.hexsha] is True:
                 time += delta
                 time_color = Back.GREEN + Fore.WHITE
-                time_symbol = '+'
+                time_symbol = "+"
             else:
                 time_color = Back.RED + Fore.WHITE
-                time_symbol = ' '
+                time_symbol = " "
         elif delta < datetime.timedelta(hours=min_hours):
             time += delta
             time_color = Fore.GREEN
-            time_symbol = '+'
+            time_symbol = "+"
         elif delta > datetime.timedelta(hours=max_hours):
             time_color = Fore.RED
-            time_symbol = ' '
+            time_symbol = " "
         elif lines_per_minute > max_lpm:
             time += delta
             time_color = Style.BRIGHT + Fore.GREEN
-            time_symbol = '+'
+            time_symbol = "+"
         elif lines_per_minute < min_lpm:
             time_color = Style.BRIGHT + Fore.RED
-            time_symbol = ' '
+            time_symbol = " "
         else:
             if args.yes:
                 this_decision = True
@@ -202,34 +212,40 @@ if __name__ == '__main__':
                     # need to print some context
                     print("Before, we had:")
                     pretty_print_commit(
-                        a, '', ' ', a.committed_datetime -
-                        commits[i - 1].committed_datetime)
+                        a,
+                        "",
+                        " ",
+                        a.committed_datetime - commits[i - 1].committed_datetime,
+                    )
                     print("")
                 print("The next few commits are:")
                 for j in range(i + 1, min(i + 5, len(commits))):
                     c = commits[j]
                     pretty_print_commit(
-                        c, Fore.LIGHTYELLOW_EX, ' ', c.committed_datetime -
-                        commits[j - 1].committed_datetime)
-                print(f'...... starting {delta} later.\n')
-                print(
-                    f"This commit had {lines_per_minute:.5f} lines per minute.\n"
-                )
-                while (response :=
-                       input('Is this part of the previous session? [y/n] '
-                            ).lower().strip()[0:1]) not in ('y', 'n'):
+                        c,
+                        Fore.LIGHTYELLOW_EX,
+                        " ",
+                        c.committed_datetime - commits[j - 1].committed_datetime,
+                    )
+                print(f"...... starting {delta} later.\n")
+                print(f"This commit had {lines_per_minute:.5f} lines per minute.\n")
+                while (
+                    response := input("Is this part of the previous session? [y/n] ")
+                    .lower()
+                    .strip()[0:1]
+                ) not in ("y", "n"):
                     pass
-                print('-' * 60)
-                this_decision = (response == 'y')
+                print("-" * 60)
+                this_decision = response == "y"
                 decision[b.hexsha] = this_decision
 
             if this_decision is True:
                 time += delta
                 time_color = Fore.LIGHTGREEN_EX
-                time_symbol = '+'
+                time_symbol = "+"
             else:
                 time_color = Fore.LIGHTMAGENTA_EX
-                time_symbol = ' '
+                time_symbol = " "
             save(save_path, data)
             # commit the new change immediately
         if args.verbose:

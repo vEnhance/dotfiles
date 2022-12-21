@@ -12,11 +12,9 @@ yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str  # type: igno
 
 
 def repr_str(dumper: yaml.SafeDumper, data: str) -> yaml.ScalarNode:
-    if '\n' in data:
+    if "\n" in data:
         data = data.replace("\r", "")
-        return dumper.represent_scalar(u'tag:yaml.org,2002:str',
-                                       data,
-                                       style='|')
+        return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
     return dumper.orig_represent_str(data)  # type: ignore
 
 
@@ -33,8 +31,8 @@ else:
     else:
         VIM_ENABLED = True
 
-VENUE_NAME_FIELD = '_name'
-VENUE_CHILDREN_FIELD = '_children'
+VENUE_NAME_FIELD = "_name"
+VENUE_CHILDREN_FIELD = "_children"
 Data = Dict[str, Any]
 
 logger = logging.getLogger()
@@ -42,7 +40,8 @@ logger.setLevel(logging.DEBUG)
 
 if VIM_ENABLED:
     formatter = logging.Formatter(
-        '[{levelname}] {asctime} {module} {name}: {message}\n', style='{')
+        "[{levelname}] {asctime} {module} {name}: {message}\n", style="{"
+    )
     for b in vim.buffers:
         if "venueQlog" in b.name:
             VIM_LOG_BUFFER = b
@@ -61,7 +60,8 @@ if VIM_ENABLED:
     vim_handler = VimLogHandler()
     vim_handler.setLevel(logging.DEBUG)
     file_handler = logging.FileHandler(
-        f'/tmp/venueQ:{datetime.datetime.now().isoformat()}.log')
+        f"/tmp/venueQ:{datetime.datetime.now().isoformat()}.log"
+    )
     file_handler.setLevel(logging.DEBUG)
 
     logger.addHandler(vim_handler)
@@ -69,13 +69,13 @@ if VIM_ENABLED:
 
 
 class VenueQNode:
-    name: str = ''  # name must be unique
-    parent: 'VenueQNode'
-    root: 'VenueQRoot'
+    name: str = ""  # name must be unique
+    parent: "VenueQNode"
+    root: "VenueQRoot"
     is_directory = False
     is_root = False
 
-    def __init__(self, data: Data, parent: Optional['VenueQNode'] = None):
+    def __init__(self, data: Data, parent: Optional["VenueQNode"] = None):
         self.name = self.get_name(data)
         if parent is None:
             self.parent = self
@@ -112,7 +112,7 @@ class VenueQNode:
             return self.get_default_data()
 
     def temp_path(self, extension: str, name: str = None) -> Path:
-        return self.directory / f'{name or self.name}.vtmp.{extension}'
+        return self.directory / f"{name or self.name}.vtmp.{extension}"
 
     def edit_temp(self, extension: str, name: str = None):
         p = self.temp_path(extension, name)
@@ -121,14 +121,14 @@ class VenueQNode:
             vim.command(f":split {p}")
             vim.command(r":filetype detect")
         else:
-            subprocess.run(['vim', p], shell=True)
+            subprocess.run(["vim", p], shell=True)
 
     def read_temp(self, extension: str, name: str = None):
         if self.temp_path(extension, name).exists():
             text = self.temp_path(extension, name).read_text()
             return text
         else:
-            return ''
+            return ""
 
     def erase_temp(self, extension: str, name: str = None):
         self.root.queue_wipe(self.temp_path(extension, name))
@@ -146,9 +146,9 @@ class VenueQNode:
 
     @property
     def path(self) -> Path:
-        return self.directory / f'{self.name}.{self.get_extension()}'
+        return self.directory / f"{self.name}.{self.get_extension()}"
 
-    def __eq__(self, other: 'VenueQNode') -> bool:
+    def __eq__(self, other: "VenueQNode") -> bool:
         return self.pk == other.pk
 
     def delete(self):
@@ -192,12 +192,12 @@ class VenueQNode:
         pass
 
     def process_data(self):
-        """"Post update hook called each time this node has its dictionary updated"""
+        """ "Post update hook called each time this node has its dictionary updated"""
         pass
 
     def get_extension(self) -> str:
         """Returns the file extension for these venueQ nodes"""
-        return 'venueQ.yaml'
+        return "venueQ.yaml"
 
     def get_class_for_child(self, data: Data) -> type:
         """Gets the class type for child dictionaries in terms of initial data."""
@@ -233,12 +233,9 @@ class VenueQNode:
 
 class VenueQRoot(VenueQNode):
     is_root = True
-    lookup: Dict[str, 'VenueQNode']
+    lookup: Dict[str, "VenueQNode"]
 
-    def __init__(self,
-                 data: Data,
-                 root_dir: Path,
-                 shelf_life: Optional[float] = None):
+    def __init__(self, data: Data, root_dir: Path, shelf_life: Optional[float] = None):
         if not root_dir.exists():
             root_dir.mkdir()
         root_dir = root_dir.resolve()
@@ -253,12 +250,16 @@ class VenueQRoot(VenueQNode):
         super().__init__(data, None)
 
     def erase_stale_files(self):
-        for p in self.root_dir.rglob('*.yaml'):
-            if (p.is_file() and self.shelf_life is not None and
-                ((age_hours := (time.time() - p.stat().st_mtime) /
-                  (60 * 60)) > self.shelf_life)):
-                logger.info(
-                    f"Erasing stale file {p} which is {age_hours} hours old")
+        for p in self.root_dir.rglob("*.yaml"):
+            if (
+                p.is_file()
+                and self.shelf_life is not None
+                and (
+                    (age_hours := (time.time() - p.stat().st_mtime) / (60 * 60))
+                    > self.shelf_life
+                )
+            ):
+                logger.info(f"Erasing stale file {p} which is {age_hours} hours old")
                 p.unlink()
 
     def queue_wipe(self, p: Path):
@@ -269,8 +270,9 @@ class VenueQRoot(VenueQNode):
                     break
             else:
                 logger.warn(
-                    f"Tried to wipe {p} but found no buffer for it among " +
-                    ', '.join(b.name for b in vim.buffers))
+                    f"Tried to wipe {p} but found no buffer for it among "
+                    + ", ".join(b.name for b in vim.buffers)
+                )
         p.unlink()
 
     def wipe(self):
@@ -279,6 +281,8 @@ class VenueQRoot(VenueQNode):
                 try:
                     vim.command(f"bdelete! {bn}")
                 except vim.error:
-                    logging.warn(f"Could not delete buffer {bn}, "
-                                 "maybe it was deleted already.")
+                    logging.warn(
+                        f"Could not delete buffer {bn}, "
+                        "maybe it was deleted already."
+                    )
             self.wipe_queue = []

@@ -17,34 +17,38 @@ import pyperclip
 # using destroy Class method
 
 # Class for tkinter window
-FONT = 'DejaVuSansMono 36'
+FONT = "DejaVuSansMono 36"
 
 
-class Window():
-
+class Window:
     def __init__(self):
 
         # Creating the tkinter Window
         self.root = Tk()
-        self.root.option_add('*Font', FONT)
+        self.root.option_add("*Font", FONT)
 
-        textarea = Label(self.root, text="pɹɑdʒɪ̈kt tɛkst", foreground='blue')
+        textarea = Label(self.root, text="pɹɑdʒɪ̈kt tɛkst", foreground="blue")
         textarea.pack(pady=15)
 
         mainarea = Text(self.root, height=6, font="DejaVuSansMono 72")
         mainarea.insert(
-            INSERT, '\n'.join(sys.stdin.readlines()) or pyperclip.paste() or
-            "Type text here...")
+            INSERT,
+            "\n".join(sys.stdin.readlines())
+            or pyperclip.paste()
+            or "Type text here...",
+        )
 
         mainarea.option_add("*Font", FONT)
         mainarea.pack(pady=15)
 
         # Button for closing
-        exit_button = Button(self.root,
-                             text="Exit",
-                             command=self.root.destroy,
-                             background='red',
-                             activebackground='orange')
+        exit_button = Button(
+            self.root,
+            text="Exit",
+            command=self.root.destroy,
+            background="red",
+            activebackground="orange",
+        )
         exit_button.pack(pady=10)
 
         self.root.mainloop()

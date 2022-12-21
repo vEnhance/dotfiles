@@ -9,36 +9,31 @@ from subprocess import call
 
 
 def h(text: str) -> str:
-    return sha512(text.encode('UTF-8')).hexdigest()
+    return sha512(text.encode("UTF-8")).hexdigest()
 
 
 parser = argparse.ArgumentParser(
-    prog='xfer', description='Temporarily upload a file to evanchen.cc/xfer')
+    prog="xfer", description="Temporarily upload a file to evanchen.cc/xfer"
+)
 
-random_salt = ''.join(
-    random.choice(string.ascii_letters + string.digits) for _ in range(64))
-parser.add_argument('filename', nargs='?', help='Path of file to upload')
-parser.add_argument('-n', '--name', help='Name of the file to upload.')
-parser.add_argument('-s', '--salt', nargs='?', const=random_salt, default='')
+random_salt = "".join(
+    random.choice(string.ascii_letters + string.digits) for _ in range(64)
+)
+parser.add_argument("filename", nargs="?", help="Path of file to upload")
+parser.add_argument("-n", "--name", help="Name of the file to upload.")
+parser.add_argument("-s", "--salt", nargs="?", const=random_salt, default="")
 group = parser.add_mutually_exclusive_group()
-group.add_argument('-p',
-                   '--password',
-                   help='Path to a password file, else getpass used.')
-group.add_argument('-i',
-                   '--insecure',
-                   help='Specify the password via command line (insecure)')
-group.add_argument('-e',
-                   '--echo',
-                   action='store_true',
-                   help="Don't hide with getpass.")
-parser.add_argument('-d',
-                    '--dry-run',
-                    action='store_true',
-                    help='Dry run, do not actually upload file.')
-parser.add_argument('-w',
-                    '--wipe',
-                    action='store_true',
-                    help='Erase all files.')
+group.add_argument(
+    "-p", "--password", help="Path to a password file, else getpass used."
+)
+group.add_argument(
+    "-i", "--insecure", help="Specify the password via command line (insecure)"
+)
+group.add_argument("-e", "--echo", action="store_true", help="Don't hide with getpass.")
+parser.add_argument(
+    "-d", "--dry-run", action="store_true", help="Dry run, do not actually upload file."
+)
+parser.add_argument("-w", "--wipe", action="store_true", help="Erase all files.")
 args = parser.parse_args()
 
 if __name__ == "__main__":
@@ -48,18 +43,18 @@ if __name__ == "__main__":
         elif args.insecure:
             password = args.insecure
         elif args.echo:
-            password = input('Password: ').strip()
+            password = input("Password: ").strip()
         else:
             while True:
                 password = getpass.getpass().strip()
-                password_confirm = getpass.getpass(prompt='Repeat: ').strip()
+                password_confirm = getpass.getpass(prompt="Repeat: ").strip()
                 if password == password_confirm:
                     break
                 else:
                     print("Passwords did not match. Try again.")
         filename = args.name or args.filename
         salt = args.salt
-        kludge = 'evanchen.cc/xfer|' + filename + '|' + args.salt + '|' + password
+        kludge = "evanchen.cc/xfer|" + filename + "|" + args.salt + "|" + password
         h1 = h(kludge)
         h2 = h(h1)
         checksum = h2[0:6]
@@ -73,13 +68,13 @@ if __name__ == "__main__":
                 f"gsutil -m setmeta -h 'Cache-Control:private, max-age=0, no-transform' {url}",
                 shell=True,
             )
-        url = f'https://web.evanchen.cc/xfer.html?f={filename}&h={checksum}'
+        url = f"https://web.evanchen.cc/xfer.html?f={filename}&h={checksum}"
         if salt:
-            url += f'&s={salt}'
-        print('-' * 40)
+            url += f"&s={salt}"
+        print("-" * 40)
         print(url)
     elif args.wipe:
-        if 'y' in input("Are you sure? ").lower():
+        if "y" in input("Are you sure? ").lower():
             call(
                 "gsutil -m rm gs://web.evanchen.cc/xfer-payload/*",
                 shell=True,

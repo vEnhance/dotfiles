@@ -31,12 +31,12 @@ class fzf_select(Command):
     """
 
     def execute(self):
-        fzf = self.fm.execute_command("fzf +m",
-                                      universal_newlines=True,
-                                      stdout=subprocess.PIPE)
+        fzf = self.fm.execute_command(
+            "fzf +m", universal_newlines=True, stdout=subprocess.PIPE
+        )
         stdout, stderr = fzf.communicate()
         if fzf.returncode == 0:
-            fzf_file = os.path.abspath(stdout.rstrip('\n'))
+            fzf_file = os.path.abspath(stdout.rstrip("\n"))
             if os.path.isdir(fzf_file):
                 self.fm.cd(fzf_file)
             else:

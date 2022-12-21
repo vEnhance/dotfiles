@@ -54,7 +54,7 @@ T = {
     "problem": 2,
     "ques": 0,  # Napkin
     "sproblem": 2,
-    "dproblem": 2
+    "dproblem": 2,
 }
 
 # list of theorem-like environments
@@ -65,9 +65,10 @@ ThmEnvs = list(T.keys())
 # the string _ThmNumb_ is the theorem number
 
 box_string = (
-    "<div style=\"color: #000000 !important; border: 1px red solid;"
-    "padding-left: 8px; padding-top: 4px; margin-bottom: 8px !important; \">")
-head_string = "<p style=\"margin-bottom: 6px\"><b style=\"color: #ff4d4d !important;\">"
+    '<div style="color: #000000 !important; border: 1px red solid;'
+    'padding-left: 8px; padding-top: 4px; margin-bottom: 8px !important; ">'
+)
+head_string = '<p style="margin-bottom: 6px"><b style="color: #ff4d4d !important;">'
 
 beginthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b></p>"
 
@@ -75,10 +76,18 @@ beginthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b></p>"
 # _ThmName_ stands for the content between the
 # square brackets
 
-beginnamedthm = "\n" + box_string + head_string + "_ThmType_ _ThmNumb_" + "</b>" + " <b>(_ThmName_)</b>" + "</p>"
+beginnamedthm = (
+    "\n"
+    + box_string
+    + head_string
+    + "_ThmType_ _ThmNumb_"
+    + "</b>"
+    + " <b>(_ThmName_)</b>"
+    + "</p>"
+)
 
-#translation of \end{theorem}, \end{lemma}, etc.
-endthm = "<p style=\"margin-bottom:-12px;\"></p></div>\n"
+# translation of \end{theorem}, \end{lemma}, etc.
+endthm = '<p style="margin-bottom:-12px;"></p></div>\n'
 
 beginproof = "<em>Proof:</em> "
 endproof = r"$latex \Box&fg=000000$" + "\n"
@@ -93,15 +102,15 @@ subsectionstar = "\n<h3> _SecName_ </h3>\n"
 # Font styles. Feel free to add others. The key *must* contain
 # an open curly bracket. The value is the namem of a HTML tag.
 fontstyle = {
-    r'{\em ': 'em',
-    r'{\bf ': 'b',
-    r'{\it ': 'i',
-    r'{\sl ': 'i',
-    r'\textit{': 'i',
-    r'\textsl{': 'i',
-    r'\emph{': 'em',
-    r'\textbf{': 'b',
-    r'\vocab{': 'b',
+    r"{\em ": "em",
+    r"{\bf ": "b",
+    r"{\it ": "i",
+    r"{\sl ": "i",
+    r"\textit{": "i",
+    r"\textsl{": "i",
+    r"\emph{": "em",
+    r"\textbf{": "b",
+    r"\vocab{": "b",
 }
 
 # Macro definitions

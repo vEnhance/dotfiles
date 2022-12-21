@@ -6,25 +6,32 @@ import markdown
 
 # taken from latex2wp
 def process_latex(content):
-
     def separatemath(m):
-        mathre = re.compile(''.join([
-            r"\$.*?\$",
-            r"|\\begin\{equation}.*?\\end\{equation}",
-            r"|\\\[.*?\\\]",
-        ]))
+        mathre = re.compile(
+            "".join(
+                [
+                    r"\$.*?\$",
+                    r"|\\begin\{equation}.*?\\end\{equation}",
+                    r"|\\\[.*?\\\]",
+                ]
+            )
+        )
         math = mathre.findall(m)
         text = mathre.split(m)
         return (math, text)
 
     def processmath(M):
         R = []
-        mathdelim = re.compile(''.join([
-            r"\$",
-            r"|\\begin\{equation}",
-            r"|\\end\{equation}",
-            r"|\\\[|\\\]",
-        ]))
+        mathdelim = re.compile(
+            "".join(
+                [
+                    r"\$",
+                    r"|\\begin\{equation}",
+                    r"|\\end\{equation}",
+                    r"|\\\[|\\\]",
+                ]
+            )
+        )
         for m in M:
             md = mathdelim.findall(m)
             mb = mathdelim.split(m)
@@ -32,8 +39,11 @@ def process_latex(content):
             if md[0] == "$":
                 m = "$latex {" + mb[1] + "}" + "&fg=000000" + "$"
             else:
-                m = r"<p align=center>$latex \displaystyle " + mb[
-                    1] + "&fg=000000$</p>\n"
+                m = (
+                    r"<p align=center>$latex \displaystyle "
+                    + mb[1]
+                    + "&fg=000000$</p>\n"
+                )
             R = R + [m]
         return R
 
@@ -50,7 +60,7 @@ def process_latex(content):
 
 
 with open(sys.argv[1]) as f:
-    file_content = ''.join(f.readlines())
+    file_content = "".join(f.readlines())
     latexed_content = process_latex(file_content)
     html_content = markdown.markdown(latexed_content)
     joined_content = html_content.replace("\n", "  ")

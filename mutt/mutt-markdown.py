@@ -17,28 +17,27 @@ signature_found = False
 content = ""
 
 for line in sys.stdin:
-    if line == '-- \n':
-        content += '\n' * 2
-        content += '**Evan Chen (陳誼廷)**<br>' + '\n'
-        content += '[https://web.evanchen.cc](https://web.evanchen.cc/)'
-        content += '\n' * 2
+    if line == "-- \n":
+        content += "\n" * 2
+        content += "**Evan Chen (陳誼廷)**<br>" + "\n"
+        content += "[https://web.evanchen.cc](https://web.evanchen.cc/)"
+        content += "\n" * 2
         signature_lines = 3
         signature_found = True
     elif signature_lines > 0:
         signature_lines -= 1
         continue
-    elif line.startswith('>>>>') and signature_found:
+    elif line.startswith(">>>>") and signature_found:
         break
     else:
-        content += line.strip() + '\n'
+        content += line.strip() + "\n"
 
-output_html = markdown.markdown(content,
-                                extensions=['extra', 'sane_lists', 'smarty'])
+output_html = markdown.markdown(content, extensions=["extra", "sane_lists", "smarty"])
 
-output_path = Path('/tmp/neomutt-alternative.html')
+output_path = Path("/tmp/neomutt-alternative.html")
 if output_path.exists():
     output_path.unlink()
 
-with open(output_path, 'w') as f:
+with open(output_path, "w") as f:
     print(output_html, file=f)
 print(output_html)

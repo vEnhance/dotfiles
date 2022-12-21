@@ -15,20 +15,19 @@ else:
 current_dir = os.getcwd()
 preamble = ""
 doc_started = False
-with open("%s.tex" % file_root_name) as f, open("%s/source.tex" % TMP,
-                                                "w") as g:
+with open("%s.tex" % file_root_name) as f, open("%s/source.tex" % TMP, "w") as g:
     print(f.readline().strip(), file=g)  # print \documentclass
     for line in f:
-        if line.strip() == r'\begin{document}':
+        if line.strip() == r"\begin{document}":
             doc_started = True
-            print(r'\usepackage{demacro-private}', file=g)
-            print(r'\def\blue{\bgroup\color{blue}}', file=g)
-            print(r'\def\endblue{\egroup}', file=g)
-            print(r'\def\red{\bgroup\color{red}}', file=g)
-            print(r'\def\endred{\egroup}', file=g)
-            print(r'\def\green{\bgroup\color{green}}', file=g)
-            print(r'\def\endgreen{\egroup}', file=g)
-            print(r'', file=g)
+            print(r"\usepackage{demacro-private}", file=g)
+            print(r"\def\blue{\bgroup\color{blue}}", file=g)
+            print(r"\def\endblue{\egroup}", file=g)
+            print(r"\def\red{\bgroup\color{red}}", file=g)
+            print(r"\def\endred{\egroup}", file=g)
+            print(r"\def\green{\bgroup\color{green}}", file=g)
+            print(r"\def\endgreen{\egroup}", file=g)
+            print(r"", file=g)
             print(line.strip(), file=g)  # begin document
         elif not doc_started:
             preamble += line

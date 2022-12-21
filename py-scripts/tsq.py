@@ -10,43 +10,43 @@ import string
 import sys
 
 fn_names = {
-    'circumcenter': 3,
-    'orthocenter': 3,
-    'incircle': 3,
-    'circumcircle': 3,
-    'centroid': 3,
-    'incenter': 3,
-    'midpoint': 1,
-    'extension': 4,
-    'foot': 3,
-    'CP': 2,
-    'CR': 2,
-    'dir': 1,
-    'conj': 1,
-    'intersect': 2,
-    'IP': 2,
-    'OP': 2,
-    'Line': 2,
-    'bisectorpoint': 2,
-    'arc': 4,
-    'abs': 1,
+    "circumcenter": 3,
+    "orthocenter": 3,
+    "incircle": 3,
+    "circumcircle": 3,
+    "centroid": 3,
+    "incenter": 3,
+    "midpoint": 1,
+    "extension": 4,
+    "foot": 3,
+    "CP": 2,
+    "CR": 2,
+    "dir": 1,
+    "conj": 1,
+    "intersect": 2,
+    "IP": 2,
+    "OP": 2,
+    "Line": 2,
+    "bisectorpoint": 2,
+    "arc": 4,
+    "abs": 1,
 }
 short_names = {
-    'circle': 'circumcircle',
-    'rightangle': 'rightanglemark',
+    "circle": "circumcircle",
+    "rightangle": "rightanglemark",
 }
 # The following is really bad
 for letter in string.ascii_uppercase:
-    fn_names['-%s+2*foot' % letter] = 3
-    fn_names['-%sp+2*foot' % letter] = 3
-    fn_names['-%ss+2*foot' % letter] = 3
-    for digit in '0123456789':
-        fn_names['-%s_%s+2*foot' % (letter, digit)] = 3
+    fn_names["-%s+2*foot" % letter] = 3
+    fn_names["-%sp+2*foot" % letter] = 3
+    fn_names["-%ss+2*foot" % letter] = 3
+    for digit in "0123456789":
+        fn_names["-%s_%s+2*foot" % (letter, digit)] = 3
 
 
 def autoParen(tokens):
     if len(tokens) == 0:
-        return ''
+        return ""
     else:
         t = tokens.pop(0)
 
@@ -55,58 +55,67 @@ def autoParen(tokens):
     if t in fn_names:
         nargs = fn_names[t]
         args = [autoParen(tokens) for i in range(nargs)]
-        return t + '(' + ', '.join(args) + ')'
+        return t + "(" + ", ".join(args) + ")"
     else:
         return t
 
 
 # argument parsing
-parser = argparse.ArgumentParser(description='Generate a diagram.')
-parser.add_argument('-p',
-                    '--pre',
-                    help='Adds an Asymptote preamble.',
-                    action='store_true',
-                    dest='preamble',
-                    default=False)
-parser.add_argument('-t',
-                    '--terse',
-                    help='Omits the source code at the end',
-                    action='store_true',
-                    dest='terse',
-                    default=False)
-parser.add_argument('-n',
-                    '--no-trans',
-                    help='Temporarily disables the transparencies.',
-                    action='store_true',
-                    dest='notrans',
-                    default=False)
+parser = argparse.ArgumentParser(description="Generate a diagram.")
 parser.add_argument(
-    'fname',
-    help='If provided, reads from the designated file rather than stdin',
+    "-p",
+    "--pre",
+    help="Adds an Asymptote preamble.",
+    action="store_true",
+    dest="preamble",
+    default=False,
+)
+parser.add_argument(
+    "-t",
+    "--terse",
+    help="Omits the source code at the end",
+    action="store_true",
+    dest="terse",
+    default=False,
+)
+parser.add_argument(
+    "-n",
+    "--no-trans",
+    help="Temporarily disables the transparencies.",
+    action="store_true",
+    dest="notrans",
+    default=False,
+)
+parser.add_argument(
+    "fname",
+    help="If provided, reads from the designated file rather than stdin",
     metavar="filename",
-    nargs='?',
-    default='')
+    nargs="?",
+    default="",
+)
 parser.add_argument(
-    '-s',
-    '--size',
-    help='If provided, sets the image size in the preamble. (Use with -p.)',
-    action='store',
-    dest='size',
-    default='8cm')
+    "-s",
+    "--size",
+    help="If provided, sets the image size in the preamble. (Use with -p.)",
+    action="store",
+    dest="size",
+    default="8cm",
+)
 parser.add_argument(
-    '-f',
-    '--fontsize',
-    help='If provided, sets the image size in the preamble. (Use with -p.)',
-    action='store',
-    dest='fontsize',
-    default='9pt')
+    "-f",
+    "--fontsize",
+    help="If provided, sets the image size in the preamble. (Use with -p.)",
+    action="store",
+    dest="fontsize",
+    default="9pt",
+)
 opts = parser.parse_args()
 
 # Initialize some stuff
 raw_code = ""
 dot_code = ""
 
-GENERIC_PREAMBLE = r'''
+GENERIC_PREAMBLE = r"""
 usepackage("amsmath");
 usepackage("amssymb");
 settings.tex="pdflatex";
@@ -128,14 +137,14 @@ path CR(pair P, real r) { return circle(P, r); }
 pair IP(path p, path q) { return intersectionpoints(p,q)[0]; }
 pair OP(path p, path q) { return intersectionpoints(p,q)[1]; }
 path Line(pair A, pair B, real a=0.6, real b=a) { return (a*(A-B)+A)--(b*(B-A)+B); }
-'''.strip()
+""".strip()
 
 if opts.preamble:
     print("defaultpen(fontsize(%s));" % opts.fontsize)
     print("size(%s);" % opts.size)
     print(GENERIC_PREAMBLE)
-if opts.fname != '':
-    stream = open(opts.fname, 'r')
+if opts.fname != "":
+    stream = open(opts.fname, "r")
 else:
     stream = sys.stdin  # type: ignore
 
@@ -186,8 +195,7 @@ for line in stream:
         do_auto_paren = False
         line = line[1:].strip()
     else:
-        do_auto_paren = not (', ' in line
-                            )  # just default to auto-ing unless , appears
+        do_auto_paren = not (", " in line)  # just default to auto-ing unless , appears
 
     if "=" in line:
         raw_name, raw_expr = line.split("=", 2)
@@ -203,13 +211,15 @@ for line in stream:
             draw_point = True
             label_point = True
         raw_name = raw_name.strip()
-        point_name = raw_name.replace("'", "p").replace("*", "s").replace(
-            "^", "")  # name used in source code
+        point_name = (
+            raw_name.replace("'", "p").replace("*", "s").replace("^", "")
+        )  # name used in source code
         label_name = raw_name.replace(
-            "*", r"^\ast")  # name passed to LaTeX label function
+            "*", r"^\ast"
+        )  # name passed to LaTeX label function
 
         if do_auto_paren:
-            tokens = raw_expr.strip().split(' ')
+            tokens = raw_expr.strip().split(" ")
             expr = autoParen(tokens)
             if len(tokens) == 0:
                 direction = "dir(" + point_name + ")"
@@ -228,8 +238,11 @@ for line in stream:
             print("pair %s = %s;" % (point_name, expr))
         if draw_point:
             if label_point:
-                dot_code += "dot(\"$%s$\", %s, %s);\n" % (label_name,
-                                                          point_name, direction)
+                dot_code += 'dot("$%s$", %s, %s);\n' % (
+                    label_name,
+                    point_name,
+                    direction,
+                )
             else:
                 dot_code += "dot(%s);\n" % (point_name if point_name else expr)
 
@@ -237,32 +250,30 @@ for line in stream:
         line = line.strip()
         pen = None
         if do_auto_paren:
-            tokens = line.split(' ')
+            tokens = line.split(" ")
             expr = autoParen(tokens)
             # 0.2 mediumcyan / blue -> opacity(0.2)+mediumcyan, blue
-            if '/' in tokens:
-                tindex = tokens.index('/')  # index of transparency divider
+            if "/" in tokens:
+                tindex = tokens.index("/")  # index of transparency divider
                 if tokens[0][0] == "0":  # first token is leading 0
                     fillpen = "opacity(" + tokens[0] + ")"
                     if tindex != 1:
-                        fillpen += '+' + '+'.join(
-                            tokens[1:tindex])  # add on others
+                        fillpen += "+" + "+".join(tokens[1:tindex])  # add on others
                 else:
-                    fillpen = '+'.join(tokens[0:tindex])
-                drawpen = '+'.join(tokens[tindex + 1:])
+                    fillpen = "+".join(tokens[0:tindex])
+                drawpen = "+".join(tokens[tindex + 1 :])
                 if not drawpen:
                     drawpen = "defaultpen"
 
                 if opts.notrans:
                     print("draw(" + expr + ", " + drawpen + ");")
                 else:
-                    print("filldraw(" + expr + ", " + fillpen + ", " + drawpen +
-                          ");")
+                    print("filldraw(" + expr + ", " + fillpen + ", " + drawpen + ");")
             else:
-                pen = '+'.join(tokens)  # any remaining tokens
+                pen = "+".join(tokens)  # any remaining tokens
         else:
             expr = line  # you'll have to put commas here for pens manually
-            pen = ''
+            pen = ""
 
         if pen:
             print("draw(" + expr + ", " + pen + ");")
