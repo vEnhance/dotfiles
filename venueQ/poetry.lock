@@ -517,21 +517,19 @@ files = [
 
 [[package]]
 name = "traitlets"
-version = "5.7.0"
+version = "5.8.0"
 description = "Traitlets Python configuration system"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "traitlets-5.7.0-py3-none-any.whl", hash = "sha256:61832ea7b7f910f5745e27e9bb269a181fd15af76027d99560299209d5b17c94"},
-    {file = "traitlets-5.7.0.tar.gz", hash = "sha256:bd0fca5c890a09bf66b33cce67ca14156b080429bc39c7ef26b075a4bd4f9fc3"},
+    {file = "traitlets-5.8.0-py3-none-any.whl", hash = "sha256:c864831efa0ba6576d09b44884b34e41defc18c0d7e720b4a2d6698c842cab3e"},
+    {file = "traitlets-5.8.0.tar.gz", hash = "sha256:6cc57d6dc28c85d5365961726ffd19b538739347749e13ebe34e03323a0e8f84"},
 ]
 
 [package.extras]
 docs = ["myst-parser", "pydata-sphinx-theme", "sphinx"]
-lint = ["black (>=22.6.0)", "mdformat (>0.7)", "ruff (>=0.0.156)"]
-test = ["pre-commit", "pytest"]
-typing = ["mypy (>=0.990)"]
+test = ["argcomplete (>=2.0)", "pre-commit", "pytest", "pytest-mock"]
 
 [[package]]
 name = "types-pyyaml"
