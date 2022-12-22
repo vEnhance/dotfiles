@@ -1,6 +1,7 @@
 #!/bin/python
 
 import datetime
+import sys
 from typing import Any, List
 
 now = datetime.datetime.now()
@@ -19,9 +20,14 @@ data: List[List[Any]] = [
     [37.5, 35, 32.5, 30, 27.5, 25, 22.5],
 ]
 
-print("${font DejaVu Sans Mono:size=12}")
+if len(sys.argv) > 2:
+    fontsize, offset = sys.argv[1], sys.argv[2]
+else:
+    fontsize, offset = "12", "230"
+
+print(r"${font DejaVu Sans Mono:size=" + fontsize + "}")
 for row in data:
-    s = "${goto 230}"
+    s = "${goto " + offset + "}"
     for x in row:
         if x is None:
             s += " "
@@ -34,9 +40,9 @@ for row in data:
                 h = int(x)
             if hour >= h:
                 s += r"${color #FFAAAA}"
-                s += r"${font DejaVu Sans Mono:bold:size=12}"
+                s += r"${font DejaVu Sans Mono:bold:size=" + fontsize + "}"
                 s += x
-                s += r"${font DejaVu Sans Mono:size=12}"
+                s += r"${font DejaVu Sans Mono:size=" + fontsize + "}"
             else:
                 s += r"${color #999999}"
                 s += x
