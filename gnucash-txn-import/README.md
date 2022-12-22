@@ -5,7 +5,7 @@
 ### Download Tech CU (for importing)
 
 Go to Accounts, then use "Print" and save resulting HTML (HTML only, not webpage
-complete). Save only a single file `data/TechCU.html` since it combines both
+complete). Save only a single file `data/techcu.html` since it combines both
 savings and checking.
 
 ### Download Citi (for importing)
