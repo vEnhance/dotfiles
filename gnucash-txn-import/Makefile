@@ -3,7 +3,7 @@ all: output/report.diff
 /tmp/gnucash.xml: /home/evan/Sync/Grownup/Finance/gnucash/main.gnucash
 	zcat $< > $@
 
-output/pending.csv: /tmp/gnucash.xml scrape-xml.py txn.py
+output/pending.csv: /tmp/gnucash.xml scrape_xml.py txn.py
 	python scrape-xml.py > $@
 
 output/posted.csv: audit.py txn.py $(wildcard data*)
