@@ -30,7 +30,9 @@ with get_session() as session:
                     abs(row_date - txn.date) <= timedelta(days=1)
                     and row_amount == txn.amount
                 ):
-                    print(f"Handled {row_description} from {row_date}")
+                    print(
+                        f"Handled {row_description} from {row_date} (amount {row_amount})"
+                    )
                     break
             else:
                 if "Pythonanywhere" in row_description and row_amount < 0:
