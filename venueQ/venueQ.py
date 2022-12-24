@@ -112,7 +112,7 @@ class VenueQNode:
             return self.get_default_data()
 
     def temp_path(self, extension: str, name: str = None) -> Path:
-        return self.directory / f"{name or self.name}.vtmp.{extension}"
+        return self.directory / f"{name or self.name}.venueQ.tmp.{extension}"
 
     def edit_temp(self, extension: str, name: str = None):
         p = self.temp_path(extension, name)
@@ -250,7 +250,7 @@ class VenueQRoot(VenueQNode):
         super().__init__(data, None)
 
     def erase_stale_files(self):
-        for p in self.root_dir.rglob("*.yaml"):
+        for p in self.root_dir.rglob("*.venueQ.*"):
             if (
                 p.is_file()
                 and self.shelf_life is not None
