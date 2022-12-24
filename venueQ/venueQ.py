@@ -83,6 +83,7 @@ class VenueQNode:
         else:
             self.parent = parent
             self.root = parent.root
+        self.mkdir()
         self.data = self.get_initial_data()
         self.update_by_dictionary(data)
         self.init_hook()
@@ -111,10 +112,10 @@ class VenueQNode:
         else:
             return self.get_default_data()
 
-    def temp_path(self, extension: str, name: str = None) -> Path:
+    def temp_path(self, extension: str, name: str | None = None) -> Path:
         return self.directory / f"{name or self.name}.venueQ.tmp.{extension}"
 
-    def edit_temp(self, extension: str, name: str = None):
+    def edit_temp(self, extension: str, name: str | None = None):
         p = self.temp_path(extension, name)
         p.touch()
         if VIM_ENABLED:
@@ -123,14 +124,14 @@ class VenueQNode:
         else:
             subprocess.run(["vim", p], shell=True)
 
-    def read_temp(self, extension: str, name: str = None):
+    def read_temp(self, extension: str, name: str | None = None):
         if self.temp_path(extension, name).exists():
             text = self.temp_path(extension, name).read_text()
             return text
         else:
             return ""
 
-    def erase_temp(self, extension: str, name: str = None):
+    def erase_temp(self, extension: str, name: str | None = None):
         self.root.queue_wipe(self.temp_path(extension, name))
 
     @property
@@ -148,7 +149,8 @@ class VenueQNode:
     def path(self) -> Path:
         return self.directory / f"{self.name}.{self.get_extension()}"
 
-    def __eq__(self, other: "VenueQNode") -> bool:
+    def __eq__(self, other: object) -> bool:
+        assert isinstance(other, VenueQNode)
         return self.pk == other.pk
 
     def delete(self):
@@ -156,7 +158,7 @@ class VenueQNode:
         del self.root.lookup[self.pk]
 
     def mkdir(self):
-        if not self.parent.directory.exists():
+        if self.parent is not None and not self.parent.directory.exists():
             self.parent.mkdir()
         if not self.directory.exists():
             self.directory.mkdir()
