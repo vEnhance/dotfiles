@@ -73,7 +73,7 @@ def send_email(
         capture_output=True,
     ).stdout
 
-    email_log_filename = f"email{datetime.now().strftime('%Y%m%d-%H%M%S')}.mkd"
+    email_log_filename = f"email{datetime.now().strftime('%Y%m%d-%H%M%S')}.md"
     with open(OTIS_TMP_DOWNLOADS_PATH / email_log_filename, "w") as f:
         print(plain_msg, file=f)
 
@@ -253,9 +253,9 @@ class ProblemSet(VenueQNode):
             and total > 1
             and num_problems > 2
             and data["clubs"] >= total - 1
-            and not self.temp_path("mkd").exists()
+            and not self.temp_path("md").exists()
         ):
-            with open(self.temp_path("mkd"), "w") as f:
+            with open(self.temp_path("md"), "w") as f:
                 print(AK, file=f)
 
         # save file
@@ -284,7 +284,7 @@ class ProblemSet(VenueQNode):
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
-        self.edit_temp(extension="mkd")
+        self.edit_temp(extension="md")
         if self.ext == "pdf":
             tool = "zathura"
         elif self.ext == "tex" or self.ext == "txt":
@@ -367,7 +367,7 @@ class ProblemSet(VenueQNode):
         del data["xtra"]
         logger.debug(data)
 
-        comments_to_email = self.read_temp(extension="mkd").strip()
+        comments_to_email = self.read_temp(extension="md").strip()
         if (data["status"] in ("A", "R")) and comments_to_email != "":
             if query_otis_server(payload=data) is not None:
                 body = self.compose_email_body(data, comments_to_email)
@@ -382,7 +382,7 @@ class ProblemSet(VenueQNode):
                 def callback():
                     if data["status"] == "R":
                         self.get_path().unlink()
-                    self.erase_temp(extension="mkd")
+                    self.erase_temp(extension="md")
                     self.delete()
 
                 send_email(
@@ -442,7 +442,7 @@ class Suggestion(VenueQNode):
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
-        self.edit_temp(extension="mkd")
+        self.edit_temp(extension="md")
         tmp_path = f"/tmp/sg{int(time.time())}.tex"
 
         with open(tmp_path, "w") as f:
@@ -475,7 +475,7 @@ class Suggestion(VenueQNode):
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
-        comments_to_email = self.read_temp(extension="mkd").strip()
+        comments_to_email = self.read_temp(extension="md").strip()
         if comments_to_email != "":
             recipient = data["user__email"]
             subject = f"OTIS: Suggestion {data['source']}: "
@@ -504,7 +504,7 @@ class Suggestion(VenueQNode):
             def callback():
                 if query_otis_server(payload=data) is not None:
                     self.delete()
-                    self.erase_temp(extension="mkd")
+                    self.erase_temp(extension="md")
 
             send_email(
                 subject=subject,
@@ -533,11 +533,11 @@ class Job(VenueQNode):
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
-        self.edit_temp(extension="mkd")
+        self.edit_temp(extension="md")
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
-        comments_to_email = self.read_temp(extension="mkd").strip()
+        comments_to_email = self.read_temp(extension="md").strip()
         if comments_to_email != "" and self.data["progress"] != "JOB_SUB":
             verdict = (
                 "Accepted"
@@ -557,7 +557,7 @@ class Job(VenueQNode):
             def callback():
                 if query_otis_server(payload=data) is not None:
                     self.delete()
-                    self.erase_temp(extension="mkd")
+                    self.erase_temp(extension="md")
 
             send_email(
                 subject=subject,
