@@ -23,6 +23,7 @@
     "spotify": "music",
     "syncthing GTK": "sync-alt",
     "terminal - .* - VIM": "code",
+    "terminal - vim .*": "code",
     "terminal - latexmk": "draft2digital",
     "terminal - latexmk": "draft2digital",
     "thunar": "warehouse",
