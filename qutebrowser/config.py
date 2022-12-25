@@ -45,6 +45,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.duckduckgo.com/*",
     r"*://*.evanchen.cc/*",
     r"*://*.facebook.com/*",
+    r"*://*.github.com/*",
     r"*://*.gradescope.com/*",
     r"*://*.instagram.com/*",
     r"*://*.itch.io/*",
