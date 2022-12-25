@@ -126,6 +126,11 @@ def get_used_aur_packages() -> set[str]:
         pkgname = line.split(" ")[0]
         if pkgname in ret:
             ret.remove(pkgname)
+
+    if "chaotic-mirrorlist" in ret:
+        ret.remove("chaotic-mirrorlist")
+    if "chaotic-keyring" in ret:
+        ret.remove("chaotic-keyring")
     return ret
 
 
