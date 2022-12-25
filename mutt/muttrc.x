@@ -60,7 +60,7 @@ set attribution = "%f於%[%A%d日%m月%R]寫道："
 set attribution_locale = "zh_TW.UTF-8"
 set autoedit = yes
 set edit_headers = yes
-set editor = "vim"
+set editor = "nvim"
 set fast_reply = yes
 set include = yes
 set sig_on_top = yes
@@ -104,7 +104,7 @@ macro index,pager m\043 "<save-message>=Trash<enter><enter><enter-command>echo \
 
 bind index,pager a group-reply
 bind index,pager s view-attachments
-macro index,pager z "<pipe-message>vim -R -c \"set ft=mail\" -<enter>" "View in Vim"
+macro index,pager z "<pipe-message>nvim -R -c \"set ft=mail\" -<enter>" "View in Vim"
 macro index,pager e "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
 
@@ -178,13 +178,13 @@ bind index q noop
 macro index q "<shell-escape>systemctl start evansync.service --user<enter><quit>"
 bind index Q quit
 
-# pipe in vim
+# pipe in nvim
 bind index p noop
-macro index p "<display-message><view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
+macro index p "<display-message><view-attachments><first-entry><next-entry><pipe-message>nvim -R -<enter>" "Pipe in NVim"
 bind pager p noop
-macro pager p "<view-attachments><first-entry><next-entry><pipe-message>vim -R -<enter>" "Pipe in Vim"
+macro pager p "<view-attachments><first-entry><next-entry><pipe-message>nvim -R -<enter>" "Pipe in NVim"
 bind attach p noop
-macro attach p "<pipe-message>vim -R -<enter>" "Pipe in Vim"
+macro attach p "<pipe-message>nvim -R -<enter>" "Pipe in NVim"
 bind pager z edit-raw-message
 # }}}
 # COLORS {{{

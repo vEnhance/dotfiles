@@ -76,7 +76,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
     dropbox-cli start
     app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
     signal-desktop --start-in-tray --use-tray-icon &
-    gnome-calendar &
+    # gnome-calendar &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   syncthing-gtk &

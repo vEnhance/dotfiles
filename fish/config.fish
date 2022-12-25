@@ -126,7 +126,7 @@ end
 
 # Exports
 export SHELL='/usr/bin/fish'
-export EDITOR='vim'
+export EDITOR='nvim'
 export TERM='xterm-256color'
 export GPG_TTY=(tty)
 
@@ -146,13 +146,13 @@ end
 
 umask 007 # set umask
 
-# alias emacs='vim'
+alias vim='nvim'
+alias gvim='nvim-qt'
 
 alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
-alias gim="vim --cmd 'let g:nt_auto_off=1' -c Git -c only"
 alias ipv4='ip addr | ag inet -w | ag -w "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
 alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
 alias lisp='sbcl --script'
@@ -176,6 +176,7 @@ end
 function aes-decode
     openssl aes-256-cbc -a -d -pbkdf2 -pass pass:$argv
 end
+
 function bw-unlock
     set_color brpurple
     echo "Enter PIN to continue (or leave blank if none):"
@@ -213,12 +214,10 @@ function bw-new
         echo "Error: No URI provided"
         return 1
     end
-
     set new_name (echo $new_uri |
         sed "s/^https\?\:\/\///" |
         sed "s/\/.*//")
     set revision_date (date -Iseconds --utc)
-
     set item_login_uri (bw get template item.login.uri |
         jq ".uri=\"$new_uri\"")
     set item_login (bw get template item.login |
@@ -245,7 +244,6 @@ function rs1
     )"[abe-hjkn-uwyz]*"
     ag -w $regex $argv[2..]
 end
-
 function rs2
     set regex "[abe-hjkn-uwyz]*"(
         echo $argv[1] |
@@ -300,7 +298,7 @@ function newtex
     echo '\title{}' >>"$argv.tex"
     echo '' >>"$argv.tex"
     echo '\end{document}' >>"$argv.tex"
-    gvim "$argv.tex"
+    nvim-qt "$argv.tex"
 end
 
 function pikaur

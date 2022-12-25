@@ -33,13 +33,11 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-python/python-syntax',     { 'for' : 'python' }
   Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
 
-  Plug 'FelikZ/ctrlp-py-matcher'
   Plug 'Shougo/echodoc'
   Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
   Plug 'airblade/vim-gitgutter'
   Plug 'aymericbeaumet/vim-symlink'
   Plug 'ciaranm/detectindent'
-  Plug 'ctrlpvim/ctrlp.vim'
   Plug 'dense-analysis/ale'
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
@@ -55,10 +53,15 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-ctrlspace/vim-ctrlspace'
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
-  Plug 'vim-scripts/YankRing.vim'
+  " Plug 'vim-scripts/YankRing.vim'
   Plug 'ypcrts/securemodelines'
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+  " Neovim Only
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
 endif
 " }}}
 
@@ -92,12 +95,6 @@ let g:csv_no_conceal = 1
 let g:csv_nomap_cr = 1
 let g:csv_start = 1
 let g:csv_end = 100
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cmd= 'CtrlPBuffer'
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_map = '<c-b>'
-let g:ctrlp_max_files = 0
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:detectindent_preferred_expandtab = 1
 let g:detectindent_preferred_indent = 2
 let g:detectindent_preferred_when_mixed = 1
@@ -249,7 +246,7 @@ function! s:ExecuteInShell(command)
   echo 'Execute ' . command . '...'
   silent! execute 'silent %!'. command
   silent! redraw
-  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'autocmd BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
   silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
   echo 'Shell command ' . command . ' executed.'
 endfunction
@@ -333,12 +330,6 @@ function! ShowDocumentation()
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
 
-" Buffer and ctrlP
-command! -bang -nargs=* BLinesExtra
-      \ call fzf#vim#grep(
-      \ 'rg --with-filename --column --line-number --no-heading . '.fnameescape(expand('%:p')), 1,
-      \ fzf#vim#with_preview({'options': '--layout reverse --query '.shellescape(<q-args>).' --with-nth=4.. --delimiter=":"'}, 'right:50%'))
-nnoremap <C-/> :BLinesExtra<CR>
 " }}}
 
 " MINUS KEYBINDINGS (window manager) {{{
@@ -360,10 +351,6 @@ nnoremap -. <C-w>K
 nnoremap -e <C-w>J
 " maximize window
 nnoremap -a <C-w>o
-nnoremap <silent> -f <C-w>v:CtrlPRoot<CR>
-nnoremap <silent> -r <C-w>v:CtrlPMRU<CR>
-nnoremap <silent> -c <C-w>v:CtrlPCurFile<CR>
-nnoremap <silent> -b <C-w>v:CtrlPBuffer<CR>
 nnoremap -w <C-w><C-w>
 
 " make notes
@@ -411,12 +398,6 @@ nnoremap <silent> <Space>l :lcd %:p:h<CR>
 nnoremap <silent> <Space>w :set wrap<CR>
 nnoremap <silent> <Space>n :set nowrap<CR>
 
-" Ctrl P
-nnoremap <silent> <Space>f :CtrlPRoot<CR>
-nnoremap <silent> <Space>r :CtrlPMRU<CR>
-nnoremap <silent> <Space>p :CtrlPCurFile<CR>
-nnoremap <silent> <Space>b :CtrlPBuffer<CR>
-
 " git status
 nnoremap <Space>gg :Git<CR>
 nnoremap <Space>gb :Git blame<CR>
@@ -455,6 +436,14 @@ function! EvanClose()
   endif
 endfunction
 nnoremap <Space>- :call EvanClose()<CR>
+
+" Telescope
+if has('nvim')
+  nnoremap <silent> <Space>ff <cmd>Telescope find_files<cr>
+  nnoremap <silent> <Space>fg <cmd>Telescope live_grep<cr>
+  nnoremap <silent> <Space>fb <cmd>Telescope buffers<cr>
+  nnoremap <silent> <Space>fh <cmd>Telescope help_tags<cr>
+endif
 " }}}
 
 " Settings {{{
@@ -465,7 +454,9 @@ set backspace=indent,eol,start
 set backup     " keep a backup file
 set breakindent
 set colorcolumn=+1
-set cryptmethod=blowfish2
+if exists('+cryptmethod')
+  set cryptmethod=blowfish2
+endif
 set completeopt=menuone,noselect,preview
 set conceallevel=2
 set cursorline
@@ -475,7 +466,6 @@ endif
 set expandtab " :(
 set foldlevelstart=3
 set guicursor+=n-v-c:blinkon0
-set guifont=Monospace\ 11
 set hidden
 set history=50 " keep 50 lines of command line history
 set hlsearch
@@ -534,6 +524,19 @@ autocmd vimrc User AirlineAfterTheme call AirlineSetup()
 autocmd vimrc BufRead * call DetectIndentIfNoLocalRC()
 autocmd vimrc BufNewFile,BufRead *.tex set spell
 autocmd vimrc VimEnter .git/COMMIT_EDITMSG set filetype=gitcommit
+
+if has('nvim')
+  augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=1200 }
+  augroup END
+endif
+
+" Telescope
+nnoremap <silent> <Space>ff <cmd>Telescope find_files<cr>
+nnoremap <silent> <Space>fg <cmd>Telescope live_grep<cr>
+nnoremap <silent> <Space>fb <cmd>Telescope buffers<cr>
+nnoremap <silent> <Space>fh <cmd>Telescope help_tags<cr>
 " }}}
 " More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'
