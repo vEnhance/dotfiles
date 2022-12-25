@@ -45,6 +45,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'mg979/vim-visual-multi'
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'preservim/nerdtree'
+  Plug 'svermeulen/vim-yoink'
   Plug 'svintus/vim-editexisting'
   Plug 'thinca/vim-localrc'
   Plug 'tpope/vim-fugitive'
@@ -53,7 +54,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-ctrlspace/vim-ctrlspace'
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
-  " Plug 'vim-scripts/YankRing.vim'
   Plug 'ypcrts/securemodelines'
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -125,7 +125,10 @@ let g:vim_markdown_new_list_item_indent = 0
 let g:vimwiki_filetypes = ['markdown']
 let g:vimwiki_global_ext = 0
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
-let g:yankring_history_dir = '$HOME/.cache/'
+let g:VM_maps = {}
+let g:VM_maps['Find Under']         = '<C-v>'
+let g:VM_maps['Find Subword Under'] = '<C-v>'
+let g:yoinkIncludeDeleteOperations = 1
 let grepprg = 'ag --nogroup --nocolor'
 
 " Airline auto from vim-plugins
@@ -311,6 +314,14 @@ nmap Q <nop>
 nnoremap <CR> :wall<CR>
 " alias :bdelete to :bc (for buffer-close)
 cnoreabbrev bc bdelete
+
+nnoremap <C-p> <plug>(YoinkPostPasteSwapBack)
+nnoremap <C-n> <plug>(YoinkPostPasteSwapForward)
+nnoremap p <plug>(YoinkPaste_p)
+nnoremap P <plug>(YoinkPaste_P)
+" Also replace the default gp with yoink paste so we can toggle paste in this case too
+nnoremap gp <plug>(YoinkPaste_gp)
+nnoremap gP <plug>(YoinkPaste_gP)
 
 " CoC
 nnoremap <silent> cv <Plug>(coc-rename)
