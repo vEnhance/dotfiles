@@ -2,6 +2,7 @@
 
 " vint: -ProhibitSetNoCompatible
 set nocompatible
+scriptencoding utf-8
 
 colorscheme reclipse
 filetype plugin indent on
@@ -39,10 +40,9 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'aymericbeaumet/vim-symlink'
   Plug 'ciaranm/detectindent'
   Plug 'dense-analysis/ale'
-  Plug 'junegunn/fzf'
-  Plug 'junegunn/fzf.vim'
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'mg979/vim-visual-multi'
+  " there's a neovim version of this that might be neat
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'preservim/nerdtree'
   Plug 'svermeulen/vim-yoink'
@@ -52,6 +52,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
   Plug 'vim-ctrlspace/vim-ctrlspace'
+  " ingo-library is a dependency for syntaxrange
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
   Plug 'ypcrts/securemodelines'
@@ -62,12 +63,13 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'ryanoasis/vim-devicons'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+  Plug 'fannheyward/telescope-coc.nvim'
 endif
 " }}}
 
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
-let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:60%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'up:40%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let NERDTreeIgnore = [
   \  '\.pyc$',
   \  '\.pyo$',
@@ -100,9 +102,14 @@ let g:detectindent_preferred_indent = 2
 let g:detectindent_preferred_when_mixed = 1
 let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
 let g:echodoc_enable_at_startup=1
-let g:echodoc#type='popup'
+if has('nvim')
+  let g:echodoc#type='floating'
+else
+  let g:echodoc#type='popup'
+endif
 let g:far#source='rg'
-let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.4 } }
+let g:fzf_command_prefix = 'Fzf'
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let g:gitgutter_map_keys = 0
 let g:gutentags_cache_dir = '~/.vim/tags/'
 let g:gutentags_define_advanced_commands=1
@@ -192,8 +199,10 @@ let g:ale_set_balloon= 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 1
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '#'
-let g:ale_sign_warning = '>'
+let g:ale_sign_error = '💣'
+let g:ale_sign_warning = '⚠️'
+let g:ale_virtualtext_cursor = 2
+let g:ale_virtualtext_prefix = '☢️ '
 let g:coc_start_at_startup = 0
 let g:coc_global_extensions = [
   \ 'coc-css',
@@ -235,6 +244,8 @@ function! CocStartAndDisableALELSP()
   CocStart
   CocEnable
   let g:ale_disable_lsp = 1
+  nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
+  nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
   echo 'CoC has been started!'
 endfunction
 " }}}
@@ -340,7 +351,6 @@ function! ShowDocumentation()
   endif
 endfunction
 nnoremap <silent> K :call ShowDocumentation()<CR>
-
 " }}}
 
 " MINUS KEYBINDINGS (window manager) {{{
@@ -450,10 +460,16 @@ nnoremap <Space>- :call EvanClose()<CR>
 
 " Telescope
 if has('nvim')
-  nnoremap <silent> <Space>ff <cmd>Telescope find_files<cr>
-  nnoremap <silent> <Space>fg <cmd>Telescope live_grep<cr>
-  nnoremap <silent> <Space>fb <cmd>Telescope buffers<cr>
-  nnoremap <silent> <Space>fh <cmd>Telescope help_tags<cr>
+  nnoremap <silent> <Space>/ <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
+  nnoremap <silent> <Space>fb <cmd>Telescope buffers theme=dropdown<CR>
+  nnoremap <silent> <Space>ff <cmd>Telescope find_files theme=dropdown<CR>
+  nnoremap <silent> <Space>fg <cmd>Telescope live_grep<CR>
+  nnoremap <silent> <Space>fh <cmd>Telescope oldfiles theme=dropdown<CR>
+  nnoremap <silent> <Space>fj <cmd>Telescope jumplist<CR>
+  nnoremap <silent> <Space>fk <cmd>Telescope keymaps<CR>
+  nnoremap <silent> <Space>fp <cmd>Telescope builtin<CR>
+  nnoremap <silent> <Space>fq <cmd>Telescope quickfix<CR>
+  nnoremap <silent> <Space>ft <cmd>Telescope vim_options<CR>
 endif
 " }}}
 
@@ -542,12 +558,6 @@ if has('nvim')
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=1200 }
   augroup END
 endif
-
-" Telescope
-nnoremap <silent> <Space>ff <cmd>Telescope find_files<cr>
-nnoremap <silent> <Space>fg <cmd>Telescope live_grep<cr>
-nnoremap <silent> <Space>fb <cmd>Telescope buffers<cr>
-nnoremap <silent> <Space>fh <cmd>Telescope help_tags<cr>
 " }}}
 " More lame LaTeX stuff {{{
 let g:Tex_DefaultTargetFormat = 'pdf'

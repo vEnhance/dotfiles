@@ -63,15 +63,29 @@ highlight PMenuSel   ctermbg=white ctermfg=black
 highlight PMenuSBar  ctermbg=red   ctermfg=white
 highlight PMenuThumb ctermbg=white ctermfg=red
 
-" Other
+" Lines
 highlight! link SignColumn LineNr
-highlight Directory  gui=none guibg=bg      guifg=#7050ff ctermfg=39
 highlight LineNr     gui=none guibg=#cccccc guifg=#6b6b6b
+highlight CursorLineNr        guibg=#eeeeee               ctermbg=239 ctermfg=122 cterm=bold
+highlight ALEVirtualTextError         ctermfg=0 ctermbg=210 cterm=italic
+highlight ALEVirtualTextWarning       ctermfg=0 ctermbg=178 cterm=italic
+highlight ALEVirtualTextInfo          ctermfg=0 ctermbg=109 cterm=italic
+highlight ALEVirtualTextStyleError    ctermfg=0 ctermbg=210 cterm=italic
+highlight ALEVirtualTextStyleWarning  ctermfg=0 ctermbg=178 cterm=italic
+
+" Error highlighting
+highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
+highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
+highlight ALEError     cterm=underline ctermfg=210 ctermbg=237
+highlight ALEWarning   cterm=underline ctermfg=178 ctermbg=237
+highlight ALEInfo      cterm=underline ctermfg=109 ctermbg=237
+
+" Other
+highlight Directory  gui=none guibg=bg      guifg=#7050ff ctermfg=39
 highlight NonText    gui=none guibg=#e7e7e7 guifg=#707070
 highlight SpecialKey gui=none guibg=bg      guifg=#c0c0c0 ctermbg=53  ctermfg=253
 highlight Title      gui=bold guibg=bg      guifg=#0033cc
 highlight Visual     gui=none guibg=#ffc0a0 guifg=#804020 ctermfg=105
-highlight CursorLineNr        guibg=#eeeeee               ctermbg=239 ctermfg=122 cterm=bold
 
 " Syntax group
 highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan                 cterm=bold
@@ -90,8 +104,6 @@ highlight String     gui=none guifg=#b07800 guibg=bg      ctermfg=Yellow
 highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=85         cterm=bold
 highlight Number     gui=none guifg=#cc0033 guibg=bg      ctermfg=Magenta
 highlight Identifier gui=bold guifg=#006633 guibg=bg      ctermfg=LightGreen cterm=bold
-highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
-highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
 
 " File-specific syntax groups
 highlight texComment    gui=none guifg=#ff1cae guibg=bg   ctermfg=2
