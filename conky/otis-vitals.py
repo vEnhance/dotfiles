@@ -1,6 +1,6 @@
 #!/bin/python
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import List, Tuple
 
@@ -13,12 +13,12 @@ assert OTIS_ROOT.exists()
 
 # Problem sets
 pset_dir = OTIS_ROOT / "Problem sets"
-assert pset_dir.exists()
 pset_timestamps: List[str] = []
-for pset_file in pset_dir.glob("*.venueQ.yaml"):
-    with open(pset_file) as f:
-        yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
-        pset_timestamps.append(yaml_data["upload__content"].split("/")[2])
+if pset_dir.exists():
+    for pset_file in pset_dir.glob("*.venueQ.yaml"):
+        with open(pset_file) as f:
+            yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
+            pset_timestamps.append(yaml_data["upload__content"].split("/")[2])
 
 # Inquiries
 inquiry_timestamps = []
@@ -31,21 +31,21 @@ if inquiries_path.exists():
 
 # Suggestions
 suggest_dir = OTIS_ROOT / "Suggestions"
-assert suggest_dir.exists()
 suggestion_timestamps: List[str] = []
-for suggest_file in suggest_dir.glob("*.venueQ.yaml"):
-    with open(suggest_file) as f:
-        yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
-        suggestion_timestamps.append(yaml_data["created_at"])
+if suggest_dir.exists():
+    for suggest_file in suggest_dir.glob("*.venueQ.yaml"):
+        with open(suggest_file) as f:
+            yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
+            suggestion_timestamps.append(yaml_data["created_at"])
 
 # Jobs
 job_dir = OTIS_ROOT / "Jobs"
-assert job_dir.exists()
 job_timestamps: List[str] = []
-for job_file in job_dir.glob("*.venueQ.yaml"):
-    with open(job_file) as f:
-        yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
-        job_timestamps.append(yaml_data["updated_at"])
+if job_dir.exists():
+    for job_file in job_dir.glob("*.venueQ.yaml"):
+        with open(job_file) as f:
+            yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
+            job_timestamps.append(yaml_data["updated_at"])
 
 
 def get_stats(x: List[str]) -> Tuple[timedelta, int]:
@@ -54,11 +54,12 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
         return (timedelta(0), 0)
     else:
         m = min(x)  # earliest submission not yet covered
-        if not "Z" in m:
-            m = m[:10] + "T" + m[11:13] + ":" + "00"
-        else:
-            m = m[:19]
-        return (datetime.now() - datetime.fromisoformat(m), n)
+        if not "T" in m:
+            # some crap like 2022-12-26-091745
+            m = f"{m[:10]}T{m[11:13]}:{m[13:15]}:{m[15:17]}Z"
+        m = m.rstrip("Z")  # take out the trailing Z
+        m = m[:19] + "+00:00"  # set in UTC time
+        return (datetime.now(timezone.utc) - datetime.fromisoformat(m), n)
 
 
 def get_conky_presentation(s: str, x: List[str]) -> str:
