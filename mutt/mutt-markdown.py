@@ -10,6 +10,7 @@ Takes a plaintext email and
 import sys
 from pathlib import Path
 
+from importlib.util import find_spec
 import markdown
 
 signature_lines = 0
@@ -32,7 +33,10 @@ for line in sys.stdin:
     else:
         content += line.strip() + "\n"
 
-output_html = markdown.markdown(content, extensions=["extra", "sane_lists", "smarty"])
+extensions = ["extra", "sane_lists", "smarty"]
+if find_spec("mdx_truly_sane_lists") is not None:
+    extensions.append("mdx_truly_sane_lists")
+output_html = markdown.markdown(content, extensions=extensions)
 
 output_path = Path("/tmp/neomutt-alternative.html")
 if output_path.exists():

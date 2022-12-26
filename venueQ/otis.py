@@ -14,6 +14,8 @@ from email.mime.text import MIMEText
 from pathlib import Path
 from typing import Any, Callable, List, Optional, Type
 
+from importlib.util import find_spec
+
 import markdown
 import requests
 from dotenv import load_dotenv
@@ -38,6 +40,10 @@ if not OTIS_TMP_DOWNLOADS_PATH.exists():
 HANDOUTS_PATH = Path("~/ProGamer/OTIS/Materials").expanduser()
 NOISEMAKER_SOUND_PATH = Path("~/dotfiles/sh-scripts/noisemaker.sh").expanduser()
 
+MD_EXTENSIONS = ["extra", "sane_lists", "smarty"]
+if find_spec("mdx_truly_sane_lists") is not None:
+    MD_EXTENSIONS.append("mdx_truly_sane_lists")
+
 
 def send_email(
     subject: str,
@@ -61,9 +67,7 @@ def send_email(
     plain_msg += "\n" * 2
     plain_msg += "**Evan Chen (陳誼廷)**<br>" + "\n"
     plain_msg += "[https://web.evanchen.cc](https://web.evanchen.cc/)"
-    html_msg = markdown.markdown(
-        plain_msg, extensions=["extra", "sane_lists", "smarty"]
-    )
+    html_msg = markdown.markdown(plain_msg, extensions=MD_EXTENSIONS)
     mail.attach(MIMEText(plain_msg, "plain"))
     mail.attach(MIMEText(html_msg, "html"))
 

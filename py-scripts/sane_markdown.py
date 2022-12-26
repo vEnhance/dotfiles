@@ -1,3 +1,4 @@
+from importlib.util import find_spec
 import sys
 
 from markdown import markdown as _m
@@ -44,7 +45,10 @@ MathJax = {
 
 
 def markdown(content):
-    return _m(content, extensions=["extra", "sane_lists", "smarty"])
+    extensions = ["extra", "sane_lists", "smarty"]
+    if find_spec("mdx_truly_sane_lists") is not None:
+        extensions.append("mdx_truly_sane_lists")
+    return _m(content, extensions=extensions)
 
 
 if __name__ == "__main__":
