@@ -256,7 +256,6 @@ end
 
 #gd ubuntu
 alias pip='pip3'
-alias pudb='pudb3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
 # OTIS venue Q
