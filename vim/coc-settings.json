@@ -14,5 +14,6 @@
       ".hg",
       ".projections.json"
     ],
-    "tabnine.priority" : -1
+    "tabnine.priority": -1,
+    "snippets.ultisnips.pythonPrompt": false
 }
