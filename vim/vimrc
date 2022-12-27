@@ -136,6 +136,7 @@ let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-v>'
 let g:VM_maps['Find Subword Under'] = '<C-v>'
 let g:yoinkIncludeDeleteOperations = 1
+let g:yoinkSyncSystemClipboardOnFocus = 0
 let grepprg = 'ag --nogroup --nocolor'
 
 " Airline auto from vim-plugins
