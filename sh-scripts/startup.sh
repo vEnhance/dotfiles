@@ -74,7 +74,8 @@ if [ "$(hostname)" = ArchMajestic ]; then
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
     dropbox-cli start
-    app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
+    # app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
+    app.bluebubbles.BlueBubbles &
     signal-desktop --start-in-tray --use-tray-icon &
     # gnome-calendar &
   fi
