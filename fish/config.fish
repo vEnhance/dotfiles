@@ -200,10 +200,14 @@ function bw-new
     else
         set new_password (bw generate -ulns)
     end
+    echo $new_password | xsel --primary
     set_color brpurple
     echo "New password generated: "
-    set_color normal
+    set_color --bold white
     echo $new_password
+    set_color normal
+    echo "(copied to primary clipboard)"
+    echo ------------------------
     read -P "Username: " new_user
     if test -z "$new_user"
         echo "Error: No user provided"
