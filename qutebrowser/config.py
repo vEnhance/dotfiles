@@ -1,6 +1,11 @@
 ## qutebrowser config.py
 
 from qutebrowser.api import interceptor
+from typing import Any, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    c: Any = object
+    config: Any = object
 
 config.load_autoconfig()
 
@@ -42,19 +47,25 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.amazon.com/*",
     r"*://*.archlinux.org/*",
     r"*://*.bitwarden.com/*",
+    r"*://*.commonapp.org/*",
+    r"*://*.crosserville.com/*",
     r"*://*.duckduckgo.com/*",
     r"*://*.evanchen.cc/*",
     r"*://*.facebook.com/*",
     r"*://*.github.com/*",
     r"*://*.gradescope.com/*",
+    r"*://*.hanabi.github.io/*",
     r"*://*.instagram.com/*",
     r"*://*.itch.io/*",
+    r"*://*.lmfdb.org/*",
     r"*://*.miro.com/*",
     r"*://*.mit.edu/*",
+    r"*://*.mitadmissions.org/*",
     r"*://*.monkeytype.com/*",
     r"*://*.myaccount.google.com/*",
     r"*://*.pretzel.rocks/*",
     r"*://*.readthedocs.io/*",
+    r"*://*.reference.slideroom.com/*",
     r"*://*.sagemath.org/*",
     r"*://*.stackexchange.com/*",
     r"*://*.steampowered.com/*",
@@ -63,10 +74,10 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.teammatehunt.com/*",
     r"*://*.torproject.com/*",
     r"*://*.twitch.tv/*",
+    r"*://*.wikipedia.org/*",
     r"*://*.wolframalpha.com/*",
-    r"*://*.www.crosserville.com/*",
-    r"*://*.www.twitch.tv/*",
-    r"*://*.www.wikidata.org/*",
+    r"*://*.wikidata.org/*",
+    r"*://*.usaco.org/*",
     r"*://*.youtube.com/*",
     r"*://127.0.0.1/*",
     r"*://accounts.google.com/*",
