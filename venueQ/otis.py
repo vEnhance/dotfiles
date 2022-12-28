@@ -501,6 +501,8 @@ class Suggestion(VenueQNode):
                 raise ValueError(f"Invalid status {status}")
             body += comments_to_email
             body += "\n\n" + "-" * 40 + "\n\n"
+            body += f"**Link**: https://otis.evanchen.cc/suggestions/{pk}/"
+            body += "\n\n"
             body += r"```latex" + "\n"
             body += self.statement
             body += "\n" + r"```"
