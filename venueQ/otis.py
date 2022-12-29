@@ -501,11 +501,17 @@ class Suggestion(VenueQNode):
                 raise ValueError(f"Invalid status {status}")
             body += comments_to_email
             body += "\n\n" + "-" * 40 + "\n\n"
-            body += f"**Link**: https://otis.evanchen.cc/suggestions/{pk}/"
+            body += f"- **Link**: https://otis.evanchen.cc/suggestions/{pk}/\n"
+            body += f"- **Created at**: {data['created_at']}"
+            body += f"- **Description**: {data['description']}"
+            body += f"- **Hyperlink**: {data['hyperlink']}"
+            body += f"- **Unit**: {data['unit__code']} {data['unit__group__name']}"
+            body += f"- **Suggested spades**: {data['weight']}"
             body += "\n\n"
-            body += r"```latex" + "\n"
-            body += self.statement
-            body += "\n" + r"```"
+            body += r"```latex" + "\n" + self.statement + "\n" + r"```"
+            if comments := data["comments"]:
+                body += "\n\n"
+                body += r"```text" + "\n" + comments + "\n" + r"```"
 
             def callback():
                 if query_otis_server(payload=data) is not None:
