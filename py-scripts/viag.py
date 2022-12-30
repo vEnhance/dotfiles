@@ -11,7 +11,7 @@ EDITOR = os.environ.get("EDITOR", "vim")
 with tempfile.NamedTemporaryFile() as tf:
     tf.write("".join(sys.stdin.readlines()).encode("utf-8"))
     tf.flush()
-    subprocess.call([EDITOR, tf.name, "--not-a-term"], stdin=subprocess.DEVNULL)
+    subprocess.call([EDITOR, tf.name], stdin=subprocess.DEVNULL)
     tf.seek(0)
     directives = tf.read().decode("utf-8")
 
