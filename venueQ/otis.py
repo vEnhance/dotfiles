@@ -550,6 +550,12 @@ class Job(VenueQNode):
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
         comments_to_email = self.read_temp(extension="md").strip()
+        assert self.data["progress"] in (
+            "JOB_NEW",
+            "JOB_REV",
+            "JOB_SUB",
+            "JOB_VFD",
+        )
         if comments_to_email != "" and self.data["progress"] != "JOB_SUB":
             verdict = (
                 "Accepted"
