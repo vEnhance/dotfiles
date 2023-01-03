@@ -410,6 +410,15 @@ class ProblemSetCarrier(VenueQNode):
 class Inquiries(VenueQNode):
     def init_hook(self):
         self.data["accept_all"] = False
+        for inquiry in self.data["inquiries"]:
+            inquiry["name"] = (
+                inquiry.pop("student__user__first_name")
+                + " "
+                + inquiry.pop("student__user__last_name")
+            )
+            inquiry["unit"] = (
+                inquiry.pop("unit__code") + " " + inquiry.pop("unit__group__name")
+            )
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
