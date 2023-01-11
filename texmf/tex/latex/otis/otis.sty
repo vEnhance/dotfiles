@@ -19,11 +19,11 @@
 \newcommand{\thelogo}{\includegraphics[width=6em]{\logopath}}
 \newcommand{\logo}[1]{\renewcommand{\thelogo}{#1}}
 
-\newcommand{\artwork}[1]{
-  \begin{center}
-    \fboxrule=4pt
-    \fbox{\includegraphics[width=0.9\textwidth]{#1}}
-  \end{center}
+\newcommand{\artwork}[2]{
+  \fboxrule=4pt
+  \noindent\fbox{\includegraphics[width=\textwidth]{#1}} \\[1ex]
+  \textsf{\small OTIS, \copyright\ Evan Chen, internal use only.
+  Artwork contributed by #2.}
   \newpage
 }
 
@@ -85,16 +85,8 @@
   \titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
   \usepackage[sexy,diagrams]{evan}
-  \addtolength{\textheight}{-36pt}
-  \setlength{\footskip}{36pt}
   \setkomafont{publishers}{\small}
-  \AtBeginDocument{\publishers{\MakeUppercase{\jobname},
-    OTIS\thanks{Internal use only.
-    Selected problems belong to their
-    respective authors and organizations, as attributed.
-    Otherwise, no part of this document may be reproduced
-    or transmitted in any form or by any means,
-    without prior written permission from the author.}}}%
+  \AtBeginDocument{\publishers{\MakeUppercase{\jobname}}}%
   \titlehead{\includegraphics[width=2cm]{\logopath}\dotfill
     \emph{\sffamily\Large Olympiad Training for Individual Study}}
   \def\twodigits#1{\ifnum#1<10 0\fi\the#1}
