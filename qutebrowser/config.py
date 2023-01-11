@@ -92,6 +92,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://drive.google.com/*",
     r"*://duckduckgo.com/*",
     r"*://github.com/*",
+    r"*://groups.google.com/*",
     r"*://hanabi.github.io/*",
     r"*://hanab.live/*",
     r"*://liquipedia.net/*",
@@ -103,9 +104,11 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://stackoverflow.com/*",
     r"*://tailwindcomponents.com/*",
     r"*://tailwindcss.com/*",
+    r"*://translate.google.com/*",
     r"*://usaco.org/*",
     r"*://usamo.wordpress.com/*",
     r"*://wordpress.com/*",
+    r"*://www.google.com/maps/*",
     r"*://youtube.com/*",
 )
 
