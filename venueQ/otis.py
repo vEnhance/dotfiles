@@ -251,7 +251,12 @@ class ProblemSet(VenueQNode):
             total = None
             num_problems = None
 
-        if (
+        if total is not None and total > 1 and data["clubs"] > total + 1:
+            with open(self.temp_path("md"), "w") as f:
+                print("NANI SUCH CLUB!", file=f)
+                print("(if correct)", file=f)
+                print(AK, file=f)
+        elif (
             total is not None
             and num_problems is not None
             and total > 1
