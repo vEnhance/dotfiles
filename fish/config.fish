@@ -488,10 +488,7 @@ alias egrep='egrep --color=auto' # show differences in color
 alias fgrep='fgrep --color=auto' # show differences in color
 
 # Some shortcuts for different directory listings
-
 if test (uname) = Linux
-    alias ls='ls --color=tty --quoting-style=literal'
-    alias la='ls -l --block-size=K'
     function ll
         if test (count *.tex) -eq 0
             ls -l --block-size=K --color=yes $argv
