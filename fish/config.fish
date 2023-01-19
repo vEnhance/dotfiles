@@ -57,6 +57,8 @@ function fish_greeting
             archey3 --config ~/dotfiles/archey3.cfg --color=cyan
         else if test $hostname = ArchMajestic
             archey3 --config ~/dotfiles/archey3.cfg --color=magenta
+        else if test $hostname = ArchBootes
+            archey3 --config ~/dotfiles/archey3.cfg --color=magenta
         else if test $hostname = ArchDiamond
             archey3 --config ~/dotfiles/archey3.cfg --color=yellow
         end
