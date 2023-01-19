@@ -26,6 +26,13 @@ if [ "$(hostname)" = ArchMajestic ]; then
     --output "HDMI-0" --right-of "DP-2"
 fi
 
+if [ "$(hostname)" = ArchBootes ]; then
+  xrandr --output "DP-2" --primary --mode 2560x1440 \
+    --output "DP-1" --left-of "DP-2" --mode 2560x1440 \
+    --output "DP-3" --right-of "DP-2" --mode 2560x1440 \
+    --output "HDMI-0" --left-of "DP-1"
+fi
+
 if [ "$(hostname)" = dagobah ]; then
   xrandr --output "DP-2" --primary \
     --output "DP-4" --right-of "DP-2" \
