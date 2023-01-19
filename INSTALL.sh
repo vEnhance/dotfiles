@@ -86,7 +86,7 @@ if ! test -d "$HOME/.local/share/gh/extensions"; then
 fi
 
 # taskwarrior hooks
-mkdir -p .task
+mkdir -p .task/hooks
 if [ -z "$(ls -A "$HOME/.task/hooks")" ]; then
   rmdir "$HOME/.task/hooks"
 fi
@@ -110,7 +110,7 @@ fi
 if ! test -d "$HOME/.vim/doc"; then
   ln -s "$HOME"/dotfiles/vim/doc "$HOME"/.vim/doc
 fi
-if ! test -d "$HOME/.vim/spell"; then
+if ! test -f "$HOME/.vim/spell"; then
   ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
 fi
 if ! test -f "$HOME/.vim/coc-settings.json"; then
