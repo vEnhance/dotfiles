@@ -110,8 +110,11 @@ fi
 if ! test -d "$HOME/.vim/doc"; then
   ln -s "$HOME"/dotfiles/vim/doc "$HOME"/.vim/doc
 fi
-if ! test -f "$HOME/.vim/spell"; then
-  ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
+# stopgap
+if ! test -d "$HOME/.vim/spell"; then
+  if test -d "$HOME"/dotfiles/vim/spell; then
+    ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
+  fi
 fi
 if ! test -f "$HOME/.vim/coc-settings.json"; then
   ln -s "$HOME"/dotfiles/vim/coc-settings.json "$HOME"/.vim/coc-settings.json
