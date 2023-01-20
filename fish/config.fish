@@ -265,7 +265,7 @@ alias pip='pip3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
 # OTIS venue Q
-alias otis='gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
+alias otis='/bin/gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
 
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
