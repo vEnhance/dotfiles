@@ -15,26 +15,40 @@ if [ "$(hostname)" = ArchDiamond ]; then
     xrandr \
       --output "DP-1" --mode 2560x1440 --primary \
       --output "DP-3" --mode 1920x1080 --left-of "DP-1" \
-      --output "DP-2" --mode 1440x900 --right-of "DP-1"
+      --output "DP-2" --mode 1440x900 --right-of "DP-1" \
+      ;
   fi
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-  xrandr --output "DP-0" --primary \
+  xrandr \
+    --output "DP-0" --primary \
     --output "DP-4" --left-of "DP-0" \
     --output "DP-2" --right-of "DP-0" \
-    --output "HDMI-0" --right-of "DP-2"
+    --output "HDMI-0" --right-of "DP-2" \
+    ;
 fi
 
 if [ "$(hostname)" = ArchBootes ]; then
-  xrandr --output "DP-2" --mode 2048x1152 --primary \
-    --output "DP-3" --mode 2560x1440 --left-of "DP-2" \
-    --output "HDMI-1" --mode 1920x1080 --left-of "DP-3" \
-    --output "DP-1" --mode 2560x1440 --right-of "DP-2"
+  # why do i need to turn DP-1 off first wtf is this
+  xrandr \
+    --output DP-1 --off \
+    --output DP-2 --primary --mode 2560x1440 --pos 1920x0 --rotate normal \
+    --output DP-3 --mode 2560x1440 --pos 4480x0 --rotate normal \
+    --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal \
+    ;
+  xrandr \
+    --output DP-2 --primary --mode 2560x1440 --pos 1920x0 --rotate normal \
+    --output DP-3 --mode 2560x1440 --pos 4480x0 --rotate normal \
+    --output HDMI-1 --mode 1920x1080 --pos 0x0 --rotate normal \
+    --output DP-1 --mode 2560x1440 --pos 7040x0 \
+    ;
 fi
 
 if [ "$(hostname)" = dagobah ]; then
-  xrandr --output "DP-2" --primary \
+  xrandr \
+    --output "DP-2" --primary \
     --output "DP-4" --right-of "DP-2" \
-    --output "HDMI-0" --left-of "DP-2"
+    --output "HDMI-0" --left-of "DP-2" \
+    ;
 fi
