@@ -28,6 +28,16 @@ if [ "$(hostname)" = ArchMajestic ]; then
     conky -c ~/dotfiles/conky/star-bar.conf &
   fi
 fi
+if [ "$(hostname)" = ArchBootes ]; then
+  if [ "$(whoami)" = "evan" ]; then
+    conky -c ~/dotfiles/conky/shifted-bar.conf &
+    conky -c ~/dotfiles/conky/cal3.conf &
+  fi
+  if [ "$(whoami)" = "star" ]; then
+    conky -c ~/dotfiles/conky/star-bar.conf &
+  fi
+fi
+
 if [ "$(hostname)" = dagobah ]; then
   conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
   conky -c ~/dotfiles/conky/cal3.conf &

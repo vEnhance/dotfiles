@@ -84,6 +84,20 @@ if [ "$(hostname)" = ArchMajestic ]; then
   systemctl --user start evansync.timer
 fi
 
+if [ "$(hostname)" = ArchBootes ]; then
+  if [ "$(whoami)" = "evan" ]; then
+    ibus-daemon -d -r &
+    dropbox-cli startMajestic
+    app.bluebubbles.BlueBubbles &
+    signal-desktop --start-in-tray --use-tray-icon &
+    # gnome-calendar &
+  fi
+  ~/dotfiles/sh-scripts/redshift.sh
+  syncthing-gtk &
+  systemctl --user start evansync.timer
+  picom -G -b --no-fading-openclose --backend xrender
+fi
+
 if [ "$(hostname)" = dagobah ]; then
   picom -C -G -b --no-fading-openclose
   syncthing-gtk -m &

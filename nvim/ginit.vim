@@ -4,6 +4,8 @@ elseif hostname() ==# 'ArchDiamond'
   Guifont! Inconsolata Semi Condensed SemiBold:h20
 elseif hostname() ==# 'ArchMajestic'
   Guifont! Inconsolata Semi Condensed SemiBold:h20
+elseif hostname() ==# 'ArchBootes'
+  Guifont! Inconsolata Semi Condensed SemiBold:h20
 elseif hostname() ==# 'ArchSapphire'
   Guifont! Inconsolata Semi Condensed SemiBold:h20
 elseif hostname() ==# 'dagobah'

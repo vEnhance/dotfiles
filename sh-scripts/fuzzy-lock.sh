@@ -37,17 +37,14 @@ fi
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 10 0 0
-  pacmd set-default-sink alsa_output.pci-0000_01_00.1.hdmi-stereo
-  (
-    pactl list sink-inputs short |
-      grep -v 'module-loopback.c' |
-      grep -oE '^[0-9]+' |
-      while read -r input; do
-        echo move-sink-input "$input" alsa_output.pci-0000_00_1f.3.analog-stereo
-      done
-  ) | pacmd
   ~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
+
+if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
+  xset dpms 10 0 0
+  ~/dotfiles/sh-scripts/paswitch.sh speakers
+fi
+
 
 if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
   xset dpms 10 0 0
@@ -135,12 +132,13 @@ killall -s USR2 dunst
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 900 900 900
-  # killall -s CONT ctwenty.py
+fi
+if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
+  xset dpms 900 900 900
 fi
 if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
   xset set 14400 14400
   xset dpms 14400 14400 14400
-  # killall -s CONT ctwenty.py
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then

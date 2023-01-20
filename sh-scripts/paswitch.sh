@@ -50,6 +50,14 @@ if [ "$(hostname)" = dagobah ]; then
     [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
   )
 fi
+if [ "$(hostname)" = ArchBootes ]; then
+  declare -A sink_names=(
+    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
+    [speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+    [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+  )
+fi
+
 
 sink=${sink_names[$1]:-$1}
 

@@ -85,7 +85,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
   ponymix set-volume -t source 80
   if [ "$(whoami)" = "evan" ]; then
     xset s 2000 60
-    xset dpms 600 600 600
+    xset dpms 900 900 900
     ~/dotfiles/sh-scripts/paswitch.sh speakers
   fi
   if [ "$(whoami)" = "star" ]; then
@@ -93,6 +93,24 @@ if [ "$(hostname)" = ArchMajestic ]; then
     xset dpms 1800 1800 1800
   fi
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
+  keychain --quiet
+  # shellcheck disable=SC2046
+  export $(keychain --query --quiet)
+fi
+
+if [ "$(hostname)" = ArchBootes ]; then
+  ponymix set-default -t source \
+    -d alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
+  ponymix set-volume -t source 80
+  if [ "$(whoami)" = "evan" ]; then
+    xset s 2000 60
+    xset dpms 900 900 900
+    ~/dotfiles/sh-scripts/paswitch.sh speakers
+  fi
+  if [ "$(whoami)" = "star" ]; then
+    xset s 2000 60
+    xset dpms 1800 1800 1800
+  fi
   keychain --quiet
   # shellcheck disable=SC2046
   export $(keychain --query --quiet)
