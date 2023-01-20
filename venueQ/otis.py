@@ -71,11 +71,13 @@ def send_email(
     mail.attach(MIMEText(plain_msg, "plain"))
     mail.attach(MIMEText(html_msg, "html"))
 
+    assert OTIS_GMAIL_USERNAME
     password = subprocess.run(
         ["secret-tool", "lookup", "user", OTIS_GMAIL_USERNAME, "type", "gmail"],
         text=True,
         capture_output=True,
     ).stdout
+    assert password
 
     email_log_filename = f"email{datetime.now().strftime('%Y%m%d-%H%M%S')}.md"
     with open(OTIS_TMP_DOWNLOADS_PATH / email_log_filename, "w") as f:
