@@ -58,7 +58,6 @@ if [ "$(hostname)" = ArchBootes ]; then
   )
 fi
 
-
 sink=${sink_names[$1]:-$1}
 
 (

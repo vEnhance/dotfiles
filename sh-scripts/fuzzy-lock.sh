@@ -45,7 +45,6 @@ if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
   ~/dotfiles/sh-scripts/paswitch.sh speakers
 fi
 
-
 if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
   xset dpms 10 0 0
 fi
