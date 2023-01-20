@@ -56,6 +56,6 @@ SETUVAR fish_pager_color_selected_background:\x2d\x2dbackground\x3dE6B450
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/evan/Downloads/fzf/bin\x1e/home/evan/\x2efzf/bin
+SETUVAR fish_user_paths:/home/evan/\x2efzf/bin
 SETUVAR nvm_data:/home/evan/\x2elocal/share/nvm
 SETUVAR nvm_mirror:https\x3a//nodejs\x2eorg/dist
