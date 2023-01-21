@@ -1,14 +1,14 @@
 workspace 1 output DP-2
 workspace 0 output DP-2
-workspace 2 output DP-3
-workspace 3 output DP-3
-workspace 4 output DP-3
-workspace 5 output DP-3
-workspace 6 output DP-3
-workspace 7 output DP-3
+workspace 2 output DP-0
+workspace 3 output DP-0
+workspace 4 output DP-0
+workspace 5 output DP-0
+workspace 6 output DP-0
+workspace 7 output DP-0
 workspace 8 output HDMI-0
-workspace 9 output DP-1
-workspace 10 output DP-1
+workspace 9 output DP-4
+workspace 10 output DP-4
 
 workspace 0 gaps right 400
 workspace 1 gaps right 400
