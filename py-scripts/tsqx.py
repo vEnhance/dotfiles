@@ -119,8 +119,8 @@ class Point(Op):
         self.dot = dot
         self.label = name if label else None
         if self.label:
-            self.label = label.replace("_prime", "'")
-            self.label = label.replace("_asterisk", r"^{\ast}")
+            self.label = self.label.replace("_prime", "'")
+            self.label = self.label.replace("_asterisk", r"^{\ast}")
         self.direction = direction or f"dir({name})"
 
     def emit(self) -> str:
