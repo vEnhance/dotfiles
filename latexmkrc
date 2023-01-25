@@ -41,4 +41,6 @@ $hash_calc_ignore_pattern{'fmt'} = '^';
 
 $silent = 1;
 
+$hash_calc_ignore_pattern{'luc'}='^';
+
 # vim: ft=perl
