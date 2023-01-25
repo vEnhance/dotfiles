@@ -289,7 +289,7 @@ nnoremap <Up> :call DelEmptyLineAbove()<CR>
 nnoremap <Down> :call AddEmptyLineAbove()<CR>
 nnoremap <silent> [g :ALEPreviousWrap<CR>
 nnoremap <silent> ]g :ALENextWrap<CR>
-nnoremap gf :e<cfile><CR>
+" nnoremap gf :e<cfile><CR>
 " }}}
 " Misc mappings {{{
 " system clipboard
