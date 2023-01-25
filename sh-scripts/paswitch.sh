@@ -68,7 +68,7 @@ sink=${sink_names[$1]:-$1}
     while read -r input; do
       echo move-sink-input "$input" "$sink"
     done
-) | pacmd
+) | tee - | pacmd
 
 # if dunst running, send a notification
 if pgrep -U "$(whoami)" dunst >/dev/null; then
