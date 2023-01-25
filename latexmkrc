@@ -42,5 +42,8 @@ $hash_calc_ignore_pattern{'fmt'} = '^';
 $silent = 1;
 
 $hash_calc_ignore_pattern{'luc'}='^';
+$hash_calc_ignore_pattern{'luc.gz'}='^';
+$hash_calc_ignore_pattern{'gz'}='^';
+$hash_calc_ignore_pattern{'ttf:1:nil'}='^';
 
 # vim: ft=perl
