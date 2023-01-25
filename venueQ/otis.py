@@ -404,8 +404,11 @@ class ProblemSet(VenueQNode):
                 )
             else:
                 logger.warning("Server query failed, so no action taken")
-        else:
-            logger.info("Did not attempt to process submission")
+        elif comments_to_email != "":
+            logger.info(
+                "Did not attempt to process submission "
+                f"because status was set to {data['status']}"
+            )
 
 
 class ProblemSetCarrier(VenueQNode):
