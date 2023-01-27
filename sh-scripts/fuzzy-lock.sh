@@ -57,8 +57,7 @@ xsel --clipboard --delete
 xsel --primary --delete
 xsel --secondary --delete
 
-# pause dunst
-killall -s USR1 dunst
+dunstctl set-paused true
 
 #################################################
 # RUN THE LOCKER
@@ -126,8 +125,7 @@ fi
 # POST LOCK CLEANUP
 #################################################
 
-# resume dunst
-killall -s USR2 dunst
+dunstctl set-paused false
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 900 900 900
