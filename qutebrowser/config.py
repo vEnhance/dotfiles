@@ -66,6 +66,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.monkeytype.com/*",
     r"*://*.myaccount.google.com/*",
     r"*://*.pretzel.rocks/*",
+    r"*://*.pythonanywhere.com/*",
     r"*://*.readthedocs.io/*",
     r"*://*.reference.slideroom.com/*",
     r"*://*.sagemath.org/*",
