@@ -492,6 +492,11 @@ alias fgrep='fgrep --color=auto' # show differences in color
 # Some shortcuts for different directory listings
 if test (uname) = Linux
     function ll
+        if test (count *) -gt 1024
+            # grep is going to choke anyways, so just list stuff
+            ls -l --block-size=K --color=yes $argv
+            return
+        end
         if test (count *.tex) -eq 0
             ls -l --block-size=K --color=yes $argv
             return
