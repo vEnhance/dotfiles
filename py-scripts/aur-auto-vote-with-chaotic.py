@@ -86,6 +86,7 @@ Package = collections.namedtuple(
         "notify",
         "description",
         "maintainer",
+        "last_updated",
     ),
 )
 
