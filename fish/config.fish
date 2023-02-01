@@ -197,6 +197,10 @@ function bw-unlock
     bw status | jq
 end
 function bw-new
+    if test -z "$BW_SESSION"
+        echo "First, unlocking the BitWarden vault..."
+        bw-unlock
+    end
     if count $argv >/dev/null
         set new_password (bw generate $argv)
     else
