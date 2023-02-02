@@ -88,6 +88,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://bitwarden.com/*",
     r"*://calendar.google.com/*",
     r"*://calendly.com/*",
+    r"*://codeforces.com/*",
     r"*://discord.com/*",
     r"*://docs.google.com/*",
     r"*://drive.google.com/*",
