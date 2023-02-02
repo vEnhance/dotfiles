@@ -4,8 +4,8 @@ notify-send "i3: exec mode" \
   -i categories/applications-utilities-symbolic \
   -t 4000 \
   -u low \
-  "<b>a</b>: asy                <b>b</b>: libreoffice
-<b>c</b>: caprine          <b>d</b>: discord
+  "<b>=</b>: screenshot      <b>a</b>: asy
+<b>b</b>: libreoffice      <b>d</b>: discord
 <b>e</b>: epiphany         <b>f</b>: firefox
 <b>g</b>: geogebra         <b>h</b>: cHromium
 <b>j</b>: projtext         <b>l</b>: lock
@@ -14,5 +14,5 @@ notify-send "i3: exec mode" \
 <b>r</b>: oRch             <b>s</b>: spotify
 <b>t</b>: oTis             <b>x</b>: qutebrowser
 <b>y</b>: diarY            <b>z</b>: zoom
-<b>Space</b>: loginctl lock <b>=</b>: screenshot
+<b>Space</b>: loginctl lock
 "
