@@ -97,6 +97,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://groups.google.com/*",
     r"*://hanabi.github.io/*",
     r"*://hanab.live/*",
+    r"*://ioinformatics.org/*",
     r"*://liquipedia.net/*",
     r"*://localhost/*",
     r"*://mathoverflow.net/*",
