@@ -68,10 +68,10 @@ GOAL_RE = re.compile(r"^\\goals\{([0-9]+)\}\{([0-9]+)\}")
 
 if len(args.files) == 0:
     path_tex = os.path.join(
-        os.environ.get("HOME", ""), "ProGamer/OTIS/Materials/**/*.tex"
+        os.environ.get("HOME", ""), "Sync/OTIS/Materials/**/*.tex"
     )
     path_txt = os.path.join(
-        os.environ.get("HOME", ""), "ProGamer/OTIS/Materials/**/*.txt"
+        os.environ.get("HOME", ""), "Sync/OTIS/Materials/**/*.txt"
     )
     files = glob.glob(path_tex, recursive=True) + glob.glob(path_txt, recursive=True)
     detect_missing = True
