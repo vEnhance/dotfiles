@@ -1,12 +1,2 @@
 **/*.pyc
 asy/history
-mutt/abook/addressbook
-mutt/abook/addressbook~
-mutt/templates/*
-qutebrowser/autoconfig.yml
-qutebrowser/bookmarks/*
-qutebrowser/qsettings/
-qutebrowser/quickmarks
-secrets/*
-!secrets/.gitkeep
-vim/spell/*
