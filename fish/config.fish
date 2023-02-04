@@ -543,6 +543,45 @@ complete -c dn -x -a "(__fish_complete_subcommand -u -g)"
 # Addon settings
 set -U __done_notification_urgency_level normal
 
+# Fish colors
+set -U fish_color_autosuggestion ffd7d7\x1e\x2d\x2dunderline
+set -U fish_color_cancel \x2d\x2dreverse
+set -U fish_color_command 39BAE6\x1e\x2d\x2dbold
+set -U fish_color_comment 5fffaf
+set -U fish_color_cwd CCA700
+set -U fish_color_cwd_root red
+set -U fish_color_end F29668
+set -U fish_color_error FF0000
+set -U fish_color_escape 95E6CB
+set -U fish_color_history_current \x2d\x2dbold
+set -U fish_color_host 11DD33
+set -U fish_color_host_remote \x1d
+set -U fish_color_keyword \x1d
+set -U fish_color_match F07178
+set -U fish_color_normal B3B1AD
+set -U fish_color_operator E6B450
+set -U fish_color_option \x1d
+set -U fish_color_param 5fffff
+set -U fish_color_quote ffd75f
+set -U fish_color_redirection 00ff00\x1e\x2d\x2dbold
+set -U fish_color_search_match \x2d\x2dbackground\x3dE6B450
+set -U fish_color_selection \x2d\x2dbackground\x3dE6B450
+set -U fish_color_status red
+set -U fish_color_user brgreen
+set -U fish_color_valid_path \x2d\x2dunderline
+set -U fish_pager_color_completion normal
+set -U fish_pager_color_description B3A06D
+set -U fish_pager_color_prefix normal\x1e\x2d\x2dbold\x1e\x2d\x2dunderline
+set -U fish_pager_color_progress brwhite\x1e\x2d\x2dbackground\x3dcyan
+set -U fish_pager_color_secondary_background \x1d
+set -U fish_pager_color_secondary_completion \x1d
+set -U fish_pager_color_secondary_description \x1d
+set -U fish_pager_color_secondary_prefix \x1d
+set -U fish_pager_color_selected_background \x2d\x2dbackground\x3dE6B450
+set -U fish_pager_color_selected_completion \x1d
+set -U fish_pager_color_selected_description \x1d
+set -U fish_pager_color_selected_prefix \x1d
+
 # fish vi key bindings
 fish_vi_key_bindings
 bind -M default \ce accept-autosuggestion
