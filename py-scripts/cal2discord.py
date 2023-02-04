@@ -30,7 +30,7 @@ calendars: List[Tuple[str, Any]] = [
 ]
 
 events: List[Tuple[str, Event]] = []
-for (calname, calendar) in calendars:
+for calname, calendar in calendars:
     for component in recurring_ical_events.of(calendar).between(
         interval_start, interval_end
     ):

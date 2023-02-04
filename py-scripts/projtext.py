@@ -22,7 +22,6 @@ FONT = "DejaVuSansMono 36"
 
 class Window:
     def __init__(self):
-
         # Creating the tkinter Window
         self.root = Tk()
         self.root.option_add("*Font", FONT)

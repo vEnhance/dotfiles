@@ -119,7 +119,6 @@ cb = re.compile("\\{|}")
 
 
 def extractbody(m):
-
     begin = re.compile(r"\\begin\s*")
     m = begin.sub(r"\\begin", m)
     end = re.compile(r"\\end\s*")
@@ -234,7 +233,6 @@ def convertaligns(m):
 
 
 def convertmacros(m):
-
     comm = re.compile("\\\\[a-zA-Z]*")
     commands = comm.findall(m)
     rest = comm.split(m)
@@ -249,7 +247,6 @@ def convertmacros(m):
 
 
 def convertonetable(m, border):
-
     tokens = re.compile(
         r"\\begin\{tabular}\s*\{.*?}"
         r"|\\end\{tabular}"
@@ -447,7 +444,6 @@ def convertquote(m):
 
 
 def convertsection(m):
-
     L = cb.split(m)
     # L[0] contains the \\section or \\section* command, and
     # L[1] contains the section name
@@ -466,7 +462,6 @@ def convertsection(m):
 
 
 def convertsubsection(m):
-
     L = cb.split(m)
 
     if L[0].find("*") == -1:
@@ -587,7 +582,6 @@ def processtext(t):
 
 
 def processfontstyle(w):
-
     close = dict()
     ww = ""
     level = i = 0
