@@ -390,6 +390,13 @@
       \usepackage{thmtools}
     \fi
     \usepackage[framemethod=TikZ]{mdframed}
+    \usetikzlibrary{shadows}
+    % https://tex.stackexchange.com/a/292090/76888
+    % https://github.com/marcodaniel/mdframed/issues/12
+    \xpatchcmd{\endmdframed}
+      {\aftergroup\endmdf@trivlist\color@endgroup}
+      {\endmdf@trivlist\color@endgroup\@doendpe}
+      {}{}
 
     \mdfdefinestyle{mdbluebox}{%
       roundcorner=10pt,
@@ -465,6 +472,25 @@
       mdframed={style=mdblackbox}
     ]{thmblackbox}
 
+    \mdfdefinestyle{mdpurplebox}{%
+      roundcorner=10pt,
+      linewidth=1pt,
+      skipabove=12pt,
+      skipbelow=12pt,
+      innertopmargin=9pt,
+      innerbottommargin=9pt,
+      linecolor=black,
+      nobreak=true,
+      backgroundcolor=Orchid!10,
+      shadow=true,
+      shadowsize=6pt,
+      shadowcolor=black!30,
+      frametitleaboveskip=8pt,
+      frametitlebelowskip=8pt,
+      frametitlebackgroundcolor=Violet!50!black,
+      frametitlefont=\bfseries\sffamily\color{white},
+      frametitlerule=true,
+    }
     \newcommand{\listhack}{$\empty$\vspace{-2em}}
   \fi
 
