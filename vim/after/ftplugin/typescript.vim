@@ -5,4 +5,4 @@ setlocal softtabstop=2
 setlocal tabstop=2
 setlocal expandtab
 
-call DetectIndentIfNoLocalRC()
+call DetectIndentIfPlugged()

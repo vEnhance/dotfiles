@@ -517,8 +517,8 @@ set wrapmargin=0
 
 " }}}
 " {{{ Auto commands
-function! DetectIndentIfNoLocalRC()
-  if !exists('g:loaded_localrc') && !empty(globpath(&runtimepath, 'autoload/plug.vim'))
+function! DetectIndentIfPlugged()
+  if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
     DetectIndent
   endif
 endfunction
@@ -538,7 +538,7 @@ autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
 autocmd vimrc BufNewFile,BufRead *.tsqx setfiletype tsqx
 autocmd vimrc BufNewFile,BufRead *.tsv setlocal noexpandtab copyindent preserveindent softtabstop=0 shiftwidth=4 tabstop=4
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
-autocmd vimrc BufRead * call DetectIndentIfNoLocalRC()
+autocmd vimrc BufRead * call DetectIndentIfPlugged()
 autocmd vimrc BufNewFile,BufRead *.tex set spell
 autocmd vimrc VimEnter .git/COMMIT_EDITMSG set filetype=gitcommit
 

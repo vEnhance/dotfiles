@@ -5,7 +5,7 @@ setlocal tabstop=4
 
 setlocal formatoptions-=t
 
-call DetectIndentIfNoLocalRC()
+call DetectIndentIfPlugged()
 
 let g:python_space_error_highlight = 1
 " set omnifunc=syntaxcomplete#Complete
