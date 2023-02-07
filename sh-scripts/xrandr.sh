@@ -9,15 +9,7 @@ if [ "$(hostname)" = ArchAngel ]; then
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-  if [ "$(date +'%Z')" = "EDT" ] || [ "$(date +'%Z')" = "EST" ]; then
-    xrandr --output "DP-3" --mode 3840x2160 --primary
-  else
-    xrandr \
-      --output "DP-1" --mode 2560x1440 --primary \
-      --output "DP-3" --mode 1920x1080 --left-of "DP-1" \
-      --output "DP-2" --mode 1440x900 --right-of "DP-1" \
-      ;
-  fi
+  xrandr --output "DP-3" --mode 3840x2160 --primary
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
