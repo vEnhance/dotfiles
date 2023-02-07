@@ -71,17 +71,14 @@
 %% Typeset solutions packet
 \ifTSTsols
   \usepackage[sexy,diagrams]{evan}
-  \newenvironment{TSTprob}%
-    {\color{Maroon}\small}
-    {\medskip\hrulebar\medskip}
   \newcommand{\TSTpvon}[1]{%
-    \begin{TSTprob}
+    \begin{mdframed}[style=mdpurplebox,frametitle={Problem statement}]
     \voninclude[0]{#1}
-    \end{TSTprob}}
+    \end{mdframed}}
   \newcommand{\TSTpsvon}[1]{%
-    \begin{TSTprob}
+    \begin{mdframed}[style=mdpurplebox,frametitle={Problem statement}]
     \voninclude[0]{#1}
-    \end{TSTprob}
+    \end{mdframed}
     \voninclude[1]{#1}
     \pagebreak}
   \newcommand{\TST}[2]{\subsection{#2}\TSTpsvon{#1}}
