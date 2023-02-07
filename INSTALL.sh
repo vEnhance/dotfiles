@@ -19,6 +19,7 @@ if ! test -d "$HOME/.vit"; then ln -s "$HOME"/dotfiles/vit "$HOME"/.vit; fi
 if ! test -f "$HOME/.agignore"; then ln -s "$HOME"/dotfiles/agignore "$HOME"/.agignore; fi
 if ! test -f "$HOME/.bashrc"; then ln -s "$HOME"/dotfiles/bashrc "$HOME"/.bashrc; fi
 if ! test -f "$HOME/.chktexrc"; then ln -s "$HOME"/dotfiles/chktexrc "$HOME"/.chktexrc; fi
+if ! test -f "$HOME/.eslintrc.yaml"; then ln -s "$HOME"/dotfiles/eslintrc.yaml "$HOME"/.eslintrc.yaml; fi
 if ! test -f "$HOME/.gitconfig"; then ln -s "$HOME"/dotfiles/gitconfig "$HOME"/.gitconfig; fi
 if ! test -f "$HOME/.gvimrc"; then ln -s "$HOME"/dotfiles/gvimrc "$HOME"/.gvimrc; fi
 if ! test -f "$HOME/.latexmkrc"; then ln -s "$HOME"/dotfiles/latexmkrc "$HOME"/.latexmkrc; fi
