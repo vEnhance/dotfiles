@@ -3,9 +3,8 @@ import sys
 from csv import DictReader
 from typing import List
 
-from unidecode import unidecode
-
 from txn import Txn
+from unidecode import unidecode
 
 transactions: List[Txn] = []
 

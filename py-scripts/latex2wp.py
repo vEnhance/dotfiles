@@ -27,7 +27,7 @@ import re
 from sys import argv
 from typing import Any
 
-from latex2wpstyle import (
+from latex2wpstyle import (  # NOQA
     HTML,
     M,
     T,
@@ -46,7 +46,7 @@ from latex2wpstyle import (
     subsection,
     subsectionstar,
     textcolor,
-)  # NOQA
+)
 
 # prepare variables computed from the info in latex2wpstyle
 count: dict[Any, int] = dict()

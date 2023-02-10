@@ -10,14 +10,14 @@ from datetime import datetime, timedelta
 from pathlib import Path
 
 import humanize
-import ranger.api
 from humanize import i18n
-from ranger.core.linemode import LinemodeBase
-from ranger.ext.human_readable import human_readable
-
 from mirage_linemode.config import get_config
 from mirage_linemode.theme.core import get_theme
 from mirage_linemode.util import get_config_path, get_theme_path, plugin_name
+
+import ranger.api
+from ranger.core.linemode import LinemodeBase
+from ranger.ext.human_readable import human_readable
 
 i18n.activate("zh_TW", path=Path("~/dotfiles/i18n/").expanduser())
 

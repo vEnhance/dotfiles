@@ -5,9 +5,10 @@
 # original TSQX by CJ Quines: https://github.com/cjquines/tsqx
 # original TSQ by evan chen
 
+import re
+import sys
 from io import TextIOWrapper
 from typing import Any, Generator, TextIO, TypedDict
-import re, sys
 
 
 def generate_points(kind, n) -> list[str]:

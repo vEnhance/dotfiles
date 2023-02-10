@@ -2,14 +2,14 @@ from datetime import date
 from decimal import Decimal
 from typing import Optional, TypedDict, Union
 
-from gnucash import (
+from gnucash import (  # NOQA
     Account,
     GncNumeric,
     Session,
     SessionOpenMode,
     Split,
     Transaction,
-)  # NOQA
+)
 
 
 class TxnAddArgsDict(TypedDict):

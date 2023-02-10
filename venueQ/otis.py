@@ -11,10 +11,9 @@ import time
 from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Any, Callable, List, Optional, Type
-
-from importlib.util import find_spec
 
 import markdown
 import requests

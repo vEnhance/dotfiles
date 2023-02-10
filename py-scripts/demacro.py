@@ -1,5 +1,5 @@
-import sys
 import os
+import sys
 
 TMP = "/tmp/demacro"
 os.system("mkdir -p %s" % TMP)

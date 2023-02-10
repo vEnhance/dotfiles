@@ -1,5 +1,5 @@
-from importlib.util import find_spec
 import sys
+from importlib.util import find_spec
 
 from markdown import markdown as _m
 
