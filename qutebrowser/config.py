@@ -1,7 +1,8 @@
 ## qutebrowser config.py
 
+from typing import TYPE_CHECKING, Any
+
 from qutebrowser.api import interceptor
-from typing import Any, TYPE_CHECKING
 
 if TYPE_CHECKING:
     c: Any = object
@@ -52,6 +53,8 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.duckduckgo.com/*",
     r"*://*.evanchen.cc/*",
     r"*://*.facebook.com/*",
+    r"*://*.firebaseapp.com/*",
+    r"*://*.g2mathprogram.org/*",
     r"*://*.github.com/*",
     r"*://*.gradescope.com/*",
     r"*://*.hanabi.github.io/*",
@@ -85,6 +88,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://127.0.0.1/*",
     r"*://accounts.google.com/*",
     r"*://artofproblemsolving.com/*",
+    r"*://athemath.org/*",
     r"*://bitwarden.com/*",
     r"*://calendar.google.com/*",
     r"*://calendly.com/*",
