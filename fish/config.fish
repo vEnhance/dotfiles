@@ -162,6 +162,7 @@ alias panmkd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -
 alias pdb='python -m pdb -c continue'
 alias poetry-outdated='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
 alias putclip="xsel --clipboard"
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias todo='task ready'
 alias trash='gio trash'
