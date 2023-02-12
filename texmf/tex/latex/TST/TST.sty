@@ -15,6 +15,9 @@
 \newif\ifTSTsl\TSTslfalse
 \DeclareOption{shortlist}{\TSTsltrue}
 
+\newif\ifTSTlinks\TSTlinksfalse
+\DeclareOption{links}{\TSTlinkstrue}
+
 \ProcessOptions\relax
 
 %% Use VON problem manager
@@ -124,6 +127,9 @@
   \renewcommand{\thetheorem}{\arabic{theorem}}
 
   \allowdisplaybreaks
+
+  \reversemarginpar
+  \newcommand{\mlink}[2]{\ifTSTlinks\marginpar{#1\ref{#2}}\fi}
 \fi
 
 
