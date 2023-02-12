@@ -267,6 +267,9 @@ class ProblemSet(VenueQNode):
         ):
             with open(self.temp_path("md"), "w") as f:
                 print(AK, file=f)
+        if data["hours"] > 96:
+            with open(self.temp_path("md"), "a") as f:
+                print("NANI SUCH HEART!", file=f)
 
         # save file
         for ext in ProblemSet.EXTENSIONS:
