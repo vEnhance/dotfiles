@@ -31,6 +31,7 @@ if PRODUCTION:
     OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 else:
     OTIS_API_URL = "http://127.0.0.1:8000/aincrad/api/"
+HEARTS_WARNING_THRESHOLD = int(os.getenv("HEARTS_WARNING_THRESHOLD", 96))
 
 OTIS_TMP_DOWNLOADS_PATH = Path("/tmp/junk-for-otis")
 if not OTIS_TMP_DOWNLOADS_PATH.exists():
@@ -267,7 +268,7 @@ class ProblemSet(VenueQNode):
             ):
                 with open(self.temp_path("md"), "w") as f:
                     print(AK, file=f)
-            if data["hours"] > 96:
+            if data["hours"] > HEARTS_WARNING_THRESHOLD:
                 with open(self.temp_path("md"), "a") as f:
                     print("NANI SUCH HEART!", file=f)
 
