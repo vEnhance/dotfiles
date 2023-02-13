@@ -252,24 +252,24 @@ class ProblemSet(VenueQNode):
             total = None
             num_problems = None
 
-        if total is not None and total > 1 and data["clubs"] > total + 1:
-            with open(self.temp_path("md"), "w") as f:
-                print("NANI SUCH CLUB!", file=f)
-                print("(if correct)", file=f)
-                print(AK, file=f)
-        elif (
-            total is not None
-            and num_problems is not None
-            and total > 1
-            and num_problems > 2
-            and data["clubs"] >= total - 1
-            and not self.temp_path("md").exists()
-        ):
-            with open(self.temp_path("md"), "w") as f:
-                print(AK, file=f)
-        if data["hours"] > 96:
-            with open(self.temp_path("md"), "a") as f:
-                print("NANI SUCH HEART!", file=f)
+        if not self.temp_path("md").exists():
+            if total is not None and total > 1 and data["clubs"] > total + 1:
+                with open(self.temp_path("md"), "w") as f:
+                    print("NANI SUCH CLUB!", file=f)
+                    print("(if correct)", file=f)
+                    print(AK, file=f)
+            elif (
+                total is not None
+                and num_problems is not None
+                and total > 1
+                and num_problems > 2
+                and data["clubs"] >= total - 1
+            ):
+                with open(self.temp_path("md"), "w") as f:
+                    print(AK, file=f)
+            if data["hours"] > 96:
+                with open(self.temp_path("md"), "a") as f:
+                    print("NANI SUCH HEART!", file=f)
 
         # save file
         for ext in ProblemSet.EXTENSIONS:
