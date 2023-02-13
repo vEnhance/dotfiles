@@ -158,7 +158,7 @@ class VenueQNode:
         del self.root.lookup[self.pk]
 
     def mkdir(self):
-        if self.parent is not None and not self.parent.directory.exists():
+        if self.parent.directory.exists():
             self.parent.mkdir()
         if not self.directory.exists():
             self.directory.mkdir()
