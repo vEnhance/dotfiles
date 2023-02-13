@@ -70,7 +70,7 @@ if VIM_ENABLED:
 
 class VenueQNode:
     name: str = ""  # name must be unique
-    parent: "VenueQNode"
+    parent: Optional["VenueQNode"]
     root: "VenueQRoot"
     is_directory = False
     is_root = False
@@ -143,6 +143,7 @@ class VenueQNode:
         if self.is_root:
             return self.root.root_dir
         else:
+            assert self.parent is not None
             return self.parent.directory / self.parent.name
 
     @property
