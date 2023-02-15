@@ -87,4 +87,7 @@
 [diff]
   tool = meld
 
+[credential]
+  helper = /usr/lib/git-core/git-credential-libsecret
+
 # vim: ft=gitconfig
