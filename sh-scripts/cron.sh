@@ -2,10 +2,7 @@
 
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "ArchMajestic" ] && [ "$(whoami)" = "evan" ]; then
-  python ~/dotfiles/venueQ/otis.py
-fi
-if [ "$(hostname)" = "dagobah" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "ArchBootes" ] && [ "$(whoami)" = "evan" ]; then
   python ~/dotfiles/venueQ/otis.py
 fi
 
