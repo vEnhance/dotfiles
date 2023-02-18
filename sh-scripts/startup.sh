@@ -97,6 +97,7 @@ if [ "$(hostname)" = ArchBootes ]; then
   systemctl --user start evansync.timer
   picom -G -b --no-fading-openclose --backend xrender
   xinput --set-prop 13 'libinput Accel Speed' -0.3
+  pavucontrol &
 fi
 
 if [ "$(hostname)" = dagobah ]; then
