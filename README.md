@@ -23,7 +23,7 @@ I (Evan) have the following allegiances:
 
 - [Arch Linux](https://www.archlinux.org) as Linux distribution
 - [i3](https://i3wm.org/) as window manager
-- [Vim](https://www.vim.org) as a text editor
+- [NeoVim](https://www.neovim.io) as a text editor
   - [Plug](https://github.com/junegunn/vim-plug) as a package manager
 - [TeX Live](https://tug.org/texlive/) as TeX distribution
 - [fish](https://fishshell.com/) as a shell
