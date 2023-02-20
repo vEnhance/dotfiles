@@ -116,7 +116,11 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
     edited_message = tf.read()
     edited_message = edited_message.replace(b"\t", b"  ")
     edited_message = edited_message.replace(b"<++>", b"null")
+
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
+with open("/tmp/orch.yaml", "w") as f:
+    print(edited_message, file=f)
+
 
 if type(result) == dict:
     if "new_hints" in result:
