@@ -22,7 +22,12 @@ class TxnAddArgsDict(TypedDict):
 def to_dollars(x: Union[str, int, float, Decimal, GncNumeric]) -> Decimal:
     if type(x) == GncNumeric:
         x = float(x)
-    return round(Decimal(float(x)), 2)
+    elif isinstance(x, str):
+        x = x.replace(",", "")
+    try:
+        return round(Decimal(float(x)), 2)
+    except ValueError:
+        return Decimal(0)
 
 
 class GNCTxn:

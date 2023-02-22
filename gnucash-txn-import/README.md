@@ -4,18 +4,19 @@
 
 ### Download Tech CU (for importing)
 
-Go to Accounts, then use "Print" and save resulting HTML (HTML only, not webpage
-complete). Save only a single file `data/techcu.html` since it combines both
-savings and checking.
+Go to Accounts, click either account, then use "Print" and save resulting HTML
+(HTML only, not webpage complete). Save only a single file `data/techcu.html`
+since it combines both savings and checking.
 
 ### Download Citi (for importing)
 
-Click the stupid Export icon,
-choose "year to date", then export as CSV to `data/citi.csv`.
+Go to the account, choose "year to date",
+click the stupid Export icon (looks like "download")
+then export as CSV to `data/citi.csv`.
 
 ### Download PayPal (for importing)
 
-From the dashboard, press "View All" or whatever
+From the dashboard, press "Show All" or whatever
 to get a list of recent transactions.
 Grab the HTML element from the DOM and save it as `data/paypal.html`.
 
