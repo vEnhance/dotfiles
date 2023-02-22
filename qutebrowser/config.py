@@ -109,6 +109,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://poll.ma.pe/*",
     r"*://projecteuler.net/*",
     r"*://nightbot.tv/*",
+    r"*://regex101.com/*",
     r"*://sc2replaystats.com/*",
     r"*://stackoverflow.com/*",
     r"*://streamlabs.com/*",
