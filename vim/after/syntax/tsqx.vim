@@ -13,7 +13,7 @@ syn match tsqRotate contained "\( [0-9A-Z\\.]\+\)"
 
 syn match tsqSlash "/"
 
-syn match tsqPenName "\(pale\|light\|medium\|heavy\|dark\|deep\)\?\(red\|green\|blue\|cyan\|black\|white\|gray\|grey\|purple\|magenta\|pink\|yellow\|olive\)" contains=@NoSpell
+syn match tsqPenName "\(pale\|light\|medium\|heavy\|dark\|deep\)\?\(red\|green\|blue\|cyan\|black\|white\|gray\|grey\|purple\|magenta\|pink\|yellow\|olive\|orange\|brown\)" contains=@NoSpell
 syn match tsqPenName "dashed\|dotted" contains=@NoSpell
 
 hi def link tsqArithmeticName PreProc
