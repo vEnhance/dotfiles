@@ -29,7 +29,7 @@ with get_session() as session:
         recent_txn = [
             txn
             for txn in bank.transactions
-            if txn.date >= today() + timedelta(days=-60)
+            if txn.date >= today() + timedelta(days=-90)
         ]
         args_txn_to_create: list[TxnAddArgsDict] = []
 
@@ -57,14 +57,14 @@ with get_session() as session:
             row_date = datetime.strptime(str_date, "%m/%d/%Y").date()
             row_description = get_child_string(tr, "b")
 
-            if row_date < today() + timedelta(days=-60):
+            if row_date < today() + timedelta(days=-90):
                 continue
 
             rows_for_csv.append([row_description, row_amount, row_date])
 
             for txn in recent_txn:
                 if (
-                    abs(row_date - txn.date) <= timedelta(days=7)
+                    abs(row_date - txn.date) <= timedelta(days=2)
                     and row_amount == txn.amount
                 ):
                     print(f"Handled {row_description} from {row_date}")
