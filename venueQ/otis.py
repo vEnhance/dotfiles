@@ -268,7 +268,7 @@ class ProblemSet(VenueQNode):
             ):
                 with open(self.temp_path("md"), "w") as f:
                     print(AK, file=f)
-            if data["hours"] > HEARTS_WARNING_THRESHOLD:
+            if data["hours"] is not None and data["hours"] > HEARTS_WARNING_THRESHOLD:
                 with open(self.temp_path("md"), "a") as f:
                     print("NANI SUCH HEART!", file=f)
 
