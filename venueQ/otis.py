@@ -286,10 +286,11 @@ class ProblemSet(VenueQNode):
             self.ext = ext
             try:
                 file_response = requests.get(url=url)
+            except:
+                logger.warning(f"Could not get {url}")
+            else:
                 self.get_path().write_bytes(file_response.content)
                 self.get_path().chmod(0o666)
-            except ConnectionError:
-                logger.warning(f"Could not get {url}")
 
         # move extraneous data into an "xtra" dictionary
         data["xtra"] = {}
