@@ -53,7 +53,7 @@ fi
 if [ "$(hostname)" = ArchBootes ]; then
   declare -A sink_names=(
     [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-    [speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+    [speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo-extra3
     [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
   )
 fi
