@@ -33,10 +33,10 @@ for line in sys.stdin:
     else:
         content += line.strip() + "\n"
 
-extensions = ["extra", "sane_lists", "smarty"]
+MD_EXTENSIONS = ["extra", "sane_lists", "smarty", "footnotes"]
 if find_spec("mdx_truly_sane_lists") is not None:
-    extensions.append("mdx_truly_sane_lists")
-output_html = markdown.markdown(content, extensions=extensions)
+    MD_EXTENSIONS.append("mdx_truly_sane_lists")
+output_html = markdown.markdown(content, extensions=MD_EXTENSIONS)
 
 output_path = Path("/tmp/neomutt-alternative.html")
 if output_path.exists():
