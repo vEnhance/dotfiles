@@ -141,6 +141,9 @@ class ProblemSet(VenueQNode):
         "M": 3,
         "H": 5,
         "Z": 9,
+        "J": 17,
+        "K": 33,
+        "L": 65,
         "X": 0,
         "I": 0,
     }
