@@ -93,6 +93,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://calendar.google.com/*",
     r"*://calendly.com/*",
     r"*://codeforces.com/*",
+    r"*://devjoe.appspot.com/*",
     r"*://discord.com/*",
     r"*://docs.google.com/*",
     r"*://drive.google.com/*",
