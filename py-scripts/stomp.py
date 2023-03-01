@@ -28,11 +28,11 @@ TERM_COLOR["BG_CYAN"] = "\033[46m"
 
 parser = argparse.ArgumentParser(
     "stomp",
-    description="Stomps on your work. A C++ grader for comp programming.",
+    description="Stomps on your work. A C++/Py3 grader for comp programming.",
 )
 parser.add_argument(
     "program_path",
-    help="The C++ program that you're going to use.",
+    help="The C++/Py3 program that you're going to use.",
 )
 parser.add_argument(
     "-o",
@@ -48,28 +48,43 @@ parser.add_argument(
 )
 
 opts = parser.parse_args()
+if opts.program_path.endswith(".py"):
+    PROGRAM_TYPE = "PYTHON"
+elif opts.program_path.endswith(".cpp"):
+    PROGRAM_TYPE = "C++"
+else:
+    raise ValueError(f"stomp doesn't support {opts.program_path} yet")
+
 
 if __name__ == "__main__":
-    compile_process = subprocess.run(
-        [
-            "g++",
-            "-Wall",
-            "-Wextra",
-            "-Wno-sign-compare",
-            "-fsanitize=address",
-            "-fsanitize=undefined",
-            "-fno-stack-protector",
-            "-fmax-errors=1",
-            "-std=c++17",
-            opts.program_path,
-            "-DDEBUG",
-        ]
-    )
-    if compile_process.returncode != 0:
-        print(f"👿 {TERM_COLOR['BOLD_YELLOW']} COMPILATION FAILED{TERM_COLOR['RESET']}")
-        sys.exit(1)
+    if PROGRAM_TYPE == "C++":
+        print("⏳ Compiling C++ code...")
+        compile_process = subprocess.run(
+            [
+                "g++",
+                "-Wall",
+                "-Wextra",
+                "-Wno-sign-compare",
+                "-fsanitize=address",
+                "-fsanitize=undefined",
+                "-fno-stack-protector",
+                "-fmax-errors=1",
+                "-std=c++17",
+                opts.program_path,
+                "-DDEBUG",
+            ]
+        )
+        if compile_process.returncode != 0:
+            print(
+                f"👿 {TERM_COLOR['BOLD_YELLOW']} COMPILATION FAILED{TERM_COLOR['RESET']}"
+            )
+            sys.exit(1)
+        else:
+            print("🆗 Compilation OK")
+    elif PROGRAM_TYPE == "PYTHON":
+        print("🐍 Python programs don't need compilers haha")
     else:
-        print("🆗 Compilation OK")
+        raise ValueError(f"Invalid program type {PROGRAM_TYPE}")
 
     for input_file_path in sorted(Path("tests").glob("*.input")):
         stdout_path = input_file_path.with_suffix(".stdout")
@@ -82,12 +97,22 @@ if __name__ == "__main__":
             open(stdout_path, "w") as stdout_file,
             open(stderr_path, "w") as stderr_file,
         ):
-            process = subprocess.run(
-                ["./a.out"],
-                stdin=input_file,
-                stdout=stdout_file,
-                stderr=stderr_file,
-            )
+            if PROGRAM_TYPE == "C++":
+                process = subprocess.run(
+                    ["./a.out"],
+                    stdin=input_file,
+                    stdout=stdout_file,
+                    stderr=stderr_file,
+                )
+            elif PROGRAM_TYPE == "PYTHON":
+                process = subprocess.run(
+                    ["python", opts.program_path],
+                    stdin=input_file,
+                    stdout=stdout_file,
+                    stderr=stderr_file,
+                )
+            else:
+                raise ValueError(f"Invalid program type {PROGRAM_TYPE}")
         if opts.stderr:
             print(TERM_COLOR["YELLOW"], end="")
             with open(stderr_path) as stderr_file:
@@ -105,7 +130,7 @@ if __name__ == "__main__":
                 f"{input_file_path}: return-code={process.returncode}"
             )
         elif not answer_path.exists():
-            print(f"📜 Saving {answer_path} since no existing answer was given")
+            print(f"\t📜 Saving {answer_path} since no existing answer was given")
             subprocess.call(["cp", stdout_path, answer_path])
         else:
             diff_process = subprocess.run(
