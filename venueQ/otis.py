@@ -315,19 +315,23 @@ class ProblemSet(VenueQNode):
 
     def compose_email_body(self, data: Data, comments: str) -> str:
         salutation = random.choice(["Hi", "Hello", "Hey"])
-        closing = random.choice(
-            [
-                "Cheers",
-                "Cheers",
-                "Best",
-                "Regards",
-                "Warm wishes",
-                "Later",
-                "Cordially",
-                "With appreciation",
-                "Sincerely",
-            ]
-        )
+
+        if datetime.today().month == 12 and datetime.today().day > 10:
+            closing = "Happy Holidays"
+        else:
+            closing = random.choice(
+                [
+                    "Cheers",
+                    "Cheers",
+                    "Best",
+                    "Regards",
+                    "Warm wishes",
+                    "Later",
+                    "Cordially",
+                    "With appreciation",
+                    "Sincerely",
+                ]
+            )
 
         student_name = (
             f"{data['student__user__first_name']} {data['student__user__last_name']}"
