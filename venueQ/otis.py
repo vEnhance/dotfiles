@@ -316,7 +316,7 @@ class ProblemSet(VenueQNode):
     def compose_email_body(self, data: Data, comments: str) -> str:
         salutation = random.choice(["Hi", "Hello", "Hey"])
 
-        if (datetime.today().month == 12 and datetime.today().day > 10):
+        if datetime.today().month == 12 and datetime.today().day > 10:
             closing = "Happy Holidays"
         else:
             closing = random.choice(
