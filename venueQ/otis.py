@@ -389,7 +389,9 @@ class ProblemSet(VenueQNode):
         del data["xtra"]
         logger.debug(data)
 
-        data["comments"] = (comments_to_email := self.read_temp(extension="md").strip())
+        data["staff_comments"] = (
+            comments_to_email := self.read_temp(extension="md").strip()
+        )
         if (data["status"] in ("A", "R")) and comments_to_email != "":
             if query_otis_server(payload=data) is not None:
                 body = self.compose_email_body(data, comments_to_email)
@@ -509,7 +511,9 @@ class Suggestion(VenueQNode):
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
-        data["feedback"] = (comments_to_email := self.read_temp(extension="md").strip())
+        data["staff_comments"] = (
+            comments_to_email := self.read_temp(extension="md").strip()
+        )
         if comments_to_email != "":
             recipient = data["user__email"]
             subject = f"OTIS: Suggestion {data['source']}: "
