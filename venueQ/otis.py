@@ -329,6 +329,7 @@ class ProblemSet(VenueQNode):
             ]
         )
 
+
         student_name = (
             f"{data['student__user__first_name']} {data['student__user__last_name']}"
         )
