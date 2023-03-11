@@ -89,3 +89,6 @@
 	helper = /usr/lib/git-core/git-credential-libsecret
 
 # vim: ft=gitconfig
+[safe]
+	directory = /home/ProGamer/evan-learns-ioi
+	directory = /home/ProGamer/evan-learns-ioi
