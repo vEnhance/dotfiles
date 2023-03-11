@@ -70,10 +70,10 @@ typedef vector<VI> VVI;
 typedef map<int,int> MPII;
 typedef set<int> SETI;
 typedef multiset<int> MSETI;
-typedef long int int32;
-typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
+typedef vector<int64> VI64;
+typedef vector<uint64> VUI64;
 template<typename T, typename U> inline void amin(T &x, U y) { if(y < x) x = y; }
 template<typename T, typename U> inline void amax(T &x, U y) { if(x < y) x = y; }
 #ifdef DEBUG
