@@ -2,7 +2,7 @@
 
 # https://gist.github.com/tomjnixon/1348383/68a1783a111f5eed7b1f8a4a70adb157c9118e1b
 
-# Script to switch all programs to a specific sync. Why this isn't easy, i
+# Script to switch all programs to a specific sink. Why this isn't easy, I
 # don't know.
 
 # This script takes a single argument, the sink name, index, or alias (defined
@@ -24,51 +24,33 @@
 # eventually split this
 if [ "$(hostname)" = ArchMajestic ]; then
   declare -A sink_names=(
-    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-    [speakers]=alsa_output.pci-0000_00_1f.3.analog-stereo
-    [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
-  )
-fi
-if [ "$(hostname)" = Endor ]; then
-  declare -A sink_names=(
-    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-    [speakers]=alsa_output.pci-0000_0a_00.4.analog-stereo
-    [hdmi]=alsa_output.pci-0000_08_00.1.hdmi-stereo
+    [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
+    [speakers]="$(pactl list sinks short | grep analog-stereo | cut -f 2)"
   )
 fi
 if [ "$(hostname)" = ArchDiamond ]; then
   declare -A sink_names=(
-    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-    [speakers]=alsa_output.pci-0000_00_1f.3.hdmi-stereo
-    [hdmi]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-  )
-fi
-if [ "$(hostname)" = dagobah ]; then
-  declare -A sink_names=(
-    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-    [speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
-    [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+    [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
+    [speakers]="$(pactl list sinks short | grep hdmi-stereo | cut -f 2)"
   )
 fi
 if [ "$(hostname)" = ArchBootes ]; then
   declare -A sink_names=(
-    [usb]=alsa_output.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.analog-stereo
-    [speakers]=alsa_output.pci-0000_01_00.1.hdmi-stereo
-    [hdmi]=alsa_output.pci-0000_01_00.1.hdmi-stereo
+    [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
+    [speakers]="$(pactl list sinks short | grep hdmi-stereo | cut -f 2)"
   )
 fi
 
 sink=${sink_names[$1]:-$1}
+echo "Sink: $sink"
 
-(
-  echo set-default-sink "$sink"
-  pactl list sink-inputs short |
-    grep -v 'module-loopback.c' |
-    grep -oE '^[0-9]+' |
-    while read -r input; do
-      echo move-sink-input "$input" "$sink"
-    done
-) | tee | pacmd
+pactl set-default-sink "$sink"
+pactl list sink-inputs short |
+  grep -v 'module-loopback.c' |
+  grep -oE '^[0-9]+' |
+  while read -r input; do
+    pactl move-sink-input "$input" "$sink"
+  done
 
 # if dunst running, send a notification
 if pgrep -U "$(whoami)" dunst >/dev/null; then
