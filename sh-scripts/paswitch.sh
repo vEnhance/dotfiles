@@ -45,8 +45,10 @@ sink=${sink_names[$1]:-$1}
 echo "Sink: $sink"
 
 pactl set-default-sink "$sink"
-pactl list sink-inputs short |
-  grep -v 'module-loopback.c' |
+pactl --format json list sink-inputs |
+  jq '.[]|(.index|tostring)+"\t"+(.properties."device.description"|tostring)' -r |
+  grep -v 'loopback' |
+  grep -vi 'soundboard' |
   grep -oE '^[0-9]+' |
   while read -r input; do
     pactl move-sink-input "$input" "$sink"
