@@ -147,8 +147,8 @@ class ProblemSet(VenueQNode):
         "X": 0,
         "I": 0,
     }
-    VON_RE = re.compile(r"^\\von([EMHZXI])(R?)(\[.*?\]|\*)?\{(.*?)\}")
-    PROB_RE = re.compile(r"^\\begin\{prob([EMHZXI])(R?)\}")
+    VON_RE = re.compile(r"^\\von([EMHZJKLXI])(R?)(\[.*?\]|\*)?\{(.*?)\}")
+    PROB_RE = re.compile(r"^\\begin\{prob([EMHZJKLXI])(R?)\}")
     GOAL_RE = re.compile(r"^\\goals\{([0-9]+)\}\{([0-9]+)\}")
 
     EXTRA_FIELDS = (
