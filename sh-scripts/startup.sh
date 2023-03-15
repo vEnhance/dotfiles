@@ -74,7 +74,6 @@ if [ "$(hostname)" = ArchMajestic ]; then
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
     dropbox-cli start
-    # app.bluebubbles.BlueBubbles | python ~/dotfiles/py-scripts/blue-bubble-notif.py &
     app.bluebubbles.BlueBubbles &
     signal-desktop --start-in-tray --use-tray-icon &
     # gnome-calendar &
@@ -87,8 +86,8 @@ fi
 if [ "$(hostname)" = ArchBootes ]; then
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
-    dropbox-cli startMajestic
-    app.bluebubbles.BlueBubbles &
+    # dropbox-cli start
+    # app.bluebubbles.BlueBubbles &
     signal-desktop --start-in-tray --use-tray-icon &
     # gnome-calendar &
   fi
@@ -97,7 +96,7 @@ if [ "$(hostname)" = ArchBootes ]; then
   systemctl --user start evansync.timer
   picom -G -b --no-fading-openclose --backend xrender
   xinput --set-prop 13 'libinput Accel Speed' -0.5
-  pavucontrol &
+  # pavucontrol &
 fi
 
 if [ "$(hostname)" = dagobah ]; then
