@@ -3,19 +3,16 @@
 \usepackage{xstring}
 \usepackage{xifthen}
 \usepackage{color}
-% Generate a unique name using the first 12 characters of an MD5 sum
-% #1 is always index
-% #2 is always source
 \newif\ifvonbrave\vonbravefalse
 \DeclareOption{brave}{\vonbravetrue}
 \DeclareOption{timid}{\vonbravefalse}
+\DeclareOption{vonmargin}{\enablevonmargins}
+\ProcessOptions\relax
 
 \newcommand{\vonhook}[1]{}
 \newcommand{\vonmarginstyle}{\scriptsize\ttfamily\color{Green}}%
 \newcommand{\enablevonmargins}{%
   \renewcommand{\vonhook}[1]{\marginpar{\vonmarginstyle{##1}}}}
-\DeclareOption{vonmargin}{\enablevonmargins}
-\ProcessOptions\relax
 
 \begin{pycode}
 import von.api as api
@@ -24,7 +21,7 @@ import von.api as api
 
 \newcommand{\@voncore}[2]{%
   \ifvonbrave\py{api.get("#2", True).bodies[#1]}%
-  \else\py{api.get("#2").bodies[#1]}\fi
+  \else\py{api.get("#2", False).bodies[#1]}\fi
   \vonhook{#2}}% for example a margin par
 \newcommand{\voninclude}[2][0]{\@voncore{#1}{#2}}
 \newcommand{\vonprehook}[1]{}
@@ -33,7 +30,11 @@ import von.api as api
 \def\von{\@ifstar\@vonstar\@von}
 \newcommand{\vonenvname}{problem}
 \newcommand{\@von}[2][]{%
-  \pyc{entry = api.get("#2")}
+  \ifvonbrave
+    \pyc{entry = api.get("#2", True)}
+  \else
+    \pyc{entry = api.get("#2", False)}
+  \fi
   \pyc{src = "#1" or "#2"}
   \begin{\vonenvname}[\py{(r'\href{' + entry.url + '}{' + src + '}') if entry.url is not None else src}]%
     \vonprehook{#2}
