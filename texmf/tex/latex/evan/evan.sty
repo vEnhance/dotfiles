@@ -559,18 +559,29 @@
       \declaretheorem[name=Remark,numbered=no]{remark*}
     \fi
 
-    \declaretheorem[name=Conjecture,sibling=theorem]{conjecture}
-    \declaretheorem[name=Conjecture,numbered=no]{conjecture*}
-    \declaretheorem[name=Definition,sibling=theorem]{definition}
-    \declaretheorem[name=Definition,numbered=no]{definition*}
-    \declaretheorem[name=Exercise,sibling=theorem]{exercise}
-    \declaretheorem[name=Exercise,numbered=no]{exercise*}
-    \declaretheorem[name=Fact,sibling=theorem]{fact}
-    \declaretheorem[name=Fact,numbered=no]{fact*}
-    \declaretheorem[name=Problem,sibling=theorem]{problem}
-    \declaretheorem[name=Problem,numbered=no]{problem*}
-    \declaretheorem[name=Question,sibling=theorem]{ques}
-    \declaretheorem[name=Question,numbered=no]{ques*}
+    \ifevanmdthm
+      \declaretheoremstyle[
+        headfont=\color{blue!40!black}\normalfont\bfseries,
+        spaceabove=8pt,
+        spacebelow=8pt,
+        bodyfont=\normalfont
+      ]{basehead}
+    \else
+      \declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+    \fi
+
+    \declaretheorem[style=basehead,name=Conjecture,sibling=theorem]{conjecture}
+    \declaretheorem[style=basehead,name=Conjecture,numbered=no]{conjecture*}
+    \declaretheorem[style=basehead,name=Definition,sibling=theorem]{definition}
+    \declaretheorem[style=basehead,name=Definition,numbered=no]{definition*}
+    \declaretheorem[style=basehead,name=Exercise,sibling=theorem]{exercise}
+    \declaretheorem[style=basehead,name=Exercise,numbered=no]{exercise*}
+    \declaretheorem[style=basehead,name=Fact,sibling=theorem]{fact}
+    \declaretheorem[style=basehead,name=Fact,numbered=no]{fact*}
+    \declaretheorem[style=basehead,name=Problem,sibling=theorem]{problem}
+    \declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
+    \declaretheorem[style=basehead,name=Question,sibling=theorem]{ques}
+    \declaretheorem[style=basehead,name=Question,numbered=no]{ques*}
 
     \ifevanpkg
       \Crefname{claim}{Claim}{Claims}
