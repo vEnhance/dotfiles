@@ -315,7 +315,11 @@ class Parser:
         # escape sequence
         raw_line = line
         if raw_line.startswith("!"):
-            yield {"op": DirectCommand(line[1:]), "comment": "", "raw": raw_line}
+            yield {
+                "op": DirectCommand(line[1:].strip()),
+                "comment": "",
+                "raw": raw_line,
+            }
             return
 
         if "#" in line:
