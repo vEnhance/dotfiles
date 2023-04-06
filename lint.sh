@@ -4,7 +4,7 @@ set -e # crash on any errors
 
 readarray -t SPELL_FILES < <(git ls-files)
 readarray -t PYTHON_FILES < <(git ls-files "**.py" | grep -v "qutebrowser/" | grep -v "ranger/")
-readarray -t VIM_FILES < <(git ls-files "**.vim" vim/vimrc)
+readarray -t VIM_FILES < <(git ls-files "**.vim" vim/vimrc | grep -v "plug.vim")
 readarray -t SHELL_FILES < <(git ls-files "**.sh")
 
 # Spellcheck

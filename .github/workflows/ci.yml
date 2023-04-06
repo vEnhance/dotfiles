@@ -50,7 +50,7 @@ jobs:
           python -m pip install --upgrade vim-vint
       - name: Run vint
         run: |
-          vint $(git ls-files '*.vim' 'vim/vimrc')
+          vint $(git ls-files '*.vim' 'vim/vimrc' | grep -v "plug.vim")
 
   shell:
     name: "Bash"
