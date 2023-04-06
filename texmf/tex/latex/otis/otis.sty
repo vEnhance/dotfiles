@@ -165,6 +165,7 @@
       {\begin{example}[#1] \label{ex:#2} \voninclude{#2} \end{example}
       \pyc{solution_text += r"\subsection{Solution \ref{ex:#2}, #1}"}}
       \begin{walkthrough}
+      \vonprehook{#2}
       \voninclude[2]{#2} % body 2 = walkthrough
       \end{walkthrough}
       \pyc{solution_text += '\n' + api.get_solution("#2") + '\n'}
@@ -172,6 +173,7 @@
     \newcommand{\@vonXstar}[1]{%
       \begin{example} \label{ex:#1} \voninclude{#1} \end{example}
       \begin{walkthrough}
+      \vonprehook{#1}
       \voninclude[2]{#1} % body 2 = walkthrough
       \end{walkthrough}
       \pyc{solution_text += r"\subsection{Solution \ref{ex:#1}}"}
