@@ -457,7 +457,12 @@ class Inquiries(VenueQNode):
                     )
                 )
                 subject = "OTIS unit petition processed"
-                send_email(subject=subject, bcc=bcc_addrs, body=body)
+                send_email(
+                    subject=subject,
+                    bcc=bcc_addrs,
+                    body=body,
+                    callback=self.delete,
+                )
 
 
 class Suggestion(VenueQNode):
