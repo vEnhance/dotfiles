@@ -122,6 +122,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://usamo.wordpress.com/*",
     r"*://wordpress.com/*",
     r"*://www.google.com/maps/*",
+    r"*://xkcd.com/*",
     r"*://youtube.com/*",
 )
 
