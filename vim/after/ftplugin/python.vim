@@ -1,4 +1,5 @@
 let g:detectindent_preferred_indent = 4
+let b:detectindent_preferred_expandtab = 1
 
 set expandtab
 set shiftwidth=4
