@@ -22,7 +22,7 @@ with get_session() as session:
             row_date = datetime.strptime(row["Date"], "%m/%d/%Y").date()
             row_description = row["Description"].strip().title()
 
-            if row_date < today() + timedelta(days=-60):
+            if row_date < today() + timedelta(days=-90):
                 continue
 
             for txn in recent_txn:
@@ -87,8 +87,21 @@ with get_session() as session:
                 ):
                     account_name = "E:Life:Food"
                     row_description = "Stata grill of sorts"
+                elif row_description.startswith("Clipper Systems") and row_amount < 0:
+                    account_name = " E:Transp:Ground"
+                    row_description = "BART reload card"
                 else:
                     account_name = "Orphan-USD"
+
+                if (
+                    row_description[:-4].endswith("Xxxxxxxxxxxx")
+                    and row_description[-4:].isdigit()
+                ):
+                    row_description = row_description[:-17].strip()
+                if row_description.endswith("Null"):
+                    row_description = row_description[:-4].strip()
+                if row_description.endswith("Digital Account Number"):
+                    row_description = row_description[:-22].strip()
 
                 args_txn_to_create.append(
                     {

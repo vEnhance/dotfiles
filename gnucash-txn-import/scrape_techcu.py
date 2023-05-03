@@ -126,6 +126,9 @@ with get_session() as session:
                 ):
                     row_description = "OTIS-WEB payment via Stripe API"
                     account_name = "I:OTIS:2023S"
+                elif "Forecaster 121" in row_description and row_amount < 0:
+                    row_description = "Forecaster 121 HOA"
+                    account_name = "E:House:HOA"
                 else:
                     account_name = "Orphan-USD"
 
