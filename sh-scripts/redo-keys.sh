@@ -1,8 +1,11 @@
-#!/bin/sh -e
+#!/bin/sh
 
 # Make sure we're in Dvorak
 setxkbmap dvorak -option caps:escape
 numlockx on
+if [ "$(hostname)" = ArchScythe ] || [ "$(hostname)" = ArchSapphire ]; then
+  synclient VertScrollDelta=-237
+fi
 
 # if caps lock is on, kill it
 if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
@@ -18,10 +21,6 @@ if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
 fi
 
 xmodmap -e "remove lock = Caps_Lock"
-
-if [ "$(hostname)" = ArchScythe ]; then
-  synclient VertScrollDelta=-237
-fi
 
 # synclient TapButton1=0           # Disable tap to click
 # synclient TapButton2=0           # Disable double tap to paste
