@@ -2,6 +2,7 @@
     ".* - LibreOffice .*": "paperclip",
     ".*Preferences.*": "bars",
     ".*Settings.*": "bars",
+    ".* - Wine desktop" : "wine-glass",
     "Authy": "key",
     "BlueBubbles": "comment-dots",
     "Calendar": "calendar",
