@@ -5,8 +5,7 @@ notify-send "i3: exec mode" \
   -t 4000 \
   -u low \
   "<b>=</b>: screenshot      <b>a</b>: asy
-<b>b</b>: libreoffice      <b>d</b>: discord
-<b>e</b>: epiphany         <b>f</b>: firefox
+<b>b</b>: libreoffice      <b>f</b>: firefox
 <b>g</b>: geogebra         <b>h</b>: cHromium
 <b>j</b>: projtext         <b>l</b>: lock
 <b>m</b>: gnucash          <b>n</b>: vit

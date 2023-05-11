@@ -284,8 +284,6 @@ bindsym $mod+o exec --no-startup-id $HOME/dotfiles/i3/reminder-ponymix.sh, mode 
 mode "exec" {
   bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
   bindsym b exec libreoffice --calc &, mode "default"
-  bindsym d exec discord &, mode "default"
-  bindsym e exec epiphany &, mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
   # short for hanabi
