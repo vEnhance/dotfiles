@@ -2,6 +2,9 @@
 
 set -o xtrace
 
+# getting locked out in US keyboard is the worst
+setxkbmap dvorak -option caps:escape
+
 if pgrep -U "$(whoami)" i3lock >/dev/null; then
   echo "Already running"
   exit
