@@ -18,22 +18,12 @@ if pgrep -U "$(whoami)" zoom >/dev/null; then
   exit
 fi
 
-if [ -f "$HOME/.cache/ctwenty.lock" ]; then
-  echo "ctwenty.lock running"
-  exit
-fi
-
-if [ "$(hostname)" = dagobah ] && [ "$(whoami)" = evan ]; then
-  gdmflexiserver
-  exit
-fi
-
-if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
-  # during twitch stream, disable laptop lock screen
-  if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
-    exit
-  fi
-fi
+#if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
+#  # during twitch stream, disable laptop lock screen
+#  if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
+#    exit
+#  fi
+#fi
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 10 0 0
