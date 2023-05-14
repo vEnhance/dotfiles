@@ -21,12 +21,15 @@ if pgrep -U "$(whoami)" zoom >/dev/null; then
   exit
 fi
 
-#if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
-#  # during twitch stream, disable laptop lock screen
-#  if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
-#    exit
-#  fi
-#fi
+# during twitch stream, disable laptop lock screen
+if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
+  if iwconfig | grep Flying; then
+    if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
+      notify-send "Won't lock" "You're currently streaming on Twitch"
+      exit
+    fi
+  fi
+fi
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 10 0 0
