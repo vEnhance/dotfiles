@@ -500,19 +500,20 @@ class Suggestion(VenueQNode):
                 )
                 print("", file=f)
             print(self.solution, file=f)
-        subprocess.Popen(
-            [
-                "xfce4-terminal",
-                "-x",
-                "python",
-                "-m",
-                "von",
-                "add",
-                data["source"],
-                "-f",
-                tmp_path,
-            ]
-        )
+        args = [
+            "xfce4-terminal",
+            "-x",
+            "python",
+            "-m",
+            "von",
+            "add",
+            data["source"],
+            "-f",
+            tmp_path,
+        ]
+        if data["hyperlink"]:
+            args += ["--url", data["hyperlink"]]
+        subprocess.Popen(args)
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
