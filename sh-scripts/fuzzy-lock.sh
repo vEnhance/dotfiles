@@ -7,7 +7,7 @@ setxkbmap dvorak -option caps:escape
 
 if pgrep -U "$(whoami)" i3lock >/dev/null; then
   echo "Already running"
-  exit
+  exit 0
 fi
 
 if pgrep -U "$(whoami)" stepmania >/dev/null; then
@@ -18,6 +18,7 @@ fi
 
 if pgrep -U "$(whoami)" zoom >/dev/null; then
   echo "Zoom running"
+  notify-send "Won't lock" "You're currently in a Zoom call"
   exit
 fi
 
