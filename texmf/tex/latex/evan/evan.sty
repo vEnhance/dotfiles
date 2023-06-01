@@ -127,6 +127,10 @@
 \DeclareOption{british}{\evanbritishtrue}
 \DeclareOption{american}{\evanbritishfalse}
 
+% legacy diagrams option, for backwards compatibility
+\DeclareOption{diagrams}{}
+\DeclareOption{nodiagrams}{}
+
 \ProcessOptions\relax
 
 % if packages not loaded, turn off mdthm and asy
