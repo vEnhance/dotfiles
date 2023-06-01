@@ -186,7 +186,7 @@ nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 
 " TeX Customizations
 let g:Tex_FoldedEnvironments='titlepage,abstract,asy,tikzpicture' " Folding of certain environments
-let g:Tex_Leader=',' " No more backtick nonsense
+let g:Tex_Leader='`'
 set iskeyword+=: " Autocomplete for fig: etc. references
 set iskeyword+=_ " Add _ to autocomplete list
 
