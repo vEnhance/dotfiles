@@ -31,7 +31,7 @@
 %% Only used for older exams that we're too lazy to edit
 %% For other exams, better to use natoly.sty instead
 \ifTSTexam
-  \usepackage[noauthor,nohdr,diagrams]{evan}
+  \usepackage[noauthor,nohdr]{evan}
   \usepackage{titling}
   \setlength{\labelsep}{10pt}
   \setlength{\parindent}{0pt}
@@ -73,7 +73,7 @@
 
 %% Typeset solutions packet
 \ifTSTsols
-  \usepackage[sexy,diagrams]{evan}
+  \usepackage[sexy]{evan}
   \newcommand{\TSTpvon}[1]{%
     \begin{mdframed}[style=mdpurplebox,frametitle={Problem statement}]
     \voninclude[0]{#1}
@@ -96,7 +96,7 @@
 
 %% Typeset shortlist packet
 \ifTSTsl
-  \usepackage[nosecthm,sexy,diagrams,noauthor]{evan}
+  \usepackage[nosecthm,sexy,noauthor]{evan}
   \usepackage{datetime}
   \renewcommand{\dateseparator}{-}
   \yyyymmdddate
