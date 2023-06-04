@@ -12,6 +12,11 @@ if [ "$(hostname)" = ArchDiamond ]; then
   xrandr --output "DP-3" --mode 3840x2160 --primary
 fi
 
+if [ "$(hostname)" = ArchSapphire ]; then
+  xrandr --output "eDP1" --mode 2256x1504 --primary \
+    --output "HDMI1" --mode 1920x1080 --left-of "eDP1"
+fi
+
 if [ "$(hostname)" = ArchMajestic ]; then
   xrandr \
     --output "DP-0" --primary \
