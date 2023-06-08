@@ -7,6 +7,13 @@ if [ "$(hostname)" = ArchScythe ] || [ "$(hostname)" = ArchSapphire ]; then
   synclient VertScrollDelta=-237
 fi
 
+if [ "$(hostname)" = ArchSapphire ]; then
+  # replace the useless menu key with extra ctrl
+  xmodmap -e "remove Control = Control_R"
+  xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R"
+  xmodmap -e "add Control = Control_R"
+fi
+
 # if caps lock is on, kill it
 if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
   echo "OH NO CAPS LOCK"
