@@ -28,6 +28,9 @@ if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
 fi
 
 xmodmap -e "remove lock = Caps_Lock"
+notify-send -i input-keyboard -t 5000 \
+  "Rebound complete" \
+  "Successfully ran redo-keys.sh. Enjoy!"
 
 # synclient TapButton1=0           # Disable tap to click
 # synclient TapButton2=0           # Disable double tap to paste
