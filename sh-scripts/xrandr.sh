@@ -17,6 +17,11 @@ if [ "$(hostname)" = ArchSapphire ]; then
     --output "HDMI1" --mode 1920x1080 --left-of "eDP1"
 fi
 
+if [ "$(hostname)" = ArchScythe ]; then
+  xrandr --output "eDP1" --mode 1920x1080 --primary \
+    --output "HDMI1" --mode 1920x1080 --right-of "eDP1"
+fi
+
 if [ "$(hostname)" = ArchMajestic ]; then
   xrandr \
     --output "DP-0" --primary \
@@ -42,3 +47,6 @@ if [ "$(hostname)" = dagobah ]; then
     --output "HDMI-0" --left-of "DP-2" \
     ;
 fi
+
+# Load background image, if not existent already
+[[ -f ~/.fehbg ]] && source ~/.fehbg
