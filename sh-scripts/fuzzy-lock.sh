@@ -3,7 +3,7 @@
 set -o xtrace
 
 # getting locked out in US keyboard is the worst
-setxkbmap dvorak -option caps:escape
+~/dotfiles/sh-scripts/redo-keys.sh
 
 if pgrep -U "$(whoami)" i3lock >/dev/null; then
   echo "Already running"
