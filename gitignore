@@ -9,3 +9,15 @@ __pycache__
 node_modules
 .mypy_cache/
 .venv
+
+pythontex_data.pkl
+**.aux
+**.fdb_latexmk
+**.fls
+**.log
+**.out
+**.pre
+**.pytxcode
+**.pytxmcr
+**.pytxpyg
+**.toc
