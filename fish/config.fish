@@ -549,7 +549,7 @@ set -U __done_notification_urgency_level normal
 # Fish colors
 set -U fish_color_autosuggestion ffd7d7\x1e\x2d\x2dunderline
 set -U fish_color_cancel \x2d\x2dreverse
-set -U fish_color_command 39BAE6\x1e\x2d\x2dbold
+set -U fish_color_command aaffff\x1e\x2d\x2dbold
 set -U fish_color_comment 5fffaf
 set -U fish_color_cwd CCA700
 set -U fish_color_cwd_root red
