@@ -7,8 +7,6 @@ import string
 import sys
 import traceback
 
-import pyperclip
-
 ALLOWED_CHARS = string.ascii_letters + string.digits + "_"
 
 ADVERTISEMENT = r"""/*
@@ -22,7 +20,14 @@ fat_decimal_regex = re.compile(r"(\d+\.\d{5})\d+")
 parser = argparse.ArgumentParser(
     description="Translates ugly GGB exported Asy to something more readable."
 )
-parser.add_argument("-s", "--speedy", action="store_true", help="Speedy mode")
+parser.add_argument(
+    "-s",
+    "--speedy",
+    action="store_true",
+    help="Speedy mode. "
+    "Reads the input from the clipboard rather than stdin (using pyperclip) "
+    "and writes the resulting code directly to the clipboard too.",
+)
 args = parser.parse_args()
 
 
@@ -31,6 +36,8 @@ def replace_numbers(s):
 
 
 if args.speedy:
+    import pyperclip
+
     input_contents = pyperclip.paste()
 else:
     input_contents = "".join(sys.stdin.readlines())
@@ -150,7 +157,7 @@ try:
         print(pair_declarations[:400] + "...\n" + figures_output_code[:600] + "...\n")
         response = input("Replace clipboard contents? [y/n] ")
         if response.strip().lower() == "y":
-            pyperclip.copy(output)
+            pyperclip.copy(output)  # pyright: ignore
     else:
         print(output)
 
