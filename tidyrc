@@ -1,0 +1,2 @@
+drop-empty-elements: false
+warn-proprietary-attributes: false
