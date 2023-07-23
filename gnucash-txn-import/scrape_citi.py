@@ -88,7 +88,7 @@ with get_session() as session:
                     account_name = "E:Life:Food"
                     row_description = "Stata grill of sorts"
                 elif row_description.startswith("Clipper Systems") and row_amount < 0:
-                    account_name = " E:Transp:Ground"
+                    account_name = "E:Transp:Ground"
                     row_description = "BART reload card"
                 else:
                     account_name = "Orphan-USD"
