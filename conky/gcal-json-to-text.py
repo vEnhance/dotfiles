@@ -10,7 +10,10 @@ if "error" not in json_data:
             start_date = datetime.date.fromisoformat(data["start_date"])
             start_time = data["start_time"]
             if start_date == datetime.date.today():
-                print(f"{start_time}  {summary}", file=f)
+                if start_time == "00:00":
+                    print(f"NOW!   {summary}", file=f)
+                else:
+                    print(f"{start_time}  {summary}", file=f)
             elif start_time == "00:00":
                 print(f"{start_date.strftime('%a%_d')}    {summary}", file=f)
             else:
