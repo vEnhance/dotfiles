@@ -101,6 +101,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://github.com/*",
     r"*://groups.google.com/*",
     r"*://hanabi.github.io/*",
+    r"*://hanabi-league.github.io/*",
     r"*://hanab.live/*",
     r"*://ioinformatics.org/*",
     # r"*://liquipedia.net/*",
