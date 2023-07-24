@@ -2,5 +2,6 @@ drop-empty-elements: false
 warn-proprietary-attributes: false
 gnu-emacs: true
 tidy-mark: no
+indent: true
 indent-spaces: 2
 wrap: 80
