@@ -2,6 +2,9 @@ drop-empty-elements: false
 warn-proprietary-attributes: false
 gnu-emacs: true
 tidy-mark: no
-indent: true
+
+# the following settings are only for tidy -m
+# which we don't plan to use much, but in the rare cases we do...
+indent: auto
 indent-spaces: 2
 wrap: 80
