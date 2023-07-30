@@ -2,7 +2,7 @@
 # vim: ft=sh
 
 # Make sure we're in Dvorak
-setxkbmap dvorak -option caps:escape
+setxkbmap -variant dvorak -option caps:escape
 numlockx on
 
 export LANG="en_US.UTF-8"
