@@ -155,6 +155,7 @@ alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
 alias dropcli='dropbox-cli'
 alias getclip="xsel --clipboard"
+alias gg="cd (git rev-parse --show-toplevel)"
 alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
 alias gsthaw="gsutil -m setmeta -R -h 'Cache-Control:private, max-age=0, no-transform'"
 alias ipv4='ip addr | ag inet -w | ag -w "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
