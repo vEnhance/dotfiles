@@ -100,6 +100,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://duckduckgo.com/*",
     r"*://github.com/*",
     r"*://groups.google.com/*",
+    r"*://hanabi-competitions.com/*",
     r"*://hanabi.github.io/*",
     r"*://hanabi-league.github.io/*",
     r"*://hanab.live/*",
