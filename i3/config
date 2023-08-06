@@ -293,6 +293,7 @@ bindsym $mod+o exec --no-startup-id $HOME/dotfiles/i3/reminder-ponymix.sh, mode 
 mode "exec" {
   bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
   bindsym b exec libreoffice --calc &, mode "default"
+  bindsym c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh cards", mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
   # short for hanabi
@@ -304,7 +305,7 @@ mode "exec" {
   # short for next
   bindsym n exec "xfce4-terminal --command ~/dotfiles/sh-scripts/vit-wrapper.sh --title=VIMTODO", mode "default"
   bindsym o exec obs &, mode "default"
-  bindsym p exec "xfce4-terminal --command ~/dotfiles/sh-scripts/grab-password-from-vault.sh", exec "sleep 300 && xsel --secondary --delete", mode "default"
+  bindsym p exec "xfce4-terminal --command ~/dotfiles/sh-scripts/grab-password-from-vault.sh", exec "sleep 600 && xsel --secondary --delete", mode "default"
   bindsym r exec "xfce4-terminal --command $HOME/dotfiles/py-scripts/orch.py --title=OTIS-ARCH", mode "default"
   bindsym s exec spotify &, mode "default"
   bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
