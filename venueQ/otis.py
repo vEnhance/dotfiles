@@ -214,8 +214,8 @@ class ProblemSet(VenueQNode):
         data["unit"] = f"{data['unit__code']} {data['unit__group__name']}"
         # stop getting trolled by the kids
         if data["unit__group__slug"] == "dummy":
-            data["clubs"] = min(data["clubs"], 1)
-            data["hours"] = min(data["hours"], 2)
+            data["clubs"] = min(data["clubs"] or 0, 1)
+            data["hours"] = min(data["hours"] or 0, 2)
 
         data["feedback"] = data["feedback"].replace(r"'", r"’").replace(r'"', r"＂")
         data["special_notes"] = (
