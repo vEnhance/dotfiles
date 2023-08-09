@@ -67,13 +67,13 @@ report.recurring.labels=ID,Active,Age,D,P,Parent,Project,Recur,Due,Until,Descrip
 report.recurring.sort=until-,parent,recur-,due
 
 report.undone.description=List of tasks that are not done
-report.undone.filter=status:pending or wait.after:now
+report.undone.filter=status:pending or status:waiting
 report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends,description,urgency,priority,project,tags
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
 
 report.rofi.description=Tasks for Rofi
-report.rofi.filter=status:pending or wait.after:now
+report.rofi.filter=status:pending or status:waiting
 report.rofi.columns=id,urgency,due.relative,priority,description
 report.rofi.labels=ID,Urg,Due,P,Description
 report.rofi.sort=urgency-
