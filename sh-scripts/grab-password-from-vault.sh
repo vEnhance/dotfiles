@@ -67,7 +67,7 @@ else
   exit 1
 fi
 
-if test -n "$TARGET_CARD_NUMBER"; then
+if [ "$1" = "cards" ]; then
   echo -n "$TARGET_CARD_NUMBER" | xsel --primary
   echo -n "$TARGET_CARD_CODE" | xsel --secondary
   notify-send -i 'status/security-high-symbolic' -u normal -t 30000 \
