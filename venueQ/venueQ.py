@@ -40,7 +40,8 @@ logger.setLevel(logging.DEBUG)
 
 if VIM_ENABLED:
     formatter = logging.Formatter(
-        "[{levelname}] {asctime} {module} {name}: {message}\n", style="{"
+        "[{levelname}] {asctime} {module} {name} [{filename}:{lineno}]: {message}\n",
+        style="{",
     )
     for b in vim.buffers:
         if "venueQlog" in b.name:

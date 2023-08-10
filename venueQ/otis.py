@@ -343,7 +343,7 @@ class ProblemSet(VenueQNode):
             "If you have questions or comments, or need anything else, "
             "reply directly to this email.\n\n"
             f"{closing},\n\n"
-            "Evan (aka OTIS Overlord)"
+            "Evan (OTIS GM)"
         )
         link_to_portal = f"https://otis.evanchen.cc/dash/portal/{data['student__pk']}/"
         link_to_pset = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
