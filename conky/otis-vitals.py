@@ -36,7 +36,7 @@ if suggest_dir.exists():
     for suggest_file in suggest_dir.glob("*.venueQ.yaml"):
         with open(suggest_file) as f:
             yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
-            suggestion_timestamps.append(yaml_data["created_at"])
+            suggestion_timestamps.append(yaml_data["updated_at"])
 
 # Jobs
 job_dir = OTIS_ROOT / "Jobs"
