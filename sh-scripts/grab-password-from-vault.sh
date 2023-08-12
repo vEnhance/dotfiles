@@ -72,7 +72,7 @@ if [ "$1" = "cards" ]; then
   echo -n "$TARGET_CARD_CODE" | xsel --secondary
   notify-send -i 'status/security-high-symbolic' -u normal -t 30000 \
     "$TARGET_CARD_BRAND copied" \
-    "Exp. $TARGET_CARD_EXP_MONTH/$TARGET_CARD_EXP_YEAR ($TARGET_CARD_CODE)"
+    "Exp. $TARGET_CARD_EXP_MONTH/$TARGET_CARD_EXP_YEAR"
   exit 0
 elif test -n "$TARGET_PASSWORD"; then
   if test -n "$TARGET_USER"; then
