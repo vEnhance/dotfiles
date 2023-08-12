@@ -1,10 +1,5 @@
 %% Package for typesetting OTIS materials
-\ProvidesPackage{evan}
-
-\usepackage{graphicx}
-\usepackage{epic}
-\usepackage{xstring}
-\usepackage{amsthm}
+\ProvidesPackage{otis}
 
 %% Options
 \newif\ifotisexam\otisexamfalse
@@ -30,50 +25,34 @@
 }
 
 \ifotisexam
-  \usepackage[nofancy,sexy]{evan}
-  \usepackage{mdframed}
+  \usepackage[nohdr,mdthm]{evan}
+  \renewcommand{\logopath}{otis-logo-med.png}
+  \logo{\includegraphics[width=12em]{\logopath}}
 
-  \newtheoremstyle{problem}% name of the style to be used
-  {6pt}% measure of space to leave above the theorem. E.g.: 3pt
-  {24pt}% measure of space to leave below the theorem. E.g.: 3pt
-  {\normalfont}% name of font to use in the body of the theorem
-  {0pt}% measure of space to indent
-  {\bfseries}% name of head font
-  {.}% punctuation between head and body
-  { }% space after theorem head; " " = normal interword space
-  {\thmname{#1}\thmnumber{ #2}\thmnote{ (#3)}}
-  \theoremstyle{problem}
-  \newtheorem{jprob}{JMO}
-  \newtheorem{uprob}{USAMO}
-  \newtheorem{tprob}{TST}
+  \declaretheoremstyle[
+    headfont=\color{blue!40!black}\normalfont\bfseries,
+    spaceabove=8pt,
+    spacebelow=24pt,
+    bodyfont=\normalfont
+  ]{olystyle}
+  \declaretheorem[style=olystyle,name=JMO]{jprob}
+  \declaretheorem[style=olystyle,name=USAMO]{uprob}
+  \declaretheorem[style=olystyle,name=TST]{tprob}
+  \declaretheorem[style=olystyle,name=Question]{quiz}
 
-  \usepackage{fancyhdr}
-  \pagestyle{fancy}
   \cfoot{}
-  \lhead{\makelogo}
-  \rhead{\righthead\vspace{-1em}}
-  \rfoot{\emph{\sevenpoints}}
+  \ihead{\thelogo}
+  \ohead{\righthead\vspace{-1em}}
+  \ofoot{\emph{\sevenpoints}}
   \setlength{\headheight}{9em}
   \setlength{\headsep}{2em}
-  \setlength{\voffset}{-1in}
-  \setlength{\hoffset}{-0.5in}
-  \addtolength{\textwidth}{1in}
-  \addtolength{\textheight}{0.25in}
-  \newlength\FHoffset\setlength\FHoffset{0.5in}
-  \addtolength\headwidth{2\FHoffset}
-  \fancyheadoffset{\FHoffset}
-  \newlength\FHleft\setlength\FHleft{0in}
-  \newlength\FHright\setlength\FHright{-1in}
-  \newbox\FHline\setbox\FHline=\hbox{\hsize=\paperwidth%
-    \hspace*{\FHleft}%
-    \rule{\dimexpr\headwidth-\FHleft-\FHright\relax}{\headrulewidth}\hspace*{\FHright}%
-  }
-  \renewcommand\headrule{\vskip-.7\baselineskip\copy\FHline}
+  \setlength{\voffset}{-0.5cm}
+  \setlength{\hoffset}{-0.5cm}
+  \setlength{\textwidth}{16cm}
+  \setlength{\textheight}{21cm}
   \newcommand{\olyinfo}[1]{\begin{flushright} \emph{#1} \end{flushright} \medskip}
   \newcommand{\nmbox}[1]{\fbox{\sffamily\LARGE\vphantom{y}#1} \par\vspace{1em}} % normal box
   \newcommand{\fdbox}[2]{\fbox{\sffamily\LARGE\vphantom{y}#1: \bfseries #2} \par\vspace{1em}} % field box
-
-  \newcommand{\makelogo}{\thelogo}
 
   \newcommand{\righthead}{%
     {\sffamily \Huge OTIS Mock Olympiad}  \\[1em]
@@ -82,9 +61,6 @@
     }
   \newcommand{\sevenpoints}{Time limit: 4.5 hours. \\
     Each problem is worth $7$ points.}
-
-  \usepackage{titlesec}
-  \titleformat{\section}[block]{\color{blue}\Large\bfseries\filcenter}{}{2em}{}
 \else
   \usepackage[sexy]{evan}
   \setkomafont{publishers}{\small}
