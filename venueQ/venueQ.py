@@ -36,7 +36,7 @@ VENUE_CHILDREN_FIELD = "_children"
 Data = Dict[str, Any]
 
 logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 
 if VIM_ENABLED:
     formatter = logging.Formatter(
@@ -59,7 +59,7 @@ if VIM_ENABLED:
                 VIM_LOG_BUFFER.append(line)
 
     vim_handler = VimLogHandler()
-    vim_handler.setLevel(logging.DEBUG)
+    vim_handler.setLevel(logging.INFO)
     file_handler = logging.FileHandler(
         f"/tmp/venueQ:{datetime.datetime.now().isoformat()}.log"
     )

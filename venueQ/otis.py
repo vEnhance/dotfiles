@@ -113,8 +113,9 @@ def send_email(
 
 
 def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Response]:
+    payload["token"] = "redacted"
+    logger.info(payload)
     payload["token"] = TOKEN
-    logger.debug(payload)
     try:
         resp = requests.post(OTIS_API_URL, json=payload)
     except requests.exceptions.ConnectionError:
