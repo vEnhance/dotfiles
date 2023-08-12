@@ -44,6 +44,8 @@ MD_EXTENSIONS = ["extra", "sane_lists", "smarty", "footnotes"]
 if find_spec("mdx_truly_sane_lists") is not None:
     MD_EXTENSIONS.append("mdx_truly_sane_lists")
 
+RE_EMAIL = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+
 
 def send_email(
     subject: str,
@@ -85,6 +87,17 @@ def send_email(
 
     if PRODUCTION:
         target_addrs = (recipients or []) + (bcc or [])
+        for address in [_ for _ in target_addrs]:
+            if not RE_EMAIL.fullmatch(address):
+                target_addrs.remove(address)
+                logger.warning(f"Not sending email to invalid address `{address}`.")
+
+        if len(target_addrs) == 0:
+            logger.warning("No valid recipients at this point, so no email sent.")
+            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"])
+            if callback is not None:
+                callback()
+            return
 
         def do_send():
             session = smtplib.SMTP("smtp.gmail.com", 587)
