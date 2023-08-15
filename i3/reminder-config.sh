@@ -11,4 +11,4 @@ notify-send "i3: config mode" \
 <b>p</b>: present mode
 <b>c</b>: trigger caps lock
 <b>b</b>: bugwarrior-pull
-<b>t</b>: task sync"
+<b>t</b>: toggle notif"

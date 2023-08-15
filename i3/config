@@ -247,7 +247,7 @@ mode "config" {
     mode "default"
 
   bindsym b exec --no-startup-id bugwarrior-pull, mode "default"
-  bindsym t exec --no-startup-id task sync, mode "default"
+  bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
