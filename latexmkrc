@@ -1,4 +1,5 @@
 push @extra_pdflatex_options, '-synctex=1' ;
+push @extra_lualatex_options, '-synctex=1' ;
 
 # This version is better than the one given by official asy doc
 # because it will work with latexmk -cd as well.
