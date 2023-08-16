@@ -12,6 +12,8 @@ node_modules
 
 pythontex_data.pkl
 **.aux
+**.bcf
+**.blg
 **.fdb_latexmk
 **.fls
 **.log
@@ -19,5 +21,6 @@ pythontex_data.pkl
 **.pre
 **.pytxcode
 **.pytxmcr
+**.run.xml
 **.pytxpyg
 **.toc
