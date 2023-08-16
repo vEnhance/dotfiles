@@ -5,6 +5,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import time
 from pathlib import Path
 
 import pyperclip
@@ -118,8 +119,8 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
     edited_message = edited_message.replace(b"<++>", b"null")
 
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
-with open("/tmp/orch.yaml", "w") as f:
-    print(edited_message, file=f)
+with open(f"/tmp/orch{int(time.time())}.yaml", "w") as f:
+    print(edited_message.decode(), file=f)
 
 
 if type(result) == dict:
