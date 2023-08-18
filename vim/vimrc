@@ -502,6 +502,7 @@ set nohlsearch
 set noshowmode " don't need mode shown if we have airline
 set nowrap
 set number
+set numberwidth=3
 set omnifunc=ale#completion#OmniFunc
 set ruler      " show the cursor position all the time
 set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
