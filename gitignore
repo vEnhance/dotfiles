@@ -24,3 +24,5 @@ pythontex_data.pkl
 **.run.xml
 **.pytxpyg
 **.toc
+**.synctex.gz(busy)
+**.synctex.gz
