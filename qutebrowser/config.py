@@ -131,7 +131,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
 
 for site in ALLOW_JAVASCRIPT_WEBSITES:
     config.set("content.javascript.enabled", True, site)
-    config.set("content.javascript.can_access_clipboard", True, site)
+    config.set("content.javascript.clipboard", "access-paste", site)
 
 
 # Block youtube ads
