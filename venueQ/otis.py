@@ -481,6 +481,31 @@ class Inquiries(VenueQNode):
                 )
 
 
+class Registrations(VenueQNode):
+    def init_hook(self):
+        self.data["accept_all"] = False
+        for reg in self.data["registrations"]:
+            reg["name"] = f"{reg.pop('user__first_name')} {reg.pop('user__last_name')}"
+
+    def on_buffer_close(self, data: Data):
+        super().on_buffer_close(data)
+        if data["accept_all"]:
+            if query_otis_server(payload={"action": "accept_registrations"}):
+                body = "This is an automated message to notify you that your registration\n"
+                body += f"was processed on {datetime.utcnow().strftime('%-d %B %Y, %H:%M')} UTC."
+                body += "\n\n"
+                body += "You should be able to log in and pick your units now, "
+                body += "and use the /register slash command in the Discord."
+                bcc_addrs = [reg["user__email"] for reg in data["registrations"]]
+                subject = "OTIS account activated!"
+                send_email(
+                    subject=subject,
+                    bcc=bcc_addrs,
+                    body=body,
+                    callback=self.delete,
+                )
+
+
 class Suggestion(VenueQNode):
     statement: str
     solution: str
@@ -656,6 +681,8 @@ class OTISRoot(VenueQRoot):
             return SuggestionCarrier
         elif data["_name"] == "Jobs":
             return JobCarrier
+        elif data["_name"] == "Regs":
+            return Registrations
         else:
             raise ValueError(f"wtf is {data['_name']}")
 
