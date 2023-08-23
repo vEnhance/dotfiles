@@ -26,7 +26,7 @@ TOKEN = os.getenv("OTIS_WEB_TOKEN")
 AK = os.getenv("AK")
 OTIS_GMAIL_USERNAME = os.getenv("OTIS_GMAIL_USERNAME") or ""
 assert TOKEN is not None
-PRODUCTION = os.getenv("PRODUCTION", False)
+PRODUCTION = int(os.getenv("PRODUCTION", 0))
 if PRODUCTION:
     OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 else:
@@ -45,6 +45,8 @@ if find_spec("mdx_truly_sane_lists") is not None:
     MD_EXTENSIONS.append("mdx_truly_sane_lists")
 
 RE_EMAIL = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
+
+logger.info(f"PRODUCTION is {PRODUCTION}, posting to {OTIS_API_URL}")
 
 
 def send_email(
