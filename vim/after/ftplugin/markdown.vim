@@ -19,3 +19,5 @@ inoremap <C-R><C-T> LaTeX tip: use `\mid` instead of `\|` to denote divisibility
 inoremap <C-R><C-M> Small LaTeX tip: use `\pmod{n}` to typeset (mod n).
 inoremap <C-R><C-S> Small LaTeX tip: use `\cdot` to typeset multiplication rather than `*`.
 inoremap <C-R><C-Q> In LaTeX, quotes are a bit weird; see https://tex.stackexchange.com/a/10672/76888.
+
+inoremap <C-R><C-F> Congratulations on submitting your first unit! Welcome aboard.
