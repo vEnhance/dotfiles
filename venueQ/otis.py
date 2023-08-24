@@ -214,10 +214,11 @@ class ProblemSet(VenueQNode):
         # add/cleanup fields for grading
         if data["status"] == "P":
             data["status"] = "A"
-        grade = 12 - (
+        years_left_in_school = (
             data["student__reg__graduation_year"]
             - data["student__reg__container__semester__end_year"]
         )
+        grade = min(12 - years_left_in_school, 13)
         data["info"] = f"{data['student__reg__country']} "
         data["info"] += f"({grade}{data['student__reg__gender']}) "
         data["info"] += f"aka {data['student__reg__aops_username']}"
