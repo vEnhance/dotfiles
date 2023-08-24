@@ -23,11 +23,11 @@ for (int k=0; flag&&(k<100); ++k)
 {
 real[] times = intersect(a,B,LA/10^7);
 if (times.length==0) flag=false;
-else 
+else
  {
  at=a;
  for(int m=0;(m<6)&&(times.length==2);++m)
-  { 
+  {
   t=times[0]; aa=subpath(at,0,t);
   if (length(aa)>0) at=subpath(aa,0,t-1/300);
   times=intersect(at,B,LA/10^7);
@@ -78,7 +78,7 @@ int anglefontsize=9;
 bool fullbreak=false;
 bool pathflag=true;
 
-//Auxiliary variables 
+//Auxiliary variables
 
 bool breakflag=false;
 
@@ -97,7 +97,7 @@ Label M=L;
 M.s="\("+L.s+"\)";
 int ff=f;
 if (f<4) ff=4;
-if (A!=nullpair) label(rotate(a)*M,A,B,fontsize(ff)+p); 
+if (A!=nullpair) label(rotate(a)*M,A,B,fontsize(ff)+p);
 return A;
 }
 
@@ -116,14 +116,14 @@ return P;
 path D(path p, pen q=pathpen, real m=1, arrowbar ar=None)
 {
 if (fullbreak&&breakflag) return p;
-if((m>0)&&pathflag) draw(p,q,ar); 
+if((m>0)&&pathflag) draw(p,q,ar);
 return p;
 }
 
 path[] DPA(path[] p, pen q=pathpen, real m=1)
 {
 if (fullbreak&&breakflag) return p;
-if((m>0)&&pathflag) draw(p,q); 
+if((m>0)&&pathflag) draw(p,q);
 return p;
 }
 
@@ -167,9 +167,9 @@ pair IP(path[] A, path[] B, int m=0)
 {
 pair[] intpoints=commonpoints(A,B);
 int len=intpoints.length;
-if ((m>=len)||(m<0)) 
- { 
- if (fullbreak) 
+if ((m>=len)||(m<0))
+ {
+ if (fullbreak)
   {
   bool tempflag=pathflag;
   pathflag=true;
@@ -188,16 +188,16 @@ return intpoints[m];
 pair OP(path[] A, path[] B)
 {
 return IP(A,B,1);
-} 
+}
 
 pair WP(path P,real t=0.5)
 {
-if ((length(P)==-1)||(t>1.001)||(t<-0.001)) 
+if ((length(P)==-1)||(t>1.001)||(t<-0.001))
  {
- if (fullbreak) 
+ if (fullbreak)
   {
-  if(length(P)==-1) MP("\mbox{There are no points on nullpath}",messageplace,9); 
-  else 
+  if(length(P)==-1) MP("\mbox{There are no points on nullpath}",messageplace,9);
+  else
    {
    bool tempflag=pathflag;
    pathflag=true;
@@ -220,7 +220,7 @@ currentpicture.erase();
 return p;
 }
 
-pair MA (real a=0, Label s='',int f=anglefontsize,  
+pair MA (real a=0, Label s='',int f=anglefontsize,
          pen p=anglefontpen, pair B, pair A, pair C, real r, int m=1, pair S=nullpair, pen q=anglepen)
 {
 if ((A==nullpair)||(B==nullpair)||(C==nullpair)) return A;
@@ -234,7 +234,7 @@ if (m<0) m=0;
 if (m<8)
  {
  int n=2*m-1; if (m==2) n=4; if (n>8) n=8;
- for(int k=0;k<m;++k) D(shift(A)*scale(r*(1-k/n))*P,q); 
+ for(int k=0;k<m;++k) D(shift(A)*scale(r*(1-k/n))*P,q);
  }
 if (m>7&&(!(fullbreak&&breakflag))&&pathflag) fill(A--shift(A)*scale(r)*P--cycle,q);
 MP(a,s,D,f,Q,p);
@@ -266,7 +266,7 @@ pair[] IntersectionPoints(path[] A, path[] B)=IPs;
 
 pair IntersectionPoint(path[] A, path[] B, int m=0)=IP;
 
-pair OtherPoint(path[] A, path[] B)=OP; 
+pair OtherPoint(path[] A, path[] B)=OP;
 
 path MarkCurve(real a=0, Label s,int f=pathfontsize,path P,real t=0.5,pair B=plain.N,pen p=pathfontpen)=MC;
 
@@ -274,6 +274,5 @@ pair WayPoint(path P,real t=0.5)=WP;
 
 picture CopyClean()=CC;
 
-pair MarkAngle(real a=0,Label s='',int f=anglefontsize,  
+pair MarkAngle(real a=0,Label s='',int f=anglefontsize,
          pen p=anglefontpen, pair B, pair A, pair C, real r, int m=1, pair S=nullpair, pen q=anglepen)=MA;
-
