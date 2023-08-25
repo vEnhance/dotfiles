@@ -147,6 +147,8 @@ def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Respo
                 f"OTIS-WEB threw an exception with status code {resp.status_code}\n"
                 + resp.content.decode("utf-8")
             )
+            if play_sound:
+                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
             return None
 
 
