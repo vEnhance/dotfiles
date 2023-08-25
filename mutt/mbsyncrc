@@ -32,19 +32,19 @@ Near :personal-local:"Inbox"
 Channel personal-all
 Far :personal-remote:"[Gmail]/&UWiQ6JD1TvY-"
 Near :personal-local:All
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 Channel personal-sent
 Far :personal-remote:"[Gmail]/&W8RO9lCZTv0-"
 Near :personal-local:Sent
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 Channel personal-trash
 Far :personal-remote:"[Gmail]/&V4NXPmh2-"
 Near :personal-local:Trash
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 
@@ -84,19 +84,19 @@ ExpireUnread no
 Channel work-all
 Far :work-remote:"[Gmail]/&UWiQ6JD1TvY-"
 Near :work-local:All
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 Channel work-sent
 Far :work-remote:"[Gmail]/&W8RO9lCZTv0-"
 Near :work-local:Sent
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 Channel work-trash
 Far :work-remote:"[Gmail]/&V4NXPmh2-"
 Near :work-local:Trash
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 
@@ -137,19 +137,19 @@ ExpireUnread no
 Channel records-all
 Far :records-remote:"[Gmail]/&UWiQ6JD1TvY-"
 Near :records-local:All
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 Channel records-sent
 Far :records-remote:"[Gmail]/&W8RO9lCZTv0-"
 Near :records-local:Sent
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 Channel records-trash
 Far :records-remote:"[Gmail]/&V4NXPmh2-"
 Near :records-local:Trash
-MaxMessages 10
+MaxMessages 40
 ExpireUnread yes
 
 # ---------------------
