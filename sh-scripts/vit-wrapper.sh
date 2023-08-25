@@ -1,6 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
-task sync
+set -euxo pipefail
+
+#task sync
 vit
-task sync
+#task sync
 killall -s USR1 py3status

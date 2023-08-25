@@ -1,9 +1,9 @@
-taskd.certificate=~/.intheam/private.certificate.pem
-taskd.key=~/.intheam/private.key.pem
-taskd.ca=~/.intheam/ca.cert.pem
-taskd.server=inthe.am:53589
-taskd.credentials=inthe_am/chen.evan6/f8102e77-169f-40b2-9491-ba20a3c8c2d1
-taskd.trust=strict
+#taskd.certificate=~/.intheam/private.certificate.pem
+#taskd.key=~/.intheam/private.key.pem
+#taskd.ca=~/.intheam/ca.cert.pem
+#taskd.server=inthe.am:53589
+#taskd.credentials=inthe_am/chen.evan6/f8102e77-169f-40b2-9491-ba20a3c8c2d1
+#taskd.trust=strict
 
 alias.E=project:errand
 alias.G=project:github
@@ -110,4 +110,5 @@ uda.githubnamespace.label=Github Namespace
 uda.githubstate.type=string
 uda.githubstate.label=GitHub State
 # END Bugwarrior UDAs
+
 news.version=2.6.0
