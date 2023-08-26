@@ -118,9 +118,9 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
     edited_message = edited_message.replace(b"\t", b"  ")
     edited_message = edited_message.replace(b"<++>", b"null")
 
-result = yaml.load(edited_message, Loader=yaml.SafeLoader)
 with open(f"/tmp/orch{int(time.time())}.yaml", "w") as f:
     print(edited_message.decode(), file=f)
+result = yaml.load(edited_message, Loader=yaml.SafeLoader)
 
 
 if type(result) == dict:
