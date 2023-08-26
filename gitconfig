@@ -6,7 +6,12 @@
 	name = Evan Chen
 	email = evan@evanchen.cc
 	signingkey = 2911981B5D39118D80D782779474E9565D64C443
+[credential]
+	helper = /usr/lib/git-core/git-credential-libsecret
+[init]
+	defaultBranch = main
 
+# Colors
 [color]
 	branch = auto
 	diff = auto
@@ -30,12 +35,8 @@
 	filename = magenta
 	linenumber = green
 	match = red bold
-[push]
-	default = current
-	autoSetupRemote = true
-[pull]
-	rebase = true
 
+# Aliases
 [alias]
 	ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(green)[%cr]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
 	lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]\\ %C(red)%d" --decorate --date=short
@@ -78,21 +79,19 @@
 	unassume = update-index --no-assume-unchanged
 	assumed = "!git ls-files -v | grep ^h | cut -c 3-"
 
-[init]
-	defaultBranch = main
-[url "git@github.com:"]
-	insteadOf = http://github.com/
+[blame]
+	coloring = highlightRecent
 [commit]
 	gpgSign = true
 	verbose = true
 [diff]
 	tool = meld
-
-[blame]
-	coloring = highlightRecent
-
-
-[credential]
-	helper = /usr/lib/git-core/git-credential-libsecret
+[merge]
+	conflictstyle = diff3
+[pull]
+	rebase = true
+[push]
+	default = current
+	autoSetupRemote = true
 
 # vim: ft=gitconfig
