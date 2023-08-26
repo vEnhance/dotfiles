@@ -415,7 +415,7 @@ nnoremap <silent> <Space>n :set nowrap<CR>
 
 " git status
 nnoremap <Space>gg :Git<CR>
-nnoremap <Space>gb :Git blame<CR>
+nnoremap <Space>gb :Git blame -w<CR>
 nnoremap <Space>gd :Gdiffsplit<CR>
 nnoremap <Space>g<CR> :Gwrite<CR>
 " git commit
