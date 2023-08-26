@@ -11,6 +11,8 @@
 	branch = auto
 	diff = auto
 	status = auto
+[color "blame"]
+	highlightRecent = 22, 72 month ago, 28, 60 month ago, 64, 48 month ago, 100, 36 month ago, 39, 24 month ago, 75, 12 month ago, 111, 8 month ago, 147, 4 month ago, 183, 2 month ago, 219, 1 month ago, 46, 16 day ago, 82, 8 day ago, 118, 4 day ago, 154, 2 day ago, 190, 1 day ago, 226
 [color "branch"]
 	current = yellow reverse
 	local = yellow
@@ -45,6 +47,7 @@
 	l = ls
 	find = ls-files
 
+	bl = blame -w
 	br = branch
 	cm = commit
 	co = checkout
@@ -84,6 +87,10 @@
 	verbose = true
 [diff]
 	tool = meld
+
+[blame]
+	coloring = highlightRecent
+
 
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
