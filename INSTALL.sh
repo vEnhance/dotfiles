@@ -28,7 +28,7 @@ if ! test -f "$HOME/.pdbrc.py"; then ln -s "$HOME"/dotfiles/pdbrc.py "$HOME"/.pd
 if ! test -f "$HOME/.screenrc"; then ln -s "$HOME"/dotfiles/screenrc "$HOME"/.screenrc; fi
 if ! test -f "$HOME/.shellcheckrc"; then ln -s "$HOME"/dotfiles/shellcheckrc "$HOME"/.shellcheckrc; fi
 if ! test -f "$HOME/.taskrc"; then ln -s "$HOME"/dotfiles/taskrc "$HOME"/.taskrc; fi
-if ! test -f "$HOME/.tidyc"; then ln -s "$HOME"/dotfiles/tidyrc "$HOME"/.tidyrc; fi
+if ! test -f "$HOME/.tidyrc"; then ln -s "$HOME"/dotfiles/tidyrc "$HOME"/.tidyrc; fi
 if ! test -f "$HOME/.xprofile"; then ln -s "$HOME"/dotfiles/xprofile "$HOME"/.xprofile; fi
 
 if ! test -f "$HOME/.xinitrc"; then
