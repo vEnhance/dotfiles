@@ -2,7 +2,7 @@
 
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "ArchBootes" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "ArchMajestic" ] && [ "$(whoami)" = "evan" ]; then
   python ~/dotfiles/venueQ/otis.py
 fi
 
@@ -24,12 +24,12 @@ fi
 if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
   task rc.recurrence.limit=1 list
 fi
-if command -v task >/dev/null; then
-  task rc.gc=on sync
-fi
+#if command -v task >/dev/null; then
+#  task rc.gc=on sync
+#fi
 if command -v bugwarrior-pull >/dev/null; then
   bugwarrior-pull
-  task rc.gc=on sync
+# task rc.gc=on sync
 fi
 
 ## PACMAN SNAPSHOTS
