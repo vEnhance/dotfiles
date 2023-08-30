@@ -120,7 +120,7 @@ def get_used_aur_packages() -> set[str]:
     ret = set(out)
 
     normal_packages_lines = subprocess.check_output(
-        ("paclist", "core", "community", "extra"),
+        ("paclist", "core", "extra"),
         universal_newlines=True,
     ).splitlines()
     for line in normal_packages_lines:
