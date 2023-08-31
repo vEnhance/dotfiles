@@ -25,7 +25,7 @@
 if [ "$(hostname)" = ArchMajestic ]; then
   declare -A sink_names=(
     [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
-    [speakers]="$(pactl list sinks short | grep analog-stereo | cut -f 2)"
+    [speakers]="$(pactl list sinks short | grep pci | grep analog-stereo | cut -f 2)"
   )
 fi
 if [ "$(hostname)" = ArchDiamond ]; then
