@@ -524,6 +524,7 @@ class Suggestion(VenueQNode):
     def init_hook(self):
         self.statement = self.data.pop("statement")
         self.solution = self.data.pop("solution")
+        self.data["arch_puid"] = None
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
@@ -566,12 +567,19 @@ class Suggestion(VenueQNode):
         )
         if comments_to_email != "":
             recipient = data["user__email"]
-            subject = f"OTIS: Suggestion {data['source']}: "
+            subject = f"OTIS suggestion {data['source']}: "
             pk = data["pk"]
             body = ""
             status = data["status"]
+            puid: str | None = data.get("arch_puid", None)
             if status == "SUGG_OK" or status == "SUGG_NOK":
                 subject += "Accepted"
+                if puid is not None and status == "SUGG_OK":
+                    subject += f" as {puid}"
+                    body = f"**This problem was accepted as {puid}**.\n\n"
+                    body += f"Please consider **adding ARCH hints** at https://otis.evanchen.cc/arch/{puid} to help students who try your problem.\n\n"
+                    body += "The link above may look empty now. The statement and hyperlink will reach the production server in several hours.\n"
+                    body += "\n\n" + "-" * 40 + "\n\n"
             elif status == "SUGG_REJ":
                 subject += "Rejected"
             elif status == "SUGG_EDIT":
@@ -585,12 +593,14 @@ class Suggestion(VenueQNode):
                 raise ValueError(f"Invalid status {status}")
             body += comments_to_email
             body += "\n\n" + "-" * 40 + "\n\n"
-            body += f"- **Link**: https://otis.evanchen.cc/suggestions/{pk}/\n"
+            if puid is not None and status == "SUGG_OK":
+                body += f"- **ARCH link**: https://otis.evanchen.cc/arch/{puid}/\n"
+            body += f"- **Suggestion**: https://otis.evanchen.cc/suggestions/{pk}/\n"
             body += f"- **Created at**: {data['created_at']}\n"
             body += f"- **Description**: {data['description']}\n"
             body += f"- **Hyperlink**: {data['hyperlink']}\n"
-            body += f"- **Unit**: {data['unit__code']} {data['unit__group__name']}\n"
-            body += f"- **Suggested spades**: {data['weight']}\n"
+            body += f"- **Proposed unit**: {data['unit__code']} {data['unit__group__name']}\n"
+            body += f"- **Proposed spades**: {data['weight']}♠\n"
             body += "\n"
             body += r"```latex" + "\n" + self.statement + "\n" + r"```"
             if comments := data["comments"]:
