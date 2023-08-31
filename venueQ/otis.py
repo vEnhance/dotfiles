@@ -112,7 +112,7 @@ def send_email(
                 subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
             else:
                 logger.info(f"Email '{subject}' sent successfully!")
-                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
+                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "0"])
                 if callback is not None:
                     callback()
 
@@ -140,7 +140,7 @@ def query_otis_server(payload: Data, play_sound=True) -> Optional[requests.Respo
         if resp.status_code == 200:
             logger.info("Got a 200 response back from server")
             if play_sound:
-                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "5"])
+                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
             return resp
         else:
             logger.error(
