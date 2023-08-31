@@ -27,7 +27,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
     --output "DP-0" --primary \
     --output "DP-4" --left-of "DP-0" \
     --output "DP-2" --right-of "DP-0" \
-    --output "HDMI-0" --right-of "DP-2" \
+    --output "HDMI-0" --left-of "DP-4" \
     ;
 fi
 
