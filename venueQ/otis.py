@@ -572,14 +572,16 @@ class Suggestion(VenueQNode):
             body = ""
             status = data["status"]
             puid: str | None = data.get("arch_puid", None)
-            if status == "SUGG_OK" or status == "SUGG_NOK":
+            if status == "SUGG_OK":
                 subject += "Accepted"
-                if puid is not None and status == "SUGG_OK":
+                if puid is not None:
                     subject += f" as {puid}"
                     body = f"**This problem was accepted as {puid}**.\n\n"
                     body += f"Please consider **adding ARCH hints** at https://otis.evanchen.cc/arch/{puid} to help students who try your problem.\n\n"
                     body += "The link above may look empty now. The statement and hyperlink will reach the production server in several hours.\n"
                     body += "\n\n" + "-" * 40 + "\n\n"
+            elif status == "SUGG_NOK":
+                subject += "Processed"
             elif status == "SUGG_REJ":
                 subject += "Rejected"
             elif status == "SUGG_EDIT":
