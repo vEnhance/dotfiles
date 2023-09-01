@@ -609,17 +609,18 @@ class Suggestion(VenueQNode):
                 body += "\n\n"
                 body += r"```text" + "\n" + comments + "\n" + r"```"
 
-            def callback():
-                if query_otis_server(payload=data) is not None:
+            if query_otis_server(payload=data) is not None:
+
+                def callback():
                     self.delete()
                     self.erase_temp(extension="md")
 
-            send_email(
-                subject=subject,
-                recipients=[recipient],
-                body=body,
-                callback=callback,
-            )
+                send_email(
+                    subject=subject,
+                    recipients=[recipient],
+                    body=body,
+                    callback=callback,
+                )
 
 
 class SuggestionCarrier(VenueQNode):
