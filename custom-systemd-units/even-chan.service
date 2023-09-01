@@ -1,0 +1,7 @@
+[Unit]
+Description=Runs the Even Chan bot
+
+[Service]
+ExecStart=/home/evan/Sync/Projects/even-chan/run.sh
+Restart=on-failure
+RestartSec=3
