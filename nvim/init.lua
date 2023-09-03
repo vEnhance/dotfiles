@@ -66,4 +66,39 @@ end
 
 require("nvim-tree").setup({
   on_attach = on_attach,
+  filters = {
+    custom = {
+      "^.*\\.pdf",
+      "^.*\\.gif",
+      "^.*\\.jpg",
+      "^.*\\.png",
+
+      "^\\.DS_Store",
+      "^\\.vscode",
+      "^node_modules",
+
+      "^.*\\.pyc",
+      "^\\.mypy_cache",
+      "^\\.venv",
+      "^__pycache__",
+
+      "^.*\\.pyc",
+      "^.*\\.aux",
+      "^.*\\.bcf",
+      "^.*\\.blg",
+      "^.*\\.brf",
+      "^.*\\.fdb_latexmk",
+      "^.*\\.fls",
+      "^.*\\.out",
+      "^.*\\.pre",
+      "^.*\\.pytxcode",
+      "^.*\\.pytxmcr",
+      "^.*\\.pytxpyg",
+      "^.*\\.run\\.xml",
+      "^.*\\.toc",
+      "^.*\\.synctex\\.gz",
+      "^.*\\.synctex\\.gz\\(busy\\)",
+      "^pythontex_data\\.pkl",
+    },
+  }
 })

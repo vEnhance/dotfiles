@@ -1,19 +1,22 @@
 # Global gitignore file
 # vim: ft=gitignore
 
-**.pyc
 .*.swp
+
 .DS_Store
 .vscode/
-__pycache__
 node_modules
+
+**.pyc
 .mypy_cache/
 .venv
+__pycache__
 
 pythontex_data.pkl
 **.aux
 **.bcf
 **.blg
+**.brf
 **.fdb_latexmk
 **.fls
 **.log
@@ -21,8 +24,8 @@ pythontex_data.pkl
 **.pre
 **.pytxcode
 **.pytxmcr
-**.run.xml
 **.pytxpyg
+**.run.xml
 **.toc
-**.synctex.gz(busy)
 **.synctex.gz
+**.synctex.gz(busy)
