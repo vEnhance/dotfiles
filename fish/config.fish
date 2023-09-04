@@ -268,6 +268,12 @@ function rs2
     ag -w $regex $argv[2..]
 end
 
+function pytex
+    for x in $argv
+        pythontex $x
+    end
+end
+
 #gd ubuntu
 alias pip='pip3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
