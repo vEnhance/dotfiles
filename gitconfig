@@ -1,7 +1,7 @@
 [core]
 	editor = vim
 	excludesFile = ~/dotfiles/gitignore
-	pager = less -x1,3
+	pager = delta
 [user]
 	name = Evan Chen
 	email = evan@evanchen.cc
@@ -85,7 +85,10 @@
 	gpgSign = true
 	verbose = true
 [diff]
+	colorMoved = default
 	tool = meld
+[interactive]
+	diffFilter = delta --color-only
 [merge]
 	conflictstyle = diff3
 [pull]
@@ -93,5 +96,19 @@
 [push]
 	default = current
 	autoSetupRemote = true
+
+[delta]
+	file-decoration-style = box cyan
+	file-style = bold cyan
+	hunk-header-decoration-style = ul yellow
+	hunk-header-line-number-style = 255
+	hunk-header-style = yellow line-number
+	hyperlinks = true
+	line-numbers = true
+	line-numbers-minus-style = bold 160
+	line-numbers-plus-style = bold 47
+	line-numbers-zero-style = white
+	navigate = true
+	zero-style = dim syntax
 
 # vim: ft=gitconfig
