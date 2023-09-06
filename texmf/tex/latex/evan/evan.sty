@@ -86,6 +86,7 @@
 \newif\ifevantitlemark\evantitlemarktrue
 \newif\ifevanvonenabled\evanvonenabledfalse
 \newif\ifevanbritish\evanbritishtrue
+\newif\ifevanbib\evanbibfalse
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanhreffalse\evanchinesetrue} % Chinese support
@@ -120,12 +121,13 @@
 
 \DeclareOption{patchasy}{\evanpatchasytrue}
 \DeclareOption{noasy}{\evanasyfalse}
-
 \DeclareOption{hints}{\evanhintstrue}
 \DeclareOption{von}{\evanvonenabledtrue}
 
 \DeclareOption{british}{\evanbritishtrue}
 \DeclareOption{american}{\evanbritishfalse}
+
+\DeclareOption{bib}{\evanbibtrue}
 
 % legacy diagrams option, for backwards compatibility
 \DeclareOption{diagrams}{}
@@ -360,6 +362,14 @@
   \ifevanpkg
     \PassOptionsToPackage{usenames,svgnames,dvipsnames,table}{xcolor}
     \usepackage{xcolor}
+    \ifevanbib
+      \usepackage[backend=biber,backref=true,style=alphabetic]{biblatex}
+      \DeclareFieldFormat{labelalpha}{\textbf{\small #1}}
+      \DefineBibliographyStrings{english}{%
+        backrefpage  = {cited p.}, % for single page number
+        backrefpages = {cited pp.} % for multiple page numbers
+      }
+    \fi
     \ifevanhref
       \usepackage[colorlinks=true,pdfusetitle]{hyperref}
       \hypersetup{pdfkeywords={evan.sty},pdfsubject={web.evanchen.cc}}
