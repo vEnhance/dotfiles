@@ -108,6 +108,7 @@
 	line-numbers-minus-style = bold 160
 	line-numbers-plus-style = bold 47
 	line-numbers-zero-style = white
+	max-line-length = 1024
 	navigate = true
 	zero-style = dim syntax
 
