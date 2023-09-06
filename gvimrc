@@ -1,19 +1,38 @@
 set encoding=utf-8
 set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 22
+
+
 if hostname() ==# 'ArchScythe'
-  set guifont=Inconsolata\ Semi-Bold\ Condensed\ 21
+  let s:basefontsize = 20
 elseif hostname() ==# 'ArchDiamond'
-  set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
+  let s:basefontsize = 18
 elseif hostname() ==# 'ArchMajestic'
-  set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
+  let s:basefontsize = 20
 elseif hostname() ==# 'ArchBootes'
-  set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
+  let s:basefontsize = 18
 elseif hostname() ==# 'ArchSapphire'
-  set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ 20
-elseif hostname() ==# 'dagobah'
-  set guifont=Inconsolata\ Bold\ 21
+  let s:basefontsize = 20
+else
+  let s:basefontsize = 22
 endif
+
+let s:fontsize = s:basefontsize
+
+function! AdjustFontSize(amount)
+  let s:fontsize = s:fontsize+a:amount
+  execute 'set guifont=Inconsolata\ Semi-Condensed\ Semi-Bold\ ' . s:fontsize
+endfunction
+function! ResetFontSize()
+  let s:fontsize = s:basefontsize
+  call AdjustFontSize(0)
+endfunction
+
+call AdjustFontSize(0)
+nnoremap <C-0> :call ResetFontSize()<CR>
+nnoremap <C-S-+> :call AdjustFontSize(1)<CR>
+nnoremap  :call AdjustFontSize(-1)<CR>
+nnoremap <C-ScrollWheelUp> :call AdjustFontSize(1)<CR>
+nnoremap <C-ScrollWheelDown> :call AdjustFontSize(-1)<CR>
 set guioptions-=T  "remove toolbar
 
-" colorscheme space-vim-dark
 colorscheme reclipse
