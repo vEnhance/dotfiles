@@ -47,4 +47,8 @@ $hash_calc_ignore_pattern{'luc.gz'}='^';
 $hash_calc_ignore_pattern{'gz'}='^';
 $hash_calc_ignore_pattern{'ttf:1:nil'}='^';
 
+$failure_cmd = 'echo -e "\\033[1;31m---- BEGIN ERROR LOG %T ----\\033[1;37m"; '
+    . 'grep -A 5 "^! " %R.log; '
+    . 'echo -e "\\033[1;31m---- ENDOF ERROR LOG %T ----\\033[0m"; ';
+
 # vim: ft=perl
