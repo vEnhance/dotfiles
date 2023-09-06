@@ -14,6 +14,7 @@ __pycache__
 
 pythontex_data.pkl
 **.aux
+**.bbl
 **.bcf
 **.blg
 **.brf

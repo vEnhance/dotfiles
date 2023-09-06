@@ -84,6 +84,7 @@ require("nvim-tree").setup({
 
       "^.*\\.pyc",
       "^.*\\.aux",
+      "^.*\\.bbl",
       "^.*\\.bcf",
       "^.*\\.blg",
       "^.*\\.brf",
