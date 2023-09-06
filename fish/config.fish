@@ -148,8 +148,15 @@ end
 
 umask 007 # set umask
 
-alias vim='nvim'
-alias gvim='nvim-qt'
+if test -f /usr/bin/nvim
+    alias vim='nvim'
+end
+if test -f /usr/bin/nvim-qt
+    alias gvim='nvim-qt'
+end
+if test -f /usr/bin/delta
+    alias diff='delta'
+end
 
 alias bcsum='paste -sd+ - | bc'
 alias dj='python -m pdb -c continue manage.py runserver'
