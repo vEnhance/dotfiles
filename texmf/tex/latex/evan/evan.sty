@@ -373,6 +373,7 @@
       \DeclareFieldFormat[inbook,thesis]{title}{\mkbibemph{#1}\addperiod} % italic title with period
       \DeclareFieldFormat[article]{title}{#1} % title of journal article is printed as normal text
       \DeclareFieldFormat[article]{volume}{\textbf{#1}\addcolon\space}
+      \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[fieldsource=ISBN-13,fieldtarget=ISBN]}}}
       \renewcommand{\mkbibnamefirst}[1]{\textsc{#1}}
       \renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
       \renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
