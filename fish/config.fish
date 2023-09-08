@@ -155,7 +155,9 @@ if test -f /usr/bin/nvim-qt
     alias gvim='nvim-qt'
 end
 if test -f /usr/bin/delta
-    alias diff='delta'
+    alias diff=delta
+else
+    alias diff='diff --color' # show differences in color
 end
 
 alias bcsum='paste -sd+ - | bc'
@@ -507,7 +509,6 @@ alias mv='mv -i'
 
 # Misc :)
 alias less='less -R' # less should detect colors correctly
-alias diff='diff --color' # show differences in color
 alias egrep='egrep --color=auto' # show differences in color
 alias fgrep='fgrep --color=auto' # show differences in color
 
