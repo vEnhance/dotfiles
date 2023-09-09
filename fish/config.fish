@@ -1,8 +1,28 @@
+umask 007 # set umask
+
+alias dropcli='dropbox-cli'
+alias getclip="xsel --clipboard"
+alias gg="cd (git rev-parse --show-toplevel)"
+alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
+alias gsthaw="gsutil -m setmeta -R -h 'Cache-Control:private, max-age=0, no-transform'"
+alias ipv4='ip addr | ag inet -w | ag -w "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
+alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
+alias panmd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
+alias poetry-outdated='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
+alias putclip="xsel --clipboard"
+alias todo='task ready'
+alias trash='gio trash'
+
+alias dj='python -m pdb -c continue manage.py runserver'
+alias pdb='python -m pdb -c continue'
+alias ut='python manage.py test --pdb'
+
 function dn
     set -l escaped_argv (string escape --no-quoted $argv)
     bash -c "$escaped_argv &" >/dev/null
 end
 
+# PROMPTS {{{
 # Status Chars
 #set __fish_git_prompt_char_dirtystate '*'
 #set __fish_git_prompt_char_stagedstate '+'
@@ -125,17 +145,16 @@ function fish_right_prompt_loading_indicator -a last_prompt
     echo -n "$last_prompt" | sed -r 's/\x1B\[[0-9;]*[JKmsu]//g' | read -zl uncolored_last_prompt
     echo -n (set_color brblack)"$uncolored_last_prompt"(set_color normal)
 end
+# }}}
 
-# Exports
+# Exports {{{
 export SHELL='/usr/bin/fish'
 export EDITOR='nvim'
 export TERM='xterm-256color'
 export GPG_TTY=(tty)
-
 # the auto prompt-edited detection is not enabled somehow
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
-
 if test -d $HOME/.texmf
     export TEXMFHOME=$HOME/.texmf
 end
@@ -145,9 +164,12 @@ end
 if test -f /usr/bin/zathura
     export PDFVIEWER='zathura'
 end
+# path exports
+export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
+export PATH="$PATH:$HOME/dotfiles/bin/"
+# }}}
 
-umask 007 # set umask
-
+# Drop-in replacements {{{
 if test -f /usr/bin/nvim
     alias vim='nvim'
 end
@@ -159,35 +181,60 @@ if test -f /usr/bin/delta
 else
     alias diff='diff --color' # show differences in color
 end
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias less='less -R' # less should detect colors correctly
+alias egrep='egrep --color=auto' # show differences in color
+alias fgrep='fgrep --color=auto' # show differences in color
+alias pip='pip3' #gd ubuntu
+alias python='python3' #gd ubuntu
+# pikaur hack to automatically disable virtualenvs
+function pikaur
+    if set -q VIRTUAL_ENV
+        set existing_venv (basename $VIRTUAL_ENV)
+        echo "Temporarily disabling" (set_color --bold brcyan)"$existing_venv"
+        vf deactivate
+        set_color normal
+        /usr/bin/pikaur $argv
+        echo Re-enabling (set_color --bold brcyan)"$existing_venv"
+        vf activate "$existing_venv"
+        set_color normal
+    else
+        /usr/bin/pikaur $argv
+    end
+end
+# }}}
 
-alias bcsum='paste -sd+ - | bc'
-alias dj='python -m pdb -c continue manage.py runserver'
-alias dropcli='dropbox-cli'
-alias getclip="xsel --clipboard"
-alias gg="cd (git rev-parse --show-toplevel)"
-alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
-alias gsthaw="gsutil -m setmeta -R -h 'Cache-Control:private, max-age=0, no-transform'"
-alias ipv4='ip addr | ag inet -w | ag -w "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
-alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
-alias lisp='sbcl --script'
-alias panmd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
-alias pdb='python -m pdb -c continue'
-alias poetry-outdated='poetry show --outdated --ansi | grep --file=(poetry show --tree | grep "^\\w" | sed "s/^\\([^ ]*\\).*/^.\\\\\\[36m\\1/" | psub)'
-alias putclip="xsel --clipboard"
-alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
-alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
-alias todo='task ready'
-alias trash='gio trash'
-alias ut='python manage.py test --pdb'
+# Aliases to custom Python and mailbox programs {{{
+alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
+alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
+alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
+alias odus='/usr/bin/python3 ~/dotfiles/py-scripts/odus.py'
+alias orch='/usr/bin/python3 ~/dotfiles/py-scripts/orch.py'
+alias oscar='/usr/bin/python3 ~/dotfiles/py-scripts/oscar.py'
+alias sparky='/usr/bin/python3 ~/Sync/Projects/sparky/'
+alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp.py'
+alias tsqx='/usr/bin/python3 ~/dotfiles/py-scripts/tsqx.py'
+alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
+alias von='/usr/bin/python3 -m von'
+alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
+alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
+alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
+alias xfer='/usr/bin/python3 -m xfer'
+# mailbox aliases
+alias mu='~/dotfiles/mutt/open-mail.sh'
+alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
+alias m2='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
+# }}}
 
-# password management and stuff
+# Encryption / Bitwarden utilities {{{
 function aes-encode
     openssl aes-256-cbc -a -salt -pbkdf2 -pass pass:$argv
 end
 function aes-decode
     openssl aes-256-cbc -a -d -pbkdf2 -pass pass:$argv
 end
-
 function bw-unlock
     set_color brpurple
     echo "Enter PIN to continue (or leave blank if none):"
@@ -253,8 +300,14 @@ function bw-new
         .login = $item_login")
     echo $item | bw encode | bw create item | jq
 end
+# }}}
 
-# miscellaneous functions
+# Miscellaneous utility functions {{{
+alias bcsum='paste -sd+ - | bc'
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
+alias lisp='sbcl --script'
+alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
+
 function rs1
     set regex "[abe-hjkn-uwyz]*"(
         echo $argv[1] |
@@ -273,43 +326,19 @@ function rs2
     )"[abe-hjkn-uwyz]*"
     ag -w $regex $argv[2..]
 end
-
 function pytex
     for x in $argv
         pythontex $x
     end
 end
-
-#gd ubuntu
-alias pip='pip3'
-alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
-
-# python aliases
-alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
-alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
-alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
-alias odus='/usr/bin/python3 ~/dotfiles/py-scripts/odus.py'
-alias orch='/usr/bin/python3 ~/dotfiles/py-scripts/orch.py'
-alias oscar='/usr/bin/python3 ~/dotfiles/py-scripts/oscar.py'
-alias sparky='/usr/bin/python3 ~/Sync/Projects/sparky/'
-alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp.py'
-alias tsqx='/usr/bin/python3 ~/dotfiles/py-scripts/tsqx.py'
-alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
-alias von='/usr/bin/python3 -m von'
-alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
-alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
-alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
-alias xfer='/usr/bin/python3 -m xfer'
-
-# mailbox aliases
-alias mu='~/dotfiles/mutt/open-mail.sh'
-alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
-alias m2='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
-
-# path exports
-export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
-export PATH="$PATH:$HOME/dotfiles/bin/"
-
+# correct horse battery staple
+function chbs
+    shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
+end
+# language tool wrapper
+function lt
+    j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
+end
 # Create a new TeX file
 function newtex
     if string match '*.tex' $argv
@@ -326,23 +355,6 @@ function newtex
     echo '\end{document}' >>"$argv.tex"
     nvim-qt "$argv.tex"
 end
-
-# pikaur hack to automatically disable virtualenvs
-function pikaur
-    if set -q VIRTUAL_ENV
-        set existing_venv (basename $VIRTUAL_ENV)
-        echo "Temporarily disabling" (set_color --bold brcyan)"$existing_venv"
-        vf deactivate
-        set_color normal
-        /usr/bin/pikaur $argv
-        echo Re-enabling (set_color --bold brcyan)"$existing_venv"
-        vf activate "$existing_venv"
-        set_color normal
-    else
-        /usr/bin/pikaur $argv
-    end
-end
-
 # Shortcut for editors and the like
 function pdf
     string match '*.pdf' "$argv" >/dev/null
@@ -359,8 +371,18 @@ function pdf
     end
 end
 
-# Uses the locate utility to find a certain file
-function hunt ()
+function pdfenc --argument-names infile outfile password
+    qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
+end
+function pdfjoin
+    qpdf $argv[1] --pages $argv[1..-2] -- $argv[-1]
+end
+function pdfsplit
+    qpdf --split-pages=1 $argv[1] page%d-$argv[1]
+end
+# }}}
+
+function hunt # {{{
     python3 ~/dotfiles/py-scripts/hunt.py "$argv"
     if test $status -eq 0
         if test -n (cat /tmp/hunt.(whoami))
@@ -377,31 +399,9 @@ function hunt ()
     else
         echo Search for (set_color brred)\""$argv"\"(set_color normal) aborted
     end
-end
+end # }}}
 
-# pdf utility functions
-function pdfenc --argument-names infile outfile password
-    qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
-end
-function pdfjoin
-    qpdf $argv[1] --pages $argv[1..-2] -- $argv[-1]
-end
-function pdfsplit
-    qpdf --split-pages=1 $argv[1] page%d-$argv[1]
-end
-
-# correct horse battery staple
-function chbs
-    shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
-end
-
-# language tool wrapper
-function lt
-    j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
-end
-
-# github CLI wrapper
-function hub
+function hub # {{{
     set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
     # first decide if we are a PR or an issue
     if test -n "$digits"
@@ -452,17 +452,18 @@ function hub
     else
         gh $argv
     end
-end
+end # }}}
 
-# less termcap settings
+# less termcap settings {{{
 set -x LESS_TERMCAP_md (printf "\e[01;31m")
 set -x LESS_TERMCAP_me (printf "\e[0m")
 set -x LESS_TERMCAP_se (printf "\e[0m")
 set -x LESS_TERMCAP_so (printf "\e[01;44;33m")
 set -x LESS_TERMCAP_ue (printf "\e[0m")
 set -x LESS_TERMCAP_us (printf "\e[01;32m")
+# }}}
 
-#It speaks!
+# dumb speaking aliases {{{
 alias aoeu="echo I see you are a Dvorak user."
 alias bleh="echo Meh."
 alias bye="echo So long, and thanks for all the fish."
@@ -495,18 +496,9 @@ alias qqqqqqqqqqqqqqqq="echo QQ!"
 alias qqqqqqqqqqqqqqqqq="echo QQ!"
 alias qqqqqqqqqqqqqqqqqq="echo QQ!"
 alias qqqqqqqqqqqqqqqqqqq="echo QQ!"
+# }}}
 
-# Interactive operation...
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
-# Misc :)
-alias less='less -R' # less should detect colors correctly
-alias egrep='egrep --color=auto' # show differences in color
-alias fgrep='fgrep --color=auto' # show differences in color
-
-# Some shortcuts for different directory listings
+# directory listing customization {{{
 if test (uname) = Linux
     function ll
         if test (count *) -gt 1024
@@ -547,15 +539,11 @@ else
     alias l='ls -lG'
     alias ll='ls -lG'
 end
+# }}}
 
-# Fish completions
-complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
-complete -c dn -x -a "(__fish_complete_subcommand -u -g)"
-
-# Addon settings
 set -U __done_notification_urgency_level normal
 
-# Fish colors
+# Fish colors {{{
 set -U fish_color_autosuggestion ffd7d7\x1e\x2d\x2dunderline
 set -U fish_color_cancel \x2d\x2dreverse
 set -U fish_color_command aaffff\x1e\x2d\x2dbold
@@ -593,8 +581,9 @@ set -U fish_pager_color_selected_background \x2d\x2dbackground\x3dE6B450
 set -U fish_pager_color_selected_completion \x1d
 set -U fish_pager_color_selected_description \x1d
 set -U fish_pager_color_selected_prefix \x1d
+# }}}
 
-# fish vi key bindings
+# fish vi key bindings {{{
 fish_vi_key_bindings
 bind -M default \ce accept-autosuggestion
 bind -M insert \ce accept-autosuggestion
@@ -622,9 +611,12 @@ function fish_mode_prompt
         echo -n ' '
     end
 end
+# }}}
 
-# fzf keybindings
+complete -c disown -x -a "(__fish_complete_subcommand -u -g)"
+complete -c dn -x -a "(__fish_complete_subcommand -u -g)"
 fzf_configure_bindings --git_log=\cg --directory=\cf --git_status=\cs
 
-# https://github.com/jorgebucaran/fisher/issues/747
-status is-interactive && tabs -4
+status is-interactive && tabs -4 # https://github.com/jorgebucaran/fisher/issues/747
+
+# vim: fdm=marker
