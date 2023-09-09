@@ -136,13 +136,13 @@ export GPG_TTY=(tty)
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 set -U -x VIRTUAL_ENV_DISABLE_PROMPT 1
 
-if [ -d $HOME/.texmf ]
+if test -d $HOME/.texmf
     export TEXMFHOME=$HOME/.texmf
 end
-if [ -d $HOME/.sage ]
+if test -d $HOME/.sage
     export DOT_SAGENB=$HOME/.sage
 end
-if [ -f /usr/bin/zathura ]
+if test -f /usr/bin/zathura
     export PDFVIEWER='zathura'
 end
 
