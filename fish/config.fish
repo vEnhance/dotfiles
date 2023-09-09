@@ -598,10 +598,6 @@ set -U fish_pager_color_selected_prefix \x1d
 fish_vi_key_bindings
 bind -M default \ce accept-autosuggestion
 bind -M insert \ce accept-autosuggestion
-
-# fzf keybindings
-fzf_configure_bindings --git_log=\cg --directory=\cf --git_status=\cs
-
 function fish_mode_prompt
     if test "$fish_key_bindings" = fish_vi_key_bindings
         or test "$fish_key_bindings" = fish_hybrid_key_bindings
@@ -626,6 +622,9 @@ function fish_mode_prompt
         echo -n ' '
     end
 end
+
+# fzf keybindings
+fzf_configure_bindings --git_log=\cg --directory=\cf --git_status=\cs
 
 # https://github.com/jorgebucaran/fisher/issues/747
 status is-interactive && tabs -4
