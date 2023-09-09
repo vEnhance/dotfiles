@@ -179,10 +179,6 @@ alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
 alias todo='task ready'
 alias trash='gio trash'
 alias ut='python manage.py test --pdb'
-alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
-alias winf='wine winefile'
-alias winx='startx /bin/wine winefile --kiosk --'
-alias wut='watch -b -c -n 10 "python manage.py test"'
 
 # password management and stuff
 function aes-encode
