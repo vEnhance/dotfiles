@@ -258,6 +258,7 @@ function bw-new
     echo $item | bw encode | bw create item | jq
 end
 
+# miscellaneous functions
 function rs1
     set regex "[abe-hjkn-uwyz]*"(
         echo $argv[1] |
@@ -287,9 +288,7 @@ end
 alias pip='pip3'
 alias getpip='curl -sS https://bootstrap.pypa.io/get-pip.py | python3.10'
 
-# OTIS venue Q
-alias otis='/bin/gvim -c ":let g:venue_entry=\'~/dotfiles/venueQ/otis.py\'" -c ":source ~/dotfiles/venueQ/venueQ.vim"'
-
+# python aliases
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
@@ -306,10 +305,12 @@ alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias xfer='/usr/bin/python3 -m xfer'
 
+# mailbox aliases
 alias mu='~/dotfiles/mutt/open-mail.sh'
 alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
 alias m2='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
 
+# path exports
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
 export PATH="$PATH:$HOME/dotfiles/bin/"
 
@@ -330,6 +331,7 @@ function newtex
     nvim-qt "$argv.tex"
 end
 
+# pikaur hack to automatically disable virtualenvs
 function pikaur
     if set -q VIRTUAL_ENV
         set existing_venv (basename $VIRTUAL_ENV)
@@ -381,14 +383,13 @@ function hunt ()
     end
 end
 
+# pdf utility functions
 function pdfenc --argument-names infile outfile password
     qpdf --encrypt "$password" "$password" 256 --print=none --modify=none -- $infile $outfile
 end
-
 function pdfjoin
     qpdf $argv[1] --pages $argv[1..-2] -- $argv[-1]
 end
-
 function pdfsplit
     qpdf --split-pages=1 $argv[1] page%d-$argv[1]
 end
@@ -398,7 +399,7 @@ function chbs
     shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
 end
 
-
+# language tool wrapper
 function lt
     j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
 end
@@ -457,10 +458,7 @@ function hub
     end
 end
 
-function diary
-    vim -O ~/Sync/alONE/(ag include ~/Sync/alONE/alONE.tex | tail -n 1 | cut -d \{ -f 2 | sed s/\}/.tex/) ~/Sync/alONE/alONE.tex
-end
-
+# less termcap settings
 set -x LESS_TERMCAP_md (printf "\e[01;31m")
 set -x LESS_TERMCAP_me (printf "\e[0m")
 set -x LESS_TERMCAP_se (printf "\e[0m")
