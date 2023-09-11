@@ -38,9 +38,9 @@
 
 # Aliases
 [alias]
-	ls = log -n 16 --pretty=format:"%C(yellow)%h\\ %C(green)[%cr]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
-	lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]\\ %C(red)%d" --decorate --date=short
-	ll = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]\\ %C(red)%d" --decorate --date=short --stat
+	ls = log -n 32 --pretty=format:"%C(yellow)%h\\ %C(green)[%cr]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=short
+	lo = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cd]\\ %C(red)%d" --decorate --date=short
+	ll = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cd]\\ %C(red)%d" --decorate --date=short --stat
 	lt = log --pretty=format:"%C(yellow)%h\\ %C(green)[%cd]\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --date=format:'%d%b %Y %H:%M'
 	tree = log --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(red)%d" --decorate --graph
 	all = ls-tree -r HEAD --name-only
@@ -71,7 +71,7 @@
 	d = diff
 	ds = diff --staged # queued changes staged; much shorter
 	now = diff HEAD origin/main  # check comparison to upstream
-	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cr]" --name-status # command for recently ADDED files
+	recent = log --diff-filter=A --oneline --pretty=format:"%C(yellow)%h\\ %C(cyan)[%cn]\\ %C(reset)%s\\ %C(green)[%cn]" --name-status # command for recently ADDED files
 	s = status -s -b
 	ss = status -s -b
 
