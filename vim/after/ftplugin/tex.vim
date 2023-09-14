@@ -180,7 +180,7 @@ nnoremap <silent> <localleader>p :call EvanCompileLaTeX(1)<CR>
 " latex compile once
 nnoremap <silent> <localleader>c :call EvanCompileLaTeX(0)<CR>
 " latex synctex
-nmap <silent> <localleader>s :call SyncTexForward()
+nmap <silent> <localleader>s :call SyncTexForward()<CR>
 " latex remove all double dollar signs
 nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 
