@@ -580,6 +580,8 @@ class Suggestion(VenueQNode):
                     body += f"Please consider **adding ARCH hints** at https://otis.evanchen.cc/arch/{puid} to help students who try your problem.\n\n"
                     body += "The link above may look empty now. The statement and hyperlink will reach the production server in several hours.\n"
                     body += "\n\n" + "-" * 40 + "\n\n"
+                else:
+                    return
             elif status == "SUGG_NOK":
                 subject += "Processed"
             elif status == "SUGG_REJ":
