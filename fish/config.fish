@@ -13,8 +13,8 @@ alias putclip="xsel --clipboard"
 alias todo='task ready'
 alias trash='gio trash'
 
-alias dj='python -m pdb -c continue manage.py runserver'
-alias pdb='python -m pdb -c continue'
+alias dj='ipython --pdb manage.py runserver_plus'
+alias pdb='ipython --pdb'
 alias ut='python manage.py test --pdb'
 
 function dn
@@ -379,6 +379,12 @@ function pdfjoin
 end
 function pdfsplit
     qpdf --split-pages=1 $argv[1] page%d-$argv[1]
+end
+
+function otis-clean
+    cd /tmp/junk-for-otis/
+    latexmk -C
+    rm -f {email,otis}*.{pdf,tex,log,txt,aux,fdb_latexmk,fls,out,pre,synctex.gz,asy,md}
 end
 # }}}
 
