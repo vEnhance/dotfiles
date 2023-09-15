@@ -74,7 +74,7 @@ with get_session() as session:
                     row_description = "MIT direct deposit"
                     account_name = "I:MIT"
                 elif (
-                    row_description == "ACH Withdrawal UTILITY MGMT SOL"
+                    row_description.startswith("ACH Withdrawal UTILITY M")
                     and row_amount < 0
                 ):
                     row_description = "Water bill for " + row_date.strftime("%b %Y")
@@ -125,7 +125,7 @@ with get_session() as session:
                     and bank_account_name == "TCC"
                 ):
                     row_description = "OTIS-WEB payment via Stripe API"
-                    account_name = "I:OTIS:2023S"
+                    account_name = "I:OTIS:2024S"  # TODO: make this adapt
                 elif "Forecaster 121" in row_description and row_amount < 0:
                     row_description = "Forecaster 121 HOA"
                     account_name = "E:House:HOA"

@@ -7,11 +7,15 @@ today = _date.today
 
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
+NUM_DAYS_BACK = 90
+
 with get_session() as session:
     citi = get_account(session, "L:Citi")
 
     recent_txn = [
-        txn for txn in citi.transactions if txn.date >= today() + timedelta(days=-60)
+        txn
+        for txn in citi.transactions
+        if txn.date >= today() + timedelta(days=-(NUM_DAYS_BACK+2))
     ]
 
     args_txn_to_create: list[TxnAddArgsDict] = []
@@ -22,7 +26,7 @@ with get_session() as session:
             row_date = datetime.strptime(row["Date"], "%m/%d/%Y").date()
             row_description = row["Description"].strip().title()
 
-            if row_date < today() + timedelta(days=-90):
+            if row_date < today() + timedelta(days=NUM_DAYS_BACK):
                 continue
 
             for txn in recent_txn:
@@ -90,6 +94,12 @@ with get_session() as session:
                 elif row_description.startswith("Clipper Systems") and row_amount < 0:
                     account_name = "E:Transp:Ground"
                     row_description = "BART reload card"
+                elif row_description.startswith("Lyft") and row_amount < 0:
+                    account_name = "E:Transp:Lyft"
+                elif row_description.startswith("Mbta") and row_amount < 0:
+                    account_name = "E:Transp:T"
+                elif row_description.startswith("Patreon") and row_amount < 0:
+                    account_name = "E:Donate"
                 else:
                     account_name = "Orphan-USD"
 

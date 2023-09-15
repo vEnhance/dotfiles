@@ -24,11 +24,14 @@ current_year = int(datetime.today().strftime("%Y"))
 assert current_year > 2000
 
 rows_for_csv: list[Any] = []
+NUM_DAYS_BACK = 60
 
 with get_session() as session:
     paypal = get_account(session, "A:Paypal")
     recent_txn = [
-        txn for txn in paypal.transactions if txn.date >= today() + timedelta(days=-70)
+        txn
+        for txn in paypal.transactions
+        if txn.date >= today() + timedelta(days=-(NUM_DAYS_BACK + 5))
     ]
     args_txn_to_create: list[TxnAddArgsDict] = []
 
@@ -57,7 +60,7 @@ with get_session() as session:
                 note = note[:48] + "..."
             row_description += ": " + note
 
-        if row_date < today() + timedelta(days=-60):
+        if row_date < today() + timedelta(days=-NUM_DAYS_BACK):
             continue
         rows_for_csv.append([row_description, row_amount, row_date])
 
