@@ -6,6 +6,7 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 set formatoptions-=t
+set textwidth=88 " this is the black default
 
 call DetectIndentIfPlugged()
 
