@@ -20,6 +20,10 @@ From the dashboard, press "Show All" or whatever
 to get a list of recent transactions.
 Grab the HTML element from the DOM and save it as `data/paypal.html`.
 
+### Download BoA (for importing)
+
+Export the account as plain text and save it as `data/boa.txt`.
+
 ### Run
 
 Ensure GnuCash is closed and run `import-recent.sh`.

@@ -9,6 +9,8 @@ today = _date.today
 
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
+NUM_DAYS_BACK = 90
+
 
 def get_child_string(
     tr: BeautifulSoup, tag_name="td", class_name: str | None = None
@@ -29,7 +31,7 @@ with get_session() as session:
         recent_txn = [
             txn
             for txn in bank.transactions
-            if txn.date >= today() + timedelta(days=-90)
+            if txn.date >= today() + timedelta(days=-(NUM_DAYS_BACK + 2))
         ]
         args_txn_to_create: list[TxnAddArgsDict] = []
 
@@ -57,7 +59,7 @@ with get_session() as session:
             row_date = datetime.strptime(str_date, "%m/%d/%Y").date()
             row_description = get_child_string(tr, "b")
 
-            if row_date < today() + timedelta(days=-90):
+            if row_date < today() + timedelta(days=-NUM_DAYS_BACK):
                 continue
 
             rows_for_csv.append([row_description, row_amount, row_date])

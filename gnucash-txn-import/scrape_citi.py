@@ -15,7 +15,7 @@ with get_session() as session:
     recent_txn = [
         txn
         for txn in citi.transactions
-        if txn.date >= today() + timedelta(days=-(NUM_DAYS_BACK+2))
+        if txn.date >= today() + timedelta(days=-(NUM_DAYS_BACK + 2))
     ]
 
     args_txn_to_create: list[TxnAddArgsDict] = []
