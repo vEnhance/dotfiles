@@ -195,6 +195,8 @@ nnoremap <localleader>w i$<Esc>ea$<Esc>
 
 set conceallevel=2
 
+set textwidth=88 " LaTeX can be a bit wider, follow Black
+
 " Leader keys that are defined for me
 " <Leader>ll -> pdflatex compile
 " <Leader>lv -> latex viewer
