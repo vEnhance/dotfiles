@@ -364,7 +364,7 @@
     \usepackage{xcolor}
     \ifevanbib
       \usepackage[backend=biber,backref=true,style=alphabetic]{biblatex}
-      \DeclareFieldFormat{labelalpha}{\textbf{\small #1}}
+      \DeclareFieldFormat{labelalpha}{\textbf{\small #1}} % citation ID's in small-bold
       \DefineBibliographyStrings{english}{%
         backrefpage  = {cited p.}, % for single page number
         backrefpages = {cited pp.} % for multiple page numbers
@@ -372,12 +372,15 @@
       \DeclareFieldFormat{journaltitle}{\mkbibemph{#1},} % italic journal title with comma
       \DeclareFieldFormat[inbook,thesis]{title}{\mkbibemph{#1}\addperiod} % italic title with period
       \DeclareFieldFormat[article]{title}{#1} % title of journal article is printed as normal text
-      \DeclareFieldFormat[article]{volume}{\textbf{#1}\addcolon\space}
+      \DeclareFieldFormat[article]{volume}{\textbf{#1}\addcolon\space} % bold volume numbers
+      % Separate ISBN-13 field
       \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[fieldsource=ISBN-13,fieldtarget=ISBN]}}}
+      % Evan likes small caps for bibliography author names
       \renewcommand{\mkbibnamefirst}[1]{\textsc{#1}}
       \renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
       \renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
       \renewcommand{\mkbibnameaffix}[1]{\textsc{#1}}
+      % Drop trailing punctuation in bibliography names
       \renewcommand{\finentrypunct}{}
     \fi
     \ifevanhref
