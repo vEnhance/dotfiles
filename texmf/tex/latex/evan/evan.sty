@@ -763,7 +763,11 @@
   %%fakesection Unicode
   \ifevanpkg
     \ifluatex
-      \usepackage{fontspec}
+      \ifevanchinese
+        \usepackage{luatexja-fontspec}
+      \else
+        \usepackage{fontspec}
+      \fi
       % https://tex.stackexchange.com/a/572220/76888
       \directlua{luaotfload.add_fallback
         ("evans_fallbacks",
@@ -788,6 +792,10 @@
         BoldItalicFont=lmsans10-boldoblique,
         RawFeature={fallback=evans_fallbacks}
       ]
+      \ifevanchinese
+        \setmainjfont{Source Han Sans TW}[RawFeature={fallback=evans_fallbacks}]
+        \setsansjfont{Source Han Sans TW}[RawFeature={fallback=evans_fallbacks}]
+      \fi
     \else
       \ifevanchinese
         \usepackage{babel}
