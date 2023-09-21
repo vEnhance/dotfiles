@@ -28,11 +28,11 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
   Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
   Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
-  Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
+  " Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
   Plug 'vim-latex/vim-latex'
   Plug 'vim-python/python-syntax',     { 'for' : 'python' }
-  Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
-  Plug 'vimoutliner/vimoutliner',      { 'for' : 'votl' }
+  " Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
+  " Plug 'vimoutliner/vimoutliner',      { 'for' : 'votl' }
 
   Plug 'Shougo/echodoc'
   Plug 'airblade/vim-gitgutter'
@@ -49,7 +49,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'vim-ctrlspace/vim-ctrlspace'
+  " Plug 'vim-ctrlspace/vim-ctrlspace'
   " ingo-library is a dependency for syntaxrange
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
@@ -189,6 +189,7 @@ let g:ale_set_quickfix = 1
 let g:ale_sign_column_always = 1
 let g:ale_sign_error = '💣'
 let g:ale_sign_warning = '⚠️'
+let g:ale_use_neovim_diagnostics_api = 0
 let g:ale_virtualtext_cursor = 2
 let g:ale_virtualtext_prefix = '☢️ '
 let g:coc_start_at_startup = 0
@@ -365,7 +366,7 @@ nnoremap -w <C-w><C-w>
 " make notes
 " https://www.gilesorr.com/blog/vim-tips-23-scratch-buffer.html
 function NewScratch()
-  split scratch-buffer.mkd
+  split scratch-buffer.md
   setlocal buftype=nofile
   setlocal bufhidden=hide
   setlocal noswapfile
@@ -405,7 +406,7 @@ function TreeToggle()
 endfunction
 nnoremap <silent> <Space>t :call TreeToggle()<CR>
 " smart find and replace
-nnoremap <silent> <Space>h :Farr<CR>
+" nnoremap <silent> <Space>H :Farr<CR>
 " Start up CoC
 nnoremap <silent> <Space>c :call CocStartAndDisableALELSP()<CR>
 nnoremap <silent> <Space>l :lcd %:p:h<CR>
@@ -455,15 +456,15 @@ nnoremap <Space>- :call EvanClose()<CR>
 " Telescope
 if has('nvim')
   nnoremap <silent> <Space>/ <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
-  nnoremap <silent> <Space>fb <cmd>Telescope buffers theme=dropdown<CR>
-  nnoremap <silent> <Space>ff <cmd>Telescope find_files theme=dropdown<CR>
-  nnoremap <silent> <Space>fg <cmd>Telescope live_grep<CR>
-  nnoremap <silent> <Space>fh <cmd>Telescope oldfiles theme=dropdown<CR>
-  nnoremap <silent> <Space>fj <cmd>Telescope jumplist<CR>
-  nnoremap <silent> <Space>fk <cmd>Telescope keymaps<CR>
-  nnoremap <silent> <Space>fp <cmd>Telescope builtin<CR>
-  nnoremap <silent> <Space>fq <cmd>Telescope quickfix<CR>
-  nnoremap <silent> <Space>ft <cmd>Telescope vim_options<CR>
+  nnoremap <silent> <Space>; <cmd>Telescope resume<CR>
+  nnoremap <silent> <Space>? <cmd>Telescope builtin<CR>
+  nnoremap <silent> <Space>b <cmd>Telescope buffers theme=dropdown<CR>
+  nnoremap <silent> <Space>h <cmd>Telescope oldfiles theme=dropdown<CR>
+  nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
+  nnoremap <silent> <Space>k <cmd>Telescope keymaps<CR>
+  nnoremap <silent> <Space>o <cmd>Telescope find_files theme=dropdown<CR>
+  nnoremap <silent> <Space>q <cmd>Telescope quickfix<CR>
+  nnoremap <silent> <Space>s <cmd>Telescope live_grep<CR>
 endif
 " }}}
 
