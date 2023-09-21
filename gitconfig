@@ -87,6 +87,8 @@
 [diff]
 	colorMoved = default
 	tool = meld
+[format]
+	pretty = fuller
 [interactive]
 	diffFilter = delta --color-only
 [merge]
