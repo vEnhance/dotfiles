@@ -119,9 +119,12 @@ highlight texEnvArgName       gui=bold cterm=italic ctermfg=Red  guifg=#ff00ff
 highlight texMathEnvArgName   gui=bold cterm=bold ctermfg=Green  guifg=#006633
 highlight texCmd              gui=bold cterm=none ctermfg=117    guifg=#0f4fff
 highlight texCmdPart          gui=bold cterm=bold ctermfg=Red    guifg=#ee4444
+highlight texCmdHyperref      gui=bold cterm=bold ctermfg=117    guifg=#0f4fff
 highlight texPartArgTitle     gui=bold cterm=bold ctermfg=Yellow guifg=#af8700
 highlight texRefZone          gui=underline cterm=underline ctermfg=Green guifg=#44aa44
-highlight texUrlArg           gui=underline cterm=italic    ctermfg=Cyan  guifg=#000099
+highlight texUrlArg           gui=underline cterm=italic    ctermfg=118   guifg=#003399
+highlight texHrefArgLink      gui=underline cterm=italic    ctermfg=159   guifg=#000099
+highlight texHrefArgTextC     gui=underline cterm=underline ctermfg=118   guifg=#000099
 highlight texEnvOpt cterm=bold ctermfg=White
 highlight link texStatement texMathCmd
 highlight link texRefArg texRefZone

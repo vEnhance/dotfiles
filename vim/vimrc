@@ -156,7 +156,7 @@ let g:vimtex_syntax_conceal = {
 let g:vimtex_syntax_packages = {
       \ 'amsmath': {'conceal': 1, 'load': 2},
       \ 'babel': {'conceal': 1},
-      \ 'hyperref': {'conceal': 0},
+      \ 'hyperref': {'conceal': 1},
       \ 'fontawesome5': {'conceal': 1},
       \}
 let g:vimtex_view_method = 'zathura'
