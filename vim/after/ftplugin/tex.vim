@@ -1,19 +1,11 @@
 let b:ale_linters = ['proselint', 'chktex', 'languagetool',]
 let b:ale_fixers = g:ale_fixers['*']
 
-"TODO i think it might be time to switch packages
-try
+let s:imaps_source = expand('<sfile>:p:h') . '/tex-imaps.vim'
+if filereadable(s:imaps_source)
+  exec 'source ' . s:imaps_source
   " Always use \dots
   call IMAP('...', '\dots', 'tex')
-
-  " Disable sections
-  call IMAP('SPA', 'SPA', 'tex')
-  call IMAP('SCH', 'SCH', 'tex')
-  call IMAP('SSE', 'SSE', 'tex')
-  call IMAP('SSS', 'SSS', 'tex')
-  call IMAP('SS2', 'SS2', 'tex')
-  call IMAP('SPG', 'SPG', 'tex')
-  call IMAP('SSP', 'SSP', 'tex')
 
   " Enumeration environments
   call IMAP('enum ', "\\begin{enumerate}\<CR>\\ii <++>\<CR>\\end{enumerate}<++>\<ESC>k<<",'tex')
@@ -21,33 +13,41 @@ try
   call IMAP('enuma ', "\\begin{enumerate}[<++>]\<CR>\\ii <++>\<CR>\\end{enumerate}<++>\<ESC>k<<",'tex')
   call IMAP('.desc ', "\\begin{description}\<CR>\\ii[<++>] <++>\<CR>\\end{description}<++>\<ESC>k<<",'tex')
 
-  "Other environments
-  call IMAP('.fasy ', "\\begin{figure}[ht]\<CR>\\centering\<CR>\\begin{asy}\<CR><++>\<CR>\\end{asy}\<CR>\\caption{<++>}\<CR>\\end{figure}<++>", 'tex')
+  " Simple environments
   call IMAP('.asy ', "\\begin{asy}\<CR><++>\<CR>\\end{asy}<++>", 'tex')
-  call IMAP('.casy ', "\\begin{center}\<CR>\\begin{asy}\<CR><++>\<CR>\\end{asy}\<CR>\\end{center}<++>\<ESC>k<<k<<k<<", 'tex')
-  call IMAP('.ftk ', "\\begin{center}\<CR>\\begin{tikzpicture}[scale=<++>]\<CR>\\SetVertex<++>\<CR><++>\<CR>\\end{tikzpicture}\<CR>\\end{center}<++>", 'tex')
-  call IMAP('.block ', "\\begin{block}{<++>}\<CR><++>\<CR>\\end{block}<++>", 'tex')
   call IMAP('.ablock ', "\\begin{alertblock}{<++>}\<CR><++>\<CR>\\end{alertblock}<++>", 'tex')
+  call IMAP('.block ', "\\begin{block}{<++>}\<CR><++>\<CR>\\end{block}<++>", 'tex')
   call IMAP('.eblock ', "\\begin{exampleblock}{<++>}\<CR><++>\<CR>\\end{exampleblock}<++>", 'tex')
   call IMAP('.center ', "\\begin{center}\<CR><++>\<CR>\\end{center}<++>", 'tex')
-  call IMAP('.frame ', "\\begin{frame}\<CR>\\frametitle{<++>}\<CR><++>\<CR>\\end{frame}", 'tex')
   call IMAP('.align ', "\\begin{align*}\<CR><++>\<CR>\\end{align*}<++>", 'tex')
   call IMAP('.box ', "\\begin{mdframed}\<CR><++>\<CR>\\end{mdframed}<++>", 'tex')
-  call IMAP('.diag ', "\\begin{diagram}\<CR><++>\<CR>\\end{diagram}<++>", 'tex')
-  call IMAP('.cd ', "\\begin{center}\<CR>\\begin{tikzcd}\<CR><++>\<CR>\\end{tikzcd}\<CR>\\end{center}<++>\<ESC>k<<k<<k<<", 'tex')
   call IMAP('.cases ', "\\begin{cases}\<CR><++>\<CR>\\end{cases}<++>", 'tex')
+  call IMAP('.code ', "\\begin{lstlisting}\<CR><++>\<CR>\\end{lstlisting}\<CR><++>\<ESC>k<<", 'tex')
+  call IMAP('.mat ', "\\begin{bmatrix}\<CR><++>\<CR>\\end{bmatrix}<++>", 'tex')
+  call IMAP('.qut ', "\\begin{quote}\<CR><++>\<CR>\\end{quote}<++>", 'tex')
+  call IMAP('.qtn ', "\\begin{quotation}\<CR><++>\<CR>\\end{quotation}<++>", 'tex')
+  call IMAP('.vrs ', "\\begin{verse}\<CR><++>\<CR>\\end{verse}<++>", 'tex')
+
+  call IMAP('.env ', "\\begin{<++>}\<CR><++>\<CR>\\end{<++>}<++>", 'tex') " BEST IDEA EVER
+
+  " Other environments
+  call IMAP('.fasy ', "\\begin{figure}[ht]\<CR>\\centering\<CR>\\begin{asy}\<CR><++>\<CR>\\end{asy}\<CR>\\caption{<++>}\<CR>\\end{figure}<++>", 'tex')
+  call IMAP('.casy ', "\\begin{center}\<CR>\\begin{asy}\<CR><++>\<CR>\\end{asy}\<CR>\\end{center}<++>\<ESC>k<<k<<k<<", 'tex')
+  call IMAP('.ftk ', "\\begin{center}\<CR>\\begin{tikzpicture}[scale=<++>]\<CR>\\SetVertex<++>\<CR><++>\<CR>\\end{tikzpicture}\<CR>\\end{center}<++>", 'tex')
+  call IMAP('.frame ', "\\begin{frame}\<CR>\\frametitle{<++>}\<CR><++>\<CR>\\end{frame}", 'tex')
+  call IMAP('.cd ', "\\begin{center}\<CR>\\begin{tikzcd}\<CR><++>\<CR>\\end{tikzcd}\<CR>\\end{center}<++>\<ESC>k<<k<<k<<", 'tex')
   call IMAP('.fig ', "\\begin{figure}[ht]\<CR>\\centering\<CR>\\includegraphics[<++>]{<++>}\<CR>\\caption{<++>}\<CR>\\end{figure}\<CR><++>", 'tex')
   call IMAP('.wfig ', "\\begin{wrapfigure}[<++>]{r}{<++>}\<CR>\\centering\<CR>\\includegraphics[<++>]{<++>}\<CR>\\caption{<++>}\<CR>\\label{fig:<++>}\<CR>\\end{wrapfigure}\<CR><++>", 'tex')
   call IMAP('.img ', "\\begin{center}\<CR>\\includegraphics[<++>]{<++>}\<CR>\\end{center}\<CR><++>", 'tex')
-  call IMAP('.code ', "\\begin{lstlisting}\<CR><++>\<CR>\\end{lstlisting}\<CR><++>\<ESC>k<<", 'tex')
-  call IMAP('.mat ', "\\begin{bmatrix}\<CR><++>\<CR>\\end{bmatrix}<++>", 'tex')
-  call IMAP('.beg ', "\\begin{<++>}\<CR><++>\<CR>\\end{<++>}<++>", 'tex') " BEST IDEA EVER
+  call IMAP('.eqn ', "\\begin{equation}\<CR><++>\<CR>\\label{eqn:<++>}\<CR>\\end{equation}\<CR><++>", 'tex')
 
   "Miscellaneous maps
-  call IMAP('<C-/>', '\frac{<++>}{<++>}<++>', 'tex')
   call IMAP('[]', '[]', 'tex')
   call IMAP('<<', '\left< <++>\right><++>', 'tex')
   call IMAP('||', '\left\lvert <++> \right\rvert<++>', 'tex')
+  call IMAP('((', '\left( <++> \right)<++>', 'tex')
+  call IMAP('[[', '\left[ <++> \right]<++>', 'tex')
+
   call IMAP('.floor ', '\left\lfloor <++> \right\rfloor<++>', 'tex')
   call IMAP('.ceil ', '\left\lceil <++> \right\rceil<++>', 'tex')
   call IMAP('.cycsum ', '\sum_{\text{cyc}} ', 'tex')
@@ -145,34 +145,25 @@ try
   call IMAP('Proof[]::', "\\begin{proof}[<++>]\<CR><++>\<CR>\\end{proof}<++>", 'tex')
   call IMAP('Subproof::', "\\begin{subproof}\<CR><++>\<CR>\\end{subproof}<++>", 'tex')
   call IMAP('Subproof[]::', "\\begin{subproof}[<++>]\<CR><++>\<CR>\\end{subproof}<++>", 'tex')
-endtry
+endif
 
 function EvanCompileLaTeX(continuous)
   " von compiler
   if stridx(expand('%:p'), 'vondb') != -1 || stridx(expand('%:t'), 'von.tex') != -1
     lcd /tmp/preview_$USER
-    if a:continuous
-      silent !xfce4-terminal -T "latexmk" -e "latexmk -pvc -f von_preview.tex" &
-    else
-      silent !xfce4-terminal -T "latexmk" -e "latexmk -pv -f von_preview.tex" &
-    endif
-    return
+    let b:vimtex_main='/tmp/preview_' . $USER . '/von_preview.tex'
   endif
-  " search for documentclass
-  let n = 1
-  while n < 10 && n <= line('$')
-    if getline(n) =~# 'documentclass'
-      " compile and fire if found
-      if a:continuous
-        silent !xfce4-terminal -e "latexmk -cd -pvc -f %" &
-      else
-        silent !xfce4-terminal -e "latexmk -cd -pv -f %" &
-      endif
-      return
-    endif
-    let n = n + 1
-  endwhile
-  echo 'No documentclass provided. This file will not compile!'
+  if a:continuous
+    VimtexCompile
+  elseif b:vimtex.compiler.is_running()
+    VimtexView
+  else
+    VimtexCompileSS
+  endif
+endfunction
+
+function! SyncTexForward()
+  exec 'silent !zathura --synctex-forward '.line('.').':'.col('.').':%:p %:p:r.pdf &'
 endfunction
 
 " latex compile continuously
@@ -181,12 +172,14 @@ nnoremap <silent> <localleader>p :call EvanCompileLaTeX(1)<CR>
 nnoremap <silent> <localleader>c :call EvanCompileLaTeX(0)<CR>
 " latex synctex
 nmap <silent> <localleader>s :call SyncTexForward()<CR>
+" vimtex toc
+nnoremap <silent> <localleader>t <plug>(vimtex-toc-toggle)
+" vimtex open viewer
+nnoremap <silent> <localleader>v <plug>(vimtex-view)
 " latex remove all double dollar signs
 nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 
 " TeX Customizations
-let g:Tex_FoldedEnvironments='titlepage,abstract,asy,tikzpicture' " Folding of certain environments
-let g:Tex_Leader='`'
 set iskeyword+=: " Autocomplete for fig: etc. references
 set iskeyword+=_ " Add _ to autocomplete list
 
@@ -196,8 +189,3 @@ nnoremap <localleader>w i$<Esc>ea$<Esc>
 set conceallevel=2
 
 set textwidth=88 " LaTeX can be a bit wider, follow Black
-
-" Leader keys that are defined for me
-" <Leader>ll -> pdflatex compile
-" <Leader>lv -> latex viewer
-" <Leader>rf -> refresh folds (LaTeX)

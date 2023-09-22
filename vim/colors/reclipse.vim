@@ -86,6 +86,7 @@ highlight NonText    gui=none guibg=#e7e7e7 guifg=#707070
 highlight SpecialKey gui=none guibg=bg      guifg=#c0c0c0 ctermbg=53  ctermfg=253
 highlight Title      gui=bold guibg=bg      guifg=#0033cc
 highlight Visual     gui=none guibg=#ffc0a0 guifg=#804020 ctermfg=105
+highlight MatchParen ctermbg=22 cterm=underline
 
 " Syntax group
 highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan                 cterm=bold
@@ -112,6 +113,13 @@ highlight link pythonString String
 highlight link Directory Identifier
 highlight mkdURL guifg=#999999
 highlight htmlBold       ctermbg=237 ctermfg=195 cterm=bold
+
+highlight texTitleArg         gui=bold cterm=bold ctermfg=White
+highlight texPartArgTitle     gui=bold cterm=bold ctermfg=Yellow guifg=#ff0000
+highlight texEnvArgName       gui=bold cterm=bold ctermfg=Red    guifg=#b07800
+highlight texMathEnvArgName   gui=bold cterm=bold ctermfg=Green  guifg=#006633
+highlight texRefZone          gui=underline cterm=underline ctermfg=Green
+highlight link texStatement texMathCmd
 
 highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=239  ctermfg=45

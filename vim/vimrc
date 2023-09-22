@@ -29,10 +29,14 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
   Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
   " Plug 'tools-life/taskwiki',          { 'for' : ['vimwiki', 'markdown'] }
-  Plug 'vim-latex/vim-latex'
+  " Plug 'vim-latex/vim-latex'
+  Plug 'lervag/vimtex'
   Plug 'vim-python/python-syntax',     { 'for' : 'python' }
   " Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
   " Plug 'vimoutliner/vimoutliner',      { 'for' : 'votl' }
+
+  " Plug 'honza/vim-snippets'
+  " Plug 'SirVer/ultisnips'
 
   Plug 'Shougo/echodoc'
   Plug 'airblade/vim-gitgutter'
@@ -49,7 +53,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  " Plug 'vim-ctrlspace/vim-ctrlspace'
+  Plug 'vim-ctrlspace/vim-ctrlspace'
   " ingo-library is a dependency for syntaxrange
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
@@ -111,6 +115,7 @@ let g:jedi#show_call_signatures = 0
 let g:plug_url_format = 'https://www.github.com/%s'
 let g:python_highlight_all = 1
 let g:taskwiki_disable_concealcursor=1
+let g:UltiSnipsEditSplit='vertical'
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_frontmatter = 1
@@ -124,6 +129,24 @@ let g:VM_maps['Find Under']         = '<C-v>'
 let g:VM_maps['Find Subword Under'] = '<C-v>'
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkSyncSystemClipboardOnFocus = 0
+
+let g:vimtex_view_method = 'zathura'
+let g:vimtex_syntax_conceal = {
+      \ 'accents': 1,
+      \ 'ligatures': 1,
+      \ 'cites': 1,
+      \ 'fancy': 1,
+      \ 'spacing': 0,
+      \ 'greek': 1,
+      \ 'math_bounds': 0,
+      \ 'math_delimiters': 1,
+      \ 'math_fracs': 1,
+      \ 'math_super_sub': 1,
+      \ 'math_symbols': 1,
+      \ 'sections': 0,
+      \ 'styles': 1,
+      \}
+
 let grepprg = 'ag --nogroup --nocolor'
 
 " Airline auto from vim-plugins
@@ -300,6 +323,25 @@ nnoremap <silent> ]g :ALENextWrap<CR>
 " nnoremap gf :e<cfile><CR>
 " }}}
 " Misc mappings {{{
+" jumplist shouldn't move across files
+function! JumpWithinFile(back, forw)
+  let [n, i] = [bufnr('%'), 1]
+  let p = [n] + getpos('.')[1:]
+  sil! exe 'norm!1' . a:forw
+  while 1
+    let p1 = [bufnr('%')] + getpos('.')[1:]
+    if n == p1[0] | break | endif
+    if p == p1
+      sil! exe 'norm!' . (i-1) . a:back
+      break
+    endif
+    let [p, i] = [p1, i+1]
+    sil! exe 'norm!1' . a:forw
+  endwhile
+endfunction
+nnoremap <silent> <C-i> :call JumpWithinFile("\<c-i>", "\<c-o>")<cr>
+nnoremap <silent> <C-o> :call JumpWithinFile("\<c-o>", "\<c-i>")<cr>
+
 " system clipboard
 vnoremap <silent> <C-C> '+y
 nnoremap <silent> <C-c> :%y+<CR>
@@ -465,6 +507,7 @@ if has('nvim')
   nnoremap <silent> <Space>o <cmd>Telescope find_files theme=dropdown<CR>
   nnoremap <silent> <Space>q <cmd>Telescope quickfix<CR>
   nnoremap <silent> <Space>s <cmd>Telescope live_grep<CR>
+  nnoremap <silent> <Space>x <cmd>Telescope command_history<CR>
 endif
 " }}}
 
@@ -556,25 +599,6 @@ if has('nvim')
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=1200 }
   augroup END
 endif
-" }}}
-" More lame LaTeX stuff {{{
-let g:Tex_DefaultTargetFormat = 'pdf'
-let g:Tex_GotoError = 1
-let g:Tex_Leader2='\\'
-let g:Tex_SmartKeyDot = 0
-let g:Tex_SmartKeyQuote = 0
-let g:Tex_ViewRule_pdf = 'zathura'
-let g:Tex_comment_nospell= 1
-let g:tex_flavor='latex'
-function! SyncTexForward()
-  exec 'silent !zathura --synctex-forward '.line('.').':'.col('.').':%:p %:p:r.pdf &'
-endfunction
-let g:tex_conceal='agms'
-let g:xml_syntax_folding=1
-" Leader keys that are forced on me by LaTeX
-" <Leader>ll -> pdflatex compile
-" <Leader>lv -> latex viewer
-" <Leader>rf -> refresh folds (LaTeX)
 " }}}
 
 " vim: ft=vim fdm=marker
