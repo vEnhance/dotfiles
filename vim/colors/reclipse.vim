@@ -3,7 +3,7 @@
 " Based on eclipse:
 " URL: http://www.axisym3.net/jdany/vim-the-editor/#eclipse
 
-scriptencoding utf-8
+scriptencoding 'utf-8'
 
 set background=light
 highlight clear

@@ -2,7 +2,7 @@
 
 " vint: -ProhibitSetNoCompatible
 set nocompatible
-scriptencoding utf-8
+scriptencoding 'utf-8'
 
 colorscheme reclipse
 filetype plugin indent on
