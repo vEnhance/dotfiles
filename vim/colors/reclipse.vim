@@ -114,12 +114,17 @@ highlight link Directory Identifier
 highlight mkdURL guifg=#999999
 highlight htmlBold       ctermbg=237 ctermfg=195 cterm=bold
 
-highlight texTitleArg         gui=bold cterm=bold ctermfg=White
-highlight texPartArgTitle     gui=bold cterm=bold ctermfg=Yellow guifg=#ff0000
-highlight texEnvArgName       gui=bold cterm=bold ctermfg=Red    guifg=#b07800
+highlight texTitleArg         gui=bold cterm=bold ctermfg=White  guifg=#0000ff
+highlight texEnvArgName       gui=bold cterm=italic ctermfg=Red  guifg=#ff00ff
 highlight texMathEnvArgName   gui=bold cterm=bold ctermfg=Green  guifg=#006633
-highlight texRefZone          gui=underline cterm=underline ctermfg=Green
+highlight texCmd              gui=bold cterm=none ctermfg=117    guifg=#0f4fff
+highlight texCmdPart          gui=bold cterm=bold ctermfg=Red    guifg=#ee4444
+highlight texPartArgTitle     gui=bold cterm=bold ctermfg=Yellow guifg=#af8700
+highlight texRefZone          gui=underline cterm=underline ctermfg=Green guifg=#44aa44
+highlight texUrlArg           gui=underline cterm=italic    ctermfg=Cyan  guifg=#000099
+highlight texEnvOpt cterm=bold ctermfg=White
 highlight link texStatement texMathCmd
+highlight link texRefArg texRefZone
 
 highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=239  ctermfg=45

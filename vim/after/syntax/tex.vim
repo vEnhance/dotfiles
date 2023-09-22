@@ -16,8 +16,8 @@ syntax match texMathSymbol "\\dang\>" contained conceal cchar=∡
 syn region texRefZone    matchgroup=texStatement start="\\cref{"  end="}\|%stopzone\>"  contains=@texRefGroup
 syn region texRefZone    matchgroup=texStatement start="\\Cref{"  end="}\|%stopzone\>"  contains=@texRefGroup
 
-syn region texStyleBoth    matchgroup=texGroup start="\\vocab{"  end="}\|%stopzone\>"  contains=@texGroup
-syn region texStyleBoth    matchgroup=texGroup start="\\alert{"  end="}\|%stopzone\>"  contains=@texGroup
+syn region texStyleBold  matchgroup=Identifier start="\\vocab{"  end="}\|%stopzone\>"  contains=@texGroup
+syn region texStyleBold  matchgroup=Identifier start="\\alert{"  end="}\|%stopzone\>"  contains=@texGroup
 
 " Inline syntax highlighting
 call SyntaxRange#Include('\\begin{asy}', '\\end{asy}', 'asy', 'PreProc')

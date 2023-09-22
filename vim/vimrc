@@ -173,6 +173,8 @@ let g:airline#extensions#tabline#current_first = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 1
+let g:airline#extensions#vimtex#left = '▶'
+let g:airline#extensions#vimtex#right = ''
 let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
 let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
@@ -242,6 +244,7 @@ let g:coc_global_extensions = [
   \ 'coc-tabnine',
   \ 'coc-tsserver',
   \ 'coc-vimlsp',
+  \ 'coc-vimtex',
   \ 'coc-yaml',
   \ ]
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
