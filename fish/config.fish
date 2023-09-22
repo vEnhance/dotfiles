@@ -353,7 +353,7 @@ function newtex
     echo '\title{}' >>"$argv.tex"
     echo '' >>"$argv.tex"
     echo '\end{document}' >>"$argv.tex"
-    nvim-qt "$argv.tex"
+    nvim "$argv.tex"
 end
 # Shortcut for editors and the like
 function pdf
