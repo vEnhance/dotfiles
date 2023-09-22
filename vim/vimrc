@@ -354,8 +354,8 @@ function! JumpWithinFile(back, forw)
     sil! exe 'norm!1' . a:forw
   endwhile
 endfunction
-nnoremap <silent> <C-i> :call JumpWithinFile("\<c-i>", "\<c-o>")<cr>
-nnoremap <silent> <C-o> :call JumpWithinFile("\<c-o>", "\<c-i>")<cr>
+nnoremap <silent> <C-i> :call JumpWithinFile("\<c-o>", "\<c-i>")<cr>
+nnoremap <silent> <C-o> :call JumpWithinFile("\<c-i>", "\<c-o>")<cr>
 
 " system clipboard
 vnoremap <silent> <C-C> '+y
