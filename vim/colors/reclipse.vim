@@ -3,6 +3,8 @@
 " Based on eclipse:
 " URL: http://www.axisym3.net/jdany/vim-the-editor/#eclipse
 
+scriptencoding utf-8
+
 set background=light
 highlight clear
 if exists('syntax_on')
@@ -134,6 +136,7 @@ highlight texRefZone          gui=underline cterm=underline ctermfg=Green guifg=
 highlight texUrlArg           gui=underline cterm=italic    ctermfg=118   guifg=#003399
 highlight texHrefArgLink      gui=underline cterm=italic    ctermfg=159   guifg=#000099
 highlight texHrefArgTextC     gui=underline cterm=underline ctermfg=118   guifg=#000099
+highlight texStyleArgConc     gui=bold cterm=italic ctermfg=Yellow
 highlight texEnvOpt cterm=bold ctermfg=White
 highlight link texStatement texMathCmd
 highlight link texRefArg texRefZone
