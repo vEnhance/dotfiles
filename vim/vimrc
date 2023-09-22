@@ -130,7 +130,14 @@ let g:VM_maps['Find Subword Under'] = '<C-v>'
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkSyncSystemClipboardOnFocus = 0
 
-let g:vimtex_view_method = 'zathura'
+let g:vimtex_fold_enabled = 1
+let g:vimtex_fold_levelmarker = '§'
+let g:vimtex_fold_manual = 1
+let g:vimtex_fold_types = {
+      \ 'preamble' : {'enabled' : 1},
+      \ 'sections' : {'enabled' : 1},
+      \ 'envs' : { 'enabled' : 1},
+      \ }
 let g:vimtex_syntax_conceal = {
       \ 'accents': 1,
       \ 'ligatures': 1,
@@ -146,6 +153,13 @@ let g:vimtex_syntax_conceal = {
       \ 'sections': 0,
       \ 'styles': 1,
       \}
+let g:vimtex_syntax_packages = {
+      \ 'amsmath': {'conceal': 1, 'load': 2},
+      \ 'babel': {'conceal': 1},
+      \ 'hyperref': {'conceal': 0},
+      \ 'fontawesome5': {'conceal': 1},
+      \}
+let g:vimtex_view_method = 'zathura'
 
 let grepprg = 'ag --nogroup --nocolor'
 
