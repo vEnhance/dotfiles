@@ -68,10 +68,16 @@ highlight! link SignColumn LineNr
 highlight LineNr     gui=none guibg=#cccccc guifg=#6b6b6b
 highlight CursorLineNr        guibg=#eeeeee               ctermbg=239 ctermfg=122 cterm=bold
 highlight ALEVirtualTextError        ctermfg=0 ctermbg=210 cterm=italic guifg=#000000 guibg=#ff8787 gui=italic
-highlight ALEVirtualTextWarning      ctermfg=0 ctermbg=178 cterm=italic guifg=#000000 guibg=#d7af00 gui=italic
+highlight ALEVirtualTextWarning      ctermfg=0 ctermbg=166 cterm=italic guifg=#000000 guibg=#d7af00 gui=italic
 highlight ALEVirtualTextInfo         ctermfg=0 ctermbg=109 cterm=italic guifg=#000000 guibg=#87afaf gui=italic
 highlight ALEVirtualTextStyleError   ctermfg=0 ctermbg=210 cterm=italic guifg=#000000 guibg=#ff8787 gui=italic
-highlight ALEVirtualTextStyleWarning ctermfg=0 ctermbg=178 cterm=italic guifg=#000000 guibg=#d7af00 gui=italic
+highlight ALEVirtualTextStyleWarning ctermfg=0 ctermbg=166 cterm=italic guifg=#000000 guibg=#d7af00 gui=italic
+highlight link DiagnosticVirtualTextError ALEVirtualTextError
+highlight link DiagnosticVirtualTextWarn ALEVirtualTextWarning
+highlight link DiagnosticVirtualTextInfo ALEVirtualTextInfo
+highlight link DiagnosticFloatingError ALEVirtualTextError
+highlight link DiagnosticFloatingWarn ALEVirtualTextWarning
+highlight link DiagnosticFloatingInfo ALEVirtualTextInfo
 
 " Error highlighting
 highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
@@ -79,6 +85,9 @@ highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
 highlight ALEError     cterm=underline ctermfg=210 ctermbg=237
 highlight ALEWarning   cterm=underline ctermfg=178 ctermbg=237
 highlight ALEInfo      cterm=underline ctermfg=109 ctermbg=237
+sign define DiagnosticSignError text=⛔ texthl=ALEError linehl= numhl=
+sign define DiagnosticSignWarn  text=⚠️  texthl=ALEWarning linehl= numhl=
+sign define DiagnosticSignInfo  text=☑️  texthl=ALEInfo linehl= numhl=
 
 " Other
 highlight Directory  gui=none guibg=bg      guifg=#7050ff ctermfg=39

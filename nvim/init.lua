@@ -5,6 +5,12 @@ vim.cmd 'set runtimepath^=~/.vim runtimepath+=~/.vim/after'
 vim.cmd 'let &packpath = &runtimepath'
 vim.cmd 'source ~/.vimrc'
 
+vim.diagnostic.config({
+  virtual_text = {
+    prefix = ' ●', -- Could be '●', '▎', 'x'
+  }
+})
+
 local function on_attach(bufnr)
   local nvim_tree_api = require('nvim-tree.api')
 

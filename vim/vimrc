@@ -226,9 +226,9 @@ let g:ale_set_balloon= 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 1
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '💣'
+let g:ale_sign_error = '⛔'
 let g:ale_sign_warning = '⚠️'
-let g:ale_use_neovim_diagnostics_api = 0
+" let g:ale_use_neovim_diagnostics_api = 1
 let g:ale_virtualtext_cursor = 2
 let g:ale_virtualtext_prefix = '☢️ '
 let g:coc_start_at_startup = 0
@@ -251,7 +251,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call plug#end()
 endif
 " }}}
-" Register ALE {{{
+" ALE + CoC {{{
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call ale#Set('djlint_executable', 'djlint')
   call ale#Set('djlint_options', '')
@@ -273,8 +273,6 @@ function! CocStartAndDisableALELSP()
   CocStart
   CocEnable
   let g:ale_disable_lsp = 1
-  nnoremap <silent> [g <Plug>(coc-diagnostic-prev)
-  nnoremap <silent> ]g <Plug>(coc-diagnostic-next)
   echo 'CoC has been started!'
 endfunction
 " }}}
@@ -464,15 +462,12 @@ function TreeToggle()
   endif
 endfunction
 nnoremap <silent> <Space>t :call TreeToggle()<CR>
-" smart find and replace
-" nnoremap <silent> <Space>H :Farr<CR>
 " Start up CoC
 nnoremap <silent> <Space>c :call CocStartAndDisableALELSP()<CR>
 nnoremap <silent> <Space>l :lcd %:p:h<CR>
-
 nnoremap <silent> <Space>w :set wrap<CR>
 nnoremap <silent> <Space>n :set nowrap<CR>
-
+" nnoremap <silent> <Space>H :Farr<CR>
 " git status
 nnoremap <Space>gg :Git<CR>
 nnoremap <Space>gb :Git blame -w<CR>
