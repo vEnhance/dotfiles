@@ -1,9 +1,7 @@
 let b:ale_linters = ['proselint', 'chktex', 'languagetool',]
 let b:ale_fixers = g:ale_fixers['*']
 
-let s:imaps_source = expand('<sfile>:p:h') . '/tex-imaps.vim'
-if filereadable(s:imaps_source)
-  exec 'source ' . s:imaps_source
+if exists('*IMAP')
   " Always use \dots
   call IMAP('...', '\dots', 'tex')
 
@@ -149,10 +147,6 @@ endif
 
 function EvanCompileLaTeX(continuous)
   " von compiler
-  if stridx(expand('%:p'), 'vondb') != -1 || stridx(expand('%:t'), 'von.tex') != -1
-    lcd /tmp/preview_$USER
-    let b:vimtex_main='/tmp/preview_' . $USER . '/von_preview.tex'
-  endif
   if a:continuous
     VimtexCompile
   elseif b:vimtex.compiler.is_running()
@@ -170,6 +164,8 @@ endfunction
 nnoremap <silent> <localleader>p :call EvanCompileLaTeX(1)<CR>
 " latex compile once
 nnoremap <silent> <localleader>c :call EvanCompileLaTeX(0)<CR>
+" latex halt compile
+nnoremap <silent> <localleader>h <plug>(vimtex-stop)
 " latex synctex
 nmap <silent> <localleader>s :call SyncTexForward()<CR>
 " vimtex toc

@@ -605,11 +605,22 @@ autocmd vimrc BufRead * call DetectIndentIfPlugged()
 autocmd vimrc BufNewFile,BufRead *.tex set spell
 autocmd vimrc VimEnter .git/COMMIT_EDITMSG set filetype=gitcommit
 
+function! DetectVonTemp()
+  if stridx(expand('%:p'), '/vondb') != -1
+    let b:vimtex_main='/tmp/preview_' . $USER . '/von_preview.tex'
+  endif
+endfunction
+autocmd vimrc BufReadPre *.tex call DetectVonTemp()
+
 if has('nvim')
   augroup highlight_yank
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=1200 }
   augroup END
+endif
+
+if !empty(globpath(&runtimepath, 'after/ftplugin/imaps.vim'))
+  runtime after/ftplugin/imaps.vim
 endif
 " }}}
 
