@@ -231,14 +231,7 @@ let g:ale_sign_warning = '⚠️'
 " let g:ale_use_neovim_diagnostics_api = 1
 let g:ale_virtualtext_cursor = 2
 let g:ale_virtualtext_prefix = '☢️ '
-" TEMPORARY: i still think we should manually start CoC since it's so
-" overkill for the majority of quick editing tasks, but I'm not used to it
-if has('nvim') && (hostname() ==# 'ArchMajestic' || hostname() ==# 'ArchBootes')
-  let g:ale_disable_lsp = 1
-  let g:coc_start_at_startup = 1
-else
-  let g:coc_start_at_startup = 0
-endif
+let g:coc_start_at_startup = 0
 let g:coc_global_extensions = [
   \ 'coc-css',
   \ 'coc-html',
