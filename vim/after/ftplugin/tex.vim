@@ -45,6 +45,7 @@ if exists('*IMAP')
   call IMAP('||', '\left\lvert <++> \right\rvert<++>', 'tex')
   call IMAP('((', '\left( <++> \right)<++>', 'tex')
   call IMAP('[[', '\left[ <++> \right]<++>', 'tex')
+  call IMAP('{{', '\left\{ <++> \right\}<++>', 'tex')
 
   call IMAP('.floor ', '\left\lfloor <++> \right\rfloor<++>', 'tex')
   call IMAP('.ceil ', '\left\lceil <++> \right\rceil<++>', 'tex')
