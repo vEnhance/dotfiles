@@ -40,6 +40,8 @@ syn region texRefZone    matchgroup=texStatement start="\\Cref{"  end="}\|%stopz
 syn region texStyleBold  matchgroup=Identifier start="\\vocab{"  end="}\|%stopzone\>"  contains=@texGroup
 syn region texStyleBold  matchgroup=Identifier start="\\alert{"  end="}\|%stopzone\>"  contains=@texGroup
 
+syntax match texCmdItem "\\ii\>" conceal cchar=•
+
 " Inline syntax highlighting
 call SyntaxRange#Include('\\begin{asy}', '\\end{asy}', 'asy', 'PreProc')
 call SyntaxRange#Include('\\begin{asydef}', '\\end{asydef}', 'asy', 'PreProc')
