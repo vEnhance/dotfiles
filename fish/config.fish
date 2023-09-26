@@ -326,7 +326,7 @@ function rs2
     )"[abe-hjkn-uwyz]*"
     ag -w $regex $argv[2..]
 end
-function pytex
+function pytex -w pythontex
     for x in $argv
         pythontex $x
     end
@@ -336,7 +336,7 @@ function chbs
     shuf -n 1000 /usr/share/dict/words | ag "^[a-z]{3,9}\$" | head -n 12
 end
 # language tool wrapper
-function lt
+function lt -w j-langtool
     j-langtool $argv | cut -c 1-80 | bat -l verilog --wrap=never --paging=never
 end
 # Create a new TeX file
@@ -356,7 +356,7 @@ function newtex
     nvim "$argv.tex"
 end
 # Shortcut for editors and the like
-function pdf
+function pdf -w zathura
     string match '*.pdf' "$argv" >/dev/null
     if test \( -f "$argv" \) -a \( $status -eq 0 \)
         dn zathura $argv &>/dev/null
@@ -407,7 +407,7 @@ function hunt # {{{
     end
 end # }}}
 
-function hub # {{{
+function hub -w gh # {{{
     set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
     # first decide if we are a PR or an issue
     if test -n "$digits"
