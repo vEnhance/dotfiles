@@ -13,3 +13,6 @@
 [submodule "gh-extensions/gh-dash"]
 	path = gh-extensions/gh-dash
 	url = https://github.com/dlvhdr/gh-dash
+[submodule "gh-extensions/gh-markdown-preview"]
+	path = gh-extensions/gh-markdown-preview
+	url = https://github.com/yusukebe/gh-markdown-preview
