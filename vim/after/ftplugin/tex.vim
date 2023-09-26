@@ -176,9 +176,18 @@ nnoremap <silent> <localleader>v <plug>(vimtex-view)
 " latex remove all double dollar signs
 nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 
-" TeX Customizations
-set iskeyword+=: " Autocomplete for fig: etc. references
-set iskeyword+=_ " Add _ to autocomplete list
+
+" For autocompletion, it's useful to have : and _ too for e.g. thm:main_thm
+" so we follow https://superuser.com/a/783220/440809
+" to have these in iskeyword only for autocomplete
+setlocal iskeyword-=_
+function! CompleteWithUnderscores(type)
+  setlocal iskeyword+=_
+  return a:type
+endfunction
+inoremap <expr> <C-N> CompleteWithUnderscores("<C-N>")
+inoremap <expr> <C-P> CompleteWithUnderscores("<C-P>")
+autocmd vimrc CompleteDone * setlocal iskeyword-=_
 
 " Wrap in dollar signs
 nnoremap <localleader>w i$<Esc>ea$<Esc>
