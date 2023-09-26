@@ -16,3 +16,6 @@
 [submodule "gh-extensions/gh-markdown-preview"]
 	path = gh-extensions/gh-markdown-preview
 	url = https://github.com/yusukebe/gh-markdown-preview
+[submodule "gh-extensions/gh-link"]
+	path = gh-extensions/gh-link
+	url = https://github.com/vEnhance/gh-link
