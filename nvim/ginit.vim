@@ -1,5 +1,5 @@
 if hostname() ==# 'ArchScythe'
-  let s:basefontsize = 20
+  let s:basefontsize = 16
 elseif hostname() ==# 'ArchDiamond'
   let s:basefontsize = 18
 elseif hostname() ==# 'ArchMajestic'
@@ -7,7 +7,7 @@ elseif hostname() ==# 'ArchMajestic'
 elseif hostname() ==# 'ArchBootes'
   let s:basefontsize = 18
 elseif hostname() ==# 'ArchSapphire'
-  let s:basefontsize = 20
+  let s:basefontsize = 18
 else
   let s:basefontsize = 22
 endif
