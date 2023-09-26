@@ -511,7 +511,8 @@ nnoremap <Space>- :call EvanClose()<CR>
 if has('nvim')
   nnoremap <silent> <Space>/ <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
   nnoremap <silent> <Space>; <cmd>Telescope resume<CR>
-  nnoremap <silent> <Space>? <cmd>Telescope builtin<CR>
+  nnoremap <silent> <Space>f <cmd>Telescope builtin<CR>
+  nnoremap <silent> <Space>v <cmd>Telescope vim_options<CR>
   nnoremap <silent> <Space>b <cmd>Telescope buffers theme=dropdown<CR>
   nnoremap <silent> <Space>h <cmd>Telescope oldfiles theme=dropdown<CR>
   nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
