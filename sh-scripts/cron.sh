@@ -14,22 +14,12 @@ if command -v gcalendar >/dev/null; then
   ~/dotfiles/sh-scripts/get-cal.sh
 fi
 
-## MBSYNC + MUTT
-# Syncing mailboxes for use with mutt
-if command -v mbsync >/dev/null; then
-  mbsync -Va
-fi
-
 ## SYNC TASKWARRIOR
 if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
   task rc.recurrence.limit=1 list
 fi
-#if command -v task >/dev/null; then
-#  task rc.gc=on sync
-#fi
 if command -v bugwarrior-pull >/dev/null; then
   bugwarrior-pull
-# task rc.gc=on sync
 fi
 
 ## PACMAN SNAPSHOTS
@@ -44,4 +34,10 @@ if [ -f /bin/pacman ]; then
       git commit -a -m "$(date), snapshot taken on $(hostname)"
     fi
   fi
+fi
+
+## MBSYNC + MUTT
+# Syncing mailboxes for use with mutt
+if command -v mbsync >/dev/null; then
+  mbsync -Va
 fi
