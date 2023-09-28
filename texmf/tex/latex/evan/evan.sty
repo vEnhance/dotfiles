@@ -376,10 +376,10 @@
       % Separate ISBN-13 field
       \DeclareSourcemap{\maps[datatype=bibtex]{\map{\step[fieldsource=ISBN-13,fieldtarget=ISBN]}}}
       % Evan likes small caps for bibliography author names
-      \renewcommand{\mkbibnamefirst}[1]{\textsc{#1}}
-      \renewcommand{\mkbibnamelast}[1]{\textsc{#1}}
+      \renewcommand{\mkbibnamegiven}[1]{\textsc{#1}}
+      \renewcommand{\mkbibnamefamily}[1]{\textsc{#1}}
       \renewcommand{\mkbibnameprefix}[1]{\textsc{#1}}
-      \renewcommand{\mkbibnameaffix}[1]{\textsc{#1}}
+      \renewcommand{\mkbibnamesuffix}[1]{\textsc{#1}}
       % Drop trailing punctuation in bibliography names
       \renewcommand{\finentrypunct}{}
     \fi
