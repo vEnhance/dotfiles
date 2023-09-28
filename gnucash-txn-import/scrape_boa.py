@@ -51,7 +51,6 @@ with get_session() as session:
                     row_description = "Payment for " + (
                         row_date + timedelta(days=-30)
                     ).strftime("%b 26, %Y")
-                    row_description = "Payment for "
                     account_name = "L:BOACC"
                 elif row_description.startswith("VENMO DES:PAYMENT"):
                     row_description = "[TODO] Venmo payment"
