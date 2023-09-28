@@ -26,7 +26,7 @@ with get_session() as session:
             row_date = datetime.strptime(row["Date"], "%m/%d/%Y").date()
             row_description = row["Description"].strip().title()
 
-            if row_date < today() + timedelta(days=NUM_DAYS_BACK):
+            if row_date < today() + timedelta(days=-NUM_DAYS_BACK):
                 continue
 
             for txn in recent_txn:
