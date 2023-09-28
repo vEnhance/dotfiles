@@ -42,6 +42,7 @@ with get_session() as session:
         str_amount = get_child_string(div, cy="totalAmountTextVal")
         str_amount = str_amount.replace("$", "")
         str_amount = str_amount.replace(" ", "")
+        str_amount = str_amount.replace("−", "-")
         row_amount = to_dollars(str_amount)
         str_date = get_child_string(div, cy="dateText")
         row_date = datetime.strptime(f"{str_date} {current_year}", r"%b %d %Y").date()
