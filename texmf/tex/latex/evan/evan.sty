@@ -204,6 +204,7 @@
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\GL}{GL} % General linear group
 \DeclareMathOperator{\SL}{SL} % Special linear group
+\DeclareMathOperator{\Vol}{Vol} % Special linear group
 
 %From Kiran Kedlaya's "Geometry Unbound"
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
@@ -515,19 +516,19 @@
     %Branching here: the option secthm changes theorems to be labelled by section
     \ifevanmdthm
       \ifevansecthm
-        \declaretheorem[%
-        style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+        \declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
       \else
-        \declaretheorem[%
-        style=thmbluebox,name=Theorem]{theorem}
+        \declaretheorem[style=thmbluebox,name=Theorem]{theorem}
       \fi
       \declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
       \declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
       \declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
+      \declaretheorem[style=thmbluebox,name=Assumption,sibling=theorem]{assume}
       \declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
       \declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
       \declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
       \declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
+      \declaretheorem[style=thmbluebox,name=Assumption,numbered=no]{assume*}
     \else
       \ifevansecthm
         \declaretheorem[name=Theorem,numberwithin=section]{theorem}
@@ -537,10 +538,12 @@
       \declaretheorem[name=Lemma,sibling=theorem]{lemma}
       \declaretheorem[name=Proposition,sibling=theorem]{proposition}
       \declaretheorem[name=Corollary,sibling=theorem]{corollary}
+      \declaretheorem[name=Assumption,sibling=theorem]{assume}
       \declaretheorem[name=Theorem,numbered=no]{theorem*}
       \declaretheorem[name=Lemma,numbered=no]{lemma*}
       \declaretheorem[name=Proposition,numbered=no]{proposition*}
       \declaretheorem[name=Corollary,numbered=no]{corollary*}
+      \declaretheorem[name=Assumption,numbered=no]{assume*}
     \fi
 
     \ifevanmdthm
@@ -564,7 +567,6 @@
     \fi
 
     % Remark-style theorems
-    %\theoremstyle{remark}
     \ifevanmdthm
       \declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
       \declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
@@ -598,6 +600,7 @@
     \declaretheorem[style=basehead,name=Question,numbered=no]{ques*}
 
     \ifevanpkg
+      \Crefname{assume}{Assumption}{Assumptions}
       \Crefname{claim}{Claim}{Claims}
       \Crefname{conjecture}{Conjecture}{Conjectures}
       \Crefname{exercise}{Exercise}{Exercises}
