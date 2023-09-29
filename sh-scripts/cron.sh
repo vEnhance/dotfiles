@@ -16,10 +16,7 @@ fi
 
 ## SYNC TASKWARRIOR
 if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
-  task rc.recurrence.limit=1 list
-fi
-if command -v bugwarrior-pull >/dev/null; then
-  bugwarrior-pull
+  ~/dotfiles/sh-scripts/task-update.sh
 fi
 
 ## PACMAN SNAPSHOTS

@@ -206,7 +206,7 @@ function pikaur
 end
 # }}}
 
-# Aliases to custom Python and mailbox programs {{{
+# Aliases to custom Python/shell and mailbox programs {{{
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
@@ -222,6 +222,8 @@ alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias xfer='/usr/bin/python3 -m xfer'
+
+alias tu='~/dotfiles/sh-scripts/task-update.sh'
 # mailbox aliases
 alias mu='~/dotfiles/mutt/open-mail.sh'
 alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
