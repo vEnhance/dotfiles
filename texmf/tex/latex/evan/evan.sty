@@ -586,8 +586,8 @@
       \declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
     \fi
 
-    \declaretheorem[style=basehead,name=Answer,sibling=theorem]{ans}
-    \declaretheorem[style=basehead,name=Answer,numbered=no]{ans*}
+    \declaretheorem[style=basehead,name=Answer,sibling=theorem]{answer}
+    \declaretheorem[style=basehead,name=Answer,numbered=no]{answer*}
     \declaretheorem[style=basehead,name=Conjecture,sibling=theorem]{conjecture}
     \declaretheorem[style=basehead,name=Conjecture,numbered=no]{conjecture*}
     \declaretheorem[style=basehead,name=Definition,sibling=theorem]{definition}
@@ -602,6 +602,7 @@
     \declaretheorem[style=basehead,name=Question,numbered=no]{ques*}
 
     \ifevanpkg
+      \Crefname{answer}{Answer}{Answers}
       \Crefname{assume}{Assumption}{Assumptions}
       \Crefname{claim}{Claim}{Claims}
       \Crefname{conjecture}{Conjecture}{Conjectures}
