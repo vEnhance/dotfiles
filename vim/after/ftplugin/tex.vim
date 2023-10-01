@@ -37,7 +37,7 @@ if exists('*IMAP')
   call IMAP('.fig ', "\\begin{figure}[ht]\<CR>\\centering\<CR>\\includegraphics[<++>]{<++>}\<CR>\\caption{<++>}\<CR>\\end{figure}\<CR><++>", 'tex')
   call IMAP('.wfig ', "\\begin{wrapfigure}[<++>]{r}{<++>}\<CR>\\centering\<CR>\\includegraphics[<++>]{<++>}\<CR>\\caption{<++>}\<CR>\\label{fig:<++>}\<CR>\\end{wrapfigure}\<CR><++>", 'tex')
   call IMAP('.img ', "\\begin{center}\<CR>\\includegraphics[<++>]{<++>}\<CR>\\end{center}\<CR><++>", 'tex')
-  call IMAP('.eqn ', "\\begin{equation}\<CR><++>\<CR>\\label{eqn:<++>}\<CR>\\end{equation}\<CR><++>", 'tex')
+  call IMAP('.eqn ', "\\begin{equation}\<CR><++>\<CR>\\label{eq:<++>}\<CR>\\end{equation}\<CR><++>", 'tex')
 
   "Miscellaneous maps
   call IMAP('[]', '[]', 'tex')
