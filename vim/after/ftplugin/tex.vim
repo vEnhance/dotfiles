@@ -6,10 +6,10 @@ if exists('*IMAP')
   call IMAP('...', '\dots', 'tex')
 
   " Enumeration environments
-  call IMAP('.enum ', "\\begin{enumerate}\<CR>\\ii <++>\<CR>\\end{enumerate}<++>\<ESC>k<<",'tex')
-  call IMAP('.ii ', "\\begin{itemize}\<CR>\\ii <++>\<CR>\\end{itemize}<++>\<ESC>k<<",'tex')
-  call IMAP('.enuma ', "\\begin{enumerate}[<++>]\<CR>\\ii <++>\<CR>\\end{enumerate}<++>\<ESC>k<<",'tex')
-  call IMAP('.desc ', "\\begin{description}\<CR>\\ii[<++>] <++>\<CR>\\end{description}<++>\<ESC>k<<",'tex')
+  call IMAP('.enum ', "\\begin{enumerate}\<CR>  \\ii <++>\<CR>\\end{enumerate}<++>\<ESC>k<<",'tex')
+  call IMAP('.ii ', "\\begin{itemize}\<CR>  \\ii <++>\<CR>\\end{itemize}<++>\<ESC>k<<",'tex')
+  call IMAP('.enuma ', "\\begin{enumerate}[<++>]\<CR>  \\ii <++>\<CR>\\end{enumerate}<++>\<ESC>k<<",'tex')
+  call IMAP('.desc ', "\\begin{description}\<CR>  \\ii<++>\<CR>\\end{description}<++>\<ESC>k<<",'tex')
 
   " Simple environments
   call IMAP('.asy ', "\\begin{asy}\<CR><++>\<CR>\\end{asy}<++>", 'tex')
