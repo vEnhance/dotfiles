@@ -297,6 +297,7 @@ class ProblemSet(VenueQNode):
         # save file
         for ext in ProblemSet.EXTENSIONS:
             if self.get_path(ext).exists():
+                logger.info(f"Already fetched {self.get_path(ext)}")
                 self.ext = ext
                 break
         else:
@@ -306,6 +307,7 @@ class ProblemSet(VenueQNode):
             ext = ext.lower()
             assert ext in ProblemSet.EXTENSIONS, f"{ext} is not a valid extension"
             self.ext = ext
+            logger.info(f"Trying to fetch {url}")
             try:
                 file_response = requests.get(url=url)
             except:
