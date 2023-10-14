@@ -111,6 +111,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://ioinformatics.org/*",
     # r"*://liquipedia.net/*",
     r"*://localhost/*",
+    r"*://login.artofproblemsolving.com/*",
     r"*://mathoverflow.net/*",
     r"*://mit.edu/*",
     r"*://poll.ma.pe/*",
