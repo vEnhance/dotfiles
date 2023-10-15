@@ -30,3 +30,5 @@ pythontex_data.pkl
 **.toc
 **.synctex.gz
 **.synctex(busy)
+
+.syncthing.**.tmp
