@@ -24,7 +24,7 @@ if exists('*IMAP')
   call IMAP('.mat ', "\\begin{bmatrix}\<CR><++>\<CR>\\end{bmatrix}<++>", 'tex')
   call IMAP('.qut ', "\\begin{quote}\<CR><++>\<CR>\\end{quote}<++>", 'tex')
   call IMAP('.qtn ', "\\begin{quotation}\<CR><++>\<CR>\\end{quotation}<++>", 'tex')
-  call IMAP('.vrs ', "\\begin{verse}\<CR><++>\<CR>\\end{verse}<++>", 'tex')
+  call IMAP('.verse ', "\\begin{verse}\<CR><++>\<CR>\\end{verse}<++>", 'tex')
 
   call IMAP('.env ', "\\begin{<++>}\<CR><++>\<CR>\\end{<++>}<++>", 'tex') " BEST IDEA EVER
 
