@@ -19,7 +19,7 @@ fi
 
 if [ "$(hostname)" = ArchScythe ]; then
   xrandr --output "eDP1" --mode 1920x1080 --primary \
-    --output "HDMI1" --mode 1920x1080 --right-of "eDP1"
+    --output "HDMI1" --mode 1920x1080 --left-of "eDP1"
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
