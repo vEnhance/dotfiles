@@ -188,7 +188,7 @@ macro attach p "<pipe-message>nvim -R -<enter>" "Pipe in NVim"
 bind pager z edit-raw-message
 # }}}
 # COLORS {{{
-color hdrdefault black        cyan
+# color hdrdefault black        cyan
 color quoted     red          white
 color signature  brightblack  white
 # color indicator  brightwhite  red
