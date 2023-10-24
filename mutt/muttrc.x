@@ -224,11 +224,11 @@ color header brightyellow black "^(From|Subject):"
 color header red         black "^X-Junked-Because: "
 
 # Colours for items in the index
-color index color52  brightyellow  ~N
-color index color130  white   ~O
-color index brightwhite magenta ~F
-color index black       cyan  ~T
-color index brightwhite black ~D
+color index color52     brightyellow  ~N
+color index brightblack white         ~O
+color index brightwhite magenta       ~F
+color index black       cyan          ~T
+color index brightwhite black         ~D
 
 # URLs
 color body brightcolor28 white "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
@@ -247,19 +247,17 @@ color body brightblue  white "(^|[[:space:]])_[^[:space:]]+_([[:space:]]|$)"    
 color body brightblue  white "(^|[[:space:]])/[^[:space:]]+/([[:space:]]|$)"     # /Italic/ text.
 
 # NeoMutt color settings
-color index_author magenta white '.*'
-color index_author brightblack brightyellow ~N
-color index_author black white ~O
-color index_author brightblack magenta ~F
-color index_author brightblack cyan ~T
-color index_author brightmagenta black ~D
-
+color index_author magenta       white        '.*'
+color index_author brightblack   brightyellow ~N
+color index_author black         white        ~O
+color index_author brightblack   magenta      ~F
+color index_author brightblack   cyan         ~T
+color index_author brightmagenta black        ~D
 color index_collapsed default brightblue
-color index_date green black
-color index_label default brightgreen
-
-color index_number magenta white
-color index_size cyan white
+color index_date      green   black
+color index_label     default brightgreen
+color index_number    color90 white
+color index_size      cyan    white
 
 color sidebar_divider color19 white
 # color sidebar_spoolfile color19 white
