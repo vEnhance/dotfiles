@@ -188,6 +188,21 @@ macro attach p "<pipe-message>nvim -R -<enter>" "Pipe in NVim"
 bind pager z edit-raw-message
 # }}}
 # COLORS {{{
+# Colour definitions when on a mono screen
+mono bold      bold
+mono underline underline
+mono indicator reverse
+mono header bold "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
+mono index bold  ~N
+mono index bold  ~O
+mono index bold  ~F
+mono index bold  ~T
+mono index bold  ~D
+mono body bold   "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+mono body bold   "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+mono body bold   "news:[^ \">\t\r\n]*"
+mono body bold   "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+
 # color hdrdefault black        cyan
 color quoted     red          white
 color signature  brightblack  white
@@ -203,16 +218,10 @@ color tilde      green        white
 color bold       brightyellow white
 color markers    red          white
 
-# Colour definitions when on a mono screen
-mono bold      bold
-mono underline underline
-mono indicator reverse
-
 # Colours for items in the reader
 color header white  black "."
 color header brightyellow black "^(From|Subject):"
 color header red         black "^X-Junked-Because: "
-mono  header bold             "^(From|Subject|X-Junked-Because|X-Virus-hagbard):"
 
 # Colours for items in the index
 color index color52  brightyellow  ~N
@@ -220,25 +229,14 @@ color index color130  white   ~O
 color index brightwhite magenta ~F
 color index black       cyan  ~T
 color index brightwhite black ~D
-mono  index bold              ~N
-mono  index bold              ~O
-mono  index bold              ~F
-mono  index bold              ~T
-mono  index bold              ~D
-
-# Highlights inside the body of a message.
 
 # URLs
-color body brightblue  white "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
-color body brightblue  white "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
-color body brightblue  white "news:[^ \">\t\r\n]*"
-mono  body bold              "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
-mono  body bold              "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
-mono  body bold              "news:[^ \">\t\r\n]*"
+color body brightcolor28 white "(http|https|ftp|news|telnet|finger)://[^ \">\t\r\n]*"
+color body brightcolor28 white "mailto:[-a-z_0-9.]+@[-a-z_0-9.]+"
+color body brightcolor28 white "news:[^ \">\t\r\n]*"
 
 # email addresses
-color body brightblue  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
-mono  body bold              "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
+color body brightcolor88  white "[-a-z_0-9.%$]+@[-a-z_0-9.]+\\.[-a-z][-a-z]+"
 
 # Various smilies and the like
 color body brightgreen white "<[Gg]>"                                            # <g>
