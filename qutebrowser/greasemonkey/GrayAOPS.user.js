@@ -18,7 +18,7 @@
     .getPropertyValue("background-color");
   function getRGB(str) {
     var match = str.match(
-      /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/
+      /rgba?\((\d{1,3}), ?(\d{1,3}), ?(\d{1,3})\)?(?:, ?(\d(?:\.\d?))\))?/,
     );
     return match
       ? {
