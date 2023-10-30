@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-python@v2
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade vim-vint
+          python -m pip install --upgrade vim-vint setuptools
       - name: Run vint
         run: |
           vint $(git ls-files '*.vim' 'vim/vimrc' | grep -v "plug.vim")
