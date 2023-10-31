@@ -21,12 +21,14 @@ pythontex_data.pkl
 **.fdb_latexmk
 **.fls
 **.log
+**.nav
 **.out
 **.pre
 **.pytxcode
 **.pytxmcr
 **.pytxpyg
 **.run.xml
+**.snm
 **.toc
 **.synctex.gz
 **.synctex(busy)
