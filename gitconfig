@@ -52,6 +52,7 @@
 	br = branch
 	cm = commit
 	co = checkout
+	ff = merge --ff-only
 	force = push --force-with-lease
 	mkroot = commit --allow-empty -m 'Initial commit'
 	rb = rebase -i
