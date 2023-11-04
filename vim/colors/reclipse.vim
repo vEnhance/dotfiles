@@ -141,8 +141,8 @@ highlight texEnvOpt cterm=bold ctermfg=White
 highlight link texStatement texMathCmd
 highlight link texRefArg texRefZone
 
-highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=none ctermfg=240
-highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=239  ctermfg=45
+highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=237 ctermfg=240
+highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=240 ctermfg=45
 
 highlight ColorColumn guibg=#ffeeee ctermbg=23
 
