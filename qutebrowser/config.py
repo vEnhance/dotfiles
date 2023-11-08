@@ -54,6 +54,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.evanchen.cc/*",
     r"*://*.facebook.com/*",
     r"*://*.firebaseapp.com/*",
+    r"*://*.galacticpuzzlehunt.com/*",
     r"*://*.g2mathprogram.org/*",
     r"*://*.github.com/*",
     r"*://*.gradescope.com/*",
