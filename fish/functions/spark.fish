@@ -25,7 +25,7 @@ function spark --description Sparklines
             }
             END {
                 n = split("▁ ▂ ▃ ▄ ▅ ▆ ▇ █", sparks, " ") - 1
-                while (++i <= NR) 
+                while (++i <= NR)
                     printf("%s", sparks[(M == m) ? 3 : sprintf("%.f", (1 + (nums[i] - m) * n / (M - m)))])
             }
         ' && echo

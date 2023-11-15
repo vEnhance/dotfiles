@@ -30,12 +30,12 @@
 %             - Draws the whole box "at once" (and not in two steps, as
 %               the normal beamer colorbox does) using the TikZ-Package
 %               and thus has a very easy to read code structure.
-%  
+%
 %   problems: - Uses your TikZ-Package (Not really a problem, I think.)
 %             - Overwrites the "\beamerboxesrounded" and the
 %               "\endbeamerboxesrounded" commands. (Not really a problem
 %               as well, I think.)
-% 
+%
 %   to do:    - Jet no custom parts page and only a very minimal
 %               title page.
 %             - Perhaps add custom "items" and "sections/subsections in
@@ -103,7 +103,7 @@
   % lengths are set via beameroptions
 %  \bmb@corners=2pt
 %  \bmb@padding=2pt
-  % 
+  %
   \setbox\bmb@headbox=\hbox{%
     \begin{minipage}[b]{\bmb@width-\bmb@corners-\bmb@corners-\bmb@padding-\bmb@padding}%
       \usebeamercolor[fg]{\bmb@upper}%
@@ -114,7 +114,7 @@
     \ht\bmb@headbox=0pt%
     \dp\bmb@headbox=0pt%
     \bmb@headheight=0pt%
-    \bmb@headdepth=1.4ex% 
+    \bmb@headdepth=1.4ex%
     \bmb@headbodyseperation=0pt%
     {\usebeamercolor{\bmb@lower}% make head and body bg color equal if head is empty
      \globalcolorstrue%
@@ -195,7 +195,7 @@
       \else%
       \vskip0.25em%
       {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}%
-      \fi%     
+      \fi%
     \end{centering}
     \vskip1.5em\par
     \begin{centering}
@@ -227,6 +227,6 @@
 
 \mode<all>
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% TeX-master: "~/texmf/tex/latex/beamer/test/test.tex"
-%%% End: 
+%%% End:
