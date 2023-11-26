@@ -96,7 +96,7 @@ for line in statement.splitlines():
 solution = api.get_solution(source)
 
 if solution:
-    initial_message += "\n\n" + "#" + "-" * 30 + "\n\n"
+    initial_message += "\n\n" + "# " + "-" * 30 + "\n\n"
     for line in solution.splitlines():
         initial_message += ("# " + line).strip() + "\n"
 
