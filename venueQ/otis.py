@@ -338,7 +338,21 @@ class ProblemSet(VenueQNode):
         salutation = random.choice(["Hi", "Hello", "Hey"])
 
         if datetime.today().month == 12 and datetime.today().day > 10:
-            closing = "Happy Holidays"
+            christmas_mv_url = random.choice(
+                [
+                    "https://youtu.be/iTgcp1oDk2M",  # Beautiful Christmas - Red Velvet + aespa
+                    "https://youtu.be/LvgzpvB3uEw",  # Christmas Present - GFriend
+                    "https://youtu.be/mc274HUFhQQ",  # Fallin Light - GFriend
+                    "https://youtu.be/zi_6oaQyckM",  # Merry and Happy - TWICE
+                    "https://youtu.be/w14rSMl35ro",  # Merry Christmas ahead - IU
+                    "https://youtu.be/AU3QQLFNZR0",  # My My - Purple Kiss
+                    "https://youtu.be/hsh54g9JmC0",  # This Christmas - TAEYEON
+                    "https://youtu.be/y2BwMqpGzC8",  # Timing - B1A4 + Oh My Girl
+                    "https://youtu.be/kLUKXX0sfII",  # Snowy - ITZY
+                    "https://youtu.be/jQ_ogJWssXU",  # Winter - Handong solo
+                ]
+            )
+            closing = f"[Happy holidays]({christmas_mv_url})"
         else:
             closing = random.choice(
                 [
