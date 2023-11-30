@@ -17,4 +17,4 @@ gcalendar --no-of-days 14 --output json \
   "Video Calls for OTIS" \
   "White" \
   "Zero-Minute Reminders" \
-  "twitch.tv" | python ~/dotfiles/py-scripts/get-cal-helper.py ~/.cache/agenda.json
+  "twitch.tv" | python ~/dotfiles/py-scripts/get-cal-helper.py
