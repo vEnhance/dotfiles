@@ -21,7 +21,8 @@ fi
 # Conky setup for main work desktops
 if [ "$(hostname)" = ArchMajestic ]; then
   if [ "$(whoami)" = "evan" ]; then
-    conky -c ~/dotfiles/conky/shifted-bar.conf &
+    conky -c ~/dotfiles/conky/main-bar.conf &
+    conky -c ~/dotfiles/conky/power-widget.conf &
     conky -c ~/dotfiles/conky/cal3.conf &
   fi
   if [ "$(whoami)" = "star" ]; then
