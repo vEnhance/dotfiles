@@ -86,6 +86,7 @@ if __name__ == "__main__":
     else:
         raise ValueError(f"Invalid program type {PROGRAM_TYPE}")
 
+    any_failed = False
     for input_file_path in sorted(Path("tests").glob("*.input")):
         stdout_path = input_file_path.with_suffix(".stdout")
         stderr_path = input_file_path.with_suffix(".stderr")
@@ -129,9 +130,13 @@ if __name__ == "__main__":
                 f"\t💥 {TERM_COLOR['BOLD_RED']}CRASHED{TERM_COLOR['RESET']} "
                 f"{input_file_path}: return-code={process.returncode}"
             )
+            any_failed = True
         elif not answer_path.exists():
-            print(f"\t📜 Saving {answer_path} since no existing answer was given")
-            subprocess.call(["cp", stdout_path, answer_path])
+            if not any_failed:
+                print(f"\t📜 Saving {answer_path} since no existing answer was given")
+                subprocess.call(["cp", stdout_path, answer_path])
+            else:
+                print(f"\t🤷 {answer_path} doesn't exist")
         else:
             diff_process = subprocess.run(
                 ["diff", "--color=always", stdout_path, answer_path],
@@ -148,5 +153,6 @@ if __name__ == "__main__":
                     f"\t❌ {TERM_COLOR['BOLD_RED']}FAILED{TERM_COLOR['RESET']} "
                     f"test case {input_file_path}"
                 )
+                any_failed = True
         if opts.stdout or opts.stderr:
             print("-" * 60)
