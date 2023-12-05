@@ -468,7 +468,7 @@ class ProblemSetCarrier(VenueQNode):
 class Inquiries(VenueQNode):
     def init_hook(self):
         self.data["accept_all"] = False
-        for inquiry in self.data["inquiries"]:
+        for inquiry in self.data["inquiries"] + self.data["reading"]:
             inquiry["name"] = (
                 inquiry.pop("student__user__first_name")
                 + " "
