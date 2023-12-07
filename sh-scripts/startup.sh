@@ -79,6 +79,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   syncthing-gtk &
+  spotify &
   systemctl --user start evansync.timer
 fi
 
@@ -91,6 +92,7 @@ if [ "$(hostname)" = ArchBootes ]; then
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   syncthing-gtk &
+  spotify &
   systemctl --user start evansync.timer
   picom -G -b --no-fading-openclose --backend xrender
   xinput --set-prop 13 'libinput Accel Speed' -0.5
