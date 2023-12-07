@@ -71,6 +71,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.myaccount.google.com/*",
     r"*://*.overleaf.com/*",  # their documentation is admittedly not bad
     r"*://*.pretzel.rocks/*",
+    r"*://*.probase.app/*",
     r"*://*.pythonanywhere.com/*",
     r"*://*.readthedocs.io/*",
     r"*://*.reference.slideroom.com/*",
