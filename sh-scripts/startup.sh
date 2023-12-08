@@ -76,10 +76,10 @@ if [ "$(hostname)" = ArchMajestic ]; then
     dropbox-cli start
     signal-desktop --start-in-tray --use-tray-icon &
     # gnome-calendar &
+    syncthing-gtk &
+    spotify &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
-  syncthing-gtk &
-  spotify &
   systemctl --user start evansync.timer
 fi
 
@@ -89,10 +89,10 @@ if [ "$(hostname)" = ArchBootes ]; then
     # dropbox-cli start
     signal-desktop --start-in-tray --use-tray-icon &
     # gnome-calendar &
+    syncthing-gtk &
+    spotify &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
-  syncthing-gtk &
-  spotify &
   systemctl --user start evansync.timer
   picom -G -b --no-fading-openclose --backend xrender
   xinput --set-prop 13 'libinput Accel Speed' -0.5
