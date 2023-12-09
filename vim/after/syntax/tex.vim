@@ -12,6 +12,11 @@ syntax match texMathSymbol "\\half\>" contained conceal cchar=½
 syntax match texMathSymbol "\\eps\>" contained conceal cchar=ε
 syntax match texMathSymbol "\\dang\>" contained conceal cchar=∡
 syntax match texMathSymbol "\\dg\>" contained conceal cchar=°
+syntax match texMathSymbol "\\dotsb\>" contained conceal cchar=…
+syntax match texMathSymbol "\\dotsc\>" contained conceal cchar=…
+syntax match texMathSymbol "\\dotsi\>" contained conceal cchar=…
+syntax match texMathSymbol "\\dotsm\>" contained conceal cchar=…
+syntax match texMathSymbol "\\dotso\>" contained conceal cchar=…
 " Conceal mathbb/etc.
 syntax match texMathSymbol "\\CC\>" contained conceal cchar=ℂ
 syntax match texMathSymbol "\\EE\>" contained conceal cchar=𝔼
