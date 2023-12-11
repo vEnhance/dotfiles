@@ -366,7 +366,7 @@ def clean_name(s):
     if "." in s:
         s = s[: s.index(".")]
     s = s.replace("_", " ")
-    return re.sub("[A-Za-z]+", lambda e: e[0] + " ", s).strip()
+    return re.sub("([A-Z][a-z]*|[A-Z]+)", lambda e: e[0] + " ", s).strip()
 
 
 if __name__ == "__main__":
