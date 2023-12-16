@@ -6,8 +6,8 @@ workspace 4 output DP1 primary
 workspace 5 output DP1 primary
 workspace 6 output DP1 primary
 workspace 7 output DP1 primary
-workspace 8 output DP1 HDMI1 primary
-workspace 9 output DP1 HDMI1 primary
-workspace 10 output DP1 HDMI1 primary
+workspace 8 output DP1 HDMI1 HDMI2 primary
+workspace 9 output DP1 HDMI1 HDMI2 primary
+workspace 10 output DP1 HDMI1 HDMI2 primary
 
 # workspace 0 gaps right 400
