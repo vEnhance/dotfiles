@@ -1,9 +1,4 @@
-#taskd.certificate=~/.intheam/private.certificate.pem
-#taskd.key=~/.intheam/private.key.pem
-#taskd.ca=~/.intheam/ca.cert.pem
-#taskd.server=inthe.am:53589
-#taskd.credentials=inthe_am/chen.evan6/f8102e77-169f-40b2-9491-ba20a3c8c2d1
-#taskd.trust=strict
+include ~/Sync/Keys/wingtask.taskrc
 
 alias.E=project:errand
 alias.G=project:github

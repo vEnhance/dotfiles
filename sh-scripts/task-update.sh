@@ -9,3 +9,5 @@ if command -v bugwarrior-pull >/dev/null; then
 fi
 
 task rc.recurrence.limit=1 list
+
+task sync
