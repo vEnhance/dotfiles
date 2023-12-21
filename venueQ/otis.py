@@ -171,6 +171,7 @@ class ProblemSet(VenueQNode):
 
     EXTRA_FIELDS = (
         "student__pk",
+        "student__last_level_seen",
         "student__user__email",
         "student__user__first_name",
         "student__user__last_name",
@@ -225,8 +226,9 @@ class ProblemSet(VenueQNode):
         data["info"] += f"({grade}{data['student__reg__gender']}) "
         data["info"] += f"aka {data['student__reg__aops_username']}"
         data["info"] += r" | "
-        data["info"] += f"{data['num_accepted_current']}u this year; "
-        data["info"] += f"{data['num_accepted_all']}u all-time"
+        data["info"] += f"Lv{data['student__last_level_seen']}; "
+        data["info"] += f"{data['num_accepted_current']}u this year, "
+        data["info"] += f"{data['num_accepted_all']}u all-time."
         data[
             "name"
         ] = f"{data['student__user__first_name']} {data['student__user__last_name']}"
