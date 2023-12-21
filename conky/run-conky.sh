@@ -35,6 +35,6 @@ if [ "$(hostname)" = ArchBootes ]; then
     conky -c ~/dotfiles/conky/cal3.conf &
   fi
   if [ "$(whoami)" = "star" ]; then
-    conky -c ~/dotfiles/conky/star-bar.conf &
+    conky -c ~/dotfiles/conky/cali-gaming-bar.conf &
   fi
 fi
