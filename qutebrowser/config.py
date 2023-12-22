@@ -108,6 +108,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://groups.google.com/*",
     r"*://hanabi-competitions.com/*",
     r"*://hanabi.github.io/*",
+    r"*://hanabi-league.com/*",
     r"*://hanabi-league.github.io/*",
     r"*://hanab.live/*",
     r"*://ioinformatics.org/*",
