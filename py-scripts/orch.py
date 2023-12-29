@@ -135,11 +135,12 @@ if type(result) == dict:
                 and len(d.keys()) == 3
             )
         ]
-        if len(new_hint_dicts) == 0:
-            print("Aborting because no content.")
-            sys.exit(65)
     else:
         new_hint_dicts = []
+
+    if len(new_hint_dicts) == 0 and old_hints == result["old_hints"]:
+        print("Aborting because no content.")
+        sys.exit(65)
 
     data = {
         "action": "add_many_hints",
