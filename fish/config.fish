@@ -13,7 +13,7 @@ alias putclip="xsel --clipboard"
 alias todo='task ready'
 alias trash='gio trash'
 
-alias dj='ipython --pdb manage.py runserver_plus'
+alias dj='ipython --pdb manage.py runserver'
 alias pdb='ipython --pdb'
 alias ut='python manage.py test --pdb'
 
