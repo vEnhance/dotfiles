@@ -77,8 +77,8 @@ initial_message = yaml.dump(
         "allow_delete_hints": False,
         "new_hints": [
             {
-                "number": "<++>",
                 "keywords": "<++>",
+                "number": "<++>",
                 "content": "<++>",
             }
             for _ in range(4)
