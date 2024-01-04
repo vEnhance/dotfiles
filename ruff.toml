@@ -1,0 +1,3 @@
+[lint]
+# in addition to default linter rules, sort imports
+select = ["E4", "E7", "E9", "F", "I"]

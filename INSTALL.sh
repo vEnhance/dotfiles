@@ -62,7 +62,7 @@ if ! test -f "$HOME/.config/proselint/config.json"; then
 fi
 if ! test -d "$HOME/.config/py3status"; then
   mkdir -p "$HOME"/.config/py3status
-  ln -s "$HOME/dotfiles/py3status/py3status.$(hostname)".conf "$HOME"/.config/py3status/config
+  ln -s "$HOME/dotfiles/py3status/py3status.$(hostname).conf" "$HOME"/.config/py3status/config
 fi
 if ! test -f "$HOME/.config/gtk-3.0/settings.ini"; then
   mkdir -p "$HOME"/.config/gtk-3.0
@@ -79,6 +79,10 @@ fi
 if ! test -f "$HOME/.config/redshift/redshift.conf"; then
   mkdir -p "$HOME"/.config/redshift/
   ln -s "$HOME"/dotfiles/redshift.conf "$HOME"/.config/redshift/redshift.conf
+fi
+if ! test -d "$HOME/.config/ruff"; then
+  mkdir -p "$HOME"/.config/ruff
+  ln -s "$HOME/dotfiles/ruff.toml" "$HOME"/.config/ruff/ruff.toml
 fi
 
 # .local
