@@ -169,9 +169,9 @@ for i in ORDER:
     y0 = HEADER_Y_FIRST if i < NUM_COL else HEADER_Y_SECOND
     table[y0][x] = current_day.strftime("%a %d %b")
 
-table[HEADER_Y_FIRST][
-    0
-] = r"${font Exo 2:size=%d:bold}${color 55ff99}Upcoming Events" % (FONT_SIZE + 3)
+table[HEADER_Y_FIRST][0] = (
+    r"${font Exo 2:size=%d:bold}${color 55ff99}Upcoming Events" % (FONT_SIZE + 3)
+)
 table[HEADER_Y_SECOND][0] = r"${font Exo 2:size=%d:bold}${color ff5599}Other Tasks" % (
     FONT_SIZE + 3
 )

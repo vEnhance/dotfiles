@@ -366,9 +366,7 @@ class open_with(Command):
     def tab(self, tabnum):
         return self._tab_through_executables()
 
-    def _get_app_flags_mode(
-        self, string
-    ):  # pylint: disable=too-many-branches,too-many-statements
+    def _get_app_flags_mode(self, string):  # pylint: disable=too-many-branches,too-many-statements
         """Extracts the application, flags and mode from a string.
 
         examples:
