@@ -16,13 +16,11 @@ jobs:
         uses: actions/setup-python@v2
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pyflakes black tomli
-      - name: Run PyFlakes
+          python -m pip install --upgrade ruff
+      - name: Run Ruff
         run: |
-          pyflakes $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
-      - name: Run black
-        run: |
-          black --check $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
+          ruff check --output-format=github $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
+          ruff format --diff $(git ls-files '*.py' | grep -v "qutebrowser/" | grep -v "ranger/")
 
   spellcheck:
     runs-on: ubuntu-latest
