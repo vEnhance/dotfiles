@@ -151,10 +151,10 @@ def extractbody(m):
 
     ifcommands = re.compile(r"\\iffalse|\\ifblog|\\iftex|\\fi")
     L = ifcommands.split(m)
-    I = ifcommands.findall(m)
+    II = ifcommands.findall(m)
     m = L[0]
     for i in range(1, (len(L) + 1) // 2):
-        if I[2 * i - 2] == "\\ifblog":
+        if II[2 * i - 2] == "\\ifblog":
             m = m + L[2 * i - 1]
         m = m + L[2 * i]
     # changes $$ ... $$ into \[ ... \] and reformats
@@ -588,12 +588,12 @@ def processfontstyle(w):
     while i < len(w):
         special = False
         for k, v in list(fontstyle.items()):
-            l = len(k)
-            if w[i : i + l] == k:
+            length = len(k)
+            if w[i : i + length] == k:
                 level += 1
                 ww += "<" + v + ">"
                 close[level] = "</" + v + ">"
-                i += l
+                i += length
                 special = True
         if not special:
             if w[i] == "{":

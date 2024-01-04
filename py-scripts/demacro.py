@@ -31,7 +31,7 @@ with open("%s.tex" % file_root_name) as f, open("%s/source.tex" % TMP, "w") as g
             print(line.strip(), file=g)  # begin document
         elif not doc_started:
             preamble += line
-            if not r"newcommand" in line:
+            if r"newcommand" not in line:
                 print(line.strip(), file=g)
         elif doc_started:
             print(line.strip(), file=g)

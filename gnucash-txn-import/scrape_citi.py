@@ -3,10 +3,9 @@ from datetime import date as _date
 from datetime import datetime, timedelta
 from pprint import pprint
 
-today = _date.today
-
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
+today = _date.today
 NUM_DAYS_BACK = 90
 
 with get_session() as session:

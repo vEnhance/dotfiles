@@ -161,7 +161,7 @@ try:
     else:
         print(output)
 
-except:
+except Exception:
     print(input_contents[0:500])
     print("-" * 50)
     traceback.print_exc()

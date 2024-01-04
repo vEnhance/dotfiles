@@ -64,7 +64,7 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
         return (timedelta(0), 0)
     else:
         m = min(x)  # earliest submission not yet covered
-        if not "T" in m:
+        if "T" not in m:
             # some crap like 2022-12-26-091745
             m = f"{m[:10]}T{m[11:13]}:{m[13:15]}:{m[15:17]}Z"
         m = m.rstrip("Z")  # take out the trailing Z

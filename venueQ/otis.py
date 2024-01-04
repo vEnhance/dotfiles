@@ -312,7 +312,7 @@ class ProblemSet(VenueQNode):
             logger.info(f"Trying to fetch {url}")
             try:
                 file_response = requests.get(url=url)
-            except:
+            except Exception:
                 logger.warning(f"Could not get {url}")
             else:
                 self.get_path().write_bytes(file_response.content)

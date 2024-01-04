@@ -177,7 +177,11 @@ table[HEADER_Y_SECOND][0] = r"${font Exo 2:size=%d:bold}${color ff5599}Other Tas
 )
 remaining = sorted(chain(*all_items.values()))
 
-criteria = lambda item: item.type == Type.CALENDAR or item.type == Type.NOW
+
+def criteria(item):
+    return item.type == Type.CALENDAR or item.type == Type.NOW
+
+
 remaining_calendar = [item for item in remaining if criteria(item)]
 for n, item in enumerate(remaining_calendar[:NUM_ROWS]):
     table[n + 1][0] = item.conky_repr(

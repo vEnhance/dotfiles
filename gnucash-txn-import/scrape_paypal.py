@@ -5,10 +5,9 @@ from pprint import pprint
 from typing import Any
 
 from bs4 import BeautifulSoup
+from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 today = _date.today
-
-from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 
 def get_child_string(div: BeautifulSoup, tag_name="span", cy: str | None = None) -> str:

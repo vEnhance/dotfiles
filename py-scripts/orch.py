@@ -123,13 +123,13 @@ with open(f"/tmp/orch{int(time.time())}.yaml", "w") as f:
 result = yaml.load(edited_message, Loader=yaml.SafeLoader)
 
 
-if type(result) == dict:
+if isinstance(result, dict):
     if "new_hints" in result:
         new_hint_dicts = [
             d
             for d in result["new_hints"]
             if (
-                (type(d.get("number")) == int)
+                isinstance(d.get("number"), int)
                 and (d.get("keywords") is not None)
                 and (d.get("content") is not None)
                 and len(d.keys()) == 3

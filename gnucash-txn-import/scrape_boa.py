@@ -4,10 +4,9 @@ from datetime import datetime, timedelta
 from pprint import pprint
 from typing import Any
 
-today = _date.today
-
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
+today = _date.today
 rows_for_csv: list[Any] = []
 
 with get_session() as session:

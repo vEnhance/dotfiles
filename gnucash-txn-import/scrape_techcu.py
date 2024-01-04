@@ -4,11 +4,9 @@ from pprint import pprint
 from typing import Any
 
 from bs4 import BeautifulSoup
-
-today = _date.today
-
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
+today = _date.today
 NUM_DAYS_BACK = 90
 
 

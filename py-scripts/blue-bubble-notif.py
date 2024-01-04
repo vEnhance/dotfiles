@@ -8,7 +8,7 @@ for line in sys.stdin:
     line = line.strip()
     print(line)  # mirror the output
 
-    if not "[INFO]" in line:
+    if "[INFO]" not in line:
         continue
     if not line.startswith("flutter"):
         continue

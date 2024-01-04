@@ -31,7 +31,7 @@ for row in data:
     for x in row:
         if x is None:
             s += " "
-        elif type(x) == str:
+        elif isinstance(x, str):
             if x == "T":
                 h = 10
             elif x == "E":
@@ -46,7 +46,7 @@ for row in data:
             else:
                 s += r"${color #999999}"
                 s += x
-        elif type(x) == float or type(x) == int:
+        elif isinstance(x, float) or isinstance(x, int):
             if (minute + second / 60) >= x:
                 s += r"${color #66DDDD}◘"
             else:

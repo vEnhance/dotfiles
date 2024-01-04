@@ -180,9 +180,9 @@ else:
 
     for entry in entries:
         if (
-            not entry.source in seen_set
-            and not "waltz" in entry.tags
-            and not "unowned" in entry.tags
+            entry.source not in seen_set
+            and "waltz" not in entry.tags
+            and "unowned" not in entry.tags
             and not entry.secret
         ):
             printEntry(entry)
