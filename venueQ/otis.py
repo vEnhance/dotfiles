@@ -276,6 +276,7 @@ class ProblemSet(VenueQNode):
             data["clubs_max"] = None
             total = None
             num_problems = None
+            min_clubs = 0
 
         if not self.temp_path("md").exists():
             if total is not None and total > 1 and (data["clubs"] or 0) > total + 1:
@@ -283,6 +284,9 @@ class ProblemSet(VenueQNode):
                     print("NANI SUCH CLUB!", file=f)
                     print("(if correct)", file=f)
                     print(AK, file=f)
+            elif total is not None and total < min_clubs:
+                with open(self.temp_path("md"), "w") as f:
+                    print("BELOW MIN CLUB REQUIREMENT!", file=f)
             elif (
                 total is not None
                 and num_problems is not None
