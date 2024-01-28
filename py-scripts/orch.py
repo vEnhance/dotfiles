@@ -70,15 +70,17 @@ if resp.status_code != 200:
     print(f"ARCH gave a return code of {resp.status_code} when asked for hints.")
     sys.exit(75)
 
-old_hints = resp.json()["hints"]
+# hack to get the dictionary keys in the order we want
+OLD_HINT_KEYS = ("number", "keywords", "content", "pk")
+old_hints = [dict([(k, d[k]) for k in OLD_HINT_KEYS]) for d in resp.json()["hints"]]
 
 initial_message = yaml.dump(
     {
         "allow_delete_hints": False,
         "new_hints": [
             {
-                "keywords": "<++>",
                 "number": "<++>",
+                "keywords": "<++>",
                 "content": "<++>",
             }
             for _ in range(4)
