@@ -194,7 +194,7 @@ mode "clipboard" {
   bindsym p exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --primary)", mode "default"
   bindsym s exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --secondary)", mode "default"
   bindsym b exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --clipboard)", mode "default"
-  bindsym Return mode "default"
+  bindsym Return exec --no-startup-id /home/evan/dotfiles/sh-scripts/getclip.sh, mode "default"
   bindsym Escape mode "default"
 }
 bindsym $mod+p mode "clipboard"
