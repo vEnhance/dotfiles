@@ -1,17 +1,17 @@
 #!/bin/bash
-#
+
 notify-send "i3: exec mode" \
   -i categories/applications-utilities-symbolic \
   -t 4000 \
   -u low \
-  "<b>=</b>: screenshot      <b>a</b>: asy
-<b>b</b>: libreoffice      <b>f</b>: firefox
-<b>g</b>: geogebra         <b>h</b>: cHromium
-<b>j</b>: projtext         <b>l</b>: lock
+  "<b>=</b>: screenshot      <b>a</b>: Asy
+<b>b</b>: liBreoffice      <b>c</b>: Card vault
+<b>f</b>: firefox          <b>g</b>: Geogebra
+<b>h</b>: cHromium         <b>l</b>: Lock
 <b>m</b>: gnucash          <b>n</b>: vit
-<b>o</b>: obs              <b>p/c</b>: vault
-<b>r</b>: oRch             <b>s</b>: spotify
+<b>o</b>: OBS              <b>p</b>: Pass vault
+<b>r</b>: oRch             <b>s</b>: Spotify
 <b>t</b>: oTis             <b>x</b>: qutebrowser
-<b>y</b>: diarY            <b>z</b>: zoom
+<b>y</b>: diarY            <b>z</b>: Zoom
 <b>Space</b>: loginctl lock
 "
