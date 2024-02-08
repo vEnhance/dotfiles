@@ -86,12 +86,12 @@ if [ "$(hostname)" = ArchMajestic ]; then
   if [ "$(whoami)" = "evan" ]; then
     xset s 2000 60
     xset dpms 900 900 900
-    ~/dotfiles/sh-scripts/paswitch.sh speakers
+    ~/dotfiles/sh-scripts/chvol.sh l
   fi
   if [ "$(whoami)" = "star" ]; then
     xset s 2000 60
     xset dpms 1800 1800 1800
-    ~/dotfiles/sh-scripts/paswitch.sh usb
+    ~/dotfiles/sh-scripts/chvol.sh r
   fi
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
   keychain --quiet
