@@ -239,13 +239,6 @@ mode "config" {
   bindsym n exec --no-startup-id notify-send -i actions/mail-reply-symbolic \
     "Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", \
     mode "default"
-
-  bindsym p exec xfconf-query -c xfce4-power-manager \
-    -p /xfce4-power-manager/presentation-mode -T \
-    && notify-send -i dialog-information-symbolic "xfce4 power manager presentation mode" \
-    "$(xfconf-query -c xfce4-power-manager -p /xfce4-power-manager/presentation-mode)", \
-    mode "default"
-
   bindsym b exec --no-startup-id bugwarrior-pull, mode "default"
   bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
 
