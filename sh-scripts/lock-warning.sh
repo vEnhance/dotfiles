@@ -10,6 +10,6 @@ if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
   fi
 fi
 
-notify-send -i timer-symbolic -t 30000 \
+notify-send -i "status/timer-symbolic" -t 30000 \
   "Lock warning" \
   "The session will automatically lock shortly. Do literally anything to cancel."

@@ -1,7 +1,6 @@
 #!/bin/bash
 #
-notify-send "i3: nudge mode" \
-  -i actions/object-move-symbolic \
+notify-send "i3: nudge mode" -i "actions/object-move-symbolic" \
   -t 6000 \
   -u low \
   "<b>a/b</b>: focus parent/child

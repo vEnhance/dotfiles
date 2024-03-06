@@ -18,7 +18,8 @@ fi
 
 if pgrep -U "$(whoami)" zoom >/dev/null; then
   echo "Zoom running"
-  notify-send "Won't lock" "You're currently in a Zoom call"
+  notify-send -i "status/network-vpn-disconnected-symbolic" \
+    "Won't lock" "You're currently in a Zoom call"
   exit
 fi
 
@@ -26,7 +27,8 @@ fi
 if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
   if iwconfig | grep Flying; then
     if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
-      notify-send "Won't lock" "You're currently streaming on Twitch"
+      notify-send -i "status/network-vpn-disconnected-symbolic" \
+        "Won't lock" "You're currently streaming on Twitch"
       exit
     fi
   fi
