@@ -229,9 +229,9 @@ class ProblemSet(VenueQNode):
         data["info"] += f"Lv{data['student__last_level_seen']}; "
         data["info"] += f"{data['num_accepted_current']}u this year, "
         data["info"] += f"{data['num_accepted_all']}u all-time."
-        data[
-            "name"
-        ] = f"{data['student__user__first_name']} {data['student__user__last_name']}"
+        data["name"] = (
+            f"{data['student__user__first_name']} {data['student__user__last_name']}"
+        )
         data["unit"] = f"{data['unit__code']} {data['unit__group__name']}"
         # stop getting trolled by the kids
         if data["unit__group__slug"] == "dummy":
