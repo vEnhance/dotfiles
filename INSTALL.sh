@@ -84,6 +84,10 @@ if ! test -d "$HOME/.config/ruff"; then
   mkdir -p "$HOME"/.config/ruff
   ln -s "$HOME/dotfiles/ruff.toml" "$HOME"/.config/ruff/ruff.toml
 fi
+if ! test -d "$HOME/.config/nerd-dictation"; then
+  mkdir -p "$HOME"/.config/nerd-dictation
+  ln -s "$HOME"/dotfiles/nerd-dictation.py "$HOME"/.config/nerd-dictation
+fi
 
 # .local
 if ! test -d "$HOME/.local/share/gh/extensions"; then
