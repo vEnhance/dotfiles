@@ -4,6 +4,7 @@ set -euxo pipefail
 
 ON_MIC_FLAG="/tmp/nd.1.$(whoami)"
 OFF_MIC_FLAG="/tmp/nd.0.$(whoami)"
+COOKIE_PATH="/tmp/nd.$(whoami)"
 
 #!/bin/bash
 if [ $# -ge 1 ]; then
@@ -23,7 +24,7 @@ if [ -f "$ON_MIC_FLAG" ] || [ -f "$OFF_MIC_FLAG" ] || [ "$COMMAND" = "stop" ]; t
     rm "$OFF_MIC_FLAG"
   fi
 
-  nerd-dictation end
+  nerd-dictation end --cookie "$COOKIE_PATH"
   notify-send -i "status/checkbox-checked-symbolic" \
     "All done!" \
     "Nerd Dictation has completed."
@@ -33,7 +34,7 @@ if [ -f "$ON_MIC_FLAG" ] || [ -f "$OFF_MIC_FLAG" ] || [ "$COMMAND" = "stop" ]; t
 fi
 
 # Otherwise, unmute microphone and start dictation
-nerd-dictation begin --full-sentence --punctuate-from-previous-timeout 1 &
+nerd-dictation begin --full-sentence --cookie "$COOKIE_PATH" &
 if ponymix is-muted --source; then
   ~/dotfiles/sh-scripts/chvol.sh w
   touch "$OFF_MIC_FLAG"
