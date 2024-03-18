@@ -21,6 +21,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'dag/vim-fish',                 { 'for' : 'fish' }
   Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
   Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
+  Plug 'kaarmu/typst.vim',             { 'for' : 'typst' }
   Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
   Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
   Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
@@ -601,6 +602,7 @@ autocmd vimrc BufNewFile,BufRead *.tex syntax spell toplevel
 autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
 autocmd vimrc BufNewFile,BufRead *.tsqx setfiletype tsqx
 autocmd vimrc BufNewFile,BufRead *.tsv setlocal noexpandtab copyindent preserveindent softtabstop=0 shiftwidth=4 tabstop=4
+autocmd vimrc BufNewFile,BufRead *.typ setfiletype typst
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
 autocmd vimrc BufRead * call DetectIndentIfPlugged()
 autocmd vimrc BufNewFile,BufRead *.tex set spell
