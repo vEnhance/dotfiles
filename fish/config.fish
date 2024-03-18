@@ -625,5 +625,6 @@ complete -c dn -x -a "(__fish_complete_subcommand -u -g)"
 fzf_configure_bindings --git_log=\cg --directory=\cf --git_status=\cs
 
 status is-interactive && tabs -4 # https://github.com/jorgebucaran/fisher/issues/747
+status is-interactive && zoxide init fish | source
 
 # vim: fdm=marker
