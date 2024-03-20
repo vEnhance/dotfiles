@@ -13,11 +13,11 @@ requests = "^2.31.0"
 Markdown = "^3.3.4"
 
 [tool.poetry.dev-dependencies]
-black = "^22.12.0"
 jedi = "^0.18.0"
 pdbpp = "^0.10.3"
 ipython = "^8.10.0"
 types-PyYAML = "^6.0.12"
+ruff = "^0.3.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -91,3 +91,6 @@ strictDictionaryInference = false
 strictListInference = false
 strictParameterNoneValue = false
 strictSetInference = false
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
