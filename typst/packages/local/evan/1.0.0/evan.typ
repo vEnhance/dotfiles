@@ -8,6 +8,19 @@
   headers: eastern,
 )
 
+#let toc = {
+  show outline.entry.where(level: 1): it => {
+    v(1.2em, weak:true)
+    text(weight:"bold", font:fonts.sans, it)
+  }
+  text(fill:colors.title, size:1.4em, font:fonts.sans, [*Table of contents*])
+  v(0.6em)
+  outline(
+    title: none,
+    indent: 2em,
+  )
+}
+
 // Main entry point to use in a global show rule
 #let evan(
   title: none,
