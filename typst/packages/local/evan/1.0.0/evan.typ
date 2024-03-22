@@ -1,0 +1,100 @@
+#let fonts = (
+  text: ("Linux Libertine"),
+  sans: ("Noto Sans"),
+  mono: ("Inconsolata"),
+)
+#let colors = (
+  title: maroon,
+  headers: eastern,
+)
+
+// Main entry point to use in a global show rule
+#let evan(
+  title: none,
+  author: none,
+  subtitle: none,
+  date: none,
+  maketitle: true,
+  body
+) = {
+  // Set document parameters
+  if (title != none) {
+    set document(title: title)
+  }
+  if (author != none) {
+    set document(author: author)
+  }
+
+  // General settings
+  set page(
+    paper: "a4",
+    margin: auto,
+    header: context {
+      set align(right)
+      set text(size:0.8em)
+      if (not maketitle or counter(page).get().first() > 1) {
+        text(weight:"bold", title)
+        if (author != none) {
+          h(0.2em)
+          sym.dash.em
+          h(0.2em)
+          text(style:"italic", author)
+        }
+      }
+    },
+    numbering: "1",
+  )
+  set par(
+    justify: true
+  )
+  set text(
+    font:fonts.text,
+    size:11pt,
+  )
+
+  // Change quote display
+  set quote(block: true)
+  show quote: set pad(x:2em, y:0em)
+  show quote: it => {
+    set text(style: "italic")
+    it
+  }
+
+  // Section headers
+  set heading(numbering: "1.1")
+  show heading: it => {
+    set text(font:fonts.sans)
+    block([
+      #v(0.1em)
+      #text(fill:colors.headers, "§" + counter(heading).display())
+      #h(0.2em)
+      #it.body
+      #v(0.4em)
+    ])
+  }
+
+  // Hyperlinks should be pretty
+  show link: set text(fill:blue, font:fonts.mono)
+
+  // Title page, if maketitle is true
+  if maketitle {
+    v(2.5em)
+    set align(center)
+    set block(spacing: 2em)
+    block(text(fill:colors.title, size:2em, font:fonts.sans, weight:"bold", title))
+    if (subtitle != none) {
+      block(text(size:1.5em, font:fonts.sans, weight:"bold", subtitle))
+    }
+    if (author != none) {
+      block(smallcaps(text(size:1.7em, author)))
+    }
+    if (type(date) == "datetime") {
+      block(text(size:1.2em, date.display("[day] [month repr:long] [year]")))
+    }
+    else if (date != none) {
+      block(text(size:1.2em, date))
+    }
+    v(1.5em)
+  }
+  body
+}

@@ -1,0 +1,8 @@
+[package]
+name = "evan"
+version = "1.0.0"
+entrypoint = "evan.typ"
+authors = ["Evan Chen <evan@evanchen.cc>"]
+license = "MIT"
+description = "Evan's template file for Typst documents."
+homepage = "https://github.com/vEnhance/dotfiles"
