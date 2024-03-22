@@ -369,7 +369,7 @@ nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
 " Disable ex mode entirely
 nmap Q <nop>
 " Save command
-nnoremap <CR> :wall<CR>
+nnoremap <expr> <CR> &modifiable ? ":wall<CR>" : "<CR>"
 " alias :bdelete to :bc (for buffer-close)
 cnoreabbrev bc bdelete
 
