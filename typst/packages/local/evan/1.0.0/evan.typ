@@ -4,8 +4,8 @@
   mono: ("Inconsolata"),
 )
 #let colors = (
-  title: maroon,
-  headers: eastern,
+  title: eastern,
+  headers: maroon,
 )
 
 #let toc = {
