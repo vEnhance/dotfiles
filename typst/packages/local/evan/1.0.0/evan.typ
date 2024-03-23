@@ -70,7 +70,9 @@
   show quote: set pad(x:2em, y:0em)
   show quote: it => {
     set text(style: "italic")
+    v(-1em)
     it
+    v(-0.5em)
   }
 
   // Section headers
