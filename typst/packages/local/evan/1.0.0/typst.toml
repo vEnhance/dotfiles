@@ -6,3 +6,7 @@ authors = ["Evan Chen <evan@evanchen.cc>"]
 license = "MIT"
 description = "Evan's template file for Typst documents."
 homepage = "https://github.com/vEnhance/dotfiles"
+
+[template]
+path = "template"
+entrypoint = "main.typ"
