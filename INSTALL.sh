@@ -94,6 +94,10 @@ if ! test -d "$HOME/.local/share/gh/extensions"; then
   mkdir -p "$HOME"/.local/share/gh
   ln -s "$HOME"/dotfiles/gh-extensions "$HOME"/.local/share/gh/extensions
 fi
+if ! test -d "$HOME/.local/share/typst"; then
+  mkdir -p "$HOME"/.local/share/
+  ln -s "$HOME"/dotfiles/typst "$HOME"/.local/share/typst
+fi
 
 # taskwarrior hooks
 mkdir -p .task/hooks
