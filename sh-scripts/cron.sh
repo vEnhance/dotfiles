@@ -2,7 +2,7 @@
 
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "ArchMajestic" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/otis)" ] && [ "$(whoami)" = "evan" ]; then
   python ~/dotfiles/venueQ/otis.py
 fi
 
@@ -15,7 +15,7 @@ if command -v gcalendar >/dev/null; then
 fi
 
 ## SYNC TASKWARRIOR
-if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/task)" ] && [ "$(whoami)" = "evan" ]; then
   ~/dotfiles/sh-scripts/task-update.sh
 fi
 
@@ -25,7 +25,7 @@ if [ -f /bin/pacman ]; then
   pacman -Qqttem >~/Sync/pacman/"$(hostname)".aur.paclist
   paclist chaotic-aur | grep -vE "^chaotic" | cut -d " " -f 1 >~/Sync/pacman/"$(hostname)".vote.paclist
   pacman -Qqm >>~/Sync/pacman/"$(hostname)".vote.paclist
-  if [ "$(hostname)" = "ArchDiamond" ] && [ "$(whoami)" = "evan" ]; then
+  if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/pacman)" ] && [ "$(whoami)" = "evan" ]; then
     cd ~/Sync/pacman/ || exit
     if ! git diff --exit-code; then
       git commit -a -m "$(date), snapshot taken on $(hostname)"
