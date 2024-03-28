@@ -131,6 +131,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://tailwindcomponents.com/*",
     r"*://tailwindcss.com/*",
     r"*://translate.google.com/*",
+    r"*://typst.app/*",
     r"*://usaco.guide/*",
     r"*://usaco.org/*",
     r"*://usamo.wordpress.com/*",

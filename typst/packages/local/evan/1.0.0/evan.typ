@@ -27,9 +27,9 @@
 #let lemma = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
 #let corollary = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
 #let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
-#let claim = thmbox("main", "Claim", fill: rgb("#eeffee"), base_level: 1)
-#let remark = thmbox("main", "Remark", fill: rgb("#eeffee"), base_level: 1)
-#let definition = thmplain("main", "Definition", base_level: 1, titlefmt: strong)
+#let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
+#let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
+#let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
 #let proof = thmproof("proof", "Proof")
 
 // Main entry point to use in a global show rule
@@ -94,7 +94,6 @@
   show heading: it => {
     set text(font:fonts.sans)
     block([
-      #v(0.1em)
       #text(fill:colors.headers, "§" + counter(heading).display())
       #h(0.2em)
       #it.body
