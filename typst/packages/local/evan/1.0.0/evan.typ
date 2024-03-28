@@ -1,3 +1,5 @@
+#import "@preview/ctheorems:1.1.2": *
+
 #let fonts = (
   text: ("Linux Libertine"),
   sans: ("Noto Sans"),
@@ -20,6 +22,15 @@
     indent: 2em,
   )
 }
+
+#let theorem = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
+#let lemma = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
+#let corollary = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
+#let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
+#let claim = thmbox("main", "Claim", fill: rgb("#eeffee"), base_level: 1)
+#let remark = thmbox("main", "Remark", fill: rgb("#eeffee"), base_level: 1)
+#let definition = thmplain("main", "Definition", base_level: 1, titlefmt: strong)
+#let proof = thmproof("proof", "Proof")
 
 // Main entry point to use in a global show rule
 #let evan(
@@ -64,6 +75,9 @@
     font:fonts.text,
     size:11pt,
   )
+
+  // Theorem environments
+  show: thmrules.with(qed-symbol: $square$)
 
   // Change quote display
   set quote(block: true)
