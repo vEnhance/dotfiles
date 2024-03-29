@@ -33,6 +33,10 @@
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
 #let proof = thmproof("proof", "Proof")
 
+#let url(s) = {
+  link(s, text(font:fonts.mono, s))
+}
+
 // Main entry point to use in a global show rule
 #let evan(
   title: none,
@@ -103,7 +107,7 @@
   }
 
   // Hyperlinks should be pretty
-  show link: set text(fill:blue, font:fonts.mono)
+  show link: set text(fill:blue)
 
   // Title page, if maketitle is true
   if maketitle {
