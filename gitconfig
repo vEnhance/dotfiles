@@ -102,6 +102,8 @@
 [push]
 	default = current
 	autoSetupRemote = true
+[tag]
+	gpgSign = true
 
 [delta]
 	file-decoration-style = box cyan
