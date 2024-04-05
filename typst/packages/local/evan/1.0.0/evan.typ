@@ -105,8 +105,10 @@
   show heading: it => {
     set text(font:fonts.sans)
     block([
-      #text(fill:colors.headers, "§" + counter(heading).display())
-      #h(0.2em)
+      #if (it.numbering != none) [
+        #text(fill:colors.headers, "§" + counter(heading).display())
+        #h(0.2em)
+      ]
       #it.body
       #v(0.4em)
     ])
