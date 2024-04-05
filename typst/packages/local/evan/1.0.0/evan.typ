@@ -115,7 +115,19 @@
   }
 
   // Hyperlinks should be pretty
-  show link: set text(fill:blue)
+  show link: it => {
+    if (type(it.dest) == "label") {
+      set text(fill:red)
+      it
+    } else {
+      set text(fill:blue)
+      it
+    }
+  }
+  show ref: it => {
+    link(it.target, it)
+  }
+
 
   // Title page, if maketitle is true
   if maketitle {
