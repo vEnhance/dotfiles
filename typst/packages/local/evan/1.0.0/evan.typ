@@ -31,6 +31,12 @@
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
+
+#let problem = thmplain("main", "Problem", base_level: 1)
+#let exercise = thmplain("main", "Problem", base_level: 1)
+
+#let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
+
 #let proof = thmproof("proof", "Proof")
 
 #let url(s) = {
