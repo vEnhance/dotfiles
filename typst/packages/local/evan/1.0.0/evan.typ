@@ -8,6 +8,9 @@
 #let colors = (
   title: eastern,
   headers: maroon,
+  partfill: rgb("#002299"),
+  label: red,
+  hyperlink: blue,
 )
 
 #let toc = {
@@ -41,6 +44,12 @@
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
+}
+
+// Ersatz part command (similar to Koma-Script part in scrartcl)
+#let part(s) = {
+  set text(size:1.4em, fill:colors.partfill)
+  heading(numbering: none, s)
 }
 
 // Main entry point to use in a global show rule
@@ -83,8 +92,8 @@
     justify: true
   )
   set text(
-    font:fonts.text,
-    size:11pt,
+    font: fonts.text,
+    size: 11pt,
   )
 
   // Theorem environments
@@ -94,7 +103,7 @@
   set quote(block: true)
   show quote: set pad(x:2em, y:0em)
   show quote: it => {
-    set text(style: "italic")
+    set text(style:"italic")
     v(-1em)
     it
     v(-0.5em)
@@ -105,10 +114,10 @@
   show heading: it => {
     set text(font:fonts.sans)
     block([
-      #if (it.numbering != none) [
-        #text(fill:colors.headers, "§" + counter(heading).display())
-        #h(0.2em)
-      ]
+      #if (it.numbering != none) {
+        text(fill:colors.headers, "§" + counter(heading).display())
+        h(0.2em)
+      }
       #it.body
       #v(0.4em)
     ])
@@ -116,13 +125,10 @@
 
   // Hyperlinks should be pretty
   show link: it => {
-    if (type(it.dest) == "label") {
-      set text(fill:red)
-      it
-    } else {
-      set text(fill:blue)
-      it
-    }
+    set text(fill:
+      if (type(it.dest) == "label") { colors.label } else { colors.hyperlink }
+    )
+    it
   }
   show ref: it => {
     link(it.target, it)
