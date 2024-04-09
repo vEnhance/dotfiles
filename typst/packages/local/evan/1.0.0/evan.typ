@@ -26,11 +26,17 @@
   )
 }
 
+#let eqn(s) = {
+  set math.equation(numbering: "(1)")
+  s
+}
+
 #let theorem = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
 #let lemma = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
 #let proposition = thmbox("main", "Proposition", fill: rgb("#eeeeff"), base_level: 1)
 #let corollary = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
 #let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
+#let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
