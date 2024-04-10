@@ -50,7 +50,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'nathanaelkane/vim-indent-guides'
   Plug 'svermeulen/vim-yoink'
   Plug 'svintus/vim-editexisting'
-  Plug 'thinca/vim-localrc'
   Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
