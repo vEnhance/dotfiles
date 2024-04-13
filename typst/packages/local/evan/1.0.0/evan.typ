@@ -48,6 +48,10 @@
 
 #let proof = thmproof("proof", "Proof")
 
+#let pmod(x) = $space (mod #x)$
+#let vocab(body) = strong(text(blue, body))
+#set enum(indent: .25in)
+
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
 }
