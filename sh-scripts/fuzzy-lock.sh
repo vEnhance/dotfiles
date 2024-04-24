@@ -16,13 +16,6 @@ if pgrep -U "$(whoami)" stepmania >/dev/null; then
   exit
 fi
 
-if pgrep -U "$(whoami)" zoom >/dev/null; then
-  echo "Zoom running"
-  notify-send -i "status/network-vpn-disconnected-symbolic" \
-    "Won't lock" "You're currently in a Zoom call"
-  exit
-fi
-
 # during twitch stream, disable laptop lock screen
 if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
   if iwconfig | grep Flying; then
