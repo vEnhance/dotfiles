@@ -50,8 +50,6 @@
 
 #let pmod(x) = $space (mod #x)$
 #let vocab(body) = strong(text(blue, body))
-#set enum(indent: .125in)
-#set list(indent: .125in)
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
@@ -119,6 +117,10 @@
     it
     v(-0.5em)
   }
+
+  // Indent lists
+  set enum(indent: 1em)
+  set list(indent: 1em)
 
   // Section headers
   set heading(numbering: "1.1")
