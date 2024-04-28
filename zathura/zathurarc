@@ -12,4 +12,6 @@ map z feedkeys ":exec sh -c 'zathura \"$FILE\"'<Return>"
 map c feedkeys ":exec xfce4-terminal -e 'sh -c \"latexmk -cd $(echo $FILE | sed s/pdf\$/tex/)\"'<Return>"
 map p feedkeys ":exec xfce4-terminal -e 'sh -c \"latexmk -pvc -cd $(echo $FILE | sed s/pdf\$/tex/)\"'<Return>"
 
+set sandbox "normal"
+
 # vim: ft=config
