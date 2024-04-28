@@ -23,11 +23,6 @@ ruff = "^0.3.3"
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.yapf]
-based_on_style = "google"
-column_limit = 80
-use_tabs = false
-
 [tool.pyright]
 enableTypeIgnoreComments = true
 exclude = ["**/node_modules", "**/typings", "**/__pycache__", ".git", "venv", "**/migrations"]
