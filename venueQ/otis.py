@@ -8,7 +8,7 @@ import ssl
 import subprocess
 import threading
 import time
-from datetime import datetime
+from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from importlib.util import find_spec
@@ -489,9 +489,9 @@ class Inquiries(VenueQNode):
         if data["accept_all"]:
             if query_otis_server(payload={"action": "accept_inquiries"}):
                 body = "This is an automated message to notify you that your recent unit petition\n"
-                body += f"was processed on {datetime.utcnow().strftime('%-d %B %Y, %H:%M')} UTC."
+                body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
                 body += "\n\n"
-                body += f"Have a nice {datetime.utcnow().strftime('%A')}."
+                body += f"Have a nice {datetime.now(UTC).strftime('%A')}."
                 bcc_addrs = list(
                     set(
                         inquiry["student__user__email"] for inquiry in data["inquiries"]
@@ -517,7 +517,7 @@ class Registrations(VenueQNode):
         if data["accept_all"]:
             if query_otis_server(payload={"action": "accept_registrations"}):
                 body = "This is an automated message to notify you that your registration\n"
-                body += f"was processed on {datetime.utcnow().strftime('%-d %B %Y, %H:%M')} UTC."
+                body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
                 body += "\n\n"
                 body += "You should be able to log in and pick your units now, "
                 body += "and use the /register slash command in the Discord."
