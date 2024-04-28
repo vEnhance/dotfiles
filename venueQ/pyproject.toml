@@ -6,7 +6,7 @@ authors = ["Evan Chen <evan@evanchen.cc>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = "^3.11"
 PyYAML = "^5.4.1"
 python-dotenv = "^0.19.0"
 requests = "^2.31.0"
@@ -32,7 +32,7 @@ use_tabs = false
 enableTypeIgnoreComments = true
 exclude = ["**/node_modules", "**/typings", "**/__pycache__", ".git", "venv", "**/migrations"]
 pythonPlatform = "Linux"
-pythonVersion = "3.10"
+pythonVersion = "3.11"
 typeCheckingMode = "basic"
 useLibraryCodeForTypes = true
 
