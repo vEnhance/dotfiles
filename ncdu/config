@@ -1,3 +1,7 @@
 --color dark-bg
--rr
+--disable-delete
+--disable-shell
 --show-percent
+--show-itemcount
+--graph-style eighth-block
+--one-file-system
