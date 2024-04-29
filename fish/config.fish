@@ -166,6 +166,13 @@ end
 # path exports
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
 export PATH="$PATH:$HOME/dotfiles/bin/"
+if test -d /opt/google-cloud-cli
+    export CLOUDSDK_ROOT_DIR=/opt/google-cloud-cli
+    export CLOUDSDK_PYTHON=/usr/bin/python
+    export CLOUDSDK_PYTHON_ARGS=-S
+    export PATH="$CLOUDSDK_ROOT_DIR/bin:$PATH"
+    export GOOGLE_CLOUD_SDK_HOME="$CLOUDSDK_ROOT_DIR"
+end
 # }}}
 
 # Drop-in replacements {{{
