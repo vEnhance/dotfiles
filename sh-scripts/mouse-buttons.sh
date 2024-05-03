@@ -6,6 +6,9 @@ if command -v xsetwacom && [[ "$(xsetwacom list devices)" ]]; then
   xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput HEAD-0
   xsetwacom set "Wacom Intuos S Pen stylus" Button 2 "key +ctrl z -ctrl"
   xsetwacom set "Wacom Intuos S Pen stylus" Button 3 "key +ctrl y -ctrl"
+  xsetwacom set "Wacom Intuos S Pad pad" Button 2 "key e"
+  xsetwacom set "Wacom Intuos S Pad pad" Button 3 "key p"
+  xsetwacom set "Wacom Intuos S Pad pad" Button 8 "key v"
   WACOM_ACTIVATED=1
 else
   WACOM_ACTIVATED=0
@@ -15,6 +18,7 @@ fi
 if [ "$1" = h ]; then
   if [ "$WACOM_ACTIVATED" = 1 ]; then
     xsetwacom set "Wacom Intuos S Pen stylus" Button 1 "button +3"
+    xsetwacom set "Wacom Intuos S Pad pad" Button 1 "button 1"
   fi
   notify-send -i actions/format-justify-left-symbolic \
     "Left hand mouse" "$(xmodmap -e "pointer = 3 2 1" 2>&1)"
@@ -24,6 +28,7 @@ fi
 if [ "$1" = l ]; then
   if [ "$WACOM_ACTIVATED" = 1 ]; then
     xsetwacom set "Wacom Intuos S Pen stylus" Button 1 "button +1"
+    xsetwacom set "Wacom Intuos S Pad pad" Button 1 "button 3"
   fi
   notify-send -i actions/format-justify-right-symbolic \
     "Right hand mouse" "$(xmodmap -e "pointer = 1 2 3" 2>&1)"
