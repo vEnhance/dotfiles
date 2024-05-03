@@ -224,21 +224,11 @@ mode "config" {
   bindsym c exec --no-startup-id xdotool key Caps_Lock, mode "default"
 
   # switch mouse buttons
-  bindsym h exec --no-startup-id notify-send -i actions/format-justify-left-symbolic \
-    "Left hand mouse" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)",\
-    mode "default"
-  bindsym l exec --no-startup-id notify-send -i actions/format-justify-right-symbolic \
-    "Right hand mouse" "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)", \
-    mode "default"
+  bindsym h exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh h, mode "default"
+  bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh l, mode "default"
+  bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh s, mode "default"
+  bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh n, mode "default"
 
-  # starcraft mode
-  bindsym s exec --no-startup-id notify-send -i status/starred-symbolic "SC2 mode glhf" \
-    "$(xmodmap -e \"pointer = 1 2 3\" 2>&1)\n$(xset r rate 150 40 2>&1)", \
-    mode "default"
-  # normal mode
-  bindsym n exec --no-startup-id notify-send -i actions/mail-reply-symbolic \
-    "Normal mode gg no re" "$(xmodmap -e \"pointer = 3 2 1\" 2>&1)\n$(xset r rate 660 25 2>&1)", \
-    mode "default"
   bindsym b exec --no-startup-id bugwarrior-pull, mode "default"
   bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
 
