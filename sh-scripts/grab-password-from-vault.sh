@@ -34,9 +34,11 @@ if test -z "$BW_SESSION"; then
     fi
   done
   BW_SESSION=$(bw unlock "$MASTER_PASSWORD" --raw)
+  export BW_SESSION
 fi
 
-readarray -t BW_LIST < <(bw list items --pretty --session "$BW_SESSION")
+readarray -t BW_LIST < <(bw list items --pretty)
+bw lock
 
 if [ "${#BW_LIST[@]}" -eq 0 ]; then
   notify-send -i 'status/security-high-symbolic' -u critical -t 3000 \
