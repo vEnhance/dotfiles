@@ -30,7 +30,7 @@ with get_session() as session:
 
             for txn in recent_txn:
                 if (
-                    abs(row_date - txn.date) <= timedelta(days=1)
+                    abs(row_date - txn.date) <= timedelta(days=3)
                     and row_amount == txn.amount
                 ):
                     print(
