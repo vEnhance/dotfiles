@@ -54,6 +54,8 @@ if exists('*IMAP')
   call IMAP('.cycprod ', '\prod_{\text{cyc}} ', 'tex')
   call IMAP('.symprod ', '\prod_{\text{sym}} ', 'tex')
 
+  call IMAP('\1', '\mathbf{1}', 'tex')
+
   " amsthm environments defined in evan.sty
   " Deferred to end because they're LONG.
   call IMAP('Sol::', "\\begin{sol}\<CR><++>\<CR>\\end{sol}<++>", 'tex')
