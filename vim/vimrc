@@ -544,7 +544,8 @@ set cursorline
 if exists('+cursorlineopt')
   set cursorlineopt=number
 endif
-set expandtab " :(
+set expandtab
+set formatoptions-=t
 set foldlevelstart=3
 set guicursor+=n-v-c:blinkon0
 set hidden
@@ -581,7 +582,6 @@ set tabstop=2
 set textwidth=80 " default textwidth = 80
 set updatetime=100
 set wrapmargin=0
-
 " }}}
 " {{{ Auto commands
 function! DetectIndentIfPlugged()
