@@ -1,7 +1,9 @@
 " Vim color file
 " Customized by Evan Chen
-" Based on eclipse:
-" URL: http://www.axisym3.net/jdany/vim-the-editor/#eclipse
+" Originally based on https://www.vim.org/scripts/script.php?script_id=1802
+"
+" GUI colors give light mode colors
+" cterm colors give normal colors
 
 scriptencoding 'utf-8'
 
@@ -9,6 +11,9 @@ set background=light
 highlight clear
 if exists('syntax_on')
   syntax reset
+endif
+if !has('gui_running')
+  set notgc
 endif
 
 let g:colors_name = 'reclipse'
@@ -21,17 +26,17 @@ highlight CurSearch gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=57  cterm=
 highlight Search    gui=none      guifg=#544060 guibg=#f0c0ff ctermbg=242 cterm=underline
 
 " Messages
-highlight ErrorMsg   gui=none guifg=#f8f8f8 guibg=#4040ff
-highlight WarningMsg gui=none guifg=#f8f8f8 guibg=#4040ff
-highlight ModeMsg    gui=none guifg=#d06000 guibg=bg
-highlight MoreMsg    gui=none guifg=#0090a0 guibg=bg
-highlight Question   gui=none guifg=#8000ff guibg=bg
+highlight ErrorMsg   gui=none guifg=#f8f8f8 guibg=#4040ff ctermfg=15 ctermbg=1
+highlight WarningMsg gui=none guifg=#f8f8f8 guibg=#4040ff ctermfg=1
+highlight ModeMsg    gui=none guifg=#d06000 guibg=bg cterm=bold
+highlight MoreMsg    gui=none guifg=#0090a0 guibg=bg ctermfg=2
+highlight Question   gui=none guifg=#8000ff guibg=bg ctermfg=2
 
 " Split area
 highlight StatusLine   gui=none guifg=#ffffff guibg=#4570aa cterm=bold       ctermbg=blue     ctermfg=white
 highlight StatusLineNC gui=none guifg=#ffffff guibg=#75a0da cterm=none       ctermfg=darkgrey ctermbg=blue
 highlight VertSplit    gui=none guifg=#f8f8f8 guibg=#904838 ctermfg=darkgrey cterm=none       ctermbg=blue
-highlight WildMenu     gui=none guifg=#f8f8f8 guibg=#ff3030
+highlight WildMenu     gui=none guifg=#f8f8f8 guibg=#ff3030 ctermfg=0 ctermbg=11
 
 " Diff
 highlight DiffText       gui=none guifg=red     guibg=#ffd0d0 cterm=bold    ctermbg=5  ctermfg=3
@@ -45,10 +50,9 @@ highlight DiffLine       gui=bold guifg=blue  ctermfg=blue  cterm=bold
 highlight DiffIndexLine  gui=bold guifg=blue  ctermfg=3     cterm=bold
 
 " Cursor
-highlight Cursor   gui=none guifg=#ffffff guibg=#0080f0
 highlight lCursor  gui=none guifg=#ffffff guibg=#8040ff
 highlight CursorIM gui=none guifg=#ffffff guibg=#8040ff
-highlight Cursor guifg=white guibg=black
+highlight Cursor  guifg=white guibg=black
 highlight iCursor guifg=white guibg=steelblue
 set guicursor=n-v-c:block-Cursor
 set guicursor+=i:ver100-iCursor
@@ -67,7 +71,7 @@ highlight PMenuThumb ctermbg=white ctermfg=red
 
 " Lines
 highlight! link SignColumn LineNr
-highlight LineNr     gui=none guibg=#cccccc guifg=#6b6b6b
+highlight LineNr     gui=none guibg=#cccccc guifg=#6b6b6b ctermfg=130
 highlight CursorLineNr        guibg=#eeeeee ctermbg=29 ctermfg=122 cterm=bold
 highlight ALEVirtualTextError        ctermfg=0 ctermbg=210 cterm=italic guifg=#000000 guibg=#ff8787 gui=italic
 highlight ALEVirtualTextWarning      ctermfg=0 ctermbg=166 cterm=italic guifg=#000000 guibg=#d7af00 gui=italic
@@ -93,19 +97,19 @@ sign define DiagnosticSignInfo  text=☑️  texthl=ALEInfo linehl= numhl=
 
 " Other
 highlight Directory  gui=none guibg=bg      guifg=#7050ff ctermfg=39
-highlight NonText    gui=none guibg=#e7e7e7 guifg=#707070
+highlight NonText    gui=none guibg=#e7e7e7 guifg=#707070 ctermfg=12
 highlight SpecialKey gui=none guibg=bg      guifg=#c0c0c0 ctermbg=53  ctermfg=253
-highlight Title      gui=bold guibg=bg      guifg=#0033cc
-highlight Visual     gui=none guibg=#ffc0a0 guifg=#804020 ctermfg=105
+highlight Title      gui=bold guibg=bg      guifg=#0033cc ctermfg=5
+highlight Visual     gui=none guibg=#ffc0a0 guifg=#804020 ctermfg=17 ctermbg=208
 highlight MatchParen ctermbg=22 cterm=underline
 
 " Syntax group
 highlight Constant   gui=none guifg=#00884c guibg=bg      ctermfg=Cyan                 cterm=bold
-highlight Error      gui=none guifg=#f8f8f8 guibg=#4040ff ctermbg=Red    ctermfg=White  term=reverse
+highlight Error      gui=none guifg=#f8f8f8 guibg=#4040ff ctermbg=Red    ctermfg=White  cterm=reverse
 highlight Ignore     gui=none guifg=bg      guibg=bg      ctermfg=Black
 highlight Statement  gui=none guifg=#0066FF guibg=bg      ctermfg=117                  cterm=Bold
-highlight Todo       gui=none guifg=#ff5050 guibg=white   ctermbg=Brown  ctermfg=Black  term=standout
-highlight Underlined gui=none guifg=blue    guibg=bg
+highlight Todo       gui=none guifg=#ff5050 guibg=white   ctermbg=Brown  ctermfg=Black  cterm=standout
+highlight Underlined gui=none guifg=blue    guibg=bg      ctermfg=5      cterm=underline
 highlight Conceal    gui=none guifg=#4a9400 guibg=bg      ctermbg=none   ctermfg=Yellow
 
 " Further changes
@@ -144,7 +148,7 @@ highlight link texRefArg texRefZone
 highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=237 ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=240 ctermfg=45
 
-highlight ColorColumn guibg=#ffeeee ctermbg=23
+highlight ColorColumn guibg=#ffeeee ctermbg=23 cterm=none
 
 if !has('gui_running')
   highlight link Float          Number
