@@ -86,8 +86,13 @@ highlight link DiagnosticFloatingWarn ALEVirtualTextWarning
 highlight link DiagnosticFloatingInfo ALEVirtualTextInfo
 
 " Error highlighting
-highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none
-highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none
+if has('nvim')
+  highlight SpellBad   cterm=undercurl ctermfg=Red ctermbg=none guisp=1
+  highlight SpellCap   cterm=undercurl ctermfg=Cyan ctermbg=none guisp=6
+else
+  highlight SpellBad   cterm=underline ctermfg=Red ctermbg=none guisp=Red
+  highlight SpellCap   cterm=underline ctermfg=Cyan ctermbg=none guisp=Yellow
+endif
 highlight ALEError     cterm=underline ctermfg=210 ctermbg=237
 highlight ALEWarning   cterm=underline ctermfg=178 ctermbg=237
 highlight ALEInfo      cterm=underline ctermfg=109 ctermbg=237
