@@ -125,6 +125,7 @@ highlight String     gui=none guifg=#b07800 guibg=bg      ctermfg=Yellow
 highlight Special    gui=none guifg=#4a9400 guibg=bg      ctermfg=85         cterm=bold
 highlight Number     gui=none guifg=#cc0033 guibg=bg      ctermfg=Magenta
 highlight Identifier gui=bold guifg=#006633 guibg=bg      ctermfg=LightGreen cterm=bold
+highlight Function   ctermfg=49
 
 " File-specific syntax groups
 highlight texComment    gui=none guifg=#ff1cae guibg=bg   ctermfg=2
