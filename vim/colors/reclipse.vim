@@ -128,6 +128,13 @@ highlight link pythonString String
 highlight link Directory Identifier
 highlight mkdURL guifg=#999999
 highlight htmlBold       ctermbg=237 ctermfg=195 cterm=bold
+highlight link MailSignature PreProc
+highlight MailQuoted1     ctermfg=34 guifg=#8700ff
+highlight MailQuoted2     ctermfg=37 guifg=#5f8700
+highlight MailQuoted3     ctermfg=69 guifg=#af0000
+highlight MailQuoted4     ctermfg=34 guifg=#8700ff
+highlight MailQuoted5     ctermfg=37 guifg=#5f8700
+highlight MailQuoted6     ctermfg=69 guifg=#af0000
 
 highlight texTitleArg         gui=bold cterm=bold ctermfg=White  guifg=#0000ff
 highlight texEnvArgName       gui=bold cterm=italic ctermfg=Red  guifg=#ff00ff
