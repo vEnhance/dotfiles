@@ -93,6 +93,8 @@
 	tool = meld
 [format]
 	pretty = fuller
+[grep]
+	lineNumber = true
 [interactive]
 	diffFilter = delta --color-only
 [merge]
