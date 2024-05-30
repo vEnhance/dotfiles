@@ -34,7 +34,7 @@ jobs:
           python -m pip install --upgrade codespell
       - name: Run codespell
         run: |
-          codespell $(git ls-files '*.py')
+          codespell $(git ls-files)
 
   vimscript:
     runs-on: ubuntu-latest
