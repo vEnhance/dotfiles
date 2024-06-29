@@ -56,6 +56,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
   syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
   ibus-daemon -d -r &
+  telegram-desktop &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
