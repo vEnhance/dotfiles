@@ -35,6 +35,7 @@
 #let lemma = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
 #let proposition = thmbox("main", "Proposition", fill: rgb("#eeeeff"), base_level: 1)
 #let corollary = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
+#let conjecture = thmbox("main", "Conjecture", fill: rgb("#eeeeff"), base_level: 1)
 #let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
 #let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
@@ -42,7 +43,8 @@
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
 
 #let problem = thmplain("main", "Problem", base_level: 1)
-#let exercise = thmplain("main", "Problem", base_level: 1)
+#let exercise = thmplain("main", "Exercise", base_level: 1)
+#let question = thmplain("main", "Question", base_level: 1)
 
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 
