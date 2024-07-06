@@ -42,9 +42,10 @@
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
 
-#let problem = thmplain("main", "Problem", base_level: 1)
-#let exercise = thmplain("main", "Exercise", base_level: 1)
-#let question = thmplain("main", "Question", base_level: 1)
+#let problem = thmbox("main", "Problem", fill: rgb("#eeeeee"), base_level: 1)
+#let exercise = thmbox("main", "Exercise", fill: rgb("#eeeeee"), base_level: 1)
+#let question = thmbox("main", "Question", fill: rgb("#eeeeee"), base_level: 1)
+#let fact = thmbox("main", "Fact", fill: rgb("#eeeeee"), base_level: 1)
 
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 
