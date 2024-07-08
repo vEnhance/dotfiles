@@ -1,0 +1,9 @@
+[look]
+true_chr = "1"
+false_chr = "0"
+future_chr = "*"
+
+[colors]
+reached = "#00cca7"
+todo = "light red"
+inactive = "light blue"

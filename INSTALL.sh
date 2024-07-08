@@ -40,6 +40,7 @@ fi
 mkdir -p .config
 if ! test -d "$HOME/.config/bat"; then ln -s "$HOME"/dotfiles/bat "$HOME"/.config/bat; fi
 if ! test -d "$HOME/.config/bugwarrior"; then ln -s "$HOME"/dotfiles/bugwarrior "$HOME"/.config/bugwarrior; fi
+if ! test -d "$HOME/.config/dijo"; then ln -s "$HOME"/dotfiles/dijo "$HOME"/.config/dijo; fi
 if ! test -d "$HOME/.config/dunst"; then ln -s "$HOME"/dotfiles/dunst "$HOME"/.config/dunst; fi
 if ! test -d "$HOME/.config/feh"; then ln -s "$HOME"/dotfiles/feh "$HOME"/.config/feh; fi
 if ! test -d "$HOME/.config/fish"; then ln -s "$HOME"/dotfiles/fish "$HOME"/.config/fish; fi
