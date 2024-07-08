@@ -6,10 +6,10 @@
 set -e
 set -o xtrace
 
-cd "$HOME"/dotfiles/py3status/ || exit
+cd "$HOME"/dotfiles/py3status/ || exit 1
 make
 
-cd "$HOME" || exit
+cd "$HOME" || exit 1
 
 # symlink in home
 if ! test -d "$HOME/.asy"; then ln -s "$HOME"/dotfiles/asy "$HOME"/.asy; fi

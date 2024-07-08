@@ -26,7 +26,7 @@ if [ -f /bin/pacman ]; then
   paclist chaotic-aur | grep -vE "^chaotic" | cut -d " " -f 1 >~/Sync/pacman/"$(hostname)".vote.paclist
   pacman -Qqm >>~/Sync/pacman/"$(hostname)".vote.paclist
   if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/pacman)" ] && [ "$(whoami)" = "evan" ]; then
-    cd ~/Sync/pacman/ || exit
+    cd ~/Sync/pacman/ || exit 1
     if ! git diff --exit-code; then
       git commit -a -m "$(date), snapshot taken on $(hostname)"
     fi

@@ -84,7 +84,7 @@ function rot13() {
 # Uses the locate utility to find a certain file
 function hunt() {
   python3 ~/dotfiles/py-scripts/hunt.py "${1}"
-  cd "$(cat /tmp/hunt."$(whoami)")" || exit
+  cd "$(cat /tmp/hunt."$(whoami)")" || exit 1
   pwd
   ls -l --color=tty
 }
