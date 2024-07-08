@@ -277,7 +277,7 @@ mode "exec" {
   bindsym a exec i3-sensible-terminal -e "python $HOME/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy", mode "default"
   bindsym b exec libreoffice --calc &, mode "default"
   bindsym c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh cards", mode "default"
-  bindsym d exec discord &, mode "default"
+  bindsym d exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh", mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
   # short for hanabi

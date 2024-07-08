@@ -12,3 +12,7 @@ for k in {1..12}; do
     echo "\${color${color_num[k - 1]}}$(tail ~/.cache/todo.txt -n +"${k}" | head -n 1)"
   fi
 done
+
+if [ -f ~/Sync/Personal/dijo/habit_record.json ]; then
+  echo "\${color7}$(python ~/dotfiles/conky/dijo-today.py ~/Sync/Personal/dijo/habit_record.json)"
+fi

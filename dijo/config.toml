@@ -1,7 +1,7 @@
 [look]
-true_chr = "1"
-false_chr = "0"
-future_chr = "*"
+true_chr = "✔"
+false_chr = "x"
+future_chr = "."
 
 [colors]
 reached = "#00cca7"
