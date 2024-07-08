@@ -266,18 +266,40 @@ function bw-new
         echo "First, unlocking the BitWarden vault..."
         bw-unlock
     end
-    if count $argv >/dev/null
-        set new_password (bw generate $argv)
+
+    set password0 (python ~/dotfiles/py-scripts/gen-password.py)
+    set password1 (python ~/dotfiles/py-scripts/gen-password.py)
+    set password2 (python ~/dotfiles/py-scripts/gen-password.py)
+    set password3 (python ~/dotfiles/py-scripts/gen-password.py)
+    set password4 (python ~/dotfiles/py-scripts/gen-password.py)
+    echo "0. $password0"
+    echo "1. $password1"
+    echo "2. $password2"
+    echo "3. $password3"
+    echo "4. $password4"
+    echo ------------------------
+    read -P "Selected password (empty to take first): " response
+    if test -z "$response"
+        set new_password $password0
+    else if test $response = 0
+        set new_password $password0
+    else if test $response = 1
+        set new_password $password1
+    else if test $response = 2
+        set new_password $password2
+    else if test $response = 3
+        set new_password $password3
+    else if test $response = 4
+        set new_password $password4
     else
-        set new_password (bw generate -ulns)
+        set new_password $response
     end
-    echo $new_password | xsel --primary
-    set_color brpurple
-    echo "New password generated: "
-    set_color --bold white
-    echo $new_password
+    set_color brwhite
+    echo "Chosen password: $new_password"
     set_color normal
+    echo $new_password | xsel --primary
     echo "(copied to primary clipboard)"
+
     echo ------------------------
     read -P "Username: " new_user
     if test -z "$new_user"
