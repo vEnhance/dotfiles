@@ -330,6 +330,7 @@ function bw-new
         .collectionIds = [] |
         .login = $item_login")
     echo $item | bw encode | bw create item | jq
+    bw sync
 end
 # }}}
 
