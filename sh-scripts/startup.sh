@@ -79,6 +79,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
     # gnome-calendar &
     syncthing-gtk &
     spotify &
+    telegram-desktop &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
