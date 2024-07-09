@@ -13,6 +13,6 @@ for k in {1..12}; do
   fi
 done
 
-if [ -f ~/Sync/Personal/dijo/habit_record.json ]; then
-  echo "\${color7}$(python ~/dotfiles/conky/dijo-today.py ~/Sync/Personal/dijo/habit_record.json)"
+if [ -d ~/.local/share/dijo ]; then
+  echo "\${color7}$(python ~/dotfiles/conky/dijo-today.py)"
 fi
