@@ -60,8 +60,8 @@
 
 // Ersatz part command (similar to Koma-Script part in scrartcl)
 #let part(s) = {
-  set text(size:1.4em, fill:colors.partfill)
-  heading(numbering: none, s)
+
+  heading(numbering: none, text(size: 1.4em, fill: colors.partfill, s))
 }
 
 // Main entry point to use in a global show rule
@@ -128,7 +128,6 @@
   // Section headers
   set heading(numbering: "1.1")
   show heading: it => {
-    set text(font:fonts.sans)
     block([
       #if (it.numbering != none) {
         text(fill:colors.headers, "§" + counter(heading).display())
@@ -138,6 +137,9 @@
       #v(0.4em)
     ])
   }
+  show heading: set text(font:fonts.sans, size: 11pt)
+  show heading.where(level: 1): set text(size: 14pt)
+  show heading.where(level: 2): set text(size: 12pt)
 
   // Hyperlinks should be pretty
   show link: it => {
