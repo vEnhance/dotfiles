@@ -37,7 +37,6 @@ fi
 # StarCraft mode
 if [ "$1" = s ]; then
   xset r rate 150 40 2>&1
-  xsetwacom set "Wacom Intuos S Pad pad" Button 1 "button 3"
   notify-send -i status/starred-symbolic "SC2 mode glhf" \
     "$(xmodmap -e "pointer = 1 2 3" 2>&1)\n$"
 fi
