@@ -10,12 +10,14 @@ from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 today = _date.today
 
 
-def get_child_string(div: BeautifulSoup, tag_name="span", cy: str | None = None) -> str:
-    if cy is None:
+def get_child_string(
+    div: BeautifulSoup, tag_name="div", class_name: str | None = None
+) -> str:
+    if class_name is None:
         elm = div.find(tag_name)
     else:
-        elm = div.find(tag_name, attrs={"data-cy": cy})
-    assert elm is not None, f"Couldn't find {tag_name} with data-cy={cy} in {div}"
+        elm = div.find(tag_name, class_=class_name)
+    assert elm is not None, f"Couldn't find {tag_name} with class={class_name} in {div}"
     return " ".join(line.strip() for line in elm.strings if line.strip()).strip()
 
 
@@ -37,21 +39,29 @@ with get_session() as session:
     with open("/home/evan/dotfiles/gnucash-txn-import/data/paypal.html") as htmlfile:
         soup = BeautifulSoup(htmlfile, features="lxml")
 
-    for div in soup.find_all("div", role="button"):
-        str_amount = get_child_string(div, cy="totalAmountTextVal")
+    for div in soup.find_all("div", class_="description_container"):
+        str_amount = get_child_string(div, class_name="txn_amt_font")
         str_amount = str_amount.replace("$", "")
         str_amount = str_amount.replace(" ", "")
         str_amount = str_amount.replace("−", "-")
         row_amount = to_dollars(str_amount)
-        str_date = get_child_string(div, cy="dateText")
+        try:
+            date_blurb = get_child_string(
+                div, class_name="transaction_type_text_with_notes"
+            )
+        except AssertionError:
+            date_blurb = get_child_string(div, class_name="transaction_type_text")
+        str_date = date_blurb[: date_blurb.index(".")].strip()
         row_date = datetime.strptime(f"{str_date} {current_year}", r"%b %d %Y").date()
         if row_date > _date.today():
             row_date = datetime.strptime(
                 f"{str_date} {current_year-1}", r"%b %d %Y"
             ).date()
-        row_description = get_child_string(div, tag_name="div", cy="counterpartyName")
+        row_description = get_child_string(
+            div, tag_name="div", class_name="counterparty_name"
+        )
         try:
-            note = get_child_string(div, tag_name="div", cy="notes")
+            note = get_child_string(div, class_name="transaction_notes")
         except AssertionError:
             note = ""
         else:
