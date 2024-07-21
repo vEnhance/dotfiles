@@ -60,6 +60,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.gradescope.com/*",
     r"*://*.hanabi.github.io/*",
     r"*://*.hmmt.org/*",
+    r"*://*.imo-official.org/*",
     r"*://*.instagram.com/*",
     r"*://*.itch.io/*",
     r"*://*.komal.hu/*",
