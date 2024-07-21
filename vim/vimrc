@@ -36,7 +36,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   " Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
   " Plug 'vimoutliner/vimoutliner',      { 'for' : 'votl' }
 
-  " Plug 'honza/vim-snippets'
+  Plug 'honza/vim-snippets'
   " Plug 'SirVer/ultisnips'
 
   Plug 'Shougo/echodoc'
@@ -66,6 +66,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   " Neovim Only
   Plug 'ryanoasis/vim-devicons'
   Plug 'nvim-lua/plenary.nvim'
+  Plug 'Julian/lean.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
@@ -244,7 +245,6 @@ let g:coc_global_extensions = [
   \ 'coc-pyright',
   \ 'coc-sh',
   \ 'coc-snippets',
-  \ 'coc-tabnine',
   \ 'coc-tsserver',
   \ 'coc-vimlsp',
   \ 'coc-vimtex',
@@ -254,7 +254,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call plug#end()
 endif
 " }}}
-" ALE + CoC {{{
+" ALE + CoC continued {{{
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call ale#Set('djlint_executable', 'djlint')
   call ale#Set('djlint_options', '')
@@ -276,6 +276,7 @@ function! CocStartAndDisableALELSP()
   CocStart
   CocEnable
   let g:ale_disable_lsp = 1
+  inoremap <C-j> <Plug>(coc-snippets-expand-jump)
   echo 'CoC has been started!'
 endfunction
 " }}}

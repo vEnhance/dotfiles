@@ -15,5 +15,9 @@
       ".projections.json"
     ],
     "tabnine.priority": -1,
-    "snippets.ultisnips.pythonPrompt": false
+    "snippets.ultisnips.pythonPrompt": false,
+    "coc.source.vimtex.filetypes": [
+      "tex",
+      "plaintex"
+    ]
 }
