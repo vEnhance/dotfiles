@@ -20,7 +20,7 @@ class TxnAddArgsDict(TypedDict):
 
 
 def to_dollars(x: Union[str, int, float, Decimal, GncNumeric]) -> Decimal:
-    if type(x) == GncNumeric:
+    if type(x) is GncNumeric:
         x = float(x)
     elif isinstance(x, str):
         x = x.replace(",", "")
