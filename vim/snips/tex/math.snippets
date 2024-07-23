@@ -1,0 +1,51 @@
+snippet ( "Left/right parens" i
+\left( ${1:(Content)} \right) $0
+endsnippet
+snippet [ "Left/right brackets" i
+\left[ ${1:(Content)} \right] $0
+endsnippet
+snippet { "Left/right curly braces" i
+\left\\{ ${1:(Content)} \right\\} $0
+endsnippet
+snippet < "Left/right angle brackets" i
+\left< ${1:(Content)} \right> $0
+endsnippet
+
+snippet floor "Floor" i
+\left\lfloor ${1:(Content)} \right\rfloor $0
+endsnippet
+snippet ceil "Ceiling" i
+\left\lceil ${1:(Content)} \right\rceil $0
+endsnippet
+
+snippet cycsum "Cyclic sum" i
+\sum_{\text{cyc}} $0
+endsnippet
+snippet symsum "Symmetric sum" i
+\sum_{\text{sym}} $0
+endsnippet
+snippet cycprod "Cyclic product" i
+\prod_{\text{cyc}} $0
+endsnippet
+snippet symprod "Symmetric product" i
+\prod_{\text{sym}} $0
+endsnippet
+
+snippet 1 "Indicator function" i
+\mathbf{1} $0
+endsnippet
+
+snippet cases "Cases function" i
+\begin{cases}
+  ${1:(Cases)}
+\end{cases}
+$0
+endsnippet
+
+snippet f "Fraction" i
+\frac{${1:(Numerator)}}{${2:Denominator}} $0
+endsnippet
+
+snippet mat "Matrix" i
+\begin{bmatrix} ${1:(Content)} \end{bmatrix} $0
+endsnippet

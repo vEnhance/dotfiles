@@ -36,8 +36,8 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   " Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
   " Plug 'vimoutliner/vimoutliner',      { 'for' : 'votl' }
 
-  Plug 'honza/vim-snippets'
-  " Plug 'SirVer/ultisnips'
+  " Plug 'honza/vim-snippets'
+  Plug 'SirVer/ultisnips'
 
   Plug 'Shougo/echodoc'
   Plug 'airblade/vim-gitgutter'
@@ -120,6 +120,7 @@ let g:typst_conceal=1
 let g:typst_conceal_math=1
 let g:typst_conceal_emoji=1
 let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsSnippetDirectories = [$HOME.'/.vim/snips/']
 let g:vim_markdown_auto_insert_bullets = 0
 let g:vim_markdown_conceal = 0
 let g:vim_markdown_frontmatter = 1
@@ -244,7 +245,6 @@ let g:coc_global_extensions = [
   \ 'coc-json',
   \ 'coc-pyright',
   \ 'coc-sh',
-  \ 'coc-snippets',
   \ 'coc-tsserver',
   \ 'coc-vimlsp',
   \ 'coc-vimtex',
@@ -276,7 +276,6 @@ function! CocStartAndDisableALELSP()
   CocStart
   CocEnable
   let g:ale_disable_lsp = 1
-  inoremap <C-j> <Plug>(coc-snippets-expand-jump)
   echo 'CoC has been started!'
 endfunction
 " }}}
@@ -360,6 +359,7 @@ function! JumpWithinFile(back, forw)
 endfunction
 nnoremap <silent> <C-i> :call JumpWithinFile("\<c-o>", "\<c-i>")<cr>
 nnoremap <silent> <C-o> :call JumpWithinFile("\<c-i>", "\<c-o>")<cr>
+nnoremap <silent> <C-j> :call UltiSnips#JumpForwards()<cr>
 
 " system clipboard
 vnoremap <silent> <C-C> '+y
@@ -623,10 +623,6 @@ if has('nvim')
     autocmd!
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=1200 }
   augroup END
-endif
-
-if !empty(globpath(&runtimepath, 'after/ftplugin/imaps.vim'))
-  runtime after/ftplugin/imaps.vim
 endif
 " }}}
 

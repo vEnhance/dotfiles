@@ -1,0 +1,42 @@
+snippet begin "New LaTeX environment"
+\begin{${1:(environment name)}}
+	${2:(Content)}
+\end{$1}
+$0
+endsnippet
+
+snippet doc "New document" b
+\documentclass[11pt]{${1:(documentclass)}}
+\begin{document}
+${0:(Content)}
+\end{document}
+endsnippet
+
+snippet evan "New document with evan's style" b
+\documentclass[11pt]{scrartcl}
+\usepackage{evan}
+
+\begin{document}
+\title{${1:(Title)}}
+\maketitle
+
+${0:(Content)}
+
+\end{document}
+endsnippet
+
+snippet amsart "New AMS document" b
+\documentclass[11pt]{amsart}
+
+\begin{document}
+\title{${1:(Title)}}
+\maketitle
+
+${0:(Content)}
+
+\end{document}
+endsnippet
+
+snippet ... "Ellipses" iA
+\dots
+endsnippet

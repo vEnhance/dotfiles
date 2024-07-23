@@ -126,6 +126,9 @@ fi
 if ! test -d "$HOME/.vim/doc"; then
   ln -s "$HOME"/dotfiles/vim/doc "$HOME"/.vim/doc
 fi
+if ! test -d "$HOME/.vim/snips"; then
+  ln -s "$HOME"/dotfiles/vim/snips "$HOME"/.vim/snips
+fi
 # stopgap
 if ! test -d "$HOME/.vim/spell"; then
   if test -d "$HOME"/dotfiles/vim/spell; then
