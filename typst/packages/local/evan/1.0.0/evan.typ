@@ -108,6 +108,9 @@
     size: 11pt,
   )
 
+  // Color bold elements
+  show strong: set text(rgb("#aa0000"))
+
   // Theorem environments
   show: thmrules.with(qed-symbol: $square$)
 
