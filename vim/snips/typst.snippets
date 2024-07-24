@@ -1,0 +1,58 @@
+snippet evan "evan.typ setup" b
+#import "@local/evan:1.0.0":*
+
+#show: evan.with(
+  title: [${1:(Title)}],
+  subtitle: none,
+  author: "Evan Chen",
+  date: datetime.today(),
+)
+
+#toc
+$0
+endsnippet
+
+snippet image "Image" b
+#image("${1:(Path)}", width: ${2:(Width)})$0
+endsnippet
+
+snippet center "Centered block"
+#align(center)[
+  ${1:(Content)}
+]
+$0
+endsnippet
+
+snippet fig "Figure"
+#figure(
+  image("${1:(Path)}", width: ${2:(Width)}),
+  caption: [${3:(Caption)}],
+)
+$0
+endsnippet
+
+snippet fta "Figure table"
+#figure(
+  table(
+    columns: ${1:(Columns)},
+    ${2:(Content)},
+  ),
+  caption: [${3:(Caption)}],
+  kind: table
+)
+$0
+endsnippet
+
+snippet begin "Environment"
+#${1:(EnvName)}[
+  ${2:(Content)}
+]
+$0
+endsnippet
+
+snippet begin "Quote"
+#quote(attribution: [${1:(Author)}])[
+  ${2:(Quote)}
+]
+$0
+endsnippet
