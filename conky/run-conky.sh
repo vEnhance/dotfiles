@@ -32,7 +32,7 @@ fi
 if [ "$(hostname)" = ArchBootes ]; then
   if [ "$(whoami)" = "evan" ]; then
     conky -c ~/dotfiles/conky/bootes-bar.conf &
-    conky -c ~/dotfiles/conky/cal3.conf &
+    conky -c ~/dotfiles/conky/cal2.conf &
   fi
   if [ "$(whoami)" = "star" ]; then
     conky -c ~/dotfiles/conky/cali-gaming-bar.conf &

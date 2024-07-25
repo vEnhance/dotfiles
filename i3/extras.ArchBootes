@@ -10,5 +10,5 @@ workspace 8 output HDMI-0
 workspace 9 output DP-4
 workspace 10 output DP-4
 
-workspace 0 gaps right 400
-workspace 1 gaps right 400
+workspace 0 gaps right 440
+workspace 1 gaps right 440
