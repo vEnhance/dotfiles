@@ -12,6 +12,8 @@ fi
 dijo
 
 cd ~/Sync/Personal/dijo/ || exit 1
+jq -S "." <"habit_record.json" | sponge "habit_record.json"
+jq -S "." <"habit_record[auto].json" | sponge "habit_record[auto].json"
 
 if [ "$HAS_RUN_DIJO" != "true" ]; then
   if ! git diff --exit-code; then
