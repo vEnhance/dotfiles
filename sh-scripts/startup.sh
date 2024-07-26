@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Supports desktop files, so handled by systemd or dex:
 # * xfce power manager

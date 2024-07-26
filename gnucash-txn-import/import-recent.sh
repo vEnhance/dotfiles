@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 python ~/dotfiles/gnucash-txn-import/scrape_techcu.py
 echo "----------------------------------------------"

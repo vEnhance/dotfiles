@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "+=========================================+"
 if [ "$1" = "cards" ]; then

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # with thanks to https://github.com/jgm/pandoc/wiki/Trials-and-Tribulations:-How-to-find-correct-font-names-for-Pandoc's-use-with-LuaLaTeX%3F
 # -----------------------------------------

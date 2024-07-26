@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
   # during twitch stream, disable laptop lock screen

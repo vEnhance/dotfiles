@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 notify-send "i3: ponymix mode" -i "devices/media-optical-cd-audio-symbolic" \
   -t 6000 \

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 gcalendar --no-of-days 14 --output json \
   --calendar "日曆" \

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # vim: ft=sh
 
 # Make sure we're in Dvorak

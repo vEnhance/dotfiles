@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 set -euxo pipefail
 
@@ -6,7 +6,7 @@ ON_MIC_FLAG="/tmp/nd.1.$(whoami)"
 OFF_MIC_FLAG="/tmp/nd.0.$(whoami)"
 COOKIE_PATH="/tmp/nd.$(whoami)"
 
-#!/bin/bash
+#!/usr/bin/env bash
 if [ $# -ge 1 ]; then
   COMMAND="$1"
 else

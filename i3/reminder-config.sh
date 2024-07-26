@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 notify-send "i3: config mode" \
   -i apps/preferences-desktop-keyboard-shortcuts-symbolic \
   -t 4000 \

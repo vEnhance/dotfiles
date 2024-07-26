@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 git status -sb # print nothing to do msg
 if git diff @\{upstream\} &>/dev/null; then

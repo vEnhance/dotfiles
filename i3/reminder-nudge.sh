@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 notify-send "i3: nudge mode" -i "actions/object-move-symbolic" \
   -t 6000 \

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #
 notify-send "i3: danger mode" \
   -i devices/uninterruptible-power-supply-symbolic \

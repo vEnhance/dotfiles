@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$(hostname)" = ArchAngel ]; then
   if xrandr | grep 1920x1080; then

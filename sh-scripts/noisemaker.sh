@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -f /usr/bin/mpg321 ]; then
   PLAYER=mpg321

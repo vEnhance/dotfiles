@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 pactl load-module module-null-sink sink_name=zoom sink_properties=device.description=zoom
 pactl load-module module-loopback sink=zoom
 pactl set-default-source zoom.monitor

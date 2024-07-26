@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 default="Available tasks"
 lines="${default}\n$(task rofi rc.gc=off rc.verbose=nothing | sed -r 's/^([0-9]+)/#\1;/')"

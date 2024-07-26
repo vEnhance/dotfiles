@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 notify-send "i3: exec mode" -i "categories/applications-utilities-symbolic" \
   -t 4000 \
