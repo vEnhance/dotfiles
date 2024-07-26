@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 ## OSCAR (OLY SCORER)
 # Takes a TSV and produces pretty LaTeX for statistics

@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/env python3
 
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
