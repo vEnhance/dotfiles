@@ -36,7 +36,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   " Plug 'vimwiki/vimwiki',              { 'for' : ['vimwiki', 'markdown'] }
   " Plug 'vimoutliner/vimoutliner',      { 'for' : 'votl' }
 
-  " Plug 'honza/vim-snippets'
+  Plug 'honza/vim-snippets'
   Plug 'SirVer/ultisnips'
 
   Plug 'Shougo/echodoc'
@@ -68,6 +68,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'nvim-lua/plenary.nvim'
   Plug 'Julian/lean.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug 'fhill2/telescope-ultisnips.nvim'
   Plug 'fannheyward/telescope-coc.nvim'
   Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
   Plug 'nvim-tree/nvim-tree.lua'
@@ -513,18 +514,22 @@ nnoremap <Space>- :call EvanClose()<CR>
 
 " Telescope
 if has('nvim')
-  nnoremap <silent> <Space>/ <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
   nnoremap <silent> <Space>; <cmd>Telescope resume<CR>
-  nnoremap <silent> <Space>f <cmd>Telescope builtin<CR>
-  nnoremap <silent> <Space>v <cmd>Telescope vim_options<CR>
+  nnoremap <silent> <Space>. <cmd>Telescope builtin<CR>
+  " Search
+  nnoremap <silent> <Space>/ <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
+  nnoremap <silent> <Space>s <cmd>Telescope live_grep<CR>
+  " Opening files
+  nnoremap <silent> <Space>o <cmd>Telescope find_files theme=dropdown<CR>
   nnoremap <silent> <Space>b <cmd>Telescope buffers theme=dropdown<CR>
   nnoremap <silent> <Space>h <cmd>Telescope oldfiles theme=dropdown<CR>
+  " Vim itself
+  nnoremap <silent> <Space>: <cmd>Telescope command_history<CR>
   nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
   nnoremap <silent> <Space>k <cmd>Telescope keymaps<CR>
-  nnoremap <silent> <Space>o <cmd>Telescope find_files theme=dropdown<CR>
   nnoremap <silent> <Space>q <cmd>Telescope quickfix<CR>
-  nnoremap <silent> <Space>s <cmd>Telescope live_grep<CR>
-  nnoremap <silent> <Space>x <cmd>Telescope command_history<CR>
+  nnoremap <silent> <Space>u <cmd>Telescope ultisnips<CR>
+  nnoremap <silent> <Space>v <cmd>Telescope vim_options<CR>
 endif
 " }}}
 
