@@ -2,20 +2,20 @@ snippet ( "Left/right parens" i
 \left( ${1:(Content)} \right) $0
 endsnippet
 snippet [ "Left/right brackets" i
-\left[ ${1:(Content)} \right] $0
+\left[ ${1:<+Content+>} \right] $0
 endsnippet
 snippet { "Left/right curly braces" i
 \left\\{ ${1:(Content)} \right\\} $0
 endsnippet
 snippet < "Left/right angle brackets" i
-\left< ${1:(Content)} \right> $0
+\left< ${1:<+Content+>} \right> $0
 endsnippet
 
 snippet floor "Floor" i
-\left\lfloor ${1:(Content)} \right\rfloor$0
+\left\lfloor ${1:<+Content+>} \right\rfloor$0
 endsnippet
 snippet ceil "Ceiling" i
-\left\lceil ${1:(Content)} \right\rceil$0
+\left\lceil ${1:<+Content+>} \right\rceil$0
 endsnippet
 
 snippet cycsum "Cyclic sum" i
@@ -37,15 +37,15 @@ endsnippet
 
 snippet cases "Cases function" i
 \begin{cases}
-  ${1:(Cases)}
+  ${1:<+Cases+>}
 \end{cases}
 $0
 endsnippet
 
 snippet fr "Fraction" i
-\frac{${1:(Numerator)}}{${2:Denominator}}$0
+\frac{${1:<+Numerator+>}}{${2:Denominator}}$0
 endsnippet
 
 snippet mat "Matrix" i
-\begin{bmatrix} ${1:(Content)} \end{bmatrix}$0
+\begin{bmatrix} ${1:<+Content+>} \end{bmatrix}$0
 endsnippet

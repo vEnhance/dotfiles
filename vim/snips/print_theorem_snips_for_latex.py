@@ -21,28 +21,28 @@ calls = {
 
 generic_string = r"""snippet Upper "Upper environment"
 \begin{envname}
-__${1:(Content)}
+__${1:<+Content+>}
 \end{envname}
 $0
 endsnippet
 
 snippet Upper[] "Upper environment with name"
-\begin{envname}[${1:(Citation)}]
-__${2:(Content)}
+\begin{envname}[${1:<+Citation+>}]
+__${2:<+Content+>}
 \end{envname}
 $0
 endsnippet
 
 snippet lower "Starred lower environment"
 \begin{envname*}
-__${1:(Content)}
+__${1:<+Content+>}
 \end{envname*}
 $0
 endsnippet
 
 snippet lower[] "Starred lower environment with name"
-\begin{envname*}[${1:(Citation)}]
-__${2:(Content)}
+\begin{envname*}[${1:<+Citation+>}]
+__${2:<+Content+>}
 \end{envname*}
 $0
 endsnippet"""
