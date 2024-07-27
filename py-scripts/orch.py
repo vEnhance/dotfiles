@@ -77,7 +77,14 @@ old_hints = [dict([(k, d[k]) for k in OLD_HINT_KEYS]) for d in resp.json()["hint
 initial_message = yaml.dump(
     {
         "allow_delete_hints": False,
-        "new_hints": [None],
+        "new_hints": [
+            {
+                "number": "<++>",
+                "keywords": "<++>",
+                "content": "<++>",
+            }
+            for _ in range(4)
+        ],
         "old_hints": old_hints,
     },
     sort_keys=False,
@@ -111,6 +118,7 @@ with tempfile.NamedTemporaryFile(suffix=".yaml") as tf:
     tf.seek(0)
     edited_message = tf.read()
     edited_message = edited_message.replace(b"\t", b"  ")
+    edited_message = edited_message.replace(b"<++>", b"null")
 
 with open(f"/tmp/orch{int(time.time())}.yaml", "w") as f:
     print(edited_message.decode(), file=f)
@@ -123,8 +131,7 @@ if isinstance(result, dict):
             d
             for d in result["new_hints"]
             if (
-                d is not None
-                and isinstance(d.get("number"), int)
+                isinstance(d.get("number"), int)
                 and (d.get("keywords") is not None)
                 and (d.get("content") is not None)
                 and len(d.keys()) == 3

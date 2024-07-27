@@ -360,7 +360,25 @@ function! JumpWithinFile(back, forw)
 endfunction
 nnoremap <silent> <C-i> :call JumpWithinFile("\<c-o>", "\<c-i>")<cr>
 nnoremap <silent> <C-o> :call JumpWithinFile("\<c-i>", "\<c-o>")<cr>
-nnoremap <silent> <C-j> :call UltiSnips#JumpForwards()<cr>
+
+" Snippet and marker jumping
+function MarkSnipJump(insertmode)
+  if UltiSnips#CanJumpForwards()
+    call UltiSnips#JumpForwards()
+  else
+    let l:lineno = search('<+[a-zA-Z]*+>')
+    if l:lineno > 0
+      call feedkeys('cf>', 'in')
+    else
+      echo 'Nothing to jump to'
+      if a:insertmode
+        call feedkeys('a', 'in')
+      endif
+    endif
+  endif
+endfunction
+nnoremap <silent> <C-j> :call MarkSnipJump(0)<cr>
+inoremap <silent> <C-j> <Esc>:call MarkSnipJump(1)<cr>
 
 " system clipboard
 vnoremap <silent> <C-C> '+y
