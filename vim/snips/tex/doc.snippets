@@ -1,0 +1,50 @@
+snippet doc "New document" b
+\documentclass[11pt]{${1:(documentclass)}}
+\begin{document}
+${0:(Content)}
+\end{document}
+endsnippet
+
+snippet evan "New document with evan's style" b
+\documentclass[11pt]{scrartcl}
+\usepackage{evan}
+
+\begin{document}
+\title{${1:(Title)}}
+\maketitle
+
+${0:(Content)}
+
+\end{document}
+endsnippet
+
+snippet amsart "New AMS document" b
+\documentclass[11pt]{amsart}
+
+\begin{document}
+\title{${1:(Title)}}
+\maketitle
+
+${0:(Content)}
+
+\end{document}
+endsnippet
+
+snippet opal "New OPAL Puzzle" b
+\documentclass[12pt]{scrartcl}
+\newcommand{\thehuntnumber}{${1:(Number)}}
+\newcommand{\thepuzzletitle}{${2:(Title)}}
+\input{../../opal.sty}
+
+\begin{document}
+\makeheader
+\begin{flavor}
+	${3:(Flavor)}
+\end{flavor}
+
+\puzzlestart
+
+\noindent ${0:(Enter puzzle content here.)}
+
+\end{document}
+endsnippet
