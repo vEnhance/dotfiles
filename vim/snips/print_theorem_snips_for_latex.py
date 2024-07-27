@@ -1,6 +1,5 @@
 calls = {
     "Thm": "theorem",
-    "Proof": "proof",
     "Soln": "soln",
     "Cor": "corollary",
     "Lemma": "lemma",
