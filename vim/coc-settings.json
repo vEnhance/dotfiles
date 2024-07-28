@@ -8,6 +8,9 @@
     "python.analysis.typeCheckingMode": "basic",
     "python.analysis.useLibraryCodeForTypes": true,
     "python.linting.mypyEnabled": false,
+    "pyright.inlayHints.variableTypes": false,
+    "pyright.inlayHints.parameterTypes": true,
+    "pyright.inlayHints.functionReturnTypes": false,
     "coc.preferences.rootPatterns": [
       "pyrightconfig.json",
       ".git",
