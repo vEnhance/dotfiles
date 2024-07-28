@@ -1,0 +1,41 @@
+snippet model "Django Model" b
+class ${1:ModelClassName}(models.Model):
+	${2:# insert fields here}
+
+	def __str__(self) -> str:
+		return ${3:""}
+
+$0
+
+snippet admin "ModelAdmin snippet" b
+@admin.register(${1:ModelClassName})
+class $1Admin(admin.ModelAdmin):
+	list_display = ("pk", ${2})
+	list_display_links = ("pk", ${3})
+	list_filter = (${4})
+	search_fields = ("pk", ${5})
+	$0
+endsnippet
+
+snippet fac "Factory snippet" b
+class ${1:ModelClassName}Factory(DjangoModelFactory):
+	class Meta:
+		model = $1
+
+	$0
+endsnippet
+
+snippet tcl "Testing class" b
+class Test${1:Name}(EvanTestCase):
+	def test_${2:name}(self):
+		pass
+
+	$0
+endsnippet
+
+snippet test "Test function" b
+def test_${1:name}(self):
+	${0:pass}
+endsnippet
+
+# vim: shiftwidth=4 tabstop=4 noexpandtab
