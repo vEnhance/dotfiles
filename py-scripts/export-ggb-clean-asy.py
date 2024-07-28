@@ -28,6 +28,12 @@ parser.add_argument(
     "Reads the input from the clipboard rather than stdin (using pyperclip) "
     "and writes the resulting code directly to the clipboard too.",
 )
+parser.add_argument(
+    "-n",
+    "--no-header",
+    action="store_true",
+    help="Don't search for the first-line header.",
+)
 args = parser.parse_args()
 
 
@@ -44,14 +50,15 @@ else:
 
 try:
     input_buffer = io.StringIO(input_contents)  # replace with clipboard
-    first_line = input_buffer.readline()
-
     output_buffer = io.StringIO()
-    assert (
-        "Geogebra to Asymptote conversion" in first_line
-    ), f"First line is missing header\n{first_line}"
-    # print(r'/* start ggb to asy preamble */', file=output_buffer)
     point_coords_dict = {}
+
+    if args.no_header is False:
+        first_line = input_buffer.readline()
+        assert (
+            "Geogebra to Asymptote conversion" in first_line
+        ), f"First line is missing header\n{first_line}"
+        # print(r'/* start ggb to asy preamble */', file=output_buffer)
 
     # Preamble
     for line in input_buffer:
