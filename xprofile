@@ -68,7 +68,6 @@ if [ "$(hostname)" = ArchDiamond ]; then
   if [ "$(date +"%Z")" = PDT ]; then
     xset s 900 30
     xset dpms 600 600 600
-    xmodmap -e "keycode  9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave"
   else
     xset s 14400 14400
     xset dpms 14400 14400 14400
