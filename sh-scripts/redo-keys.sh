@@ -22,12 +22,12 @@ fi
 
 # if caps lock is on, kill it
 if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
-  echo "OH NO CAPS LOCK"
+  echo "OH NO CAPS LOCK IS ON AAAAAAAA"
   xdotool key Caps_Lock
   if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "off" ]; then
     echo "OK we turned it off, phew"
   else
-    echo "FUCK!"
+    echo "씨발!"
     notify-send -u critical -t 5000 "Turn off caps lock!"
     exit 1
   fi
