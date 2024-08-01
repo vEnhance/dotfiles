@@ -1,10 +1,16 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Make sure we're in Dvorak
 setxkbmap us -variant dvorak -option caps:escape
 numlockx on
 if [ "$(hostname)" = ArchScythe ] || [ "$(hostname)" = ArchSapphire ]; then
   synclient VertScrollDelta=-237
+fi
+
+# In case we're at home with that one keyboard that has no tilde key...
+usb_out=$(lsusb)
+if [ "$(hostname)" = ArchDiamond ] && grep "Logitech, Inc. Unifying Receiver" <<<"$usb_out"; then
+  xmodmap -e "keycode  9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave"
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
