@@ -109,7 +109,7 @@
   )
 
   // Color bold elements
-  show strong: set text(rgb("#aa0000"))
+  show strong: set text(rgb("#000055"))
 
   // Theorem environments
   show: thmrules.with(qed-symbol: $square$)
