@@ -166,7 +166,7 @@ if test -f /usr/bin/zathura
 end
 # path exports
 export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
-export PATH="$PATH:$HOME/dotfiles/bin/"
+export PATH="$PATH:$HOME/dotfiles/bin/:$HOME/.cargo/bin"
 if test -d /opt/google-cloud-cli
     export CLOUDSDK_ROOT_DIR=/opt/google-cloud-cli
     export CLOUDSDK_PYTHON=/usr/bin/python
