@@ -6,7 +6,7 @@ IMAPAccount personal-gmail
 Host imap.gmail.com
 UserCmd "echo $(cat ~/dotfiles/secrets/mailuser0)@gmail.com"
 PassCmd "secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser0) type gmail"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore personal-remote
@@ -57,7 +57,7 @@ IMAPAccount work-gmail
 Host imap.gmail.com
 UserCmd "echo $(cat ~/dotfiles/secrets/mailuser1)@gmail.com"
 PassCmd "secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser1) type gmail"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore work-remote
@@ -110,7 +110,7 @@ IMAPAccount records-gmail
 Host imap.gmail.com
 UserCmd "echo $(cat ~/dotfiles/secrets/mailuser2)@gmail.com"
 PassCmd "secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser2) type gmail"
-SSLType IMAPS
+TLSType IMAPS
 CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 IMAPStore records-remote
