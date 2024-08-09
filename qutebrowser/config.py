@@ -91,6 +91,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.wikidata.org/*",
     r"*://*.usaco.org/*",
     r"*://*.youtube.com/*",
+    r"*://0xparc.org/*",
     r"*://127.0.0.1/*",
     r"*://accounts.google.com/*",
     r"*://artofproblemsolving.com/*",
