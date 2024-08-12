@@ -5,8 +5,6 @@ import getpass
 import random
 from pathlib import Path
 
-random.seed("TESTING")
-
 MAX = 1001
 N = 192
 
