@@ -4,6 +4,7 @@ import argparse
 import getpass
 import json
 import random
+import secrets
 from pathlib import Path
 
 MAX = 1001
@@ -39,7 +40,7 @@ def miller_rabin_test(n, k=5):
 
 def generate_n_bit_prime(n):
     while True:
-        candidate = random.getrandbits(n)
+        candidate = secrets.randbits(n)
         candidate |= (1 << n - 1) | 1  # Ensure candidate is n-bits and odd
         if miller_rabin_test(candidate):
             return candidate
@@ -129,7 +130,7 @@ else:
 
 if opts.bob is True:
     assert SJ is not None
-    x = random.getrandbits(N)
+    x = secrets.randbits(N)
     C = pow(x, e, n)
     m = (C - SJ) % n
     print("Send the following value of m to Bob:")
