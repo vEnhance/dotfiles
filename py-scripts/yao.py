@@ -2,11 +2,14 @@
 
 import argparse
 import getpass
+import json
 import random
 from pathlib import Path
 
 MAX = 1001
 N = 192
+PAYLOAD_FILENAME = "yao-payload.json"
+KEY_FILENAME = "yao-key.json"
 
 
 def miller_rabin_test(n, k=5):
@@ -61,14 +64,17 @@ def generate_key_pair(bits):
 
 parser = argparse.ArgumentParser("yao", description="Run millionaire problem.")
 parser.add_argument("salary", nargs="?", type=int, default=None)
+parser.add_argument(
+    "-n", "--nocache", action="store_true", help="Don't save the RSA key."
+)
 group = parser.add_mutually_exclusive_group(required=True)
 group.add_argument("--alice", action="store_true", help="Specify you are Alice")
 group.add_argument("--bob", action="store_true", help="Specify you are Bob")
 
 opts = parser.parse_args()
 
-if Path("payload.txt").exists():
-    Path("payload.txt").unlink()
+if Path(PAYLOAD_FILENAME).exists():
+    Path(PAYLOAD_FILENAME).unlink()
 if opts.alice is True:
     SI = int(
         opts.salary
@@ -87,7 +93,31 @@ else:
     assert SJ < MAX
 
 if opts.alice is True:
-    e, d, n = generate_key_pair(bits=N)
+    if Path(KEY_FILENAME).exists():
+        with open(KEY_FILENAME) as f:
+            data = json.load(f)
+            cached_N = data["N"]
+            cached_e = data["e"]
+            cached_d = data["d"]
+            cached_n = data["n"]
+    else:
+        cached_N = None
+        cached_e = None
+        cached_d = None
+        cached_n = None
+    if cached_N == N and cached_N is not None:
+        print(f"Read RSA keypair from {KEY_FILENAME}.")
+        e = cached_e
+        d = cached_d
+        n = cached_n
+    else:
+        e, d, n = generate_key_pair(bits=N)
+        if opts.nocache is False:
+            with open(KEY_FILENAME, "w") as f:
+                json.dump({"N": N, "e": e, "d": d, "n": n}, fp=f)
+            print(f"We wrote this RSA keypair to {KEY_FILENAME} so it stays the same.")
+    assert e is not None
+    assert n is not None
     print("Send the following value of n to Bob:")
     print(n)
     print("-" * 40)
@@ -110,7 +140,6 @@ else:
     x = None
     print("-" * 40)
 
-# Bob does dumb stuff
 if opts.alice is True:
     assert SI is not None
     while True:
@@ -120,30 +149,31 @@ if opts.alice is True:
         Y = [pow(m + i, d, n) for i in range(MAX)]
         Z = [y % p for y in Y]
         sortedZ = list(sorted(Z))
-        print(sortedZ)
         if all(sortedZ[i] - sortedZ[i - 1] >= 2 for i in range(1, MAX)):
             break
-    with open("payload.txt", "w") as f:
-        print(m, file=f)
-        print(p, file=f)
-        for i in range(0, MAX):
-            print((Z[i] + int(i > SI)) % p, file=f)
+    with open(PAYLOAD_FILENAME, "w") as f:
+        W = tuple((Z[i] + int(i > SI)) % p for i in range(0, MAX))
+        json.dump(
+            {"m": m, "p": p, "stream": W},
+            fp=f,
+        )
+    print(f"We wrote the file {PAYLOAD_FILENAME}.")
+    print("Send that to Bob and Bob will tell you the result.")
 else:
-    print("Alice should send you a file called payload.txt")
+    print(f"Alice should send you a file called {PAYLOAD_FILENAME}")
     print("Put that file in the directory of this script.")
-    while not Path("payload.txt").exists():
+    while not Path(PAYLOAD_FILENAME).exists():
         input("Press enter once ready...")
-    with open("payload.txt") as f:
-        assert int(f.readline()) == m
-        p = int(f.readline())
-        W = [int(line) for line in f]
-        assert x is not None
-        assert SJ is not None
-        print(SJ)
-        print(x)
-        print(W)
-        assert W[SJ] % p == x or W[SJ] % p == x + 1
-        if W[SJ] % p == x:
-            print("Alice has at least as much money as Bob")
-        else:
-            print("Bob has more money than Alice")
+    with open(PAYLOAD_FILENAME) as f:
+        data = json.load(f)
+    assert data["m"] == m
+    p = data["p"]
+    assert miller_rabin_test(p)
+    W = data["stream"]
+    assert x is not None
+    assert SJ is not None
+    assert W[SJ] % p == x or W[SJ] % p == x + 1
+    if W[SJ] % p == x:
+        print("Alice has at least as much money as Bob!")
+    else:
+        print("Bob has more money than Alice!")
