@@ -1,4 +1,5 @@
-# https://zoo.cs.yale.edu/classes/cs461/2009/lectures/ln21.pdf
+# Implements https://zoo.cs.yale.edu/classes/cs461/2009/lectures/ln21.pdf
+# Definitely not a good use of my time.
 
 import argparse
 import getpass
@@ -80,18 +81,22 @@ if opts.alice is True:
     SI = int(
         opts.salary
         if opts.salary is not None
-        else getpass.getpass("You are Alice. What's your salary? (Input hidden) ")
+        else getpass.getpass(
+            f"You are Alice. What's your salary? (Input hidden, 0-{MAX}) "
+        )
     )
     SJ = None
-    assert SI < MAX
+    assert 0 <= SI < MAX, f"Out of range. Must be between 0 and {MAX}"
 else:
     SI = None
     SJ = int(
         opts.salary
         if opts.salary is not None
-        else getpass.getpass("You are Bob. What's your salary? (Input hidden) ")
+        else getpass.getpass(
+            f"You are Bob. What's your salary? (Input hidden, 0-{MAX}) "
+        )
     )
-    assert SJ < MAX
+    assert 0 <= SJ < MAX, f"Out of range. Must be between 0 and {MAX}"
 
 if opts.alice is True:
     if Path(KEY_FILENAME).exists():
@@ -150,10 +155,10 @@ if opts.alice is True:
         Y = [pow(m + i, d, n) for i in range(MAX)]
         Z = [y % p for y in Y]
         sortedZ = list(sorted(Z))
-        if all(sortedZ[i] - sortedZ[i - 1] >= 2 for i in range(1, MAX)):
+        if all(sortedZ[i] - sortedZ[i - 1] >= 3 for i in range(1, MAX)):
             break
     with open(PAYLOAD_FILENAME, "w") as f:
-        W = tuple((Z[i] + int(i > SI)) % p for i in range(0, MAX))
+        W = tuple((Z[i] + int(i > SI) - int(i < SI)) % p for i in range(0, MAX))
         json.dump(
             {"m": m, "p": p, "stream": W},
             fp=f,
@@ -164,7 +169,7 @@ else:
     print(f"Alice should send you a file called {PAYLOAD_FILENAME}")
     print("Put that file in the directory of this script.")
     while not Path(PAYLOAD_FILENAME).exists():
-        input("Press enter once ready...")
+        input("File not found. Press enter once it's here...")
     with open(PAYLOAD_FILENAME) as f:
         data = json.load(f)
     assert data["m"] == m
@@ -173,8 +178,10 @@ else:
     W = data["stream"]
     assert x is not None
     assert SJ is not None
-    assert W[SJ] % p == x or W[SJ] % p == x + 1
-    if W[SJ] % p == x:
-        print("Alice has at least as much money as Bob!")
+    assert W[SJ] % p == x - 1 or W[SJ] % p == x or W[SJ] % p == x + 1, (W[SJ] % p, x)
+    if W[SJ] % p == x - 1:
+        print("🅰️ Alice has more money than Bob!")
+    elif W[SJ] % p == x + 1:
+        print("🅱️ Bob has more money than Alice!")
     else:
-        print("Bob has more money than Alice!")
+        print("😮 The two provided numbers are equal!")

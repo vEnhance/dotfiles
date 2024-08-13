@@ -228,7 +228,7 @@ alias von='/usr/bin/python3 -m von'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
-alias xfer='/usr/bin/python3 -m xfer'
+alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
 
 alias tu='~/dotfiles/sh-scripts/task-update.sh'
 # mailbox aliases
