@@ -149,7 +149,6 @@ else:
 if opts.alice is True:
     assert SI is not None
     while True:
-        print("Hi")
         assert d is not None
         p = generate_n_bit_prime(N)
         Y = [pow(m + i, d, n) for i in range(MAX)]
