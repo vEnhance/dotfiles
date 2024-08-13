@@ -64,14 +64,24 @@ def generate_key_pair(bits):
     return (e, d, n)
 
 
-parser = argparse.ArgumentParser("yao", description="Run millionaire problem.")
-parser.add_argument("salary", nargs="?", type=int, default=None)
+parser = argparse.ArgumentParser(
+    "yao",
+    description="A silly implementation of Yao's millionaire problems to use with friends.",
+)
+parser.add_argument(
+    "salary",
+    nargs="?",
+    type=int,
+    default=None,
+    help="The salary you are hiding from your friend. "
+    "If not specified, will be read from a prompt (with echo disabled).",
+)
 parser.add_argument(
     "-n", "--nocache", action="store_true", help="Don't save the RSA key."
 )
 group = parser.add_mutually_exclusive_group(required=True)
-group.add_argument("--alice", action="store_true", help="Specify you are Alice")
-group.add_argument("--bob", action="store_true", help="Specify you are Bob")
+group.add_argument("-a", "--alice", action="store_true", help="Specify you are Alice")
+group.add_argument("-b", "--bob", action="store_true", help="Specify you are Bob")
 
 opts = parser.parse_args()
 
