@@ -6,7 +6,7 @@ alias getclip="xsel --clipboard"
 alias gg="cd (git rev-parse --show-toplevel)"
 alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
 alias gsthaw="gsutil -m setmeta -R -h 'Cache-Control:private, max-age=0, no-transform'"
-alias ipv4='ip addr | ag inet -w | ag -w "[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"'
+alias ipv4="hostname -i | cut -d' ' -f2"
 alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
 alias panmd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias putclip="xsel --clipboard"
