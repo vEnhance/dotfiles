@@ -96,6 +96,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://accounts.google.com/*",
     r"*://artofproblemsolving.com/*",
     r"*://arxiv.org/*",
+    r"*://atcoder.jp/*",
     r"*://athemath.org/*",
     r"*://bitwarden.com/*",
     r"*://calendar.google.com/*",
