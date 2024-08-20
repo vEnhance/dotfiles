@@ -1,6 +1,7 @@
 import argparse
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
 
 TERM_COLOR: dict[str, str] = {}
@@ -28,11 +29,11 @@ TERM_COLOR["BG_CYAN"] = "\033[46m"
 
 parser = argparse.ArgumentParser(
     "stomp",
-    description="Stomps on your work. A C++/Py3 grader for comp programming.",
+    description="Stomps on your work. A Rust/C++/Py3 grader for comp programming.",
 )
 parser.add_argument(
     "program_path",
-    help="The C++/Py3 program that you're going to use.",
+    help="The Rust/C++/Py3 program that you're going to use.",
 )
 parser.add_argument(
     "-o",
@@ -52,8 +53,13 @@ if opts.program_path.endswith(".py"):
     PROGRAM_TYPE = "PYTHON"
 elif opts.program_path.endswith(".cpp"):
     PROGRAM_TYPE = "C++"
+elif opts.program_path.endswith(".rs"):
+    PROGRAM_TYPE = "RUST"
 else:
     raise ValueError(f"stomp doesn't support {opts.program_path} yet")
+
+TMPDIR = Path(tempfile.gettempdir())
+binary_output_path = TMPDIR / (Path(opts.program_path).stem + ".out")
 
 
 if __name__ == "__main__":
@@ -72,6 +78,8 @@ if __name__ == "__main__":
                 "-std=c++17",
                 opts.program_path,
                 "-DDEBUG",
+                "-o",
+                binary_output_path,
             ]
         )
         if compile_process.returncode != 0:
@@ -81,6 +89,19 @@ if __name__ == "__main__":
             sys.exit(1)
         else:
             print("🆗 Compilation OK")
+    elif PROGRAM_TYPE == "RUST":
+        print("⏳ Compiling Rust code...")
+        compile_process = subprocess.run(
+            ["rustc", opts.program_path, "-o", binary_output_path]
+        )
+        if compile_process.returncode != 0:
+            print(
+                f"👿 {TERM_COLOR['BOLD_YELLOW']} COMPILATION FAILED{TERM_COLOR['RESET']}"
+            )
+            sys.exit(1)
+        else:
+            print("🆗 Compilation OK")
+
     elif PROGRAM_TYPE == "PYTHON":
         print("🐍 Python programs don't need compilers haha")
     else:
@@ -100,7 +121,14 @@ if __name__ == "__main__":
         ):
             if PROGRAM_TYPE == "C++":
                 process = subprocess.run(
-                    ["./a.out"],
+                    [binary_output_path],
+                    stdin=input_file,
+                    stdout=stdout_file,
+                    stderr=stderr_file,
+                )
+            elif PROGRAM_TYPE == "RUST":
+                process = subprocess.run(
+                    [binary_output_path],
                     stdin=input_file,
                     stdout=stdout_file,
                     stderr=stderr_file,
