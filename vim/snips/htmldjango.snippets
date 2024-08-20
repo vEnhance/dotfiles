@@ -1,0 +1,12 @@
+snippet layout "Basic template for layout.html" b
+{% extends "layout.html" %}
+{% block title %}
+	${1:Title}
+{% endblock title %}
+{% block layout-content %}
+	$0
+{% endblock layout-content %}
+{% comment %}
+vim: ft=htmldjango
+{% endcomment %}
+endsnippet

@@ -35,7 +35,57 @@ endsnippet
 
 snippet test "Test function" b
 def test_${1:name}(self):
-	${0:pass}
+	${2:pass}
+
+$0
 endsnippet
+
+snippet login "Login required decorator for a generic view" b
+@login_required
+def ${1:method_name}(request: HttpRequest, ${2:args: *Any}) -> HttpResponse:
+	context: dict[str, Any] = {}
+	${3:# method here}
+	return render(request, "${4:template_name.html}", context)
+
+$0
+endsnippet
+
+snippet view "Generic view"
+def ${1:method_name}(request: HttpRequest, ${2:args: *Any}) -> HttpResponse:
+	context: dict[str, Any] = {}
+	${3:# method here}
+	return render(request, "${4:template_name.html}", context)
+
+$0
+endsnippet
+
+snippet setup "Setup method in a Django class-based view"
+def setup(self, request: HttpRequest, *args: Any, **kwargs: Any):
+	super().setup(request, *args, **kwargs)
+	${1:# body here}
+
+$0
+endsnippet
+
+snippet gcd "get_context_data method in a Django class-based view"
+def get_context_data(self, **kwargs: Any):
+	context = super().get_context_data(**kwargs)
+	${1:pass}
+	return context
+
+$0
+endsnippet
+
+snippet djlist "Django list" b
+class ${1:ClassName}List(ListView[${2:ModelName}]):
+	model = $2
+	context_object_name = "${3:names}"
+
+	def get_queryset(self) -> QuerySet[$2]:
+		${4:pass}
+
+$0
+endsnippet
+
 
 # vim: shiftwidth=4 tabstop=4 noexpandtab
