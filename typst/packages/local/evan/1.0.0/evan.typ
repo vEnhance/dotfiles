@@ -50,6 +50,7 @@
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 
 #let proof = thmproof("proof", "Proof")
+#let soln = thmproof("proof", "Solution")
 
 #let pmod(x) = $space (mod #x)$
 #let vocab(body) = strong(text(blue, body))
