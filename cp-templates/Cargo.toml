@@ -1,0 +1,9 @@
+[package]
+name = "stomp_{name}"
+
+[lib]
+path = "{path}"
+
+[features]
+default = ["debug"]
+debug = []

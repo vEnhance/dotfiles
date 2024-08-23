@@ -1,4 +1,5 @@
 import argparse
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -36,6 +37,9 @@ parser.add_argument(
     help="The Rust/C++/Py3 program that you're going to use.",
 )
 parser.add_argument(
+    "-n", "--new", help="Set up a new CP solution.", action="store_true"
+)
+parser.add_argument(
     "-o",
     "--stdout",
     help="Show stdout",
@@ -49,20 +53,46 @@ parser.add_argument(
 )
 
 opts = parser.parse_args()
-if opts.program_path.endswith(".py"):
+main_path = Path(opts.program_path)
+
+if main_path.name.endswith(".py"):
     PROGRAM_TYPE = "PYTHON"
-elif opts.program_path.endswith(".cpp"):
+elif main_path.name.endswith(".cpp"):
     PROGRAM_TYPE = "C++"
-elif opts.program_path.endswith(".rs"):
+elif main_path.name.endswith(".rs"):
     PROGRAM_TYPE = "RUST"
 else:
-    raise ValueError(f"stomp doesn't support {opts.program_path} yet")
+    raise ValueError(f"stomp doesn't support {main_path} yet")
 
 TMPDIR = Path(tempfile.gettempdir())
-binary_output_path = TMPDIR / (Path(opts.program_path).stem + ".out")
+binary_output_path = TMPDIR / (Path(main_path).stem + ".out")
+
+TEMPLATE_PATHS = Path("~/dotfiles/cp-templates/").expanduser()
 
 
 if __name__ == "__main__":
+    if opts.new:
+        assert (
+            not main_path.exists()
+        ), "You shouldn't use stomp -n if the file exists already"
+        (main_path.parent / "tests").mkdir(exist_ok=True)
+        if PROGRAM_TYPE == "PYTHON":
+            shutil.copy(TEMPLATE_PATHS / "main.py", main_path)
+        elif PROGRAM_TYPE == "C++":
+            shutil.copy(TEMPLATE_PATHS / "main.cpp", main_path)
+        elif PROGRAM_TYPE == "RUST":
+            shutil.copy(TEMPLATE_PATHS / "main.rs", main_path)
+            with open(TEMPLATE_PATHS / "Cargo.toml") as f:
+                cargo_toml_content = "".join(f.readlines()).format(
+                    path=main_path,
+                    name=main_path.name[:-3].lower(),
+                )
+            with open(main_path.parent / "Cargo.toml", "w") as f:
+                print(cargo_toml_content.strip(), file=f)
+        sys.exit(0)
+    elif not main_path.exists():
+        raise Exception(f"{main_path} doesn't exist")
+
     if PROGRAM_TYPE == "C++":
         print("⏳ Compiling C++ code...")
         compile_process = subprocess.run(
@@ -76,7 +106,7 @@ if __name__ == "__main__":
                 "-fno-stack-protector",
                 "-fmax-errors=1",
                 "-std=c++17",
-                opts.program_path,
+                main_path,
                 "-DDEBUG",
                 "-o",
                 binary_output_path,
@@ -92,7 +122,14 @@ if __name__ == "__main__":
     elif PROGRAM_TYPE == "RUST":
         print("⏳ Compiling Rust code...")
         compile_process = subprocess.run(
-            ["rustc", opts.program_path, "-o", binary_output_path]
+            [
+                "rustc",
+                main_path,
+                "-o",
+                binary_output_path,
+                "--cfg",
+                'feature="debug"',
+            ]
         )
         if compile_process.returncode != 0:
             print(
@@ -135,7 +172,7 @@ if __name__ == "__main__":
                 )
             elif PROGRAM_TYPE == "PYTHON":
                 process = subprocess.run(
-                    ["python", opts.program_path],
+                    ["python", main_path],
                     stdin=input_file,
                     stdout=stdout_file,
                     stderr=stderr_file,

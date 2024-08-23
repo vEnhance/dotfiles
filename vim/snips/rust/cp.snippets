@@ -1,0 +1,12 @@
+snippet wr "CP writeln! macro"
+writeln!(out, "{}", ${1:"output"}).ok();
+$0
+endsnippet
+snippet w "CP write! macro"
+writeln!(out, "{}", ${1:"output"}).ok();
+$0
+endsnippet
+snippet fl "CP flush"
+out.flush().ok();
+$0
+endsnippet

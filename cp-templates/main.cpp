@@ -100,7 +100,7 @@ template<typename T, typename U> inline void amax(T &x, U y) { if(x < y) x = y; 
     #define debug(args...) // Just strip off all debug tokens
 #endif
 // }}}
-/********** Main()  function **********/
+
 int main()
 {
   cout << "Hi" << endl;
