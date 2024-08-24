@@ -4,7 +4,7 @@
 
 #[allow(unused_imports)]
 use std::cmp::{max, min};
-use std::io::{stdin, stdout, BufWriter, Write};
+use std::io::{stdin, stdout, BufWriter, Stdout, Write};
 
 #[derive(Default)]
 struct Scanner {
@@ -66,7 +66,12 @@ fn main() {
     let mut scan = Scanner::default();
     let out = &mut BufWriter::new(stdout());
 
-    // write your program here, e.g.
-    let _: i32 = scan.next();
-    writeln!(out, "{}", "The answer is 42").ok();
+    let t: i64 = scan.next();
+    for _test_case_number in 0..t {
+        solve(&mut scan, out);
+    }
+}
+
+fn solve(scan: &mut Scanner, out: &mut BufWriter<Stdout>) {
+    // Write your code here
 }
