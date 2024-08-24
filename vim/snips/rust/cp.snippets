@@ -1,4 +1,4 @@
-snippet wr "CP writeln! macro"
+snippet wl "CP writeln! macro"
 writeln!(out, "{}", ${1:"output"}).ok();
 $0
 endsnippet
@@ -11,12 +11,20 @@ out.flush().ok();
 $0
 endsnippet
 
-snippet is "Scan an i64 integer"
+snippet si "Scan an i64 integer"
 let ${1:varname}: i64 = scan.next();
 $0
 endsnippet
-snippet us "Scan an usize integer"
+snippet su "Scan an usize integer"
 let ${1:varname}: usize = scan.next();
+$0
+endsnippet
+snippet sn "Scan a vector of i64 integers"
+let ${1:varname}: Vec<i64> = (0..${2:n}).map(|_| scan.next()).collect();
+$0
+endsnippet
+snippet sv "Scan a vector of usize integers"
+let ${1:varname}: Vec<usize> = (0..${2:n}).map(|_| scan.next()).collect();
 $0
 endsnippet
 
@@ -24,6 +32,9 @@ snippet tl "Boilerplate loop for multiple test cases"
 let t: i64 = scan.next();
 #[allow(unused_labels)]
 'test_case_loop: for _test_case_number in 0..t {
-  $0
+	$0
 }
+endsnippet
+snippet cnt "Snippet to continue to next test case"
+continue 'test_case_loop;
 endsnippet
