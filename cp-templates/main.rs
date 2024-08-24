@@ -23,6 +23,19 @@ impl Scanner {
     }
 }
 
+#[allow(dead_code)]
+fn join<T, U>(v: U) -> String
+where
+    U: AsRef<[T]>,
+    T: std::string::ToString,
+{
+    v.as_ref()
+        .iter()
+        .map(|elm| elm.to_string())
+        .collect::<Vec<String>>()
+        .join(" ")
+}
+
 // Copy of dbg! macro, but only when stomp is used and the flag debug is passed
 // So we don't waste time printing to stderr when submitting to online judge
 #[macro_export]
