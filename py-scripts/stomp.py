@@ -1,4 +1,5 @@
 import argparse
+import itertools
 import shutil
 import subprocess
 import sys
@@ -55,6 +56,18 @@ parser.add_argument(
     "-e",
     "--stderr",
     help="Show stderr (for debugging)",
+    action="store_true",
+)
+parser.add_argument(
+    "-w",
+    "--write",
+    help="For test cases where no answer was provided, take the output as the answer.",
+    action="store_true",
+)
+parser.add_argument(
+    "-g",
+    "--gen",
+    help="Regenerates test data even if it exists already",
     action="store_true",
 )
 
@@ -116,11 +129,14 @@ if __name__ == "__main__":
                 "-DDEBUG",
                 "-o",
                 binary_output_path,
-            ]
+            ],
+            stdout=sys.stdout,
+            stderr=sys.stderr,
         )
         if compile_process.returncode != 0:
             print(
-                f"👿 {TERM_COLOR['BOLD_YELLOW']} COMPILATION FAILED{TERM_COLOR['RESET']}"
+                f"👿 {TERM_COLOR['BOLD_YELLOW']}"
+                f"COMPILATION FAILED{TERM_COLOR['RESET']}"
             )
             sys.exit(1)
         else:
@@ -135,11 +151,14 @@ if __name__ == "__main__":
                 binary_output_path,
                 "--cfg",
                 'feature="debug"',
-            ]
+            ],
+            stdout=sys.stdout,
+            stderr=sys.stderr,
         )
         if compile_process.returncode != 0:
             print(
-                f"👿 {TERM_COLOR['BOLD_YELLOW']} COMPILATION FAILED{TERM_COLOR['RESET']}"
+                f"👿 {TERM_COLOR['BOLD_YELLOW']}"
+                f"COMPILATION FAILED{TERM_COLOR['RESET']}"
             )
             sys.exit(1)
         else:
@@ -151,12 +170,53 @@ if __name__ == "__main__":
         raise ValueError(f"Invalid program type {PROGRAM_TYPE}")
 
     any_failed = False
-    for input_file_path in sorted(Path("tests").glob("*.input")):
+    tests = itertools.chain(
+        Path("tests").glob("*.input"),
+        Path("tests").glob("*.py"),
+    )
+    for input_file_path in sorted(tests):
         stdout_path = input_file_path.with_suffix(".stdout")
         stderr_path = input_file_path.with_suffix(".stderr")
         answer_path = input_file_path.with_suffix(".answer")
-
         print(f"🎬 {TERM_COLOR['BOLD_CYAN']}{input_file_path}{TERM_COLOR['RESET']}")
+
+        if input_file_path.name.endswith(".py"):
+            gen_input_path = TMPDIR / input_file_path.with_suffix(".input").name
+            if gen_input_path.exists() and not opts.gen:
+                print(
+                    f"♻️  {TERM_COLOR['BLUE']}"
+                    f"{gen_input_path} exists already, "
+                    f"reusing it (pass -g to override){TERM_COLOR['RESET']}"
+                )
+                input_file_path = gen_input_path
+            else:
+                with open(gen_input_path, "w") as gen_input_file:
+                    input_gen_process = subprocess.run(
+                        ["python", input_file_path],
+                        stdout=gen_input_file,
+                        stderr=sys.stderr,
+                        text=True,
+                    )
+                if input_gen_process.returncode == 0:
+                    print(
+                        f"🍳 {TERM_COLOR['MAGENTA']}"
+                        f"Generated input data from {input_file_path}, "
+                        f"written to {gen_input_path}{TERM_COLOR['RESET']}"
+                    )
+                    input_file_path = gen_input_path
+                else:
+                    print(
+                        f"🚒 {TERM_COLOR['BOLD_YELLOW']}"
+                        f"Couldn't run {input_file_path} {TERM_COLOR['RESET']}"
+                    )
+                    any_failed = True
+                    continue
+        else:
+            assert not (python_path := input_file_path.with_suffix(".py")).exists(), (
+                "hey you dummy fix your test cases\n"
+                f"you have both {python_path} and {input_file_path}"
+            )
+
         with (
             open(input_file_path) as input_file,
             open(stdout_path, "w") as stdout_file,
@@ -188,26 +248,30 @@ if __name__ == "__main__":
         if opts.stderr:
             print(TERM_COLOR["YELLOW"], end="")
             with open(stderr_path) as stderr_file:
-                print("\t" + "\t".join(stderr_file.readlines()), end="")
+                print("".join(stderr_file.readlines()), end="")
             print(TERM_COLOR["RESET"], end="")
         if opts.stdout:
+            print(TERM_COLOR["GREEN"], end="")
             with open(stdout_path) as stdout_file:
-                lines = stdout_file.readlines()
-                if any(line.strip() for line in lines):
-                    print("\t" + "\t".join(lines), end="")
+                print("".join(stdout_file.readlines()), end="")
+            print(TERM_COLOR["RESET"], end="")
 
         if process.returncode != 0:
             print(
-                f"\t💥 {TERM_COLOR['BOLD_RED']}CRASHED{TERM_COLOR['RESET']} "
+                f"💥 {TERM_COLOR['BOLD_RED']}CRASHED{TERM_COLOR['RESET']} "
                 f"{input_file_path}: return-code={process.returncode}"
             )
             any_failed = True
         elif not answer_path.exists():
-            if not any_failed:
-                print(f"\t📜 Saving {answer_path} since no existing answer was given")
+            if not opts.write:
+                print(
+                    f"🤷 {answer_path} doesn't exist, so no judgment on whether this is right"
+                )
+            elif not any_failed:
+                print(f"📜 Saving {answer_path} since no existing answer was given")
                 subprocess.call(["cp", stdout_path, answer_path])
             else:
-                print(f"\t🤷 {answer_path} doesn't exist, and an earlier test failed")
+                print(f"⁉️ {answer_path} doesn't exist, and an earlier test failed")
         else:
             diff_process = subprocess.run(
                 ["delta", "-s", stdout_path, answer_path],
@@ -215,14 +279,14 @@ if __name__ == "__main__":
             )
             if diff_process.returncode == 0:
                 print(
-                    f"\t✅ {TERM_COLOR['BOLD_GREEN']}PASSED{TERM_COLOR['RESET']} "
+                    f"✅ {TERM_COLOR['BOLD_GREEN']}PASSED{TERM_COLOR['RESET']} "
                     f"test case {input_file_path}"
                 )
             else:
                 if opts.diff:
                     print(diff_process.stdout.decode().strip())
                 print(
-                    f"\t❌ {TERM_COLOR['BOLD_RED']}FAILED{TERM_COLOR['RESET']} "
+                    f"❌ {TERM_COLOR['BOLD_RED']}FAILED{TERM_COLOR['RESET']} "
                     f"test case {input_file_path}"
                 )
                 any_failed = True
