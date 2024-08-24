@@ -1,5 +1,7 @@
-// {{{ https://gist.github.com/kodekracker/e09f9d23573f117a5db0
-// vim:fdm=marker
+// {{{ C++ competitive programming template
+// Based on the one from:
+// https://gist.github.com/kodekracker/e09f9d23573f117a5db0
+// vim: fdm=marker foldlevel=0
 //
 // Note: This template uses some c++11 functions , so you have to compile it with c++11 flag.
 //       Example:-   $ g++ -std=c++11 c++Template.cpp

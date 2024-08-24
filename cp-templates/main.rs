@@ -1,5 +1,6 @@
-/* {{{ I/O scanner from https://codeforces.com/blog/entry/67391 */
-// vim:fdm=marker
+// {{{ vEnhance's Rust competitive programming template
+// I/O scanner from https://codeforces.com/blog/entry/67391
+// vim: fdm=marker foldlevel=0
 
 #[allow(unused_imports)]
 use std::cmp::{max, min};
