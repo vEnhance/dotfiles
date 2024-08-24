@@ -525,6 +525,7 @@ function! EvanClose()
   endif
 endfunction
 nnoremap <Space>- :call EvanClose()<CR>
+nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 
 " Telescope
 if has('nvim')
