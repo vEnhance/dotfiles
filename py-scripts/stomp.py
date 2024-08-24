@@ -181,7 +181,9 @@ if __name__ == "__main__":
         print(f"🎬 {TERM_COLOR['BOLD_CYAN']}{input_file_path}{TERM_COLOR['RESET']}")
 
         if input_file_path.name.endswith(".py"):
-            gen_input_path = TMPDIR / input_file_path.with_suffix(".input").name
+            gen_input_path = TMPDIR / (
+                main_path.stem + "_" + input_file_path.with_suffix(".input").name
+            )
             if gen_input_path.exists() and not opts.gen:
                 print(
                     f"♻️  {TERM_COLOR['BLUE']}"
