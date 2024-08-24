@@ -1,4 +1,4 @@
-// {{{ https://codeforces.com/blog/entry/67391
+/* {{{ I/O scanner from https://codeforces.com/blog/entry/67391 */
 // vim:fdm=marker
 
 #[allow(unused_imports)]
