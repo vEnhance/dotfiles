@@ -1,6 +1,6 @@
-/* {{{ https://codeforces.com/blog/entry/67391
- * vim:fdm=marker
- */
+// {{{ https://codeforces.com/blog/entry/67391
+// vim:fdm=marker
+
 #[allow(unused_imports)]
 use std::cmp::{max, min};
 use std::io::{stdin, stdout, BufWriter, Write};
@@ -22,13 +22,28 @@ impl Scanner {
     }
 }
 
-#[allow(dead_code)]
-fn debug<T>(value: T)
-where
-    T: std::fmt::Debug, // T must implement the Debug trait
-{
-    #[cfg(feature = "debug")]
-    dbg!(value);
+// Copy of dbg! macro, but only when stomp is used and the flag debug is passed
+// So we don't waste time printing to stderr when submitting to online judge
+#[macro_export]
+macro_rules! debug {
+    () => {
+        #[cfg(feature = "debug")]
+        std::eprintln!("[{}:{}:{}]", std::file!(), std::line!(), std::column!())
+    };
+    ($val:expr $(,)?) => {
+        #[cfg(feature = "debug")]
+        match $val {
+            tmp => {
+                std::eprintln!("[{}:{}:{}] {} = {:#?}",
+                    std::file!(), std::line!(), std::column!(), std::stringify!($val), &tmp);
+                tmp
+            }
+        }
+    };
+    ($($val:expr),+ $(,)?) => {
+        #[cfg(feature = "debug")]
+        ($(std::dbg!($val)),+,)
+    };
 }
 /* }}} */
 

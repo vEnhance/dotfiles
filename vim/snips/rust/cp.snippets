@@ -10,3 +10,20 @@ snippet fl "CP flush"
 out.flush().ok();
 $0
 endsnippet
+
+snippet is "Scan an i64 integer"
+let ${1:varname}: i64 = scan.next();
+$0
+endsnippet
+snippet us "Scan an usize integer"
+let ${1:varname}: usize = scan.next();
+$0
+endsnippet
+
+snippet tl "Boilerplate loop for multiple test cases"
+let t: i64 = scan.next();
+#[allow(unused_labels)]
+'test_case_loop: for _test_case_number in 0..t {
+  $0
+}
+endsnippet

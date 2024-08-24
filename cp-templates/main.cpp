@@ -1,13 +1,13 @@
-/* {{{ https://gist.github.com/kodekracker/e09f9d23573f117a5db0
- * vim:fdm=marker
- *
- * Note: This template uses some c++11 functions , so you have to compile it with c++11 flag.
- *       Example:-   $ g++ -std=c++11 c++Template.cpp
- *
- * Author : Akshay Pratap Singh
- * Handle: code_crack_01
- *
- */
+// {{{ https://gist.github.com/kodekracker/e09f9d23573f117a5db0
+// vim:fdm=marker
+//
+// Note: This template uses some c++11 functions , so you have to compile it with c++11 flag.
+//       Example:-   $ g++ -std=c++11 c++Template.cpp
+//
+// Author : Akshay Pratap Singh
+// Handle: code_crack_01
+//
+
 #pragma GCC optimize ("O3")
 
 /********   All Required Header Files ********/

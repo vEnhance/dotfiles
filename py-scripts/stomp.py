@@ -46,6 +46,12 @@ parser.add_argument(
     action="store_true",
 )
 parser.add_argument(
+    "-d",
+    "--diff",
+    help="Show diff if there are wrong answers",
+    action="store_true",
+)
+parser.add_argument(
     "-e",
     "--stderr",
     help="Show stderr (for debugging)",
@@ -201,10 +207,10 @@ if __name__ == "__main__":
                 print(f"\t📜 Saving {answer_path} since no existing answer was given")
                 subprocess.call(["cp", stdout_path, answer_path])
             else:
-                print(f"\t🤷 {answer_path} doesn't exist")
+                print(f"\t🤷 {answer_path} doesn't exist, and an earlier test failed")
         else:
             diff_process = subprocess.run(
-                ["diff", "--color=always", stdout_path, answer_path],
+                ["delta", "-s", stdout_path, answer_path],
                 capture_output=True,
             )
             if diff_process.returncode == 0:
@@ -213,7 +219,8 @@ if __name__ == "__main__":
                     f"test case {input_file_path}"
                 )
             else:
-                print(diff_process.stdout.decode().strip())
+                if opts.diff:
+                    print(diff_process.stdout.decode().strip())
                 print(
                     f"\t❌ {TERM_COLOR['BOLD_RED']}FAILED{TERM_COLOR['RESET']} "
                     f"test case {input_file_path}"
