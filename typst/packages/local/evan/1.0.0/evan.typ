@@ -1,7 +1,7 @@
 #import "@preview/ctheorems:1.1.2": *
 
 #let fonts = (
-  text: ("Linux Libertine"),
+  text: ("Libertinus Serif"),
   sans: ("Noto Sans"),
   mono: ("Inconsolata"),
 )
@@ -107,6 +107,7 @@
   set text(
     font: fonts.text,
     size: 11pt,
+    fallback: false,
   )
 
   // Color bold elements
