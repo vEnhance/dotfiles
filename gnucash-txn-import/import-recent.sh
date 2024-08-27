@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euxo pipefail
 
 python ~/dotfiles/gnucash-txn-import/scrape_techcu.py
 echo "----------------------------------------------"
