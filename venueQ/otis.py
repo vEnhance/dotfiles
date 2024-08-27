@@ -559,7 +559,7 @@ class Suggestion(VenueQNode):
             print("\n---\n", file=f)
             if data["acknowledge"] is True:
                 print(
-                    r"\emph{This problem and solution were contributed by "
+                    r"\emph{This solution was contributed by "
                     + data["user__first_name"]
                     + " "
                     + data["user__last_name"]
