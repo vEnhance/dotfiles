@@ -9,8 +9,10 @@ fi
 
 # In case we're at home with that one keyboard that has no tilde key...
 usb_out=$(lsusb)
-if [ "$(hostname)" = ArchDiamond ] && grep "Logitech, Inc. Unifying Receiver" <<<"$usb_out"; then
-  xmodmap -e "keycode  9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave"
+if [ "$(date +'%Z')" = "PDT" ] || [ "$(date +'%Z')" = "PST" ]; then
+  if [ "$(hostname)" = ArchDiamond ] && grep "Logitech, Inc. Unifying Receiver" <<<"$usb_out"; then
+    xmodmap -e "keycode  9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave"
+  fi
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
