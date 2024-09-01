@@ -1,25 +1,12 @@
 # MAILBOX + HOOK SETUP {{{
 mailboxes ~/Mail/personal/Inbox
-#mailboxes ~/Mail/personal/All
-#mailboxes ~/Mail/personal/Sent
-#mailboxes ~/Mail/personal/Trash
-
 mailboxes ~/Mail/work/Inbox
-#mailboxes ~/Mail/work/All
-#mailboxes ~/Mail/work/Sent
-#mailboxes ~/Mail/work/Trash
-
 mailboxes ~/Mail/records/Inbox
-#mailboxes ~/Mail/records/All
-#mailboxes ~/Mail/records/Sent
-#mailboxes ~/Mail/records/Trash
 
 folder-hook ~/Mail/personal/[a-zA-Z]* source ~/.config/mutt/muttrc.0
 folder-hook ~/Mail/work/[a-zA-Z]*     source ~/.config/mutt/muttrc.1
 folder-hook ~/Mail/records/[a-zA-Z]*  source ~/.config/mutt/muttrc.2
-folder-hook ~/Mail/[a-z]*/All     color indicator black  yellow
 folder-hook ~/Mail/[a-z]*/Trash   color indicator white  black
-folder-hook ~/Mail/[a-z]*/Sent    color indicator black  brightwhite
 # }}}
 # SETTINGS {{{
 # General
@@ -92,21 +79,13 @@ bind index \043 noop
 
 bind index,pager g noop
 macro index,pager gi "<change-folder>=Inbox<enter>" "Go to inbox"
-macro index,pager ga "<change-folder>=All<enter>" "Go to all mail"
-macro index,pager ge "<change-folder>=All<enter>" "Go to all mail"
-macro index,pager gt "<change-folder>=Sent<enter>" "Go to sent"
 macro index,pager g\043 "<change-folder>=Trash<enter>" "Go to trash"
-bind index,pager m noop
-macro index,pager mi "<save-message>=Inbox<enter><enter>$<enter-command>echo \"Inboxed selection\"<enter>" "Move to inbox"
-macro index,pager ma "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
-macro index,pager me "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
-macro index,pager m\043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
-
 bind index,pager a group-reply
 bind index,pager s view-attachments
 macro index,pager z "<pipe-message>nvim -R -c \"set ft=mail\" -<enter>" "View in Vim"
-macro index,pager e "<save-message>=All<enter><enter>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
+macro index,pager e "<delete-message>$<enter-command>echo \"Archived selection\"<enter>" "Archive"
 macro index,pager \043 "<save-message>=Trash<enter><enter><enter-command>echo \"Deleted selection\"<enter>" "Trash"
+bind index,pager m noop
 
 # bind escape to untag all
 bind index . noop
@@ -122,7 +101,6 @@ macro pager x "<exit><tag-thread>" "Tag thread"
 macro index,pager mu <change-folder>~/Mail/personal/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.0<enter> "Change to account 0"
 macro index,pager m1 <change-folder>~/Mail/work/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.1<enter> "Change to account 1"
 macro index,pager m2 <change-folder>~/Mail/records/Inbox/<enter><enter-command>source\ ~/.config/mutt/muttrc.2<enter> "change to account 2"
-macro index,pager mt <change-folder>
 
 bind pager i noop
 bind pager j next-line
