@@ -44,5 +44,5 @@ fi
 ## MBSYNC + MUTT
 # Syncing mailboxes for use with mutt
 if command -v mbsync >/dev/null; then
-  mbsync -Va
+  mbsync -qa
 fi
