@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
+set -euxo pipefail
 
-mbsync personal-inbox work-inbox records-inbox &
+mbsync -q personal-inbox work-inbox records-inbox &
 neomutt "$@"
-mbsync personal-inbox work-inbox records-inbox &
+mbsync -a &
