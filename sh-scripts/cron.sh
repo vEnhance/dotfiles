@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# Check if we have Internet connection
+# as this command is kind of pointless without it
+
+if ! wget -q --spider https://web.evanchen.cc; then
+  echo "No Internet"
+  exit 0
+fi
+
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
 if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/otis)" ] && [ "$(whoami)" = "evan" ]; then
