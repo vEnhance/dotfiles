@@ -3,8 +3,7 @@ Description=Periodically run a "cron" script
 
 [Timer]
 OnBootSec=15min
-OnUnitActiveSec=30min
+OnUnitActiveSec=90min
 
 [Install]
 WantedBy=timers.target
-
