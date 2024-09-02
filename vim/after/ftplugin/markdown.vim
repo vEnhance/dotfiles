@@ -1,3 +1,4 @@
+scriptencoding utf-8
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -20,4 +21,4 @@ inoremap <C-R><C-M> Small LaTeX tip: use `\pmod{n}` to typeset (mod n).
 inoremap <C-R><C-S> Small LaTeX tip: use `\cdot` to typeset multiplication rather than `*`.
 inoremap <C-R><C-Q> In LaTeX, quotes are a bit weird; see https://tex.stackexchange.com/a/10672/76888.
 
-inoremap <C-R><C-F> Congratulations on submitting your first unit! Welcome aboard.
+inoremap <C-R><C-F> Congratulations on submitting your first unit! Welcome aboard. 🙂
