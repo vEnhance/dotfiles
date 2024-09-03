@@ -10,3 +10,9 @@ set -euo pipefail
 
 $0
 endsnippet
+
+snippet arr "Read an output into an array" b
+readarray -t ${1:VAR_NAME} < <(${2:CMD})
+${3:CMD} "$\{$1[@]\}"
+$0
+endsnippet
