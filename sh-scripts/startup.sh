@@ -34,13 +34,13 @@ if [ "$(hostname)" = ArchAir ]; then
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then
-  picom -C -G -b --no-fading-openclose
+  picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   dropbox-cli start
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
-  picom -C -G -b --no-fading-openclose
+  picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   dropbox-cli start
   systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
@@ -51,7 +51,7 @@ if [ "$(hostname)" = ArchScythe ]; then
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
-  picom -C -G -b --no-fading-openclose
+  picom -b --no-fading-openclose
   dunst &
   syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
@@ -60,7 +60,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-  picom -C -G -b --no-fading-openclose
+  picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
   # dunst & # this has been causing problems apparently?
@@ -71,7 +71,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-  picom -C -G -b --no-fading-openclose
+  picom -b --no-fading-openclose
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
     dropbox-cli start
@@ -102,6 +102,6 @@ if [ "$(hostname)" = ArchBootes ]; then
 fi
 
 if [ "$(hostname)" = dagobah ]; then
-  picom -C -G -b --no-fading-openclose
+  picom -b --no-fading-openclose
   syncthing-gtk -m &
 fi
