@@ -30,6 +30,7 @@ fi
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
   xset dpms 10 0 0
   ~/dotfiles/sh-scripts/paswitch.sh speakers
+  killall picom
 fi
 
 if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
@@ -132,6 +133,7 @@ fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
   ~/dotfiles/sh-scripts/paswitch.sh speakers
+  picom -b
 fi
 if [ "$(hostname)" = Endor ]; then
   ~/dotfiles/sh-scripts/paswitch.sh speakers
