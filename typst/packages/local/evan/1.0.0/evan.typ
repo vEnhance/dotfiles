@@ -53,6 +53,7 @@
 #let soln = thmproof("proof", "Solution")
 
 #let pmod(x) = $space (mod #x)$
+#let bf(x) = $bold(upright(#x))$
 #let vocab(body) = strong(text(blue, body))
 
 #let url(s) = {
