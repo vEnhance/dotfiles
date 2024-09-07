@@ -16,3 +16,9 @@ readarray -t ${1:VAR_NAME} < <(${2:CMD})
 ${3:CMD} "$\{$1[@]\}"
 $0
 endsnippet
+
+snippet forin "Loop over an array"
+for ${1:needle} in "$\{${2:HAYSTACK}[@]\}" ; do
+	$0
+done
+endsnippet
