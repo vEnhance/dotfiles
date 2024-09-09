@@ -7,8 +7,10 @@ numlockx on
 
 export LANG="en_US.UTF-8"
 
-# for Chinese input
+# for Chinese/Korean input
 export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
 
 # Use rofi as CM launcher
 export CM_LAUNCHER=rofi
