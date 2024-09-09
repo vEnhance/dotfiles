@@ -3,6 +3,7 @@
     ".*Preferences.*": "bars",
     ".*Settings.*": "bars",
     ".* - Wine desktop" : "wine-glass",
+    ".* - Anki" : "memory",
     "Authy": "key",
     "BlueBubbles": "comment-dots",
     "Bluetooth *": "bluetooth",
