@@ -61,6 +61,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.gradescope.com/*",
     r"*://*.hanabi.github.io/*",
     r"*://*.hmmt.org/*",
+    r"*://*.howtostudykorean.com/*",
     r"*://*.imo-official.org/*",
     r"*://*.instagram.com/*",
     r"*://*.itch.io/*",
