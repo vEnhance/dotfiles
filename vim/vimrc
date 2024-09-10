@@ -597,6 +597,7 @@ set showbreak=_
 set showcmd    " display incomplete commands
 set smartcase
 set spell
+set spelllang=en,ko
 set splitright
 set t_Co=256 " number of colors
 set tabstop=2
