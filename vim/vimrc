@@ -480,12 +480,14 @@ function TreeToggle()
     NERDTreeToggle
   endif
 endfunction
-nnoremap <silent> <Space>t :call TreeToggle()<CR>
+nnoremap <Space>t :call TreeToggle()<CR>
+nnoremap <Space>l :lcd %:p:h<CR>
+nnoremap <Space>w :set wrap<CR>
+nnoremap <Space>n :set nowrap<CR>
+nnoremap <Space>k :set spelllang=en,ko<CR>
+
 " Start up CoC
-nnoremap <silent> <Space>c :call CocStartAndDisableALELSP()<CR>
-nnoremap <silent> <Space>l :lcd %:p:h<CR>
-nnoremap <silent> <Space>w :set wrap<CR>
-nnoremap <silent> <Space>n :set nowrap<CR>
+nnoremap <Space>c :call CocStartAndDisableALELSP()<CR>
 " nnoremap <silent> <Space>H :Farr<CR>
 " git status
 nnoremap <Space>gg :Git<CR>
@@ -541,7 +543,7 @@ if has('nvim')
   " Vim itself
   nnoremap <silent> <Space>: <cmd>Telescope command_history<CR>
   nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
-  nnoremap <silent> <Space>k <cmd>Telescope keymaps<CR>
+  nnoremap <silent> <Space>m <cmd>Telescope keymaps<CR>
   nnoremap <silent> <Space>q <cmd>Telescope quickfix<CR>
   nnoremap <silent> <Space>u <cmd>Telescope ultisnips<CR>
   nnoremap <silent> <Space>v <cmd>Telescope vim_options<CR>
@@ -597,7 +599,7 @@ set showbreak=_
 set showcmd    " display incomplete commands
 set smartcase
 set spell
-set spelllang=en,ko
+set spelllang=en
 set splitright
 set t_Co=256 " number of colors
 set tabstop=2
