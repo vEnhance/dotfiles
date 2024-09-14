@@ -1,7 +1,10 @@
 ## Korean spellcheck files for NFC format
 
 Wow was this was way harder than I thought it would be.
-Here's how this was generated.
+If you just want the generated binary file, you can find
+[ko.utf-8.spl](../ko.utf-8.spl) in the directory above this one.
+
+If you're curious how this was made:
 
 1. Install the [Hunspell dictionary for Korean](https://github.com/spellcheck-ko/hunspell-dict-ko);
    Arch users can find it [in the AUR](https://aur.archlinux.org/packages/hunspell-ko).
@@ -14,7 +17,7 @@ Here's how this was generated.
      common.
    - In an ideal world, I'd really support both, but this is the stopgap for
      now.
-3. Open Vim and run `mkspell /tmp/ko ~/dotfiles/vim/spell/korean-setup/ko_KR`.
+3. Open Vim and run `:mkspell /tmp/ko ~/dotfiles/vim/spell/korean-setup/ko_KR`.
    This generates the file `/tmp/ko.utf-8.spl`.
 4. Move the generated file into `~/.vim/spell`, or somewhere Vim can find it.
 5. Make sure `spelllang` includes `ko`.
