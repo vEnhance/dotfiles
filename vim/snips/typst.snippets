@@ -31,13 +31,14 @@ snippet fig "Figure"
 $0
 endsnippet
 
-snippet fta "Figure table"
+snippet table "Table"
 #figure(
   table(
-    columns: ${1:<+Columns+>},
-    ${2:<+Content+>},
+    columns: ${1:2},
+    align: ${2:left},
+    table.header(${3:[Header]}),
+    ${4:[Cell]},
   ),
-  caption: [${3:<+Caption+>}],
   kind: table
 )
 $0
