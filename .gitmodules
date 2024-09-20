@@ -19,3 +19,6 @@
 [submodule "gh-extensions/gh-link"]
 	path = gh-extensions/gh-link
 	url = https://github.com/vEnhance/gh-link
+[submodule "typst/packages/local/typst-svg-emoji"]
+	path = typst/packages/local/svg-emoji/0.1.0
+	url = https://github.com/polazarus/typst-svg-emoji
