@@ -11,6 +11,7 @@
   partfill: rgb("#002299"),
   label: red,
   hyperlink: blue,
+  strong: rgb("#000055")
 )
 
 #let toc = {
@@ -112,7 +113,7 @@
   )
 
   // Color bold elements
-  show strong: set text(rgb("#000055"))
+  show strong: set text(colors.strong)
 
   // Theorem environments
   show: thmrules.with(qed-symbol: $square$)
@@ -158,6 +159,19 @@
     link(it.target, it)
   }
 
+  // Table defaults
+  // Auto emphasize the table headers
+  show table.cell.where(y: 0): set text(weight: "bold")
+  let tableframe(stroke) = (x, y) => (
+    left: 0pt,
+    right: 0pt,
+    top: if y <= 1 { stroke } else { 0pt },
+    bottom: stroke,
+  )
+  set table(
+    stroke: tableframe(rgb("#21222c")),
+    fill: (_, y) => if (y==0) { rgb("#ffeeff") } else if calc.even(y) { rgb("#eaf2f5") },
+  )
 
   // Title page, if maketitle is true
   if maketitle {
