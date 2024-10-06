@@ -34,27 +34,25 @@
 }
 
 // Define clue environments
-#let todo(..args) = clue(
-  accent-color: get-accent-color-for("memo"),
-  icon: get-icon-for("memo"),
-  title: "TODO",
-  ..args
-)
-#let def(..args) = clue(
+#let definition(..args) = clue(
   accent-color: get-accent-color-for("abstract"),
   icon: get-icon-for("abstract"),
   title: "Definition",
   ..args
 )
-#let ex(..args) = predefined-clue("example", ..args)
-
+#let problem(..args) = clue(
+  accent-color: get-accent-color-for("experiment"),
+  icon: get-icon-for("experiment"),
+  title: "",
+  ..args
+)
 #let soln(..args) = clue(
   accent-color: get-accent-color-for("conclusion"),
   icon: get-icon-for("conclusion"),
   title: "Solution",
   ..args
 )
-#let rmk(..args) = clue(
+#let remark(..args) = clue(
   accent-color: get-accent-color-for("info"),
   icon: get-icon-for("info"),
   title: "Remark",
@@ -69,21 +67,22 @@
 
 
 // Theorem environments
-#let theorem = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
-#let lemma = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
-#let proposition = thmbox("main", "Proposition", fill: rgb("#eeeeff"), base_level: 1)
-#let corollary = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
-#let conjecture = thmbox("main", "Conjecture", fill: rgb("#eeeeff"), base_level: 1)
-#let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
-#let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
+#let thm = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
+#let lem = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
+#let prop = thmbox("main", "Proposition", fill: rgb("#eeeeff"), base_level: 1)
+#let cor = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
+#let conj = thmbox("main", "Conjecture", fill: rgb("#eeeeff"), base_level: 1)
+#let ex = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
+#let algo = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
-#let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
-#let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
-#let problem = thmbox("main", "Problem", fill: rgb("#eeeeee"), base_level: 1)
-#let exercise = thmbox("main", "Exercise", fill: rgb("#eeeeee"), base_level: 1)
-#let question = thmbox("main", "Question", fill: rgb("#eeeeee"), base_level: 1)
+#let rmk = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
+#let defn = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
+#let prob = thmbox("main", "Problem", fill: rgb("#eeeeee"), base_level: 1)
+#let exer = thmbox("main", "Exercise", fill: rgb("#eeeeee"), base_level: 1)
+#let ques = thmbox("main", "Question", fill: rgb("#eeeeee"), base_level: 1)
 #let fact = thmbox("main", "Fact", fill: rgb("#eeeeee"), base_level: 1)
 
+#let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 #let proof = thmproof("proof", "Proof")
 
 #let pmod(x) = $space (mod #x)$
