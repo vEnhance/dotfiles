@@ -1,4 +1,5 @@
 #import "@preview/ctheorems:1.1.2": *
+#import "@preview/gentle-clues:1.0.0": *
 
 #let fonts = (
   text: ("Libertinus Serif"),
@@ -32,6 +33,42 @@
   s
 }
 
+// Define clue environments
+#let todo(..args) = clue(
+  accent-color: get-accent-color-for("memo"),
+  icon: get-icon-for("memo"),
+  title: "TODO",
+  ..args
+)
+#let def(..args) = clue(
+  accent-color: get-accent-color-for("abstract"),
+  icon: get-icon-for("abstract"),
+  title: "Definition",
+  ..args
+)
+#let ex(..args) = predefined-clue("example", ..args)
+
+#let soln(..args) = clue(
+  accent-color: get-accent-color-for("conclusion"),
+  icon: get-icon-for("conclusion"),
+  title: "Solution",
+  ..args
+)
+#let rmk(..args) = clue(
+  accent-color: get-accent-color-for("info"),
+  icon: get-icon-for("info"),
+  title: "Remark",
+  ..args
+)
+#let recipe(..args) = clue(
+  accent-color: get-accent-color-for("task"),
+  icon: get-icon-for("task"),
+  title: "Recipe",
+  ..args
+)
+
+
+// Theorem environments
 #let theorem = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
 #let lemma = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
 #let proposition = thmbox("main", "Proposition", fill: rgb("#eeeeff"), base_level: 1)
@@ -39,24 +76,18 @@
 #let conjecture = thmbox("main", "Conjecture", fill: rgb("#eeeeff"), base_level: 1)
 #let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
 #let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
-#let recipe = thmbox("main", "Recipe", fill: rgb("#ddffdd"), base_level: 1)
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
-
 #let problem = thmbox("main", "Problem", fill: rgb("#eeeeee"), base_level: 1)
 #let exercise = thmbox("main", "Exercise", fill: rgb("#eeeeee"), base_level: 1)
 #let question = thmbox("main", "Question", fill: rgb("#eeeeee"), base_level: 1)
 #let fact = thmbox("main", "Fact", fill: rgb("#eeeeee"), base_level: 1)
 
-#let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
-
 #let proof = thmproof("proof", "Proof")
-#let soln = thmproof("proof", "Solution")
 
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
-#let vocab(body) = strong(text(blue, body))
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
@@ -84,10 +115,13 @@
     set document(author: author)
   }
 
-  show image.where(width: auto): im => style(st => {
-    let (width, height) = measure(im, st)
-    block(width: width * 0.25, height: height * 0.25, im)
-  })
+  show figure: fig => {
+    show image.where(width: auto): im => style(st => {
+      let (width, height) = measure(im, st)
+      block(width: width * 0.25, height: height * 0.25, im)
+    })
+    fig
+  }
 
   // General settings
   set page(
@@ -117,8 +151,8 @@
     fallback: false,
   )
 
-  // Color bold elements
-  show strong: set text(colors.strong)
+  // For bold elements, use sans font
+  show strong: set text(font:fonts.sans, size: 0.9em)
 
   // Theorem environments
   show: thmrules.with(qed-symbol: $square$)
