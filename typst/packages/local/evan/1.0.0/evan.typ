@@ -39,6 +39,7 @@
 #let conjecture = thmbox("main", "Conjecture", fill: rgb("#eeeeff"), base_level: 1)
 #let example = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
 #let algorithm = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
+#let recipe = thmbox("main", "Recipe", fill: rgb("#ddffdd"), base_level: 1)
 #let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
 #let remark = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
 #let definition = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
@@ -63,7 +64,6 @@
 
 // Ersatz part command (similar to Koma-Script part in scrartcl)
 #let part(s) = {
-
   heading(numbering: none, text(size: 1.4em, fill: colors.partfill, s))
 }
 
@@ -83,6 +83,11 @@
   if (author != none) {
     set document(author: author)
   }
+
+  show image.where(width: auto): im => style(st => {
+    let (width, height) = measure(im, st)
+    block(width: width * 0.25, height: height * 0.25, im)
+  })
 
   // General settings
   set page(
