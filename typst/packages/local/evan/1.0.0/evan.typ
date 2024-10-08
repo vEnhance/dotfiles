@@ -32,6 +32,11 @@
   set math.equation(numbering: "(1)")
   s
 }
+#let pageref(label) = context {
+  let loc = locate(label)
+  let nums = counter(page).at(loc)
+  link(loc, "page " + numbering(loc.page-numbering(), ..nums))
+}
 
 // Define clue environments
 #let definition(..args) = clue(
@@ -43,7 +48,7 @@
 #let problem(..args) = clue(
   accent-color: get-accent-color-for("experiment"),
   icon: get-icon-for("experiment"),
-  title: "",
+  title: "Problem",
   ..args
 )
 #let soln(..args) = clue(
@@ -64,7 +69,18 @@
   title: "Recipe",
   ..args
 )
-
+#let typesig(..args) = clue(
+  accent-color: get-accent-color-for("code"),
+  icon: get-icon-for("code"),
+  title: "Type signature",
+  ..args
+)
+#let digression(..args) = clue(
+  accent-color: rgb("#bbbbbb"),
+  icon: get-icon-for("quote"),
+  title: "Digression",
+  ..args
+)
 
 // Theorem environments
 #let thm = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
