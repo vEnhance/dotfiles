@@ -51,7 +51,19 @@
   title: "Problem",
   ..args
 )
-#let soln(..args) = clue(
+#let exercise(..args) = clue(
+  accent-color: get-accent-color-for("experiment"),
+  icon: get-icon-for("experiment"),
+  title: "Exercise",
+  ..args
+)
+#let sample(..args) = clue(
+  accent-color: get-accent-color-for("success"),
+  icon: get-icon-for("experiment"),
+  title: "Sample Question",
+  ..args
+)
+#let solution(..args) = clue(
   accent-color: get-accent-color-for("conclusion"),
   icon: get-icon-for("conclusion"),
   title: "Solution",
@@ -95,11 +107,13 @@
 #let defn = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
 #let prob = thmbox("main", "Problem", fill: rgb("#eeeeee"), base_level: 1)
 #let exer = thmbox("main", "Exercise", fill: rgb("#eeeeee"), base_level: 1)
+#let exerstar = thmbox("main", "* Exercise", fill: rgb("#eeeeee"), base_level: 1)
 #let ques = thmbox("main", "Question", fill: rgb("#eeeeee"), base_level: 1)
 #let fact = thmbox("main", "Fact", fill: rgb("#eeeeee"), base_level: 1)
 
 #let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
 #let proof = thmproof("proof", "Proof")
+#let soln = thmproof("soln", "Solution")
 
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
@@ -130,11 +144,26 @@
     set document(author: author)
   }
 
-  show figure: fig => {
+  show figure.where(kind: image): fig => {
     show image.where(width: auto): im => style(st => {
       let (width, height) = measure(im, st)
-      block(width: width * 0.25, height: height * 0.25, im)
+      block(width: width * 0.5, height: height * 0.5, im)
     })
+    fig
+  }
+  show figure.where(kind: table): fig => {
+    // Auto emphasize the table headers
+    show table.cell.where(y: 0): set text(weight: "bold")
+    let tableframe(stroke) = (x, y) => (
+      left: 0pt,
+      right: 0pt,
+      top: if y <= 1 { stroke } else { 0pt },
+      bottom: stroke,
+    )
+    set table(
+      stroke: tableframe(rgb("#21222c")),
+      fill: (_, y) => if (y==0) { rgb("#ffeeff") } else if calc.even(y) { rgb("#eaf2f5") },
+    )
     fig
   }
 
@@ -212,20 +241,6 @@
   show ref: it => {
     link(it.target, it)
   }
-
-  // Table defaults
-  // Auto emphasize the table headers
-  show table.cell.where(y: 0): set text(weight: "bold")
-  let tableframe(stroke) = (x, y) => (
-    left: 0pt,
-    right: 0pt,
-    top: if y <= 1 { stroke } else { 0pt },
-    bottom: stroke,
-  )
-  set table(
-    stroke: tableframe(rgb("#21222c")),
-    fill: (_, y) => if (y==0) { rgb("#ffeeff") } else if calc.even(y) { rgb("#eaf2f5") },
-  )
 
   // Title page, if maketitle is true
   if maketitle {
