@@ -21,6 +21,8 @@ pythontex_data.pkl
 **.fdb_latexmk
 **.fls
 **.log
+**.lot
+**.lof
 **.nav
 **.out
 **.pre
