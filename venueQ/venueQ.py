@@ -55,8 +55,11 @@ if VIM_ENABLED:
 
         def emit(self, record: logging.LogRecord):
             msg = formatter.format(record)
-            for line in msg.splitlines():
-                VIM_LOG_BUFFER.append(line)
+            try:
+                for line in msg.splitlines():
+                    VIM_LOG_BUFFER.append(line)
+            except vim.error:
+                pass
 
     vim_handler = VimLogHandler()
     vim_handler.setLevel(logging.INFO)
