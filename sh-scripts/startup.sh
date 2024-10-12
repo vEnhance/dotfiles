@@ -56,7 +56,7 @@ if [ "$(hostname)" = ArchSapphire ]; then
   syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
   ibus-daemon -d -r &
-  telegram-desktop &
+  # telegram-desktop &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
@@ -79,7 +79,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
     # gnome-calendar &
     syncthing-gtk &
     spotify &
-    telegram-desktop &
+    # telegram-desktop &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
@@ -92,7 +92,7 @@ if [ "$(hostname)" = ArchBootes ]; then
     signal-desktop --start-in-tray --use-tray-icon &
     syncthing-gtk &
     spotify &
-    telegram-desktop &
+    # telegram-desktop &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
