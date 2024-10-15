@@ -118,6 +118,16 @@
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
 
+// Some shorthands
+#let pm = sym.plus.minus
+#let mp = sym.minus.plus
+#let int = sym.integral
+#let oint = sym.integral.cont
+#let iint = sym.integral.double
+#let oiint = sym.integral.surf
+#let iiint = sym.integral.triple
+#let oiiint = sym.integral.vol
+
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
 }
