@@ -333,7 +333,7 @@ class ProblemSet(VenueQNode):
         if self.ext == "pdf":
             tool = "zathura"
         elif self.ext == "tex" or self.ext == "txt":
-            tool = "gvim"
+            tool = "nvim-qt"
         elif self.ext == "png" or self.ext == "jpg":
             tool = "feh"
         else:
