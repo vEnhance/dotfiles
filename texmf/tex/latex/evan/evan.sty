@@ -408,6 +408,7 @@
     \usetikzlibrary{shadows}
     % https://tex.stackexchange.com/a/292090/76888
     % https://github.com/marcodaniel/mdframed/issues/12
+    \usepackage{xpatch}
     \xpatchcmd{\endmdframed}
       {\aftergroup\endmdf@trivlist\color@endgroup}
       {\endmdf@trivlist\color@endgroup\@doendpe}
@@ -683,7 +684,6 @@
 
     \usepackage[shortlabels]{enumitem}
     \usepackage[obeyFinal,textsize=scriptsize,shadow,loadshadowlibrary]{todonotes}
-    \usepackage{textcomp}
     \usepackage{multirow}
     \usepackage{ellipsis} % don't use ugly unicode ellipsis
     \usepackage{epigraph}
