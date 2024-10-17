@@ -48,16 +48,82 @@ snippet table "Table"
 $0
 endsnippet
 
-snippet begin "Environment"
+snippet # "Environment"
 #${1:<+EnvName+>}[
   ${2:<+Content+>}
 ]
 $0
 endsnippet
 
-snippet quote "Quote"
+snippet [ "Starting and ending bracket" i
+[
+  ${1:<+Content+>}
+]
+$0
+endsnippet
+
+snippet #quote "Quote"
 #quote(attribution: [${1:<+Author+>}])[
   ${2:<+Quote+>}
+]
+$0
+endsnippet
+
+snippet #clue "Gentle-clue with title" b
+#${1:<EnvName>}(title: [${2:<+More+>}])[
+  ${3:<+Content+>}
+]
+$0
+endsnippet
+snippet (t "Add title to gentle-clue" i
+(title: [$1])
+endsnippet
+
+snippet #def "Gentle-clue definition with title" b
+#definition(title: [Definition${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #ex "Gentle-clue example with title" b
+#example(title: [Example${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #dig "Gentle-clue digression with title" b
+#digression(title: [Digression on ${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #rem "Gentle-clue remark with title" b
+#remark(title: [Remark: ${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #rec "Gentle-clue recipe with title" b
+#recipe(title: [Recipe for ${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #warn "Gentle-clue warning with title" b
+#warning(title: [Warning: ${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #tip "Gentle-clue tip with title" b
+#tip(title: [Tip: ${1:<+More+>}])[
+  ${2:<+Content+>}
+]
+$0
+endsnippet
+snippet #memo "Gentle-clue memo with title" b
+#memo(title: [Memorize: ${1:<+More+>}])[
+  ${2:<+Content+>}
 ]
 $0
 endsnippet
