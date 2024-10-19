@@ -2,9 +2,9 @@
 #import "@preview/gentle-clues:1.0.0": *
 
 #let fonts = (
-  text: ("Libertinus Serif"),
-  sans: ("Noto Sans"),
-  mono: ("Inconsolata"),
+  text: ("Libertinus Serif", "Noto Color Emoji"),
+  sans: ("Noto Sans", "Noto Color Emoji"),
+  mono: ("Inconsolata", "Noto Color Emoji"),
 )
 #let colors = (
   title: eastern,
