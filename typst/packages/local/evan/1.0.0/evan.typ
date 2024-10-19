@@ -1,5 +1,5 @@
-#import "@preview/ctheorems:1.1.2": *
 #import "@preview/gentle-clues:1.0.0": *
+#import "theorems.typ": *
 
 #let fonts = (
   text: ("Libertinus Serif", "Noto Color Emoji"),
@@ -95,25 +95,25 @@
 )
 
 // Theorem environments
-#let thm = thmbox("main", "Theorem", fill: rgb("#eeeeff"), base_level: 1)
-#let lem = thmbox("main", "Lemma", fill: rgb("#eeeeff"), base_level: 1)
-#let prop = thmbox("main", "Proposition", fill: rgb("#eeeeff"), base_level: 1)
-#let cor = thmbox("main", "Corollary", fill: rgb("#eeeeff"), base_level: 1)
-#let conj = thmbox("main", "Conjecture", fill: rgb("#eeeeff"), base_level: 1)
-#let ex = thmbox("main", "Example", fill: rgb("#ffeeee"), base_level: 1)
-#let algo = thmbox("main", "Algorithm", fill: rgb("#ddffdd"), base_level: 1)
-#let claim = thmbox("main", "Claim", fill: rgb("#ddffdd"), base_level: 1)
-#let rmk = thmbox("main", "Remark", fill: rgb("#eeeeee"), base_level: 1)
-#let defn = thmbox("main", "Definition", fill: rgb("#ffffdd"), base_level: 1)
-#let prob = thmbox("main", "Problem", fill: rgb("#eeeeee"), base_level: 1)
-#let exer = thmbox("main", "Exercise", fill: rgb("#eeeeee"), base_level: 1)
-#let exerstar = thmbox("main", "* Exercise", fill: rgb("#eeeeee"), base_level: 1)
-#let ques = thmbox("main", "Question", fill: rgb("#eeeeee"), base_level: 1)
-#let fact = thmbox("main", "Fact", fill: rgb("#eeeeee"), base_level: 1)
+#let thm = thm-plain("Theorem", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeff"), counter: "thm")
+#let lem = thm-plain("Lemma", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeff"), counter: "thm")
+#let prop = thm-plain("Proposition", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeff"), counter: "thm")
+#let cor = thm-plain("Corollary", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeff"), counter: "thm")
+#let conj = thm-plain("Conjecture", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeff"), counter: "thm")
+#let ex = thm-plain("Example", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#ffeeee"), counter: "thm")
+#let algo = thm-plain("Algorithm", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#ddffdd"), counter: "thm")
+#let claim = thm-plain("Claim", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#ddffdd"), counter: "thm")
+#let rmk = thm-plain("Remark", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeee"), counter: "thm")
+#let defn = thm-plain("Definition", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#ffffdd"), counter: "thm")
+#let prob = thm-plain("Problem", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeee"), counter: "thm")
+#let exer = thm-plain("Exercise", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeee"), counter: "thm")
+#let exerstar = thm-plain("* Exercise", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeee"), counter: "thm")
+#let ques = thm-plain("Question", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeee"), counter: "thm")
+#let fact = thm-plain("Fact", padding: (x: 0.5em, y: 0.5em), outset: 1.0em, fill: rgb("#eeeeee"), counter: "thm")
 
-#let todo = thmbox("todo", "TODO", fill: rgb("#ddaa77")).with(numbering: none)
-#let proof = thmproof("proof", "Proof")
-#let soln = thmproof("soln", "Solution")
+#let todo = thm-plain("TODO", fill: rgb("#ddaa77"), padding: (x: 0.2em, y: 0.2em), outset: 0.4em).with(numbering: none)
+#let proof = thm-proof("Proof")
+#let soln = thm-proof("Solution")
 
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
@@ -209,7 +209,7 @@
   show strong: set text(font:fonts.sans, size: 0.9em)
 
   // Theorem environments
-  show: thmrules.with(qed-symbol: $square$)
+  show: thm-rules.with(qed-symbol: $square$)
 
   // Change quote display
   set quote(block: true)
