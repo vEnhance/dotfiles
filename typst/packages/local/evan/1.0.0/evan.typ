@@ -155,10 +155,10 @@
   }
 
   show figure.where(kind: image): fig => {
-    show image.where(width: auto): im => style(st => {
-      let (width, height) = measure(im, st)
+    show image.where(width: auto): im => context {
+      let (width, height) = measure(im)
       block(width: width * 0.5, height: height * 0.5, im)
-    })
+    }
     fig
   }
   show figure.where(kind: table): fig => {
