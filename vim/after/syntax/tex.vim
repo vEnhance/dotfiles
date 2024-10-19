@@ -51,7 +51,6 @@ syntax match texCmdItem "\\ii\>" conceal cchar=•
 call SyntaxRange#Include('\\begin{asy}', '\\end{asy}', 'asy', 'PreProc')
 call SyntaxRange#Include('\\begin{asydef}', '\\end{asydef}', 'asy', 'PreProc')
 call SyntaxRange#Include('\\begin{lstlisting}', '\\end{lstlisting}', 'text', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=[Jj]ava.*\]', '\\end{lstlisting}', 'java', 'PreProc')
 call SyntaxRange#Include('\\begin{lstlisting}\[language=[Pp]ython.*\]', '\\end{lstlisting}', 'python', 'PreProc')
 call SyntaxRange#Include('\\begin{lstlisting}\[language=[Rr]uby.*\]', '\\end{lstlisting}', 'ruby', 'PreProc')
 call SyntaxRange#Include('\\begin{lstlisting}\[language=[Ss]QL.*\]', '\\end{lstlisting}', 'sql', 'PreProc')
