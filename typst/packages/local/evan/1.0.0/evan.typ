@@ -156,9 +156,9 @@
   }
 
   show figure.caption: cap => context {
-    set text(0.9em)
-    set align(left)
-    block(width: 90%, [
+    set text(0.95em)
+    block(inset: (x: 5em), [
+      #set align(left)
       #text(weight: "bold")[#cap.supplement #cap.counter.display(cap.numbering)]#cap.separator#cap.body
     ])
   }
