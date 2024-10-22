@@ -1,0 +1,13 @@
+snippet axis "xaxis/yaxis" b
+import graph;
+xaxis("$x$", ${1:xmin}, ${2:xmax}, Ticks(Label(fontsize(9pt)), Step=1, begin=false, end=false), Arrows);
+yaxis("$y$", ${3:ymin}, ${4:ymax}, Ticks(Label(fontsize(9pt)), Step=1, begin=false, end=false), Arrows);
+$0
+endsnippet
+
+snippet plot "plot a function" b
+real ${1:f}(real x) {
+	return ${2:0};
+}
+draw(graph(${1:f}, ${3:xmin}, ${4:xmax}), ${5:red}, Arrows);
+endsnippet
