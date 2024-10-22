@@ -155,6 +155,14 @@
     set document(author: author)
   }
 
+  show figure.caption: cap => context {
+    set text(0.9em)
+    set align(left)
+    block(width: 90%, [
+      #text(weight: "bold")[#cap.supplement #cap.counter.display(cap.numbering)]#cap.separator#cap.body
+    ])
+  }
+
   show figure.where(kind: image): fig => {
     show image.where(width: auto): im => context {
       let (width, height) = measure(im)
