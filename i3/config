@@ -142,10 +142,14 @@ mode "nudge" {
   bindsym 0 move container to workspace number 10; workspace number 10;
 
   # wider, narrower, shorter, taller
-  bindsym w resize grow width 5 px or 5 ppt
-  bindsym u resize shrink width 5 px or 5 ppt
-  bindsym s resize shrink height 5 px or 5 ppt
-  bindsym t resize grow height 5 px or 5 ppt
+  bindsym w       resize grow   width  32 px or 4 ppt
+  bindsym u       resize shrink width  32 px or 4 ppt
+  bindsym s       resize shrink height 32 px or 4 ppt
+  bindsym t       resize grow   height 32 px or 4 ppt
+  bindsym Shift+w resize grow   width   8 px or 1 ppt
+  bindsym Shift+u resize shrink width   8 px or 1 ppt
+  bindsym Shift+s resize shrink height  8 px or 1 ppt
+  bindsym Shift+t resize grow   height  8 px or 1 ppt
 
   bindsym Return mode "default"
   bindsym Escape mode "default"
