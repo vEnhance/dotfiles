@@ -133,6 +133,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://stackoverflow.com/*",
     r"*://steamcommunity.com/*",
     r"*://streamlabs.com/*",
+    r"*://swaroopg92.github.io/*",
     r"*://tailwindcomponents.com/*",
     r"*://tailwindcss.com/*",
     r"*://translate.google.com/*",
