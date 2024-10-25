@@ -50,9 +50,11 @@ with get_session() as session:
                 ) and row_amount < 0:
                     account_name = "E:Life:Food"
                     row_description = "Uber Eats (TODO)"
-                elif row_description.startswith("Uber Trip") and row_amount < 0:
-                    account_name = "E:Transp:Uber"
-                elif row_description.startswith("Uber* Trip") and row_amount < 0:
+                elif (
+                    row_description.startswith("Uber Trip")
+                    or row_description.startswith("Uber *Trip")
+                    or row_description.startswith("Uber* Trip")
+                ) and row_amount < 0:
                     account_name = "E:Transp:Uber"
                 elif row_description.startswith("Starry") and row_amount < 0:
                     account_name = "E:House:Util"

@@ -79,10 +79,7 @@ with get_session() as session:
                 ):
                     row_description = "Water bill for " + row_date.strftime("%b %Y")
                     account_name = "E:House:Util"
-                elif (
-                    row_description == "ACH Withdrawal NATIONAL GRID NE"
-                    and row_amount < 0
-                ):
+                elif row_description == "ACH Withdrawal NGRID06" and row_amount < 0:
                     row_description = "Gas bill for " + (
                         row_date + timedelta(days=-28)
                     ).strftime("%b %Y")
@@ -110,6 +107,12 @@ with get_session() as session:
                     row_description = "Autopay for " + row_date.strftime("%b %Y")
                     account_name = "L:Citi"
                 elif (
+                    row_description == "ACH Withdrawal CITI CARD ONLINE"
+                    and row_amount < 0
+                ):
+                    row_description = "Extra Citi payment"
+                    account_name = "L:Citi"
+                elif (
                     row_description.startswith("ACH Deposit Twitch") and row_amount > 0
                 ):
                     row_description = "Twitch streamer payout"
@@ -126,7 +129,7 @@ with get_session() as session:
                 ):
                     row_description = "OTIS-WEB payment via Stripe API"
                     account_name = "I:OTIS:2025S"  # TODO: make this adapt
-                elif "Forecaster 121" in row_description and row_amount < 0:
+                elif "FORECASTER 121" in row_description and row_amount < 0:
                     row_description = "Forecaster 121 HOA"
                     account_name = "E:House:HOA"
                 else:
