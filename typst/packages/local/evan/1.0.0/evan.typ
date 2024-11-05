@@ -118,6 +118,9 @@
 
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
+#let boxed(x) = rect(stroke: rgb("#003300") + 1.5pt,
+  fill: rgb("#eeffee"),
+  inset: 5pt, text(fill: rgb("#000000"), x))
 
 // Some shorthands
 #let pm = sym.plus.minus
