@@ -163,13 +163,6 @@
     ])
   }
 
-  show figure.where(kind: image): fig => {
-    show image.where(width: auto): im => context {
-      let (width, height) = measure(im)
-      block(width: width * 0.5, height: height * 0.5, im)
-    }
-    fig
-  }
   show figure.where(kind: table): fig => {
     // Auto emphasize the table headers
     show table.cell.where(y: 0): set text(weight: "bold")
