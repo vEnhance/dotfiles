@@ -1,7 +1,7 @@
 snippet axis "xaxis/yaxis" b
 import graph;
-xaxis("$x$", ${1:xmin}, ${2:xmax}, Ticks(Label(fontsize(9pt)), Step=1, begin=false, end=false), Arrows);
-yaxis("$y$", ${3:ymin}, ${4:ymax}, Ticks(Label(fontsize(9pt)), Step=1, begin=false, end=false), Arrows);
+xaxis("$x$", ${1:xmin}, ${2:xmax}, Ticks(Label(fontsize(9pt)), Step=1, begin=${5:true}, end=$5), Arrows);
+yaxis("$y$", ${3:ymin}, ${4:ymax}, Ticks(Label(fontsize(9pt)), Step=1, begin=$5, end=$5), Arrows);
 $0
 endsnippet
 
@@ -9,5 +9,34 @@ snippet plot "plot a function" b
 real ${1:f}(real x) {
 	return ${2:0};
 }
-draw(graph(${1:f}, ${3:xmin}, ${4:xmax}), ${5:red}, Arrows);
+draw(graph($1, ${3:xmin}, ${4:xmax}), ${5:red}, Arrows);
+endsnippet
+
+snippet s "size" b
+size(${1:8}cm);
+$0
+endsnippet
+
+snippet d "dir" i
+dir(${1:0})$0
+endsnippet
+
+snippet use "usepackage" b
+usepackage("${1:amsmath}");
+$0
+endsnippet
+
+snippet O "origin" b
+pair O = (0,0);
+$0
+endsnippet
+
+snippet ma "markangle" b
+markangle(${1:A}, ${2:O}, ${3:B}, ${4:deepgreen});
+$0
+endsnippet
+
+snippet mra "markrightangle" b
+markrightangle(${1:A}, ${2:O}, ${3:B}, ${4:deepgreen});
+$0
 endsnippet
