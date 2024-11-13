@@ -90,6 +90,9 @@ if ! test -d "$HOME/.config/nerd-dictation"; then
   mkdir -p "$HOME"/.config/nerd-dictation
   ln -s "$HOME"/dotfiles/nerd-dictation.py "$HOME"/.config/nerd-dictation
 fi
+if test -d "$HOME/.jupyter" && ! test -f "$HOME/.jupyter/jupyter_notebook_config.py"; then
+  ln -s "$HOME"/dotfiles/jupyter_notebook_config.py "$HOME"/.jupyter/
+fi
 
 # .local
 if ! test -d "$HOME/.local/share/gh/extensions"; then
