@@ -29,6 +29,17 @@ if [ "$1" = w ]; then
     "Microphone unmuted" \
     "Microphone volume is $(ponymix -t source unmute)%" -t "$time"
 fi
+# Temporary mute for 30 seconds
+if [ "$1" = t ]; then
+  notify-send -i "status/appointment-soon-symbolic" \
+    "Microphone muted for 30 seconds..." \
+    "Once was volume $(ponymix -t source mute)%" -t "$time"
+  killall -s USR1 py3status
+  sleep 30
+  notify-send -i "status/microphone-sensitivity-high-symbolic" \
+    "Microphone unmuted again!" \
+    "Microphone volume is $(ponymix -t source unmute)%" -t "$time" -u low
+fi
 
 # Global volume control
 if [ "$1" = k ]; then

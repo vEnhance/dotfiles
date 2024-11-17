@@ -252,6 +252,7 @@ mode "ponymix" {
   bindsym j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh j
   bindsym m exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh m, mode "default"
   bindsym w exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh w, mode "default"
+  bindsym t exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh t, mode "default"
   bindsym v exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh v, mode "default"
   bindsym z exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh z, mode "default"
 
