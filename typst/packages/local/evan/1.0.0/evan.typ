@@ -2,9 +2,9 @@
 #import "theorems.typ": *
 
 #let fonts = (
-  text: ("Libertinus Serif", "Noto Color Emoji"),
-  sans: ("Noto Sans", "Noto Color Emoji"),
-  mono: ("Inconsolata", "Noto Color Emoji"),
+  text: ("Libertinus Serif", "Noto Serif CJK TC", "Noto Color Emoji"),
+  sans: ("Noto Sans", "Noto Sans CJK TC", "Noto Color Emoji"),
+  mono: ("Inconsolata"),
 )
 #let colors = (
   title: eastern,
