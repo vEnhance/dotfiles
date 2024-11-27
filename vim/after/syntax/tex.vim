@@ -46,15 +46,3 @@ syn region texStyleBold  matchgroup=Identifier start="\\vocab{"  end="}\|%stopzo
 syn region texStyleBold  matchgroup=Identifier start="\\alert{"  end="}\|%stopzone\>"  contains=@texGroup
 
 syntax match texCmdItem "\\ii\>" conceal cchar=•
-
-" Inline syntax highlighting
-call SyntaxRange#Include('\\begin{asy}', '\\end{asy}', 'asy', 'PreProc')
-call SyntaxRange#Include('\\begin{asydef}', '\\end{asydef}', 'asy', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}', '\\end{lstlisting}', 'text', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=[Pp]ython.*\]', '\\end{lstlisting}', 'python', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=[Rr]uby.*\]', '\\end{lstlisting}', 'ruby', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=[Ss]QL.*\]', '\\end{lstlisting}', 'sql', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=[Bb]ash.*\]', '\\end{lstlisting}', 'bash', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=gitcommit.*\]', '\\end{lstlisting}', 'git', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=gitlog.*\]', '\\end{lstlisting}', 'git', 'PreProc')
-call SyntaxRange#Include('\\begin{lstlisting}\[language=[Mm]ake.*\]', '\\end{lstlisting}', 'make', 'PreProc')

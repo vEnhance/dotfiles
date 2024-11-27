@@ -162,6 +162,36 @@ let g:vimtex_syntax_packages = {
       \ 'fontawesome5': {'conceal': 1},
       \}
 let g:vimtex_view_method = 'zathura'
+let g:vimtex_syntax_custom_envs = [
+      \ {
+      \   'name': 'tikzcd',
+      \   'math': 1
+      \ },
+      \ {
+      \   'name': 'asy',
+      \   'region': 'texCodeZone',
+      \   'nested': 'asy'
+      \ },
+      \ {
+      \   'name': 'asydef',
+      \   'region': 'texCodeZone',
+      \   'nested': 'asy'
+      \ },
+      \ {
+      \   'name': 'lstlisting',
+      \   'region': 'texCodeZone',
+      \   'nested': {
+      \     'bash': 'language=[Bb]ython',
+      \     'c': 'language=C',
+      \     'git': 'language=git',
+      \     'make': 'language=[Mm]ake',
+      \     'python': 'language=[Pp]ython',
+      \     'rust': 'language=[Rr]ust',
+      \     'sql': 'language=SQL',
+      \   },
+      \ },
+      \]
+
 
 let grepprg = 'ag --nogroup --nocolor'
 
