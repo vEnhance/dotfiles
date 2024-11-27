@@ -13,9 +13,10 @@ UNSUPPORTED_WORDS = (
 )
 
 # Make the aff file but take out things unsupported by Vim
-with open("/usr/share/hunspell/ko_KR.aff", "r", encoding="utf-8") as infile, open(
-    "ko_KR.aff", "w", encoding="utf-8"
-) as outfile:
+with (
+    open("/usr/share/hunspell/ko_KR.aff", "r", encoding="utf-8") as infile,
+    open("ko_KR.aff", "w", encoding="utf-8") as outfile,
+):
     for line in infile:
         if not any(line.startswith(word) for word in UNSUPPORTED_WORDS):
             print(line.strip(), file=outfile)

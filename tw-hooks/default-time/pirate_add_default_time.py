@@ -2,7 +2,6 @@
 from __future__ import print_function
 
 from datetime import time
-
 from zoneinfo import ZoneInfo
 
 DEFAULT_TIME = time(22, 0, 0)  # Your wanted default time
