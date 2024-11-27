@@ -1,8 +1,15 @@
 #nav-bar {
   position: absolute !important;
-  top: 4em;
   display: block;
   width: 100%;
+  top: 50px;
+}
+
+#urlbar:is([focused], [open]) {
+  opacity: 90%;
+}
+#urlbar:not([focused], [open]) {
+  top: -100px !important;
 }
 
 toolbar .toolbarbutton-1 {
@@ -165,7 +172,11 @@ menupopup:not(.in-menulist) > menu {
   --context-line-margin-adjust: 3px; /* 1/16/2022 */
   --context-line-active-adjust: 1px; /* 1/16/2022 */
 }
-.tabbrowser-tab[usercontextid]:is([selected="true"], [visuallyselected="true"], [multiselected])
+.tabbrowser-tab[usercontextid]:is(
+    [selected="true"],
+    [visuallyselected="true"],
+    [multiselected]
+  )
   .tab-background {
   border-top: 1px solid transparent; /* 1/16/2022 Default border for consistency */
 }
@@ -178,7 +189,11 @@ menupopup:not(.in-menulist) > menu {
     var(--tab-min-height) - var(--context-line-margin-adjust) - 2px
   ) !important;
 }
-.tabbrowser-tab[usercontextid]:is([selected="true"], [visuallyselected="true"], [multiselected])
+.tabbrowser-tab[usercontextid]:is(
+    [selected="true"],
+    [visuallyselected="true"],
+    [multiselected]
+  )
   > .tab-stack
   > .tab-background
   > .tab-context-line {
@@ -225,7 +240,10 @@ menupopup:not(.in-menulist) > menu {
 }
 
 /* Move the mute/unmute button to the right and enlarge it */
-.tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]) {
+.tab-icon-overlay:not([pinned], [sharing], [crashed]):is(
+    [soundplaying],
+    [muted]
+  ) {
   width: var(--user-mute-button-height) !important;
   height: var(--user-mute-button-height) !important;
   margin-left: calc(
@@ -255,11 +273,17 @@ menupopup:not(.in-menulist) > menu {
 }
 
 /* Color the icon on hover for confirmation or avoidance */
-.tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]):hover {
+.tab-icon-overlay:not([pinned], [sharing], [crashed]):is(
+    [soundplaying],
+    [muted]
+  ):hover {
   fill: green !important;
 }
 [lwthemetextcolor="bright"]
-  .tab-icon-overlay:not([pinned], [sharing], [crashed]):is([soundplaying], [muted]):hover {
+  .tab-icon-overlay:not([pinned], [sharing], [crashed]):is(
+    [soundplaying],
+    [muted]
+  ):hover {
   fill: lightgreen !important; /* for dark themes */
 }
 
