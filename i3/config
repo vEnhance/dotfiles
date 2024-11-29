@@ -143,11 +143,11 @@ mode "nudge" {
 
   # wider, narrower, shorter, taller
   bindsym w       resize grow   width  32 px or 4 ppt
-  bindsym u       resize shrink width  32 px or 4 ppt
+  bindsym n       resize shrink width  32 px or 4 ppt
   bindsym s       resize shrink height 32 px or 4 ppt
   bindsym t       resize grow   height 32 px or 4 ppt
   bindsym Shift+w resize grow   width   8 px or 1 ppt
-  bindsym Shift+u resize shrink width   8 px or 1 ppt
+  bindsym Shift+n resize shrink width   8 px or 1 ppt
   bindsym Shift+s resize shrink height  8 px or 1 ppt
   bindsym Shift+t resize grow   height  8 px or 1 ppt
 
