@@ -20,9 +20,10 @@ pythontex_data.pkl
 **.brf
 **.fdb_latexmk
 **.fls
+**.loe
+**.lof
 **.log
 **.lot
-**.lof
 **.nav
 **.out
 **.pre
