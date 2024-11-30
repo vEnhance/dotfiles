@@ -4,7 +4,8 @@ notify-send "i3: ponymix mode" -i "devices/media-optical-cd-audio-symbolic" \
   -t 6000 \
   -u low \
   "<b>u/d/i</b>: mic volume up/down/reset
-<b>m/w</b> mic mute/unmute
+<b>m/w</b>: mic mute/unmute
+<b>t</b>: temp mute mic (30s)
 <b>k/j</b>: global volume up/down
 <b>v/z</b>: global volume mute/unmute
 <b>l</b>: leave desk (mic mute, speaker on)
