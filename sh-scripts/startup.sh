@@ -76,10 +76,9 @@ if [ "$(hostname)" = ArchMajestic ]; then
     ibus-daemon -d -r &
     dropbox-cli start
     signal-desktop --start-in-tray --use-tray-icon &
-    # gnome-calendar &
     syncthing-gtk &
     spotify &
-    # telegram-desktop &
+    telegram-desktop &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
@@ -92,7 +91,7 @@ if [ "$(hostname)" = ArchBootes ]; then
     signal-desktop --start-in-tray --use-tray-icon &
     syncthing-gtk &
     spotify &
-    # telegram-desktop &
+    telegram-desktop &
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
