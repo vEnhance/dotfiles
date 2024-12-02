@@ -132,6 +132,7 @@
 #let iiint = sym.integral.triple
 #let oiiint = sym.integral.vol
 #let detmat(..args) = math.mat(delim: "|", ..args)
+#let ee = $bold(upright(e))$
 
 #let url(s) = {
   link(s, text(font:fonts.mono, s))
