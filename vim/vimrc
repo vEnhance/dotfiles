@@ -181,7 +181,7 @@ let g:vimtex_syntax_custom_envs = [
       \   'name': 'lstlisting',
       \   'region': 'texCodeZone',
       \   'nested': {
-      \     'bash': 'language=[Bb]ython',
+      \     'bash': 'language=[Bb]ash',
       \     'c': 'language=C',
       \     'git': 'language=git',
       \     'make': 'language=[Mm]ake',
@@ -189,7 +189,7 @@ let g:vimtex_syntax_custom_envs = [
       \     'rust': 'language=[Rr]ust',
       \     'sql': 'language=SQL',
       \   },
-      \ },
+      \ }
       \]
 
 
