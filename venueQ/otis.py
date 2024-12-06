@@ -348,7 +348,7 @@ class ProblemSet(VenueQNode):
                 [
                     "https://youtu.be/iTgcp1oDk2M",  # Beautiful Christmas - Red Velvet + aespa
                     "https://youtu.be/LvgzpvB3uEw",  # Christmas Present - GFriend
-                    "https://youtu.be/mXiioh552Bc",  # Diamond - SNSD
+                    "https://youtu.be/2f4BDCe28sw",  # Diamond - SNSD
                     "https://youtu.be/mc274HUFhQQ",  # Fallin Light - GFriend
                     "https://youtu.be/zi_6oaQyckM",  # Merry and Happy - TWICE
                     "https://youtu.be/w14rSMl35ro",  # Merry Christmas ahead - IU
