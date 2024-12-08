@@ -150,6 +150,7 @@
   subtitle: none,
   date: none,
   maketitle: true,
+  report-style: false,
   body
 ) = {
   // Set document parameters
@@ -160,6 +161,7 @@
     set document(author: author)
   }
 
+  // Figures formatting
   show figure.caption: cap => context {
     set text(0.95em)
     block(inset: (x: 5em), [
@@ -168,6 +170,7 @@
     ])
   }
 
+  // Table formatting
   show figure.where(kind: table): fig => {
     // Auto emphasize the table headers
     show table.cell.where(y: 0): set text(weight: "bold")
@@ -182,6 +185,16 @@
       fill: (_, y) => if (y==0) { rgb("#ffeeff") } else if calc.even(y) { rgb("#eaf2f5") },
     )
     fig
+  }
+
+  // Report parameters
+  show ref: it => {
+    let el = it.element
+    if el != none and el.func() == heading and el.level == 1 and it.supplement == auto and report-style {
+      ref(it.target, supplement: "Chapter")
+    } else {
+      it
+    }
   }
 
   // General settings
@@ -236,10 +249,14 @@
   set heading(numbering: "1.1")
   show heading: it => {
     block([
-      #if (it.numbering != none) {
-        text(fill:colors.headers, "§" + counter(heading).display())
-        h(0.2em)
-      }
+      #if (it.numbering != none) [
+        #text(fill:colors.headers,
+          (if (report-style and it.level == 1) { "Chapter " } else { "§" })
+          + counter(heading).display()
+          + (if (report-style and it.level == 1) { "." } else { "" })
+        )
+        #h(0.2em)
+      ]
       #it.body
       #v(0.4em)
     ])
