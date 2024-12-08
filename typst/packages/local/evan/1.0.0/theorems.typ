@@ -1026,6 +1026,7 @@
         supplement: eq.supplement,
         eq.body
       )
+      counter(math.equation).update(v => v - 1)
     } else {
       eq
     }
