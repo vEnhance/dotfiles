@@ -18,9 +18,9 @@
     follow = keyboard
 
     width = 400
-    height = 300
+    height = (0, 300)
     origin = "bottom-right"
-    offset = "40x30"
+    offset = (40,30)
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
