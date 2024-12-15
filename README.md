@@ -6,7 +6,9 @@
 ![Forks](https://img.shields.io/github/forks/vEnhance/dotfiles)
 ![Stars](https://img.shields.io/github/stars/vEnhance/dotfiles)
 
-![XKCD 974](https://imgs.xkcd.com/comics/the_general_problem.png)
+![xkcd 974](https://imgs.xkcd.com/comics/the_general_problem.png)
+
+(Comic is [xkcd #974](https://xkcd.com/974/).)
 
 These are the dotfiles for [Evan Chen](https://web.evanchen.cc).
 It's obviously mostly meant for personal use in keeping my dotfiles
