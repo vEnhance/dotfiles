@@ -35,7 +35,7 @@ snippet fig "Figure"
 #figure(
   image("${1:<+Path+>}", width: ${2:auto}),
   caption: [${3:<+Caption+>}],
-)
+) <fig-`!p import os; snip.rv = os.path.splitext(os.path.basename(t[1]))[0]`>
 $0
 endsnippet
 
