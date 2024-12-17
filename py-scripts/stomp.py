@@ -186,7 +186,7 @@ if __name__ == "__main__":
             )
             if gen_input_path.exists() and not opts.gen:
                 print(
-                    f"♻️  {TERM_COLOR['BLUE']}"
+                    f"♻️  {TERM_COLOR['MAGENTA']}"
                     f"{gen_input_path} exists already, "
                     f"reusing it (pass -g to override){TERM_COLOR['RESET']}"
                 )
