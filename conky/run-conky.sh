@@ -2,11 +2,11 @@
 
 # Conky setup for laptop computers
 if [ "$(hostname)" = ArchScythe ]; then
-  conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+  conky -c ~/dotfiles/conky/summary-bar-1920x1080-onescreen.conf &
   conky -c ~/dotfiles/conky/cal2.conf &
 fi
 if [ "$(hostname)" = ArchSapphire ]; then
-  conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+  conky -c ~/dotfiles/conky/summary-bar-1920x1080-onescreen.conf &
   conky -c ~/dotfiles/conky/cal2.conf &
 fi
 
@@ -14,10 +14,10 @@ fi
 if [ "$(hostname)" = ArchDiamond ]; then
   if [ "$(whoami)" = "evan" ]; then
     if xrandr | grep 3840x2160; then
-      conky -c ~/dotfiles/conky/thin-bar-3840x2160.conf &
+      conky -c ~/dotfiles/conky/summary-bar-3840x2160-tv.conf &
       conky -c ~/dotfiles/conky/cal5.conf &
     else
-      conky -c ~/dotfiles/conky/thin-bar-1920x1080.conf &
+      conky -c ~/dotfiles/conky/summary-bar-1920x1080-onescreen.conf &
       conky -c ~/dotfiles/conky/cal2.conf &
     fi
   fi
@@ -26,20 +26,20 @@ fi
 # Conky setup for main work desktops
 if [ "$(hostname)" = ArchMajestic ]; then
   if [ "$(whoami)" = "evan" ]; then
-    conky -c ~/dotfiles/conky/main-bar.conf &
-    conky -c ~/dotfiles/conky/power-widget.conf &
+    conky -c ~/dotfiles/conky/summary-bar-abridged-majestic.conf &
+    conky -c ~/dotfiles/conky/stats-power-widget.conf &
     conky -c ~/dotfiles/conky/cal3.conf &
   fi
   if [ "$(whoami)" = "star" ]; then
-    conky -c ~/dotfiles/conky/star-bar.conf &
+    conky -c ~/dotfiles/conky/star-bar-majestic.conf &
   fi
 fi
 if [ "$(hostname)" = ArchBootes ]; then
   if [ "$(whoami)" = "evan" ]; then
-    conky -c ~/dotfiles/conky/bootes-bar.conf &
+    conky -c ~/dotfiles/conky/summary-bar-1920x1080-bootes.conf &
     conky -c ~/dotfiles/conky/cal2.conf &
   fi
   if [ "$(whoami)" = "star" ]; then
-    conky -c ~/dotfiles/conky/cali-gaming-bar.conf &
+    conky -c ~/dotfiles/conky/star-bar-bootes.conf &
   fi
 fi
