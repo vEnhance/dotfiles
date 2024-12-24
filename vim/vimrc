@@ -195,7 +195,6 @@ let g:vimtex_syntax_custom_envs = [
 
 let grepprg = 'ag --nogroup --nocolor'
 
-" Airline auto from vim-plugins
 let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#ctrlspace#enabled = 1
 let g:airline#extensions#fugitive#enabled = 1
@@ -308,23 +307,6 @@ function! CocStartAndDisableALELSP()
 endfunction
 " }}}
 
-" Procedure for shell commands {{{
-" https://vim.fandom.com/wiki/Display_output_of_shell_commands_in_new_window
-function! s:ExecuteInShell(command)
-  let command = join(map(split(a:command), 'expand(v:val)'))
-  let winnr = bufwinnr('^' . command . '$')
-  silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap number
-  echo 'Execute ' . command . '...'
-  silent! execute 'silent %!'. command
-  silent! redraw
-  silent! execute 'autocmd BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>'
-  echo 'Shell command ' . command . ' executed.'
-endfunction
-command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
-" }}}
-
 " Arrow key shortcuts {{{
 function! DelEmptyLineAbove()
   if line('.') == 1
@@ -366,7 +348,6 @@ nnoremap <Up> :call DelEmptyLineAbove()<CR>
 nnoremap <Down> :call AddEmptyLineAbove()<CR>
 nnoremap <silent> [g :ALEPreviousWrap<CR>
 nnoremap <silent> ]g :ALENextWrap<CR>
-" nnoremap gf :e<cfile><CR>
 " }}}
 " Misc mappings {{{
 " jumplist shouldn't move across files
@@ -407,11 +388,6 @@ endfunction
 nnoremap <silent> <C-j> :call MarkSnipJump(0)<cr>
 inoremap <silent> <C-j> <Esc>:call MarkSnipJump(1)<cr>
 
-" system clipboard
-vnoremap <silent> <C-C> '+y
-nnoremap <silent> <C-c> :%y+<CR>
-nnoremap <silent> <C-V> '+p
-vnoremap <silent> <C-X> '+d
 " Navigate buffers with backspace
 nnoremap <Backspace> :CtrlSpaceGoUp<CR>
 nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
@@ -460,15 +436,8 @@ nnoremap -k <C-w>k
 nnoremap -i :split<CR>
 " n for new; easier to reach than -v
 nnoremap -s :vsplit<CR>
-" use WASD-like keys for quickly shoving around windows
-" since the minus sign is on the right hand side
-nnoremap -o <C-w>H
-nnoremap -u <C-w>L
-nnoremap -. <C-w>K
-nnoremap -e <C-w>J
 " maximize window
 nnoremap -a <C-w>o
-nnoremap -w <C-w><C-w>
 
 " make notes
 " https://www.gilesorr.com/blog/vim-tips-23-scratch-buffer.html
@@ -482,8 +451,6 @@ nnoremap <silent> -z :call NewScratch()<CR>
 " }}}
 " SPACE BAR KEYBINDINGS {{{
 " Not setting leader key because otherwise extensions mess with me
-" ALE Details
-nnoremap <Space>a :ALEDetail<CR>
 " Jump to definition in tags
 function TagJump()
   let word = expand('<cword>')
@@ -495,15 +462,7 @@ function TagJump()
     close
   endtry
 endfunction
-nnoremap <Space>d :call TagJump()<CR>
-" show syntax group
-nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 " e is for emulator
-nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw!<CR>
-" fold by indent
-nnoremap <Space>z :set foldmethod=indent<CR>
 function TreeToggle()
   if has('nvim')
     NvimTreeToggle
@@ -511,15 +470,22 @@ function TreeToggle()
     NERDTreeToggle
   endif
 endfunction
-nnoremap <Space>t :call TreeToggle()<CR>
-nnoremap <Space>l :lcd %:p:h<CR>
-nnoremap <Space>w :set wrap<CR>
-nnoremap <Space>n :set nowrap<CR>
-nnoremap <Space>k :set spelllang=en,ko<CR>
 
-" Start up CoC
+nnoremap <Space>a :ALEDetail<CR>
 nnoremap <Space>c :call CocStartAndDisableALELSP()<CR>
-" nnoremap <silent> <Space>H :Farr<CR>
+nnoremap <Space>d :call TagJump()<CR>
+nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw!<CR>
+nnoremap <Space>k :set spelllang=en,ko<CR>
+nnoremap <Space>l :lcd %:p:h<CR>
+nnoremap <Space>n :set nowrap<CR>
+nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
+nnoremap <Space>t :call TreeToggle()<CR>
+nnoremap <Space>w :set wrap<CR>
+nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nnoremap <Space>z :set foldmethod=indent<CR>
+
 " git status
 nnoremap <Space>gg :Git<CR>
 nnoremap <Space>gb :Git blame -w<CR>
@@ -558,7 +524,6 @@ function! EvanClose()
   endif
 endfunction
 nnoremap <Space>- :call EvanClose()<CR>
-nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 
 " Telescope
 if has('nvim')
@@ -577,7 +542,6 @@ if has('nvim')
   nnoremap <silent> <Space>m <cmd>Telescope keymaps<CR>
   nnoremap <silent> <Space>q <cmd>Telescope quickfix<CR>
   nnoremap <silent> <Space>u <cmd>Telescope ultisnips<CR>
-  nnoremap <silent> <Space>v <cmd>Telescope vim_options<CR>
 endif
 
 " Buffer switching: https://vi.stackexchange.com/a/9255
