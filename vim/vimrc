@@ -282,6 +282,7 @@ let g:coc_global_extensions = [
   \ 'coc-htmldjango',
   \ 'coc-jedi',
   \ 'coc-json',
+  \ 'coc-lua',
   \ 'coc-pyright',
   \ 'coc-rust-analyzer',
   \ 'coc-sh',
@@ -487,18 +488,22 @@ endfunction
 nnoremap <Space>a :ALEDetail<CR>
 nnoremap <Space>c :call CocStartAndDisableALELSP()<CR>
 nnoremap <Space>d :call TagJump()<CR>
-nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw!<CR>
+nnoremap <Space>e :call TreeToggle()<CR>
 nnoremap <Space>k :set spelllang=en,ko<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
 nnoremap <Space>n :set nowrap<CR>
 nnoremap <Space>p :CtrlSpace<CR>
+nnoremap <Space>qq :qa<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
-nnoremap <Space>t :call TreeToggle()<CR>
-nnoremap <Space>w :set wrap<CR>
-nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-nnoremap <Space>z :set foldmethod=indent<CR>
+nnoremap <Space>t :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw!<CR>
+nnoremap <Space>w :set wrap!<CR>
+if has('nvim')
+  nnoremap <Space>y :Inspect<CR>
+else
+  nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+endif
 
 " git status
 nnoremap <Space>gg :Git<CR>
@@ -554,7 +559,6 @@ if has('nvim')
   nnoremap <silent> <Space>: <cmd>Telescope command_history<CR>
   nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
   nnoremap <silent> <Space>m <cmd>Telescope keymaps<CR>
-  nnoremap <silent> <Space>q <cmd>Telescope quickfix<CR>
   nnoremap <silent> <Space>u <cmd>Telescope ultisnips<CR>
 endif
 

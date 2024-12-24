@@ -21,6 +21,8 @@ vim.diagnostic.config({
 
 require("neo-tree").setup()
 require("snacks").setup({
+  bigfile = { enabled = true },
   dim = { enabled = true },
   indent = { enabled = true },
+  quickfile = { enabled = true },
 })
