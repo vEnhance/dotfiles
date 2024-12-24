@@ -43,7 +43,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'ludovicchabant/vim-gutentags'
   Plug 'mg979/vim-visual-multi'
   " there's a neovim version of this that might be neat
-  Plug 'nathanaelkane/vim-indent-guides'
   Plug 'svermeulen/vim-yoink'
   Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
@@ -53,20 +52,26 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
   Plug 'ypcrts/securemodelines'
-  Plug 'preservim/nerdtree',          { 'on': 'NERDTreeToggle' }
-  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-  " Neovim Only
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'nvim-lua/plenary.nvim'
-  Plug 'Julian/lean.nvim'
-  Plug 'nvim-telescope/telescope.nvim'
-  Plug 'fhill2/telescope-ultisnips.nvim'
-  Plug 'fannheyward/telescope-coc.nvim'
-  Plug 'nvim-tree/nvim-web-devicons' " optional, for file icons
-  Plug 'nvim-tree/nvim-tree.lua'
+  if has('nvim')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'ryanoasis/vim-devicons'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'Julian/lean.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'fhill2/telescope-ultisnips.nvim'
+    Plug 'fannheyward/telescope-coc.nvim'
+    Plug 'lukas-reineke/indent-blankline.nvim'
+
+    Plug 'nvim-tree/nvim-web-devicons'
+    Plug 'MunifTanjim/nui.nvim'
+    Plug 'nvim-neo-tree/neo-tree.nvim'
+  else
+    Plug 'nathanaelkane/vim-indent-guides'
+    Plug 'preservim/nerdtree',          { 'on': 'NERDTreeToggle' }
+    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+  endif
 endif
 " }}}
 
@@ -473,7 +478,7 @@ endfunction
 " e is for emulator
 function TreeToggle()
   if has('nvim')
-    NvimTreeToggle
+    Neotree toggle
   else
     NERDTreeToggle
   endif
@@ -486,7 +491,7 @@ nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --wor
 nnoremap <Space>k :set spelllang=en,ko<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
 nnoremap <Space>n :set nowrap<CR>
-nnoremap <Space>p :CtrlSpace()<CR>
+nnoremap <Space>p :CtrlSpace<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 nnoremap <Space>t :call TreeToggle()<CR>
 nnoremap <Space>w :set wrap<CR>
@@ -663,10 +668,10 @@ set t_Co=256 " number of colors
 set tabstop=2
 set textwidth=80 " default textwidth = 80
 set updatetime=100
+set wrapmargin=0
 if exists('+winbar')
   set winbar=%n:\ %f%m%h%w%q
 endif
-set wrapmargin=0
 " }}}
 " {{{ Auto commands
 function! DetectIndentIfPlugged()
