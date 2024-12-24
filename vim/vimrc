@@ -654,6 +654,9 @@ set t_Co=256 " number of colors
 set tabstop=2
 set textwidth=80 " default textwidth = 80
 set updatetime=100
+if exists('+winbar')
+  set winbar=%n:\ %f%m%h%w%q
+endif
 set wrapmargin=0
 " }}}
 " {{{ Auto commands
