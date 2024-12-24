@@ -160,6 +160,8 @@ highlight link texRefArg texRefZone
 
 highlight IndentGuidesOdd  guibg=#efefef guifg=#cccccc ctermbg=237 ctermfg=240
 highlight IndentGuidesEven guibg=#dddddd guifg=#7788dd ctermbg=240 ctermfg=45
+highlight WinBar ctermfg=232 ctermbg=155 cterm=bold
+highlight WinBarNC ctermfg=34 ctermbg=none cterm=none
 
 highlight ColorColumn guibg=#ffeeee ctermbg=23 cterm=none
 
