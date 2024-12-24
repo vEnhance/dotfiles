@@ -1,17 +1,7 @@
 return {
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    keys = {
-      { "<leader>e", false },
-      { "<leader>E", false },
-      {
-        "<leader>t",
-        function()
-          require("neo-tree.command").execute({ toggle = true, dir = LazyVim.root() })
-        end,
-        desc = "Explorer NeoTree (Root Dir)",
-      },
-    },
+    "folke/noice.nvim",
+    enabled = false,
   },
   {
     "saghen/blink.cmp",
@@ -109,6 +99,9 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
+          },
+          lualine_y = {
+            { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 1 } },
             {
               "diff",
               symbols = {
@@ -128,11 +121,8 @@ return {
               end,
             },
           },
-          lualine_y = {
-            { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 1 } },
-          },
           lualine_z = {
-            { "location", padding = { left = 0, right = 1 } },
+            { "location", padding = { left = 1, right = 1 } },
           },
         },
         extensions = { "neo-tree", "lazy", "fzf" },
@@ -160,5 +150,33 @@ return {
 
       return opts
     end,
+  },
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      highlights = {
+        buffer_selected = {
+          fg = {
+            attribute = "fg",
+            highlight = "CursorLineNr",
+          },
+        },
+        buffer_visible = {
+          fg = {
+            attribute = "fg",
+            highlight = "LineNr",
+          },
+        },
+      },
+      options = {
+        always_show_bufferline = true,
+        indicator = { style = "underline" },
+        show_buffer_close_icons = false,
+        show_close_icon = false,
+        modified_icon = "[+]",
+        numbers = "buffer_id",
+        tab_size = 12,
+      },
+    },
   },
 }

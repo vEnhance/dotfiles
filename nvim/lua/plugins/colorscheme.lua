@@ -17,6 +17,8 @@ return {
         return {
           LineNr = { fg = colors.peach },
           CursorLineNr = { fg = colors.teal, bg = colors.overlay0, style = { "bold" } },
+          Folded = { bg = colors.surface2 },
+
           Conceal = { fg = colors.yellow },
           Identifier = { style = { "bold" } },
           Include = { fg = colors.green },
@@ -24,6 +26,7 @@ return {
           PreProc = { fg = colors.maroon, style = { "bold" } },
           Special = { fg = colors.green, style = { "bold" } },
           Statement = { fg = colors.sapphire, style = { "bold" } },
+
           texTitleArg = { fg = colors.base, style = { "bold" } },
           texEnvArgName = { fg = colors.red, style = { "bold" } },
           texEnvOpt = { fg = colors.text, style = { "bold" } },
