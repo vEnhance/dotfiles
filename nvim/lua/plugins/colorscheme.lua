@@ -4,15 +4,21 @@
 -- * add extra plugins
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
-return {
-  -- add gruvbox
 
+return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
     priority = 1000,
     opts = {
+      flavor = "mocha",
       transparent_background = true,
+      custom_highlights = function(colors)
+        return {
+          LineNr = { fg = colors.flamingo },
+          CursorLineNr = { fg = colors.teal, bg = colors.overlay0, style = { "bold" } },
+        }
+      end,
     },
   },
 
