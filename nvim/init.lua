@@ -12,7 +12,6 @@ vim.cmd 'source ~/.vimrc'
 require'nvim-treesitter.configs'.setup {
   ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
 }
-require("ibl").setup()
 
 vim.diagnostic.config({
   virtual_text = {
@@ -21,3 +20,7 @@ vim.diagnostic.config({
 })
 
 require("neo-tree").setup()
+require("snacks").setup({
+  dim = { enabled = true },
+  indent = { enabled = true },
+})

@@ -52,22 +52,22 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
   Plug 'ypcrts/securemodelines'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
   if has('nvim')
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'ryanoasis/vim-devicons'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'Julian/lean.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'fhill2/telescope-ultisnips.nvim'
     Plug 'fannheyward/telescope-coc.nvim'
-    Plug 'lukas-reineke/indent-blankline.nvim'
+    Plug 'folke/snacks.nvim'
 
     Plug 'nvim-tree/nvim-web-devicons'
     Plug 'MunifTanjim/nui.nvim'
     Plug 'nvim-neo-tree/neo-tree.nvim'
   else
+    Plug 'ryanoasis/vim-devicons'
     Plug 'nathanaelkane/vim-indent-guides'
     Plug 'preservim/nerdtree',          { 'on': 'NERDTreeToggle' }
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
