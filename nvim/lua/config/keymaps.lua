@@ -54,6 +54,3 @@ vim.keymap.set("n", "<Space>-", function()
     Snacks.bufdelete()
   end
 end, { noremap = true, desc = "Close buffer" })
-
-vim.keymap.set("n", "<Space>w", ":set wrap<CR>", { noremap = true, desc = "Turn on word wrap" })
-vim.keymap.set("n", "<Space>n", ":set nowrap<CR>", { noremap = true, desc = "Turn off word wrap" })
