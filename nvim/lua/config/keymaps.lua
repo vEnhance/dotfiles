@@ -8,23 +8,52 @@ vim.keymap.set("n", "<CR>", function()
   else
     return "<CR>"
   end
-end, { expr = true, noremap = true })
+end, { expr = true, noremap = true, desc = "Write all" })
+
+vim.keymap.del("n", "s")
+vim.keymap.del("n", "S")
+
+vim.keymap.set(
+  "n",
+  "<Space>e",
+  ":let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory='$VIM_DIR' &<CR>",
+  { noremap = true, desc = "Open an xfce4-terminal" }
+)
+
+vim.keymap.set("n", "-h", "<C-w>h", { noremap = true, desc = "Move one window left" })
+vim.keymap.set("n", "-l", "<C-w>l", { noremap = true, desc = "Move one window right" })
+vim.keymap.set("n", "-j", "<C-w>j", { noremap = true, desc = "Move one window down" })
+vim.keymap.set("n", "-k", "<C-w>k", { noremap = true, desc = "Move one window up" })
+vim.keymap.set("n", "-i", ":split<CR>", { noremap = true, desc = "Open a horizontal split" })
+vim.keymap.set("n", "-s", ":vsplit<CR>", { noremap = true, desc = "Open a vertical split" })
+
+vim.keymap.set("n", "<BS>", ":bp<CR>", { noremap = true, desc = "Previous buffer" })
+
+local function is_git_repo()
+  vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
+  return vim.v.shell_error == 0
+end
+
+vim.keymap.set("n", "<Space>o", function()
+  if is_git_repo() then
+    vim.cmd("FzfLua git_files")
+  else
+    vim.cmd("FzfLua files")
+  end
+end, { noremap = true, desc = "Find files" })
+
+local function is_last_buffer()
+  local buffers = vim.fn.getbufinfo({ buflisted = 1 })
+  return #buffers == 1
+end
 
 vim.keymap.set("n", "<Space>-", function()
-  vim.cmd([[
-    if (winnr('$') == 1 || (winnr('$') == 2 && winnr() == 2))
-      if tabpagenr('$') == 1
-        bdelete
-        if expand('%:p') ==# ''
-          quit
-        endif
-      else
-        bdelete
-      endif
-    elseif expand('%:l') ==# '__doc__'
-      bdelete
-    else
-      close
-    endif
-  ]])
-end, { noremap = true })
+  if is_last_buffer() then
+    vim.cmd("q")
+  else
+    Snacks.bufdelete()
+  end
+end, { noremap = true, desc = "Close buffer" })
+
+vim.keymap.set("n", "<Space>w", ":set wrap<CR>", { noremap = true, desc = "Turn on word wrap" })
+vim.keymap.set("n", "<Space>n", ":set nowrap<CR>", { noremap = true, desc = "Turn off word wrap" })
