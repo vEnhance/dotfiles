@@ -72,6 +72,11 @@ endif
 
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
+let g:CtrlSpaceHeight = 5
+let g:CtrlSpaceSaveWorkspaceOnExit = 0
+let g:CtrlSpaceSetDefaultMapping = 0
+let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
+let g:CtrlSpaceUseTabline = 0
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'up:40%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let g:completor_filetype_map = {}
 let g:csv_highlight_column = 'y'
@@ -203,12 +208,15 @@ let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
 let g:airline#extensions#tabline#current_first = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_splits = 1
+let g:airline#extensions#tabline#show_tab_count = 2
+let g:airline#extensions#tabline#show_tab_nr = 1
+let g:airline#extensions#tabline#show_tab_type = 1
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#vimtex#left = '▶'
 let g:airline#extensions#vimtex#right = ''
 let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
-let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
 function! AirlineSetup()
   let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
   let g:airline_section_b = airline#section#create_left(['branch', 'hunks'])
@@ -478,6 +486,7 @@ nnoremap <Space>e :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --wor
 nnoremap <Space>k :set spelllang=en,ko<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
 nnoremap <Space>n :set nowrap<CR>
+nnoremap <Space>p :CtrlSpace()<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 nnoremap <Space>t :call TreeToggle()<CR>
 nnoremap <Space>w :set wrap<CR>
