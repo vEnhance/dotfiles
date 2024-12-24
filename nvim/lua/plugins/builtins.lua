@@ -35,7 +35,7 @@ return {
         change = { text = "~" },
         delete = { text = "-" },
         topdelete = { text = "" },
-        changedelete = { text = "#" },
+        changedelete = { text = "" },
         untracked = { text = "*" },
       },
       signs_staged = {
@@ -43,7 +43,7 @@ return {
         change = { text = "~" },
         delete = { text = "-" },
         topdelete = { text = "" },
-        changedelete = { text = "#" },
+        changedelete = { text = "" },
       },
     },
   },
@@ -68,7 +68,7 @@ return {
 
       local opts = {
         options = {
-          theme = "catppuccin-mocha",
+          theme = "catppuccin-frappe",
           globalstatus = vim.o.laststatus == 3,
           disabled_filetypes = { statusline = { "dashboard", "alpha", "ministarter", "snacks_dashboard" } },
         },
@@ -132,7 +132,6 @@ return {
             { "filetype", icon_only = false, separator = "", padding = { left = 1, right = 1 } },
           },
           lualine_z = {
-            { "progress", separator = " ", padding = { left = 1, right = 0 } },
             { "location", padding = { left = 0, right = 1 } },
           },
         },
