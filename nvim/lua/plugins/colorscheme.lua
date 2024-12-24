@@ -15,14 +15,13 @@ return {
       transparent_background = true,
       custom_highlights = function(colors)
         return {
-          LineNr = { fg = colors.flamingo },
+          LineNr = { fg = colors.subtext0 },
           CursorLineNr = { fg = colors.teal, bg = colors.overlay0, style = { "bold" } },
         }
       end,
     },
   },
 
-  -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
