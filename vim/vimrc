@@ -55,7 +55,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
 
   if has('nvim')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-lua/plenary.nvim'
     Plug 'Julian/lean.nvim'
     Plug 'nvim-telescope/telescope.nvim'
@@ -496,7 +495,7 @@ nnoremap <Space>p :CtrlSpace<CR>
 nnoremap <Space>qq :qa<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 nnoremap <Space>t :let $VIM_DIR=expand('%:p:h')<CR>:silent !xfce4-terminal --working-directory="$VIM_DIR" &<CR>:redraw!<CR>
-nnoremap <Space>w :set wrap!<CR>
+nnoremap <Space>uw :set wrap!<CR>
 if has('nvim')
   nnoremap <Space>y :Inspect<CR>
 else
@@ -559,7 +558,7 @@ if has('nvim')
   nnoremap <silent> <Space>: <cmd>Telescope command_history<CR>
   nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
   nnoremap <silent> <Space>m <cmd>Telescope keymaps<CR>
-  nnoremap <silent> <Space>u <cmd>Telescope ultisnips<CR>
+  nnoremap <silent> <Space>v <cmd>Telescope ultisnips<CR>
 endif
 
 " Buffer switching: https://vi.stackexchange.com/a/9255
