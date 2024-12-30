@@ -95,7 +95,7 @@
 )
 
 // Theorem environments
-#let thm-args = (padding: (x: 0.5em, y: 0.6em), outset: 0.9em, counter: "thm")
+#let thm-args = (padding: (x: 0.5em, y: 0.6em), outset: 0.9em, counter: "thm", base-level: 1)
 #let thm = thm-plain("Theorem",  fill: rgb("#eeeeff"), ..thm-args)
 #let lem = thm-plain("Lemma", fill: rgb("#eeeeff"), ..thm-args)
 #let prop = thm-plain("Proposition", fill: rgb("#eeeeff"), ..thm-args)
