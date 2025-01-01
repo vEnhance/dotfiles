@@ -30,8 +30,11 @@ with get_session() as session:
 
             for txn in recent_txn:
                 if (
-                    abs(row_date - txn.date) <= timedelta(days=3)
+                    abs(row_date - txn.date) <= timedelta(days=1)
                     and row_amount == txn.amount
+                ) or (
+                    abs(row_date - txn.date) <= timedelta(days=5)
+                    and row_amount == txn.amount < 0
                 ):
                     print(
                         f"Handled {row_description} from {row_date} (amount {row_amount})"
