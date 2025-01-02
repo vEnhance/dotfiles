@@ -18,7 +18,7 @@ of what kind of configuration options are out there,
 ideas for software to try out, and so on.
 
 If you are really daring, you can try to run `INSTALL.sh` which will create
-a lot of symlinks in your home directory ;)
+a lot of symlinks in your home directory 😉
 but you should probably read it first before you attempt this.
 
 I (Evan) have the following allegiances:
