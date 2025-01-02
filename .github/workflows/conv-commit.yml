@@ -52,7 +52,23 @@ jobs:
             - `fix: [short description here]` (if you are fixing an issue)
             - `feat: [short description here]` (if you are introducing a new feature)
 
-            depending on whether you are fixing an issue or doing something new, respectively. Please adjust the proposed title and this check will resolve automatically!
+            depending on whether you are fixing an issue or doing something new, respectively. But some other types might be suitable too, see the list below:
 
-            ```
+            - `build`: build related
+            - `ci`: work related to CI
+            - `chore`: updating deps, etc.
+            - `docs`: documentation changes
+            - `drop`: deleting stuff or removing a feature
+            - `edit`: minor changes that don't constitute a new feature
+            - `perf`: performance improvements
+            - `polish`: copy editing or cleanup that doesn't affect functionality
+            - `refactor`: major rewriting or restructuring that doesn't fix bugs or affect functionality
+            - `revert`: revert commits
+            - `style`: code style changes
+            - `test`: unit testing, etc.
+
+            Please adjust the proposed title and this check will resolve automatically!
+
+            ```text
             ${{ steps.lint_pr_title.outputs.error_message }}
+            ```
