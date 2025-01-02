@@ -1,0 +1,58 @@
+name: "Conventional commits"
+
+on:
+  workflow_call: {}
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+      - reopened
+
+permissions:
+  pull-requests: write
+
+jobs:
+  main:
+    name: Validate PR title
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v5
+        id: lint_pr_title
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          types: |
+            fix
+            feat
+            build
+            ci
+            chore
+            docs
+            drop
+            edit
+            perf
+            polish
+            refactor
+            revert
+            style
+            test
+
+      - uses: marocchino/sticky-pull-request-comment@v2
+        # When the previous steps fails, the workflow would stop. By adding this
+        # condition you can continue the execution with the populated error message.
+        if: always() && (steps.lint_pr_title.outputs.error_message != null)
+        with:
+          header: pr-title-lint-error
+          message: |
+            Hey there and thank you for opening this pull request! 👋
+
+            We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/). For most of you, this means that the PR title should say either
+
+            - `fix: [short description here]` (if you are fixing an issue)
+            - `feat: [short description here]` (if you are introducing a new feature)
+
+            depending on whether you are fixing an issue or doing something new, respectively. Please adjust the proposed title and this check will resolve automatically!
+
+            ```
+            ${{ steps.lint_pr_title.outputs.error_message }}
