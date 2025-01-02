@@ -47,7 +47,11 @@ jobs:
           message: |
             Hey there and thank you for opening this pull request! 👋
 
-            We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/). For most of you, this means that the PR title should say either
+            *We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/).* This comment indicates a fix is needed to repair this.
+
+            ## How do I fix this?
+
+            For most of you, this means that the PR title should say either
 
             - `fix: [short description here]` (if you are fixing an issue)
             - `feat: [short description here]` (if you are introducing a new feature)
@@ -69,6 +73,6 @@ jobs:
 
             Please adjust the proposed title and this check will resolve automatically!
 
-            ```text
+            ## Detailed error message
+
             ${{ steps.lint_pr_title.outputs.error_message }}
-            ```

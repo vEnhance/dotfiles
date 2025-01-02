@@ -20,3 +20,5 @@ Evan uses the following types:
 - `revert`: revert commits
 - `style`: code style changes
 - `test`: unit testing, etc.
+
+See [the corresponding GitHub action](.github/workflows/conv-commit.yml).
