@@ -118,6 +118,20 @@
 #let proof = thm-proof("Proof")
 #let soln = thm-proof("Solution")
 
+// i have no idea how this works but it seems to work ¯\_(ツ)_/¯
+#let recall-thm(target-label) = {
+  context {
+    let el = query(target-label).first()
+    let loc = el.location()
+    let thms = query(selector(<meta:thm-env-counter>).after(loc))
+    let thmloc = thms.first().location()
+    let thm = thm-stored.at(thmloc).last()
+    (thm.fmt)(
+      thm.name, link(target-label, str(thm.number)), thm.body, ..thm.args.named(),
+    )
+  }
+}
+
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
 #let boxed(x) = rect(stroke: rgb("#003300") + 1.5pt,
