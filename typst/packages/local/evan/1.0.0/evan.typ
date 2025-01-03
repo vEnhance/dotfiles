@@ -159,6 +159,14 @@
   heading(numbering: none, text(size: 1.4em, fill: colors.partfill, s))
 }
 
+// Unnumbered heading commands
+#let h1(..args) = heading(level: 1, outlined: false, numbering: none, ..args)
+#let h2(..args) = heading(level: 2, outlined: false, numbering: none, ..args)
+#let h3(..args) = heading(level: 3, outlined: false, numbering: none, ..args)
+#let h4(..args) = heading(level: 4, outlined: false, numbering: none, ..args)
+#let h5(..args) = heading(level: 5, outlined: false, numbering: none, ..args)
+#let h6(..args) = heading(level: 6, outlined: false, numbering: none, ..args)
+
 // Main entry point to use in a global show rule
 #let evan(
   title: none,
