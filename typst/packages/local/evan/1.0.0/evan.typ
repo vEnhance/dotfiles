@@ -108,7 +108,9 @@
 #let defn = thm-def("Definition", fill: rgb("#ffffdd"), ..thm-args)
 #let prob = thm-def("Problem", fill: rgb("#eeeeee"), ..thm-args)
 #let exer = thm-def("Exercise", fill: rgb("#eeeeee"), ..thm-args)
-#let exerstar = thm-def("* Exercise", fill: rgb("#eeeeee"), ..thm-args)
+#let exerstar = thm-def("Exercise", fill: rgb("#eeeeee"),
+  title-fmt: (x) => { strong(x + " (*)") },
+  ..thm-args)
 #let ques = thm-def("Question", fill: rgb("#eeeeee"), ..thm-args)
 #let fact = thm-def("Fact", fill: rgb("#eeeeee"), ..thm-args)
 
