@@ -1,1 +1,1 @@
-let b:ale_linters = ['proselint', 'languagetool']
+let b:ale_linters = ['vale', 'languagetool']

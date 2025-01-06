@@ -47,4 +47,4 @@ nnoremap <localleader>e gg}:read ~/dotfiles/mutt/templates/
 let g:airline#extensions#whitespace#trailing_regexp = '\t$\|\s\{2,\}$'
 let b:airline_whitespace_trailing_regexp = '\t$\|\s\{2,\}$'
 let b:ale_fixers = ['remove_trailing_lines',]
-let b:ale_linters = ['proselint', 'languagetool']
+let b:ale_linters = ['vale', 'languagetool']

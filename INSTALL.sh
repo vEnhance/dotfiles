@@ -58,10 +58,6 @@ if ! test -d "$HOME/.config/zathura"; then ln -s "$HOME"/dotfiles/zathura "$HOME
 if ! test -f "$HOME/.config/picom.conf"; then
   ln -s "$HOME"/dotfiles/picom.conf "$HOME"/.config/picom.conf
 fi
-if ! test -f "$HOME/.config/proselint/config.json"; then
-  mkdir -p "$HOME"/.config/proselint
-  ln -s "$HOME"/dotfiles/proselintrc "$HOME"/.config/proselint/config.json
-fi
 if ! test -d "$HOME/.config/py3status"; then
   mkdir -p "$HOME"/.config/py3status
   ln -s "$HOME/dotfiles/py3status/py3status.$(hostname).conf" "$HOME"/.config/py3status/config
@@ -92,6 +88,11 @@ if ! test -d "$HOME/.config/nerd-dictation"; then
 fi
 if test -d "$HOME/.jupyter" && ! test -f "$HOME/.jupyter/jupyter_notebook_config.py"; then
   ln -s "$HOME"/dotfiles/jupyter_notebook_config.py "$HOME"/.jupyter/
+fi
+if ! test -d "$HOME/.config/vale/"; then
+  mkdir -p "$HOME"/.config/vale/
+  ln -s "$HOME"/dotfiles/vale.ini "$HOME"/.config/vale/.vale.ini
+  ln -s "$HOME"/dotfiles/vale-styles "$HOME"/.config/vale/vale-styles
 fi
 
 # .local

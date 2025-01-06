@@ -1,10 +1,4 @@
-call ale#linter#Define('typst', {
-\   'name': 'proselint',
-\   'executable': 'proselint',
-\   'command': 'proselint %t',
-\   'callback': 'ale#handlers#unix#HandleAsWarning',
-\})
-let b:ale_linters = ['proselint']
+let b:ale_linters = ['vale']
 
 " compile continuously
 nnoremap <silent> <localleader>p :update<CR>:TypstWatch<CR>

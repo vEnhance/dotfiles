@@ -1,4 +1,4 @@
-let b:ale_linters = ['proselint', 'chktex']
+let b:ale_linters = ['vale', 'chktex']
 let b:ale_fixers = g:ale_fixers['*']
 
 function EvanCompileLaTeX(continuous)
