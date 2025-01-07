@@ -1,2 +1,5 @@
 (?i)discriminant
 (?i)equivalent
+(?i)typo
+(?i)hence
+(?i)wish
