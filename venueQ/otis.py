@@ -445,7 +445,9 @@ class ProblemSet(VenueQNode):
                     if data["status"] == "A"
                     else "NOT ACCEPTED (action req'd)"
                 )
-                subject = f"OTIS: {data['unit__code']} {data['unit__group__name']} was {verdict}"
+                subject = (
+                    f"OTIS: {data['unit__code']} {data['unit__group__name']} {verdict}"
+                )
 
                 def callback():
                     if data["status"] == "R":
