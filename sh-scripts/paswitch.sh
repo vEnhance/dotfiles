@@ -24,19 +24,19 @@
 # eventually split this
 if [ "$(hostname)" = ArchMajestic ]; then
   declare -A sink_names=(
-    [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
+    [usb]="$(pactl list sinks short | grep usb | cut -f 2)"
     [speakers]="$(pactl list sinks short | grep pci | grep analog-stereo | cut -f 2)"
   )
 fi
 if [ "$(hostname)" = ArchDiamond ]; then
   declare -A sink_names=(
-    [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
+    [usb]="$(pactl list sinks short | grep usb | cut -f 2)"
     [speakers]="$(pactl list sinks short | grep hdmi-stereo | cut -f 2)"
   )
 fi
 if [ "$(hostname)" = ArchBootes ]; then
   declare -A sink_names=(
-    [usb]="$(pactl list sinks short | grep usb-C | cut -f 2)"
+    [usb]="$(pactl list sinks short | grep usb | cut -f 2)"
     [speakers]="$(pactl list sinks short | grep 'pci-.*\.analog-stereo' | cut -f 2)"
   )
 fi
