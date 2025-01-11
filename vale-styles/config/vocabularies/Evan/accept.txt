@@ -3,3 +3,13 @@
 (?i)typo
 (?i)hence
 (?i)wish
+(?i)matrices
+[Ss]tar[Cc]raft
+(?i)phone
+Bboom
+(?i)oops
+(?i)am
+(?i)pm
+(?i)alright
+(?i)spend
+(?i)a lot
