@@ -10,7 +10,7 @@ from pathlib import Path
 # -----------------------------------------------------------------------------
 # Replace Multiple Words
 
-TEXT_REPLACE_REGEX = (
+TEXT_REPLACE_REGEX_TUPLES = (
     ("\\bdata type\\b", "data-type"),
     ("\\bcopy on write\\b", "copy-on-write"),
     ("\\bkey word\\b", "keyword"),
@@ -18,7 +18,8 @@ TEXT_REPLACE_REGEX = (
     ("\\bnew line\\b", "\r"),
 )
 TEXT_REPLACE_REGEX = tuple(
-    (re.compile(match), replacement) for (match, replacement) in TEXT_REPLACE_REGEX
+    (re.compile(match), replacement)
+    for (match, replacement) in TEXT_REPLACE_REGEX_TUPLES
 )
 
 
@@ -35,9 +36,10 @@ WORD_REPLACE = {
 }
 
 # Regular expressions allow partial words to be replaced.
-WORD_REPLACE_REGEX = (("^i'(.*)", "I'\\1"),)
+WORD_REPLACE_REGEX_TUPLES = (("^i'(.*)", "I'\\1"),)
 WORD_REPLACE_REGEX = tuple(
-    (re.compile(match), replacement) for (match, replacement) in WORD_REPLACE_REGEX
+    (re.compile(match), replacement)
+    for (match, replacement) in WORD_REPLACE_REGEX_TUPLES
 )
 
 # -----------------------------------------------------------------------------
@@ -49,10 +51,12 @@ CLOSING_PUNCTUATION = {
     "coma": ",",  # this is easier to say
     "question mark": "?",
     "close quote": '"',
+    "close parentheses": ")",
 }
 
 OPENING_PUNCTUATION = {
     "open quote": '"',
+    "open parentheses": "(",
 }
 
 DICTATION_LAUNCHER_PATH = Path("~/dotfiles/sh-scripts/nerd-dictate.sh").expanduser()
