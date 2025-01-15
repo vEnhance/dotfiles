@@ -15,7 +15,7 @@ def generate_points(kind, n) -> list[str]:
     if kind == "triangle":
         return ["dir(110)", "dir(210)", "dir(330)"]
     elif kind == "regular":
-        return [f"dir({(90 + i*360/n) % 360})" for i in range(n)]
+        return [f"dir({(90 + i * 360 / n) % 360})" for i in range(n)]
     raise SyntaxError("Special command not recognized")
 
 

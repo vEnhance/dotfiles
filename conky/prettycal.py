@@ -98,7 +98,7 @@ class CalItem:
                 s += r"${voffset -1}${font Exo 2:semibold:size=%d}" % FONT_SIZE
             else:
                 s += r"${font Exo 2:light:size=%d}" % FONT_SIZE
-            s += f'{self.when.date().strftime("%a %b%d")} '
+            s += f"{self.when.date().strftime('%a %b%d')} "
             if self.type == Type.CALENDAR or self.type == Type.NOW:
                 s += r"${voffset 1}"
         s += r"${font Exo 2:normal:size=%d}" % FONT_SIZE

@@ -55,7 +55,7 @@ with get_session() as session:
         row_date = datetime.strptime(f"{str_date} {current_year}", r"%b %d %Y").date()
         if row_date > _date.today():
             row_date = datetime.strptime(
-                f"{str_date} {current_year-1}", r"%b %d %Y"
+                f"{str_date} {current_year - 1}", r"%b %d %Y"
             ).date()
         row_description = get_child_string(
             div, tag_name="div", class_name="counterparty_name"

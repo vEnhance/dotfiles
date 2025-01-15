@@ -286,7 +286,7 @@ def convertonetable(m, border):
 
 def separatemath(m):
     mathre = re.compile(
-        "\\$.*?\\$" "|\\\\begin\\{equation}.*?\\\\end\\{equation}" "|\\\\\\[.*?\\\\\\]"
+        "\\$.*?\\$|\\\\begin\\{equation}.*?\\\\end\\{equation}|\\\\\\[.*?\\\\\\]"
     )
     math = mathre.findall(m)
     text = mathre.split(m)
@@ -298,7 +298,7 @@ def processmath(M):
     global ref
 
     mathdelim = re.compile(
-        "\\$" "|\\\\begin\\{equation}" "|\\\\end\\{equation}" "|\\\\\\[|\\\\\\]"
+        "\\$|\\\\begin\\{equation}|\\\\end\\{equation}|\\\\\\[|\\\\\\]"
     )
     label = re.compile("\\\\label\\{.*?}")
 

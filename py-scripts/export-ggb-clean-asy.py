@@ -55,9 +55,9 @@ try:
 
     if args.no_header is False:
         first_line = input_buffer.readline()
-        assert (
-            "Geogebra to Asymptote conversion" in first_line
-        ), f"First line is missing header\n{first_line}"
+        assert "Geogebra to Asymptote conversion" in first_line, (
+            f"First line is missing header\n{first_line}"
+        )
         # print(r'/* start ggb to asy preamble */', file=output_buffer)
 
     # Preamble

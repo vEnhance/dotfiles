@@ -97,9 +97,9 @@ for fn in files:
                 d, r, _, source = m.groups()
                 w = hardness_chart[d]
                 if detect_missing is False:
-                    assert (
-                        fn not in seen[source] or w == 0
-                    ), f"you dummy you duped {source} in {fn}"
+                    assert fn not in seen[source] or w == 0, (
+                        f"you dummy you duped {source} in {fn}"
+                    )
                     seen[source][fn] = (w, r)
                 elif detect_missing is True:
                     seen_set.add(source)

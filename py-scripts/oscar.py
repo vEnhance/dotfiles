@@ -159,7 +159,7 @@ def main(tsv_file, outfile, name):
         # textcolor = 'white' if n / N < 0.2 else 'black'
 
         if percent:
-            content = r"{}^{\%}" + f"{100*r:.1f}"
+            content = r"{}^{\%}" + f"{100 * r:.1f}"
         else:
             content = r"\textbf{" + str(n) + "}"
 
@@ -180,9 +180,9 @@ def main(tsv_file, outfile, name):
             continue
         data = line.split("\t")
         studentscores = [int(x) if (x in "01234567" and x) else 0 for x in data[:-1]]
-        assert sum(studentscores) == int(
-            data[-1]
-        ), f"Total doesn't match: {studentscores} != {data[-1]}"
+        assert sum(studentscores) == int(data[-1]), (
+            f"Total doesn't match: {studentscores} != {data[-1]}"
+        )
         for i in range(NUM_PROBLEMS):
             scores_by_pr[i].append(studentscores[i])
 
@@ -343,7 +343,8 @@ def main(tsv_file, outfile, name):
         print(r"\section{Full stats for %s}" % name, file=outfile)
         print(r"\begin{longtable}{r|" + "r" * NUM_PROBLEMS + "|r}", file=outfile)
         print(
-            "Rank & " + " & ".join(f"P{i+1}" for i in range(NUM_PROBLEMS)), file=outfile
+            "Rank & " + " & ".join(f"P{i + 1}" for i in range(NUM_PROBLEMS)),
+            file=outfile,
         )
         print(r"& $\Sigma$ \\ \hline \endhead", file=outfile)
         for scores in scores_raw:
@@ -371,9 +372,9 @@ def clean_name(s):
 
 if __name__ == "__main__":
     files = args.files
-    assert len(files) == 1 or (
-        args.output is None and args.name is None
-    ), "can't write multiple inputs to a single output"
+    assert len(files) == 1 or (args.output is None and args.name is None), (
+        "can't write multiple inputs to a single output"
+    )
 
     if len(files) == 1:
         f = files[0]

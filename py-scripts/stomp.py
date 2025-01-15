@@ -91,9 +91,9 @@ TEMPLATE_PATHS = Path("~/dotfiles/cp-templates/").expanduser()
 
 if __name__ == "__main__":
     if opts.new:
-        assert (
-            not main_path.exists()
-        ), "You shouldn't use stomp -n if the file exists already"
+        assert not main_path.exists(), (
+            "You shouldn't use stomp -n if the file exists already"
+        )
         (main_path.parent / "tests").mkdir(exist_ok=True)
         if PROGRAM_TYPE == "PYTHON":
             shutil.copy(TEMPLATE_PATHS / "main.py", main_path)
@@ -135,8 +135,7 @@ if __name__ == "__main__":
         )
         if compile_process.returncode != 0:
             print(
-                f"👿 {TERM_COLOR['BOLD_YELLOW']}"
-                f"COMPILATION FAILED{TERM_COLOR['RESET']}"
+                f"👿 {TERM_COLOR['BOLD_YELLOW']}COMPILATION FAILED{TERM_COLOR['RESET']}"
             )
             sys.exit(1)
         else:
@@ -157,8 +156,7 @@ if __name__ == "__main__":
         )
         if compile_process.returncode != 0:
             print(
-                f"👿 {TERM_COLOR['BOLD_YELLOW']}"
-                f"COMPILATION FAILED{TERM_COLOR['RESET']}"
+                f"👿 {TERM_COLOR['BOLD_YELLOW']}COMPILATION FAILED{TERM_COLOR['RESET']}"
             )
             sys.exit(1)
         else:

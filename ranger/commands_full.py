@@ -1156,7 +1156,7 @@ class chmod(Command):
         if not mode_str:
             if self.quantifier is None:
                 self.fm.notify(
-                    "Syntax: chmod <octal number> " "or specify a quantifier", bad=True
+                    "Syntax: chmod <octal number> or specify a quantifier", bad=True
                 )
                 return
             mode_str = str(self.quantifier)
@@ -1229,10 +1229,10 @@ class bulkrename(Command):
         with tempfile.NamedTemporaryFile() as cmdfile:
             script_lines = []
             script_lines.append(
-                "# This file will be executed when you close" " the editor."
+                "# This file will be executed when you close the editor."
             )
             script_lines.append(
-                "# Please double-check everything, clear the" " file to abort."
+                "# Please double-check everything, clear the file to abort."
             )
             new_dirs = []
             for old, new in zip(filenames, new_filenames):

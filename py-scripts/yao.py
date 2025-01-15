@@ -92,21 +92,21 @@ if opts.alice is True:
         opts.salary
         if opts.salary is not None
         else getpass.getpass(
-            f"You are Alice. What's your salary? (Input hidden, 0-{MAX-1}) "
+            f"You are Alice. What's your salary? (Input hidden, 0-{MAX - 1}) "
         )
     )
     SJ = None
-    assert 0 <= SI < MAX, f"Out of range. Must be between 0 and {MAX-1}"
+    assert 0 <= SI < MAX, f"Out of range. Must be between 0 and {MAX - 1}"
 else:
     SI = None
     SJ = int(
         opts.salary
         if opts.salary is not None
         else getpass.getpass(
-            f"You are Bob. What's your salary? (Input hidden, 0-{MAX-1}) "
+            f"You are Bob. What's your salary? (Input hidden, 0-{MAX - 1}) "
         )
     )
-    assert 0 <= SJ < MAX, f"Out of range. Must be between 0 and {MAX-1}"
+    assert 0 <= SJ < MAX, f"Out of range. Must be between 0 and {MAX - 1}"
 
 if opts.alice is True:
     if Path(KEY_FILENAME).exists():

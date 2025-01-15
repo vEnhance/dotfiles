@@ -11,11 +11,11 @@ from pathlib import Path
 # Replace Multiple Words
 
 TEXT_REPLACE_REGEX = (
-    ("\\b" "data type" "\\b", "data-type"),
-    ("\\b" "copy on write" "\\b", "copy-on-write"),
-    ("\\b" "key word" "\\b", "keyword"),
-    ("\\b" "paragraph" "\\b", "\r"),
-    ("\\b" "new line" "\\b", "\r"),
+    ("\\bdata type\\b", "data-type"),
+    ("\\bcopy on write\\b", "copy-on-write"),
+    ("\\bkey word\\b", "keyword"),
+    ("\\bparagraph\\b", "\r"),
+    ("\\bnew line\\b", "\r"),
 )
 TEXT_REPLACE_REGEX = tuple(
     (re.compile(match), replacement) for (match, replacement) in TEXT_REPLACE_REGEX

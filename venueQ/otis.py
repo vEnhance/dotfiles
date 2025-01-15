@@ -204,7 +204,7 @@ class ProblemSet(VenueQNode):
             assert self.ext is not None
             ext = self.ext
         assert ext in ProblemSet.EXTENSIONS, f"{ext} is not a valid extension"
-        fname = f'otis_{self.data["pk"]:06d}'
+        fname = f"otis_{self.data['pk']:06d}"
         fname += "_"
         fname += self.data["name"].replace(" ", "_")
         fname += "_"
@@ -245,7 +245,7 @@ class ProblemSet(VenueQNode):
 
         # collect data about the handout
         if HANDOUTS_PATH.exists():
-            filename = f'**/{data["unit__code"]}-{data["unit__group__slug"]}.tex'
+            filename = f"**/{data['unit__code']}-{data['unit__group__slug']}.tex"
             handouts = list(HANDOUTS_PATH.glob(filename))
             assert len(handouts) == 1
             total = 0
@@ -269,9 +269,7 @@ class ProblemSet(VenueQNode):
                     w = ProblemSet.HARDNESS_CHART[d]
                     total += w
                     num_problems += 1
-            data["clubs_max"] = (
-                f"max {1+total} | " f"hi {high_clubs} | " f"min {min_clubs}"
-            )
+            data["clubs_max"] = f"max {1 + total} | hi {high_clubs} | min {min_clubs}"
         else:
             data["clubs_max"] = None
             total = None

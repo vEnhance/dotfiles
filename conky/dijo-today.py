@@ -13,4 +13,4 @@ with open(DIJO_DIR / "habit_record[auto].json") as f:
 for habit in data:
     if today not in habit["stats"] and habit["name"] != "climb":
         goal = int(habit.get("goal", 1))
-        print(f"[{goal}]  {habit["name"]}")
+        print(f"[{goal}]  {habit['name']}")
