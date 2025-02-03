@@ -38,6 +38,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'Shougo/echodoc'
   Plug 'airblade/vim-gitgutter'
   Plug 'aymericbeaumet/vim-symlink'
+  Plug 'brglng/vim-im-select'
   Plug 'ciaranm/detectindent'
   Plug 'dense-analysis/ale'
   Plug 'ludovicchabant/vim-gutentags'
@@ -115,6 +116,7 @@ let g:gutentags_file_list_command = {
       \ '.git': 'sh ' . $HOME . '/dotfiles/sh-scripts/guten-targets-git.sh',
       \ },
   \ }
+let g:im_select_default = 'xkb:us:dvorak:eng'
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:jedi#show_call_signatures = 0
