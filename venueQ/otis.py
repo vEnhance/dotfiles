@@ -306,9 +306,9 @@ class ProblemSet(VenueQNode):
                 break
         else:
             url = f"https://storage.googleapis.com/otisweb-media/{data['upload__content']}"
-            _, ext = os.path.splitext(data["upload__content"])
-            ext = ext.lstrip(".")
-            ext = ext.lower()
+            fn = data["upload__content"]
+            assert "." in fn, f"Filename {fn} is not formatted correctly"
+            ext = fn[fn.rindex(".") + 1 :].lower()
             assert ext in ProblemSet.EXTENSIONS, f"{ext} is not a valid extension"
             self.ext = ext
             logger.info(f"Trying to fetch {url}")
