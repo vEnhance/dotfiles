@@ -13,3 +13,6 @@ Bboom
 (?i)alright
 (?i)spend
 (?i)a lot
+(?i)enumerate
+(?i)determine
+(?i)plug in
