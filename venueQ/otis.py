@@ -629,7 +629,7 @@ class Suggestion(VenueQNode):
             body += f"- **Description**: {data['description']}\n"
             body += f"- **Hyperlink**: {data['hyperlink']}\n"
             body += f"- **Proposed unit**: {data['unit__code']} {data['unit__group__name']}\n"
-            body += f"- **Proposed spades**: {data['weight']}♠\n"
+            body += f"- **Proposed clubs**: {data['weight']}♣\n"
             body += "\n"
             body += r"```latex" + "\n" + self.statement + "\n" + r"```"
             if comments := data["comments"]:
