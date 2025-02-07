@@ -44,6 +44,6 @@ fi
 # Normal mode
 if [ "$1" = n ]; then
   xset r rate 660 25 2>&1
-  notify-send -i status/starred-symbolic "SC2 mode glhf" \
+  notify-send -i actions/mail-reply-sender-symbolic "gg no re" \
     "$(xmodmap -e "pointer = 1 2 3" 2>&1)\n$"
 fi
