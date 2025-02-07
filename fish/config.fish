@@ -511,10 +511,14 @@ function hub -w gh # {{{
         hub $flavor view $argv
     else if test (echo $argv | cut -d " " -f 1) = done
         gh $argv
-        bugwarrior-pull &
+        if command -q bugwarrior-pull
+            bugwarrior-pull &
+        end
     else if test (echo $argv | cut -d " " -f 1) = close
         gh $argv
-        bugwarrior-pull &
+        if command -q bugwarrior-pull
+            bugwarrior-pull &
+        end
     else
         gh $argv
     end
