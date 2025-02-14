@@ -287,6 +287,7 @@ mode "exec" {
   bindsym g exec geogebra &, mode "default"
   # short for hanabi
   bindsym h exec chromium &, mode "default"
+  bindsym i exec anki &, mode "default"
   bindsym l exec --no-startup-id /home/evan/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
   # short for money
   bindsym m exec gnucash &, mode "default"
