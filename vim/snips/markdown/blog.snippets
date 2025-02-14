@@ -1,0 +1,11 @@
+snippet blog "Header for a mkdocs blog post"
+---
+slug: ${1:slug}
+date:
+  created: `!p import datetime; snip.rv = datetime.date.today().strftime('%Y-%m-%d')`
+---
+
+# ${2:title}
+
+$0
+endsnippet
