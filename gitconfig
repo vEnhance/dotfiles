@@ -83,6 +83,8 @@
 	trailing = grep -n -I '[[:blank:]]$'
 	trails = grep -l -I '[[:blank:]]$'
 
+	push-fork = !git push -vvv $(git config --get branch.$(git branch --show-current).pushRemote) HEAD:$(git rev-parse --abbrev-ref HEAD | cut -d \"/\" -f2)
+
 [blame]
 	coloring = highlightRecent
 [commit]
