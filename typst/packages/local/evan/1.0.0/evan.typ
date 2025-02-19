@@ -1,4 +1,4 @@
-#import "@preview/gentle-clues:1.0.0": *
+#import "@preview/gentle-clues:1.1.0": *
 #import "theorems.typ": *
 
 #let fonts = (
