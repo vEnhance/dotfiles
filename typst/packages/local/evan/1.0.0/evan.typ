@@ -292,7 +292,7 @@
   // Hyperlinks should be pretty
   show link: it => {
     set text(fill:
-      if (type(it.dest) == "label") { colors.label } else { colors.hyperlink }
+      if (type(it.dest) == label) { colors.label } else { colors.hyperlink }
     )
     it
   }
@@ -312,7 +312,7 @@
     if (author != none) {
       block(smallcaps(text(size:1.7em, author)))
     }
-    if (type(date) == "datetime") {
+    if (type(date) == datetime) {
       block(text(size:1.2em, date.display("[day] [month repr:long] [year]")))
     }
     else if (date != none) {
