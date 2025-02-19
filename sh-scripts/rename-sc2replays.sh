@@ -4,21 +4,21 @@ set -o xtrace
 set -e
 
 COOP_MAPS=(
-  "Chain of Ascension"
-  "Cradle of Death"
-  "Dead of Night"
-  "Lock & Load"
-  "Malwarfare"
-  "Miner Evacuation"
-  "Mist Opportunities"
-  "Oblivion Express"
-  "Part and Parcel"
-  "Rifts to Korhal"
-  "Scythe of Amon"
-  "Temple of the Past"
-  "The Vermillion Problem"
-  "Void Launch"
-  "Void Thrashing"
+  'Chain of Ascension'
+  'Cradle of Death'
+  'Dead of Night'
+  'Lock & Load'
+  'Malwarfare'
+  'Miner Evacuation'
+  'Mist Opportunities'
+  'Oblivion Express'
+  'Part and Parcel'
+  'Rifts to Korhal'
+  'Scythe of Amon'
+  'Temple of the Past'
+  'The Vermillion Problem'
+  'Void Launch'
+  'Void Thrashing'
 )
 
 for filename in ./*.SC2Replay; do
@@ -31,7 +31,7 @@ for filename in ./*.SC2Replay; do
     matched=false
     # Loop through each prefix in the array
     for prefix in "${COOP_MAPS[@]}"; do
-      if [[ $filename == "$prefix"* ]]; then
+      if [[ $filename == *$prefix* ]]; then
         matched=true
         break
       fi
