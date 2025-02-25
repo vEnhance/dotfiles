@@ -16,6 +16,7 @@ Evan uses the following types:
 - `edit`: minor changes that don't constitute a new feature
 - `perf`: performance improvements
 - `polish`: copy editing or cleanup that doesn't affect functionality
+- `root`: an empty root commit (i.e. the first commit of the repository)
 - `refactor`: major rewriting or restructuring that doesn't fix bugs or affect functionality
 - `revert`: revert commits
 - `style`: code style changes

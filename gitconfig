@@ -54,7 +54,7 @@
 	co = checkout
 	ff = merge --ff-only
 	force = push --force-with-lease
-	mkroot = commit --allow-empty -m 'Initial commit'
+	mkroot = commit --allow-empty -m 'root: Initial commit'
 	rb = rebase -i
 	rba = rebase --abort
 	rbc = rebase --continue
