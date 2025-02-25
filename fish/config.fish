@@ -173,7 +173,7 @@ if test -f /usr/bin/zathura
     export PDFVIEWER='zathura'
 end
 # path exports
-export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts/"
+export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/py-scripts/"
 export PATH="$PATH:$HOME/dotfiles/bin/:$HOME/.cargo/bin"
 if test -d /opt/google-cloud-cli
     export CLOUDSDK_ROOT_DIR=/opt/google-cloud-cli
@@ -241,7 +241,6 @@ alias sparky='/usr/bin/python3 ~/Sync/Projects/sparky/'
 alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp.py'
 alias tsqx='/usr/bin/python3 ~/dotfiles/py-scripts/tsqx.py'
 alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
-alias von='/usr/bin/python3 -m von'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'

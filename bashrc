@@ -60,7 +60,6 @@ alias oscar='python3 ~/dotfiles/py-scripts/oscar.py'
 alias sparky='python3 ~/Sync/Projects/sparky/'
 alias todo='~/dotfiles/sh-scripts/get-todo.sh'
 alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
-alias von='python3 -m von'
 alias wplatex='python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='python3 ~/dotfiles/py-scripts/markdown2wp.py'
 
@@ -70,7 +69,7 @@ alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
 
 alias sudo='sudo ' # allows my aliases to get into sudo in bash
 
-export PYTHONPATH="$PYTHONPATH:$HOME:$HOME/dotfiles/py-scripts"
+export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/py-scripts"
 export PATH=$PATH:$HOME/.local/bin
 
 # Various functions
