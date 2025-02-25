@@ -30,7 +30,7 @@ def pretty_print_commit(
         time_symbol = ""
     print(
         Fore.YELLOW + commit.hexsha[0:6],
-        Style.RESET_ALL + commit.committed_datetime.strftime(DATE_STRING),
+        Style.RESET_ALL + commit.authored_datetime.strftime(DATE_STRING),
         time_color + time_symbol + str(time_delta) + Style.RESET_ALL,
         Style.RESET_ALL + f"+{num_insertions:4d} -{num_deletions:4d}",
         Fore.CYAN + str(commit.summary or "no commit message")[0:60] + Style.RESET_ALL,
@@ -130,7 +130,7 @@ if __name__ == "__main__":
         for commit in repo.iter_commits("main")
         if (not committers) or (commit.committer.email in committers)
     ]
-    commits.sort(key=lambda commit: commit.committed_datetime)
+    commits.sort(key=lambda commit: commit.authored_datetime)
 
     # read wah data
     needs_save = False
@@ -169,12 +169,12 @@ if __name__ == "__main__":
     time = datetime.timedelta(hours=0)
     if args.verbose:
         print(
-            f"Root commit was at {commits[0].committed_datetime.strftime(DATE_STRING)}"
+            f"Root commit was at {commits[0].authored_datetime.strftime(DATE_STRING)}"
         )
     for i in range(len(commits) - 1):
         a = commits[i]
         b = commits[i + 1]
-        delta: datetime.timedelta = b.committed_datetime - a.committed_datetime
+        delta: datetime.timedelta = b.authored_datetime - a.authored_datetime
         hours = max(delta.total_seconds() / 3600, 1.0 / 3600)
         minutes = hours * 60
         lines_per_minute = b.stats.total["lines"] / minutes
@@ -215,7 +215,7 @@ if __name__ == "__main__":
                         a,
                         "",
                         " ",
-                        a.committed_datetime - commits[i - 1].committed_datetime,
+                        a.authored_datetime - commits[i - 1].authored_datetime,
                     )
                     print("")
                 print("The next few commits are:")
@@ -225,7 +225,7 @@ if __name__ == "__main__":
                         c,
                         Fore.LIGHTYELLOW_EX,
                         " ",
-                        c.committed_datetime - commits[j - 1].committed_datetime,
+                        c.authored_datetime - commits[j - 1].authored_datetime,
                     )
                 print(f"...... starting {delta} later.\n")
                 print(f"This commit had {lines_per_minute:.5f} lines per minute.\n")
