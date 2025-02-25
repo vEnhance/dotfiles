@@ -52,6 +52,7 @@ if ! test -d "$HOME/.config/nvim"; then ln -s "$HOME"/dotfiles/nvim "$HOME"/.con
 if ! test -d "$HOME/.config/qutebrowser"; then ln -s "$HOME"/dotfiles/qutebrowser "$HOME"/.config/qutebrowser; fi
 if ! test -d "$HOME/.config/ranger"; then ln -s "$HOME"/dotfiles/ranger "$HOME"/.config/ranger; fi
 if ! test -d "$HOME/.config/rofi"; then ln -s "$HOME"/dotfiles/rofi "$HOME"/.config/rofi; fi
+if ! test -d "$HOME/.config/von"; then ln -s "$HOME"/dotfiles/von "$HOME"/.config/von; fi
 if ! test -d "$HOME/.config/zathura"; then ln -s "$HOME"/dotfiles/zathura "$HOME"/.config/zathura; fi
 
 # nested config
