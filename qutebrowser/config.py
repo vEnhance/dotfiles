@@ -127,6 +127,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://mit.edu/*",
     r"*://poll.ma.pe/*",
     r"*://projecteuler.net/*",
+    r"*://pypi.org/*",
     r"*://nightbot.tv/*",
     r"*://regex101.com/*",
     r"*://sc2replaystats.com/*",
