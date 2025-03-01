@@ -1,4 +1,4 @@
-#import "@preview/gentle-clues:1.1.0": *
+#import "@preview/gentle-clues:1.2.0": *
 #import "theorems.typ": *
 
 #let fonts = (
@@ -40,56 +40,56 @@
 
 // Define clue environments
 #let definition(..args) = clue(
-  accent-color: get-accent-color-for("abstract"),
-  icon: get-icon-for("abstract"),
+  accent-color: _get-accent-color-for("abstract"),
+  icon: _get-icon-for("abstract"),
   title: "Definition",
   ..args
 )
 #let problem(..args) = clue(
-  accent-color: get-accent-color-for("experiment"),
-  icon: get-icon-for("experiment"),
+  accent-color: _get-accent-color-for("experiment"),
+  icon: _get-icon-for("experiment"),
   title: "Problem",
   ..args
 )
 #let exercise(..args) = clue(
-  accent-color: get-accent-color-for("experiment"),
-  icon: get-icon-for("experiment"),
+  accent-color: _get-accent-color-for("experiment"),
+  icon: _get-icon-for("experiment"),
   title: "Exercise",
   ..args
 )
 #let sample(..args) = clue(
-  accent-color: get-accent-color-for("success"),
-  icon: get-icon-for("experiment"),
+  accent-color: _get-accent-color-for("success"),
+  icon: _get-icon-for("experiment"),
   title: "Sample Question",
   ..args
 )
 #let solution(..args) = clue(
-  accent-color: get-accent-color-for("conclusion"),
-  icon: get-icon-for("conclusion"),
+  accent-color: _get-accent-color-for("conclusion"),
+  icon: _get-icon-for("conclusion"),
   title: "Solution",
   ..args
 )
 #let remark(..args) = clue(
-  accent-color: get-accent-color-for("info"),
-  icon: get-icon-for("info"),
+  accent-color: _get-accent-color-for("info"),
+  icon: _get-icon-for("info"),
   title: "Remark",
   ..args
 )
 #let recipe(..args) = clue(
-  accent-color: get-accent-color-for("task"),
-  icon: get-icon-for("task"),
+  accent-color: _get-accent-color-for("task"),
+  icon: _get-icon-for("task"),
   title: "Recipe",
   ..args
 )
 #let typesig(..args) = clue(
-  accent-color: get-accent-color-for("code"),
-  icon: get-icon-for("code"),
+  accent-color: _get-accent-color-for("code"),
+  icon: _get-icon-for("code"),
   title: "Type signature",
   ..args
 )
 #let digression(..args) = clue(
   accent-color: rgb("#bbbbbb"),
-  icon: get-icon-for("quote"),
+  icon: _get-icon-for("quote"),
   title: "Digression",
   ..args
 )
@@ -299,6 +299,11 @@
   show ref: it => {
     link(it.target, it)
   }
+
+  // Gentle clues default font should be sans
+  show: gentle-clues.with(
+    title-font: "Noto Sans"
+  )
 
   // Title page, if maketitle is true
   if maketitle {
