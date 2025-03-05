@@ -1,0 +1,59 @@
+snippet argparse "Set up an argument parser" b
+parser = argparse.ArgumentParser(
+	prog = "${1:name}",
+	description = "${2:description}",
+)
+
+$0
+
+opts = parser.parse_args()
+endsnippet
+
+snippet apos "Add a positional argument" b
+parser.add_argument(
+	"${1}",
+	type=${2:str},
+	help="${3}",
+)
+$0
+endsnippet
+
+snippet afile "Add a file argument" b
+parser.add_argument(
+	"${1:infile}",
+	nargs="?",
+	type=argparse.FileType("r"),
+	default=sys.stdin,
+)
+$0
+endsnippet
+
+snippet atrue "Adds a store_true flag" b
+parser.add_argument(
+	"-${1}",
+	"--${2:longname}",
+	action="store_true",
+	help="${3:help}")
+$0
+endsnippet
+
+snippet afalse "Adds a store_false flag" b
+parser.add_argument(
+	"-${1}",
+	"--${2:longname}",
+	dest="${2:longame}",
+	action="store_false",
+	help="${3:help}")
+$0
+endsnippet
+
+snippet aflag "Adds a flag" b
+parser.add_argument(
+	"-${1}",
+	"--${2:longname}",
+	dest="${2:longame}",
+	action="store_const",
+	default=${3:None},
+	help="${4:help}")
+$0
+endsnippet
