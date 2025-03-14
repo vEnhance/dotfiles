@@ -35,7 +35,7 @@ import von.api as api
   \else
     \pyc{entry = api.get("#2", False)}
   \fi
-  \pyc{src = "#1" or "#2"}
+  \pyc{src = r"#1" or r"#2"}
   \begin{\vonenvname}[\py{(r'\href{' + entry.url + '}{' + src + '}') if entry.url is not None else src}]%
     \vonprehook{#2}
     \voninclude{#2}%
