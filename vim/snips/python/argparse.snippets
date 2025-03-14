@@ -9,7 +9,7 @@ $0
 opts = parser.parse_args()
 endsnippet
 
-snippet apos "Add a positional argument" b
+snippet argpos "Add a positional argument" b
 parser.add_argument(
 	"${1}",
 	type=${2:str},
@@ -18,7 +18,7 @@ parser.add_argument(
 $0
 endsnippet
 
-snippet afile "Add a file argument" b
+snippet argfile "Add a file argument" b
 parser.add_argument(
 	"${1:infile}",
 	nargs="?",
@@ -28,7 +28,7 @@ parser.add_argument(
 $0
 endsnippet
 
-snippet atrue "Adds a store_true flag" b
+snippet argtrue "Adds a store_true flag" b
 parser.add_argument(
 	"-${1}",
 	"--${2:longname}",
@@ -37,7 +37,7 @@ parser.add_argument(
 $0
 endsnippet
 
-snippet afalse "Adds a store_false flag" b
+snippet argfalse "Adds a store_false flag" b
 parser.add_argument(
 	"-${1}",
 	"--${2:longname}",
@@ -47,7 +47,7 @@ parser.add_argument(
 $0
 endsnippet
 
-snippet aflag "Adds a flag" b
+snippet argflag "Adds a flag" b
 parser.add_argument(
 	"-${1}",
 	"--${2:longname}",
