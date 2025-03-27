@@ -47,6 +47,7 @@ WORD_REPLACE_REGEX = tuple(
 
 CLOSING_PUNCTUATION = {
     "period": ".",
+    "calmer": ",",  # i swear the comma never works
     "comma": ",",
     "coma": ",",  # this is easier to say
     "question mark": "?",
