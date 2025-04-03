@@ -1,3 +1,19 @@
+-- monkey patch treesitter to not run on markdown
+-- (at least until i can get my color scheme to look nice with it)
+if vim.treesitter then
+  local _patched = false
+  if not _patched then
+    local original = vim.treesitter.start
+    vim.treesitter.start = function(bufnr, lang)
+      bufnr = bufnr or vim.api.nvim_get_current_buf()
+      lang = lang or vim.treesitter.language.get_lang(vim.bo[bufnr].filetype)
+      if lang == "markdown" or lang == "markdown_inline" then return end
+      return original(bufnr, lang)
+    end
+    _patched = true
+  end
+end
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
