@@ -174,3 +174,4 @@ except Exception:
     traceback.print_exc()
     if args.speedy:
         response = input("Failed. Press ENTER to continue... ")
+    sys.exit(1)
