@@ -13,7 +13,12 @@ call DetectIndentIfPlugged()
 let g:python_space_error_highlight = 1
 " set omnifunc=syntaxcomplete#Complete
 
-let b:ale_linters = ['pyright', 'ruff']
+if empty($VIRTUAL_ENV)
+  let b:ale_linters = ['ruff']
+else
+  let b:ale_linters = ['pyright', 'ruff']
+endif
+
 let b:ale_fixers = g:ale_fixers['*'] + ['ruff', 'ruff_format']
 
 nnoremap <localleader>b eObreakpoint()<Esc>
