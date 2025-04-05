@@ -54,24 +54,10 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'vim-scripts/SyntaxRange'
   Plug 'ypcrts/securemodelines'
 
-  if has('nvim')
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'Julian/lean.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'fhill2/telescope-ultisnips.nvim'
-    Plug 'fannheyward/telescope-coc.nvim'
-    Plug 'folke/snacks.nvim'
-
-    Plug 'nvim-tree/nvim-web-devicons'
-    Plug 'MunifTanjim/nui.nvim'
-    Plug 'nvim-neo-tree/neo-tree.nvim'
-  else
-    Plug 'ryanoasis/vim-devicons'
-    Plug 'nathanaelkane/vim-indent-guides'
-    Plug 'preservim/nerdtree',          { 'on': 'NERDTreeToggle' }
-    Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
-  endif
+  Plug 'ryanoasis/vim-devicons'
+  Plug 'nathanaelkane/vim-indent-guides'
+  Plug 'preservim/nerdtree',          { 'on': 'NERDTreeToggle' }
+  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
 endif
 " }}}
 
@@ -545,24 +531,6 @@ function! EvanClose()
   endif
 endfunction
 nnoremap <Space>- :call EvanClose()<CR>
-
-" Telescope
-if has('nvim')
-  nnoremap <silent> <Space>; <cmd>Telescope resume<CR>
-  nnoremap <silent> <Space>. <cmd>Telescope builtin<CR>
-  " Search
-  nnoremap <silent> <Space>/ <cmd>Telescope current_buffer_fuzzy_find theme=dropdown<CR>
-  nnoremap <silent> <Space>s <cmd>Telescope live_grep<CR>
-  " Opening files
-  nnoremap <silent> <Space>o <cmd>Telescope find_files theme=dropdown<CR>
-  nnoremap <silent> <Space>b <cmd>Telescope buffers theme=dropdown<CR>
-  nnoremap <silent> <Space>h <cmd>Telescope oldfiles theme=dropdown<CR>
-  " Vim itself
-  nnoremap <silent> <Space>: <cmd>Telescope command_history<CR>
-  nnoremap <silent> <Space>j <cmd>Telescope jumplist<CR>
-  nnoremap <silent> <Space>m <cmd>Telescope keymaps<CR>
-  nnoremap <silent> <Space>v <cmd>Telescope ultisnips<CR>
-endif
 
 " Buffer switching: https://vi.stackexchange.com/a/9255
 function! EvanSwitchBufNum(num)

@@ -1,4 +1,4 @@
-target-version = "py312"
+target-version = "py313"
 
 [lint]
 # in addition to default linter rules, sort imports

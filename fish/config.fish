@@ -57,14 +57,7 @@ set __fish_git_prompt_color_upstream_behind red
 
 # Exports {{{
 export SHELL='/usr/bin/fish'
-if pgrep -x gvim >/dev/null
-    # for some reason nvim will sometimes crash in this case
-    # and it's super fking annoying and i can't figure out why.
-    # so in this case better just use stock vim.
-    export EDITOR='vim'
-else
-    export EDITOR='nvim'
-end
+export EDITOR='nvim'
 export TERM='xterm-256color'
 export GPG_TTY=(tty)
 # the auto prompt-edited detection is not enabled somehow
@@ -93,21 +86,6 @@ end
 # }}}
 
 # Drop-in replacements {{{
-if test -f /usr/bin/nvim
-    function vim
-        if pgrep -x gvim >/dev/null
-            # for some reason nvim will sometimes crash in this case
-            # and it's super fking annoying and i can't figure out why.
-            # so in this case better just use stock vim.
-            /usr/bin/vim $argv
-        else
-            /usr/bin/nvim $argv
-        end
-    end
-end
-if test -f /usr/bin/nvim-qt
-    alias gvim='nvim-qt'
-end
 if test -f /usr/bin/delta
     alias diff=delta
 else
@@ -151,7 +129,6 @@ alias bcsum='paste -sd+ - | bc'
 alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m'"
 alias lisp='sbcl --script'
 alias swank="sbcl --load ~/.vim/plugged/slimv/slime/start-swank.lisp"
-
 # }}}
 
 # less termcap settings {{{
