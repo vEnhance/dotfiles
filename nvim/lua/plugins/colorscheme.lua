@@ -27,7 +27,7 @@ return {
           Special = { fg = colors.green, style = { "bold" } },
           Statement = { fg = colors.sapphire, style = { "bold" } },
 
-          texTitleArg = { fg = colors.base, style = { "bold" } },
+          texTitleArg = { fg = colors.text, style = { "bold" } },
           texEnvArgName = { fg = colors.red, style = { "bold" } },
           texEnvOpt = { fg = colors.text, style = { "bold" } },
           texMathEnvArgName = { fg = colors.green, style = { "bold" } },

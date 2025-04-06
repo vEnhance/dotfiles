@@ -26,6 +26,10 @@ vim.keymap.set("n", "-i", ":split<CR>", { noremap = true, silent = true, desc = 
 vim.keymap.set("n", "-s", ":vsplit<CR>", { noremap = true, silent = true, desc = "Open a vertical split" })
 vim.keymap.set("n", "<BS>", ":bp<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 
+vim.keymap.set("n", "<Space>y", function()
+  print(vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)), "name"))
+end, { desc = "Get old syntax group" })
+
 local function is_git_repo()
   vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
   return vim.v.shell_error == 0

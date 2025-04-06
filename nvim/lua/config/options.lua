@@ -3,5 +3,9 @@
 -- Add any additional options here
 
 local opt = vim.opt
-opt.relativenumber = false
+
+opt.colorcolumn = "+1"
 opt.conceallevel = 2
+opt.relativenumber = false
+opt.ruler = true
+opt.textwidth = 80 -- default textwidth
