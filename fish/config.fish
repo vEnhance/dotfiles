@@ -57,7 +57,7 @@ set __fish_git_prompt_color_upstream_behind red
 
 # Exports {{{
 export SHELL='/usr/bin/fish'
-export EDITOR='nvim'
+export EDITOR='vim'
 export TERM='xterm-256color'
 export GPG_TTY=(tty)
 # the auto prompt-edited detection is not enabled somehow
