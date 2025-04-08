@@ -179,18 +179,4 @@ return {
       },
     },
   },
-  -- this might be extraneous if we already have the local
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = {
-        "bibtex-tidy",
-        "prettier",
-        "pyright",
-        "ruff",
-        "shfmt",
-        "vale",
-      }
-    end,
-  },
 }
