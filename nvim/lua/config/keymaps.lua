@@ -12,6 +12,9 @@ end, { expr = true, remap = true, desc = "Write all" })
 
 vim.keymap.del("n", "s")
 vim.keymap.del("n", "S")
+-- need to override the ones set by lazyvim here
+vim.keymap.set("n", "<C-Up>", "<Plug>(VM-Add-Cursor-Up)")
+vim.keymap.set("n", "<C-Down>", "<Plug>(VM-Add-Cursor-Down)")
 
 vim.keymap.set("n", "<Space>t", function()
   vim.cmd("silent !xfce4-terminal --working-directory='" .. vim.fn.expand("%:p:h") .. "' &")
