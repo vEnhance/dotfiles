@@ -56,58 +56,54 @@ vim.keymap.set("n", "<Space>-", function()
   end
 end, { noremap = true, desc = "Close buffer" })
 
-vim.cmd([[
-" Buffer switching: https://vi.stackexchange.com/a/9255
-function! EvanSwitchBufNum(num)
-  let l:buffers = filter(range(1, bufnr('$')), 'buflisted(v:val)')
-  let l:input = a:num . ''
-  while 1
-    let l:cnt = 0
-    let l:i = 0
+local function switch_buf_num(num)
+  local buffers = {}
+  for i = 1, vim.fn.bufnr("$") do
+    if vim.fn.buflisted(i) == 1 then
+      table.insert(buffers, tostring(i))
+    end
+  end
 
-    " count matches
-    while l:i<len(l:buffers)
-      let l:bn = l:buffers[l:i] . ''
-      if l:input==l:bn[0:len(l:input)-1]
-        let l:example = l:bn
-        let l:cnt+=1
-      endif
-      let l:i+=1
-    endwhile
+  local input = tostring(num)
 
-    " no matches
-    if l:cnt==0 && len(l:input)>0
-      echo 'no buffer [' . l:input . ']'
-      return ''
-    elseif l:cnt==1 && l:input==l:example
-      return ':b ' . l:example . "\<CR>"
-    endif
+  while true do
+    local cnt = 0
+    local example = nil
 
-    echo ':b ' . l:input
-    let l:n = getchar()
-    if l:n==char2nr("\<BS>") ||  l:n==char2nr("\<C-h>")
-      " delete one word
-      if len(l:input)>=2
-        let l:input = l:input[0:len(l:input)-2]
-      else
-        let l:input = ''
-      endif
-    elseif l:n==char2nr("\<CR>") || (l:n<char2nr('0') || l:n>char2nr('9'))
-      return ':b ' . l:input . "\<CR>"
+    for _, bn in ipairs(buffers) do
+      if bn:sub(1, #input) == input then
+        cnt = cnt + 1
+        example = bn
+      end
+    end
+
+    if cnt == 0 and #input > 0 then
+      print("no buffer [" .. input .. "]")
+      return ""
+    elseif cnt == 1 and input == example then
+      vim.cmd("b " .. example)
+      return ""
+    end
+
+    print(":b " .. input)
+    local n = vim.fn.getchar()
+
+    if n == vim.fn.char2nr("<BS>") or n == vim.fn.char2nr("<C-h>") then
+      input = input:sub(1, #input - 1)
+    elseif n == vim.fn.char2nr("<CR>") or n < vim.fn.char2nr("0") or n > vim.fn.char2nr("9") then
+      vim.cmd("b " .. input)
+      return ""
     else
-      let l:input = l:input . nr2char(l:n)
-    endif
-    let g:n = l:n
-    endwhile
-endfunc
+      if type(n) == "number" then
+        input = input .. string.char(n)
+      end
+    end
+  end
+end
 
-nnoremap <expr> <Space>1 EvanSwitchBufNum(1)
-nnoremap <expr> <Space>2 EvanSwitchBufNum(2)
-nnoremap <expr> <Space>3 EvanSwitchBufNum(3)
-nnoremap <expr> <Space>4 EvanSwitchBufNum(4)
-nnoremap <expr> <Space>5 EvanSwitchBufNum(5)
-nnoremap <expr> <Space>6 EvanSwitchBufNum(6)
-nnoremap <expr> <Space>7 EvanSwitchBufNum(7)
-nnoremap <expr> <Space>8 EvanSwitchBufNum(8)
-nnoremap <expr> <Space>9 EvanSwitchBufNum(9)
-]])
+-- Create mappings for <Space>1 to <Space>9
+for i = 1, 9 do
+  vim.keymap.set("n", "<Space>" .. i, function()
+    switch_buf_num(i)
+  end, { expr = false, noremap = true })
+end
