@@ -34,6 +34,8 @@ return {
           texCmd = { fg = colors.blue, style = { "bold" } },
           texCmdPart = { fg = colors.red, style = { "bold" } },
           texPartArgTitle = { fg = colors.yellow, style = { "bold" } },
+
+          Normal = { fg = "#dde6ff" }, -- brighter normal text
         }
       end,
     },
