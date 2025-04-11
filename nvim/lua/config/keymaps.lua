@@ -29,6 +29,17 @@ vim.keymap.set("n", "-i", ":split<CR>", { noremap = true, silent = true, desc = 
 vim.keymap.set("n", "-s", ":vsplit<CR>", { noremap = true, silent = true, desc = "Open a vertical split" })
 vim.keymap.set("n", "<BS>", ":bp<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 
+-- Git hotkeys
+vim.keymap.set("n", "<leader>gg", function()
+  vim.cmd("terminal git commit")
+end, { desc = "git commit", silent = true })
+vim.keymap.set("n", "<leader>gw", function()
+  vim.cmd("terminal git commit %")
+end, { desc = "git commit %", silent = true })
+vim.keymap.set("n", "<leader>ga", function()
+  vim.cmd("terminal git commit --all")
+end, { desc = "git commit -a", silent = true })
+
 vim.keymap.set("n", "<Space>y", function()
   print(vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)), "name"))
 end, { desc = "Get old syntax group" })
