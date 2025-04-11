@@ -2,6 +2,7 @@ return {
   {
     "nvim-treesitter/playground",
     "mg979/vim-visual-multi",
+    "tpope/vim-fugitive",
 
     {
       "kaarmu/typst.vim",

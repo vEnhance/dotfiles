@@ -29,15 +29,15 @@ vim.keymap.set("n", "-i", ":split<CR>", { noremap = true, silent = true, desc = 
 vim.keymap.set("n", "-s", ":vsplit<CR>", { noremap = true, silent = true, desc = "Open a vertical split" })
 vim.keymap.set("n", "<BS>", ":bp<CR>", { noremap = true, silent = true, desc = "Previous buffer" })
 
--- Git hotkeys
+-- Git hotkeys with fugitive
 vim.keymap.set("n", "<leader>gg", function()
-  vim.cmd("terminal git commit")
+  vim.cmd("Git commit")
 end, { desc = "git commit", silent = true })
 vim.keymap.set("n", "<leader>gw", function()
-  vim.cmd("terminal git commit %")
+  vim.cmd("Git commit %")
 end, { desc = "git commit %", silent = true })
 vim.keymap.set("n", "<leader>ga", function()
-  vim.cmd("terminal git commit --all")
+  vim.cmd("Git commit --all")
 end, { desc = "git commit -a", silent = true })
 
 vim.keymap.set("n", "<Space>y", function()
@@ -63,6 +63,8 @@ local function is_last_buffer()
 end
 vim.keymap.set("n", "<Space>-", function()
   if is_last_buffer() then
+    vim.cmd("q")
+  elseif vim.fn.expand("%:t") == "COMMIT_EDITMSG" then
     vim.cmd("q")
   else
     Snacks.bufdelete()
