@@ -238,7 +238,7 @@ if __name__ == "__main__":
                 )
             elif PROGRAM_TYPE == "PYTHON":
                 process = subprocess.run(
-                    ["python", main_path],
+                    ["python", main_path, "--debug"],
                     stdin=input_file,
                     stdout=stdout_file,
                     stderr=stderr_file,
