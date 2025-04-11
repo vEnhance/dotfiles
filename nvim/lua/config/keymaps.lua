@@ -44,6 +44,19 @@ vim.keymap.set("n", "<Space>y", function()
   print(vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.synID(vim.fn.line("."), vim.fn.col("."), 1)), "name"))
 end, { desc = "Get old syntax group" })
 
+local function is_git_repo()
+  vim.fn.system("git rev-parse --is-inside-work-tree 2>/dev/null")
+  return vim.v.shell_error == 0
+end
+
+vim.keymap.set("n", "<Space>o", function()
+  if is_git_repo() then
+    Snacks.picker.git_files()
+  else
+    LazyVim.pick("files", { root = false })
+  end
+end, { noremap = true, desc = "Find files" })
+
 local function is_last_buffer()
   local buffers = vim.fn.getbufinfo({ buflisted = 1 })
   return #buffers == 1
