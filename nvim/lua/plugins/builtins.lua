@@ -7,7 +7,12 @@ return {
     "saghen/blink.cmp",
     opts = {
       completion = {
-        list = { selection = "auto_insert" },
+        list = { selection = { auto_insert = true } },
+      },
+      keymap = {
+        preset = "default",
+        ["<CR>"] = {},
+        ["<Tab>"] = { "snippet_forward", "accept" },
       },
     },
   },
@@ -15,6 +20,10 @@ return {
     "snacks.nvim",
     opts = {
       scroll = { enabled = false },
+      styles = { notification = { wo = { wrap = true } } },
+      picker = {
+        win = { preview = { wo = { wrap = true } } },
+      },
     },
   },
   {

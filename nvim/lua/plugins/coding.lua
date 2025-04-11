@@ -7,7 +7,6 @@ return {
         text = { "vale" },
         rst = { "vale" },
         asciidoc = { "vale" },
-        python = { "pyright", "ruff" },
         sh = { "shellcheck" },
         tex = { "vale", "chktex" },
       },
