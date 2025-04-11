@@ -108,5 +108,5 @@ end
 for i = 1, 9 do
   vim.keymap.set("n", "<Space>" .. i, function()
     switch_buf_num(i)
-  end, { expr = false, noremap = true })
+  end, { expr = false, noremap = true, desc = "Switch to buffer " .. tostring(i) })
 end
