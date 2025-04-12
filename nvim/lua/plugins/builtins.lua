@@ -12,7 +12,7 @@ return {
       keymap = {
         preset = "default",
         ["<CR>"] = {},
-        ["<Tab>"] = { "snippet_forward", "accept" },
+        ["<Tab>"] = { "snippet_forward", "accept", "fallback" },
       },
     },
   },
