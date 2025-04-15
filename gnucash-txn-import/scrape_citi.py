@@ -6,7 +6,7 @@ from pprint import pprint
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 today = _date.today
-NUM_DAYS_BACK = 90
+NUM_DAYS_BACK = 180
 
 with get_session() as session:
     citi = get_account(session, "L:Citi")

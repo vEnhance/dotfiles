@@ -1,24 +1,13 @@
+import csv
 from datetime import date as _date
 from datetime import datetime, timedelta
 from pprint import pprint
 from typing import Any
 
-from bs4 import BeautifulSoup
 from gnucash_api import TxnAddArgsDict, get_account, get_session, to_dollars
 
 today = _date.today
-NUM_DAYS_BACK = 90
-
-
-def get_child_string(
-    tr: BeautifulSoup, tag_name="td", class_name: str | None = None
-) -> str:
-    if class_name is None:
-        elm = tr.find(tag_name)
-    else:
-        elm = tr.find(tag_name, class_=class_name)
-    assert elm is not None, f"Couldn't find {tag_name} with class {class_name} in {tr}"
-    return " ".join(line.strip() for line in elm.strings if line.strip()).strip()
+NUM_DAYS_BACK = 180
 
 
 rows_for_csv: list[Any] = []
@@ -33,29 +22,17 @@ with get_session() as session:
         ]
         args_txn_to_create: list[TxnAddArgsDict] = []
 
-        with open(
-            "/home/evan/dotfiles/gnucash-txn-import/data/techcu.html"
-        ) as htmlfile:
-            soup = BeautifulSoup(htmlfile, features="lxml")
+        csv_name = "techcu-s.csv" if bank_account_name == "TCS" else "techcu-c.csv"
 
-        for tr in soup.find_all("tr", class_="Data"):
-            # first check if this is even the right account
-            if bank_account_name == "TCC":
-                if "CLICK CHECKING" not in "".join(tr.strings):
-                    continue
-            if bank_account_name == "TCS":
-                if "STUDENT SAVINGS ACCOUNT" not in "".join(tr.strings):
-                    continue
+        with open(f"/home/evan/dotfiles/gnucash-txn-import/data/{csv_name}") as csvfile:
+            reader = csv.DictReader(csvfile)
+            rows = [row for row in reader]
 
-            str_amount = get_child_string(tr, "td", "Number").replace(",", "")
-            row_amount = (
-                -to_dollars(str_amount[2:-1])
-                if str_amount.startswith("(")
-                else to_dollars(str_amount[1:])
-            )
-            str_date = get_child_string(tr, "td", "Word")
+        for row in rows:
+            row_amount = to_dollars(row["Amount"])
+            str_date = row["Posting Date"]
             row_date = datetime.strptime(str_date, "%m/%d/%Y").date()
-            row_description = get_child_string(tr, "b")
+            row_description = row["Description"]
 
             if row_date < today() + timedelta(days=-NUM_DAYS_BACK):
                 continue
@@ -70,61 +47,44 @@ with get_session() as session:
                     print(f"Handled {row_description} from {row_date}")
                     break
             else:
-                if row_description == "ACH Deposit MASS INST" and row_amount > 0:
-                    row_description = "MIT direct deposit"
-                    account_name = "I:MIT"
+                if row_description.startswith("UMS OPERATING TYPE") and row_amount < 0:
+                    row_description = "Water bill for " + row_date.strftime("%b %Y")
+                    account_name = "E:House:Util"
                 elif (
-                    row_description.startswith("ACH Withdrawal UTILITY M")
+                    row_description.startswith("UTILITY MANAGEME TYPE")
                     and row_amount < 0
                 ):
                     row_description = "Water bill for " + row_date.strftime("%b %Y")
                     account_name = "E:House:Util"
-                elif row_description == "ACH Withdrawal NGRID06" and row_amount < 0:
+                elif row_description == "Payment to National Grid" and row_amount < 0:
                     row_description = "Gas bill for " + (
                         row_date + timedelta(days=-28)
                     ).strftime("%b %Y")
                     account_name = "E:House:Util"
-                elif row_description == "ACH Withdrawal EVERSOURCE" and row_amount < 0:
+                elif (
+                    row_description == "Payment to Eversource Energy" and row_amount < 0
+                ):
                     row_description = "Electricity bill for " + (
                         row_date + timedelta(days=-14)
                     ).strftime("%b %Y")
                     account_name = "E:House:Util"
                 elif (
-                    row_description == "Transfer Withdrawal"
-                    and row_amount == -1000
-                    and row_date.day < 7
-                ):
-                    row_description = "Mortgage contribution to parents"
-                    account_name = "E:House:Mortg"
-                elif (
-                    row_description == "Dividend Deposit Tiered Rate" and row_amount > 0
+                    row_description.startswith("Tiered Rate APY Earned")
+                    and row_amount > 0
                 ):
                     row_description = "APY Interest"
                     account_name = "I:AntiFee"
-                elif (
-                    row_description == "ACH Withdrawal CITI AUTOPAY" and row_amount < 0
-                ):
+                elif row_description == "Payment to Citibank" and row_amount < 0:
                     row_description = "Autopay for " + row_date.strftime("%b %Y")
                     account_name = "L:Citi"
-                elif (
-                    row_description == "ACH Withdrawal CITI CARD ONLINE"
-                    and row_amount < 0
-                ):
-                    row_description = "Extra Citi payment"
-                    account_name = "L:Citi"
-                elif (
-                    row_description.startswith("ACH Deposit Twitch") and row_amount > 0
-                ):
+                elif row_description.startswith("Twitch") and row_amount > 0:
                     row_description = "Twitch streamer payout"
                     account_name = "I:Twitch"
-                elif (
-                    row_description.startswith("ACH Withdrawal TD BANK")
-                    and row_amount < 0
-                ):
+                elif row_description.startswith("TD BANK") and row_amount < 0:
                     row_description = "TD payment"
                     account_name = "L:TD"
                 elif (
-                    row_description == "ACH Deposit STRIPE"
+                    row_description.startswith("Transfer from Stripe")
                     and bank_account_name == "TCC"
                 ):
                     row_description = "OTIS-WEB payment via Stripe API"

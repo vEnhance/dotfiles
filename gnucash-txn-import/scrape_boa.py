@@ -12,7 +12,7 @@ rows_for_csv: list[Any] = []
 with get_session() as session:
     bank = get_account(session, "A:BANK:BOA")
     recent_txn = [
-        txn for txn in bank.transactions if txn.date >= today() + timedelta(days=-90)
+        txn for txn in bank.transactions if txn.date >= today() + timedelta(days=-180)
     ]
     args_txn_to_create: list[TxnAddArgsDict] = []
 
@@ -30,7 +30,7 @@ with get_session() as session:
             row_date = datetime.strptime(str_date, "%m/%d/%Y").date()
             row_description = str_desc
 
-            if row_date < today() + timedelta(days=-90):
+            if row_date < today() + timedelta(days=-180):
                 continue
 
             rows_for_csv.append([row_description, row_amount, row_date])
