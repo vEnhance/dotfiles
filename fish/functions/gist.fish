@@ -21,5 +21,8 @@ function gist
     mv $gist_id $base
     echo "Cloned to: $base"
 
+    cd $base
+    git remote set-url origin git@gist.github.com:$gist_id.git
+
     xdg-open $url
 end
