@@ -13,7 +13,8 @@ return {
     },
     linters = {
       languagetool = {
-        args = "--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE,EN_UNPAIRED_QUOTES",
+        args =
+        "--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE,EN_UNPAIRED_QUOTES",
       },
     },
   },
@@ -31,7 +32,25 @@ return {
         bib = { "bibclean" },
         fish = { "fish_indent" },
         javascript = { "prettier" },
+        tex = { "death_to_double_dollar_signs" },
       },
+      formatters = {
+        death_to_double_dollar_signs = {
+          meta = {
+            description = "Trim trailing whitespace.",
+          },
+          format = function(self, ctx, lines, callback)
+            local out_lines = {}
+            for _, line in ipairs(lines) do
+              local trimmed = line:gsub("%$%$(.-)%$%$", function(inner)
+                return "\\[ " .. inner .. " \\]"
+              end)
+              table.insert(out_lines, trimmed)
+            end
+            callback(nil, out_lines)
+          end,
+        }
+      }
     },
   },
 }
