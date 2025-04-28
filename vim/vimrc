@@ -301,6 +301,19 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   endfunction
   execute ale#fix#registry#Add('djlint', 'ALEFixDjlint', ['htmljdjango'], 'Fixer for Django templates')
 endif
+
+
+function! ALEFix_DeathToDoubleDollarSigns(buffer, lines) abort
+  let l:index = 0
+  let l:lines_new = range(len(a:lines))
+  for l:line in a:lines
+    let l:lines_new[l:index] = substitute(l:line,  '\$\$\_s*\(.\{-}\)\_s*\$\$', '\\[ \1 \\]', 'g')
+    let l:index = l:index + 1
+  endfor
+  return l:lines_new
+endfunction
+execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ALEFix_DeathToDoubleDollarSigns', ['tex'], 'wtf is wrong with people')
+
 function! CocStartAndDisableALELSP()
   CocStart
   CocEnable

@@ -1,5 +1,5 @@
 let b:ale_linters = ['vale', 'chktex']
-let b:ale_fixers = g:ale_fixers['*']
+let b:ale_fixers = g:ale_fixers['*'] + ['death_to_double_dollar_signs']
 
 function EvanCompileLaTeX(continuous)
   " von compiler
