@@ -4,6 +4,7 @@
 
 local opt = vim.opt
 
+opt.clipboard = ""
 opt.colorcolumn = "+1"
 opt.conceallevel = 2
 opt.formatoptions:remove("t")
