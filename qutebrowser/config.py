@@ -33,6 +33,8 @@ c.url.searchengines = {"DEFAULT": "https://duckduckgo.com/?q={}"}
 c.url.start_pages = c.url.default_page
 c.zoom.default = 100
 
+c.qt.force_software_rendering = "chromium"  # QT grief :')
+
 config.bind(r"<Backspace>", "config-source")
 config.bind(r"<Ctrl-W>", "tab-close")
 # config.bind(r'<Return>', 'download-clear')
