@@ -29,7 +29,10 @@ c.tabs.background = False
 c.tabs.last_close = "close"
 c.tabs.show = "always"
 c.url.default_page = "https://web.evanchen.cc/static/browser-homepage.html"
-c.url.searchengines = {"DEFAULT": "https://duckduckgo.com/?q={}"}
+c.url.searchengines = {
+    "DEFAULT": "https://duckduckgo.com/?q={}",
+    "wiktionary": "https://wiktionary.org/wiki/{}",
+}
 c.url.start_pages = c.url.default_page
 c.zoom.default = 100
 
@@ -38,6 +41,7 @@ c.qt.force_software_rendering = "chromium"  # QT grief :')
 config.bind(r"<Backspace>", "config-source")
 config.bind(r"<Ctrl-W>", "tab-close")
 # config.bind(r'<Return>', 'download-clear')
+config.bind(r"<Space>", "cmd-set-text -s :open wiktionary ")
 config.bind(r"e", "tab-clone")
 config.bind(r"E", 'spawn firefox "{url}"')
 config.bind(r"Z", "tab-only")
