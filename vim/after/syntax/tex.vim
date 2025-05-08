@@ -17,6 +17,7 @@ syntax match texMathSymbol "\\dotsc\>" contained conceal cchar=…
 syntax match texMathSymbol "\\dotsi\>" contained conceal cchar=…
 syntax match texMathSymbol "\\dotsm\>" contained conceal cchar=…
 syntax match texMathSymbol "\\dotso\>" contained conceal cchar=…
+syntax match texMathSymbol "\\coloneq\>" contained conceal cchar=≔
 " Conceal mathbb/etc.
 syntax match texMathSymbol "\\CC\>" contained conceal cchar=ℂ
 syntax match texMathSymbol "\\EE\>" contained conceal cchar=𝔼
