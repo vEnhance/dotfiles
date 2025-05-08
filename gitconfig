@@ -110,11 +110,11 @@
 	gpgSign = true
 
 [delta]
-	file-decoration-style = box cyan
-	file-style = bold cyan
-	hunk-header-decoration-style = ul yellow
+	file-decoration-style = omit
+	file-style = bold blue
+	hunk-header-decoration-style = omit
 	hunk-header-line-number-style = 255
-	hunk-header-style = yellow line-number
+	hunk-header-style = omit
 	hyperlinks = true
 	line-numbers = true
 	line-numbers-minus-style = bold 160
@@ -122,6 +122,6 @@
 	line-numbers-zero-style = white
 	max-line-length = 1024
 	navigate = true
-	zero-style = dim syntax
+	zero-style = dim
 
 # vim: ft=gitconfig
