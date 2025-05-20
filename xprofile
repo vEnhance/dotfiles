@@ -28,6 +28,10 @@ export SIGNAL_START_IN_TRAY=True
 
 source ~/dotfiles/sh-scripts/xrandr.sh
 
+if command -v snixembed; then
+  snixembed --fork
+fi
+
 if [ "$(hostname)" = ArchAngel ]; then
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
   xset s 900 30
