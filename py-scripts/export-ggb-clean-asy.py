@@ -2,11 +2,11 @@
 
 import argparse
 import io
+import math
 import re
 import string
 import sys
 import traceback
-import math
 
 ALLOWED_CHARS = string.ascii_letters + string.digits + "_"
 
