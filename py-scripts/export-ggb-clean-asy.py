@@ -127,17 +127,13 @@ try:
             coords = eval(point_coords)
 
         if coords is None:
-            figures_output_code += (
-                r'dot("%s", %s, dir(45));' % (label, point_coords) + "\n"
-            )
+            figures_output_code += f'dot("{label}", {point_coords}, dir(45));\n'
         else:
             # determine the direction
             dx = 100 * (label_loc[0] - coords[0])
             dy = 100 * (label_loc[1] - coords[1])
             vdir = round(math.degrees(math.atan2(dy, dx)))
-            figures_output_code += (
-                r'dot("%s", %s, dir(%s));' % (label, point_coords, vdir) + "\n"
-            )
+            figures_output_code += f'dot("{label}", {point_coords}, dir({vdir}));\n'
         label_to_coords[label] = point_coords
 
     # now clean up the code if possible by replacing explicit coordinates where we can
