@@ -6,6 +6,7 @@ import re
 import string
 import sys
 import traceback
+import math
 
 ALLOWED_CHARS = string.ascii_letters + string.digits + "_"
 
@@ -133,8 +134,9 @@ try:
             # determine the direction
             dx = 100 * (label_loc[0] - coords[0])
             dy = 100 * (label_loc[1] - coords[1])
+            vdir = round(math.degrees(math.atan2(dy, dx)))
             figures_output_code += (
-                r'dot("%s", %s, dir((%.3f, %.3f)));' % (label, point_coords, dx, dy)
+                r'dot("%s", %s, dir(%s));' % (label, point_coords, vdir)
                 + "\n"
             )
         label_to_coords[label] = point_coords
