@@ -136,8 +136,7 @@ try:
             dy = 100 * (label_loc[1] - coords[1])
             vdir = round(math.degrees(math.atan2(dy, dx)))
             figures_output_code += (
-                r'dot("%s", %s, dir(%s));' % (label, point_coords, vdir)
-                + "\n"
+                r'dot("%s", %s, dir(%s));' % (label, point_coords, vdir) + "\n"
             )
         label_to_coords[label] = point_coords
 
