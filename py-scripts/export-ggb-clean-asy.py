@@ -2,6 +2,7 @@
 
 import argparse
 import io
+import math
 import re
 import string
 import sys
@@ -126,17 +127,15 @@ try:
             coords = eval(point_coords)
 
         if coords is None:
-            figures_output_code += (
-                r'dot("%s", %s, dir(45));' % (label, point_coords) + "\n"
-            )
+            figures_output_code += f'dot("{label}", {point_coords}, dir(45));\n'
         else:
             # determine the direction
             dx = 100 * (label_loc[0] - coords[0])
             dy = 100 * (label_loc[1] - coords[1])
-            figures_output_code += (
-                r'dot("%s", %s, dir((%.3f, %.3f)));' % (label, point_coords, dx, dy)
-                + "\n"
-            )
+            vdir = round(math.degrees(math.atan2(dy, dx)))
+            if vdir < 0:
+                vdir += 360
+            figures_output_code += f'dot("{label}", {point_coords}, dir({vdir}));\n'
         label_to_coords[label] = point_coords
 
     # now clean up the code if possible by replacing explicit coordinates where we can
