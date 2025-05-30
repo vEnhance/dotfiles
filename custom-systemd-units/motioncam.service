@@ -1,7 +1,0 @@
-[Unit]
-Description=Motion camera
-
-[Service]
-ExecStart=/home/evan/dotfiles/sentinel/motion.sh
-Restart=on-failure
-RestartSec=3s

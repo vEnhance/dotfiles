@@ -1,8 +1,0 @@
-[Unit]
-Description=Sentinel server
-After=network.target
-
-[Service]
-ExecStart=/home/evan/dotfiles/sentinel/sentinel.sh
-Restart=on-failure
-RestartSec=30

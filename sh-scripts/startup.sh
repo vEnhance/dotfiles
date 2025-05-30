@@ -30,7 +30,6 @@ if [ "$(hostname)" = ArchAir ]; then
   synclient VertScrollDelta=-237
   systemctl start --user evil-chin.service
   systemctl start --user mosp-2021.service
-  # systemctl start --user sentinel.service
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then
