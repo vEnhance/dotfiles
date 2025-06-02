@@ -5,6 +5,7 @@ alias fixtrailspace='sed -i "s/[ \t]*\$//"'
 alias getclip="xsel --clipboard"
 alias gg="cd (git rev-parse --show-toplevel)"
 alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
+alias gsthaw='gcloud storage objects update --cache-control="private,max-age=0"'
 alias ipv4="hostname -i | cut -d' ' -f2"
 alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
 alias ksp="hunspell -d ko_KR"
