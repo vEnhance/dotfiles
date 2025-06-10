@@ -79,6 +79,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.mitadmissions.org/*",
     r"*://*.monkeytype.com/*",
     r"*://*.myaccount.google.com/*",
+    r"*://*.naver.com/*",
     r"*://*.notion.so/*",
     r"*://*.notion.site/*",
     r"*://*.overleaf.com/*",  # their documentation is admittedly not bad
