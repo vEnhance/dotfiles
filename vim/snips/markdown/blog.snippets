@@ -1,4 +1,4 @@
-snippet blog "Header for a mkdocs blog post"
+snippet blog "Header for a mkdocs blog post" b
 ---
 slug: ${1:slug}
 date:
@@ -6,6 +6,16 @@ date:
 ---
 
 # ${2:title}
+
+$0
+endsnippet
+
+snippet mkblog "Header for a mkdocs blog post" b
+---
+title: ${1:Title}
+date:
+  created: `!p import datetime; snip.rv = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')`
+---
 
 $0
 endsnippet

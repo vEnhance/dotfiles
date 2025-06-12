@@ -48,3 +48,21 @@ snippet opal "New OPAL Puzzle" b
 
 \end{document}
 endsnippet
+
+snippet db "db format document" b
+\documentclass{db}
+\begin{document}
+\begin{field}{name}
+${1:<+Name+>}
+\end{field}
+\begin{field}{problem}
+${2:<+Problem+>}
+\end{field}
+
+\begin{field}{solution}
+\end{field}
+\begin{field}{acknowledgments}
+Solution by ${3:<+Author+>}.
+\end{field}
+\end{document}
+endsnippet
