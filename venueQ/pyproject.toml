@@ -9,7 +9,7 @@ license = "MIT"
 python = "^3.12"
 PyYAML = "^6.0.1"
 python-dotenv = "^1.0.1"
-requests = "^2.32.3"
+requests = "^2.32.4"
 Markdown = "^3.6"
 
 [tool.poetry.dev-dependencies]
