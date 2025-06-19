@@ -39,7 +39,7 @@ snippet fig "Figure"
 $0
 endsnippet
 
-snippet table "Table"
+snippet table "Table in figure"
 #figure(
   table(
     columns: ${1:2},
@@ -52,6 +52,17 @@ snippet table "Table"
 )
 $0
 endsnippet
+
+snippet tab "Table only"
+#table(
+  columns: ${1:2},
+  align: ${2:left},
+  table.header(${3:[Header]}),
+  ${4:[Cell]},
+)
+$0
+endsnippet
+
 
 snippet # "Environment"
 #${1:<+EnvName+>}[
