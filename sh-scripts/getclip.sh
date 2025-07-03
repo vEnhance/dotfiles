@@ -11,6 +11,6 @@ if [[ $contents == "qute://pdfjs/web/viewer.html?filename="* ]]; then
 fi
 
 mkdir -p /tmp/clipboard/
-echo "$contents" | python ~/dotfiles/py-scripts/utf-clean.py | tee "/tmp/clipboard/$(date --iso-8601=seconds)" | xsel --clipboard
+echo "$contents" | python ~/dotfiles/py-scripts/uclean.py | tee "/tmp/clipboard/$(date --iso-8601=seconds)" | xsel --clipboard
 
 notify-send -u low -i "edit-paste-symbolic" "xsel --clipboard" "${contents:0:160}"
