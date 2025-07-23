@@ -1,4 +1,6 @@
 [global]
+    enable_posix_regex = yes
+
     ### Display ###
 
     # Which monitor should the notifications be displayed on.
