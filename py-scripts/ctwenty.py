@@ -40,7 +40,7 @@ def audio_block():
     # cmd(r'i3-msg mode trap')
     # cmd(r'i3-msg workspace "Trap"')
     cmd(
-        r'notify-send -i timer-symbolic -u critical -t 20000 "Rest your eyes!" '
+        r'notify-send -i face-cool -u critical -t 20000 "Rest your eyes!" '
         + r'"You have a mandatory break now."'
     )
     time.sleep(1)
@@ -125,14 +125,14 @@ while True:
         write_next_time(0, 1337)
     elif current_status == 1:
         cmd(
-            r'notify-send -i timer-symbolic -u low -t 10000 "Rest your eyes!" '
+            r'notify-send -i face-cool -u low -t 10000 "Rest your eyes!" '
             + r'"You have a mandatory break coming up soon in 6 minutes"'
         )
         t = 300
         write_next_time(1, 337)
     elif current_status == 2:
         cmd(
-            r'notify-send -i timer-symbolic -t 10000 "Rest your eyes!" '
+            r'notify-send -i face-cool -t 10000 "Rest your eyes!" '
             + r'"You have a mandatory break coming up soon in 37 seconds"'
         )
         t = 37

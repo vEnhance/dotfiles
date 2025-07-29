@@ -3,9 +3,9 @@
 set -euxo pipefail
 
 if [ -f "$HOME/.vim/tmp/$(basename "$2").swp" ]; then
-  notify-send -u low -i "status/screen-shared-symbolic" "Linked SyncTeX" "Line $1 of $2"
+  notify-send -i emblem-link -u low "Linked SyncTeX" "Line $1 of $2"
   nvim --headless -c "VimtexInverseSearch $1 $2"
 else
-  notify-send -u low -i "status/screen-shared-symbolic" "Spawned SyncTeX" "Line $1 of $2"
+  notify-send -i emblem-link -u low "Spawned SyncTeX" "Line $1 of $2"
   xfce4-terminal -e "nvim +$1 $2" &
 fi

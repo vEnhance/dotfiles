@@ -36,7 +36,7 @@ if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
 fi
 
 xmodmap -e "remove lock = Caps_Lock"
-notify-send -i "devices/input-keyboard-symbolic" -t 5000 \
+notify-send -i "input-keyboard-virtual-on" -t 5000 \
   "Rebound complete" \
   "Successfully ran redo-keys.sh. Enjoy!"
 

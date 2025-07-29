@@ -26,7 +26,7 @@ for line in sys.stdin:
         subprocess.call(
             [
                 "notify-send",
-                "--icon=chat-message-new-symbolic",
+                "--icon=android-messages-desktop",
                 "--expire-time=10000",
                 "--urgency=low",
                 sender,

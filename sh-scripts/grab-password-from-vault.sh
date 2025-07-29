@@ -15,7 +15,7 @@ if test -z "$BW_SESSION"; then
     read -r -s -p "[echo hidden]: " USER_PIN
     echo -e "\n-------------------------------------------"
     if test -z "$USER_PIN"; then
-      notify-send -u critical -t 3000 -i 'status/security-high-symbolic' 'No PIN' \
+      notify-send -u critical -t 3000 -i 'security-high' 'No PIN' \
         'No PIN was entered to get the BitWarden master password.'
       exit 1
     else
@@ -41,7 +41,7 @@ readarray -t BW_LIST < <(bw list items --pretty)
 bw lock
 
 if [ "${#BW_LIST[@]}" -eq 0 ]; then
-  notify-send -i 'status/security-high-symbolic' -u critical -t 3000 \
+  notify-send -i 'security-high' -u critical -t 3000 \
     'Vault retrieval failed' \
     'We could not access the BitWarden vault.'
   exit 1
@@ -72,7 +72,7 @@ fi
 if [ "$1" = "cards" ]; then
   echo -n "$TARGET_CARD_NUMBER" | xsel --primary
   echo -n "$TARGET_CARD_CODE" | xsel --secondary
-  notify-send -i 'status/security-high-symbolic' -u normal -t 30000 \
+  notify-send -i 'security-high' -u normal -t 30000 \
     "$TARGET_CARD_BRAND copied" \
     "Exp. $TARGET_CARD_EXP_MONTH/$TARGET_CARD_EXP_YEAR"
   exit 0
@@ -81,12 +81,12 @@ elif test -n "$TARGET_PASSWORD"; then
     echo -n "$TARGET_USER" | xsel --primary
   fi
   echo -n "$TARGET_PASSWORD" | xsel --secondary
-  notify-send -i 'status/security-high-symbolic' -u low -t 5000 \
+  notify-send -i 'security-high' -u low -t 5000 \
     "User/password copied to primary/secondary clipboard" \
     "$(echo "$TARGET_ROW" | jq -C '.user + " at " + .name' -r), valid for 60 seconds"
   exit 0
 else
-  notify-send -i 'status/security-high-symbolic' -u critical -t 3000 \
+  notify-send -i 'security-high' -u critical -t 3000 \
     'Password grab failed' \
     'We could not get a password.'
   exit 0

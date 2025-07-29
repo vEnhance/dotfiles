@@ -25,7 +25,7 @@ if [ -f "$ON_MIC_FLAG" ] || [ -f "$OFF_MIC_FLAG" ] || [ "$COMMAND" = "stop" ]; t
   fi
 
   nerd-dictation end --cookie "$COOKIE_PATH"
-  notify-send -i "status/checkbox-checked-symbolic" \
+  notify-send -i "checkmark" \
     "All done!" \
     "Nerd Dictation has completed."
   ~/dotfiles/sh-scripts/noisemaker.sh 0
@@ -41,7 +41,7 @@ if ponymix is-muted --source; then
 else
   touch "$ON_MIC_FLAG"
 fi
-notify-send -i "status/call-incoming-symbolic" \
+notify-send -i "sound-recorder" \
   "Recording in progress" \
   "In the words of Taylor Swift, speak now."
 ~/dotfiles/sh-scripts/noisemaker.sh 6

@@ -20,7 +20,7 @@ if [ "$1" = h ]; then
     xsetwacom set "Wacom Intuos S Pen stylus" Button 1 "button +3"
     xsetwacom set "Wacom Intuos S Pad pad" Button 1 "button 1"
   fi
-  notify-send -i actions/format-justify-left-symbolic \
+  notify-send -i input-mouse \
     "Left hand mouse" "$(xmodmap -e "pointer = 3 2 1" 2>&1)"
 fi
 
@@ -30,20 +30,20 @@ if [ "$1" = l ]; then
     xsetwacom set "Wacom Intuos S Pen stylus" Button 1 "button +1"
     xsetwacom set "Wacom Intuos S Pad pad" Button 1 "button 3"
   fi
-  notify-send -i actions/format-justify-right-symbolic \
+  notify-send -i mousepad \
     "Right hand mouse" "$(xmodmap -e "pointer = 1 2 3" 2>&1)"
 fi
 
 # StarCraft mode
 if [ "$1" = s ]; then
   xset r rate 150 40 2>&1
-  notify-send -i status/starred-symbolic "SC2 mode glhf" \
+  notify-send -i starred "SC2 mode glhf" \
     "$(xmodmap -e "pointer = 1 2 3" 2>&1)\n$"
 fi
 
 # Normal mode
 if [ "$1" = n ]; then
   xset r rate 660 25 2>&1
-  notify-send -i actions/mail-reply-sender-symbolic "gg no re" \
+  notify-send -i emblem-information "gg no re" \
     "$(xmodmap -e "pointer = 1 2 3" 2>&1)\n$"
 fi

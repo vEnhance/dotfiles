@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-notify-send "i3: exec mode" -i "categories/applications-utilities-symbolic" \
+notify-send "i3: exec mode" -i "emblem-documents" \
   -t 4000 \
   -u low \
   "<b>=</b>: screenshot      <b>a</b>: Asy

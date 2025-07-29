@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-notify-send "i3: nudge mode" -i "actions/object-move-symbolic" \
+notify-send "i3: nudge mode" -i preferences-system-windows-move \
   -t 6000 \
   -u low \
   "<b>a/b</b>: focus parent/child

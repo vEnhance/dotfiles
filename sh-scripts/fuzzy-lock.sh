@@ -20,7 +20,7 @@ fi
 if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
   if iwconfig | grep Flying; then
     if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
-      notify-send -i "status/network-vpn-disconnected-symbolic" \
+      notify-send -i "gnome-twitch" \
         "Won't lock" "You're currently streaming on Twitch"
       exit
     fi

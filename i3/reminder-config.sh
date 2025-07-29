@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-notify-send "i3: config mode" \
-  -i apps/preferences-desktop-keyboard-shortcuts-symbolic \
+notify-send "i3: config mode" -i system-config-keyboard \
   -t 4000 \
   -u low \
   "<b>r/i</b>: reload & in-place restart
