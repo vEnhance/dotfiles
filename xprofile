@@ -21,6 +21,9 @@ export SHELL='/usr/bin/fish'
 # For OBS
 export QT_QPA_PLATFORMTHEME='qt5ct'
 
+# Set XDG Data Dirs
+export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
+
 # For Signal (how is this not in the GUI???)
 # this doesn't seem to work reliably but I guess it can't hurt
 export SIGNAL_USE_TRAY_ICON=True
