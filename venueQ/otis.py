@@ -118,7 +118,6 @@ def send_email(
         t = threading.Thread(target=do_send)
         t.start()
     else:
-        assert password
         print("Testing an email send from <evan@evanchen.cc>")
         print(mail.as_string())
         if callback is not None:
@@ -650,6 +649,7 @@ class Suggestion(VenueQNode):
 
 class SuggestionCarrier(VenueQNode):
     def get_class_for_child(self, data: Data):
+        del data
         return Suggestion
 
 
@@ -709,6 +709,7 @@ class Job(VenueQNode):
 
 class JobCarrier(VenueQNode):
     def get_class_for_child(self, data: Data):
+        del data
         return Job
 
 
