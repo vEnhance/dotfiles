@@ -24,7 +24,10 @@ from venueQ import Data, VenueQNode, VenueQRoot, logger
 load_dotenv(Path("~/dotfiles/secrets/otis.env").expanduser())
 TOKEN = os.getenv("OTIS_WEB_TOKEN")
 AK = os.getenv("AK")
-OTIS_GMAIL_USERNAME = os.getenv("OTIS_GMAIL_USERNAME") or ""
+
+OTIS_POSTMARK_USERNAME = os.getenv("OTIS_POSTMARK_USERNAME")
+OTIS_POSTMARK_PASSWORD = os.getenv("OTIS_POSTMARK_PASSWORD")
+
 assert TOKEN is not None
 PRODUCTION = int(os.getenv("PRODUCTION", 0))
 if PRODUCTION:
@@ -75,14 +78,6 @@ def send_email(
     mail.attach(MIMEText(plain_msg, "plain"))
     mail.attach(MIMEText(html_msg, "html"))
 
-    assert OTIS_GMAIL_USERNAME
-    password = subprocess.run(
-        ["secret-tool", "lookup", "user", OTIS_GMAIL_USERNAME, "type", "gmail"],
-        text=True,
-        capture_output=True,
-    ).stdout
-    assert password
-
     email_log_filename = f"email{datetime.now().strftime('%Y%m%d-%H%M%S')}.md"
     with open(OTIS_TMP_DOWNLOADS_PATH / email_log_filename, "w") as f:
         print(plain_msg, file=f)
@@ -102,10 +97,13 @@ def send_email(
             return
 
         def do_send():
-            session = smtplib.SMTP("smtp.gmail.com", 587)
+            session = smtplib.SMTP("smtp.postmarkapp.com", 587)
             try:
+                assert OTIS_POSTMARK_USERNAME is not None
+                assert OTIS_POSTMARK_PASSWORD is not None
+
                 session.starttls(context=ssl.create_default_context())
-                session.login(f"{OTIS_GMAIL_USERNAME}@gmail.com", password)
+                session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
                 session.sendmail("evan@evanchen.cc", target_addrs, mail.as_string())
             except Exception as e:
                 logger.error(f"Email '{subject}' failed to send", exc_info=e)
