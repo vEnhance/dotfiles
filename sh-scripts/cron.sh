@@ -27,18 +27,8 @@ if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/task)" ] && [ "$(whoami)" = "
   ~/dotfiles/sh-scripts/task-update.sh
 fi
 
-## PACMAN SNAPSHOTS
-if [ -f /bin/pacman ]; then
-  pacman -Qqtten >~/Sync/pacman/"$(hostname)".pacman.paclist
-  pacman -Qqttem >~/Sync/pacman/"$(hostname)".aur.paclist
-  paclist chaotic-aur | grep -vE "^chaotic" | cut -d " " -f 1 >~/Sync/pacman/"$(hostname)".vote.paclist
-  pacman -Qqm >>~/Sync/pacman/"$(hostname)".vote.paclist
-  if [ "$(hostname)" = "$(cat ~/dotfiles/host-config/pacman)" ] && [ "$(whoami)" = "evan" ]; then
-    cd ~/Sync/pacman/ || exit 1
-    if ! git diff --exit-code; then
-      git commit -a -m "$(date), snapshot taken on $(hostname)"
-    fi
-  fi
+if [ -f /bin/pacman ] && [ -d ~/Sync/pacman ]; then
+  ~/dotfiles/sh-scripts/pacsnap.sh
 fi
 
 ## MBSYNC + MUTT
