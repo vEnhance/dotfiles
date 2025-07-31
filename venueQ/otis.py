@@ -456,7 +456,11 @@ class ProblemSet(VenueQNode):
 
                 send_email(
                     subject=subject,
-                    recipients=[recipient],
+                    recipients=(
+                        [recipient]
+                        if data["user__profile__email_on_pset_complete"] is True
+                        else []
+                    ),
                     body=body,
                     callback=callback,
                 )
@@ -496,14 +500,15 @@ class Inquiries(VenueQNode):
                 body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
                 body += "\n\n"
                 body += f"Have a nice {datetime.now(UTC).strftime('%A')}."
-                bcc_addrs = list(
-                    set(
-                        inquiry["student__user__email"] for inquiry in data["inquiries"]
-                    )
-                )
-                subject = "OTIS unit petition processed"
+                bcc_addrs = [
+                    inquiry["student__user__email"]
+                    for inquiry in data["inquiries"]
+                    if inquiry["student__user__profile__email_on_inquiry_complete"]
+                    is True
+                ]
+                bcc_addrs = list(set(bcc_addrs))
                 send_email(
-                    subject=subject,
+                    subject="OTIS unit petition processed",
                     bcc=bcc_addrs,
                     body=body,
                     callback=self.delete,
@@ -525,10 +530,13 @@ class Registrations(VenueQNode):
                 body += "\n\n"
                 body += "You should be able to log in and pick your units now, "
                 body += "and use the /register slash command in the Discord."
-                bcc_addrs = [reg["user__email"] for reg in data["registrations"]]
-                subject = "OTIS account activated!"
+                bcc_addrs = [
+                    reg["user__email"]
+                    for reg in data["registrations"]
+                    if reg["user__profile__email_on_registration_processed"] is True
+                ]
                 send_email(
-                    subject=subject,
+                    subject="OTIS account activated!",
                     bcc=bcc_addrs,
                     body=body,
                     callback=self.delete,
@@ -645,7 +653,11 @@ class Suggestion(VenueQNode):
 
                 send_email(
                     subject=subject,
-                    recipients=[recipient],
+                    recipients=(
+                        [recipient]
+                        if data["user__profile__email_on_suggestion_processed"]
+                        else []
+                    ),
                     body=body,
                     callback=callback,
                 )
