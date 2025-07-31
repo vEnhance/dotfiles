@@ -74,6 +74,8 @@ def send_email(
     plain_msg += "\n" * 2
     plain_msg += "**Evan Chen (陳誼廷)**<br>" + "\n"
     plain_msg += "[https://web.evanchen.cc](https://web.evanchen.cc/)"
+    plain_msg += "\n" * 2
+    plain_msg += "To update your email settings for OTIS, go to [OTIS Settings](https://otis.evanchen.cc/core/prefs/)."
     html_msg = markdown.markdown(plain_msg, extensions=MD_EXTENSIONS)
     mail.attach(MIMEText(plain_msg, "plain"))
     mail.attach(MIMEText(html_msg, "html"))
@@ -369,6 +371,8 @@ class ProblemSet(VenueQNode):
                     "Cordially",
                     "With appreciation",
                     "Sincerely",
+                    "Fare thee well",
+                    "This email is not a puzzle",
                 ]
             )
 
