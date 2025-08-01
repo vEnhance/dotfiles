@@ -52,6 +52,14 @@ RE_EMAIL = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
 logger.info(f"PRODUCTION is {PRODUCTION}, posting to {OTIS_API_URL}")
 
 
+def linkify(url: str | None) -> str:
+    if not url:
+        return ""
+    else:
+        assert url.startswith("https")
+        return f"[{url}]({url})"
+
+
 def send_email(
     subject: str,
     recipients: None | List[str] = None,
@@ -388,15 +396,15 @@ class ProblemSet(VenueQNode):
             f"{closing},\n\n"
             "Evan (OTIS GM)"
         )
-        link_to_portal = f"https://otis.evanchen.cc/dash/portal/{data['student__pk']}/"
-        link_to_pset = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
+        url_to_portal = f"https://otis.evanchen.cc/dash/portal/{data['student__pk']}/"
+        url_to_pset = f"https://otis.evanchen.cc/dash/pset/{data['pk']}/"
 
         body += "\n\n" + "-" * 40 + "\n\n"
         body += (
             r"- **Sent to**: "
-            f"[{student_name}]({link_to_portal}) "
+            f"[{student_name}]({url_to_portal}) "
             f"《{data['student__user__email']}》\n"
-            f"- **Submission**: [ID {data['pk']}]({link_to_pset})\n"
+            f"- **Submission**: [ID {data['pk']}]({url_to_pset})\n"
         )
         if data["status"] == "A":
             body += (
@@ -606,12 +614,16 @@ class Suggestion(VenueQNode):
             body = ""
             status = data["status"]
             puid: str | None = data.get("arch_puid", None)
+
+            arch_link = linkify(f"https://otis.evanchen.cc/arch/{puid}")
+            sugg_link = linkify(f"https://otis.evanchen.cc/suggestions/{pk}/")
+
             if status == "SUGG_OK":
                 subject += "Accepted"
                 if puid is not None:
                     subject += f" as {puid}"
                     body = f"**This problem was accepted as {puid}**.\n\n"
-                    body += f"Please consider **adding ARCH hints** at https://otis.evanchen.cc/arch/{puid} to help students who try your problem.\n\n"
+                    body += f"Please consider **adding ARCH hints** at {arch_link} to help students who try your problem.\n\n"
                     body += "The link above may look empty now. The statement and hyperlink will reach the production server in several hours.\n"
                     body += "\n\n" + "-" * 40 + "\n\n"
                 else:
@@ -622,8 +634,7 @@ class Suggestion(VenueQNode):
                 subject += "Rejected"
             elif status == "SUGG_EDIT":
                 subject += "REVISIONS REQUESTED"
-                body += "*You can submit your revisions at the following URL: "
-                body += f"https://otis.evanchen.cc/suggestions/{pk}/*."
+                body += f"*You can submit your revisions at the following URL: {sugg_link}*."
                 body += "\n\n" + "-" * 40 + "\n\n"
             elif status == "SUGG_NEW":
                 return
@@ -632,11 +643,11 @@ class Suggestion(VenueQNode):
             body += comments_to_email
             body += "\n\n" + "-" * 40 + "\n\n"
             if puid is not None and status == "SUGG_OK":
-                body += f"- **ARCH link**: https://otis.evanchen.cc/arch/{puid}/\n"
-            body += f"- **Suggestion**: https://otis.evanchen.cc/suggestions/{pk}/\n"
+                body += f"- **ARCH link**: {arch_link}\n"
+            body += f"- **Suggestion**: {sugg_link}\n"
             body += f"- **Created at**: {data['created_at']}\n"
             body += f"- **Description**: {data['description']}\n"
-            body += f"- **Hyperlink**: {data['hyperlink']}\n"
+            body += f"- **Hyperlink**: {linkify(data['hyperlink'])}\n"
             body += f"- **Proposed unit**: {data['unit__code']} {data['unit__group__name']}\n"
             body += f"- **Proposed clubs**: {data['weight']}♣\n"
             body += "\n"
@@ -702,9 +713,10 @@ class Job(VenueQNode):
             )
             recipient = data["assignee__user__email"]
             subject = f"OTIS: Task {data['name']} from {data['folder__name']} triaged: {verdict}"
+            job_link = linkify(f"https://otis.evanchen.cc/payments/job/{data['pk']}/")
             body = comments_to_email
             body += "\n\n" + "-" * 40 + "\n\n"
-            body += f"**URL**: https://otis.evanchen.cc/payments/job/{data['pk']}/ "
+            body += f"**URL**: {job_link}"
             body += "(update task using this URL)\n"
             body += "**Deliverable**: " + data["worker_deliverable"]
             body += "\n\n"
