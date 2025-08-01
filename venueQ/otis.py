@@ -462,13 +462,10 @@ class ProblemSet(VenueQNode):
                     self.erase_temp(extension="md")
                     self.delete()
 
+                should_email = data["student__user__profile__email_on_pset_complete"]
                 send_email(
                     subject=subject,
-                    recipients=(
-                        [recipient]
-                        if data["user__profile__email_on_pset_complete"] is True
-                        else []
-                    ),
+                    recipients=([recipient] if should_email else []),
                     body=body,
                     callback=callback,
                 )
@@ -662,13 +659,10 @@ class Suggestion(VenueQNode):
                     self.delete()
                     self.erase_temp(extension="md")
 
+                should_email = data["user__profile__email_on_suggestion_processed"]
                 send_email(
                     subject=subject,
-                    recipients=(
-                        [recipient]
-                        if data["user__profile__email_on_suggestion_processed"]
-                        else []
-                    ),
+                    recipients=([recipient] if should_email else []),
                     body=body,
                     callback=callback,
                 )
