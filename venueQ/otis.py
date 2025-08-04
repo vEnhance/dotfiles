@@ -529,9 +529,11 @@ class Registrations(VenueQNode):
             if query_otis_server(payload={"action": "accept_registrations"}):
                 body = "This is an automated message to notify you that your registration\n"
                 body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
-                body += "\n\n"
-                body += "You should be able to log in and pick your units now, "
+                body += "You should be able to log in and pick your units now,\n"
                 body += "and use the /register slash command in the Discord."
+                body += "\n\n"
+                body += "Please check [https://otis.evanchen.cc/dash/announce](https://otis.evanchen.cc/dash/announce)\n"
+                body += "for recent announcements to all students."
                 bcc_addrs = [
                     reg["user__email"]
                     for reg in data["registrations"]
