@@ -527,8 +527,8 @@ class Registrations(VenueQNode):
         super().on_buffer_close(data)
         if data["accept_all"]:
             if query_otis_server(payload={"action": "accept_registrations"}):
-                body = "This is an automated message to notify you that your registration\n"
-                body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
+                body = "As you requested, this is an automated message to notify you that your registration\n"
+                body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC. "
                 body += "You should be able to log in and pick your units now,\n"
                 body += "and use the /register slash command in the Discord."
                 body += "\n\n"
