@@ -64,10 +64,12 @@ if [ "$(hostname)" = ArchDiamond ]; then
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
   # dunst & # this has been causing problems apparently?
-  syncthing-gtk -m &
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
+    signal-desktop --start-in-tray --use-tray-icon &
+    spotify &
   fi
+  systemctl --user start evansync.timer
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
@@ -97,7 +99,6 @@ if [ "$(hostname)" = ArchBootes ]; then
   systemctl --user start evansync.timer
   picom -G -b --no-fading-openclose --backend xrender
   xinput --set-prop 13 'libinput Accel Speed' -0.5
-  # pavucontrol &
 fi
 
 if [ "$(hostname)" = dagobah ]; then

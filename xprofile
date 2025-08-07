@@ -74,16 +74,20 @@ fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
   # Note: check Xft.dpi in ~/.Xresources
-  if [ "$(date +"%Z")" = PDT ]; then
-    xset s 900 30
-    xset dpms 600 600 600
-  else
-    xset s 14400 14400
-    xset dpms 14400 14400 14400
-    export QT_SCALE_FACTOR=2
-    # export QT_AUTO_SCREEN_SCALE_FACTOR=2
-    # export GDK_SCALE=2
+  if [ "$(whoami)" = "evan" ]; then
+    xset s 2000 60
+    xset dpms 900 900 900
+    ~/dotfiles/sh-scripts/chvol.sh l
   fi
+  if [ "$(whoami)" = "star" ]; then
+    xset s 2000 60
+    xset dpms 1800 1800 1800
+    ~/dotfiles/sh-scripts/chvol.sh r
+  fi
+  # for big screet TV...
+  # export QT_SCALE_FACTOR=2
+  # export QT_AUTO_SCREEN_SCALE_FACTOR=2
+  # export GDK_SCALE=2
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
   keychain --quiet
   # shellcheck disable=SC2046

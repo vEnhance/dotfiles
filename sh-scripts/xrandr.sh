@@ -9,11 +9,9 @@ if [ "$(hostname)" = ArchAngel ]; then
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-  if xrandr | grep 3840x2160; then
-    xrandr --output "DP-3" --mode 3840x2160 --primary
-  else
-    xrandr --output "DP-3" --primary
-  fi
+  xrandr --output "DP-2" --mode 3840x2160 --primary \
+    --output "DP-3" --mode 1920x1080 --below "DP-2" \
+    --output "DP-1" --mode 2560x1440 --right-of "DP-2"
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then

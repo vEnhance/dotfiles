@@ -10,16 +10,12 @@ if [ "$(hostname)" = ArchSapphire ]; then
   conky -c ~/dotfiles/conky/cal2.conf &
 fi
 
-# Conky setup for ArchDiamond (often TV screen)
+# Conky setup for ArchDiamond
 if [ "$(hostname)" = ArchDiamond ]; then
   if [ "$(whoami)" = "evan" ]; then
-    if xrandr | grep 3840x2160; then
-      conky -c ~/dotfiles/conky/summary-bar-3840x2160-tv.conf &
-      conky -c ~/dotfiles/conky/cal5.conf &
-    else
-      conky -c ~/dotfiles/conky/summary-bar-1920x1080-onescreen.conf &
-      conky -c ~/dotfiles/conky/cal2.conf &
-    fi
+    conky -c ~/dotfiles/conky/summary-bar-abridged-majestic.conf &
+    conky -c ~/dotfiles/conky/stats-power-widget.conf &
+    conky -c ~/dotfiles/conky/cal5.conf &
   fi
 fi
 
