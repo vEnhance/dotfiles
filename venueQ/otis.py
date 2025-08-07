@@ -62,20 +62,14 @@ def linkify(url: str | None) -> str:
 
 def send_email(
     subject: str,
-    recipients: None | List[str] = None,
-    bcc: None | List[str] = None,
+    recipients: List[str],
     body: None | str = None,
     callback: None | Callable[[], None] = None,
 ):
     mail = MIMEMultipart("alternative")
     mail["From"] = "OTIS Overlord <evan@evanchen.cc>"
-    assert recipients is not None or bcc is not None
-    if recipients is not None:
-        mail["To"] = ", ".join(recipients)
-    # ... i did NOT realize that gmail did not strip this header
-    # https://mail.python.org/pipermail/email-sig/2004-September/000151.html
-    # if bcc is not None:
-    #    mail['Bcc'] = ', '.join(bcc)
+    if len(recipients) == 1:
+        mail["To"] = recipients[0]
     mail["Subject"] = subject
 
     plain_msg = body or ""
@@ -92,14 +86,14 @@ def send_email(
     with open(OTIS_TMP_DOWNLOADS_PATH / email_log_filename, "w") as f:
         print(plain_msg, file=f)
 
+    recipients = list(set(recipients))
     if PRODUCTION:
-        target_addrs = (recipients or []) + (bcc or [])
-        for address in [_ for _ in target_addrs]:
+        for address in recipients:
             if not RE_EMAIL.fullmatch(address):
-                target_addrs.remove(address)
+                recipients.remove(address)
                 logger.warning(f"Not sending email to invalid address `{address}`.")
 
-        if len(target_addrs) == 0:
+        if len(recipients) == 0:
             logger.warning("No valid recipients at this point, so no email sent.")
             subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
             if callback is not None:
@@ -114,7 +108,7 @@ def send_email(
 
                 session.starttls(context=ssl.create_default_context())
                 session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
-                session.sendmail("evan@evanchen.cc", target_addrs, mail.as_string())
+                session.sendmail("evan@evanchen.cc", recipients, mail.as_string())
             except Exception as e:
                 logger.error(f"Email '{subject}' failed to send", exc_info=e)
                 subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
@@ -124,7 +118,7 @@ def send_email(
                 if callback is not None:
                     callback()
 
-        logger.debug(f"Email '{subject}' to {target_addrs} queued.")
+        logger.debug(f"Email '{subject}' to {recipients} queued.")
         t = threading.Thread(target=do_send)
         t.start()
     else:
@@ -502,16 +496,15 @@ class Inquiries(VenueQNode):
                 body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
                 body += "\n\n"
                 body += f"Have a nice {datetime.now(UTC).strftime('%A')}."
-                bcc_addrs = [
+                recipients = [
                     inquiry["student__user__email"]
                     for inquiry in data["inquiries"]
                     if inquiry["student__user__profile__email_on_inquiry_complete"]
                     is True
                 ]
-                bcc_addrs = list(set(bcc_addrs))
                 send_email(
                     subject="OTIS unit petition processed",
-                    bcc=bcc_addrs,
+                    recipients=recipients,
                     body=body,
                     callback=self.delete,
                 )
@@ -534,14 +527,14 @@ class Registrations(VenueQNode):
                 body += "\n\n"
                 body += "Please check [https://otis.evanchen.cc/dash/announce](https://otis.evanchen.cc/dash/announce)\n"
                 body += "for recent announcements to all students."
-                bcc_addrs = [
+                recipients = [
                     reg["user__email"]
                     for reg in data["registrations"]
                     if reg["user__profile__email_on_registration_processed"] is True
                 ]
                 send_email(
                     subject="OTIS account activated!",
-                    bcc=bcc_addrs,
+                    recipients=recipients,
                     body=body,
                     callback=self.delete,
                 )
