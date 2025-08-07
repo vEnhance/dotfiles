@@ -63,7 +63,7 @@ def linkify(url: str | None) -> str:
 def send_email(
     subject: str,
     recipients: List[str],
-    body: None | str = None,
+    body: str,
     callback: None | Callable[[], None] = None,
 ):
     mail = MIMEMultipart("alternative")
@@ -72,7 +72,7 @@ def send_email(
         mail["To"] = recipients[0]
     mail["Subject"] = subject
 
-    plain_msg = body or ""
+    plain_msg = body
     plain_msg += "\n" * 2
     plain_msg += "**Evan Chen (陳誼廷)**<br>" + "\n"
     plain_msg += "[https://web.evanchen.cc](https://web.evanchen.cc/)"
@@ -463,6 +463,7 @@ class ProblemSet(VenueQNode):
             else:
                 logger.warning("Server query failed, so no action taken")
         elif comments_to_email != "":
+            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"])
             logger.info(
                 "Did not attempt to process submission "
                 f"because status was set to {data['status']}"
