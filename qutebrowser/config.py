@@ -111,6 +111,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://bitwarden.com/*",
     r"*://calendar.google.com/*",
     r"*://calendly.com/*",
+    r"*://claude.ai/*",
     r"*://codeforces.com/*",
     r"*://dennisc.net/*",
     r"*://devjoe.appspot.com/*",
