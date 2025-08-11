@@ -12,6 +12,7 @@ alias ksp="hunspell -d ko_KR"
 alias memtop='ps aux  | awk \'{printf "%8.3f MB\t\t%s\n", $6/1024, $11}\'  | sort -n | grep -v "^   0.000 MB"'
 alias panmd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
 alias putclip="xsel --clipboard"
+alias py="ipython"
 alias todo='task ready'
 alias trash='gio trash'
 
