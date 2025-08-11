@@ -12,3 +12,5 @@ workspace 10 output DP-3
 
 workspace 4 gaps right 400
 workspace 5 gaps right 400
+
+for_window [class="[Zz]athura" title="junk-for-otis"] move container to workspace number 4; workspace number 4
