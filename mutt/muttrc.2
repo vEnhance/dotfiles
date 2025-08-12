@@ -6,7 +6,8 @@ set header_cache=~/.cache/mutt/records
 
 set smtp_url=`echo smtps://$(cat ~/dotfiles/secrets/mailuser2)@gmail.com@smtp.gmail.com:465`
 set smtp_pass = `secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser2) type gmail`
-set from = "contact@evanchen.cc"
+set from = `echo $(cat ~/dotfiles/secrets/mailuser2)@gmail.com`
+unmy_hdr Bcc
 
 set imap_user = `echo $(cat ~/dotfiles/secrets/mailuser2)@gmail.com`
 set imap_pass = `secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser2) type gmail`
