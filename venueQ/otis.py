@@ -67,7 +67,8 @@ def send_email(
     callback: None | Callable[[], None] = None,
 ):
     mail = MIMEMultipart("alternative")
-    mail["From"] = "OTIS Overlord <evan@evanchen.cc>"
+    mail["From"] = "OTIS Overlord <overlord@evanchen.cc>"
+    mail["Reply-To"] = "Evan Chen <evan@evanchen.cc>"
     if len(recipients) == 1:
         mail["To"] = recipients[0]
     mail["Subject"] = subject
@@ -108,7 +109,7 @@ def send_email(
 
                 session.starttls(context=ssl.create_default_context())
                 session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
-                session.sendmail("evan@evanchen.cc", recipients, mail.as_string())
+                session.sendmail("overlord@evanchen.cc", recipients, mail.as_string())
             except Exception as e:
                 logger.error(f"Email '{subject}' failed to send", exc_info=e)
                 subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
@@ -122,7 +123,7 @@ def send_email(
         t = threading.Thread(target=do_send)
         t.start()
     else:
-        print("Testing an email send from <evan@evanchen.cc>")
+        print("Testing an email send from <overlord@evanchen.cc>")
         print(mail.as_string())
         if callback is not None:
             callback()
