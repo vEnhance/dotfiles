@@ -63,6 +63,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
   picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
+  systemctl --user start anki-morning.timer
   # dunst & # this has been causing problems apparently?
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &

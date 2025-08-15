@@ -1,0 +1,11 @@
+[Unit]
+Description=Launch Anki for morning review
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/anki
+
+[Install]
+WantedBy=default.target
