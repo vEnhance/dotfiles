@@ -14,6 +14,15 @@ return {
         ["<CR>"] = {},
         ["<Tab>"] = { "snippet_forward", "accept", "fallback" },
       },
+      sources = {
+        providers = {
+          snippets = {
+            opts = {
+              search_paths = { vim.fn.stdpath('config') .. '/snippets' },
+            },
+          },
+        },
+      },
     },
   },
   {
