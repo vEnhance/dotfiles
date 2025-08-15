@@ -1,2 +1,3 @@
 **/*.pyc
 asy/history
+.claude/

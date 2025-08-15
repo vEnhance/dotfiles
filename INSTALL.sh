@@ -36,6 +36,12 @@ if ! test -f "$HOME/.xinitrc"; then
   echo "exec i3" >"$HOME"/.xinitrc
 fi
 
+# .claude directory and settings
+mkdir -p "$HOME"/.claude
+if ! test -f "$HOME/.claude/settings.json"; then
+  ln -s "$HOME"/dotfiles/claude-settings.json "$HOME"/.claude/settings.json
+fi
+
 # file/dir in .config
 mkdir -p .config
 if ! test -d "$HOME/.config/bat"; then ln -s "$HOME"/dotfiles/bat "$HOME"/.config/bat; fi
