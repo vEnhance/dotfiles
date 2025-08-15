@@ -7,10 +7,10 @@ set header_cache=~/.cache/mutt/work
 set smtp_url=`echo smtp://$(secret-tool lookup type postmark key access)@smtp.postmarkapp.com:587`
 set smtp_pass = `secret-tool lookup type postmark key secret`
 set from = "evan@evanchen.cc"
-source ~/dotfiles/secrets/mailreceipts # set BCC header
+source ~/secrets/mailreceipts # set BCC header
 
-set imap_user = `echo $(cat ~/dotfiles/secrets/mailuser1)@gmail.com`
-set imap_pass = `secret-tool lookup user $(cat ~/dotfiles/secrets/mailuser1) type gmail`
+set imap_user = `echo $(cat ~/secrets/mailuser1)@gmail.com`
+set imap_pass = `secret-tool lookup user $(cat ~/secrets/mailuser1) type gmail`
 set spoolfile = +Inbox
 set postponed = +Drafts
 

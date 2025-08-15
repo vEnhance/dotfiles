@@ -1,4 +1,4 @@
-include ~/Sync/Keys/wingtask.taskrc
+include ~/secrets/wingtask.taskrc
 
 alias.E=project:errand
 alias.G=project:github

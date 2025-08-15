@@ -28,7 +28,7 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-load_dotenv(Path("~/dotfiles/secrets/twitch.env").expanduser())
+load_dotenv(Path("~/secrets/twitch.env").expanduser())
 client_id = os.getenv("CLIENT_ID")
 client_secret = os.getenv("CLIENT_SECRET")
 streamer_name = args.username

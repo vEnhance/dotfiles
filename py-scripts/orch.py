@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 
 from von import api
 
-load_dotenv(Path("~/dotfiles/secrets/otis.env").expanduser())
+load_dotenv(Path("~/secrets/otis.env").expanduser())
 OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 OTIS_WEB_TOKEN = os.getenv("OTIS_WEB_TOKEN")
 assert OTIS_WEB_TOKEN is not None
