@@ -41,7 +41,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'brglng/vim-im-select'
   Plug 'ciaranm/detectindent'
   Plug 'dense-analysis/ale'
-  Plug 'ludovicchabant/vim-gutentags'
+  " Plug 'ludovicchabant/vim-gutentags'
   Plug 'mg979/vim-visual-multi'
   " there's a neovim version of this that might be neat
   Plug 'svermeulen/vim-yoink'
