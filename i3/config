@@ -346,6 +346,7 @@ bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
 bindsym $mod+slash exec --no-startup-id find-cursor -r 1 -f -t -c '#00cca7'
+bindsym $mod+g exec --no-startup-id $HOME/dotfiles/i3/toggle-horizontal-gaps.sh
 # }}}
 
 include ~/dotfiles/i3/extras.`hostname`
