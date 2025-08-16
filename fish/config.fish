@@ -1,6 +1,7 @@
 umask 007 # set umask
 
 alias dropcli='dropbox-cli'
+alias emacs='nvim'
 alias fixtrailspace='sed -i "s/[ \t]*\$//"'
 alias getclip="xsel --clipboard"
 alias gg="cd (git rev-parse --show-toplevel)"
