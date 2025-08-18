@@ -10,6 +10,8 @@ workspace 8 output DP-3
 workspace 9 output DP-3
 workspace 10 output DP-3
 
+workspace 0 gaps right 525
+workspace 1 gaps right 525
 workspace 4 gaps right 400
 workspace 5 gaps right 400
 
