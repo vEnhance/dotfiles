@@ -1,19 +1,24 @@
 import functools
 import json
 import subprocess
-import sys
 from collections import defaultdict
 from datetime import date, datetime, timedelta
 from enum import IntEnum
 from itertools import chain
 from pathlib import Path
+from socket import gethostname
 from typing import Dict, List, Optional
 
 from dateutil.parser import isoparse
 
 NUM_ROWS = 15
-if len(sys.argv) > 1:
-    NUM_COL = int(sys.argv[-1])
+HOSTNAME = gethostname()
+if HOSTNAME in ("ArchScythe", "ArchSapphire"):
+    NUM_COL = 2
+elif HOSTNAME in ("ArchMajestic", "ArchBootes"):
+    NUM_COL = 3
+elif HOSTNAME in ("ArchDiamond",):
+    NUM_COL = 5
 else:
     NUM_COL = 2
 
