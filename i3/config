@@ -198,7 +198,7 @@ mode "clipboard" {
   bindsym p exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --primary)", mode "default"
   bindsym s exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --secondary)", mode "default"
   bindsym b exec --no-startup-id sleep 0.2 && xdotool type "$(xsel --clipboard)", mode "default"
-  bindsym Return exec --no-startup-id /home/evan/dotfiles/sh-scripts/getclip.sh, mode "default"
+  bindsym Return exec --no-startup-id $HOME/dotfiles/sh-scripts/getclip.sh, mode "default"
   bindsym Escape mode "default"
 }
 bindsym $mod+p mode "clipboard"
@@ -288,7 +288,7 @@ mode "exec" {
   # short for hanabi
   bindsym h exec chromium &, mode "default"
   bindsym i exec anki &, mode "default"
-  bindsym l exec --no-startup-id /home/evan/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
+  bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
   # short for money
   bindsym m exec gnucash &, mode "default"
   # short for next
@@ -347,7 +347,7 @@ bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
 bindsym $mod+slash exec --no-startup-id find-cursor -r 1 -f -t -c '#00cca7'
 bindsym $mod+g exec --no-startup-id $HOME/dotfiles/i3/toggle-horizontal-gaps.sh
-bindsym $mod+c exec i3-sensible-terminal -e "/home/evan/dotfiles/sh-scripts/claude-sandbox.sh"
+bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
 # }}}
 
 include ~/dotfiles/i3/extras.`hostname`
