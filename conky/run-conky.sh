@@ -27,7 +27,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
     conky -d -c ~/dotfiles/conky/cal.conf
   fi
   if [ "$(whoami)" = "star" ]; then
-    conky -d -c ~/dotfiles/conky/star-bar-majestic.conf
+    conky -d --xinerama-head=3 -c ~/dotfiles/conky/star-bar.conf
   fi
 fi
 if [ "$(hostname)" = ArchBootes ]; then
@@ -36,6 +36,6 @@ if [ "$(hostname)" = ArchBootes ]; then
     conky -d -c ~/dotfiles/conky/cal.conf
   fi
   if [ "$(whoami)" = "star" ]; then
-    conky -d -c ~/dotfiles/conky/star-bar-bootes.conf
+    conky -d --xinerama-head=0 -c ~/dotfiles/conky/star-bar.conf
   fi
 fi
