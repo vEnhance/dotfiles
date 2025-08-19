@@ -45,5 +45,5 @@ fi
 if [ "$1" = n ]; then
   xset r rate 660 25 2>&1
   notify-send -i emblem-information "gg no re" \
-    "$(xmodmap -e "pointer = 1 2 3" 2>&1)\n$"
+    "$(xmodmap -e "pointer = 3 2 1" 2>&1)\n$"
 fi
