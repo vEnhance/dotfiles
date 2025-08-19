@@ -1,6 +1,5 @@
 [Unit]
 Description=Launch Anki for morning review
-After=graphical-session.target
 
 [Service]
 Type=oneshot
