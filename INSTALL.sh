@@ -158,11 +158,4 @@ fi
 if [ "$USER" = "evan" ]; then
   xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
   xdg-settings set default-url-scheme-handler https org.qutebrowser.qutebrowser.desktop
-  # systemd
-  mkdir -p "$HOME"/.config/systemd/user
-  for i in "$HOME"/dotfiles/custom-systemd-units/*; do
-    if ! test -f "$HOME/.config/systemd/user/$(basename "$i")"; then
-      ln -s "$i" "$HOME"/.config/systemd/user/
-    fi
-  done
 fi
