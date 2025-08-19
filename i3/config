@@ -94,7 +94,7 @@ bindsym $mod+Shift+minus scratchpad show; exec --no-startup-id killall -s USR1 p
 # refresh i3 status bar
 bindsym $mod+u exec --no-startup-id killall -s USR1 py3status
 
-# switch to workspace 0-10 {{{
+# switch to workspace 0-11 {{{
 bindsym $mod+grave workspace number 0; exec --no-startup-id find-cursor -f -t -c '#aaaaaa'
 bindsym $mod+1 workspace number 1; exec --no-startup-id find-cursor -f -t -c '#ff9999'
 bindsym $mod+2 workspace number 2; exec --no-startup-id find-cursor -f -t -c '#fffd96'
@@ -106,6 +106,7 @@ bindsym $mod+7 workspace number 7; exec --no-startup-id find-cursor -f -t -c '#c
 bindsym $mod+8 workspace number 8; exec --no-startup-id find-cursor -f -t -c '#00cc22'
 bindsym $mod+9 workspace number 9; exec --no-startup-id find-cursor -f -t -c '#00aacc'
 bindsym $mod+0 workspace number 10; exec --no-startup-id find-cursor -f -t -c '#8800cc'
+bindsym $mod+apostrophe workspace number 11; exec --no-startup-id find-cursor -f -t -c '#aa33ff'
 bindsym $mod+Shift+grave move container to workspace number 0; workspace number 0
 bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
@@ -117,6 +118,7 @@ bindsym $mod+Shift+7 move container to workspace number 7; workspace number 7
 bindsym $mod+Shift+8 move container to workspace number 8; workspace number 8
 bindsym $mod+Shift+9 move container to workspace number 9; workspace number 9
 bindsym $mod+Shift+0 move container to workspace number 10; workspace number 10
+bindsym $mod+Shift+apostrophe move container to workspace number 11; workspace number 11
 # }}}
 
 # nudge [n] {{{
@@ -140,6 +142,7 @@ mode "nudge" {
   bindsym 8 move container to workspace number 8; workspace number 8;
   bindsym 9 move container to workspace number 9; workspace number 9;
   bindsym 0 move container to workspace number 10; workspace number 10;
+  bindsym apostrophe move container to workspace number 11; workspace number 11;
 
   # wider, narrower, shorter, taller
   bindsym w       resize grow   width  32 px or 4 ppt
@@ -348,6 +351,7 @@ bindsym $mod+braceright exec --no-startup-id dunstctl close-all
 bindsym $mod+slash exec --no-startup-id find-cursor -r 1 -f -t -c '#00cca7'
 bindsym $mod+g exec --no-startup-id $HOME/dotfiles/i3/toggle-horizontal-gaps.sh
 bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
+bindsym $mod+y exec i3-sensible-terminal -e "fish --login --command yap"
 # }}}
 
 include ~/dotfiles/i3/extras.`hostname`

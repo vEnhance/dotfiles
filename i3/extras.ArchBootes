@@ -9,6 +9,7 @@ workspace 7 output HDMI-0
 workspace 8 output HDMI-0
 workspace 9 output DP-4
 workspace 10 output DP-4
+workspace 11 output DP-0
 
 workspace 0 gaps right 440
 workspace 1 gaps right 440
