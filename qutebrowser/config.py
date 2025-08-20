@@ -32,6 +32,7 @@ c.url.default_page = "https://web.evanchen.cc/static/browser-homepage.html"
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}",
     "wiktionary": "https://wiktionary.org/wiki/{}",
+    "htsk": "https://web.evanchen.cc/static/htsk.html?q={}",
 }
 c.url.start_pages = c.url.default_page
 c.zoom.default = 100
