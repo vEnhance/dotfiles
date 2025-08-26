@@ -107,6 +107,7 @@ alias python='python3' #gd ubuntu
 # Aliases to custom Python/shell and mailbox programs {{{
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
+alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
 alias odus='/usr/bin/python3 ~/dotfiles/py-scripts/odus.py'
 alias orch='/usr/bin/python3 ~/dotfiles/py-scripts/orch.py'
