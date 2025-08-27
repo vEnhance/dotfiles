@@ -47,45 +47,45 @@ client.placeholder      #000000 #0c0c0c #ffffff #000000 #0c0c0c
 
 # [hjkl] navigation {{{
 # change focus
-  bindsym $mod+h focus left
-  bindsym $mod+j focus down
-  bindsym $mod+k focus up
-  bindsym $mod+l focus right
-  bindsym $mod+Left  workspace prev
-  bindsym $mod+Right workspace next
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left  workspace prev
+bindsym $mod+Right workspace next
 
-  # move focused window
-  bindsym $mod+Shift+h move left
-  bindsym $mod+Shift+j move down
-  bindsym $mod+Shift+k move up
-  bindsym $mod+Shift+l move right
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 # }}}
 
 # window layouts [zvftesab.\t] {{{
-  # split in horizontal orientation
-  bindsym $mod+z split h
-  # split in vertical orientation
-  bindsym $mod+v split v
+# split in horizontal orientation
+bindsym $mod+z split h
+# split in vertical orientation
+bindsym $mod+v split v
 
-  # enter fullscreen mode for the focused container
-  bindsym $mod+f fullscreen
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
 
-  # change container layout (stacked, tabbed, toggle split)
-  bindsym $mod+t layout tabbed
-  bindsym $mod+e layout toggle split
-  bindsym $mod+s layout stacking
-  # Default stacking
-  workspace_layout stacking
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+t layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+s layout stacking
+# Default stacking
+workspace_layout stacking
 
-  # toggle tiling / floating
-  bindsym $mod+period floating toggle
-  # change focus between tiling / floating windows
-  bindsym $mod+Tab focus mode_toggle
+# toggle tiling / floating
+bindsym $mod+period floating toggle
+# change focus between tiling / floating windows
+bindsym $mod+Tab focus mode_toggle
 
-  # focus the parent container
-  bindsym $mod+a focus parent
-  # focus the child container
-  bindsym $mod+b focus child
+# focus the parent container
+bindsym $mod+a focus parent
+# focus the child container
+bindsym $mod+b focus child
 # }}}
 
 bindsym $mod+minus move scratchpad; exec --no-startup-id killall -s USR1 py3status
