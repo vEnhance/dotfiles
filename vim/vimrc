@@ -103,6 +103,7 @@ let g:gutentags_file_list_command = {
       \ },
   \ }
 let g:im_select_default = 'xkb:us:dvorak:eng'
+let g:im_select_enable_focus_events = 0
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:jedi#show_call_signatures = 0
