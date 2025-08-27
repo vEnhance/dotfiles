@@ -3,7 +3,12 @@ return {
     "nvim-treesitter/playground",
     "mg979/vim-visual-multi",
     "tpope/vim-fugitive",
-
+    {
+      "brglng/vim-im-select",
+      init = function()
+        vim.g.im_select_default = "xkb:us:dvorak:eng"
+      end,
+    },
     {
       "kaarmu/typst.vim",
       init = function()
