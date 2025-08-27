@@ -32,7 +32,7 @@ c.url.default_page = "https://web.evanchen.cc/static/browser-homepage.html"
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}",
     "w": "https://wiktionary.org/wiki/{}",
-    "htsk": "https://web.evanchen.cc/static/htsk.html?q={}",
+    "kor": "https://web.evanchen.cc/static/kor.html?q={}",
     "naver": "https://korean.dict.naver.com/koendict/#/search?query={}",
 }
 c.url.start_pages = c.url.default_page
@@ -43,7 +43,7 @@ c.qt.force_software_rendering = "chromium"  # QT grief :')
 config.bind(r"<Backspace>", "config-source")
 config.bind(r"<Ctrl-W>", "tab-close")
 # config.bind(r'<Return>', 'download-clear')
-config.bind(r"<Space>", "cmd-set-text -s :open w ")
+config.bind(r"<Space>", "cmd-set-text -s :open kor ")
 config.bind(r"e", "tab-clone")
 config.bind(r"E", 'spawn firefox "{url}"')
 config.bind(r"Z", "tab-only")
