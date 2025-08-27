@@ -21,10 +21,7 @@ return {
           mason = not command_exists("ruff"), -- Use system if available
         },
 
-        -- TypeScript/JavaScript
-        ts_server = {
-          mason = not command_exists("typescript-language-server"),
-        },
+        -- eslint
         eslint = {
           mason = not command_exists("vscode-eslint-language-server"),
         },
@@ -39,17 +36,19 @@ return {
           mason = not command_exists("bash-language-server"),
         },
 
-        -- Go
-        gopls = {
-          mason = not command_exists("gopls"),
+        -- Fish
+        fish_lsp = {
+          mason = not command_exists("fish-lsp"),
+        },
+
+        -- Typst
+        tinymist = {
+          mason = not command_exists("tinymist"),
         },
 
         -- Additional common servers
         marksman = { -- Markdown
           mason = not command_exists("marksman"),
-        },
-        jsonls = { -- JSON
-          mason = not command_exists("vscode-json-language-server"),
         },
         yamlls = { -- YAML
           mason = not command_exists("yaml-language-server"),
