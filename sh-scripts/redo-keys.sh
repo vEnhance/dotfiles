@@ -35,6 +35,11 @@ if [ "$(xset -q | sed -n 's/^.*Caps Lock:\s*\(\S*\).*$/\1/p')" = "on" ]; then
   fi
 fi
 
+# if ibus is active, switch back to Eng/Dvorak
+if pgrep -x ibus-daemon; then
+  ibus engine "xkb:us:dvorak:eng"
+fi
+
 xmodmap -e "remove lock = Caps_Lock"
 notify-send -i "input-keyboard-virtual-on" -t 5000 \
   "Rebound complete" \
