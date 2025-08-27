@@ -13,8 +13,7 @@ return {
     },
     linters = {
       languagetool = {
-        args =
-        "--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE,EN_UNPAIRED_QUOTES",
+        args = "--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE,EN_UNPAIRED_QUOTES",
       },
     },
   },
@@ -37,7 +36,7 @@ return {
       formatters = {
         death_to_double_dollar_signs = {
           meta = {
-            description = "Trim trailing whitespace.",
+            description = "Remove double dollar signs in LaTeX.",
           },
           format = function(self, ctx, lines, callback)
             local out_lines = {}
@@ -49,8 +48,8 @@ return {
             end
             callback(nil, out_lines)
           end,
-        }
-      }
+        },
+      },
     },
   },
 }
