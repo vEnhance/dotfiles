@@ -42,7 +42,7 @@ fi
 
 xmodmap -e "remove lock = Caps_Lock"
 notify-send -i "input-keyboard-virtual-on" -t 5000 \
-  "Rebound complete" \
+  "Back to Dvorak" \
   "Successfully ran redo-keys.sh. Enjoy!"
 
 # synclient TapButton1=0           # Disable tap to click
