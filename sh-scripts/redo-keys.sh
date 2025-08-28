@@ -2,7 +2,10 @@
 
 # Make sure we're in Dvorak
 setxkbmap us -variant dvorak -option caps:escape
-numlockx on
+if command -v numlockx; then
+  numlockx on
+fi
+
 if [ "$(hostname)" = ArchScythe ] || [ "$(hostname)" = ArchSapphire ]; then
   synclient VertScrollDelta=-237
 fi
