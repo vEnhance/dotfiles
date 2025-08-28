@@ -20,9 +20,9 @@ fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
   # replace the useless menu key with extra ctrl
-  xmodmap -e "remove Control = Control_R"
-  xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R"
-  xmodmap -e "add Control = Control_R"
+  xmodmap -e "remove Control = Control_R" &
+  xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R" &
+  xmodmap -e "add Control = Control_R" &
 fi
 
 # if caps lock is on, kill it
@@ -43,7 +43,6 @@ if pgrep -x ibus-daemon; then
   ibus engine "xkb:us:dvorak:eng"
 fi
 
-xmodmap -e "remove lock = Caps_Lock"
 notify-send -i "input-keyboard-virtual-on" -t 5000 \
   "Back to Dvorak" \
   "Successfully ran redo-keys.sh. Enjoy!"
