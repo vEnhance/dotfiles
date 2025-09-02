@@ -1,15 +1,17 @@
-workspace 1 output DP-4
 workspace 0 output DP-4
-workspace 2 output primary
+workspace 1 output DP-4
+workspace 2 output DP-4
 workspace 3 output primary
 workspace 4 output primary
 workspace 5 output primary
 workspace 6 output primary
-workspace 7 output HDMI-0
-workspace 8 output HDMI-0
-workspace 9 output DP-2
-workspace 10 output DP-2
+workspace 7 output DP-2
+workspace 8 output DP-2
+workspace 9 output HDMI-0
+workspace 10 output HDMI-0
 workspace 11 output primary
 
-workspace 0 gaps right 400
-workspace 1 gaps right 400
+workspace 0 gaps right 432
+workspace 1 gaps right 432
+
+for_window [class="[Zz]athura" title="junk-for-otis"] move container to workspace number 3; workspace number 3
