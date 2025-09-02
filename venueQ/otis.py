@@ -6,7 +6,6 @@ import re
 import smtplib
 import ssl
 import subprocess
-import threading
 import time
 from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
@@ -101,27 +100,23 @@ def send_email(
                 callback()
             return
 
-        def do_send():
-            session = smtplib.SMTP("smtp.postmarkapp.com", 587)
-            try:
-                assert OTIS_POSTMARK_USERNAME is not None
-                assert OTIS_POSTMARK_PASSWORD is not None
+        session = smtplib.SMTP("smtp.postmarkapp.com", 587)
+        try:
+            assert OTIS_POSTMARK_USERNAME is not None
+            assert OTIS_POSTMARK_PASSWORD is not None
 
-                session.starttls(context=ssl.create_default_context())
-                session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
-                session.sendmail("overlord@evanchen.cc", recipients, mail.as_string())
-            except Exception as e:
-                logger.error(f"Email '{subject}' failed to send", exc_info=e)
-                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
-            else:
-                logger.info(f"Email '{subject}' sent successfully!")
-                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "0"])
-                if callback is not None:
-                    callback()
+            session.starttls(context=ssl.create_default_context())
+            session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
+            session.sendmail("overlord@evanchen.cc", recipients, mail.as_string())
+        except Exception as e:
+            logger.error(f"Email '{subject}' failed to send", exc_info=e)
+            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
+        else:
+            logger.info(f"Email '{subject}' sent successfully!")
+            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "0"])
+            if callback is not None:
+                callback()
 
-        logger.debug(f"Email '{subject}' to {recipients} queued.")
-        t = threading.Thread(target=do_send)
-        t.start()
     else:
         print("Testing an email send from <overlord@evanchen.cc>")
         print(mail.as_string())
