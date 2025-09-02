@@ -8,6 +8,7 @@ opt.clipboard = ""
 opt.colorcolumn = "+1"
 opt.conceallevel = 2
 opt.formatoptions:remove("t")
+opt.spell = true
 opt.relativenumber = false
 opt.ruler = true
 opt.textwidth = 80 -- default textwidth
