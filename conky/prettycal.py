@@ -106,7 +106,9 @@ class CalItem:
             s += f"{self.when.date().strftime('%a %b%d')} "
             if self.type == Type.CALENDAR or self.type == Type.NOW:
                 s += r"${voffset 1}"
-        s += r"${font Exo 2:normal:size=%d}" % FONT_SIZE
+        s += r"${voffset -2}${font Noto Sans CJK KR:normal:size=%d}" % (
+            int(0.9 * FONT_SIZE)
+        )
         s += r"${color " + (self.color or "dddddd") + r"}"
         s += f"{self.text[:truncate]}"
         return s
