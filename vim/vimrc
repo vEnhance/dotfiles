@@ -236,6 +236,7 @@ function! AirlineSetup()
   let s:IA = [ 'gray15', 'gray80', 35, 234 ]
   let g:airline#themes#wombat#palette.inactive = airline#themes#generate_color_map(s:IA, s:IA, s:IA)
   let g:airline#extensions#whitespace#checks = ['indent', 'trailing', 'mixed-indent-file', 'conflicts']
+  redraw
 endfunction
 
 " ALE + CoC
