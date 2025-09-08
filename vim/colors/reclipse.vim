@@ -7,13 +7,14 @@
 
 scriptencoding 'utf-8'
 
-set background=dark
 highlight clear
 if exists('syntax_on')
   syntax reset
 endif
-if !has('gui_running')
-  set notgc
+if has('gui_running')
+  set background=light
+else
+  set background=dark
 endif
 
 let g:colors_name = 'reclipse'
