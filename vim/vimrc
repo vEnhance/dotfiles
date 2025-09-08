@@ -86,11 +86,6 @@ let g:detectindent_preferred_indent = 2
 let g:detectindent_preferred_when_mixed = 1
 let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
 let g:echodoc_enable_at_startup=1
-if has('nvim')
-  let g:echodoc#type='floating'
-else
-  let g:echodoc#type='popup'
-endif
 let g:far#source='rg'
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
@@ -478,19 +473,11 @@ function TagJump()
     close
   endtry
 endfunction
-" e is for emulator
-function TreeToggle()
-  if has('nvim')
-    Neotree toggle
-  else
-    NERDTreeToggle
-  endif
-endfunction
 
 nnoremap <Space>a :ALEDetail<CR>
 nnoremap <Space>c :call CocStartAndDisableALELSP()<CR>
 nnoremap <Space>d :call TagJump()<CR>
-nnoremap <Space>e :call TreeToggle()<CR>
+nnoremap <Space>e :NERDTreeToggle<CR>
 nnoremap <Space>k :set spelllang=en,ko<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
 nnoremap <Space>n :set nowrap<CR>
@@ -695,13 +682,6 @@ function! DetectVonTemp()
   endif
 endfunction
 autocmd vimrc BufReadPre *.tex call DetectVonTemp()
-
-if has('nvim')
-  augroup highlight_yank
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank { higroup='IncSearch', timeout=1200 }
-  augroup END
-endif
 " }}}
 
 " vim: ft=vim fdm=marker
