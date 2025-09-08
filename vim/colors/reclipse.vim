@@ -7,7 +7,7 @@
 
 scriptencoding 'utf-8'
 
-set background=light
+set background=dark
 highlight clear
 if exists('syntax_on')
   syntax reset
