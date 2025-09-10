@@ -35,9 +35,9 @@ if [ "$(hostname)" = ArchMajestic ]; then
 fi
 if [ "$(hostname)" = ArchBootes ]; then
   if [ "$(whoami)" = "evan" ]; then
-    conky -d -c ~/dotfiles/conky/summary-bar.conf --xinerama-head=3
-    conky -d -c ~/dotfiles/conky/stats-power-widget.conf --xinerama-head=0
-    conky -d -c ~/dotfiles/conky/cal.conf
+    conky -d -c ~/dotfiles/conky/summary-bar.conf --xinerama-head=0
+    conky -d -c ~/dotfiles/conky/stats-power-widget.conf --xinerama-head=3
+    conky -d -c ~/dotfiles/conky/cal.conf --xinerama-head=0
   fi
   if [ "$(whoami)" = "star" ]; then
     conky -d -c ~/dotfiles/conky/star-bar.conf --xinerama-head=0
