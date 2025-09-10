@@ -1,6 +1,5 @@
 ## qutebrowser config.py
 
-import datetime
 from typing import TYPE_CHECKING, Any
 
 from qutebrowser.api import interceptor
@@ -177,12 +176,3 @@ def filter_youtube(info: interceptor.Request):
 
 
 interceptor.register(filter_youtube)
-
-
-def block_wikipedia(info: interceptor.Request):
-    now = datetime.datetime.now()
-    if 0 <= now.hour < 8 and "wikipedia.org" in info.request_url.host():
-        info.block()
-
-
-interceptor.register(block_wikipedia)
