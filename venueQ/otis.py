@@ -738,8 +738,10 @@ class OTISRoot(VenueQRoot):
             raise ValueError(f"wtf is {data['_name']}")
 
 
-QUEUE_FOLDER = Path("~/Sync/OTIS/queue").expanduser()
+QUEUE_FOLDER = Path("/tmp/queue-for-otis/")
 JSON_SAVED = QUEUE_FOLDER / "init.json"
+if not QUEUE_FOLDER.exists():
+    QUEUE_FOLDER.mkdir()
 
 if __name__ == "__main__":
     otis_response = query_otis_server(payload={"token": TOKEN, "action": "init"})

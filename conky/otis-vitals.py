@@ -8,8 +8,7 @@ import yaml
 
 ## DATA COLLECTION ##
 
-OTIS_ROOT = Path("~/Sync/OTIS/queue/Root/").expanduser()
-assert OTIS_ROOT.exists()
+OTIS_ROOT = Path("/tmp/queue-for-otis/") / "Root"
 
 # Problem sets
 pset_dir = OTIS_ROOT / "Problem sets"
