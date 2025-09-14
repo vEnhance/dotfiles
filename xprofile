@@ -128,6 +128,7 @@ if [ "$(hostname)" = ArchBootes ]; then
     xset dpms 1800 1800 1800
   fi
   keychain --quiet
+  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
   # shellcheck disable=SC2046
   export $(keychain --query --quiet)
 fi
