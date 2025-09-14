@@ -68,6 +68,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
     signal-desktop --start-in-tray --use-tray-icon &
+    syncthing-gtk &
   fi
   systemctl --user start evansync.timer
 fi
