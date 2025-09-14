@@ -62,20 +62,16 @@ bindsym $mod+Shift+l move right
 # }}}
 
 # window layouts [zvftesab.\t] {{{
-# split in horizontal orientation
-bindsym $mod+z split h
-# split in vertical orientation
-bindsym $mod+v split v
-
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
 
+# Default stacking
+workspace_layout stacking
+#
 # change container layout (stacked, tabbed, toggle split)
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+s layout stacking
-# Default stacking
-workspace_layout stacking
 
 # toggle tiling / floating
 bindsym $mod+period floating toggle
@@ -83,9 +79,14 @@ bindsym $mod+period floating toggle
 bindsym $mod+Tab focus mode_toggle
 
 # focus the parent container
-bindsym $mod+u focus parent
+bindsym $mod+Shift+u focus parent
 # focus the child container
-bindsym $mod+d focus child
+bindsym $mod+Shift+d focus child
+
+# split in horizontal orientation
+bindsym $mod+Shift+z split h
+# split in vertical orientation
+bindsym $mod+Shift+v split v
 # }}}
 
 bindsym $mod+minus move scratchpad; exec --no-startup-id killall -s USR1 py3status
@@ -286,7 +287,7 @@ mode "exec" {
   bindsym a exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/ggb-to-asy.sh", mode "default"
   bindsym b exec libreoffice --calc &, mode "default"
   bindsym c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh cards", mode "default"
-  bindsym d exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh", mode "default"
+  bindsym d exec discord &, mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
   # short for hanabi
@@ -355,6 +356,7 @@ bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh
 bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
 
 bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
+bindsym $mod+d exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh"
 bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/calendar/u/0/r/customday" :'mode-enter passthrough'
 bindsym $mod+y exec i3-sensible-terminal -e "fish --login --command yap"
 # }}}
