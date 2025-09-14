@@ -235,8 +235,10 @@ mode "config" {
   bindsym s exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh s, mode "default"
   bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh n, mode "default"
 
-  bindsym b exec --no-startup-id bugwarrior-pull, mode "default"
   bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
+
+  # toggle gaps
+  bindsym g exec --no-startup-id $HOME/dotfiles/i3/toggle-horizontal-gaps.sh, mode "default"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
@@ -348,11 +350,13 @@ bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
 bindsym $mod+slash exec --no-startup-id find-cursor -r 1 -f -t -c '#00cca7'
-bindsym $mod+g exec --no-startup-id $HOME/dotfiles/i3/toggle-horizontal-gaps.sh
-bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
-bindsym $mod+y exec i3-sensible-terminal -e "fish --login --command yap"
-bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
+
 bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh
+bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
+
+bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
+bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/calendar/u/0/r/customday" :'mode-enter passthrough'
+bindsym $mod+y exec i3-sensible-terminal -e "fish --login --command yap"
 # }}}
 
 include ~/dotfiles/i3/extras.`hostname`

@@ -8,5 +8,5 @@ notify-send "i3: config mode" -i system-config-keyboard \
 <b>n/s</b>: normal/SC2 mode
 <b>p</b>: present mode
 <b>c</b>: trigger caps lock
-<b>b</b>: bugwarrior-pull
+<b>g</b>: gaps
 <b>t</b>: toggle notif"
