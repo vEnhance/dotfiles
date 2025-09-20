@@ -357,7 +357,8 @@ bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
 
 bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
 bindsym $mod+d exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh"
-bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/calendar/u/0/r/customday" :'mode-enter passthrough'
+# bindsym $mod+g exec qutebrowser -B $HOME/.local/share/qute2 -C $HOME/dotfiles/qutebrowser/config.py --target=window :"set zoom.default 150" "https://calendar.google.com/calendar/u/0/r/customday" :"mode-enter passthrough"
+bindsym $mod+g exec qutebrowser --target=window  "https://calendar.google.com/calendar/u/0/r/customday" :"zoom 150" :"cmd-later 3s zoom 150" :"cmd-later 4s zoom 150"  :"cmd-later 5s zoom 150" :"mode-enter passthrough"
 bindsym $mod+y exec i3-sensible-terminal -e "fish --login --command yap"
 # }}}
 
