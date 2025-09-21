@@ -9,14 +9,6 @@ add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
 
-# von.sty uses pythontex now, so this routine auto-runs pythontex
-sub pythontex {
-    system("pythontex --runall true \"$_[0]\"");
-    system("touch \$(basename \"$_[0]\").pytxmcr");
-    return;
-}
-add_cus_dep("pytxcode", "pytxmcr", 0, "pythontex");
-
 # We always prefer lualatex to pdflatex by default.
 $pdf_mode = 4;
 
@@ -52,10 +44,10 @@ $failure_cmd = 'echo -e "\\033[1;31m---- BEGIN ERROR LOG %T ----\\033[1;37m"; '
 # So, we ignore the hashes for files with these extensions
 $hash_calc_ignore_pattern{'map'} = '^';
 $hash_calc_ignore_pattern{'fmt'} = '^';
-$hash_calc_ignore_pattern{'luc'}='^';
-$hash_calc_ignore_pattern{'luc.gz'}='^';
-$hash_calc_ignore_pattern{'gz'}='^';
-$hash_calc_ignore_pattern{'ttf:1:nil'}='^';
+$hash_calc_ignore_pattern{'luc'} = '^';
+$hash_calc_ignore_pattern{'luc.gz'} = '^';
+$hash_calc_ignore_pattern{'gz'} = '^';
+$hash_calc_ignore_pattern{'ttf:1:nil'} = '^';
 
 # Misc personal preferences
 $max_repeat = 7;
