@@ -9,6 +9,7 @@ add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
 
+
 # We always prefer lualatex to pdflatex by default.
 $pdf_mode = 4;
 
@@ -29,6 +30,9 @@ push @extra_lualatex_options, '-synctex=1' ;
 # that scrolls so fast that you can't read it even if you wanted to.
 # It's stored in the *.log file anyway, so we just silence it.
 $silent = 1;
+
+# Show the compilation time for kicks
+$show_time = 1;
 
 # However, if latex crashes, we probably DO care about the error
 # The following failure command searches the log file for lines beginning
