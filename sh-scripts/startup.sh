@@ -43,7 +43,7 @@ if [ "$(hostname)" = ArchScythe ]; then
   dropbox-cli start
   systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
   dunst &
-  sleep 20 && syncthing-gtk -m &
+  syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
   ibus-daemon -d -r &
 fi
@@ -51,7 +51,7 @@ fi
 if [ "$(hostname)" = ArchSapphire ]; then
   picom -b --no-fading-openclose
   dunst &
-  sleep 20 && syncthing-gtk -m &
+  syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
   ibus-daemon -d -r &
   ~/dotfiles/sh-scripts/redshift.sh
@@ -67,7 +67,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
     signal-desktop --start-in-tray --use-tray-icon &
-    sleep 20 && syncthing-gtk &
+    syncthing-gtk &
   fi
   systemctl --user start evansync.timer
 fi
@@ -78,7 +78,7 @@ if [ "$(hostname)" = ArchMajestic ]; then
     ibus-daemon -d -r &
     dropbox-cli start
     signal-desktop --start-in-tray --use-tray-icon &
-    sleep 20 && syncthing-gtk &
+    syncthing-gtk &
     spotify &
     # telegram-desktop &
   fi
@@ -91,7 +91,7 @@ if [ "$(hostname)" = ArchBootes ]; then
     ibus-daemon -d -r &
     # dropbox-cli start
     signal-desktop --start-in-tray --use-tray-icon &
-    sleep 20 && syncthing-gtk &
+    syncthing-gtk &
     spotify &
     # telegram-desktop &
   fi
@@ -103,5 +103,5 @@ fi
 
 if [ "$(hostname)" = dagobah ]; then
   picom -b --no-fading-openclose
-  sleep 20 && syncthing-gtk -m &
+  syncthing-gtk -m &
 fi
