@@ -72,6 +72,7 @@ let $FZF_DEFAULT_OPTS="--ansi --preview-window 'up:40%' --layout reverse --margi
 let g:completor_filetype_map = {}
 let g:csv_highlight_column = 'y'
 let g:csv_no_conceal = 1
+let g:csv_nomap_bs = 1
 let g:csv_nomap_cr = 1
 let g:csv_nomap_e = 1
 let g:csv_nomap_h = 1
