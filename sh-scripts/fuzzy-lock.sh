@@ -17,8 +17,8 @@ if pgrep -U "$(whoami)" stepmania >/dev/null; then
 fi
 
 # during twitch stream, disable laptop lock screen
-if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
-  if iwconfig | grep Flying; then
+if [ "$(hostname)" = ArchSapphire ] && [ "$(whoami)" = evan ]; then
+  if iwconfig | ag "Flying|Nydus"; then
     if python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
       notify-send -i "gnome-twitch" \
         "Won't lock" "You're currently streaming on Twitch"
