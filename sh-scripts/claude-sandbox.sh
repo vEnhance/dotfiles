@@ -11,5 +11,5 @@ echo
 
 # Launch Claude Code with restricted permissions
 cd "$CLAUDE_DIR" && claude \
-  --disallowedTools "Read" "Write" "Edit" "MultiEdit" "NotebookEdit" "Glob" "LS" "Grep" \
+  --disallowed-tools "Read" "Write" "Edit" "MultiEdit" "NotebookEdit" "Glob" "Bash" "Grep" \
   --permission-mode "default"
