@@ -38,7 +38,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'Shougo/echodoc'
   Plug 'airblade/vim-gitgutter'
   Plug 'aymericbeaumet/vim-symlink'
-  Plug 'brglng/vim-im-select'
+  " Plug 'brglng/vim-im-select'
   Plug 'ciaranm/detectindent'
   Plug 'dense-analysis/ale'
   " Plug 'ludovicchabant/vim-gutentags'

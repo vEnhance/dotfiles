@@ -3,13 +3,13 @@ return {
     "nvim-treesitter/playground",
     "mg979/vim-visual-multi",
     "tpope/vim-fugitive",
-    {
-      "brglng/vim-im-select",
-      init = function()
-        vim.g.im_select_default = "xkb:us:dvorak:eng"
-        vim.g.im_select_enable_focus_events = 0
-      end,
-    },
+    -- {
+    --   "brglng/vim-im-select",
+    --   init = function()
+    --     vim.g.im_select_default = "xkb:us:dvorak:eng"
+    --     vim.g.im_select_enable_focus_events = 0
+    --   end,
+    -- },
     {
       "kaarmu/typst.vim",
       init = function()
