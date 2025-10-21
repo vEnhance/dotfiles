@@ -1,7 +1,14 @@
 import datetime
 import json
+import locale
 import sys
 from pathlib import Path
+
+try:
+    locale.setlocale(locale.LC_ALL, "ko_KR.utf8")
+except locale.Error:
+    pass
+
 
 CACHE_DIR = Path("~/.cache").expanduser()
 
@@ -20,7 +27,7 @@ if "error" not in json_data:
             start_time = data["start_time"]
             if start_date == datetime.date.today():
                 if start_time == "00:00":
-                    print(f"NOW!   {summary}", file=today_file)
+                    print(f"지금!  {summary}", file=today_file)
                 else:
                     print(f"{start_time}  {summary}", file=today_file)
             elif start_time == "00:00":

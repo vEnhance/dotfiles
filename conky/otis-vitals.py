@@ -82,13 +82,13 @@ def get_conky_presentation(s: str, x: List[str]) -> str:
     return (
         (r"${alignr}${color7}")
         + (s + t)
-        + ((r"${color8}" if n > 0 else r"${color1}") + f" [{n:2d}]")
+        + ((r"${color8}" if n > 0 else r"${color1}") + f" {n:2d}개" + r"${color1} 남음")
     )
 
 
 # print(r'${alignr}${color4}OTIS Vital Signs')
-print(get_conky_presentation("Inqr", inquiry_timestamps))
-print(get_conky_presentation("PSet", pset_timestamps))
-print(get_conky_presentation("Sugg", suggestion_timestamps))
-print(get_conky_presentation("Jobs", job_timestamps))
-print(get_conky_presentation("Regs", reg_timestamps))
+print(get_conky_presentation("요청", inquiry_timestamps))
+print(get_conky_presentation("숙제", pset_timestamps))
+print(get_conky_presentation("제안", suggestion_timestamps))
+print(get_conky_presentation("직업", job_timestamps))
+print(get_conky_presentation("등록", reg_timestamps))

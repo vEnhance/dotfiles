@@ -1,5 +1,6 @@
 import functools
 import json
+import locale
 import subprocess
 from collections import defaultdict
 from datetime import date, datetime, timedelta
@@ -10,6 +11,11 @@ from socket import gethostname
 from typing import Dict, List, Optional
 
 from dateutil.parser import isoparse
+
+try:
+    locale.setlocale(locale.LC_ALL, "ko_KR.utf8")
+except locale.Error:
+    pass
 
 NUM_ROWS = 15
 HOSTNAME = gethostname()
@@ -78,15 +84,15 @@ class CalItem:
 
     def conky_repr(self, offset=None, needs_date=False, truncate=36):
         s = ""
-        s += r"${font Exo 2:normal:size=%d}" % FONT_SIZE
+        s += r"${font Noto Sans CJK KR:normal:size=%d}" % FONT_SIZE
         if self.type == Type.DUE:
-            s += r"${color ffbbbb}[Due!] "
+            s += r"${color ffbbbb}[마감] "
         elif self.type == Type.SCHEDULED:
-            s += r"${color ccccff}[Plan]${offset 3} "
+            s += r"${color ccccff}[예정]${offset 3} "
         elif self.type == Type.WAITING:
-            s += r"${color bbffbb}[Wait] "
+            s += r"${color bbffbb}[보류] "
         if self.type == Type.CALENDAR:
-            s += r"${color ffffff}${font Exo 2:italic:size=%d}" % FONT_SIZE
+            s += r"${color ffffff}${font Noto Sans CJK KR:italic:size=%d}" % FONT_SIZE
             s += f"{self.when.hour:02d}:{self.when.minute:02d} "
         if offset is not None:
             s += r"${goto " + str(offset) + "}"
@@ -99,11 +105,8 @@ class CalItem:
                 s += r"${color eeeeee}"
             else:
                 s += r"${color 99bb99}"
-            if self.type == Type.CALENDAR or self.type == Type.NOW:
-                s += r"${voffset -1}${font Exo 2:semibold:size=%d}" % FONT_SIZE
-            else:
-                s += r"${font Exo 2:light:size=%d}" % FONT_SIZE
-            s += f"{self.when.date().strftime('%a %b%d')} "
+            s += r"${font Noto Sans CJK KR:size=%d}" % FONT_SIZE
+            s += f"{self.when.date().strftime('%a %b%d일')} "
             if self.type == Type.CALENDAR or self.type == Type.NOW:
                 s += r"${voffset 1}"
         s += r"${voffset -2}${font Noto Sans CJK KR:normal:size=%d}" % (
@@ -174,13 +177,14 @@ for i in ORDER:
         table[y][x] = item.conky_repr(needs_date=False, offset=offset_indented(x))
 
     y0 = HEADER_Y_FIRST if i < NUM_COL else HEADER_Y_SECOND
-    table[y0][x] = current_day.strftime("%a %d %b")
+    table[y0][x] = current_day.strftime("%a %b%d일")
 
 table[HEADER_Y_FIRST][0] = (
-    r"${font Exo 2:size=%d:bold}${color 55ff99}Upcoming Events" % (FONT_SIZE + 3)
+    r"${font Noto Sans CJK KR:size=%d:bold}${color 55ff99}Upcoming Events"
+    % (FONT_SIZE + 3)
 )
-table[HEADER_Y_SECOND][0] = r"${font Exo 2:size=%d:bold}${color ff5599}Other Tasks" % (
-    FONT_SIZE + 3
+table[HEADER_Y_SECOND][0] = (
+    r"${font Noto Sans CJK KR:size=%d:bold}${color ff5599}Other Tasks" % (FONT_SIZE + 3)
 )
 remaining = sorted(chain(*all_items.values()))
 
@@ -203,10 +207,10 @@ for n, item in enumerate(remaining_tasks[:NUM_ROWS]):
 
 table[HEADER_Y_FIRST][1] = r"${color ddeeff}" + table[HEADER_Y_FIRST][1]
 table[HEADER_Y_FIRST][2] = r"${color 66aaff}" + table[HEADER_Y_FIRST][2]
-table[HEADER_Y_FIRST][-1] += r"${font Exo 2:size=%d}" % FONT_SIZE
+table[HEADER_Y_FIRST][-1] += r"${font Noto Sans CJK KR:size=%d}" % FONT_SIZE
 table[HEADER_Y_SECOND - 1][-1] += "\n" + r"${goto 15}${color bbbbbb}${stippled_hr}"
 table[HEADER_Y_SECOND][1] = r"${color 66aaff}" + table[HEADER_Y_SECOND][1]
-table[HEADER_Y_SECOND][-1] += r"${font Exo 2:size=%d}" % FONT_SIZE
+table[HEADER_Y_SECOND][-1] += r"${font Noto Sans CJK KR:size=%d}" % FONT_SIZE
 
 for row in table:
     print("".join(goto_offset(i) + row[i] for i in range(NUM_COL + 1)))
