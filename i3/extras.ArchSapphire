@@ -11,3 +11,5 @@ workspace 9 output DP1 HDMI1 HDMI2 primary
 workspace 10 output DP1 HDMI1 HDMI2 primary
 
 # workspace 0 gaps right 400
+
+for_window [class="[Zz]athura" title="junk-for-otis"] move container to workspace number 4; workspace number 4
