@@ -225,7 +225,7 @@ class ProblemSet(VenueQNode):
         data["info"] += f"{data['num_accepted_all']}u all-time."
         data["name"] = (
             f"{data['student__user__first_name']} {data['student__user__last_name']}"
-        )
+        ).strip()
         data["unit"] = f"{data['unit__code']} {data['unit__group__name']}"
         # stop getting trolled by the kids
         if data["unit__group__slug"] == "dummy":
@@ -373,7 +373,7 @@ class ProblemSet(VenueQNode):
 
         student_name = (
             f"{data['student__user__first_name']} {data['student__user__last_name']}"
-        )
+        ).strip()
 
         body = (
             f"{salutation} {data['student__user__first_name']},\n\n"
@@ -478,7 +478,7 @@ class Inquiries(VenueQNode):
                 inquiry.pop("student__user__first_name")
                 + " "
                 + inquiry.pop("student__user__last_name")
-            )
+            ).strip()
             inquiry["unit"] = (
                 inquiry.pop("unit__code") + " " + inquiry.pop("unit__group__name")
             )
@@ -509,7 +509,9 @@ class Registrations(VenueQNode):
     def init_hook(self):
         self.data["accept_all"] = False
         for reg in self.data["registrations"]:
-            reg["name"] = f"{reg.pop('user__first_name')} {reg.pop('user__last_name')}"
+            reg["name"] = (
+                f"{reg.pop('user__first_name')} {reg.pop('user__last_name')}"
+            ).strip()
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
@@ -563,9 +565,7 @@ class Suggestion(VenueQNode):
             if data["acknowledge"] is True:
                 print(
                     r"\emph{This solution was contributed by "
-                    + data["user__first_name"]
-                    + " "
-                    + data["user__last_name"]
+                    + (data["user__first_name"] + " " + data["user__last_name"]).strip()
                     + "}.",
                     file=f,
                 )
