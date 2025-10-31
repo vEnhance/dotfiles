@@ -180,11 +180,10 @@ for i in ORDER:
     table[y0][x] = current_day.strftime("%a %b%d일")
 
 table[HEADER_Y_FIRST][0] = (
-    r"${font Noto Sans CJK KR:size=%d:bold}${color 55ff99}Upcoming Events"
-    % (FONT_SIZE + 3)
+    r"${font Noto Sans CJK KR:size=%d:bold}${color 55ff99}다가올 일정" % (FONT_SIZE + 3)
 )
 table[HEADER_Y_SECOND][0] = (
-    r"${font Noto Sans CJK KR:size=%d:bold}${color ff5599}Other Tasks" % (FONT_SIZE + 3)
+    r"${font Noto Sans CJK KR:size=%d:bold}${color ff5599}할 일 목록" % (FONT_SIZE + 3)
 )
 remaining = sorted(chain(*all_items.values()))
 
