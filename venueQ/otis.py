@@ -756,11 +756,19 @@ class Application(VenueQNode):
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
         data["staff_public_comments"] = self.read_temp(extension="md").strip()
+        if data["status"] == "accepted":
+            query_otis_server(
+                payload={
+                    "action": "apply_uuid",
+                    "uuid": data["uuid"],
+                    "percent_aid": data["percent_aid"],
+                }
+            )
         if data["status"] in ("accepted", "hard_reject", "soft_reject"):
             if query_apply_server(payload=data) is not None:
                 subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
                 self.delete()
-            # TODO: query OTIS server with the UUID and finaid amount
+                self.erase_temp(extension="md")
 
 
 class ApplicationCarrier(VenueQNode):
