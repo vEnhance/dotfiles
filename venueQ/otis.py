@@ -7,6 +7,7 @@ import smtplib
 import ssl
 import subprocess
 import time
+import webbrowser
 from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -21,18 +22,22 @@ from dotenv import load_dotenv
 from venueQ import Data, VenueQNode, VenueQRoot, logger
 
 load_dotenv(Path("~/secrets/otis.env").expanduser())
-TOKEN = os.getenv("OTIS_WEB_TOKEN")
+OTIS_WEB_TOKEN = os.getenv("OTIS_WEB_TOKEN")
+APPLY_TOKEN = os.getenv("APPLY_TOKEN")
+assert OTIS_WEB_TOKEN is not None
+assert APPLY_TOKEN is not None
 AK = os.getenv("AK")
 
 OTIS_POSTMARK_USERNAME = os.getenv("OTIS_POSTMARK_USERNAME")
 OTIS_POSTMARK_PASSWORD = os.getenv("OTIS_POSTMARK_PASSWORD")
 
-assert TOKEN is not None
+assert OTIS_WEB_TOKEN is not None
 PRODUCTION = int(os.getenv("PRODUCTION", 0))
 if PRODUCTION:
     OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 else:
     OTIS_API_URL = "http://127.0.0.1:8000/aincrad/api/"
+APPLY_API_URL = "https://apply.evanchen.cc/api/"
 HEARTS_WARNING_THRESHOLD = int(os.getenv("HEARTS_WARNING_THRESHOLD", 96))
 
 OTIS_TMP_DOWNLOADS_PATH = Path("/tmp/junk-for-otis")
@@ -124,12 +129,14 @@ def send_email(
             callback()
 
 
-def query_otis_server(payload: Data) -> Optional[requests.Response]:
+def query_server(
+    payload: Data, token: str, target_url: str
+) -> Optional[requests.Response]:
     payload["token"] = "redacted"
     logger.info(payload)
-    payload["token"] = TOKEN
+    payload["token"] = token
     try:
-        resp = requests.post(OTIS_API_URL, json=payload)
+        resp = requests.post(target_url, json=payload)
     except requests.exceptions.ConnectionError:
         logger.warning("Could not connect to server")
         return None
@@ -139,11 +146,19 @@ def query_otis_server(payload: Data) -> Optional[requests.Response]:
             return resp
         else:
             logger.error(
-                f"OTIS-WEB threw an exception with status code {resp.status_code}\n"
+                f"{target_url} threw an exception with status code {resp.status_code}\n"
                 + resp.content.decode("utf-8")
             )
             subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
             return None
+
+
+def query_otis_server(payload: Data) -> Optional[requests.Response]:
+    return query_server(payload, token=OTIS_WEB_TOKEN, target_url=OTIS_API_URL)
+
+
+def query_apply_server(payload: Data) -> Optional[requests.Response]:
+    return query_server(payload, token=APPLY_TOKEN, target_url=APPLY_API_URL)
 
 
 class ProblemSet(VenueQNode):
@@ -722,6 +737,38 @@ class JobCarrier(VenueQNode):
         return Job
 
 
+class Application(VenueQNode):
+    def get_name(self, data: Data) -> str:
+        return str(data["uuid"])
+
+    def get_initial_data(self) -> Data:
+        return {"action": "write"}
+
+    def init_hook(self):
+        self.data["percent_aid"] = self.data.pop("aid_percent_requested") or 0
+
+    def on_buffer_open(self, data: Data):
+        super().on_buffer_open(data)
+        webbrowser.open(f"https://apply.evanchen.cc/{data['uuid']}", new=1)
+        # TODO
+        self.edit_temp(extension="md")
+
+    def on_buffer_close(self, data: Data):
+        super().on_buffer_close(data)
+        data["staff_public_comments"] = self.read_temp(extension="md").strip()
+        if data["status"] in ("accepted", "hard_reject", "soft_reject"):
+            if query_apply_server(payload=data) is not None:
+                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
+                self.delete()
+            # TODO: query OTIS server with the UUID and finaid amount
+
+
+class ApplicationCarrier(VenueQNode):
+    def get_class_for_child(self, data: Data):
+        del data
+        return Application
+
+
 class OTISRoot(VenueQRoot):
     def get_class_for_child(self, data: Data):
         if data["_name"] == "Problem sets":
@@ -734,6 +781,8 @@ class OTISRoot(VenueQRoot):
             return JobCarrier
         elif data["_name"] == "Regs":
             return Registrations
+        elif data["_name"] == "Applications":
+            return ApplicationCarrier
         else:
             raise ValueError(f"wtf is {data['_name']}")
 
@@ -744,9 +793,11 @@ if not QUEUE_FOLDER.exists():
     QUEUE_FOLDER.mkdir()
 
 if __name__ == "__main__":
-    otis_response = query_otis_server(payload={"token": TOKEN, "action": "init"})
-    if otis_response is not None:
+    otis_response = query_otis_server(payload={"action": "init"})
+    apply_response = query_apply_server(payload={"action": "read"})
+    if otis_response is not None and apply_response is not None:
         otis_json: dict[str, Any] = otis_response.json()
+        apply_json: dict[str, Any] = apply_response.json()
         logger.debug(f"Server returned {otis_response.status_code}")
         logger.debug(f"Headers:\n{pprint.pformat(dict(otis_response.headers))}")
         logger.debug(f"NAME: {otis_json['_name']}")
@@ -754,6 +805,10 @@ if __name__ == "__main__":
         logger.debug(
             f"ITEMS: {pprint.pformat(otis_json['_children'], indent=0, width=100)}"
         )
+        otis_json["_children"].append(
+            {"_name": "Applications", "_children": apply_json["applications"]}
+        )
+
         with open(JSON_SAVED, "w") as f:
             json.dump(otis_json, f, indent=2)
     elif JSON_SAVED.exists():
