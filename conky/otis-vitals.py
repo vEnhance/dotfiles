@@ -56,6 +56,15 @@ if job_dir.exists():
             yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
             job_timestamps.append(yaml_data["updated_at"])
 
+# Applications
+app_dir = OTIS_ROOT / "Applications"
+app_timestamps: List[str] = []
+if app_dir.exists():
+    for app_file in app_dir.glob("*.venueQ.yaml"):
+        with open(app_file) as f:
+            yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
+            app_timestamps.append(yaml_data["created_at"])
+
 
 def get_stats(x: List[str]) -> Tuple[timedelta, int]:
     n = len(x)
@@ -92,3 +101,4 @@ print(get_conky_presentation("숙제", pset_timestamps))
 print(get_conky_presentation("제안", suggestion_timestamps))
 print(get_conky_presentation("직업", job_timestamps))
 print(get_conky_presentation("등록", reg_timestamps))
+print(get_conky_presentation("신청", app_timestamps))
