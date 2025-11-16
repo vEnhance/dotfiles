@@ -5,5 +5,5 @@
   "permissions": {
     "defaultMode": "plan"
   },
-  "alwaysThinkingEnabled": false
+  "alwaysThinkingEnabled": true
 }

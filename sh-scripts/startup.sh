@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 # Supports desktop files, so handled by systemd or dex:
-# * xfce power manager
 # * nm applet
-# * copyq
 # * flameshot
 #
 # dropbox no longer, started manually
