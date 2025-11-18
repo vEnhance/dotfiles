@@ -20,6 +20,6 @@ Evan uses the following types:
 - `refactor`: major rewriting or restructuring that doesn't fix bugs or affect functionality
 - `revert`: revert commits
 - `style`: code style changes
-- `test`: unit testing, etc.
+- `tests`: unit testing, etc.
 
 See [the corresponding GitHub action](.github/workflows/conv-commit.yml).

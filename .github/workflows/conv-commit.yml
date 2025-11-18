@@ -36,7 +36,7 @@ jobs:
             refactor
             revert
             style
-            test
+            tests
 
       - uses: marocchino/sticky-pull-request-comment@v2
         # When the previous steps fails, the workflow would stop. By adding this
@@ -69,7 +69,7 @@ jobs:
             - `refactor`: major rewriting or restructuring that doesn't fix bugs or affect functionality
             - `revert`: revert commits
             - `style`: code style changes
-            - `test`: unit testing, etc.
+            - `tests`: unit testing, etc.
 
             Please adjust the proposed title and this check will resolve automatically!
 
