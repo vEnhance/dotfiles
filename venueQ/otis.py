@@ -69,6 +69,7 @@ def send_email(
     recipients: List[str],
     body: str,
     callback: None | Callable[[], None] = None,
+    include_email_settings_link=True,
 ):
     mail = MIMEMultipart("alternative")
     mail["From"] = "OTIS Overlord <overlord@evanchen.cc>"
@@ -81,8 +82,9 @@ def send_email(
     plain_msg += "\n" * 2
     plain_msg += "**Evan Chen (陳誼廷)**<br>" + "\n"
     plain_msg += "[https://web.evanchen.cc](https://web.evanchen.cc/)"
-    plain_msg += "\n" * 2
-    plain_msg += "To update your email settings for OTIS, go to [OTIS Settings](https://otis.evanchen.cc/core/prefs/)."
+    if include_email_settings_link:
+        plain_msg += "\n" * 2
+        plain_msg += "To update your email settings for OTIS, go to [OTIS Settings](https://otis.evanchen.cc/core/prefs/)."
     html_msg = markdown.markdown(plain_msg, extensions=MD_EXTENSIONS)
     mail.attach(MIMEText(plain_msg, "plain"))
     mail.attach(MIMEText(html_msg, "html"))
@@ -154,10 +156,12 @@ def query_server(
 
 
 def query_otis_server(payload: Data) -> Optional[requests.Response]:
+    assert OTIS_WEB_TOKEN is not None
     return query_server(payload, token=OTIS_WEB_TOKEN, target_url=OTIS_API_URL)
 
 
 def query_apply_server(payload: Data) -> Optional[requests.Response]:
+    assert APPLY_TOKEN is not None
     return query_server(payload, token=APPLY_TOKEN, target_url=APPLY_API_URL)
 
 
@@ -532,13 +536,19 @@ class Registrations(VenueQNode):
         super().on_buffer_close(data)
         if data["accept_all"]:
             if query_otis_server(payload={"action": "accept_registrations"}):
-                body = "As you requested, this is an automated message to notify you that your registration\n"
-                body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC. "
-                body += "You should be able to log in and pick your units now,\n"
-                body += "and use the /register slash command in the Discord."
-                body += "\n\n"
-                body += "Please check [https://otis.evanchen.cc/dash/announce](https://otis.evanchen.cc/dash/announce)\n"
-                body += "for recent announcements to all students."
+                body = (
+                    "Hello newly-registered otter,\n\n"
+                    "You are receiving this message because you checked the box "
+                    "asking to be notified once your decision form was processed.\n\n"
+                    "We're happy to confirm that your decision form\n"
+                    f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC "
+                    "and your account is now fully activated!"
+                    "You should be able to log in and pick your units now,\n"
+                    "and use the /register slash command in the Discord."
+                    "\n\n"
+                    f"Please check f{linkify('https://otis.evanchen.cc/dash/announce')}\n"
+                    "for recent announcements to all students."
+                )
                 recipients = [
                     reg["user__email"]
                     for reg in data["registrations"]
@@ -750,7 +760,7 @@ class Application(VenueQNode):
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
         webbrowser.open(f"https://apply.evanchen.cc/{data['uuid']}", new=1)
-        # TODO
+        # TODO download the PDF in advance too
         self.edit_temp(extension="md")
 
     def on_buffer_close(self, data: Data):
@@ -764,11 +774,39 @@ class Application(VenueQNode):
                     "percent_aid": data["percent_aid"],
                 }
             )
+
         if data["status"] in ("accepted", "hard_reject", "soft_reject"):
-            if query_apply_server(payload=data) is not None:
-                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
-                self.delete()
-                self.erase_temp(extension="md")
+
+            def callback():
+                if query_apply_server(payload=data) is not None:
+                    self.delete()
+                    self.erase_temp(extension="md")
+
+            name = data["name"]
+            body = (
+                f"Dear {name},\n\n"
+                "You are receiving this message because you checked the box "
+                "asking to be notified by email when your application was reviewed.\n\n"
+                "We're letting you know that your OTIS application was reviewed at "
+                f"{datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC. "
+                "You can see the decision (and comments if any) on the "
+                f"website {linkify('https://apply.evanchen.cc')} "
+                "by logging in to the account you used when you submitted."
+            )
+
+            if data["email_on_decision"] is True:
+                send_email(
+                    subject=f"OTIS application for {name} was processed",
+                    recipients=[data["email"]],
+                    body=body,
+                    callback=callback,
+                    include_email_settings_link=False,
+                )
+            else:
+                callback()
+
+        else:
+            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"])
 
 
 class ApplicationCarrier(VenueQNode):
