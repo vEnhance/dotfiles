@@ -55,6 +55,7 @@ config.bind("\\", "mode-enter passthrough")
 ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.0xparc.org/*",
     r"*://*.amazon.com/*",
+    r"*://*.athemath.org/*",
     r"*://*.archlinux.org/*",
     r"*://*.bitwarden.com/*",
     r"*://*.commonapp.org/*",
