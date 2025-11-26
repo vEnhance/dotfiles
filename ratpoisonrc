@@ -1,2 +1,0 @@
-exec setxkbmap us -variant dvorak -option caps:escape
-bind c exec xfce4-terminal

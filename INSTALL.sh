@@ -24,7 +24,6 @@ if ! test -f "$HOME/.gitconfig"; then ln -s "$HOME"/dotfiles/gitconfig "$HOME"/.
 if ! test -f "$HOME/.gvimrc"; then ln -s "$HOME"/dotfiles/gvimrc "$HOME"/.gvimrc; fi
 if ! test -f "$HOME/.latexmkrc"; then ln -s "$HOME"/dotfiles/latexmkrc "$HOME"/.latexmkrc; fi
 if ! test -f "$HOME/.mbsyncrc"; then ln -s "$HOME"/dotfiles/mutt/mbsyncrc "$HOME"/.mbsyncrc; fi
-if ! test -f "$HOME/.pdbrc.py"; then ln -s "$HOME"/dotfiles/pdbrc.py "$HOME"/.pdbrc.py; fi
 if ! test -f "$HOME/.screenrc"; then ln -s "$HOME"/dotfiles/screenrc "$HOME"/.screenrc; fi
 if ! test -f "$HOME/.shellcheckrc"; then ln -s "$HOME"/dotfiles/shellcheckrc "$HOME"/.shellcheckrc; fi
 if ! test -f "$HOME/.taskrc"; then ln -s "$HOME"/dotfiles/taskrc "$HOME"/.taskrc; fi
@@ -45,7 +44,6 @@ fi
 # file/dir in .config
 mkdir -p .config
 if ! test -d "$HOME/.config/bat"; then ln -s "$HOME"/dotfiles/bat "$HOME"/.config/bat; fi
-if ! test -d "$HOME/.config/bugwarrior"; then ln -s "$HOME"/dotfiles/bugwarrior "$HOME"/.config/bugwarrior; fi
 if ! test -d "$HOME/.config/dijo"; then ln -s "$HOME"/dotfiles/dijo "$HOME"/.config/dijo; fi
 if ! test -d "$HOME/.config/dunst"; then ln -s "$HOME"/dotfiles/dunst "$HOME"/.config/dunst; fi
 if ! test -d "$HOME/.config/feh"; then ln -s "$HOME"/dotfiles/feh "$HOME"/.config/feh; fi
@@ -158,4 +156,5 @@ fi
 if [ "$USER" = "evan" ]; then
   xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
   xdg-settings set default-url-scheme-handler https org.qutebrowser.qutebrowser.desktop
+  xfconf-query -c xfce4-session -p /general/LockCommand -s "loginctl lock-session"
 fi
