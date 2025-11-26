@@ -37,3 +37,5 @@ pythontex_data.pkl
 **.synctex(busy)
 
 .syncthing.**.tmp
+
+.envrc
