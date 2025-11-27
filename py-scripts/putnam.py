@@ -43,4 +43,6 @@ with open(PUTNAM_PATH / f"{opts.year}.tex") as f:
             output += line
 
 output = output.strip()
+if output.endswith(r"\,"):
+    output = output[:-2].strip()
 print(output)
