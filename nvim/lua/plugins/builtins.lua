@@ -171,12 +171,6 @@ return {
   },
   {
     "akinsho/bufferline.nvim",
-    init = function()
-      local bufline = require("catppuccin.groups.integrations.bufferline")
-      function bufline.get()
-        return bufline.get_theme()
-      end
-    end,
     opts = {
       highlights = {
         buffer_selected = {
@@ -200,16 +194,6 @@ return {
         modified_icon = "[+]",
         numbers = "buffer_id",
         tab_size = 12,
-      },
-    },
-  },
-  {
-    "nvim-mini/mini.pairs",
-    opts = {
-      mappings = {
-        ["'"] = false,
-        ["`"] = false,
-        ['"'] = false,
       },
     },
   },

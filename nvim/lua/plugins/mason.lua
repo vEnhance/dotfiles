@@ -1,7 +1,6 @@
 return {
   {
     "mason-org/mason.nvim",
-    version = "^1.11.0",
     opts = {
       PATH = "append", -- Put Mason's bin at end of PATH, prefer system binaries
       ui = {
@@ -12,9 +11,5 @@ return {
         },
       },
     },
-  },
-  {
-    "mason-org/mason-lspconfig.nvim",
-    version = "^1.11.0",
   },
 }
