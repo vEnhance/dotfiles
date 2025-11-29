@@ -25,7 +25,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
   Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
   Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-  Plug 'mgedmin/python-imports.vim',   { 'for' : 'python' }
   Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
   Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
   Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
@@ -35,20 +34,18 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'honza/vim-snippets'
   Plug 'SirVer/ultisnips'
 
-  Plug 'Shougo/echodoc'
   Plug 'airblade/vim-gitgutter'
   Plug 'aymericbeaumet/vim-symlink'
-  " Plug 'brglng/vim-im-select'
   Plug 'ciaranm/detectindent'
   Plug 'dense-analysis/ale'
-  " Plug 'ludovicchabant/vim-gutentags'
+  Plug 'junegunn/fzf',
+  Plug 'junegunn/fzf.vim'
   Plug 'mg979/vim-visual-multi'
   " there's a neovim version of this that might be neat
   Plug 'svermeulen/vim-yoink'
   Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
-  Plug 'vim-ctrlspace/vim-ctrlspace'
   " ingo-library is a dependency for syntaxrange
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
@@ -63,11 +60,6 @@ endif
 
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
-let g:CtrlSpaceHeight = 5
-let g:CtrlSpaceSaveWorkspaceOnExit = 0
-let g:CtrlSpaceSetDefaultMapping = 0
-let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
-let g:CtrlSpaceUseTabline = 0
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'up:40%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
 let g:completor_filetype_map = {}
 let g:csv_highlight_column = 'y'
@@ -85,21 +77,9 @@ let g:csv_end = 100
 let g:detectindent_preferred_expandtab = 1
 let g:detectindent_preferred_indent = 2
 let g:detectindent_preferred_when_mixed = 1
-let g:EasyMotion_keys = "aoeuidhtns;qjkxbmwvz',.pyfgcrl/"
-let g:echodoc_enable_at_startup=1
-let g:far#source='rg'
 let g:fzf_command_prefix = 'Fzf'
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let g:gitgutter_map_keys = 0
-let g:gutentags_cache_dir = '~/.vim/tags/'
-let g:gutentags_define_advanced_commands=1
-let g:gutentags_file_list_command = {
-  \ 'markers': {
-      \ '.git': 'sh ' . $HOME . '/dotfiles/sh-scripts/guten-targets-git.sh',
-      \ },
-  \ }
-let g:im_select_default = 'xkb:us:dvorak:eng'
-let g:im_select_enable_focus_events = 0
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
 let g:jedi#show_call_signatures = 0
@@ -189,7 +169,6 @@ let g:vimtex_syntax_custom_envs = [
 
 let grepprg = 'ag --nogroup --nocolor'
 
-let g:airline#extensions#coc#enabled = 1
 let g:airline#extensions#ctrlspace#enabled = 1
 let g:airline#extensions#fugitive#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -240,7 +219,7 @@ function! AirlineSetup()
   redraw
 endfunction
 
-" ALE + CoC
+" ALE
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_format = '[%severity%] [%linter%] %s'
 let g:ale_echo_msg_warning_str = 'W'
@@ -261,27 +240,11 @@ let g:ale_sign_warning = '⚠️'
 " let g:ale_use_neovim_diagnostics_api = 1
 let g:ale_virtualtext_cursor = 2
 let g:ale_virtualtext_prefix = '☢️ '
-let g:coc_start_at_startup = 0
-let g:coc_global_extensions = [
-  \ 'coc-css',
-  \ 'coc-html',
-  \ 'coc-htmldjango',
-  \ 'coc-jedi',
-  \ 'coc-json',
-  \ 'coc-lua',
-  \ 'coc-pyright',
-  \ 'coc-rust-analyzer',
-  \ 'coc-sh',
-  \ 'coc-tsserver',
-  \ 'coc-vimlsp',
-  \ 'coc-vimtex',
-  \ 'coc-yaml',
-  \ ]
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call plug#end()
 endif
 " }}}
-" ALE + CoC continued {{{
+" ALE continued {{{
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call ale#Set('djlint_executable', 'djlint')
   call ale#Set('djlint_options', '')
@@ -300,7 +263,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   execute ale#fix#registry#Add('djlint', 'ALEFixDjlint', ['htmljdjango'], 'Fixer for Django templates')
 endif
 
-
 function! ALEFix_DeathToDoubleDollarSigns(buffer, lines) abort
   let l:index = 0
   let l:lines_new = range(len(a:lines))
@@ -311,13 +273,6 @@ function! ALEFix_DeathToDoubleDollarSigns(buffer, lines) abort
   return l:lines_new
 endfunction
 execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ALEFix_DeathToDoubleDollarSigns', ['tex'], 'wtf is wrong with people')
-
-function! CocStartAndDisableALELSP()
-  CocStart
-  CocEnable
-  let g:ale_disable_lsp = 1
-  echo 'CoC has been started!'
-endfunction
 " }}}
 
 " Arrow key shortcuts {{{
@@ -418,24 +373,6 @@ nnoremap P <plug>(YoinkPaste_P)
 " Also replace the default gp with yoink paste so we can toggle paste in this case too
 nnoremap gp <plug>(YoinkPaste_gp)
 nnoremap gP <plug>(YoinkPaste_gP)
-
-" CoC
-nnoremap <silent> cv <Plug>(coc-rename)
-nnoremap <silent> gd <Plug>(coc-definition)
-nnoremap <silent> gy <Plug>(coc-type-definition)
-nnoremap <silent> gl <Plug>(coc-implementation)
-nnoremap <silent> gr <Plug>(coc-references)
-
-function! ShowDocumentation()
-  if !get(g:, 'coc_service_initialized', 0)
-    call feedkeys('K', 'in')
-  elseif CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-nnoremap <silent> K :call ShowDocumentation()<CR>
 " }}}
 
 " MINUS KEYBINDINGS (window manager) {{{
@@ -476,13 +413,12 @@ function TagJump()
   endtry
 endfunction
 
+nnoremap <Space>/ :FzfAg<CR>
 nnoremap <Space>a :ALEDetail<CR>
-nnoremap <Space>c :call CocStartAndDisableALELSP()<CR>
-nnoremap <Space>d :call TagJump()<CR>
 nnoremap <Space>e :NERDTreeToggle<CR>
 nnoremap <Space>k :set spelllang=en,ko<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
-nnoremap <Space>n :set nowrap<CR>
+nnoremap <Space>o :FzfFiles<CR>
 nnoremap <Space>p :CtrlSpace<CR>
 nnoremap <Space>qq :qa<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
