@@ -46,6 +46,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'tpope/vim-fugitive'
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+  Plug 'vim-ctrlspace/vim-ctrlspace'
   " ingo-library is a dependency for syntaxrange
   Plug 'vim-scripts/ingo-library'
   Plug 'vim-scripts/SyntaxRange'
@@ -61,7 +62,11 @@ endif
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'up:40%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-let g:completor_filetype_map = {}
+let g:CtrlSpaceHeight = 5
+let g:CtrlSpaceSaveWorkspaceOnExit = 0
+let g:CtrlSpaceSetDefaultMapping = 0
+let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
+let g:CtrlSpaceUseTabline = 0
 let g:csv_highlight_column = 'y'
 let g:csv_no_conceal = 1
 let g:csv_nomap_bs = 1
@@ -82,10 +87,8 @@ let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 let g:gitgutter_map_keys = 0
 let g:indent_guides_auto_colors = 0
 let g:indent_guides_enable_on_vim_startup = 1
-let g:jedi#show_call_signatures = 0
 let g:plug_url_format = 'https://www.github.com/%s'
 let g:python_highlight_all = 1
-let g:taskwiki_disable_concealcursor=1
 let g:typst_conceal=1
 let g:typst_conceal_math=1
 let g:typst_conceal_emoji=1
@@ -96,9 +99,6 @@ let g:vim_markdown_conceal = 0
 let g:vim_markdown_frontmatter = 1
 let g:vim_markdown_math = 1
 let g:vim_markdown_new_list_item_indent = 0
-let g:vimwiki_filetypes = ['markdown']
-let g:vimwiki_global_ext = 0
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.mkd'}]
 let g:VM_maps = {}
 let g:VM_maps['Find Under']         = '<C-v>'
 let g:VM_maps['Find Subword Under'] = '<C-v>'
