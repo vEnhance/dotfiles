@@ -3,6 +3,16 @@ return {
     "mg979/vim-visual-multi",
     "tpope/vim-fugitive",
     {
+      "Julian/lean.nvim",
+      event = { "BufReadPre *.lean", "BufNewFile *.lean" },
+      dependencies = {
+        "nvim-lua/plenary.nvim",
+      },
+      opts = {
+        mappings = true,
+      },
+    },
+    {
       "kaarmu/typst.vim",
       init = function()
         vim.g.typst_conceal = 1
