@@ -12,3 +12,5 @@ opt.spell = true
 opt.relativenumber = false
 opt.ruler = true
 opt.textwidth = 80 -- default textwidth
+
+vim.g.maplocalleader = ","
