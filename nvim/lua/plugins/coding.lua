@@ -30,6 +30,7 @@ return {
         htmldjango = { "djlint" },
         bib = { "bibclean" },
         fish = { "fish_indent" },
+        css = { "prettier" },
         javascript = { "prettier" },
         tex = { "death_to_double_dollar_signs" },
       },
