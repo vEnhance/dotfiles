@@ -39,3 +39,4 @@ pythontex_data.pkl
 .syncthing.**.tmp
 
 .envrc
+.claude/
