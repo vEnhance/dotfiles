@@ -1,7 +1,7 @@
 function ccode --description "Starts Claude Code if we're in a Git repository (but fails otherwise)"
     set git_check_output (git rev-parse --is-inside-work-tree 2> /dev/null)
     if test "$git_check_output" = true
-        claude
+        claude $argv
     else if test "$git_check_output" = false
         echo "Currently in a .git system folder"
     else
