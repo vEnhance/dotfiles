@@ -5,6 +5,7 @@ return {
   },
   {
     "saghen/blink.cmp",
+    version = "1.*",
     opts = {
       completion = {
         list = { selection = { auto_insert = true } },
