@@ -804,6 +804,7 @@ class Application(VenueQNode):
                 )
             else:
                 callback()
+                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
 
         else:
             subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"])
