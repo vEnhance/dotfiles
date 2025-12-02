@@ -106,6 +106,7 @@ alias python='python3' #gd ubuntu
 # }}}
 
 # Aliases to custom Python/shell and mailbox programs {{{
+alias badwrap='/usr/bin/python3 ~/dotfiles/py-scripts/badwrap.py'
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
 alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
