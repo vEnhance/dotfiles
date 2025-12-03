@@ -19,6 +19,8 @@ repos:
     rev: v0.4a3
     hooks:
       - id: vint
+        types: [file]
+        files: (\.vim$|vimrc$)
         exclude: plug\.vim$
 
   - repo: https://github.com/scop/pre-commit-shfmt
