@@ -44,7 +44,6 @@
     "syncthing GTK": "sync-alt",
     "terminal - .* - VIM": "code",
     "terminal - latexmk": "draft2digital",
-    "terminal - latexmk": "draft2digital",
     "terminal - vim .*": "code",
     "thunar": "warehouse",
     "thunderbird": "envelope",
