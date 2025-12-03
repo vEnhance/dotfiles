@@ -97,6 +97,7 @@ no_detail = No_detail()
 
 class Error(Exception):
     r"""Base class for exceptions in this module."""
+
     pass
 
 
@@ -127,6 +128,7 @@ def die(error_message, detail=no_detail):
 def getopt_map(one_letter_opts, long_optlist):
     "Turns long options into an option map, using getopt."
     import getopt
+
     optlist, args = getopt.getopt(
         sys.argv[1:],
         one_letter_opts,
@@ -139,7 +141,6 @@ def getopt_map(one_letter_opts, long_optlist):
 
 
 def newer(file1, file2):
-
     if not os.path.isfile(file1):
         return False
 
@@ -220,6 +221,7 @@ class Token:
     r"""Type 0 means ordinary character, types 1,2 mean escape sequence
     (without the \ ), type 3 means comment.
     """
+
     simple_ty = 0
     esc_symb_ty = 1
     esc_str_ty = 2
@@ -266,8 +268,11 @@ def detokenize(text, isatletter=False):
         item = text[pos]
         r"""Insert a separating space after an escape sequence if it is a
         string and is followed by a letter."""
-        if (esc_str_ty == previtem.type and simple_ty == item.type and
-                isletter(item.val[0], isatletter)):
+        if (
+            esc_str_ty == previtem.type
+            and simple_ty == item.type
+            and isletter(item.val[0], isatletter)
+        ):
             out += " "
         out += item.show()
         pos += 1
@@ -287,8 +292,8 @@ def strip_comments(text):
 
 
 class Group:
-    r"""type 0 means a token, type 1 means contents of a group within {}
-    """
+    r"""type 0 means a token, type 1 means contents of a group within {}"""
+
     token_ty = 0
     group_ty = 1
     type = token_ty
@@ -313,8 +318,7 @@ group_ty = g_group.group_ty
 
 
 def tokenize(in_str, isatletter=False):
-    r"""Returns a list of tokens.
-    """
+    r"""Returns a list of tokens."""
     text = []
     cs = Char_stream(in_str)
     cs.reset()
@@ -415,7 +419,6 @@ class Env_instance:
 
 
 class Char_stream(Stream):
-
     def scan_escape_token(self, isatletter=False):
         r"""
         Starts after the escape sign, assumes that it is scanning a symbol.
@@ -485,7 +488,6 @@ class Char_stream(Stream):
 
 
 class Tex_stream(Stream):
-
     defs = ({}, {})
     defs_db = "x"
     defs_db_file = "x.db"
@@ -519,10 +521,9 @@ class Tex_stream(Stream):
                     while cs.uplegal() and blank_re.match(cs.item):
                         cs.next()
                     if "[" == cs.item:  # Packages with options will not be processed.
-                        text.extend([
-                            Token(esc_str_ty, "usepackage"),
-                            Token(simple_ty, "[")
-                        ])
+                        text.extend(
+                            [Token(esc_str_ty, "usepackage"), Token(simple_ty, "[")]
+                        )
                         cs.next()
                         continue
                     files = cs.scan_package_filenames()
@@ -533,9 +534,8 @@ class Tex_stream(Stream):
                         if p < 0 or not len(file) - len("-private") == p:
                             i += 1
                             continue
-                        defs_db_file = file + ".db"
                         self.add_defs(file)
-                        del files[i:(i + 1)]
+                        del files[i : (i + 1)]
                     if files:  # non-private packages left
                         group_content = ",".join(files)
                         to_add_str = "\\usepackage{%s}" % (group_content)
@@ -569,9 +569,12 @@ class Tex_stream(Stream):
             item = self.item
             r"""Insert a separating space after an escape sequence if it is a
             string and is followed by a letter."""
-            if (None != previtem and esc_str_ty == previtem.type and
-                    simple_ty == item.type and
-                    isletter(item.val[0], isatletter)):
+            if (
+                previtem is not None
+                and esc_str_ty == previtem.type
+                and simple_ty == item.type
+                and isletter(item.val[0], isatletter)
+            ):
                 out += " "
             previtem = item
             if not (esc_str_ty == item.type and "input" == item.val):
@@ -593,15 +596,15 @@ class Tex_stream(Stream):
 
     def skip_blank_tokens(self):  # we also skip comment tokens.
         item = self.item
-        while (self.uplegal() and
-               (comment_ty == item.type or
-                (simple_ty == item.type and blank_re.match(item.val)))):
+        while self.uplegal() and (
+            comment_ty == item.type
+            or (simple_ty == item.type and blank_re.match(item.val))
+        ):
             item = self.next()
         return item
 
     def scan_group(self):
-        r"""Returns group.
-        """
+        r"""Returns group."""
         if not self.legal():
             raise Error("No group to scan.")
         item = self.item
@@ -624,8 +627,7 @@ class Tex_stream(Stream):
     # Command and environment definitions
 
     def scan_command_name(self):
-        r"""Returns name.
-        """
+        r"""Returns name."""
         if not self.legal():
             raise Error("No command name to scan.")
         item = self.item
@@ -637,15 +639,15 @@ class Tex_stream(Stream):
                 raise Error("Command definition misses first {.")
             self.next()
             item = self.skip_blank_tokens()
-            if not item.type in [esc_symb_ty, esc_str_ty]:
-                raise Error(
-                    "Command definition does not begin with control sequence.")
+            if item.type not in [esc_symb_ty, esc_str_ty]:
+                raise Error("Command definition does not begin with control sequence.")
             name = item.val
             self.next()
             item = self.skip_blank_tokens()
             if not "}" == item.val:
-                raise Error("Definition for command %s misses first }., %s" %
-                            (name, item.val))
+                raise Error(
+                    "Definition for command %s misses first }., %s" % (name, item.val)
+                )
         self.next()
         self.skip_blank_tokens()
         return name
@@ -667,16 +669,13 @@ class Tex_stream(Stream):
             raise Error("Illegal command or environment definition: " + name)
         if "[" == item.val:
             if not 4 < len(self.data):
-                raise Error("Command or environment definition is illegal: " +
-                            name)
+                raise Error("Command or environment definition is illegal: " + name)
             item = self.next()
             if not simple_ty == item.type:
-                raise Error("Illegal command or environment definition: " +
-                            name)
+                raise Error("Illegal command or environment definition: " + name)
             numargs = item.val
             if not pos_digit_re.match(numargs):
-                raise Error("%s must be argument number after %s" %
-                            (numargs, name))
+                raise Error("%s must be argument number after %s" % (numargs, name))
             numargs = int(numargs)
             self.next()
             item = self.skip_blank_tokens()
@@ -699,13 +698,12 @@ class Tex_stream(Stream):
         if not 2 < len(self.data):
             raise Error("Command definition is illegal.")
         # newcommand or renewcommand
-        if not item.type in [esc_symb_ty, esc_str_ty]:
+        if item.type not in [esc_symb_ty, esc_str_ty]:
             raise Error(
-                "Command definition should begin with control sequence: " +
-                item.val)
+                "Command definition should begin with control sequence: " + item.val
+            )
         if item.val not in ["newcommand", "renewcommand"]:
-            raise Error(
-                "Command definition should begin with control sequence.")
+            raise Error("Command definition should begin with control sequence.")
         self.next()
         self.skip_blank_tokens()
 
@@ -726,26 +724,26 @@ class Tex_stream(Stream):
             raise Error("No environment name to scan.")
         item = self.item
         if not "{" == item.val:
-            raise Error("Env. definition begins with %s, not with {" %
-                        (item.val))
+            raise Error("Env. definition begins with %s, not with {" % (item.val))
         self.next()
         item = self.skip_blank_tokens()
         name = ""
         if not simple_ty == item.type:
             raise Error(
-                "1. Env. def. begins with cont. seq. %s, not with env.name." %
-                (item.val))
+                "1. Env. def. begins with cont. seq. %s, not with env.name."
+                % (item.val)
+            )
         while self.uplegal() and not blank_or_rbrace_re.match(item.val):
             name += item.val
             item = self.next()
             if not simple_ty == item.type:
                 raise Error(
                     "2. Env. def. begins with cont. seq. %s, not with env.name."
-                    % (item.val))
+                    % (item.val)
+                )
         item = self.skip_blank_tokens()
         if not "}" == item.val:
-            raise Error(
-                "Command definition does not begin with control sequence.")
+            raise Error("Command definition does not begin with control sequence.")
         self.next()
         self.skip_blank_tokens()
         return name
@@ -760,12 +758,11 @@ class Tex_stream(Stream):
         item = self.item
         if not 7 < len(self.data):
             raise Error("Environment definition is illegal.")
-        pos = 0
 
-        if not item.type in [esc_symb_ty, esc_str_ty]:
+        if item.type not in [esc_symb_ty, esc_str_ty]:
             raise Error(
-                "Env. definition does not begin with control sequence:" +
-                item.val)
+                "Env. definition does not begin with control sequence:" + item.val
+            )
         if item.val not in ["newenvironment", "renewenvironment"]:
             raise Error("Env. definition does not begin with control sequence.")
         self.next()
@@ -795,12 +792,16 @@ class Tex_stream(Stream):
         self.reset()
         command_defs, env_defs = self.defs
         while self.uplegal():
-            if (esc_str_ty == self.item.type and
-                    self.item.val in ["newcommand", "renewcommand"]):
+            if esc_str_ty == self.item.type and self.item.val in [
+                "newcommand",
+                "renewcommand",
+            ]:
                 command_def = self.scan_command_def()
                 command_defs[command_def.name] = command_def
-            elif (esc_str_ty == self.item.type and
-                  self.item.val in ["newenvironment", "renewenvironment"]):
+            elif esc_str_ty == self.item.type and self.item.val in [
+                "newenvironment",
+                "renewenvironment",
+            ]:
                 env_def = self.scan_env_def()
                 env_defs[env_def.name] = env_def
             else:
@@ -815,7 +816,6 @@ class Tex_stream(Stream):
         if not self.legal():
             raise Error("No arguments to scan.")
         numargs = command_or_env_def.numargs
-        name = command_or_env_def.name
 
         args = []
         for i in range(numargs):
@@ -835,7 +835,7 @@ class Tex_stream(Stream):
         """
         if not self.legal():
             raise Error("No command to scan.")
-        if not self.item.type in [esc_symb_ty, esc_str_ty]:
+        if self.item.type not in [esc_symb_ty, esc_str_ty]:
             raise Error("Command does not begin with control sequence.")
         name = self.item.val
         self.next()
@@ -906,7 +906,7 @@ class Tex_stream(Stream):
             else:
                 self.next()
             if 0 < count:
-                body.extend(self.data[old_pos:self.pos])
+                body.extend(self.data[old_pos : self.pos])
         return Env_instance(env_def.name, args, body)
 
     # Definitions
@@ -995,8 +995,9 @@ class Tex_stream(Stream):
             result = self.apply_all_recur(result)
         except Empty_text_error as e:
             raise Error(
-                "apply_all_recur fails on command instance %s: %s, %s" %
-                (command_instance.show(), detokenize(e.data), e.message))
+                "apply_all_recur fails on command instance %s: %s, %s"
+                % (command_instance.show(), detokenize(e.data), e.message)
+            )
         return result
 
     def apply_env_recur(self, env_instance):
@@ -1023,7 +1024,7 @@ class Tex_stream(Stream):
                 if report:
                     print(self.pos)
                 progress += progress_step
-            if not ts.item.type in [esc_symb_ty, esc_str_ty]:
+            if ts.item.type not in [esc_symb_ty, esc_str_ty]:
                 out.append(ts.item)
                 ts.next()
                 continue
@@ -1031,7 +1032,7 @@ class Tex_stream(Stream):
                 old_pos = ts.pos
                 env_name = ts.scan_env_begin()
                 if env_name not in env_defs:
-                    out.extend(ts.data[old_pos:ts.pos])
+                    out.extend(ts.data[old_pos : ts.pos])
                     continue
                 else:
                     env_def = env_defs[env_name]
@@ -1052,8 +1053,7 @@ class Tex_stream(Stream):
     # Processing files
 
     def process_file(self, file):
-        r"""Returns the new defs.
-        """
+        r"""Returns the new defs."""
         file = cut_extension(file, ".tex")
         source_file = "%s.tex" % (file)
         print("File %s [" % (source_file))
