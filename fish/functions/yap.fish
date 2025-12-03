@@ -1,5 +1,5 @@
 function yap --description "Scribble on the wall at wall.evanchen.cc"
-    cd ~/Sync/Projects/wall.evanchen.cc
+    cd ~/Sync/wall.evanchen.cc
     vf activate wall
     if python new_post.py
         git show
