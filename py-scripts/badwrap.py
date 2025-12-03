@@ -1,22 +1,154 @@
 #!/usr/bin/env python3
 """
-Markdown line wrapper that intelligently wraps long lines at natural break points
-(sentence endings, commas, semicolons) while preserving code blocks, headers, and
-YAML frontmatter.
+Line wrapper that intelligently wraps long lines at natural break points
+for Markdown and LaTeX files. Wraps at sentence endings, commas, and
+semicolons while preserving code blocks, headers, math environments,
+and other special constructs.
 """
 
 import argparse
 import re
 import sys
+from enum import Enum
 from pathlib import Path
 from typing import List, Optional
-
 
 # Configuration constants
 MIN_WIDTH = 30  # Minimum width for left part of break
 TIER1_WIDTH = 80  # Lines <= 80 chars never wrap
 MAX_WIDTH = 100  # Maximum line width / tier 2 threshold
 INDENTED_CODE_SPACES = 4  # Number of spaces for indented code blocks
+
+
+class FileType(Enum):
+    """Supported file types."""
+
+    MARKDOWN = "markdown"
+    LATEX = "latex"
+
+
+def detect_file_type(filepath: Path) -> FileType:
+    """
+    Detect file type based on file extension.
+
+    Args:
+        filepath: Path to the file
+
+    Returns:
+        FileType enum value
+    """
+    suffix = filepath.suffix.lower()
+    if suffix in [".tex", ".latex"]:
+        return FileType.LATEX
+    elif suffix in [".md", ".markdown"]:
+        return FileType.MARKDOWN
+    else:
+        # Default to Markdown for backward compatibility
+        return FileType.MARKDOWN
+
+
+class EnvironmentTracker:
+    """
+    Tracks whether we're inside special environments that should not be wrapped.
+    Handles both Markdown and LaTeX environments.
+    """
+
+    def __init__(self, file_type: FileType):
+        self.file_type = file_type
+        self.in_fenced_code = False
+        self.in_display_math = False  # For Markdown $$ blocks
+        self.latex_env_stack = []  # Stack of LaTeX environment names
+
+    def is_protected(self) -> bool:
+        """Check if we're currently in any protected environment."""
+        return (
+            self.in_fenced_code or self.in_display_math or len(self.latex_env_stack) > 0
+        )
+
+    def process_line_markdown(self, line: str) -> None:
+        """Update state based on a Markdown line."""
+        # Track fenced code blocks
+        if is_fence_marker(line):
+            self.in_fenced_code = not self.in_fenced_code
+            return
+
+        # Track display math blocks (lines starting/ending with $$)
+        stripped = line.strip()
+        if stripped.startswith("$$"):
+            if stripped.endswith("$$") and len(stripped) > 2:
+                # Single-line $$ block, no state change
+                pass
+            else:
+                # Opening or closing $$
+                self.in_display_math = not self.in_display_math
+
+    def process_line_latex(self, line: str) -> None:
+        """Update state based on a LaTeX line."""
+        stripped = line.strip()
+
+        # Track display math: \[ and \]
+        if stripped == r"\[":
+            self.latex_env_stack.append("displaymath_bracket")
+        elif (
+            stripped == r"\]"
+            and self.latex_env_stack
+            and self.latex_env_stack[-1] == "displaymath_bracket"
+        ):
+            self.latex_env_stack.pop()
+
+        # Track \begin{} and \end{} environments
+        begin_match = re.match(r"\\begin\{([^}]+)\}", stripped)
+        if begin_match:
+            env_name = begin_match.group(1)
+            # Track math and verbatim environments
+            protected_envs = {
+                "equation",
+                "equation*",
+                "align",
+                "align*",
+                "gather",
+                "gather*",
+                "multline",
+                "multline*",
+                "verbatim",
+                "lstlisting",
+                "minted",
+                "Verbatim",
+            }
+            if env_name in protected_envs:
+                self.latex_env_stack.append(env_name)
+
+        end_match = re.match(r"\\end\{([^}]+)\}", stripped)
+        if end_match:
+            env_name = end_match.group(1)
+            if self.latex_env_stack and self.latex_env_stack[-1] == env_name:
+                self.latex_env_stack.pop()
+
+    def process_line(self, line: str) -> None:
+        """Process a line and update state based on file type."""
+        if self.file_type == FileType.MARKDOWN:
+            self.process_line_markdown(line)
+        else:  # FileType.LATEX
+            self.process_line_latex(line)
+
+
+def is_latex_command_line(line: str) -> bool:
+    """
+    Check if a LaTeX line starts with a backslash command.
+    These lines should never be wrapped.
+
+    Examples: \\section{...}, \\item, \\usepackage{...}
+    """
+    stripped = line.lstrip()
+    return stripped.startswith("\\")
+
+
+def get_latex_indent(line: str) -> str:
+    """
+    Get the indentation (leading whitespace) of a LaTeX line.
+    This will be preserved on continuation lines.
+    """
+    return line[: len(line) - len(line.lstrip())]
 
 
 def is_header(line: str) -> bool:
@@ -153,6 +285,7 @@ def wrap_paragraph(
     indent: str = "",
     natural_only: bool = False,
     preferred_width: int | None = None,
+    preserve_indent: bool = False,
 ) -> List[str]:
     """
     Wrap a paragraph at natural break points.
@@ -164,6 +297,7 @@ def wrap_paragraph(
         indent: String to prepend to each line
         natural_only: If True, only break at natural points (sentences/punctuation), not arbitrary spaces
         preferred_width: Preferred width for space fallback when force-wrapping
+        preserve_indent: If True, preserve indent on continuation lines (for LaTeX)
     """
     if not text or text.isspace():
         return [text] if text else [""]
@@ -172,8 +306,16 @@ def wrap_paragraph(
     remaining = text.strip()
 
     while remaining:
+        # Determine the indent to use for this line
+        if preserve_indent or not lines:
+            # LaTeX mode: always use indent, OR first line in any mode
+            line_indent = indent
+        else:
+            # Markdown mode continuation lines: no indent
+            line_indent = ""
+
         if len(remaining) <= available_width:
-            lines.append(indent + remaining)
+            lines.append(line_indent + remaining)
             break
 
         break_point = find_break_point(
@@ -183,7 +325,7 @@ def wrap_paragraph(
         if break_point is None:
             if natural_only:
                 # Natural-only mode: if no natural break found, return as single line
-                lines.append(indent + remaining)
+                lines.append(line_indent + remaining)
                 break
             else:
                 # Force break at available_width
@@ -193,63 +335,35 @@ def wrap_paragraph(
                     break_point = next_space + 1
                 else:
                     # No space found, just take everything
-                    lines.append(indent + remaining)
+                    lines.append(line_indent + remaining)
                     break
 
-        lines.append(indent + remaining[:break_point].rstrip())
+        lines.append(line_indent + remaining[:break_point].rstrip())
         remaining = remaining[break_point:].lstrip()
 
     return lines
 
 
-def process_file(filepath: Path, dry_run: bool = False) -> None:
-    """Process a single markdown file."""
-    try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-    except Exception as e:
-        print(f"Error reading {filepath}: {e}", file=sys.stderr)
-        return
+def extract_prefix_and_content(
+    line_stripped: str, file_type: FileType
+) -> tuple[str, str]:
+    """
+    Extract prefix (list markers, blockquotes, indentation) and content from a line.
 
-    output_lines = []
-    in_yaml_frontmatter = False
-    in_fenced_code = False
+    Args:
+        line_stripped: Line with trailing whitespace removed
+        file_type: Type of file being processed
 
-    for i, line in enumerate(lines):
-        # Track YAML frontmatter
-        if i == 0 and line.strip() == "---":
-            in_yaml_frontmatter = True
-            output_lines.append(line)
-            continue
-
-        if in_yaml_frontmatter:
-            output_lines.append(line)
-            if line.strip() == "---":
-                in_yaml_frontmatter = False
-            continue
-
-        # Track fenced code blocks
-        if is_fence_marker(line):
-            in_fenced_code = not in_fenced_code
-            output_lines.append(line)
-            continue
-
-        if in_fenced_code:
-            output_lines.append(line)
-            continue
-
-        # Don't wrap protected content
-        if is_header(line) or is_indented_code(line) or not line.strip():
-            output_lines.append(line)
-            continue
-
-        # Tier 1: Lines ≤80 chars - never wrap
-        line_stripped = line.rstrip("\n\r")
-        if len(line_stripped) <= TIER1_WIDTH:
-            output_lines.append(line)
-            continue
-
-        # Extract prefix (list markers, blockquotes, indent) for lines that might need wrapping
+    Returns:
+        Tuple of (content, prefix)
+    """
+    if file_type == FileType.LATEX:
+        # LaTeX: only preserve indentation
+        indent = get_latex_indent(line_stripped)
+        content = line_stripped[len(indent) :]
+        return content, indent
+    else:
+        # Markdown: handle list items, blockquotes, and indentation
         content = line_stripped
         prefix = ""
         stripped = content.lstrip()
@@ -266,14 +380,82 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                 prefix = match.group(0)
                 content = content[len(prefix) :]
         else:
-            # Just preserve indent
             prefix = indent
             content = stripped
+
+        return content, prefix
+
+
+def process_file(filepath: Path, dry_run: bool = False) -> None:
+    """Process a single file (Markdown or LaTeX)."""
+    # Detect file type
+    file_type = detect_file_type(filepath)
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            lines = f.readlines()
+    except Exception as e:
+        print(f"Error reading {filepath}: {e}", file=sys.stderr)
+        return
+
+    output_lines = []
+    in_yaml_frontmatter = False
+    env_tracker = EnvironmentTracker(file_type)
+
+    for i, line in enumerate(lines):
+        # YAML frontmatter only for Markdown
+        if file_type == FileType.MARKDOWN:
+            if i == 0 and line.strip() == "---":
+                in_yaml_frontmatter = True
+                output_lines.append(line)
+                continue
+
+            if in_yaml_frontmatter:
+                output_lines.append(line)
+                if line.strip() == "---":
+                    in_yaml_frontmatter = False
+                continue
+
+        # Update environment tracker
+        env_tracker.process_line(line)
+
+        # Check if we just entered/are in a protected environment
+        if env_tracker.is_protected():
+            output_lines.append(line)
+            continue
+
+        # Mode-specific unwrappable lines
+        if file_type == FileType.MARKDOWN:
+            if is_header(line) or is_indented_code(line) or not line.strip():
+                output_lines.append(line)
+                continue
+        else:  # FileType.LATEX
+            # In LaTeX, backslash-prefixed lines and empty lines are protected
+            if is_latex_command_line(line) or not line.strip():
+                output_lines.append(line)
+                continue
+            # Note: LaTeX indented lines CAN be wrapped (unlike Markdown)
+
+        # Tier 1: Lines ≤80 chars - never wrap
+        line_stripped = line.rstrip("\n\r")
+        if len(line_stripped) <= TIER1_WIDTH:
+            output_lines.append(line)
+            continue
+
+        # Extract prefix and content
+        content, prefix = extract_prefix_and_content(line_stripped, file_type)
+
+        # Determine if we should preserve indentation
+        preserve_indent = file_type == FileType.LATEX
 
         # Tier 2: Lines 81-100 chars - only wrap if natural break exists
         if len(line_stripped) <= MAX_WIDTH:
             wrapped = wrap_paragraph(
-                content, MAX_WIDTH - len(prefix), "", natural_only=True
+                content,
+                MAX_WIDTH - len(prefix),
+                "",
+                natural_only=True,
+                preserve_indent=preserve_indent,
             )
             if len(wrapped) == 1 and wrapped[0].strip() == content.strip():
                 # No natural break found, keep original line
@@ -287,6 +469,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                 MAX_WIDTH - len(prefix),
                 "",
                 preferred_width=TIER1_WIDTH - len(prefix),
+                preserve_indent=preserve_indent,
             )
 
         # Output wrapped lines with prefix
@@ -294,11 +477,16 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
             if j == 0:
                 output_lines.append(prefix + wrapped_line + "\n")
             else:
-                # Continuation lines: use same prefix for blockquotes, spaces for lists
-                if is_blockquote(line_stripped):
+                # Continuation prefix logic
+                if file_type == FileType.LATEX:
+                    # LaTeX: preserve original indentation
                     continuation_prefix = prefix
                 else:
-                    continuation_prefix = " " * len(prefix)
+                    # Markdown: blockquotes keep prefix, others use spaces
+                    if is_blockquote(line_stripped):
+                        continuation_prefix = prefix
+                    else:
+                        continuation_prefix = " " * len(prefix)
                 output_lines.append(continuation_prefix + wrapped_line + "\n")
 
     # Write output
@@ -315,9 +503,14 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Wrap markdown lines at natural break points"
+        description="Wrap lines at natural break points for Markdown and LaTeX files"
     )
-    parser.add_argument("files", nargs="+", type=Path, help="Markdown files to process")
+    parser.add_argument(
+        "files",
+        nargs="+",
+        type=Path,
+        help="Markdown (.md, .markdown) or LaTeX (.tex, .latex) files to process",
+    )
     parser.add_argument(
         "--dry-run", action="store_true", help="Show changes without modifying files"
     )
