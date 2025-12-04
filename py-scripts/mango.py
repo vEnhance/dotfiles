@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 """
+🥭 MANGO 🥭
+
 Line wrapper that intelligently wraps long lines at natural break points
 for Markdown and LaTeX files. Wraps at sentence endings, commas, and
 semicolons while preserving code blocks, headers, math environments,
@@ -13,11 +15,10 @@ from enum import Enum
 from pathlib import Path
 from typing import List, Optional
 
-# Configuration constants
 MIN_WIDTH = 30  # Minimum width for left part of break
 PREF_WIDTH = 80  # Target width when wrapping lines
-THRESH_WIDTH = 100  # Lines <= 100 chars never wrap
-MAX_WIDTH = 120  # Maximum line width / tier 2 threshold
+THRESH_WIDTH = 88  # Lines <= 88 chars never wrap
+MAX_WIDTH = 110  # Maximum line width / tier 2 threshold
 MARKDOWN_INDENTED_CODE_SPACES = 4  # Number of spaces for indented code blocks
 
 
@@ -68,26 +69,21 @@ class EnvironmentTracker:
 
     def process_line_markdown(self, line: str) -> None:
         """Update state based on a Markdown line."""
-        # Track fenced code blocks
         if is_fence_marker(line):
             self.in_fenced_code = not self.in_fenced_code
             return
 
-        # Track display math blocks (lines starting/ending with $$)
         stripped = line.strip()
         if stripped.startswith("$$"):
             if stripped.endswith("$$") and len(stripped) > 2:
-                # Single-line $$ block, no state change
-                pass
+                pass  # Single-line $$ block
             else:
-                # Opening or closing $$
                 self.in_display_math = not self.in_display_math
 
     def process_line_latex(self, line: str) -> None:
         """Update state based on a LaTeX line."""
         stripped = line.strip()
 
-        # Track display math: \[ and \]
         if stripped == r"\[":
             self.latex_env_stack.append("displaymath_bracket")
         elif (
@@ -97,11 +93,9 @@ class EnvironmentTracker:
         ):
             self.latex_env_stack.pop()
 
-        # Track \begin{} and \end{} environments
         begin_match = re.match(r"\\begin\{([^}]+)\}", stripped)
         if begin_match:
             env_name = begin_match.group(1)
-            # Track math and verbatim environments
             protected_envs = {
                 "asy",
                 "equation",
@@ -201,27 +195,22 @@ def is_inside_latex(text: str, position: int) -> bool:
     Check if a position in text is inside a LaTeX expression (between $ or $$).
     Handles escaped dollar signs \$.
     """
-    # Count unescaped dollar signs before the position
     dollar_count = 0
     i = 0
     while i < position:
         if text[i] == "$":
-            # Check if it's escaped
             if i > 0 and text[i - 1] == "\\":
-                # Check if the backslash itself is escaped
                 num_backslashes = 0
                 j = i - 1
                 while j >= 0 and text[j] == "\\":
                     num_backslashes += 1
                     j -= 1
-                # If odd number of backslashes, the $ is escaped
-                if num_backslashes % 2 == 1:
+                if num_backslashes % 2 == 1:  # odd = escaped
                     i += 1
                     continue
             dollar_count += 1
         i += 1
 
-    # Odd number means we're inside LaTeX
     return dollar_count % 2 == 1
 
 
@@ -247,7 +236,6 @@ def find_break_point(
     if len(text) <= available_width:
         return None
 
-    # Look for sentence endings first (. ! ? followed by space)
     sentence_breaks = []
     for match in re.finditer(r"[.!?]\s+", text[:available_width]):
         break_pos = match.end()
@@ -255,9 +243,8 @@ def find_break_point(
             sentence_breaks.append(break_pos)
 
     if sentence_breaks:
-        return sentence_breaks[-1]  # Last sentence break before available_width
+        return sentence_breaks[-1]
 
-    # Look for commas or semicolons
     punct_breaks = []
     for match in re.finditer(r"[,;:]\s+", text[:available_width]):
         break_pos = match.end()
@@ -267,9 +254,7 @@ def find_break_point(
     if punct_breaks:
         return punct_breaks[-1]
 
-    # Fall back to any space (only if not natural_only)
     if not natural_only:
-        # Use preferred_width if specified, otherwise use available_width
         search_start = min(
             preferred_width if preferred_width else available_width, len(text) - 1
         )
@@ -277,7 +262,6 @@ def find_break_point(
             if text[i] == " " and not is_inside_latex(text, i + 1):
                 return i + 1
 
-    # No good break point found
     return None
 
 
@@ -326,17 +310,13 @@ def wrap_paragraph(
 
         if break_point is None:
             if natural_only:
-                # Natural-only mode: if no natural break found, return as single line
                 lines.append(line_indent + remaining)
                 break
             else:
-                # Force break at available_width
-                # Try to break at next space after available_width
                 next_space = remaining.find(" ", available_width)
                 if next_space > 0:
                     break_point = next_space + 1
                 else:
-                    # No space found, just take everything
                     lines.append(line_indent + remaining)
                     break
 
@@ -390,7 +370,6 @@ def extract_prefix_and_content(
 
 def process_file(filepath: Path, dry_run: bool = False) -> None:
     """Process a single file (Markdown or LaTeX)."""
-    # Detect file type
     file_type = detect_file_type(filepath)
 
     try:
@@ -401,42 +380,28 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
         return
 
     output_lines = []
-    in_yaml_frontmatter = False
     env_tracker = EnvironmentTracker(file_type)
 
-    for i, line in enumerate(lines):
-        # YAML frontmatter only for Markdown
-        if file_type == FileType.MARKDOWN:
-            if i == 0 and line.strip() == "---":
-                in_yaml_frontmatter = True
-                output_lines.append(line)
-                continue
+    for line in lines:
+        # Detect frontmatter headers and don't wrap those
+        if re.match(r"^[a-zA-Z_]+:", line):
+            output_lines.append(line)
+            continue
 
-            if in_yaml_frontmatter:
-                output_lines.append(line)
-                if line.strip() == "---":
-                    in_yaml_frontmatter = False
-                continue
-
-        # Update environment tracker
         env_tracker.process_line(line)
 
-        # Check if we just entered/are in a protected environment
         if env_tracker.is_protected():
             output_lines.append(line)
             continue
 
-        # Mode-specific unwrappable lines
         if file_type == FileType.MARKDOWN:
             if is_header(line) or is_indented_code(line) or not line.strip():
                 output_lines.append(line)
                 continue
         else:  # FileType.LATEX
-            # In LaTeX, backslash-prefixed lines and empty lines are protected
             if is_latex_command_line(line) or not line.strip():
                 output_lines.append(line)
                 continue
-            # Note: LaTeX indented lines CAN be wrapped (unlike Markdown)
 
         # Tier 1: Never wrap
         line_stripped = line.rstrip("\n\r")
@@ -444,10 +409,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
             output_lines.append(line)
             continue
 
-        # Extract prefix and content
         content, prefix = extract_prefix_and_content(line_stripped, file_type)
-
-        # Determine if we should preserve indentation
         preserve_indent = file_type == FileType.LATEX
 
         # Tier 2: Only wrap if natural break exists
@@ -460,10 +422,8 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                 preserve_indent=preserve_indent,
             )
             if len(wrapped) == 1 and wrapped[0].strip() == content.strip():
-                # No natural break found, keep original line
                 output_lines.append(line)
                 continue
-            # Natural break found, use wrapped result (fall through to output below)
         else:
             # Tier 3: always wrap, prefer wrapping closer to 80
             wrapped = wrap_paragraph(
@@ -474,24 +434,18 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                 preserve_indent=preserve_indent,
             )
 
-        # Output wrapped lines with prefix
         for j, wrapped_line in enumerate(wrapped):
             if j == 0:
                 output_lines.append(prefix + wrapped_line + "\n")
             else:
-                # Continuation prefix logic
                 if file_type == FileType.LATEX:
-                    # LaTeX: preserve original indentation
+                    continuation_prefix = prefix
+                elif is_blockquote(line_stripped):
                     continuation_prefix = prefix
                 else:
-                    # Markdown: blockquotes keep prefix, others use spaces
-                    if is_blockquote(line_stripped):
-                        continuation_prefix = prefix
-                    else:
-                        continuation_prefix = " " * len(prefix)
+                    continuation_prefix = " " * len(prefix)
                 output_lines.append(continuation_prefix + wrapped_line + "\n")
 
-    # Write output
     if dry_run:
         print(f"=== {filepath} ===")
         print("".join(output_lines))
@@ -505,7 +459,9 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Wrap lines at natural break points for Markdown and LaTeX files"
+        prog="mango",
+        description="Wrap lines at natural break points for Markdown and LaTeX files",
+        epilog="🥭 Once named mangle, but renamed mango as it's shorter and easier to pronounce.",
     )
     parser.add_argument(
         "files",
