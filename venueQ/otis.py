@@ -596,6 +596,13 @@ class Suggestion(VenueQNode):
                 )
                 print("", file=f)
             print(self.solution, file=f)
+        subprocess.run(
+            args=[
+                "python",
+                Path("~/dotfiles/py-scripts/mango.py").expanduser(),
+                tmp_path,
+            ]
+        )
         args = ["xfce4-terminal", "-x", "python", "-m"]
         args += ["von", "add", data["source"], "-f", tmp_path]
         if data["hyperlink"]:
