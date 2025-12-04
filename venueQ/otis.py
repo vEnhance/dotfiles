@@ -596,17 +596,8 @@ class Suggestion(VenueQNode):
                 )
                 print("", file=f)
             print(self.solution, file=f)
-        args = [
-            "xfce4-terminal",
-            "-x",
-            "python",
-            "-m",
-            "von",
-            "add",
-            data["source"],
-            "-f",
-            tmp_path,
-        ]
+        args = ["xfce4-terminal", "-x", "python", "-m"]
+        args += ["von", "add", data["source"], "-f", tmp_path]
         if data["hyperlink"]:
             args += ["--url", data["hyperlink"]]
         subprocess.Popen(args)
