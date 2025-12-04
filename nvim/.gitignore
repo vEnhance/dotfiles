@@ -9,3 +9,5 @@ data
 
 # generated automatically
 snippets/
+
+lazy-lock.json
