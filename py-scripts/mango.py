@@ -69,7 +69,7 @@ class EnvironmentTracker:
 
     def process_line_markdown(self, line: str) -> None:
         """Update state based on a Markdown line."""
-        if is_fence_marker(line):
+        if line.strip().startswith(r"```"):
             self.in_fenced_code = not self.in_fenced_code
             return
 
@@ -128,34 +128,12 @@ class EnvironmentTracker:
             self.process_line_latex(line)
 
 
-def is_latex_command_line(line: str) -> bool:
-    """
-    Check if a LaTeX line starts with a backslash command.
-    These lines should never be wrapped.
-
-    Examples: \\section{...}, \\item, \\usepackage{...}
-    """
-    stripped = line.lstrip()
-    return stripped.startswith("\\")
-
-
 def get_latex_indent(line: str) -> str:
     """
     Get the indentation (leading whitespace) of a LaTeX line.
     This will be preserved on continuation lines.
     """
     return line[: len(line) - len(line.lstrip())]
-
-
-def is_header(line: str) -> bool:
-    """Check if line is a markdown header."""
-    return line.lstrip().startswith("#")
-
-
-def is_fence_marker(line: str) -> bool:
-    """Check if line is a fenced code block marker (```)."""
-    stripped = line.lstrip()
-    return stripped.startswith("```")
 
 
 def is_indented_code(line: str) -> bool:
@@ -177,12 +155,6 @@ def is_list_item(line: str) -> bool:
     if re.match(r"^\d+\.\s", stripped):
         return True
     return False
-
-
-def is_blockquote(line: str) -> bool:
-    """Check if line is a blockquote."""
-    stripped = line.lstrip()
-    return stripped.startswith(">")
 
 
 def get_indent(line: str) -> str:
@@ -356,7 +328,7 @@ def extract_prefix_and_content(
             if match:
                 prefix = match.group(0)
                 content = content[len(prefix) :]
-        elif is_blockquote(content):
+        elif content.strip().startswith("> "):  # blockquote
             match = re.match(r"^(\s*>+\s*)", content)
             if match:
                 prefix = match.group(0)
@@ -395,11 +367,19 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
             continue
 
         if file_type == FileType.MARKDOWN:
-            if is_header(line) or is_indented_code(line) or not line.strip():
+            if (
+                line.lstrip().startswith("#")  # header
+                or is_indented_code(line)
+                or not line.strip()
+            ):
                 output_lines.append(line)
                 continue
         else:  # FileType.LATEX
-            if is_latex_command_line(line) or not line.strip():
+            if (
+                line.strip().startswith("\\")  # command line
+                or line.strip().startswith("%")  # comment
+                or not line.strip()
+            ):
                 output_lines.append(line)
                 continue
 
@@ -440,7 +420,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
             else:
                 if file_type == FileType.LATEX:
                     continuation_prefix = prefix
-                elif is_blockquote(line_stripped):
+                elif line_stripped.startswith("> "):  # blockquote
                     continuation_prefix = prefix
                 else:
                     continuation_prefix = " " * len(prefix)
