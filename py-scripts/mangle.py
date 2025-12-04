@@ -15,9 +15,10 @@ from typing import List, Optional
 
 # Configuration constants
 MIN_WIDTH = 30  # Minimum width for left part of break
-TIER1_WIDTH = 80  # Lines <= 80 chars never wrap
-MAX_WIDTH = 100  # Maximum line width / tier 2 threshold
-INDENTED_CODE_SPACES = 4  # Number of spaces for indented code blocks
+PREF_WIDTH = 80  # Target width when wrapping lines
+THRESH_WIDTH = 100  # Lines <= 100 chars never wrap
+MAX_WIDTH = 120  # Maximum line width / tier 2 threshold
+MARKDOWN_INDENTED_CODE_SPACES = 4  # Number of spaces for indented code blocks
 
 
 class FileType(Enum):
@@ -169,7 +170,7 @@ def is_indented_code(line: str) -> bool:
         return False
     # Count leading spaces
     spaces = len(line) - len(line.lstrip(" "))
-    return spaces >= INDENTED_CODE_SPACES
+    return spaces >= MARKDOWN_INDENTED_CODE_SPACES
 
 
 def is_list_item(line: str) -> bool:
@@ -437,9 +438,9 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                 continue
             # Note: LaTeX indented lines CAN be wrapped (unlike Markdown)
 
-        # Tier 1: Lines ≤80 chars - never wrap
+        # Tier 1: Never wrap
         line_stripped = line.rstrip("\n\r")
-        if len(line_stripped) <= TIER1_WIDTH:
+        if len(line_stripped) <= THRESH_WIDTH:
             output_lines.append(line)
             continue
 
@@ -449,7 +450,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
         # Determine if we should preserve indentation
         preserve_indent = file_type == FileType.LATEX
 
-        # Tier 2: Lines 81-100 chars - only wrap if natural break exists
+        # Tier 2: Only wrap if natural break exists
         if len(line_stripped) <= MAX_WIDTH:
             wrapped = wrap_paragraph(
                 content,
@@ -464,12 +465,12 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                 continue
             # Natural break found, use wrapped result (fall through to output below)
         else:
-            # Tier 3: Lines >100 chars - always wrap, prefer wrapping closer to 80
+            # Tier 3: always wrap, prefer wrapping closer to 80
             wrapped = wrap_paragraph(
                 content,
                 MAX_WIDTH - len(prefix),
                 "",
-                preferred_width=TIER1_WIDTH - len(prefix),
+                preferred_width=PREF_WIDTH - len(prefix),
                 preserve_indent=preserve_indent,
             )
 
