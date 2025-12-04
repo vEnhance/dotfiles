@@ -102,6 +102,7 @@ class EnvironmentTracker:
             env_name = begin_match.group(1)
             # Track math and verbatim environments
             protected_envs = {
+                "asy",
                 "equation",
                 "equation*",
                 "align",
