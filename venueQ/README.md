@@ -4,7 +4,7 @@
 ░░░▀░░░▀▀▀░▀░░▀░░▀▀▀░▀▀▀░░▀▀█▄
 ```
 
-VenueQ is short for VIM-Menue-Queue (while not so subtly referencing AvenueQ).
+VenueQ is short for VIM-Menu-Queue (while not so subtly referencing AvenueQ).
 It's another crappy wrapper script that I wrote in Python.
 
 ## Screenshots
