@@ -136,7 +136,7 @@ AoPS.Contests.Views.ContestGraderEntry =
   AoPS.Contests.Views.ContestGraderEntry.extend({
     // hijack the render function and use my own template for it
     render: function () {
-      this.setTplVars(), this.$el.html(main_template(this.vars));
+      (this.setTplVars(), this.$el.html(main_template(this.vars)));
     },
     setTplVars: function () {
       var evals = this.model.get("evals");
@@ -170,7 +170,7 @@ AoPS.Contests.Views.ContestGraderEntry =
       var path = this.model.get("submission").file_path;
       var linked_id = path.slice(
         path.indexOf("/id") + 3,
-        path.indexOf("-round")
+        path.indexOf("-round"),
       );
       if (linked_id.trim() !== this.model.get("sub_id").trim()) {
         // console.log([linked_id, this.model.get("sub_id")]);
@@ -214,7 +214,7 @@ AoPS.Contests.Views.ContestGraderEntry =
       var e =
         "admin" === this.model.get("contest").get("me").get("grader_role");
       // var e = true;
-      _.extend(this.vars, {
+      (_.extend(this.vars, {
         any_scores: scores.length > 0, // v_Enhance added
         i_am_done: i_am_done, // v_Enhance added
         num_evals: scores.length, // v_Enhance added
@@ -281,10 +281,10 @@ AoPS.Contests.Views.ContestGraderEntry =
               i
             );
             // showGrader: Number(t.grader_id) !== Number(AoPS.session.user_id) && "new" !== t.evaluation_state
-          }, this)
+          }, this),
         ),
       }),
-        this.setClassName();
+        this.setClassName());
     },
   });
 
@@ -308,15 +308,14 @@ $(document).ready(function () {
   addGlobalStyle("div.entry-buttons { display: inline; }");
   addGlobalStyle("a.btn { display: inline; font-size: 10px; padding: 0 6px; }");
   addGlobalStyle(
-    "div.usemo-hide-content { max-width: 300px; margin: 0 auto; font-size: 10pt !important; line-height: 1.2em; }"
+    "div.usemo-hide-content { max-width: 300px; margin: 0 auto; font-size: 10pt !important; line-height: 1.2em; }",
   );
   addGlobalStyle(
-    "td.eval-container h5 { line-height: 1.4; font-size: 9pt; font-weight: normal; margin: 0; display: inline; }"
+    "td.eval-container h5 { line-height: 1.4; font-size: 9pt; font-weight: normal; margin: 0; display: inline; }",
   );
 
-  $(
-    "#header-wrapper"
-  ).first().append(`<div id="meow" style="text-align: center;">
+  $("#header-wrapper").first()
+    .append(`<div id="meow" style="text-align: center;">
     <button id="button-toggle-indiv">Indv</button>
     <button id="button-toggle-total">Aggr</button>
     <button id="button-hide-all">Hide</button>
@@ -369,13 +368,16 @@ $(document).ready(function () {
         }, 50 * n);
       }
     });
-    setTimeout(function () {
-      var s = "Unlocked " + n + " rows.";
-      if ($("#regrade-ids").val() == "") {
-        s += "\n Warning: you didn't enter any regrade ID's.";
-      }
-      alert(s);
-    }, 50 * (n + 1));
+    setTimeout(
+      function () {
+        var s = "Unlocked " + n + " rows.";
+        if ($("#regrade-ids").val() == "") {
+          s += "\n Warning: you didn't enter any regrade ID's.";
+        }
+        alert(s);
+      },
+      50 * (n + 1),
+    );
   });
   $("#regrade-ids").on("change", function () {
     var ids = $("#regrade-ids").val().split(/\r?\n/);

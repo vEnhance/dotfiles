@@ -28,6 +28,12 @@ repos:
       - id: ruff
       - id: ruff-format
 
+  - repo: https://github.com/JoC0de/pre-commit-prettier
+    rev: v3.6.2
+    hooks:
+      - id: prettier
+        types_or: [css, javascript, markdown, json, toml, yaml]
+
   - repo: https://github.com/Vimjas/vint
     rev: v0.4a3
     hooks:
