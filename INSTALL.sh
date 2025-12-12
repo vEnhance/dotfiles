@@ -50,7 +50,6 @@ if ! test -d "$HOME/.config/feh"; then ln -s "$HOME"/dotfiles/feh "$HOME"/.confi
 if ! test -d "$HOME/.config/fish"; then ln -s "$HOME"/dotfiles/fish "$HOME"/.config/fish; fi
 if ! test -d "$HOME/.config/i3"; then ln -s "$HOME"/dotfiles/i3 "$HOME"/.config/i3; fi
 if ! test -d "$HOME/.config/ncdu"; then ln -s "$HOME"/dotfiles/ncdu "$HOME"/.config/ncdu; fi
-if ! test -d "$HOME/.config/mirage_linemode"; then ln -s "$HOME"/dotfiles/mirage_linemode "$HOME"/.config/mirage_linemode; fi
 if ! test -d "$HOME/.config/mutt"; then ln -s "$HOME"/dotfiles/mutt "$HOME"/.config/mutt; fi
 if ! test -d "$HOME/.config/nvim"; then ln -s "$HOME"/dotfiles/nvim "$HOME"/.config/nvim; fi
 if ! test -d "$HOME/.config/qutebrowser"; then ln -s "$HOME"/dotfiles/qutebrowser "$HOME"/.config/qutebrowser; fi
@@ -143,9 +142,6 @@ if ! test -d "$HOME/.vim/spell"; then
     ln -s "$HOME"/dotfiles/vim/spell "$HOME"/.vim/spell
   fi
 fi
-if ! test -f "$HOME/.vim/coc-settings.json"; then
-  ln -s "$HOME"/dotfiles/vim/coc-settings.json "$HOME"/.vim/coc-settings.json
-fi
 if ! test -f "$HOME/.vim/vimrc"; then
   ln -s "$HOME"/dotfiles/vim/vimrc "$HOME"/.vim/vimrc
 fi
@@ -156,5 +152,5 @@ fi
 if [ "$USER" = "evan" ]; then
   xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
   xdg-settings set default-url-scheme-handler https org.qutebrowser.qutebrowser.desktop
-  xfconf-query -c xfce4-session -p /general/LockCommand -s "loginctl lock-session"
+  # xfconf-query -c xfce4-session -p /general/LockCommand -s "loginctl lock-session"
 fi
