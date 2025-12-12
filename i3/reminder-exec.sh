@@ -11,6 +11,6 @@ notify-send "i3: exec mode" -i "emblem-documents" \
 <b>o</b>: OBS              <b>p</b>: Pass vault
 <b>r</b>: oRch             <b>s</b>: Spotify
 <b>t</b>: oTis             <b>x</b>: qutebrowser
-<b>y</b>: diarY            <b>z</b>: Zoom
+<b>y</b>: diarY            <b>z</b>: slack
 <b>Space</b>: loginctl lock
 "

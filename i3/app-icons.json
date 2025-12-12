@@ -4,6 +4,7 @@
   ".*Settings.*": "bars",
   ".* - Wine desktop": "wine-glass",
   ".* - Anki": "memory",
+  ".* - Slack": "slack-hash",
   "Authy": "key",
   "BlueBubbles": "comment-dots",
   "Bluetooth *": "bluetooth",
