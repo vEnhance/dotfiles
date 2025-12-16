@@ -5,7 +5,7 @@ default_stages: [pre-commit]
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v6.0.0
     hooks:
       - id: check-json
       - id: check-merge-conflict
@@ -23,13 +23,13 @@ repos:
       - id: codespell
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.7
+    rev: v0.14.9
     hooks:
       - id: ruff
       - id: ruff-format
 
   - repo: https://github.com/JoC0de/pre-commit-prettier
-    rev: v3.6.2
+    rev: v3.7.4
     hooks:
       - id: prettier
         types_or: [css, javascript, markdown, json, toml, yaml]
