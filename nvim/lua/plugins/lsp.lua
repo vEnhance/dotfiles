@@ -14,6 +14,9 @@ return {
         },
 
         -- Python
+        ty = {
+          mason = not command_exists("ty"), -- Use system if available
+        },
         pyright = {
           mason = not command_exists("pyright"), -- Use system if available
         },
