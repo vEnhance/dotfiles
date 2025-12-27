@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 contents="$(xsel --clipboard)"
 
 if [[ $contents == "qute://pdfjs/web/viewer.html?filename="* ]]; then

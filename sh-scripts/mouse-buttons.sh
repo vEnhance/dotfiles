@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 if command -v xsetwacom && [[ "$(xsetwacom list devices)" ]]; then
   xsetwacom set "Wacom Intuos S Pen stylus" MapToOutput HEAD-0

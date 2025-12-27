@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 ON_MIC_FLAG="/tmp/nd.1.$(whoami)"
 OFF_MIC_FLAG="/tmp/nd.0.$(whoami)"

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -euxo pipefail
+set -euo pipefail
 
 DATE="$(date +"%Y-%m-%d")"
 HAS_RUN_DIJO=$(jq ".[]|select(.name==\"dijo\")|.stats|.\"$DATE\"" <~/Sync/Personal/dijo/habit_record\[auto\].json)

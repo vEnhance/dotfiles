@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euxo pipefail
+set -euo pipefail
 
 pacman -Qqtten >~/Sync/pacman/"$(hostname)".pacman.paclist
 pacman -Qqttem >~/Sync/pacman/"$(hostname)".aur.paclist
