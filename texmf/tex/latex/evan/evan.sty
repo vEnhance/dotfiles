@@ -784,8 +784,7 @@
         ("evans_fallbacks",
           {
             "NotoColorEmoji:mode=harf;",
-            "Source Han Sans TW:style=Regular;",
-            "Noto Serif CJK SC:style=Regular;",
+            "Noto Serif CJK TC:style=Regular;",
           }
         )}
       \setmainfont{CMU Serif}[
@@ -793,6 +792,10 @@
         RawFeature={fallback=evans_fallbacks}
       ]
       \setsansfont{Latin Modern Sans}[
+        RawFeature={fallback=evans_fallbacks}
+      ]
+      \setmonofont{Inconsolata}[
+        Scale=MatchLowercase,
         RawFeature={fallback=evans_fallbacks}
       ]
       \ifevanchinese
