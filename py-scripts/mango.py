@@ -356,7 +356,9 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
 
     for line in lines:
         # Detect frontmatter headers and don't wrap those
-        if re.match(r"^[a-zA-Z_]+:", line):
+        # Only match lines that start with a letter (not underscore) followed by
+        # word characters and a colon with optional whitespace
+        if re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*:\s", line):
             output_lines.append(line)
             continue
 
