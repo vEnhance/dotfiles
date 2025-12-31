@@ -370,6 +370,8 @@ class ProblemSet(VenueQNode):
                     "https://youtu.be/jQ_ogJWssXU",  # Winter - Handong solo
                     "https://youtu.be/2bG6CTPX72o",  # My Christmas Sweet Love - Dreamcatcher
                     "https://youtu.be/jZ62GAaQ_YQ",  # Sleigh - Chung Ha
+                    "https://youtu.be/Z7guZiaDWWY",  # 첫 눈 - UAU
+                    "https://youtu.be/5ZB9JLfIw_Q",  # 하얀 그리움 - fromis_9
                 ]
             )
             closing = f"[Happy holidays]({christmas_mv_url})"
