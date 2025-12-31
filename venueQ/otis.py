@@ -354,7 +354,9 @@ class ProblemSet(VenueQNode):
     def compose_email_body(self, data: Data, comments: str) -> str:
         salutation = random.choice(["Hi", "Hello", "Hey"])
 
-        if datetime.today().month == 12:
+        if datetime.today().month == 12 or (
+            datetime.today().month == 1 and datetime.today().day <= 5
+        ):
             christmas_mv_url = random.choice(
                 [
                     "https://youtu.be/iTgcp1oDk2M",  # Beautiful Christmas - Red Velvet + aespa
