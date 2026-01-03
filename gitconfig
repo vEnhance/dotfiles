@@ -93,6 +93,7 @@
 [diff]
 	colorMoved = default
 	tool = meld
+	submodule = log
 [format]
 	pretty = fuller
 [grep]
@@ -106,6 +107,8 @@
 [push]
 	default = current
 	autoSetupRemote = true
+[submodule]
+	recurse = true
 [tag]
 	gpgSign = true
 
