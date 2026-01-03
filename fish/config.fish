@@ -27,27 +27,8 @@ function dn
     bash -c "$escaped_argv &" >/dev/null
 end
 
-# PROMPT CONFIG {{{
-# Status Chars
-#set __fish_git_prompt_char_dirtystate '*'
-#set __fish_git_prompt_char_stagedstate '+'
-#set __fish_git_prompt_char_untrackedfiles '?'
-#set __fish_git_prompt_char_stashstate '$'
-#set __fish_git_prompt_char_upstream_ahead '>'
-#set __fish_git_prompt_char_upstream_behind '<'
-
-set fish_color_cwd CCA700
-set fish_color_name 44FFFF
-set fish_color_host 11DD33
-set fish_color_error FF0000
-set fish_color_greeting FF3333
-set fish_color_determination yellow
-set fish_color_date 888888
-set fish_color_arrows 00CCA7
-
 set fish_prompt_pwd_dir_length 2
-
-# Fish git prompt
+# Fish git prompt {{{
 set __fish_git_prompt_showdirtystate 1
 set __fish_git_prompt_showstashstate 1
 set __fish_git_prompt_showuntrackedfiles 1
@@ -101,8 +82,6 @@ alias mv='mv -i'
 alias less='less -R' # less should detect colors correctly
 alias egrep='egrep --color=auto' # show differences in color
 alias fgrep='fgrep --color=auto' # show differences in color
-alias pip='pip3' #gd ubuntu
-alias python='python3' #gd ubuntu
 # }}}
 
 # Aliases to custom Python/shell and mailbox programs {{{
@@ -117,13 +96,13 @@ alias oscar='/usr/bin/python3 ~/dotfiles/py-scripts/oscar.py'
 alias sparky='/usr/bin/python3 ~/Sync/Projects/sparky/'
 alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp.py'
 alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
+alias tu='~/dotfiles/sh-scripts/task-update.sh'
 alias uclean='/usr/bin/python3 ~/dotfiles/py-scripts/uclean.py'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
 
-alias tu='~/dotfiles/sh-scripts/task-update.sh'
 # mailbox aliases
 alias mu='~/dotfiles/mutt/open-mail.sh'
 alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
