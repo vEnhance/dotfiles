@@ -8,8 +8,6 @@
 	signingkey = 2911981B5D39118D80D782779474E9565D64C443
 [credential]
 	helper = /usr/lib/git-core/git-credential-libsecret
-[init]
-	defaultBranch = main
 
 # Colors
 [color]
@@ -87,30 +85,54 @@
 
 [blame]
 	coloring = highlightRecent
+[branch]
+	sort = -committerdate
+[column]
+	ui = auto
 [commit]
 	gpgSign = true
 	verbose = true
 [diff]
-	colorMoved = default
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	rename = true
 	tool = meld
 	submodule = log
+[fetch]
+	all = true
+	prune = true
+	pruneTags = true
 [format]
 	pretty = fuller
 [grep]
 	lineNumber = true
+[help]
+	autocorrect = prompt
+[init]
+	defaultBranch = main
 [interactive]
 	diffFilter = delta --color-only
 [merge]
-	conflictstyle = diff3
+	conflictstyle = zdiff3
 [pull]
 	rebase = true
 [push]
-	default = current
 	autoSetupRemote = true
+	default = current
+	# followTags = true
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[rerere]
+	autoupdate = true
+	enabled = true
 [submodule]
 	recurse = true
 [tag]
 	gpgSign = true
+	sort = version:refname
 
 [delta]
 	file-decoration-style = omit
