@@ -100,7 +100,6 @@
 	tool = meld
 	submodule = log
 [fetch]
-	all = true
 	prune = true
 	pruneTags = true
 [format]
