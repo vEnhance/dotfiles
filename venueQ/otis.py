@@ -550,7 +550,7 @@ class Registrations(VenueQNode):
                     "You should be able to log in and pick your units now,\n"
                     "and use the /register slash command in the Discord."
                     "\n\n"
-                    f"Please check f{linkify('https://otis.evanchen.cc/dash/announce')}\n"
+                    f"Please check {linkify('https://otis.evanchen.cc/dash/announce')}\n"
                     "for recent announcements to all students."
                 )
                 recipients = [
