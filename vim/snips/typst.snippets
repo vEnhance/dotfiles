@@ -12,6 +12,27 @@ snippet evan "evan.typ setup" b
 $0
 endsnippet
 
+snippet slides "touying slides setup" b
+#import "@preview/touying:0.6.1": *
+#import themes.stargazer: *
+
+#show: stargazer-theme.with(
+  aspect-ratio: "16-9",
+  config-info(
+    title: [${1:<+Title+>}],
+    subtitle: [${2:<+Subtitle+>}],
+    author: [Evan Chen],
+    date: [${3:<+Date+>}],
+    institution: [${4:<+Institution>}],
+    logo: emoji.school,
+  ),
+)
+
+#title-slide()
+
+$0
+endsnippet
+
 snippet import "import @local/evan" b
 #import "@local/evan:1.0.0":*
 endsnippet
