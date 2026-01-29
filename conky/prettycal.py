@@ -140,8 +140,11 @@ agenda_text = Path("~/.cache/agenda.json").expanduser()
 for d in json.loads(agenda_text.read_text()):
     when = isoparse(d["start_date"] + "T" + d["start_time"])
     calitem = CalItem(
-        d["summary"], when, Type.CALENDAR, color=d["calendar_color"][1:]
-    )  # remove hashtag
+        d["summary"] if d["summary"] != "NO_TITLE" else "바쁨",
+        when,
+        Type.CALENDAR,
+        color=d["calendar_color"][1:],  # remove hashtag from color hex code
+    )
     all_items[when.date()].append(calitem)
 
 ORDER = []

@@ -22,7 +22,9 @@ if "error" not in json_data:
         open(CACHE_DIR / "agenda_future.txt", "w") as future_file,
     ):
         for data in json_data:
-            summary = data["summary"].replace(r"#", r"\#")
+            summary = data["summary"].replace(r"#", r"\#").strip()
+            if summary == "NO_TITLE":
+                summary = "바쁨"
             start_date = datetime.date.fromisoformat(data["start_date"])
             start_time = data["start_time"]
             if start_date == datetime.date.today():

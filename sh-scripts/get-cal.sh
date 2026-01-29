@@ -17,5 +17,5 @@ gcalendar --no-of-days 14 --output json \
   "Zero-Minute Reminders" \
   "evan@evanchen.cc" \
   "twitch.tv" \
-  "Accounts" \
-  "Contractor" | python ~/dotfiles/py-scripts/get-cal-helper.py
+  "evanchen.records" \
+  "evan@axiommath.ai" | python ~/dotfiles/py-scripts/get-cal-helper.py
