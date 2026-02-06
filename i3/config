@@ -285,7 +285,7 @@ bindsym $mod+o exec --no-startup-id $HOME/dotfiles/i3/reminder-ponymix.sh, mode 
 # executable [x] {{{
 mode "exec" {
   bindsym a exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/ggb-to-asy.sh", mode "default"
-  bindsym b exec libreoffice --calc &, mode "default"
+  bindsym b exec xfce4-terminal --zoom=4 -e "borse" &, mode "default"
   bindsym c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh cards", mode "default"
   bindsym d exec discord &, mode "default"
   bindsym f exec firefox &, mode "default"
