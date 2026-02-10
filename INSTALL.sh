@@ -20,42 +20,20 @@ do_link() {
   fi
 }
 
-link_config_dir() {
-  do_link "$HOME/dotfiles/$1" "$HOME/.config/$1"
-}
-
-link_home_hidden_object() {
-  mkdir -p "$(dirname "$HOME/.$1")"
-  do_link "$HOME/dotfiles/$1" "$HOME/.$1"
-}
-
 link_single_dotfile() {
   do_link "$HOME/dotfiles/dot/$1" "$HOME/.$1"
 }
 
+link_hidden_object() {
+  mkdir -p "$(dirname "$HOME/.$1")"
+  do_link "$HOME/dotfiles/$1" "$HOME/.$1"
+}
+
 cd "$HOME" || exit 1
 
-link_config_dir bat
-link_config_dir borse
-link_config_dir dijo
-link_config_dir dunst
-link_config_dir feh
-link_config_dir fish
-link_config_dir i3
-link_config_dir miqin
-link_config_dir mutt
-link_config_dir ncdu
-link_config_dir nvim
-link_config_dir qutebrowser
-link_config_dir redshift
-link_config_dir rofi
-link_config_dir ruff
-link_config_dir von
-link_config_dir zathura
-
-link_home_hidden_object asy
-link_home_hidden_object texmf
-link_home_hidden_object vit
+link_hidden_object asy
+link_hidden_object texmf
+link_hidden_object vit
 
 link_single_dotfile agignore
 link_single_dotfile bashrc
@@ -72,26 +50,44 @@ link_single_dotfile tidyrc
 link_single_dotfile xinitrc
 link_single_dotfile xprofile
 
-link_home_hidden_object config/gh/config.yml
-link_home_hidden_object config/gtk-3.0/settings.ini
-link_home_hidden_object config/nerd-dictation/nerd-dictation.py
-link_home_hidden_object config/picom.conf
-link_home_hidden_object config/vale/.vale.ini
-link_home_hidden_object config/vale/vale-styles
-link_home_hidden_object config/xfce4/terminal
+link_hidden_object config/bat
+link_hidden_object config/borse
+link_hidden_object config/dijo
+link_hidden_object config/dunst
+link_hidden_object config/feh
+link_hidden_object config/fish
+link_hidden_object config/i3
+link_hidden_object config/miqin
+link_hidden_object config/mutt
+link_hidden_object config/ncdu
+link_hidden_object config/nvim
+link_hidden_object config/qutebrowser
+link_hidden_object config/redshift
+link_hidden_object config/rofi
+link_hidden_object config/ruff
+link_hidden_object config/von
+link_hidden_object config/zathura
+
+link_hidden_object config/gh/config.yml
+link_hidden_object config/gtk-3.0/settings.ini
+link_hidden_object config/nerd-dictation/nerd-dictation.py
+link_hidden_object config/picom.conf
+link_hidden_object config/vale/.vale.ini
+link_hidden_object config/vale/vale-styles
+link_hidden_object config/xfce4/terminal
 
 mkdir -p "$HOME"/.vim/tmp/
-link_home_hidden_object vim/after
-link_home_hidden_object vim/colors
-link_home_hidden_object vim/doc
-link_home_hidden_object vim/snips
-link_home_hidden_object vim/vimrc
+link_hidden_object vim/after
+link_hidden_object vim/colors
+link_hidden_object vim/doc
+link_hidden_object vim/snips
+link_hidden_object vim/vimrc
 
-link_home_hidden_object claude/settings.json
-link_home_hidden_object jupyter/jupyter_notebook_config.py
-link_home_hidden_object local/share/gh/extensions
-link_home_hidden_object local/share/typst
-link_home_hidden_object task/hooks
+link_hidden_object claude/settings.json
+link_hidden_object jupyter/jupyter_notebook_config.py
+link_hidden_object local/share/gh/extensions
+link_hidden_object local/share/typst
+link_hidden_object task/hooks
 
 # py3status installation (host-dependent)
 cd "$HOME"/dotfiles/py3status/ || exit 1

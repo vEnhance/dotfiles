@@ -2,10 +2,10 @@
 	path = i3/i3-workspace-names-daemon
 	url = https://github.com/cboddy/i3-workspace-names-daemon
 [submodule "i3-workspace-names-daemon"]
-	path = i3/3kon
+	path = config/i3/3kon
 	url = https://github.com/cboddy/i3-workspace-names-daemon
 [submodule "gm-scripts/aops-enhanced"]
-	path = qutebrowser/greasemonkey/aops-enhanced
+	path = config/qutebrowser/greasemonkey/aops-enhanced
 	url = https://github.com/epiccakeking/aops-enhanced
 [submodule "gh-extensions/gh-done"]
 	path = local/share/gh/extensions/gh-done
