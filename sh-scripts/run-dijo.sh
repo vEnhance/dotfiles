@@ -3,7 +3,7 @@
 set -euo pipefail
 
 DATE="$(date +"%Y-%m-%d")"
-HAS_RUN_DIJO=$(jq ".[]|select(.name==\"dijo\")|.stats|.\"$DATE\"" <~/Sync/Personal/dijo/habit_record\[auto\].json)
+HAS_RUN_DIJO=$(jq ".[]|select(.name==\"dijo\")|.stats|.\"$DATE\"" <~/Sync/share/dijo/habit_record\[auto\].json)
 
 if [ "$HAS_RUN_DIJO" != "true" ]; then
   dijo -c "track-up dijo"
