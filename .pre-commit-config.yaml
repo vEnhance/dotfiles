@@ -23,13 +23,13 @@ repos:
       - id: codespell
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.14.9
+    rev: v0.15.0
     hooks:
       - id: ruff
       - id: ruff-format
 
   - repo: https://github.com/JoC0de/pre-commit-prettier
-    rev: v3.7.4
+    rev: v3.8.1
     hooks:
       - id: prettier
         types_or: [css, javascript, markdown, json, toml, yaml]
