@@ -8,16 +8,16 @@
 	path = qutebrowser/greasemonkey/aops-enhanced
 	url = https://github.com/epiccakeking/aops-enhanced
 [submodule "gh-extensions/gh-done"]
-	path = gh-extensions/gh-done
+	path = local/share/gh/extensions/gh-done
 	url = https://github.com/vEnhance/gh-done
 [submodule "gh-extensions/gh-dash"]
-	path = gh-extensions/gh-dash
+	path = local/share/gh/gh-dash
 	url = https://github.com/dlvhdr/gh-dash
 [submodule "gh-extensions/gh-markdown-preview"]
-	path = gh-extensions/gh-markdown-preview
+	path = local/share/gh/extensions/gh-markdown-preview
 	url = https://github.com/yusukebe/gh-markdown-preview
 [submodule "gh-extensions/gh-link"]
-	path = gh-extensions/gh-link
+	path = local/share/gh/extensions/gh-link
 	url = https://github.com/vEnhance/gh-link
 [submodule "typst/packages/local/typst-svg-emoji"]
 	path = typst/packages/local/svg-emoji/0.1.0
