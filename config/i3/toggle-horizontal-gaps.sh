@@ -30,7 +30,7 @@ fi
 current_gaps=$(i3-msg -t get_tree | jq -r --arg ws "$workspace_name" '.. | objects | select(.type=="workspace" and .name==$ws) | .gaps.left // .gaps // 0')
 
 # Get default gap values from extras file
-extras_file="$HOME/dotfiles/i3/extras.$(hostname)"
+extras_file="$HOME/dotfiles/config/i3/extras.$(hostname)"
 default_left_gap=0
 default_right_gap=0
 

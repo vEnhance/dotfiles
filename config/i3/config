@@ -158,7 +158,7 @@ mode "nudge" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+n exec --no-startup-id $HOME/dotfiles/i3/reminder-nudge.sh, mode "nudge"
+bindsym $mod+n exec --no-startup-id $HOME/dotfiles/config/i3/reminder-nudge.sh, mode "nudge"
 # }}}
 
 # close focused window [q] {{{
@@ -218,7 +218,7 @@ mode "danger" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+Shift+backslash exec --no-startup-id $HOME/dotfiles/i3/reminder-danger.sh, mode "danger"
+bindsym $mod+Shift+backslash exec --no-startup-id $HOME/dotfiles/config/i3/reminder-danger.sh, mode "danger"
 # }}}
 
 # config/reset mode [escape] {{{
@@ -239,13 +239,13 @@ mode "config" {
   bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
 
   # toggle gaps
-  bindsym g exec --no-startup-id $HOME/dotfiles/i3/toggle-horizontal-gaps.sh, mode "default"
+  bindsym g exec --no-startup-id $HOME/dotfiles/config/i3/toggle-horizontal-gaps.sh, mode "default"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+Escape exec --no-startup-id $HOME/dotfiles/i3/reminder-config.sh, mode "config"
+bindsym $mod+Escape exec --no-startup-id $HOME/dotfiles/config/i3/reminder-config.sh, mode "config"
 # }}}
 
 # Ponymix [o] {{{
@@ -279,7 +279,7 @@ mode "ponymix" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+o exec --no-startup-id $HOME/dotfiles/i3/reminder-ponymix.sh, mode "ponymix"
+bindsym $mod+o exec --no-startup-id $HOME/dotfiles/config/i3/reminder-ponymix.sh, mode "ponymix"
 # }}}
 
 # executable [x] {{{
@@ -315,7 +315,7 @@ mode "exec" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+x exec --no-startup-id $HOME/dotfiles/i3/reminder-exec.sh, mode "exec"
+bindsym $mod+x exec --no-startup-id $HOME/dotfiles/config/i3/reminder-exec.sh, mode "exec"
 # }}}
 
 # noisemaker {{{
@@ -342,7 +342,7 @@ exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
 # vvv workspace setup
 # NOTE: requires i3ipc installed via pip to run
-exec_always --no-startup-id exec $HOME/dotfiles/i3/3kon/i3_workspace_names_daemon.py -n -d " " -l 12
+exec_always --no-startup-id exec $HOME/dotfiles/config/i3/3kon/i3_workspace_names_daemon.py -n -d " " -l 12
 
 # Misc commands {{{
 bindsym $mod+Return exec xfce4-terminal
