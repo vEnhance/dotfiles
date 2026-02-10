@@ -247,7 +247,7 @@ def main():
     # Set up paths
     dotfiles_dir = Path(__file__).parent
     vim_snips_dir = dotfiles_dir / "vim" / "snips"
-    nvim_snippets_dir = dotfiles_dir / "nvim" / "snippets"
+    nvim_snippets_dir = dotfiles_dir / "config" / "nvim" / "snippets"
 
     if not vim_snips_dir.exists():
         print(f"Error: UltiSnips directory not found: {vim_snips_dir}")
