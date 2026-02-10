@@ -35,7 +35,7 @@ Keybindings are optimized for [Dvorak](https://en.wikipedia.org/wiki/Dvorak_Simp
 
 ## Notes on tabs
 
-- Hard tabs are no longer used. 😢
+- Hard tabs are no longer used.
 - Python/Perl uses 4 spaces for indentation.
 - Python is formatted using `ruff`, more broadly.
 - Fish uses 4 spaces for indentation as well.
