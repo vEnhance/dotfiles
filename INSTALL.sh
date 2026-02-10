@@ -6,54 +6,80 @@
 set -e
 set -o xtrace
 
+# Helper functions for creating symlinks
+# Symlink a directory from dotfiles to $HOME (with dot prefix)
+link_home_dir() {
+  if ! test -d "$HOME/.$1"; then
+    ln -s "$HOME/dotfiles/$1" "$HOME/.$1"
+  fi
+}
+
+# Symlink a file from dotfiles to $HOME (with dot prefix)
+link_home_file() {
+  if ! test -f "$HOME/.$1"; then
+    ln -s "$HOME/dotfiles/$1" "$HOME/.$1"
+  fi
+}
+
+# Symlink a directory from dotfiles to ~/.config
+link_config_dir() {
+  if ! test -d "$HOME/.config/$1"; then
+    ln -s "$HOME/dotfiles/$1" "$HOME/.config/$1"
+  fi
+}
+
+# Symlink a vim subdirectory
+link_vim_dir() {
+  if ! test -d "$HOME/.vim/$1"; then
+    ln -s "$HOME/dotfiles/vim/$1" "$HOME/.vim/$1"
+  fi
+}
+
 cd "$HOME"/dotfiles/py3status/ || exit 1
 make
 
 cd "$HOME" || exit 1
 
-# symlink in home
-if ! test -d "$HOME/.asy"; then ln -s "$HOME"/dotfiles/asy "$HOME"/.asy; fi
-if ! test -d "$HOME/.texmf"; then ln -s "$HOME"/dotfiles/texmf "$HOME"/.texmf; fi
-if ! test -d "$HOME/.vit"; then ln -s "$HOME"/dotfiles/vit "$HOME"/.vit; fi
+link_home_dir asy
+link_home_dir texmf
+link_home_dir vit
 
-if ! test -f "$HOME/.agignore"; then ln -s "$HOME"/dotfiles/agignore "$HOME"/.agignore; fi
-if ! test -f "$HOME/.bashrc"; then ln -s "$HOME"/dotfiles/bashrc "$HOME"/.bashrc; fi
-if ! test -f "$HOME/.chktexrc"; then ln -s "$HOME"/dotfiles/chktexrc "$HOME"/.chktexrc; fi
-if ! test -f "$HOME/.eslintrc.yaml"; then ln -s "$HOME"/dotfiles/eslintrc.yaml "$HOME"/.eslintrc.yaml; fi
-if ! test -f "$HOME/.gitconfig"; then ln -s "$HOME"/dotfiles/gitconfig "$HOME"/.gitconfig; fi
-if ! test -f "$HOME/.gvimrc"; then ln -s "$HOME"/dotfiles/gvimrc "$HOME"/.gvimrc; fi
-if ! test -f "$HOME/.latexmkrc"; then ln -s "$HOME"/dotfiles/latexmkrc "$HOME"/.latexmkrc; fi
-if ! test -f "$HOME/.mbsyncrc"; then ln -s "$HOME"/dotfiles/mutt/mbsyncrc "$HOME"/.mbsyncrc; fi
-if ! test -f "$HOME/.screenrc"; then ln -s "$HOME"/dotfiles/screenrc "$HOME"/.screenrc; fi
-if ! test -f "$HOME/.shellcheckrc"; then ln -s "$HOME"/dotfiles/shellcheckrc "$HOME"/.shellcheckrc; fi
-if ! test -f "$HOME/.taskrc"; then ln -s "$HOME"/dotfiles/taskrc "$HOME"/.taskrc; fi
-if ! test -f "$HOME/.tidyrc"; then ln -s "$HOME"/dotfiles/tidyrc "$HOME"/.tidyrc; fi
-if ! test -f "$HOME/.xinitrc"; then ln -s "$HOME"/dotfiles/xinitrc "$HOME"/.xinitrc; fi
-if ! test -f "$HOME/.xprofile"; then ln -s "$HOME"/dotfiles/xprofile "$HOME"/.xprofile; fi
+link_home_file agignore
+link_home_file bashrc
+link_home_file chktexrc
+link_home_file eslintrc.yaml
+link_home_file gitconfig
+link_home_file gvimrc
+link_home_file latexmkrc
+link_home_file mbsyncrc
+link_home_file screenrc
+link_home_file shellcheckrc
+link_home_file taskrc
+link_home_file tidyrc
+link_home_file xinitrc
+link_home_file xprofile
+
+link_config_dir bat
+link_config_dir borse
+link_config_dir dijo
+link_config_dir dunst
+link_config_dir feh
+link_config_dir fish
+link_config_dir i3
+link_config_dir miqin
+link_config_dir mutt
+link_config_dir ncdu
+link_config_dir nvim
+link_config_dir qutebrowser
+link_config_dir rofi
+link_config_dir von
+link_config_dir zathur
 
 # .claude directory and settings
 mkdir -p "$HOME"/.claude
 if ! test -f "$HOME/.claude/settings.json"; then
   ln -s "$HOME"/dotfiles/claude-settings.json "$HOME"/.claude/settings.json
 fi
-
-# file/dir in .config
-mkdir -p .config
-if ! test -d "$HOME/.config/bat"; then ln -s "$HOME"/dotfiles/bat "$HOME"/.config/bat; fi
-if ! test -d "$HOME/.config/borse"; then ln -s "$HOME"/dotfiles/borse "$HOME"/.config/borse; fi
-if ! test -d "$HOME/.config/dijo"; then ln -s "$HOME"/dotfiles/dijo "$HOME"/.config/dijo; fi
-if ! test -d "$HOME/.config/dunst"; then ln -s "$HOME"/dotfiles/dunst "$HOME"/.config/dunst; fi
-if ! test -d "$HOME/.config/feh"; then ln -s "$HOME"/dotfiles/feh "$HOME"/.config/feh; fi
-if ! test -d "$HOME/.config/fish"; then ln -s "$HOME"/dotfiles/fish "$HOME"/.config/fish; fi
-if ! test -d "$HOME/.config/i3"; then ln -s "$HOME"/dotfiles/i3 "$HOME"/.config/i3; fi
-if ! test -d "$HOME/.config/miqin"; then ln -s "$HOME"/dotfiles/miqin "$HOME"/.config/miqin; fi
-if ! test -d "$HOME/.config/mutt"; then ln -s "$HOME"/dotfiles/mutt "$HOME"/.config/mutt; fi
-if ! test -d "$HOME/.config/ncdu"; then ln -s "$HOME"/dotfiles/ncdu "$HOME"/.config/ncdu; fi
-if ! test -d "$HOME/.config/nvim"; then ln -s "$HOME"/dotfiles/nvim "$HOME"/.config/nvim; fi
-if ! test -d "$HOME/.config/qutebrowser"; then ln -s "$HOME"/dotfiles/qutebrowser "$HOME"/.config/qutebrowser; fi
-if ! test -d "$HOME/.config/rofi"; then ln -s "$HOME"/dotfiles/rofi "$HOME"/.config/rofi; fi
-if ! test -d "$HOME/.config/von"; then ln -s "$HOME"/dotfiles/von "$HOME"/.config/von; fi
-if ! test -d "$HOME/.config/zathura"; then ln -s "$HOME"/dotfiles/zathura "$HOME"/.config/zathura; fi
 
 # nested config
 if ! test -f "$HOME/.config/picom.conf"; then
@@ -119,21 +145,11 @@ fi
 mkdir -p "$HOME"/.vim/tmp/
 mkdir -p "$HOME"/.vim/after/
 mkdir -p "$HOME"/.vim/tags/
-if ! test -d "$HOME/.vim/after/ftplugin"; then
-  ln -s "$HOME"/dotfiles/vim/after/ftplugin "$HOME"/.vim/after/ftplugin
-fi
-if ! test -d "$HOME/.vim/after/syntax"; then
-  ln -s "$HOME"/dotfiles/vim/after/syntax "$HOME"/.vim/after/syntax
-fi
-if ! test -d "$HOME/.vim/colors"; then
-  ln -s "$HOME"/dotfiles/vim/colors "$HOME"/.vim/colors
-fi
-if ! test -d "$HOME/.vim/doc"; then
-  ln -s "$HOME"/dotfiles/vim/doc "$HOME"/.vim/doc
-fi
-if ! test -d "$HOME/.vim/snips"; then
-  ln -s "$HOME"/dotfiles/vim/snips "$HOME"/.vim/snips
-fi
+link_vim_dir after/ftplugin
+link_vim_dir after/syntax
+link_vim_dir colors
+link_vim_dir doc
+link_vim_dir snips
 # stopgap
 if ! test -d "$HOME/.vim/spell"; then
   if test -d "$HOME"/dotfiles/vim/spell; then
