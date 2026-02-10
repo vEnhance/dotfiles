@@ -20,7 +20,7 @@ do_link() {
   fi
 }
 
-link_single_dotfile() {
+link_dot_object() {
   do_link "$HOME/dotfiles/dot/$1" "$HOME/.$1"
 }
 
@@ -31,25 +31,25 @@ link_hidden_object() {
 
 cd "$HOME" || exit 1
 
-link_hidden_object asy
-link_hidden_object texmf
-link_hidden_object vit
+link_dot_object agignore
+link_dot_object bashrc
+link_dot_object chktexrc
+link_dot_object eslintrc.yaml
+link_dot_object gitconfig
+link_dot_object gvimrc
+link_dot_object latexmkrc
+link_dot_object lisprc
+link_dot_object mbsyncrc
+link_dot_object screenrc
+link_dot_object shellcheckrc
+link_dot_object taskrc
+link_dot_object tidyrc
+link_dot_object xinitrc
+link_dot_object xprofile
 
-link_single_dotfile agignore
-link_single_dotfile bashrc
-link_single_dotfile chktexrc
-link_single_dotfile eslintrc.yaml
-link_single_dotfile gitconfig
-link_single_dotfile gvimrc
-link_single_dotfile latexmkrc
-link_single_dotfile lisprc
-link_single_dotfile mbsyncrc
-link_single_dotfile screenrc
-link_single_dotfile shellcheckrc
-link_single_dotfile taskrc
-link_single_dotfile tidyrc
-link_single_dotfile xinitrc
-link_single_dotfile xprofile
+link_dot_object claude/settings.json
+link_dot_object jupyter/jupyter_notebook_config.py
+link_dot_object vit
 
 link_hidden_object config/bat
 link_hidden_object config/borse
@@ -77,18 +77,18 @@ link_hidden_object config/vale/.vale.ini
 link_hidden_object config/vale/vale-styles
 link_hidden_object config/xfce4/terminal
 
+link_hidden_object asy
+link_hidden_object texmf
+link_hidden_object task/hooks
+link_hidden_object local/share/gh/extensions
+link_hidden_object local/share/typst
+
 mkdir -p "$HOME"/.vim/tmp/
 link_hidden_object vim/after
 link_hidden_object vim/colors
 link_hidden_object vim/doc
 link_hidden_object vim/snips
 link_hidden_object vim/vimrc
-
-link_hidden_object claude/settings.json
-link_hidden_object jupyter/jupyter_notebook_config.py
-link_hidden_object local/share/gh/extensions
-link_hidden_object local/share/typst
-link_hidden_object task/hooks
 
 # py3status installation (host-dependent)
 cd "$HOME"/dotfiles/py3status/ || exit 1
