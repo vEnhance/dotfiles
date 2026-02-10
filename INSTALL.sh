@@ -20,15 +20,17 @@ do_link() {
   fi
 }
 
-# Symlink a directory from dotfiles to ~/.config
 link_config_dir() {
   do_link "$HOME/dotfiles/$1" "$HOME/.config/$1"
 }
 
-# General symlink (auto-creates parent directories)
 link_home_hidden_object() {
   mkdir -p "$(dirname "$HOME/.$1")"
   do_link "$HOME/dotfiles/$1" "$HOME/.$1"
+}
+
+link_single_dotfile() {
+  do_link "$HOME/dotfiles/dot/$1" "$HOME/.$1"
 }
 
 cd "$HOME" || exit 1
@@ -55,20 +57,20 @@ link_home_hidden_object asy
 link_home_hidden_object texmf
 link_home_hidden_object vit
 
-link_home_hidden_object agignore
-link_home_hidden_object bashrc
-link_home_hidden_object chktexrc
-link_home_hidden_object eslintrc.yaml
-link_home_hidden_object gitconfig
-link_home_hidden_object gvimrc
-link_home_hidden_object latexmkrc
-link_home_hidden_object mbsyncrc
-link_home_hidden_object screenrc
-link_home_hidden_object shellcheckrc
-link_home_hidden_object taskrc
-link_home_hidden_object tidyrc
-link_home_hidden_object xinitrc
-link_home_hidden_object xprofile
+link_single_dotfile agignore
+link_single_dotfile bashrc
+link_single_dotfile chktexrc
+link_single_dotfile eslintrc.yaml
+link_single_dotfile gitconfig
+link_single_dotfile gvimrc
+link_single_dotfile latexmkrc
+link_single_dotfile mbsyncrc
+link_single_dotfile screenrc
+link_single_dotfile shellcheckrc
+link_single_dotfile taskrc
+link_single_dotfile tidyrc
+link_single_dotfile xinitrc
+link_single_dotfile xprofile
 
 link_home_hidden_object config/gh/config.yml
 link_home_hidden_object config/gtk-3.0/settings.ini
