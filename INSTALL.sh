@@ -28,12 +28,8 @@ if ! test -f "$HOME/.screenrc"; then ln -s "$HOME"/dotfiles/screenrc "$HOME"/.sc
 if ! test -f "$HOME/.shellcheckrc"; then ln -s "$HOME"/dotfiles/shellcheckrc "$HOME"/.shellcheckrc; fi
 if ! test -f "$HOME/.taskrc"; then ln -s "$HOME"/dotfiles/taskrc "$HOME"/.taskrc; fi
 if ! test -f "$HOME/.tidyrc"; then ln -s "$HOME"/dotfiles/tidyrc "$HOME"/.tidyrc; fi
+if ! test -f "$HOME/.xinitrc"; then ln -s "$HOME"/dotfiles/xinitrc "$HOME"/.xinitrc; fi
 if ! test -f "$HOME/.xprofile"; then ln -s "$HOME"/dotfiles/xprofile "$HOME"/.xprofile; fi
-
-if ! test -f "$HOME/.xinitrc"; then
-  echo "[ -f $HOME/.xprofile ] && . $HOME/.xprofile" >"$HOME"/.xinitrc
-  echo "exec i3" >"$HOME"/.xinitrc
-fi
 
 # .claude directory and settings
 mkdir -p "$HOME"/.claude
@@ -44,13 +40,15 @@ fi
 # file/dir in .config
 mkdir -p .config
 if ! test -d "$HOME/.config/bat"; then ln -s "$HOME"/dotfiles/bat "$HOME"/.config/bat; fi
+if ! test -d "$HOME/.config/borse"; then ln -s "$HOME"/dotfiles/borse "$HOME"/.config/borse; fi
 if ! test -d "$HOME/.config/dijo"; then ln -s "$HOME"/dotfiles/dijo "$HOME"/.config/dijo; fi
 if ! test -d "$HOME/.config/dunst"; then ln -s "$HOME"/dotfiles/dunst "$HOME"/.config/dunst; fi
 if ! test -d "$HOME/.config/feh"; then ln -s "$HOME"/dotfiles/feh "$HOME"/.config/feh; fi
 if ! test -d "$HOME/.config/fish"; then ln -s "$HOME"/dotfiles/fish "$HOME"/.config/fish; fi
 if ! test -d "$HOME/.config/i3"; then ln -s "$HOME"/dotfiles/i3 "$HOME"/.config/i3; fi
-if ! test -d "$HOME/.config/ncdu"; then ln -s "$HOME"/dotfiles/ncdu "$HOME"/.config/ncdu; fi
+if ! test -d "$HOME/.config/miqin"; then ln -s "$HOME"/dotfiles/miqin "$HOME"/.config/miqin; fi
 if ! test -d "$HOME/.config/mutt"; then ln -s "$HOME"/dotfiles/mutt "$HOME"/.config/mutt; fi
+if ! test -d "$HOME/.config/ncdu"; then ln -s "$HOME"/dotfiles/ncdu "$HOME"/.config/ncdu; fi
 if ! test -d "$HOME/.config/nvim"; then ln -s "$HOME"/dotfiles/nvim "$HOME"/.config/nvim; fi
 if ! test -d "$HOME/.config/qutebrowser"; then ln -s "$HOME"/dotfiles/qutebrowser "$HOME"/.config/qutebrowser; fi
 if ! test -d "$HOME/.config/rofi"; then ln -s "$HOME"/dotfiles/rofi "$HOME"/.config/rofi; fi

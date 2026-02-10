@@ -1,0 +1,17 @@
+# miqin configuration
+
+# UI language: "ko" (Korean) or "en" (English)
+ui_language = "ko"
+
+# Number of sentences to practice per session
+sentences_per_session = 20
+
+# List of paths to apkg files
+apkg_files = [
+    "~/Freezer/korean-anki/anki/Unit 1 Example Sentences/Unit 1 Sentences - Korean Audio to English.apkg",
+    "~/Freezer/korean-anki/anki/Unit 2 Example Sentences/Unit 2 Sentences - Korean Audio to English.apkg",
+    "~/Freezer/korean-anki/anki/Unit 3 Example Sentences/Unit 3 Sentences - Korean Audio to English.apkg",
+    "~/Freezer/korean-anki/anki/Unit 4 Example Sentences/Unit 4 Sentences - Korean Audio to English.apkg",
+    "~/Freezer/korean-anki/anki/Unit 5 Example Sentences/Unit 5 Example Sentences.apkg",
+    "~/Freezer/korean-anki/anki/Unit 6 Example Sentences/Unit 6 Example Sentences.apkg",
+]
