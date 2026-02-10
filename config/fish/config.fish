@@ -104,9 +104,9 @@ alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
 
 # mailbox aliases
-alias mu='~/dotfiles/mutt/open-mail.sh'
-alias m1='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
-alias m2='~/dotfiles/mutt/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
+alias mu='~/dotfiles/sh-scripts/open-mail.sh'
+alias m1='~/dotfiles/sh-scripts/open-mail.sh -F ~/.config/mutt/neomuttrc.1'
+alias m2='~/dotfiles/sh-scripts/open-mail.sh -F ~/.config/mutt/neomuttrc.2'
 # }}}
 
 # Miscellaneous utility functions {{{
