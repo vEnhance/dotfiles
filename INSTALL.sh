@@ -21,6 +21,7 @@ do_link() {
 }
 
 link_dot_path() {
+  mkdir -p "$(dirname "$HOME/.$1")"
   do_link "$HOME/dotfiles/dot/$1" "$HOME/.$1"
 }
 
