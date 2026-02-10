@@ -20,75 +20,75 @@ do_link() {
   fi
 }
 
-link_dot_object() {
+link_dot_path() {
   do_link "$HOME/dotfiles/dot/$1" "$HOME/.$1"
 }
 
-link_hidden_object() {
+link_hidden_path() {
   mkdir -p "$(dirname "$HOME/.$1")"
   do_link "$HOME/dotfiles/$1" "$HOME/.$1"
 }
 
 cd "$HOME" || exit 1
 
-link_dot_object agignore
-link_dot_object bashrc
-link_dot_object chktexrc
-link_dot_object eslintrc.yaml
-link_dot_object gitconfig
-link_dot_object gvimrc
-link_dot_object latexmkrc
-link_dot_object lisprc
-link_dot_object mbsyncrc
-link_dot_object screenrc
-link_dot_object shellcheckrc
-link_dot_object taskrc
-link_dot_object tidyrc
-link_dot_object xinitrc
-link_dot_object xprofile
+link_dot_path agignore
+link_dot_path bashrc
+link_dot_path chktexrc
+link_dot_path eslintrc.yaml
+link_dot_path gitconfig
+link_dot_path gvimrc
+link_dot_path latexmkrc
+link_dot_path lisprc
+link_dot_path mbsyncrc
+link_dot_path screenrc
+link_dot_path shellcheckrc
+link_dot_path taskrc
+link_dot_path tidyrc
+link_dot_path xinitrc
+link_dot_path xprofile
 
-link_dot_object claude/settings.json
-link_dot_object jupyter/jupyter_notebook_config.py
-link_dot_object vit
+link_dot_path claude/settings.json
+link_dot_path jupyter/jupyter_notebook_config.py
+link_dot_path vit
 
-link_hidden_object config/bat
-link_hidden_object config/borse
-link_hidden_object config/dijo
-link_hidden_object config/dunst
-link_hidden_object config/feh
-link_hidden_object config/fish
-link_hidden_object config/i3
-link_hidden_object config/miqin
-link_hidden_object config/mutt
-link_hidden_object config/ncdu
-link_hidden_object config/nvim
-link_hidden_object config/qutebrowser
-link_hidden_object config/redshift
-link_hidden_object config/rofi
-link_hidden_object config/ruff
-link_hidden_object config/von
-link_hidden_object config/zathura
+link_hidden_path config/bat
+link_hidden_path config/borse
+link_hidden_path config/dijo
+link_hidden_path config/dunst
+link_hidden_path config/feh
+link_hidden_path config/fish
+link_hidden_path config/i3
+link_hidden_path config/miqin
+link_hidden_path config/mutt
+link_hidden_path config/ncdu
+link_hidden_path config/nvim
+link_hidden_path config/qutebrowser
+link_hidden_path config/redshift
+link_hidden_path config/rofi
+link_hidden_path config/ruff
+link_hidden_path config/von
+link_hidden_path config/zathura
 
-link_hidden_object config/gh/config.yml
-link_hidden_object config/gtk-3.0/settings.ini
-link_hidden_object config/nerd-dictation/nerd-dictation.py
-link_hidden_object config/picom.conf
-link_hidden_object config/vale/.vale.ini
-link_hidden_object config/vale/vale-styles
-link_hidden_object config/xfce4/terminal
+link_hidden_path config/gh/config.yml
+link_hidden_path config/gtk-3.0/settings.ini
+link_hidden_path config/nerd-dictation/nerd-dictation.py
+link_hidden_path config/picom.conf
+link_hidden_path config/vale/.vale.ini
+link_hidden_path config/vale/vale-styles
+link_hidden_path config/xfce4/terminal
 
-link_hidden_object asy
-link_hidden_object texmf
-link_hidden_object task/hooks
-link_hidden_object local/share/gh/extensions
-link_hidden_object local/share/typst
+link_hidden_path asy
+link_hidden_path texmf
+link_hidden_path task/hooks
+link_hidden_path local/share/gh/extensions
+link_hidden_path local/share/typst
 
 mkdir -p "$HOME"/.vim/tmp/
-link_hidden_object vim/after
-link_hidden_object vim/colors
-link_hidden_object vim/doc
-link_hidden_object vim/snips
-link_hidden_object vim/vimrc
+link_hidden_path vim/after
+link_hidden_path vim/colors
+link_hidden_path vim/doc
+link_hidden_path vim/snips
+link_hidden_path vim/vimrc
 
 # py3status installation (host-dependent)
 cd "$HOME"/dotfiles/py3status/ || exit 1
