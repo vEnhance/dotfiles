@@ -363,6 +363,6 @@ bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/cal
 bindsym $mod+y exec i3-sensible-terminal -e "fish --login --command yap"
 # }}}
 
-include ~/dotfiles/i3/extras.`hostname`
+include ~/dotfiles/config/i3/extras.`hostname`
 
 # vim: ft=i3config fdm=marker textwidth=0
