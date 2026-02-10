@@ -42,6 +42,7 @@ link_single_dotfile eslintrc.yaml
 link_single_dotfile gitconfig
 link_single_dotfile gvimrc
 link_single_dotfile latexmkrc
+link_single_dotfile lisprc
 link_single_dotfile mbsyncrc
 link_single_dotfile screenrc
 link_single_dotfile shellcheckrc
