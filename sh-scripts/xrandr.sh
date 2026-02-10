@@ -51,4 +51,5 @@ if [ "$(hostname)" = dagobah ]; then
 fi
 
 # Load background image, if not existent already
+# shellcheck source=/dev/null
 [[ -f ~/.fehbg ]] && source ~/.fehbg
