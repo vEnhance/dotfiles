@@ -25,11 +25,6 @@ link_config_dir() {
   do_link "$HOME/dotfiles/$1" "$HOME/.config/$1"
 }
 
-# Symlink a vim subdirectory
-link_vim_dir() {
-  do_link "$HOME/dotfiles/vim/$1" "$HOME/.vim/$1"
-}
-
 # General symlink (auto-creates parent directories)
 link_home_hidden_object() {
   mkdir -p "$(dirname "$HOME/.$1")"
@@ -83,20 +78,18 @@ link_home_hidden_object config/vale/.vale.ini
 link_home_hidden_object config/vale/vale-styles
 link_home_hidden_object config/xfce4/terminal
 
+mkdir -p "$HOME"/.vim/tmp/
+link_home_hidden_object vim/after
+link_home_hidden_object vim/colors
+link_home_hidden_object vim/doc
+link_home_hidden_object vim/snips
+link_home_hidden_object vim/vimrc
+
 link_home_hidden_object claude/settings.json
 link_home_hidden_object jupyter/jupyter_notebook_config.py
 link_home_hidden_object local/share/gh/extensions
 link_home_hidden_object local/share/typst
 link_home_hidden_object task/hooks
-link_home_hidden_object vim/vimrc
-
-mkdir -p "$HOME"/.vim/after/
-mkdir -p "$HOME"/.vim/tmp/
-link_vim_dir after/ftplugin
-link_vim_dir after/syntax
-link_vim_dir colors
-link_vim_dir doc
-link_vim_dir snips
 
 # py3status installation (host-dependent)
 cd "$HOME"/dotfiles/py3status/ || exit 1
