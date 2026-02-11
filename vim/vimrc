@@ -416,7 +416,6 @@ endfunction
 nnoremap <Space>/ :FzfAg<CR>
 nnoremap <Space>a :ALEDetail<CR>
 nnoremap <Space>e :NERDTreeToggle<CR>
-nnoremap <Space>k :set spelllang=en,ko<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
 nnoremap <Space>o :FzfFiles<CR>
 nnoremap <Space>p :CtrlSpace<CR>
