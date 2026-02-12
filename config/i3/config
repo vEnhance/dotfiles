@@ -293,6 +293,7 @@ mode "exec" {
   # short for hanabi
   bindsym h exec chromium &, mode "default"
   bindsym i exec anki &, mode "default"
+  bindsym k exec xfce4-terminal --zoom=4 -e "python3 $HOME/Sync/Projects/miqin/miqin.py" &, mode "default"
   bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
   # short for money
   bindsym m exec gnucash &, mode "default"
