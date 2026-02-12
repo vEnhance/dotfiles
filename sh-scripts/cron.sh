@@ -24,7 +24,12 @@ fi
 
 ## SYNC TASKWARRIOR
 if [ "$(hostname)" = "$(jq --raw-output .task ~/Sync/Keys/dot/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
-  ~/dotfiles/sh-scripts/task-update.sh
+  task sync
+  #if command -v bugwarrior-pull >/dev/null; then
+  #  bugwarrior-pull
+  #fi
+  task rc.recurrence.limit=1 list
+  task sync
 fi
 
 if [ -f /bin/pacman ] && [ -d ~/Sync/pacman ]; then

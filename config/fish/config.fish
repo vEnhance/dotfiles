@@ -1,27 +1,5 @@
 umask 007 # set umask
 
-alias dropcli='dropbox-cli'
-alias emacs='nvim'
-alias fixtrailspace='sed -i "s/[ \t]*\$//"'
-alias getclip="xsel --clipboard"
-alias gg="cd (git rev-parse --show-toplevel)"
-alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
-alias gsthaw='gcloud storage objects update --cache-control="private,max-age=0"'
-alias ipv4="hostname -i | cut -d' ' -f2"
-alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
-alias ksp="hunspell -d ko_KR"
-alias plmk="latexmk -r ~/dotfiles/pytex-latexmkrc"
-alias memtop='ps aux  | awk \'{printf "%8.3f MB\t\t%s\n", $6/1024, $11}\'  | sort -n | grep -v "^   0.000 MB"'
-alias panmd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
-alias putclip="xsel --clipboard"
-alias py="ipython"
-alias todo='task ready'
-alias trash='gio trash'
-
-alias dj='python (git rev-parse --show-toplevel)/manage.py runserver_plus'
-alias pdb='ipython --pdb'
-alias ut='python manage.py test --pdb'
-
 function dn
     set -l escaped_argv (string escape --no-quoted $argv)
     bash -c "$escaped_argv &" >/dev/null
@@ -84,9 +62,8 @@ alias egrep='egrep --color=auto' # show differences in color
 alias fgrep='fgrep --color=auto' # show differences in color
 # }}}
 
-# Aliases to custom Python/shell and mailbox programs {{{
+# Aliases {{{
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
-alias dragon='/usr/bin/python3 ~/Sync/Projects/dragon/'
 alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
 alias mango='/usr/bin/python3 ~/dotfiles/py-scripts/mango.py'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
@@ -96,12 +73,29 @@ alias oscar='/usr/bin/python3 ~/dotfiles/py-scripts/oscar.py'
 alias sparky='/usr/bin/python3 ~/Sync/Projects/sparky/'
 alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp.py'
 alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
-alias tu='~/dotfiles/sh-scripts/task-update.sh'
 alias uclean='/usr/bin/python3 ~/dotfiles/py-scripts/uclean.py'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
+
+alias dj='python (git rev-parse --show-toplevel)/manage.py runserver_plus'
+alias emacs='nvim'
+alias fixtrailspace='sed -i "s/[ \t]*\$//"'
+alias getclip="xsel --clipboard"
+alias gg="cd (git rev-parse --show-toplevel)"
+alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
+alias gsthaw='gcloud storage objects update --cache-control="private,max-age=0"'
+alias ipv4="hostname -i | cut -d' ' -f2"
+alias j-langtool="languagetool --disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE"
+alias kspell="hunspell -d ko_KR"
+alias plmk="latexmk -r ~/dotfiles/pytex-latexmkrc"
+alias memtop='ps aux  | awk \'{printf "%8.3f MB\t\t%s\n", $6/1024, $11}\'  | sort -n | grep -v "^   0.000 MB"'
+alias panmd2pdf='pandoc --from=markdown --to=pdf -V fonsize=12t -V colorlinks -V indent=true -V documentclass=amsart -V linestretch=1.5'
+alias putclip="xsel --clipboard"
+alias py="ipython"
+alias todo='task ready'
+alias trash='gio trash'
 
 # mailbox aliases
 alias mu='~/dotfiles/sh-scripts/open-mail.sh'
