@@ -87,9 +87,11 @@ link_hidden_path local/share/typst
 
 mkdir -p "$HOME"/.vim/tmp/
 link_hidden_path vim/after
+link_hidden_path vim/autoload
 link_hidden_path vim/colors
 link_hidden_path vim/doc
 link_hidden_path vim/snips
+link_hidden_path vim/spell
 link_hidden_path vim/vimrc
 
 # py3status installation (host-dependent)
