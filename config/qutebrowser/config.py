@@ -85,6 +85,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.notion.so/*",
     r"*://*.notion.site/*",
     r"*://*.overleaf.com/*",  # their documentation is admittedly not bad
+    r"*://*.otka.com/*",
     r"*://*.pretzel.rocks/*",
     r"*://*.probase.app/*",
     r"*://*.pythonanywhere.com/*",
