@@ -10,7 +10,7 @@ fi
 
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "$(jq --raw-output .otis ~/Sync/Keys/dot/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(jq --raw-output .otis ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
   python ~/dotfiles/venueQ/otis.py
 fi
 
@@ -23,7 +23,7 @@ if command -v gcalendar >/dev/null; then
 fi
 
 ## SYNC TASKWARRIOR
-if [ "$(hostname)" = "$(jq --raw-output .task ~/Sync/Keys/dot/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(jq --raw-output .task ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
   task sync
   #if command -v bugwarrior-pull >/dev/null; then
   #  bugwarrior-pull
