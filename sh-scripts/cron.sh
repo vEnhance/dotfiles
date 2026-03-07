@@ -23,13 +23,15 @@ if command -v gcalendar >/dev/null; then
 fi
 
 ## SYNC TASKWARRIOR
-if [ "$(hostname)" = "$(jq --raw-output .task ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(whoami)" = "evan" ]; then
   task sync
-  #if command -v bugwarrior-pull >/dev/null; then
-  #  bugwarrior-pull
-  #fi
-  task rc.recurrence.limit=1 list
-  task sync
+  if [ "$(hostname)" = "$(jq --raw-output .task ~/secrets/host-config.json)" ]; then
+    #if command -v bugwarrior-pull >/dev/null; then
+    #  bugwarrior-pull
+    #fi
+    task rc.recurrence.limit=1 list
+    task sync
+  fi
 fi
 
 if [ -f /bin/pacman ] && [ -d ~/Sync/pacman ]; then
