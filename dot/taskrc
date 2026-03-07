@@ -1,4 +1,4 @@
-include ~/secrets/wingtask.taskrc
+include ~/secrets/taskserver.taskrc
 
 alias.E=project:errand
 alias.G=project:github
@@ -106,4 +106,4 @@ uda.githubstate.type=string
 uda.githubstate.label=GitHub State
 # END Bugwarrior UDAs
 
-news.version=2.6.0
+news.version=3.4.2
