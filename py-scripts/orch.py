@@ -12,7 +12,6 @@ import pyperclip
 import requests
 import yaml
 from dotenv import load_dotenv
-
 from von import api
 
 load_dotenv(Path("~/secrets/otis.env").expanduser())
