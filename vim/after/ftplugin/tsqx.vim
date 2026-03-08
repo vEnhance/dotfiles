@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " tsqx -> asy compile and open
 nnoremap <localleader>p :update<CR>:silent !python -m tsqx -p % \| asy -f pdf -V - &<CR>:redraw<CR>
 " tsqx -> asy compile

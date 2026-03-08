@@ -1,3 +1,4 @@
+scriptencoding utf-8
 let b:detctindent_preferred_expandtab = 0
 set nospell
 set noexpandtab

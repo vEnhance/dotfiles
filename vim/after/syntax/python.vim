@@ -1,3 +1,4 @@
+scriptencoding utf-8
 " https://vi.stackexchange.com/a/9917/1851
 hi PythonFuncCall ctermfg=218 cterm=none guifg=#0000dd gui=none
 hi PythonClassVar ctermfg=194 cterm=none guifg=#770077 gui=none

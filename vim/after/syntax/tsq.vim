@@ -1,3 +1,4 @@
+scriptencoding utf-8
 syn match tsqEscapeLine "\!.*"
 syn match tsqDefineHeader "^\([A-Za-z\\*\\'\\_0-9]\+\) [:\\.]\?= "
 

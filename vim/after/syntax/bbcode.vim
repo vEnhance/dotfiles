@@ -1,3 +1,4 @@
+scriptencoding utf-8
 if v:version < 600
     syntax clear
 elseif exists('b:current_syntax')

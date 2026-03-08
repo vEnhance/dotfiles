@@ -1,3 +1,4 @@
+scriptencoding utf-8
 call SyntaxRange#Include('```bash', '```', 'bash', 'PreProc')
 call SyntaxRange#Include('```c', '```', 'c', 'PreProc')
 call SyntaxRange#Include('```coffee', '```', 'coffee', 'PreProc')

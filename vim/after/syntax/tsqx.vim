@@ -1,3 +1,4 @@
+scriptencoding utf-8
 syn match tsqEscapeLine "\!.*"
 
 syn match tsqArithmeticName "plus\|minus\|mult\|divide" contains=@NoSpell
