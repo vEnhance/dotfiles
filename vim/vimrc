@@ -25,6 +25,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
   Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
   Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
+  Plug 'mk12/vim-lean',                { 'for': 'lean' }
   Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
   Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
   Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
