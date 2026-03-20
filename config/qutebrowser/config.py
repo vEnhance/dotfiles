@@ -27,11 +27,11 @@ c.input.insert_mode.auto_load = True
 c.tabs.background = False
 c.tabs.last_close = "close"
 c.tabs.show = "always"
-c.url.default_page = "https://web.evanchen.cc/static/browser-homepage.html"
+c.url.default_page = "https://web.evanchen.cc/applets/homepage.html"
 c.url.searchengines = {
     "DEFAULT": "https://duckduckgo.com/?q={}",
     "w": "https://wiktionary.org/wiki/{}",
-    "kor": "https://web.evanchen.cc/static/kor.html?q={}",
+    "kor": "https://web.evanchen.cc/applets/kor.html?q={}",
     "naver": "https://korean.dict.naver.com/koendict/#/search?query={}",
 }
 c.url.start_pages = c.url.default_page
