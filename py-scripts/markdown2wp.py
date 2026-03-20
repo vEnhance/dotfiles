@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import re
 import sys
 from importlib.util import find_spec
