@@ -1,5 +1,5 @@
 progress_file = "/home/evan/.local/share/borse/progress.json"
 words_per_game = 10
 single_letter_probability = 0.3
-morse_display_mode = "both"
+morse_display_mode = "audio"
 morse_volume = 0.5
