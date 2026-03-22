@@ -19,4 +19,3 @@ workspace 4 gaps right 400
 workspace 5 gaps right 400
 
 for_window [class="[Zz]athura" title="junk-for-otis"] move container to workspace number 4; workspace number 4
-for_window [class="[Aa]nki" title = "Evan - Anki"] move container to workspace number 11; workspace number 11;
