@@ -1,4 +1,4 @@
-```
+```text
 ░▄░░░▄░█▀▀░█▀▀▄░█░▒█░█▀▀░▒█▀▀█
 ░░█▄█░░█▀▀░█░▒█░█░▒█░█▀▀░▒█░▒█
 ░░░▀░░░▀▀▀░▀░░▀░░▀▀▀░▀▀▀░░▀▀█▄
@@ -43,7 +43,7 @@ repetitive parts. The idea is:
 
 In short, the flow of data looks like:
 
-```
+```text
 External data ==> VenueQPlate ==> VenueQNode (edit in Vim) ==> ?
 ```
 
