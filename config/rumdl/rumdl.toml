@@ -1,0 +1,14 @@
+[global]
+disable = ["MD026", "MD033", "MD041", "MD057"]
+extend-enable = ["MD060"]
+exclude = [
+    ".git",
+    "LICENSE.md",
+]
+respect-gitignore = true
+
+[MD013]
+line-length = 150  # Line length
+code-blocks = false
+tables = false
+headings = false

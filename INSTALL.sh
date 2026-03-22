@@ -54,6 +54,7 @@ link_dot_path jupyter/jupyter_notebook_config.py
 link_dot_path vit
 
 link_hidden_path config/bat
+link_hidden_path config/biome
 link_hidden_path config/borse
 link_hidden_path config/dijo
 link_hidden_path config/dunst
@@ -68,6 +69,7 @@ link_hidden_path config/qutebrowser
 link_hidden_path config/redshift
 link_hidden_path config/rofi
 link_hidden_path config/ruff
+link_hidden_path config/rumdl
 link_hidden_path config/von
 link_hidden_path config/zathura
 
