@@ -174,7 +174,7 @@ AoPS.Contests.Views.ContestGraderEntry =
       );
       if (linked_id.trim() !== this.model.get("sub_id").trim()) {
         // console.log([linked_id, this.model.get("sub_id")]);
-        console.log(this.model.get("sub_id") + " links to " + linked_id);
+        console.log(`${this.model.get("sub_id")} links to ${linked_id}`);
       }
 
       /* Extract data for export */
@@ -182,7 +182,7 @@ AoPS.Contests.Views.ContestGraderEntry =
       // var combined_score = Math.round(this.model.get("combined_score"));
       // var conflict = this.model.get("submission_status") === "conflict";
       var conflict, combined_score;
-      if (scores.length == 0) {
+      if (scores.length === 0) {
         conflict = false;
         combined_score = "•";
       } else {
@@ -290,7 +290,7 @@ AoPS.Contests.Views.ContestGraderEntry =
 
 // AoPS.bootstrap_data.perms.can_edit_contest_repository = true;
 // AoPS.bootstrap_data.perms.can_view_contest_repository = true;
-$(document).ready(function () {
+$(document).ready(() => {
   function addGlobalStyle(css) {
     var head, style;
     head = document.getElementsByTagName("head")[0];
@@ -334,44 +334,44 @@ $(document).ready(function () {
     .append(`<div id="export" style="text-align: center;"></div>`);
   $("#header-wrapper").removeClass("no-select");
 
-  $("#button-toggle-indiv").click(function () {
+  $("#button-toggle-indiv").click(() => {
     $(".toggle-indiv-score").toggleClass("hidden-indiv-score");
   });
-  $("#button-toggle-total").click(function () {
+  $("#button-toggle-total").click(() => {
     $(".toggle-total-score").toggleClass("hidden-total-score");
   });
-  $("#button-unhide-all").click(function () {
+  $("#button-unhide-all").click(() => {
     $(".usemo-hide-content").css("display", "block");
   });
-  $("#button-hide-all").click(function () {
+  $("#button-hide-all").click(() => {
     $(".usemo-hide-content").css("display", "none");
   });
-  $("#button-rg").click(function () {
+  $("#button-rg").click(() => {
     $("#regrade-ids").toggle();
   });
-  $("#button-uf").click(function () {
+  $("#button-uf").click(() => {
     var ids = $("#regrade-ids").val().split(/\r?\n/);
     var n = 0;
-    $("tr.grader-entry").each(function (i, e) {
-      if ($(e).find("td.final").length == 0) {
+    $("tr.grader-entry").each((_i, e) => {
+      if ($(e).find("td.final").length === 0) {
         return;
       }
-      var m = $(e).find("td.final").length;
+      var _m = $(e).find("td.final").length;
       if (
         $(e).find(".locked.conflict").length > 0 ||
         $(e).find(".usemo-hide-heading").length < 2 ||
         ids.includes($(e).find(".submission-link").html().trim())
       ) {
         n++;
-        setTimeout(function () {
+        setTimeout(() => {
           $(e).find(".unfinalize-btn").trigger("click");
         }, 50 * n);
       }
     });
     setTimeout(
-      function () {
-        var s = "Unlocked " + n + " rows.";
-        if ($("#regrade-ids").val() == "") {
+      () => {
+        var s = `Unlocked ${n} rows.`;
+        if ($("#regrade-ids").val() === "") {
           s += "\n Warning: you didn't enter any regrade ID's.";
         }
         alert(s);
@@ -379,13 +379,13 @@ $(document).ready(function () {
       50 * (n + 1),
     );
   });
-  $("#regrade-ids").on("change", function () {
+  $("#regrade-ids").on("change", () => {
     var ids = $("#regrade-ids").val().split(/\r?\n/);
     $("#button-rg").html(ids.length);
   });
 
-  $("#button-progress").click(function () {
-    var out = `<div><small>` + new Date().toString() + `</small></div>`;
+  $("#button-progress").click(() => {
+    var out = `<div><small>${new Date().toString()}</small></div>`;
     out += `<table cellpadding="6px" style="text-align:right;">`;
     out += `<tr><th style="color:green;">Qn</th><th style="color:green;">Prcnt</th>`;
     out += `<th>0g</th><th>1g</th><th>2g</th><th>3g</th><th>X</th>`;
@@ -410,25 +410,25 @@ $(document).ready(function () {
       var score = ret[1] + 2 * ret[2] + 2 * ret[3];
       var percentage = Math.floor(100 * (score / total));
       if (window.location.href.indexOf("jmo") > -1) {
-        out += `<th style="color:green;">J` + p + `</th>`;
+        out += `<th style="color:green;">J${p}</th>`;
       } else {
-        out += `<th style="color:green;">Q` + p + `</th>`;
+        out += `<th style="color:green;">Q${p}</th>`;
       }
-      out += `<th style="color:green;">` + percentage + `%</th>`;
+      out += `<th style="color:green;">${percentage}%</th>`;
       for (var i in ret) {
-        out += `<td>` + ret[i] + `</td>`;
+        out += `<td>${ret[i]}</td>`;
       }
-      out += `<td>` + num_conflict + `</td>`;
-      out += `<td style="color:grey;">` + total + `</td>`;
-      out += `<td style="color:grey;">` + score + `</td>`;
-      out += `<td style="color:blue;">` + (total - score) + `</td>`;
+      out += `<td>${num_conflict}</td>`;
+      out += `<td style="color:grey;">${total}</td>`;
+      out += `<td style="color:grey;">${score}</td>`;
+      out += `<td style="color:blue;">${total - score}</td>`;
       out += `</tr>`;
     }
     out += `</table>`;
     alert(out);
   });
 
-  $("#button-export").click(function () {
+  $("#button-export").click(() => {
     var rows = [];
     for (var sid in AoPS.the_score_bucket) {
       var row = [sid];
@@ -440,7 +440,7 @@ $(document).ready(function () {
           score = 0;
         }
         row.push(score);
-        out += "<td>" + score + "</td>";
+        out += `<td>${score}</td>`;
         if (typeof score === "number") {
           sum += score;
         } else {
@@ -457,9 +457,7 @@ $(document).ready(function () {
     function key(row) {
       return -row[row.length - 1];
     }
-    rows.sort(function (row1, row2) {
-      return key(row1) - key(row2);
-    });
+    rows.sort((row1, row2) => key(row1) - key(row2));
 
     var out = `<table cellpadding="6px">
         <tr>
@@ -480,7 +478,7 @@ $(document).ready(function () {
     for (var i = 0; i < rows.length; i++) {
       out += "<tr>";
       for (var j = 0; j < rows[i].length; j++) {
-        out += "<td>" + rows[i][j] + "</td>";
+        out += `<td>${rows[i][j]}</td>`;
       }
       out += "</tr>\n";
     }
@@ -488,7 +486,7 @@ $(document).ready(function () {
     $("#export").html(out);
   });
 
-  $("#button-unexport").click(function () {
+  $("#button-unexport").click(() => {
     $("#export").html("");
   });
 });

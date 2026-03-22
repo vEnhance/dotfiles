@@ -8,8 +8,7 @@
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
-(function () {
-  "use strict";
+(() => {
   const head = document.getElementsByTagName("head")[0];
   const body = document.getElementsByTagName("body")[0];
 

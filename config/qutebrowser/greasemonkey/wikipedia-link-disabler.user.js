@@ -9,9 +9,7 @@
 // @license     MIT
 // ==/UserScript==
 
-(function () {
-  "use strict";
-
+(() => {
   function isWikipediaArticleLink(link) {
     const href = link.getAttribute("href");
     if (!href) return false;
@@ -44,7 +42,7 @@
 
         link.addEventListener(
           "click",
-          function (e) {
+          (e) => {
             e.preventDefault();
             e.stopPropagation();
             return false;
@@ -61,12 +59,12 @@
     disableLinks();
   }
 
-  const observer = new MutationObserver(function (mutations) {
+  const observer = new MutationObserver((mutations) => {
     const bodyContent = document.getElementById("bodyContent");
     if (!bodyContent) return;
 
-    mutations.forEach(function (mutation) {
-      mutation.addedNodes.forEach(function (node) {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
         if (node.nodeType === Node.ELEMENT_NODE && bodyContent.contains(node)) {
           const newLinks = node.querySelectorAll
             ? node.querySelectorAll("a[href]")
@@ -80,7 +78,7 @@
 
               link.addEventListener(
                 "click",
-                function (e) {
+                (e) => {
                   e.preventDefault();
                   e.stopPropagation();
                   return false;

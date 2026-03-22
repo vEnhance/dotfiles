@@ -11,10 +11,10 @@
 // ==/UserScript==
 
 // Functions for settings UI elements
-let settings_ui = {
+const settings_ui = {
   toggle: (label) => (name, value, settings_manager) => {
-    let checkbox_label = document.createElement("label");
-    let checkbox = document.createElement("input");
+    const checkbox_label = document.createElement("label");
+    const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.name = name;
     checkbox.checked = value;
@@ -22,16 +22,16 @@ let settings_ui = {
       settings_manager.set(name, e.target.checked),
     );
     checkbox_label.appendChild(checkbox);
-    checkbox_label.appendChild(document.createTextNode(" " + label));
+    checkbox_label.appendChild(document.createTextNode(` ${label}`));
     return checkbox_label;
   },
   select: (label, options) => (name, value, settings_manager) => {
-    let select_label = document.createElement("label");
-    select_label.innerText = label + " ";
-    let select = document.createElement("select");
+    const select_label = document.createElement("label");
+    select_label.innerText = `${label} `;
+    const select = document.createElement("select");
     select.name = name;
-    for (let option of options) {
-      let option_element = document.createElement("option");
+    for (const option of options) {
+      const option_element = document.createElement("option");
       option_element.value = option[0];
       option_element.innerText = option[1];
       select.appendChild(option_element);
@@ -45,7 +45,7 @@ let settings_ui = {
   },
 };
 
-let themes = {
+const themes = {
   None: "",
   Mobile: `
 .cmty-bbcode-buttons{
@@ -148,10 +148,10 @@ background: #111 !important;
 }`,
 };
 
-let quote_schemes = {
+const quote_schemes = {
   AoPS: AoPS.Community
     ? AoPS.Community.Views.Post.prototype.onClickQuote
-    : function () {
+    : () => {
         alert("Quoting failed");
       }, // Uses dummy function as a fallback when community is undefined.
   Enhanced: function () {
@@ -222,7 +222,7 @@ class EnhancedSettingsManager {
     localStorage.setItem(this.storage_variable, JSON.stringify(this._settings));
     // Run hooks
     if (setting in this.hooks)
-      for (let hook of this.hooks[setting]) hook(value);
+      for (const hook of this.hooks[setting]) hook(value);
   }
 
   /**
@@ -241,11 +241,11 @@ class EnhancedSettingsManager {
   // No functions for removing hooks, do it manually by modifying the hooks attribute.
 }
 
-let enhanced_settings = new EnhancedSettingsManager("enhanced_settings");
+const enhanced_settings = new EnhancedSettingsManager("enhanced_settings");
 // Old settings adapter
-for (let setting of ["quote_primary", "quote_secondary"]) {
-  let setting_value = enhanced_settings.get(setting);
-  if (setting_value.toLowerCase() == setting_value)
+for (const setting of ["quote_primary", "quote_secondary"]) {
+  const setting_value = enhanced_settings.get(setting);
+  if (setting_value.toLowerCase() === setting_value)
     enhanced_settings.set(
       setting,
       setting_value[0].toUpperCase() + setting_value.slice(1),
@@ -258,7 +258,7 @@ for (let setting of ["quote_primary", "quote_secondary"]) {
 
   enhanced_settings.add_hook("theme", (value) => {
     theme_element.textContent = themes[value];
-    if (value != "None") {
+    if (value !== "None") {
       document.head.appendChild(theme_element);
     } else if (theme_element.parentNode)
       theme_element.parentNode.removeChild(theme_element);
@@ -271,7 +271,7 @@ for (let setting of ["quote_primary", "quote_secondary"]) {
   const menubar_wrapper = document.querySelector(".menubar-links-outer");
   const login_wrapper = document.querySelector(".menu-login-wrapper");
   if (!(menubar_wrapper && login_wrapper)) return (_) => null;
-  let kill_element = document.createElement("style");
+  const kill_element = document.createElement("style");
   const menubar_wrapper_normal_position = menubar_wrapper.nextSibling;
   const login_wrapper_normal_position = login_wrapper.nextSibling;
   kill_element.textContent = `
@@ -356,7 +356,7 @@ for (let setting of ["quote_primary", "quote_secondary"]) {
 
 // Notifications
 {
-  let notify_functions = [
+  const notify_functions = [
     AoPS.Ui.Flyout.display,
     (a) => {
       var textextract = document.createElement("div");
@@ -374,7 +374,7 @@ for (let setting of ["quote_primary", "quote_secondary"]) {
   enhanced_settings.add_hook(
     "notifications",
     (value) => {
-      if (value && Notification.permission != "granted")
+      if (value && Notification.permission !== "granted")
         Notification.requestPermission();
       AoPS.Ui.Flyout.display = notify_functions[+value];
     },
@@ -401,8 +401,8 @@ function show_enhanced_configurator() {
       Object.keys(themes).map((k) => [k, k]),
     ),
   };
-  let settings_modal = document.createElement("div");
-  for (let key in UI_ELEMENTS) {
+  const settings_modal = document.createElement("div");
+  for (const key in UI_ELEMENTS) {
     settings_modal.appendChild(
       UI_ELEMENTS[key](key, enhanced_settings.get(key), enhanced_settings),
     );
@@ -415,7 +415,7 @@ function show_enhanced_configurator() {
 {
   const el = document.querySelector(".login-dropdown-content");
   if (el === null) return;
-  let enhanced_settings_element = document.createElement("a");
+  const enhanced_settings_element = document.createElement("a");
   enhanced_settings_element.classList.add("menu-item");
   enhanced_settings_element.innerText = "Enhanced";
   enhanced_settings_element.addEventListener("click", (e) => {
@@ -435,10 +435,10 @@ if (AoPS.Community) {
 
   // Direct links
   (() => {
-    let real_onClickDirectLink =
+    const real_onClickDirectLink =
       AoPS.Community.Views.Post.prototype.onClickDirectLink;
-    function direct_link_function(e) {
-      let url = "https://aops.com/community/p" + this.model.get("post_id");
+    function direct_link_function(_e) {
+      const url = `https://aops.com/community/p${this.model.get("post_id")}`;
       navigator.clipboard.writeText(url);
       AoPS.Ui.Flyout.display(`URL copied: ${url}`);
     }
