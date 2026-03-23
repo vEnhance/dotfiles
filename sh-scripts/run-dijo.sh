@@ -11,7 +11,7 @@ fi
 
 dijo
 
-cd ~/Sync/Personal/dijo/ || exit 1
+cd ~/.local/share/dijo/ || exit 1
 jq -S "." <"habit_record.json" | sponge "habit_record.json"
 jq -S "." <"habit_record[auto].json" | sponge "habit_record[auto].json"
 
