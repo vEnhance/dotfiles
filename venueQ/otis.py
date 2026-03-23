@@ -777,7 +777,7 @@ class Application(VenueQNode):
                 }
             )
 
-        if data["status"] in ("accepted", "hard_reject", "soft_reject"):
+        if data["status"] in ("accepted", "blacklisted", "hard_reject", "soft_reject"):
 
             def callback():
                 if query_apply_server(payload=data) is not None:
