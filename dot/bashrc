@@ -69,7 +69,7 @@ alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
 alias sudo='sudo ' # allows my aliases to get into sudo in bash
 
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/py-scripts"
-export PATH=$PATH:$HOME/.local/bin
+export PATH=$HOME/.local/bin:$PATH
 
 # Various functions
 function rot13() {
