@@ -25,7 +25,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
   Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
   Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-  Plug 'mk12/vim-lean',                { 'for': 'lean' }
   Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
   Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
   Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
@@ -229,6 +228,7 @@ let g:ale_fix_on_save = 1
 let g:ale_keep_list_window_open = 0
 let g:ale_open_list = 0
 let g:ale_languagetool_options = '--disable COMMA_PARENTHESIS_WHITESPACE,WHITESPACE_RULE,UPPERCASE_SENTENCE_START,LC_AFTER_PERIOD,FILE_EXTENSIONS_CASE,ARROWS,EN_UNPAIRED_BRACKETS,UNLIKELY_OPENING_PUNCTUATION,UNIT_SPACE,ENGLISH_WORD_REPEAT_BEGINNING_RULE,CURRENCY,REP_PASSIVE_VOICE,EN_UNPAIRED_QUOTES'
+let g:ale_linters_ignore = {'lean': ['lake']}
 let g:ale_python_mypy_enabled = 0
 let g:ale_python_mypy_options = '--ignore-missing-imports --enable-recursive-aliases'
 let g:ale_set_balloon= 1
