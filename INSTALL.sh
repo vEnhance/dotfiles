@@ -102,8 +102,14 @@ if ! make -q 2>/dev/null; then
   make
 fi
 cd "$HOME" || exit 1
-mkdir -p "$HOME"/.config/py3status
-ln -sf "$HOME/dotfiles/py3status/py3status.$(hostname).conf" "$HOME"/.config/py3status/config
+
+if [ "$USER" = "evan" ]; then
+  mkdir -p "$HOME"/.config/py3status
+  ln -sf "$HOME/dotfiles/py3status/py3status.$(hostname).conf" "$HOME"/.config/py3status/config
+elif [ "$USER" = "star" ]; then
+  mkdir -p "$HOME"/.config/py3status
+  ln -sf "$HOME/dotfiles/py3status/py3status.star.conf" "$HOME"/.config/py3status/config
+fi
 
 if [ "$USER" = "evan" ]; then
   xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
