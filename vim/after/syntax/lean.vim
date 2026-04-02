@@ -3,6 +3,7 @@
 " Filename extensions:	*.lean
 " Maintainer:           Gabriel Ebner
 
+scriptencoding utf-8
 setlocal iskeyword=@,48-57,_,-,!,#,$,%
 
 " tabs = evil

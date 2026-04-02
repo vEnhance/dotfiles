@@ -2,11 +2,25 @@
 # See https://prek.j178.dev for more information.
 #:schema https://www.schemastore.org/prek.json
 
+# This is the sort of master prek.toml that all other projects take subsets of
+
 default_install_hook_types = [
   "pre-commit",
-  "commit-msg"
-  ]
+  "commit-msg",
+]
 default_stages = ["pre-commit"]
+
+[[repos]]
+repo = "https://github.com/compilerla/conventional-pre-commit"
+rev = "v4.4.0"
+hooks = [
+  {
+    id = "conventional-pre-commit",
+    stages = ["commit-msg"],
+    args = ["feat", "fix", "build", "ci", "chore", "docs", "drop", "edit",
+     "perf", "polish", "root", "refactor", "revert", "style", "temp", "tests"]
+  }
+]
 
 [[repos]]
 repo = "builtin"
@@ -21,111 +35,99 @@ hooks = [
   { id = "end-of-file-fixer" },
   { id = "fix-byte-order-marker" },
   { id = "mixed-line-ending" },
-  {
-    id = "trailing-whitespace",
-    args = ["--markdown-linebreak-ext=md"]
-  }
+  { id = "trailing-whitespace" },
 ]
 
 [[repos]]
 repo = "meta"
-hooks = [
-  { id = "check-useless-excludes" },
-]
+hooks = [{ id = "check-useless-excludes" }]
+
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.15.9"
+hooks = [{ id = "ruff-check" }, { id = "ruff-format" }]
 
 [[repos]]
 repo = "https://github.com/codespell-project/codespell"
 rev = "v2.4.2"
-hooks = [
-  { id = "codespell" }
-]
-
-[[repos]]
-repo = "https://github.com/astral-sh/ruff-pre-commit"
-rev = "v0.15.7"
-hooks = [
-  { id = "ruff-check" },
-  { id = "ruff-format" }
-]
+hooks = [{ id = "codespell" }]
 
 [[repos]]
 repo = "https://github.com/JoC0de/pre-commit-prettier"
 rev = "v3.8.1"
-hooks = [
-  {
-    id = "prettier",
-    types_or = [
-      "css",
-      "javascript",
-      "markdown",
-      "json",
-      "toml",
-      "yaml"
-    ]
-  }
-]
+hooks = [{ id = "prettier", types_or = ["css", "javascript", "json", "yaml"] }]
 
 [[repos]]
-repo = "https://github.com/Vimjas/vint"
-rev = "v0.4a3"
+repo = "https://github.com/rvben/rumdl-pre-commit"
+rev = "v0.1.66"
+hooks = [{ id = "rumdl" }, { id = "rumdl-fmt" }]
+
+# djlint not used by dotfiles, but doesn't hurt to have it
+[[repos]]
+repo = "https://github.com/djlint/djLint"
+rev = "v1.36.4"
 hooks = [
+  { id = "djlint-reformat", types = ["html"], files = "templates/" },
+  { id = "djlint", types = ["html"], files = "templates/" }
+]
+
+# uv not used by dotfiles, but doesn't hurt to have it
+[[repos]]
+repo = "https://github.com/astral-sh/uv-pre-commit"
+rev = "0.11.3"
+hooks = [
+  { id = "uv-lock" },
   {
-    id = "vint",
-    types = ["file"],
-    files = '(\.vim$|vimrc$)',
-    exclude = 'plug\.vim$'
+    id = "pip-compile",
+    args = ["pyproject.toml", "-o", "requirements.txt", "--no-annotate"]
   }
 ]
 
 [[repos]]
 repo = "https://github.com/scop/pre-commit-shfmt"
 rev = "v3.13.0-1"
-hooks = [
-  {
-    id = "shfmt",
-    args = [
-      "-i",
-      "2",
-      "-ci"
-    ],
-    files = '\.sh$'
-  }
-]
+hooks = [{ id = "shfmt", args = ["-i", "2", "-ci"], files = '\.sh$' }]
 
 [[repos]]
 repo = "https://github.com/Jarmos-san/shellcheck-precommit"
 rev = "v0.2.0"
-hooks = [
-  {
-    id = "shellcheck-system",
-    files = '\.sh$'
-  }
-]
+hooks = [{ id = "shellcheck-system", files = '\.sh$'}]
 
 [[repos]]
-repo = "https://github.com/compilerla/conventional-pre-commit"
-rev = "v4.4.0"
-hooks = [
-  {
-    id = "conventional-pre-commit",
-    stages = ["commit-msg"],
-    args = [
-      "feat",
-      "fix",
-      "build",
-      "ci",
-      "chore",
-      "docs",
-      "drop",
-      "edit",
-      "perf",
-      "polish",
-      "root",
-      "refactor",
-      "revert",
-      "style",
-      "temp",
-      "tests"
-    ]
-  }
-]
+repo = "https://github.com/Vimjas/vint"
+rev = "v0.4a3"
+hooks = [{id = "vint", files = '(\.vim$|vimrc$)', exclude = 'plug\.vim$'}]
+
+# local hooks can go here for Django projects
+
+# [[repos]]
+# repo = "local"
+# hooks = [
+#   {
+#     id = "make-fmt",
+#     name = "Format code",
+#     entry = "make fmt",
+#     language = "system",
+#     pass_filenames = false,
+#     stages = ["pre-push"],
+#     fail_fast= true
+#   },
+#   {
+#     id = "make-check",
+#     name = "Run checks",
+#     entry = "make check",
+#     language = "system",
+#     pass_filenames = false,
+#     stages = ["pre-push"],
+#     fail_fast= true
+#   },
+#   {
+#     id = "make-test",
+#     name = "Run tests",
+#     entry = "make test",
+#     language = "system",
+#     pass_filenames = false,
+#     stages = ["pre-push"],
+#     fail_fast= true
+#   }
+# ]

@@ -22,4 +22,4 @@ Evan uses the following types:
 - `style`: code style changes
 - `tests`: unit testing, etc.
 
-See [the corresponding GitHub action](.github/workflows/conv-commit.yml).
+See [the corresponding GitHub action](../.github/workflows/conv-commit.yml).
