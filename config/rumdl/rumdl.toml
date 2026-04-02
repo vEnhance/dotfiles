@@ -1,5 +1,5 @@
 [global]
-disable = ["MD026", "MD033", "MD041", "MD057"]
+disable = ["MD026", "MD033", "MD041"]
 extend-enable = ["MD060"]
 exclude = [
     ".git",
