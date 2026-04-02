@@ -3,7 +3,7 @@ return {
     "mfussenegger/nvim-lint",
     opts = {
       linters_by_ft = {
-        markdown = { "vale" },
+        markdown = { "rumdl", "vale" },
         text = { "vale" },
         rst = { "vale" },
         asciidoc = { "vale" },
@@ -23,7 +23,7 @@ return {
       formatters_by_ft = {
         ["*"] = { "trim_whitespace", "trim_newlines" },
         python = { "ruff_fix", "ruff_format" },
-        markdown = { "prettier" },
+        markdown = { "rumdl" },
         sh = { "shfmt" },
         rust = { "rustfmt" },
         typescript = { "prettier", "eslint" },
