@@ -9,10 +9,15 @@ Work in progress
 import argparse
 import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, cast
 
 import yaml
 from colorama import Back, Fore, Style, init
+
+# colorama stubs incorrectly type color constants as int; cast to Any
+Fore = cast(Any, Fore)
+Style = cast(Any, Style)
+Back = cast(Any, Back)
 from git.objects.commit import Commit  # for typing
 from git.repo import Repo
 
