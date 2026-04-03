@@ -61,6 +61,17 @@ repo = "https://github.com/rvben/rumdl-pre-commit"
 rev = "v0.1.66"
 hooks = [{ id = "rumdl" }, { id = "rumdl-fmt" }]
 
+# prefer shellcheck-py to avoid dependence on Docker
+[[repos]]
+repo = "https://github.com/shellcheck-py/shellcheck-py"
+rev = "v0.11.0.1"
+hooks = [{ id = "shellcheck", files = '\.sh$'}]
+
+[[repos]]
+repo = "https://github.com/scop/pre-commit-shfmt"
+rev = "v3.13.0-1"
+hooks = [{ id = "shfmt", args = ["-i", "2", "-ci"], files = '\.sh$' }]
+
 # djlint not used by dotfiles, but doesn't hurt to have it
 [[repos]]
 repo = "https://github.com/djlint/djLint"
@@ -81,16 +92,6 @@ hooks = [
     args = ["pyproject.toml", "-o", "requirements.txt", "--no-annotate"]
   }
 ]
-
-[[repos]]
-repo = "https://github.com/scop/pre-commit-shfmt"
-rev = "v3.13.0-1"
-hooks = [{ id = "shfmt", args = ["-i", "2", "-ci"], files = '\.sh$' }]
-
-[[repos]]
-repo = "https://github.com/Jarmos-san/shellcheck-precommit"
-rev = "v0.2.0"
-hooks = [{ id = "shellcheck-system", files = '\.sh$'}]
 
 [[repos]]
 repo = "https://github.com/Vimjas/vint"
