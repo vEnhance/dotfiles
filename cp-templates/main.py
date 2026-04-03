@@ -11,10 +11,10 @@ parser.add_argument(
     action="store_true",
     help="Show debugging statements (prints to stderr)",
 )
-parser.add_argument("input", nargs="?", type=argparse.FileType("r"), default="-")
+parser.add_argument("input", nargs="?", default="-")
 
 opts = parser.parse_args()
-stream = opts.input  # input stream
+stream = sys.stdin if opts.input == "-" else open(opts.input)  # input stream
 
 
 def debug(*args: Any):

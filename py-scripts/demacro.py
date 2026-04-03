@@ -1,8 +1,10 @@
 import os
+import subprocess
 import sys
+from pathlib import Path
 
 TMP = "/tmp/demacro"
-os.system("mkdir -p %s" % TMP)
+os.makedirs(TMP, exist_ok=True)
 
 arg = sys.argv[1]
 if ".tex" in arg:
@@ -35,13 +37,29 @@ with open("%s.tex" % file_root_name) as f, open("%s/source.tex" % TMP, "w") as g
                 print(line.strip(), file=g)
         elif doc_started:
             print(line.strip(), file=g)
-os.system("cp -f *.tex " + TMP)
-os.system("cp -f ~/dotfiles/py-scripts/demacro-private.sty " + TMP)
+subprocess.run("cp -f *.tex " + TMP, shell=True, check=True)
+subprocess.run(
+    ["cp", "-f", Path("~/dotfiles/py-scripts/demacro-private.sty").expanduser(), TMP],
+    check=True,
+)
 with open("%s/demacro-private.sty" % TMP, "a") as f:
     print("\n" + preamble, file=f)
 os.chdir(TMP)
-os.system("~/dotfiles/py-scripts/de-macro source.tex")
-os.system("python3 ~/dotfiles/py-scripts/latex2wp.py source-clean.tex")
+subprocess.run(
+    [Path("~/dotfiles/py-scripts/de-macro").expanduser(), "source.tex"], check=True
+)
+subprocess.run(
+    [
+        "python3",
+        Path("~/dotfiles/py-scripts/latex2wp.py").expanduser(),
+        "source-clean.tex",
+    ],
+    check=True,
+)
 os.chdir(current_dir)
-os.system("cp -f %s/source-clean.html %s.html" % (TMP, file_root_name))
-os.system("cp -f %s/source-clean.tex %s.clean" % (TMP, file_root_name))
+subprocess.run(
+    ["cp", "-f", "%s/source-clean.html" % TMP, "%s.html" % file_root_name], check=True
+)
+subprocess.run(
+    ["cp", "-f", "%s/source-clean.tex" % TMP, "%s.clean" % file_root_name], check=True
+)
