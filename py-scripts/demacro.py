@@ -38,12 +38,28 @@ with open("%s.tex" % file_root_name) as f, open("%s/source.tex" % TMP, "w") as g
         elif doc_started:
             print(line.strip(), file=g)
 subprocess.run("cp -f *.tex " + TMP, shell=True, check=True)
-subprocess.run(["cp", "-f", Path("~/dotfiles/py-scripts/demacro-private.sty").expanduser(), TMP], check=True)
+subprocess.run(
+    ["cp", "-f", Path("~/dotfiles/py-scripts/demacro-private.sty").expanduser(), TMP],
+    check=True,
+)
 with open("%s/demacro-private.sty" % TMP, "a") as f:
     print("\n" + preamble, file=f)
 os.chdir(TMP)
-subprocess.run([Path("~/dotfiles/py-scripts/de-macro").expanduser(), "source.tex"], check=True)
-subprocess.run(["python3", Path("~/dotfiles/py-scripts/latex2wp.py").expanduser(), "source-clean.tex"], check=True)
+subprocess.run(
+    [Path("~/dotfiles/py-scripts/de-macro").expanduser(), "source.tex"], check=True
+)
+subprocess.run(
+    [
+        "python3",
+        Path("~/dotfiles/py-scripts/latex2wp.py").expanduser(),
+        "source-clean.tex",
+    ],
+    check=True,
+)
 os.chdir(current_dir)
-subprocess.run(["cp", "-f", "%s/source-clean.html" % TMP, "%s.html" % file_root_name], check=True)
-subprocess.run(["cp", "-f", "%s/source-clean.tex" % TMP, "%s.clean" % file_root_name], check=True)
+subprocess.run(
+    ["cp", "-f", "%s/source-clean.html" % TMP, "%s.html" % file_root_name], check=True
+)
+subprocess.run(
+    ["cp", "-f", "%s/source-clean.tex" % TMP, "%s.clean" % file_root_name], check=True
+)

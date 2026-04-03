@@ -371,13 +371,19 @@ def clean_name(s):
 
 if __name__ == "__main__":
     filenames = args.files
-    assert filenames is None or len(filenames) == 1 or (args.output is None and args.name is None), (
-        "can't write multiple inputs to a single output"
-    )
+    assert (
+        filenames is None
+        or len(filenames) == 1
+        or (args.output is None and args.name is None)
+    ), "can't write multiple inputs to a single output"
 
     if not filenames:
         # stdin
-        outfile = sys.stdout if args.output == "-" else (open(args.output, "w") if args.output else sys.stdout)
+        outfile = (
+            sys.stdout
+            if args.output == "-"
+            else (open(args.output, "w") if args.output else sys.stdout)
+        )
         main(sys.stdin, outfile, args.name or "competition")
     elif len(filenames) == 1:
         filename = filenames[0]
