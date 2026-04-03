@@ -61,8 +61,8 @@ repo = "https://github.com/rvben/rumdl-pre-commit"
 rev = "v0.1.66"
 hooks = [{ id = "rumdl" }, { id = "rumdl-fmt" }]
 
-# prefer shellcheck-py to avoid dependence on Docker
 [[repos]]
+# prefer shellcheck-py to avoid dependence on Docker
 repo = "https://github.com/shellcheck-py/shellcheck-py"
 rev = "v0.11.0.1"
 hooks = [{ id = "shellcheck", files = '\.sh$'}]
@@ -72,8 +72,8 @@ repo = "https://github.com/scop/pre-commit-shfmt"
 rev = "v3.13.0-1"
 hooks = [{ id = "shfmt", args = ["-i", "2", "-ci"], files = '\.sh$' }]
 
-# djlint not used by dotfiles, but doesn't hurt to have it
 [[repos]]
+# djlint not used by dotfiles, but doesn't hurt to have it
 repo = "https://github.com/djlint/djLint"
 rev = "v1.36.4"
 hooks = [
@@ -81,8 +81,8 @@ hooks = [
   { id = "djlint", types = ["html"], files = "templates/" }
 ]
 
-# uv not used by dotfiles, but doesn't hurt to have it
 [[repos]]
+# uv not used by dotfiles, but doesn't hurt to have it
 repo = "https://github.com/astral-sh/uv-pre-commit"
 rev = "0.11.3"
 hooks = [
