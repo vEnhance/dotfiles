@@ -19,7 +19,7 @@ fi
 # during twitch stream, disable laptop lock screen
 if { [ "$(hostname)" = ArchSapphire ] || [ "$(hostname)" = "ArchScythe" ]; } &&
   [ "$(whoami)" = evan ] &&
-  iwconfig | ag "Flying|Nydus" &&
+  iwconfig | grep -E "Flying|Nydus" &&
   python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
   notify-send -i "gnome-twitch" \
     "Won't lock" "You're currently streaming on Twitch!"

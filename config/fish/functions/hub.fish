@@ -1,5 +1,5 @@
 function hub -w gh
-    set -l digits (echo $argv | ag --only-matching "[0-9]+" --nocolor)
+    set -l digits (echo $argv | grep -oE "[0-9]+")
     # first decide if we are a PR or an issue
     if test -n "$digits"
         gh issue view $digits &>/dev/null
@@ -33,7 +33,7 @@ function hub -w gh
         echo "Enter your comment below, or blank to open Vi..."
         set_color normal
         cat >/tmp/gh-comment.txt
-        if ag "[^\s]+" /tmp/gh-comment.txt >/dev/null
+        if grep -qE "[^\s]+" /tmp/gh-comment.txt
             gh $flavor comment $digits -F /tmp/gh-comment.txt
         else
             gh $flavor comment $digits

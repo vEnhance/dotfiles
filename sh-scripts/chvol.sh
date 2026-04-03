@@ -91,7 +91,7 @@ fi
 
 # Spotify stuff
 function kill_extra_spotify() {
-  while [ "$(ponymix list | ag 'sink-input [0-9]+: Spotify' | wc --lines)" -ge 2 ]; do
+  while [ "$(ponymix list | grep -cE 'sink-input [0-9]+: Spotify')" -ge 2 ]; do
     notify-send -i "spotify" "Spotify stream killed" -u low -t "$stime"
     ponymix kill -d Spotify
   done

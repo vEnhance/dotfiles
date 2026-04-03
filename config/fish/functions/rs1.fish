@@ -5,5 +5,5 @@ function rs1
         string split '' |
         string join '[abe-hjkn-uwyz]*'
     )"[abe-hjkn-uwyz]*"
-    ag -w $regex $argv[2..]
+    grep -rEw $regex $argv[2..]
 end
