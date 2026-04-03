@@ -1,6 +1,5 @@
 [core]
 	editor = vim
-	excludesFile = ~/dotfiles/gitignore
 	pager = delta
 [user]
 	name = Evan Chen

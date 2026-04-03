@@ -60,6 +60,7 @@ link_hidden_path config/dijo
 link_hidden_path config/dunst
 link_hidden_path config/feh
 link_hidden_path config/fish
+link_hidden_path config/git
 link_hidden_path config/i3
 link_hidden_path config/miqin
 link_hidden_path config/mutt
