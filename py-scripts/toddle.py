@@ -16,7 +16,9 @@ import re
 import sys
 from pathlib import Path
 
-SKELETON = Path.home() / "dotfiles" / "prek.toml"
+REPO_ROOT = Path(__file__).parent.parent
+SKELETON = REPO_ROOT / "prek.toml"
+RUMDL_CONFIG = REPO_ROOT / "config" / "rumdl" / "rumdl.toml"
 
 
 def ansi(text: str, code: str) -> str:
@@ -129,12 +131,25 @@ def main() -> None:
         action="store_true",
         help="Also write .github/workflows/prek.yml",
     )
+    parser.add_argument(
+        "-r",
+        "--rumdl",
+        action="store_true",
+        help="Copy ~/dotfiles/config/rumdl/rumdl.toml to rumdl.toml",
+    )
     args = parser.parse_args()
+
+    if args.rumdl:
+        dest = Path.cwd() / "rumdl.toml"
+        dest.write_text(RUMDL_CONFIG.read_text())
+        print("Wrote rumdl.toml")
 
     repo_root = Path.cwd()
 
     # Detect conditions
-    has_rumdl = (repo_root / "rumdl.toml").exists()
+    has_rumdl = (repo_root / "rumdl.toml").exists() or (
+        repo_root / ".rumdl.toml"
+    ).exists()
     has_uv_lock = (repo_root / "uv.lock").exists()
     has_requirements = has_uv_lock and (repo_root / "requirements.txt").exists()
     has_templates = has_templates_html(repo_root)
