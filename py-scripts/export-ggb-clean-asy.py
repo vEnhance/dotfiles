@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""Asymptote cleaner for GeoGebra export
+
+A browser adaptation can be found here:
+https://web.evanchen.cc/applets/ggbclean.html
+"""
+
 import argparse
 import io
 import math
