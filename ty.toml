@@ -1,2 +1,1 @@
-[rules]
-unresolved-import = "ignore"
+exclude = ["config/i3/3kon"]

@@ -8,14 +8,14 @@ from typing import TYPE_CHECKING, Any, Dict, List, Optional
 
 import yaml
 
-yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str
+setattr(yaml.SafeDumper, "orig_represent_str", yaml.SafeDumper.represent_str)
 
 
 def repr_str(dumper: yaml.SafeDumper, data: str) -> yaml.ScalarNode:
     if "\n" in data:
         data = data.replace("\r", "")
         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
-    return dumper.orig_represent_str(data)
+    return getattr(dumper, "orig_represent_str")(data)
 
 
 yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)

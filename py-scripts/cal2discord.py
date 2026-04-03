@@ -3,13 +3,13 @@ import datetime
 from calendar import TextCalendar
 from typing import Any, List, Tuple
 
-import humanize
+import humanize  # type: ignore[unresolved-import]
 import pytz
-import recurring_ical_events
+import recurring_ical_events  # type: ignore[unresolved-import]
 import requests
 import yaml
-from discord_webhook import DiscordEmbed, DiscordWebhook
-from icalendar import Calendar, Event
+from discord_webhook import DiscordEmbed, DiscordWebhook  # type: ignore[unresolved-import]
+from icalendar import Calendar, Event  # type: ignore[unresolved-import]
 
 parser = argparse.ArgumentParser()
 parser.add_argument("config")
