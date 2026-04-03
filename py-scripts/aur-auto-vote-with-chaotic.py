@@ -103,7 +103,7 @@ def login(session, username, password):
     return bool(
         navbar.find(
             "form",
-            action=lambda h: h and h.rstrip("/").endswith("/logout"),  # type: ignore
+            action=lambda h: h and h.rstrip("/").endswith("/logout"),
         )
     )
 

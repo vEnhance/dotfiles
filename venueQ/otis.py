@@ -8,7 +8,7 @@ import ssl
 import subprocess
 import time
 import webbrowser
-from datetime import UTC, datetime
+from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from importlib.util import find_spec
@@ -511,9 +511,9 @@ class Inquiries(VenueQNode):
         if data["accept_all"]:
             if query_otis_server(payload={"action": "accept_inquiries"}):
                 body = "This is an automated message to notify you that your recent unit petition\n"
-                body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
+                body += f"was processed on {datetime.now(timezone.utc).strftime('%-d %B %Y, %H:%M')} UTC."
                 body += "\n\n"
-                body += f"Have a nice {datetime.now(UTC).strftime('%A')}."
+                body += f"Have a nice {datetime.now(timezone.utc).strftime('%A')}."
                 recipients = [
                     inquiry["student__user__email"]
                     for inquiry in data["inquiries"]
@@ -545,7 +545,7 @@ class Registrations(VenueQNode):
                     "You are receiving this message because you checked the box "
                     "asking to be notified once your decision form was processed.\n\n"
                     "We're happy to confirm that your decision form\n"
-                    f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC "
+                    f"was processed on {datetime.now(timezone.utc).strftime('%-d %B %Y, %H:%M')} UTC "
                     "and your account is now fully activated!"
                     "You should be able to log in and pick your units now,\n"
                     "and use the /register slash command in the Discord."
@@ -790,7 +790,7 @@ class Application(VenueQNode):
                 "You are receiving this message because you checked the box "
                 "asking to be notified by email when your application was reviewed.\n\n"
                 "We're letting you know that your OTIS application was reviewed at "
-                f"{datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC. "
+                f"{datetime.now(timezone.utc).strftime('%-d %B %Y, %H:%M')} UTC. "
                 "You can see the decision (and comments if any) on the "
                 f"website {linkify('https://apply.evanchen.cc')} "
                 "by logging in to the account you used when you submitted."
