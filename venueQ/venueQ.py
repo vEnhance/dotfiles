@@ -21,7 +21,17 @@ def repr_str(dumper: yaml.SafeDumper, data: str) -> yaml.ScalarNode:
 yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
 
 if TYPE_CHECKING:
-    vim: Any = None
+
+    class _Vim:
+        """Stub for the vim C extension module."""
+
+        class error(Exception): ...
+
+        buffers: Any
+
+        def command(self, s: str) -> None: ...
+
+    vim = _Vim()
     VIM_ENABLED = True
 else:
     try:
@@ -276,7 +286,7 @@ class VenueQRoot(VenueQNode):
                     self.wipe_queue.append(b.number)
                     break
             else:
-                logger.warn(
+                logger.warning(
                     f"Tried to wipe {p} but found no buffer for it among "
                     + ", ".join(b.name for b in vim.buffers)
                 )
@@ -288,7 +298,7 @@ class VenueQRoot(VenueQNode):
                 try:
                     vim.command(f"bdelete! {bn}")
                 except vim.error:
-                    logging.warn(
+                    logging.warning(
                         f"Could not delete buffer {bn}, maybe it was deleted already."
                     )
             self.wipe_queue = []

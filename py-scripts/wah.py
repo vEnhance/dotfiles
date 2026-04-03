@@ -9,7 +9,7 @@ Work in progress
 import argparse
 import datetime
 from pathlib import Path
-from typing import Dict, List
+from typing import Any, Dict, List
 
 import yaml
 from colorama import Back, Fore, Style, init
@@ -134,6 +134,7 @@ if __name__ == "__main__":
 
     # read wah data
     needs_save = False
+    data: Dict[str, Any]
     if save_path.exists():
         data = yaml.load(save_path.read_text(), Loader=yaml.SafeLoader)
     else:
@@ -160,10 +161,10 @@ if __name__ == "__main__":
     if needs_save is True:
         save(save_path, data)
 
-    min_hours: float = _ if (_ := data["min_hours"]) is not None else 0.75
-    max_hours: float = _ if (_ := data["max_hours"]) is not None else 4.0
-    min_lpm: float = _ if (_ := data["min_lpm"]) is not None else 0.1
-    max_lpm: float = _ if (_ := data["max_lpm"]) is not None else 1
+    min_hours: float = data["min_hours"] if data["min_hours"] is not None else 0.75
+    max_hours: float = data["max_hours"] if data["max_hours"] is not None else 4.0
+    min_lpm: float = data["min_lpm"] if data["min_lpm"] is not None else 0.1
+    max_lpm: float = data["max_lpm"] if data["max_lpm"] is not None else 1
 
     decision: Dict[str, bool] = data.get("decision", {})  # hexsha -> true or false
     time = datetime.timedelta(hours=0)

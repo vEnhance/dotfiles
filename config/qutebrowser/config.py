@@ -1,12 +1,13 @@
 ## qutebrowser config.py
 
-from typing import TYPE_CHECKING, Any
+from typing import TYPE_CHECKING, Any, cast
 
 from qutebrowser.api import interceptor
 
 if TYPE_CHECKING:
-    c: Any = object
-    config: Any = object
+    # c and config are injected as globals by qutebrowser at runtime
+    c = cast(Any, None)
+    config = cast(Any, None)
 
 config.load_autoconfig()
 
