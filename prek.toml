@@ -2,11 +2,10 @@
 # See https://prek.j178.dev for more information.
 #:schema https://www.schemastore.org/prek.json
 
-# This is the sort of master prek.toml that all other projects take subsets of
-
 default_install_hook_types = [
   "pre-commit",
   "commit-msg",
+  "pre-push",
 ]
 default_stages = ["pre-commit"]
 
@@ -30,7 +29,7 @@ hooks = [
   { id = "check-merge-conflict" },
   { id = "check-symlinks" },
   { id = "check-toml" },
-  { id = "check-yaml" },
+  { id = "check-yaml", args = ["--allow-multiple-documents"] },
   { id = "detect-private-key" },
   { id = "end-of-file-fixer" },
   { id = "fix-byte-order-marker" },
@@ -97,37 +96,3 @@ hooks = [{ id = "shellcheck-system", files = '\.sh$'}]
 repo = "https://github.com/Vimjas/vint"
 rev = "v0.4a3"
 hooks = [{id = "vint", files = '(\.vim$|vimrc$)', exclude = 'plug\.vim$'}]
-
-# local hooks can go here for Django projects
-
-# [[repos]]
-# repo = "local"
-# hooks = [
-#   {
-#     id = "make-fmt",
-#     name = "Format code",
-#     entry = "make fmt",
-#     language = "system",
-#     pass_filenames = false,
-#     stages = ["pre-push"],
-#     fail_fast= true
-#   },
-#   {
-#     id = "make-check",
-#     name = "Run checks",
-#     entry = "make check",
-#     language = "system",
-#     pass_filenames = false,
-#     stages = ["pre-push"],
-#     fail_fast= true
-#   },
-#   {
-#     id = "make-test",
-#     name = "Run tests",
-#     entry = "make test",
-#     language = "system",
-#     pass_filenames = false,
-#     stages = ["pre-push"],
-#     fail_fast= true
-#   }
-# ]
