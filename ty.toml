@@ -1,3 +1,2 @@
 [rules]
 unresolved-import = "ignore"
-deprecated = "ignore"

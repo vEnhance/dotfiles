@@ -25,17 +25,16 @@ parser = argparse.ArgumentParser(description="Process some scores")
 parser.add_argument(
     "files",
     nargs="*",
-    type=argparse.FileType("r"),
-    default=[sys.stdin],
+    default=None,
     help="File to read; default to sys.stdin if not provided.",
 )
 parser.add_argument(
     "-o",
     "--output",
     nargs="?",
-    const=sys.stdout,
+    const="-",
     default=None,
-    type=argparse.FileType("w"),
+    type=str,
     help="Print output to this file (only works with one filename), pass with no argument for stdout.",
 )
 parser.add_argument(
@@ -371,28 +370,30 @@ def clean_name(s):
 
 
 if __name__ == "__main__":
-    files = args.files
-    assert len(files) == 1 or (args.output is None and args.name is None), (
+    filenames = args.files
+    assert filenames is None or len(filenames) == 1 or (args.output is None and args.name is None), (
         "can't write multiple inputs to a single output"
     )
 
-    if len(files) == 1:
-        f = files[0]
-        if f == sys.stdin:
-            if args.output is None:
-                args.output = sys.stdout
-            name = args.name or "competition"
-        else:
-            name = args.name or clean_name(os.path.basename(f.name))
-
-        if args.output is None:
-            with open(os.path.splitext(f.name)[0] + ".oscar.tex", "w") as o:
-                main(f, o, name)
-        else:
-            main(f, args.output, name)
-
+    if not filenames:
+        # stdin
+        outfile = sys.stdout if args.output == "-" else (open(args.output, "w") if args.output else sys.stdout)
+        main(sys.stdin, outfile, args.name or "competition")
+    elif len(filenames) == 1:
+        filename = filenames[0]
+        name = args.name or clean_name(os.path.basename(filename))
+        with open(filename) as f:
+            if args.output == "-":
+                main(f, sys.stdout, name)
+            elif args.output is not None:
+                with open(args.output, "w") as o:
+                    main(f, o, name)
+            else:
+                with open(os.path.splitext(filename)[0] + ".oscar.tex", "w") as o:
+                    main(f, o, name)
     else:
-        for f in files:
-            name = clean_name(os.path.basename(f.name))
-            with open(os.path.splitext(f.name)[0] + ".oscar.tex", "w") as o:
-                main(f, o, clean_name(name))
+        for filename in filenames:
+            name = clean_name(os.path.basename(filename))
+            with open(filename) as f:
+                with open(os.path.splitext(filename)[0] + ".oscar.tex", "w") as o:
+                    main(f, o, clean_name(name))
