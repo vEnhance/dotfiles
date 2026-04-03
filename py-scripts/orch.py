@@ -19,7 +19,7 @@ OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 OTIS_WEB_TOKEN = os.getenv("OTIS_WEB_TOKEN")
 assert OTIS_WEB_TOKEN is not None
 
-yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str  # type: ignore
+yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str
 
 
 def repr_str(dumper, data):
