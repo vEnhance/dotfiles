@@ -1,7 +1,8 @@
 scriptencoding utf-8
 
 " Author: Evan Chen <evan@evanchen.cc>
-" Description: Fix Markdown files with rumdl
+" Description: Fast Markdown linter and formatter written in Rust
+
 
 call ale#Set('markdown_rumdl_executable', 'rumdl')
 call ale#Set('markdown_rumdl_options', '--silent')

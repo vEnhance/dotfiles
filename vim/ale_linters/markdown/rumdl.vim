@@ -1,5 +1,6 @@
 " Author: Evan Chen <evan@evanchen.cc>
-" Description: rumdl, a Markdown linter, as a language server
+" Description: Fast Markdown linter and formatter written in Rust
+
 
 call ale#Set('markdown_rumdl_executable', 'rumdl')
 
