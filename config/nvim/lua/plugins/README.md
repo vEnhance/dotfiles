@@ -18,13 +18,6 @@ aka notes to self because omg i'm so confused right now
 1.  A **formatter** does code fixing and is often independent of LSP.
     - Add them in `formatters_by_ft` under `conform.nvim`.
 
-## Lazy extras
-
-- The extras for LazyVim may add LSP's,
-  but you can disable them with `enabled = false`.
-- The extras for LazyVim may also add linters and formatters,
-  but you can override `linters_by_ft` or `formatters_by_ft` for that filetype.
-
 ## Mason (`mason.lua`)
 
 This controls **home installation of LSP, linter, and formatters**.
@@ -35,4 +28,13 @@ This controls **home installation of LSP, linter, and formatters**.
   - To avoid version hell where Mason's version might be behind.
   - Also, it's just wasteful… I have so many copies of Ruff now…
 - The `never_install` lists packages that Mason should NOT install.
-  - For tools we don't use at all, if blocking in `coding.lua` is sufficient, that is better.
+  - For tools we don't use at all, if blocking in `coding.lua` is enough, do that.
+
+## LazyVim
+
+The LazyVim suite might add several things automatically
+that I might want to revert.
+
+- LSP's: Disable with `enabled = false`.
+- Linters and formatters: Override `linters_by_ft` or `formatters_by_ft`.
+- Mason `ensure_installed` entries: Add to `never_install`.
