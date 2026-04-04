@@ -262,6 +262,8 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
       \}
   endfunction
   execute ale#fix#registry#Add('djlint', 'ALEFixDjlint', ['htmljdjango'], 'Fixer for Django templates')
+
+  execute ale#fix#registry#Add('rumdl', 'ale#fixers#rumdl#Fix', ['markdown'], 'Fix markdown with rumdl')
 endif
 
 function! ALEFix_DeathToDoubleDollarSigns(buffer, lines) abort

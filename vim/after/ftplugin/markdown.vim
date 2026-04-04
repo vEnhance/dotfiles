@@ -10,7 +10,8 @@ set textwidth=80
 " i dunno if that's too trivial for the community to care about
 let g:airline#extensions#whitespace#trailing_regexp = '\t$\|\s\{3,\}$\|[^ ] $'
 let b:airline_whitespace_trailing_regexp = '\t$\|\s\{3,\}$\|[^ ] $'
-let b:ale_fixers = ['remove_trailing_lines', 'prettier']
+let b:ale_linters_ignore = ['prettier']
+let b:ale_fixers = ['remove_trailing_lines', 'rumdl']
 
 " Pet peeves
 inoremap <C-R><C-R> As a reminder (see syllabus 3.2, third bullet), it's appreciated if you can include the sources of problems (e.g. "Shortlist 2018 A7") when provided. The problem numbers can often change during edits.
