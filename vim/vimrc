@@ -247,35 +247,10 @@ endif
 " }}}
 " ALE continued {{{
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
-  call ale#Set('djlint_executable', 'djlint')
-  call ale#Set('djlint_options', '')
-
-  function! ALEFixDjlint(buffer) abort
-      let l:executable = ale#Var(a:buffer, 'djlint_executable')
-      let l:options = ale#Var(a:buffer, 'djlint_options')
-
-      return {
-      \   'command': ale#Escape(l:executable)
-      \       . ' --reformat'
-      \       . (empty(l:options) ? '': ' ' . l:options)
-      \       . ' -',
-      \}
-  endfunction
-  execute ale#fix#registry#Add('djlint', 'ALEFixDjlint', ['htmljdjango'], 'Fixer for Django templates')
-
   execute ale#fix#registry#Add('rumdl', 'ale#fixers#rumdl#Fix', ['markdown'], 'Fix markdown with rumdl')
 endif
 
-function! ALEFix_DeathToDoubleDollarSigns(buffer, lines) abort
-  let l:index = 0
-  let l:lines_new = range(len(a:lines))
-  for l:line in a:lines
-    let l:lines_new[l:index] = substitute(l:line,  '\$\$\_s*\(.\{-}\)\_s*\$\$', '\\[ \1 \\]', 'g')
-    let l:index = l:index + 1
-  endfor
-  return l:lines_new
-endfunction
-execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ALEFix_DeathToDoubleDollarSigns', ['tex'], 'wtf is wrong with people')
+execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ale#fixers#death_to_double_dollar_signs#Fix', ['tex'], 'wtf is wrong with people')
 " }}}
 
 " Arrow key shortcuts {{{
