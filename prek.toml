@@ -89,7 +89,7 @@ hooks = [
   { id = "uv-lock" },
   {
     id = "pip-compile",
-    args = ["pyproject.toml", "-o", "requirements.txt", "--no-annotate"]
+    args = ["pyproject.toml", "-o", "requirements.txt"]
   }
 ]
 
