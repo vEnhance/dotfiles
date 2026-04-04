@@ -108,17 +108,25 @@ def has_templates_html(repo_root: Path) -> bool:
     return False
 
 
-PREK_WORKFLOW = """\
-name: Prek actions
-on: [push, pull_request]
-
-jobs:
-  prek:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: j178/prek-action@v2
-"""
+def build_prek_workflow(has_uv: bool) -> str:
+    steps = "      - uses: actions/checkout@v6\n"
+    if has_uv:
+        steps += (
+            "      - uses: actions/setup-python@v6\n"
+            "        with:\n"
+            "          python-version-file: .python-version\n"
+        )
+    steps += "      - uses: j178/prek-action@v2\n"
+    return (
+        "name: Prek action\n"
+        "on: [push, pull_request]\n"
+        "\n"
+        "jobs:\n"
+        "  prek:\n"
+        "    runs-on: ubuntu-latest\n"
+        "    steps:\n"
+        f"{steps}"
+    )
 
 
 def main() -> None:
@@ -154,6 +162,16 @@ def main() -> None:
     has_requirements = has_uv_lock and (repo_root / "requirements.txt").exists()
     has_templates = has_templates_html(repo_root)
     has_shell = any(repo_root.rglob("*.sh"))
+
+    # Require .python-version when uv is present
+    if has_uv_lock and not (repo_root / ".python-version").exists():
+        print(
+            ansi(
+                "Error: uv.lock found but no .python-version — create one first (e.g. uv python pin 3.14)",
+                "1;31",
+            )
+        )
+        sys.exit(1)
 
     # Read and split skeleton
     skeleton_text = SKELETON.read_text()
@@ -201,7 +219,7 @@ def main() -> None:
     prek_yml = workflows_dir / "prek.yml"
     if args.github:
         workflows_dir.mkdir(parents=True, exist_ok=True)
-        prek_yml.write_text(PREK_WORKFLOW)
+        prek_yml.write_text(build_prek_workflow(has_uv_lock))
         print("Wrote .github/workflows/prek.yml")
     elif prek_toml_is_new or not workflows_dir.exists():
         print(
