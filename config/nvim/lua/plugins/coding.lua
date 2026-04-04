@@ -58,6 +58,7 @@ return {
         markdown = {}, -- all handled by LSP already
         sh = { "shellcheck" },
         tex = { "chktex" },
+        ["*"] = { "codespell" },
       },
     },
     linters = {
