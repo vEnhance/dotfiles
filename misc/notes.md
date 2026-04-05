@@ -1,12 +1,14 @@
-# Notes
+# Notes to self
 
 ## Regrets
 
-- `py-scripts` and `sh-scripts` would be better called just `py` or `sh`,
+- `py-scripts` and `sh-scripts` might be better called just `py` or `sh`,
   but there are lots of HTTPS GitHub links now and it's too late to move those.
-- `texmf` should be under `dot` but similarly is too late to change now.
+  - Well, they're easier to `grep` for this way, so maybe that's OK.
+- `texmf` should be under `dot` but it's too late to change that
+  since `evan.sty` advertises the GitHub URL in many places.
 
-## Notes on tabs
+## Using spaces over tabs
 
 - Hard tabs are no longer used.
 - Python/Perl uses 4 spaces for indentation.
@@ -23,8 +25,8 @@ Some things I should change when using this as a TV.
 
 In `~/.Xresources`:
 
-- Change `Xft.dpi` from `192` to `96`
+- Change `Xft.dpi` from `96` to `192`
 
 In `about:config` of Firefox:
 
-- Change `layout.css.devPixelsPerPx` from `2` to `1`
+- Change `layout.css.devPixelsPerPx` from `1` to `2`
