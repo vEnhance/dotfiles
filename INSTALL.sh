@@ -82,9 +82,9 @@ link_hidden_path config/vale/.vale.ini
 link_hidden_path config/vale/vale-styles
 link_hidden_path config/xfce4/terminal
 
-link_hidden_path asy
+link_dot_path asy
 link_hidden_path texmf
-do_link "$HOME/dotfiles/dot/task/hooks" "$HOME/.task/hooks"
+link_dot_path task/hooks
 link_hidden_path local/share/gh/extensions
 link_hidden_path local/share/typst
 
