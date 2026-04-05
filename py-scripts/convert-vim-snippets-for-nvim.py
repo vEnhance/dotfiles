@@ -245,7 +245,7 @@ class SnippetConverter:
 def main():
     """Main entry point."""
     # Set up paths
-    dotfiles_dir = Path(__file__).parent
+    dotfiles_dir = Path(__file__).parent.parent
     vim_snips_dir = dotfiles_dir / "vim" / "snips"
     nvim_snippets_dir = dotfiles_dir / "config" / "nvim" / "snippets"
 
