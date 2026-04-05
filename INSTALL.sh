@@ -1,22 +1,26 @@
 #!/bin/bash
 
 # Use at your own risk ;)
-# makes many symlinks
+# Makes many symlinks.
 
 set -euo pipefail
 
 do_link() {
   src="$1"
   target="$2"
+  BOLD_CYN="\033[1;36m"
+  BOLD_GRN="\033[1;32m"
+  BOLD_RED="\033[1;31m"
+  RESET="\033[0m"
   if [ -L "$target" ] && [ ! -e "$target" ]; then
-    echo "Replacing broken symlink: $target"
+    echo -e "${BOLD_CYN}UPDATED:${RESET} Fixed broken symlink: $target"
     rm "$target"
     ln -s "$src" "$target"
   elif [ ! -e "$target" ]; then
-    echo "Creating: $target"
+    echo -e "${BOLD_GRN}CREATED:${RESET} New symlink created:  $target"
     ln -s "$src" "$target"
   elif [ -d "$target" ] && [ ! -L "$target" ] && [ -d "$src" ]; then
-    echo "WARNING: real directory exists where symlink expected: $target"
+    echo -e "${BOLD_RED}WARNING:${RESET} Real directory found: $target"
   fi
 }
 
@@ -104,7 +108,6 @@ if ! make -q 2>/dev/null; then
   make
 fi
 cd "$HOME" || exit 1
-
 if [ "$USER" = "evan" ]; then
   mkdir -p "$HOME"/.config/py3status
   ln -sf "$HOME/dotfiles/py3status/py3status.$(hostname).conf" "$HOME"/.config/py3status/config
@@ -113,6 +116,7 @@ elif [ "$USER" = "star" ]; then
   ln -sf "$HOME/dotfiles/py3status/py3status.star.conf" "$HOME"/.config/py3status/config
 fi
 
+# Set default browser to qutebrowser
 if [ "$USER" = "evan" ]; then
   xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
   xdg-settings set default-url-scheme-handler https org.qutebrowser.qutebrowser.desktop
