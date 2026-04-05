@@ -320,21 +320,21 @@ bindsym $mod+x exec --no-startup-id $HOME/dotfiles/config/i3/reminder-exec.sh, m
 # }}}
 
 # noisemaker {{{
-bindsym $mod+Mod1+1 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 1
-bindsym $mod+Mod1+2 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 2
-bindsym $mod+Mod1+3 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 3
-bindsym $mod+Mod1+4 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 4
-bindsym $mod+Mod1+5 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 5
-bindsym $mod+Mod1+6 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 6
-bindsym $mod+Mod1+7 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 7
-bindsym $mod+Mod1+8 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 8
-bindsym $mod+Mod1+9 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 9
-bindsym $mod+Mod1+0 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh 0
-bindsym $mod+Mod1+apostrophe exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh a
-bindsym $mod+Mod1+grave exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh g
-bindsym $mod+Mod1+braceleft exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh B
-bindsym $mod+Mod1+braceright exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh H
-bindsym $mod+Mod1+equal exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker.sh N
+bindsym $mod+Mod1+1 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 1
+bindsym $mod+Mod1+2 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 2
+bindsym $mod+Mod1+3 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 3
+bindsym $mod+Mod1+4 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 4
+bindsym $mod+Mod1+5 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 5
+bindsym $mod+Mod1+6 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 6
+bindsym $mod+Mod1+7 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 7
+bindsym $mod+Mod1+8 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 8
+bindsym $mod+Mod1+9 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 9
+bindsym $mod+Mod1+0 exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh 0
+bindsym $mod+Mod1+apostrophe exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh a
+bindsym $mod+Mod1+grave exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh g
+bindsym $mod+Mod1+braceleft exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh B
+bindsym $mod+Mod1+braceright exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh H
+bindsym $mod+Mod1+equal exec --no-startup-id $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh N
 # }}}
 
 # Exec startup

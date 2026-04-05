@@ -28,7 +28,7 @@ if [ -f "$ON_MIC_FLAG" ] || [ -f "$OFF_MIC_FLAG" ] || [ "$COMMAND" = "stop" ]; t
   notify-send -i "checkmark" \
     "All done!" \
     "Nerd Dictation has completed."
-  ~/dotfiles/sh-scripts/noisemaker.sh 0
+  ~/dotfiles/sh-scripts/noisemaker/noisemaker.sh 0
 
   exit 0
 fi
@@ -44,4 +44,4 @@ fi
 notify-send -i "sound-recorder" \
   "Recording in progress" \
   "In the words of Taylor Swift, speak now."
-~/dotfiles/sh-scripts/noisemaker.sh 6
+~/dotfiles/sh-scripts/noisemaker/noisemaker.sh 6

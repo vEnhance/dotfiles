@@ -45,7 +45,9 @@ if not OTIS_TMP_DOWNLOADS_PATH.exists():
     OTIS_TMP_DOWNLOADS_PATH.mkdir()
     OTIS_TMP_DOWNLOADS_PATH.chmod(0o777)
 HANDOUTS_PATH = Path("~/Sync/OTIS/Materials").expanduser()
-NOISEMAKER_SOUND_PATH = Path("~/dotfiles/sh-scripts/noisemaker.sh").expanduser()
+NOISEMAKER_SOUND_PATH = Path(
+    "~/dotfiles/sh-scripts/noisemaker/noisemaker.sh"
+).expanduser()
 
 MD_EXTENSIONS = ["extra", "sane_lists", "smarty", "footnotes"]
 if find_spec("mdx_truly_sane_lists") is not None:
