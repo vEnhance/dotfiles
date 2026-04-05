@@ -353,12 +353,24 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
 
     output_lines = []
     env_tracker = EnvironmentTracker(file_type)
+    in_header_zone = (
+        True  # True until we see a non-header, non-delimiter, non-blank line
+    )
 
     for line in lines:
-        # Detect frontmatter headers and don't wrap those
-        # Only match lines that start with a letter (not underscore) followed by
-        # word characters and a colon with optional whitespace
-        if re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*:\s", line):
+        stripped = line.strip()
+
+        # Track whether we're still in the frontmatter zone at the top of the file.
+        # The zone ends once we encounter a line that isn't a key: value header,
+        # a delimiter (--- or ===), or blank whitespace.
+        if in_header_zone:
+            is_header_line = bool(re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*:\s", line))
+            is_delimiter = bool(re.match(r"^[-=]{3,}\s*$", stripped))
+            is_blank = not stripped
+            if not (is_header_line or is_delimiter or is_blank):
+                in_header_zone = False
+
+        if in_header_zone and re.match(r"^[a-zA-Z][a-zA-Z0-9_-]*:\s", line):
             output_lines.append(line)
             continue
 

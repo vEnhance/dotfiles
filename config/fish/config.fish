@@ -65,7 +65,7 @@ alias fgrep='fgrep --color=auto' # show differences in color
 # Aliases {{{
 alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
 alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
-alias mango='/usr/bin/python3 ~/dotfiles/py-scripts/mango.py'
+alias mango='/usr/bin/python3 ~/dotfiles/py-scripts/mango/mango.py'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
 alias odus='/usr/bin/python3 ~/dotfiles/py-scripts/odus.py'
 alias orch='/usr/bin/python3 ~/dotfiles/py-scripts/orch.py'
