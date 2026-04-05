@@ -95,6 +95,6 @@ def add_license(repo_root: Path) -> None:
     if pyproject.exists():
         text = pyproject.read_text()
         if not re.search(r"(?im)^license\s*=", text):
-            text = insert_after_authors(text, 'license = { text = "MIT" }')
+            text = insert_after_authors(text, 'license = "MIT"')
             pyproject.write_text(text)
-            print('Added license = { text = "MIT" } to pyproject.toml')
+            print('Added license = "MIT" to pyproject.toml')
