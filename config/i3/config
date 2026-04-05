@@ -304,7 +304,7 @@ mode "exec" {
   bindsym q exec --no-startup-id $HOME/dotfiles/sh-scripts/nerd-dictate.sh, mode "default"
   bindsym r exec i3-sensible-terminal -e "$HOME/dotfiles/py-scripts/orch.py" --title="OTIS-ARCH", mode "default"
   bindsym s exec spotify &, mode "default"
-  bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/venueQ/otis.py'" -c ":source ~/dotfiles/venueQ/venueQ.vim", mode "default"
+  bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/py-scripts/venueQ/otis.py'" -c ":source ~/dotfiles/py-scripts/venueQ/venueQ.vim", mode "default"
   bindsym w exec --no-startup-id fish -c pomodoro, mode "default"
   bindsym x exec qutebrowser &, mode "default"
   # Open latest chapter of diary

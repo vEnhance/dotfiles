@@ -11,7 +11,7 @@ fi
 # This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
 # and processes all of them through venueQ
 if [ "$(hostname)" = "$(jq --raw-output .otis ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
-  python ~/dotfiles/venueQ/otis.py
+  python ~/dotfiles/py-scripts/venueQ/otis.py
 fi
 
 # This piece of software is not written by me.
