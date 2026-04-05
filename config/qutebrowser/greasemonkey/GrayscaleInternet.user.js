@@ -4,12 +4,12 @@
 // @version      1.2
 // @description  Turn things to black and white
 // @author       Evan Chen
-// @match        http://*/*
-// @match        https://*/*
 // @exclude      https://docs.google.com/*
 // @exclude      https://*.youtube.com/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
+
+// Disabled for now, but you can re-enable it with @match.
 
 (() => {
   const head = document.getElementsByTagName("head")[0];
