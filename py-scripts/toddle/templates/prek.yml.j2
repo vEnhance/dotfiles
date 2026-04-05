@@ -1,0 +1,14 @@
+name: Prek action
+on: [push, pull_request]
+
+jobs:
+  prek:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+{% if has_uv %}
+      - uses: actions/setup-python@v6
+        with:
+          python-version-file: .python-version
+{% endif %}
+      - uses: j178/prek-action@v2

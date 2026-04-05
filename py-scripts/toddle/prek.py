@@ -1,29 +1,15 @@
-#!/usr/bin/env python3
-"""toddle.py - Generate prek.toml for the current git repository.
+"""prek.toml generation logic."""
 
-Name explanation: Originally was going to name it pre-prek,
-but pre-K is short for pre-kindergarten, so I called it "toddle" instead.
-(Because a toddler is a really small child.)
-
-Run from the root of any git repository.
-Reads ~/dotfiles/prek.toml as the skeleton
-and writes a tailored prek.toml based on what's present in the repo.
-Preserves any existing local hooks from a pre-existing prek.toml.
-"""
-
-import argparse
 import re
 import sys
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).parent.parent
-SKELETON = REPO_ROOT / "prek.toml"
-RUMDL_CONFIG = REPO_ROOT / "config" / "rumdl" / "rumdl.toml"
+from jinja2 import Environment, FileSystemLoader
 
+from .utils import ansi
 
-def ansi(text: str, code: str) -> str:
-    return f"\033[{code}m{text}\033[0m" if sys.stdout.isatty() else text
-
+TEMPLATES_DIR = Path(__file__).parent / "templates"
+SKELETON = Path(__file__).parent.parent.parent / "prek.toml"
 
 # Always skip these regardless of conditions
 SKIP_REPOS = {
@@ -51,14 +37,12 @@ def split_skeleton(text: str) -> tuple[str, list[tuple[str, str]]]:
 
 def strip_pip_compile(block: str) -> str:
     """Remove the pip-compile hook entry from a uv-pre-commit block."""
-    # Remove the trailing comma on uv-lock and the multi-line pip-compile entry
     block = re.sub(
         r",\s*\n\s*\{[^{}]*id\s*=\s*\"pip-compile\"[^{}]*\}",
         "",
         block,
         flags=re.DOTALL,
     )
-    # Collapse: hooks = [\n  { id = "uv-lock" }\n]  ->  hooks = [{ id = "uv-lock" }]
     block = re.sub(
         r"hooks\s*=\s*\[\s*\n\s*(\{[^}]+\})\s*\n\s*\]",
         r"hooks = [\1]",
@@ -108,53 +92,18 @@ def has_templates_html(repo_root: Path) -> bool:
     return False
 
 
-def build_prek_workflow(has_uv: bool) -> str:
-    steps = "      - uses: actions/checkout@v6\n"
-    if has_uv:
-        steps += (
-            "      - uses: actions/setup-python@v6\n"
-            "        with:\n"
-            "          python-version-file: .python-version\n"
-        )
-    steps += "      - uses: j178/prek-action@v2\n"
-    return (
-        "name: Prek action\n"
-        "on: [push, pull_request]\n"
-        "\n"
-        "jobs:\n"
-        "  prek:\n"
-        "    runs-on: ubuntu-latest\n"
-        "    steps:\n"
-        f"{steps}"
+def render_prek_workflow(has_uv: bool) -> str:
+    env = Environment(
+        loader=FileSystemLoader(TEMPLATES_DIR),
+        trim_blocks=True,
+        lstrip_blocks=True,
+        keep_trailing_newline=True,
     )
+    return env.get_template("prek.yml.j2").render(has_uv=has_uv)
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(
-        description="Generate prek.toml for a git repository."
-    )
-    parser.add_argument(
-        "-g",
-        "--github",
-        action="store_true",
-        help="Also write .github/workflows/prek.yml",
-    )
-    parser.add_argument(
-        "-r",
-        "--rumdl",
-        action="store_true",
-        help="Copy ~/dotfiles/config/rumdl/rumdl.toml to rumdl.toml",
-    )
-    args = parser.parse_args()
-
-    if args.rumdl:
-        dest = Path.cwd() / "rumdl.toml"
-        dest.write_text(RUMDL_CONFIG.read_text())
-        print("Wrote rumdl.toml")
-
-    repo_root = Path.cwd()
-
-    # Detect conditions
+def write_prek_toml(repo_root: Path) -> bool:
+    """Detect repo conditions, write prek.toml, and return has_uv_lock."""
     has_rumdl = (repo_root / "rumdl.toml").exists() or (
         repo_root / ".rumdl.toml"
     ).exists()
@@ -163,7 +112,6 @@ def main() -> None:
     has_templates = has_templates_html(repo_root)
     has_shell = any(repo_root.rglob("*.sh"))
 
-    # Require .python-version when uv is present
     if has_uv_lock and not (repo_root / ".python-version").exists():
         print(
             ansi(
@@ -173,12 +121,10 @@ def main() -> None:
         )
         sys.exit(1)
 
-    # Read and split skeleton
     skeleton_text = SKELETON.read_text()
     header, skeleton_blocks = split_skeleton(skeleton_text)
     skeleton_urls = {url for url, _ in skeleton_blocks}
 
-    # Find blocks to preserve from existing prek.toml
     preserved_blocks: list[tuple[str, str]] = []
     override_urls: set[str] = set()
     existing = repo_root / "prek.toml"
@@ -213,21 +159,6 @@ def main() -> None:
 
     prek_toml_is_new = not existing.exists()
     existing.write_text("\n\n".join([block.strip() for block in selected]) + "\n")
-
-    # GitHub Actions workflow
-    workflows_dir = repo_root / ".github" / "workflows"
-    prek_yml = workflows_dir / "prek.yml"
-    if args.github:
-        workflows_dir.mkdir(parents=True, exist_ok=True)
-        prek_yml.write_text(build_prek_workflow(has_uv_lock))
-        print("Wrote .github/workflows/prek.yml")
-    elif prek_toml_is_new or not workflows_dir.exists():
-        print(
-            "Note: no .github/workflows/ directory found; pass -g to create a prek workflow."
-        )
-
     print("Wrote prek.toml")
 
-
-if __name__ == "__main__":
-    main()
+    return prek_toml_is_new, has_uv_lock
