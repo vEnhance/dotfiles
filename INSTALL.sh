@@ -85,6 +85,10 @@ link_hidden_path config/picom.conf
 link_hidden_path config/vale/.vale.ini
 link_hidden_path config/vale/vale-styles
 link_hidden_path config/xfce4/terminal
+link_hidden_path config/systemd/user/anki-morning.service
+link_hidden_path config/systemd/user/anki-morning.timer
+link_hidden_path config/systemd/user/evansync.service
+link_hidden_path config/systemd/user/evansync.timer
 
 link_dot_path asy
 link_hidden_path texmf
