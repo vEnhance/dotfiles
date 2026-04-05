@@ -38,16 +38,15 @@ with open("%s.tex" % file_root_name) as f, open("%s/source.tex" % TMP, "w") as g
         elif doc_started:
             print(line.strip(), file=g)
 subprocess.run("cp -f *.tex " + TMP, shell=True, check=True)
+HERE = Path(__file__).parent
 subprocess.run(
-    ["cp", "-f", Path("~/dotfiles/py-scripts/demacro-private.sty").expanduser(), TMP],
+    ["cp", "-f", HERE / "demacro-private.sty", TMP],
     check=True,
 )
 with open("%s/demacro-private.sty" % TMP, "a") as f:
     print("\n" + preamble, file=f)
 os.chdir(TMP)
-subprocess.run(
-    [Path("~/dotfiles/py-scripts/de-macro").expanduser(), "source.tex"], check=True
-)
+subprocess.run([HERE / "de-macro", "source.tex"], check=True)
 subprocess.run(
     [
         "python3",

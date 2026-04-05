@@ -86,7 +86,7 @@ else:
 TMPDIR = Path(tempfile.gettempdir())
 binary_output_path = TMPDIR / (Path(main_path).stem + ".out")
 
-TEMPLATE_PATHS = Path("~/dotfiles/cp-templates/").expanduser()
+TEMPLATE_PATHS = Path(__file__).parent / "cp-templates"
 
 
 if __name__ == "__main__":

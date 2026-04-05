@@ -63,7 +63,7 @@ alias fgrep='fgrep --color=auto' # show differences in color
 # }}}
 
 # Aliases {{{
-alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro.py'
+alias demacro='/usr/bin/python3 ~/dotfiles/py-scripts/demacro/demacro.py'
 alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
 alias mango='/usr/bin/python3 ~/dotfiles/py-scripts/mango/mango.py'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
@@ -71,7 +71,7 @@ alias odus='/usr/bin/python3 ~/dotfiles/py-scripts/odus.py'
 alias orch='/usr/bin/python3 ~/dotfiles/py-scripts/orch.py'
 alias oscar='/usr/bin/python3 ~/dotfiles/py-scripts/oscar.py'
 alias sparky='/usr/bin/python3 ~/Sync/Projects/sparky/'
-alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp.py'
+alias stomp='/usr/bin/python3 ~/dotfiles/py-scripts/stomp/stomp.py'
 alias toddle='/usr/bin/python3 ~/dotfiles/py-scripts/toddle'
 alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
 alias uclean='/usr/bin/python3 ~/dotfiles/py-scripts/uclean.py'
