@@ -1,7 +1,0 @@
-[Unit]
-Description=Runs the Evil Chin bot
-
-[Service]
-ExecStart=/home/evan/Sync/Projects/evil-chin/run.sh
-Restart=on-failure
-RestartSec=3
