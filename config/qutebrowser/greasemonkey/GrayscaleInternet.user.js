@@ -6,6 +6,7 @@
 // @author       Evan Chen
 // @exclude      https://docs.google.com/*
 // @exclude      https://*.youtube.com/*
+// @exclude      *
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // ==/UserScript==
 
