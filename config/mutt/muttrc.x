@@ -146,7 +146,7 @@ macro compose <Space> "<first-entry>\
 <toggle-unlink><toggle-disposition>\
 <tag-entry><first-entry><tag-entry><group-alternatives>\
 <send-message>\
-<shell-escape>~/dotfiles/sh-scripts/noisemaker.sh 5<enter>" \
+<shell-escape>~/dotfiles/sh-scripts/noisemaker/noisemaker.sh 5<enter>" \
 "Compile as markdown and send"
 
 bind attach d noop
