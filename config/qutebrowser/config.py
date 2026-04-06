@@ -54,6 +54,7 @@ config.bind(r"|", "tab-give")
 config.bind("\\", "mode-enter passthrough")
 
 ALLOW_JAVASCRIPT_WEBSITES = (
+    r"*://100.100.100.100/*",
     r"*://*.0xparc.org/*",
     r"*://*.amazon.com/*",
     r"*://*.athemath.org/*",
