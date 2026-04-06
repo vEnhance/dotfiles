@@ -58,7 +58,7 @@ hooks = [{ id = "prettier", types_or = ["css", "javascript", "json", "yaml"] }]
 
 [[repos]]
 repo = "https://github.com/rvben/rumdl-pre-commit"
-rev = "v0.1.66"
+rev = "v0.1.67"
 hooks = [{ id = "rumdl" }, { id = "rumdl-fmt" }]
 
 [[repos]]

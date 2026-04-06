@@ -4,19 +4,19 @@ aka notes to self because omg i'm so confused right now
 
 ## Toolkit (`coding.lua`)
 
-1.  The **language servers** is a whole suite, including diagnostics.
+1. The **language servers** is a whole suite, including diagnostics.
     It talks to the editor using the Language Server Protocol.
-    - Add them in `servers` under `nvim-lspconfig`
-    - If there is a server from this you don't want, set `enabled = false`.
+   - Add them in `servers` under `nvim-lspconfig`
+   - If there is a server from this you don't want, set `enabled = false`.
 
-1.  A **linter** is a single program that provides diagnostics on a single file.
-    - Add them in `linters_by_ft` under `nvim-lint`
-    - Linters only need to be added here if they don't have an LSP tool already.
-      - So `rumdl`, `ruff`, etc. don't need to be here, for example.
-    - (Contrary to the name, ALE actually has its own language server client.)
+1. A **linter** is a single program that provides diagnostics on a single file.
+   - Add them in `linters_by_ft` under `nvim-lint`
+   - Linters only need to be added here if they don't have an LSP tool already.
+     - So `rumdl`, `ruff`, etc. don't need to be here, for example.
+   - (Contrary to the name, ALE actually has its own language server client.)
 
-1.  A **formatter** does code fixing and is often independent of LSP.
-    - Add them in `formatters_by_ft` under `conform.nvim`.
+1. A **formatter** does code fixing and is often independent of LSP.
+   - Add them in `formatters_by_ft` under `conform.nvim`.
 
 ## Mason (`mason.lua`)
 

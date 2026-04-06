@@ -6,15 +6,13 @@ disable = [
   "MD041", # Allow first line to be anything (not just h1)
 ]
 extend-enable = ["MD060"] # Table alignment
-exclude = [".git", "LICENSE.md"]
 respect-gitignore = true
 
-[MD013]
+[MD013] # Line length
 line-length = 160
 code-blocks = false
 tables = false
 headings = false
 
-[MD030]
-ol-single = 2
-ol-multi = 2
+[MD060] # Table alignment
+enabled = true

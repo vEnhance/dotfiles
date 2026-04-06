@@ -1,20 +1,4 @@
+extends = "config/rumdl/rumdl.toml"
+
 [global]
-disable = [
-  "MD025", # Allow multiple h1 headings
-  "MD026", # Permit punctuation in heading
-  "MD033", # Permit inline HTML
-  "MD041", # Allow first line to be anything (not just h1)
-]
-extend-enable = ["MD060"] # Table alignment
-exclude = [".git", "LICENSE.md", "local/share/gh/extensions", "config/i3/3kon"]
-respect-gitignore = true
-
-[MD013]
-line-length = 160
-code-blocks = false
-tables = false
-headings = false
-
-[MD030]
-ol-single = 2
-ol-multi = 2
+exclude = ["LICENSE.md", "local/share/gh/extensions", "config/i3/3kon"]
