@@ -5,7 +5,7 @@ aka notes to self because omg i'm so confused right now
 ## Toolkit (`coding.lua`)
 
 1. The **language servers** is a whole suite, including diagnostics.
-    It talks to the editor using the Language Server Protocol.
+   It talks to the editor using the Language Server Protocol.
    - Add them in `servers` under `nvim-lspconfig`
    - If there is a server from this you don't want, set `enabled = false`.
 
