@@ -38,7 +38,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'aymericbeaumet/vim-symlink'
   Plug 'ciaranm/detectindent'
   Plug 'dense-analysis/ale'
-  Plug 'junegunn/fzf',
+  Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'mg979/vim-visual-multi'
   " there's a neovim version of this that might be neat
