@@ -1,0 +1,94 @@
+{% if has_deploy %}
+name: Django and SSH Deploy
+{% else %}
+name: Django
+{% endif %}
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  ci:
+    name: ✨ Full CI Audit Workflow
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # for coveralls
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
+
+      - name: 🐍 Set up Python
+        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6
+        with:
+          python-version-file: .python-version
+
+      - name: 📦 Install uv
+        uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          enable-cache: true
+
+      - name: 📥 Install dependencies
+        run: uv sync
+
+      - name: 🧼 Check formatting
+        run: make fmt
+
+      - name: 🔍 Run checks
+        run: make check
+
+      - name: 🧪 Run tests
+        run: make test
+{% if has_coveralls %}
+
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@09b709cf6a16e30b0808ba050c7a6e8a5ef13f8d # master
+        continue-on-error: true
+        with:
+{% raw %}          github-token: ${{ secrets.GITHUB_TOKEN }}
+{% endraw %}
+{% endif %}
+{% if has_deploy %}
+
+  deploy:
+    name: 🚢 Deploy to production
+    runs-on: ubuntu-latest
+    needs: ci
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    environment: deployment
+    permissions:
+      contents: read
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: 🔐 Set up SSH
+        run: |
+{% raw %}          mkdir -p ~/.ssh
+          echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ~/.ssh/id_github_actions
+          chmod 600 ~/.ssh/id_github_actions
+          ssh-keyscan -H ${{ secrets.PRODUCTION_SSH_HOSTNAME }} >> ~/.ssh/known_hosts
+{% endraw %}
+
+      - name: 🎯 Configure production remote
+        run: |
+{% raw %}          git config core.sshCommand "ssh -i ~/.ssh/id_github_actions"
+          git remote add production "${{ secrets.PRODUCTION_SSH_TARGET }}"
+{% endraw %}
+
+      - name: 🔥 Push to production
+        run: git push production main
+{% endif %}

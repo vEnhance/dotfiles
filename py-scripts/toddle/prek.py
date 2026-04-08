@@ -4,12 +4,10 @@ import re
 import sys
 from pathlib import Path
 
-from jinja2 import Environment, FileSystemLoader
-
 from .utils import ansi
 
-TEMPLATES_DIR = Path(__file__).parent / "templates"
-SKELETON = Path(__file__).parent.parent.parent / "prek.toml"
+DOTFILES_ROOT = Path(__file__).parent.parent.parent
+SKELETON = DOTFILES_ROOT / "prek.toml"
 
 # Always skip these regardless of conditions
 SKIP_REPOS = {
@@ -92,18 +90,8 @@ def has_templates_html(repo_root: Path) -> bool:
     return False
 
 
-def render_prek_workflow(has_uv: bool) -> str:
-    env = Environment(
-        loader=FileSystemLoader(TEMPLATES_DIR),
-        trim_blocks=True,
-        lstrip_blocks=True,
-        keep_trailing_newline=True,
-    )
-    return env.get_template("prek.yml.j2").render(has_uv=has_uv)
-
-
-def write_prek_toml(repo_root: Path) -> bool:
-    """Detect repo conditions, write prek.toml, and return has_uv_lock."""
+def write_prek_toml(repo_root: Path) -> None:
+    """Detect repo conditions and write prek.toml."""
     has_rumdl = (repo_root / "rumdl.toml").exists() or (
         repo_root / ".rumdl.toml"
     ).exists()
@@ -157,8 +145,5 @@ def write_prek_toml(repo_root: Path) -> bool:
         print(ansi(f"* Preserving: {repo_url}", "1;36"))
         selected.append(block)
 
-    prek_toml_is_new = not existing.exists()
     existing.write_text("\n\n".join([block.strip() for block in selected]) + "\n")
     print("Wrote prek.toml")
-
-    return prek_toml_is_new, has_uv_lock

@@ -17,13 +17,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from toddle.prek import render_prek_workflow, write_prek_toml  # noqa: E402
+from toddle.github_workflows import detect_and_write_workflows  # noqa: E402
+from toddle.prek import write_prek_toml  # noqa: E402
 from toddle.project import add_license, run_uv_init  # noqa: E402
 from toddle.utils import ansi  # noqa: E402
 
 DOTFILES_ROOT = Path(__file__).parent.parent.parent
 RUMDL_CONFIG = DOTFILES_ROOT / "config" / "rumdl" / "rumdl.toml"
-TEMPLATES_DIR = Path(__file__).parent / "templates"
 
 
 def main() -> None:
@@ -32,9 +32,20 @@ def main() -> None:
     )
     parser.add_argument(
         "-g",
-        "--github",
+        "--github-workflows",
         action="store_true",
-        help="Also write .github/workflows/prek.yml",
+        help="Write GitHub Actions workflows (auto-detects project type)",
+    )
+    parser.add_argument(
+        "-d",
+        "--django-deploy",
+        action="store_true",
+        help="Include deploy job in django.yml (requires Django project)",
+    )
+    parser.add_argument(
+        "--coveralls",
+        action="store_true",
+        help="Include Coveralls upload in django.yml (requires Django project)",
     )
     parser.add_argument(
         "-r",
@@ -69,7 +80,7 @@ def main() -> None:
     args = parser.parse_args()
 
     if args.init:
-        args.uv = args.github = args.rumdl = args.license = True
+        args.uv = args.github_workflows = args.rumdl = args.license = True
 
     # Enforce git root with at least one commit
     try:
@@ -108,25 +119,15 @@ def main() -> None:
         dest.write_text(RUMDL_CONFIG.read_text())
         print("Wrote rumdl.toml")
 
-    prek_toml_is_new, has_uv_lock = write_prek_toml(repo_root)
+    write_prek_toml(repo_root)
 
-    # -g: GitHub Actions workflow
-    workflows_dir = repo_root / ".github" / "workflows"
-    if args.github:
-        workflows_dir.mkdir(parents=True, exist_ok=True)
-        (workflows_dir / "prek.yml").write_text(render_prek_workflow(has_uv_lock))
-        print("Wrote .github/workflows/prek.yml")
-    elif prek_toml_is_new or not workflows_dir.exists():
-        print(
-            "Note: no .github/workflows/ directory found; pass -g to create a prek workflow."
-        )
-
-    if args.conv_commit:
-        workflows_dir.mkdir(parents=True, exist_ok=True)
-        (workflows_dir / "conv-commit.yml").write_text(
-            (TEMPLATES_DIR / "conv-commit.yml.j2").read_text()
-        )
-        print("Wrote .github/workflows/conv-commit.yml")
+    detect_and_write_workflows(
+        repo_root=repo_root,
+        github_workflows=args.github_workflows,
+        django_deploy=args.django_deploy,
+        coveralls=args.coveralls,
+        conv_commit=args.conv_commit,
+    )
 
 
 if __name__ == "__main__":
