@@ -71,8 +71,13 @@ def detect_and_write_workflows(
         keep_trailing_newline=True,
     )
 
-    has_pytest_xdist = _pyproject_has_dep(repo_root, "pytest-xdist")
-    has_pytest_cov = _pyproject_has_dep(repo_root, "pytest-cov")
+    ctx = {
+        "has_deploy": django_deploy,
+        "has_coveralls": coveralls,
+        "has_uv": uv_lock_exists,
+        "has_pytest_xdist": _pyproject_has_dep(repo_root, "pytest-xdist"),
+        "has_pytest_cov": _pyproject_has_dep(repo_root, "pytest-cov"),
+    }
 
     if django_deploy:
         top_env = Environment(
@@ -81,36 +86,31 @@ def detect_and_write_workflows(
             lstrip_blocks=True,
             keep_trailing_newline=True,
         )
-        content = top_env.get_template("Makefile.j2").render(
-            has_pytest_xdist=has_pytest_xdist,
-            has_pytest_cov=has_pytest_cov,
+        (repo_root / "Makefile").write_text(
+            top_env.get_template("Makefile.j2").render(ctx)
         )
-        (repo_root / "Makefile").write_text(content)
         print("Wrote Makefile")
 
     if github_workflows:
         workflows_dir.mkdir(parents=True, exist_ok=True)
 
         if is_django:
-            content = env.get_template("django.yml.j2").render(
-                has_deploy=django_deploy,
-                has_coveralls=coveralls,
-            )
             django_filename = "django-deploy.yml" if django_deploy else "django.yml"
-            (workflows_dir / django_filename).write_text(content)
+            (workflows_dir / django_filename).write_text(
+                env.get_template("django.yml.j2").render(ctx)
+            )
             print(f"Wrote .github/workflows/{django_filename}")
         else:
             if (repo_root / "prek.toml").exists():
-                content = env.get_template("prek.yml.j2").render(has_uv=uv_lock_exists)
-                (workflows_dir / "prek.yml").write_text(content)
+                (workflows_dir / "prek.yml").write_text(
+                    env.get_template("prek.yml.j2").render(ctx)
+                )
                 print("Wrote .github/workflows/prek.yml")
 
             if uv_lock_exists and _pyproject_has_dep(repo_root, "pytest"):
-                content = env.get_template("pytest.yml.j2").render(
-                    has_pytest_xdist=has_pytest_xdist,
-                    has_pytest_cov=has_pytest_cov,
+                (workflows_dir / "pytest.yml").write_text(
+                    env.get_template("pytest.yml.j2").render(ctx)
                 )
-                (workflows_dir / "pytest.yml").write_text(content)
                 print("Wrote .github/workflows/pytest.yml")
 
     # conv-commit: overwrite if already present, or create if -c flag set
