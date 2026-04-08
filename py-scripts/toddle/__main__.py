@@ -69,7 +69,7 @@ def main() -> None:
         "-i",
         "--init",
         action="store_true",
-        help="Short for -ugrl (uv + github workflow + rumdl + license)",
+        help="Short for -gurl (github workflow + uv + rumdl + license)",
     )
     parser.add_argument(
         "-c",
