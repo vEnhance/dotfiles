@@ -59,6 +59,11 @@ def main() -> None:
         action="store_true",
         help="Short for -ugrl (uv + github workflow + rumdl + license)",
     )
+    parser.add_argument(
+        "--no-zizmor",
+        action="store_true",
+        help="Skip writing zizmor.yml even when a workflows directory is present",
+    )
     args = parser.parse_args()
 
     if args.init:
@@ -105,15 +110,22 @@ def main() -> None:
 
     # -g: GitHub Actions workflow
     workflows_dir = repo_root / ".github" / "workflows"
-    prek_yml = workflows_dir / "prek.yml"
     if args.github:
         workflows_dir.mkdir(parents=True, exist_ok=True)
-        prek_yml.write_text(render_prek_workflow(has_uv_lock))
+        (workflows_dir / "prek.yml").write_text(render_prek_workflow(has_uv_lock))
         print("Wrote .github/workflows/prek.yml")
     elif prek_toml_is_new or not workflows_dir.exists():
         print(
             "Note: no .github/workflows/ directory found; pass -g to create a prek workflow."
         )
+
+    # Write zizmor.yml if workflows dir exists (or was just created) and zizmor is absent
+    zizmor_yml = workflows_dir / "zizmor.yml"
+    if workflows_dir.exists() and not zizmor_yml.exists() and not args.no_zizmor:
+        zizmor_yml.write_text(
+            (DOTFILES_ROOT / ".github" / "workflows" / "zizmor.yml").read_text()
+        )
+        print("Wrote .github/workflows/zizmor.yml")
 
 
 if __name__ == "__main__":
