@@ -62,6 +62,11 @@ rev = "v0.1.67"
 hooks = [{ id = "rumdl" }, { id = "rumdl-fmt" }]
 
 [[repos]]
+repo = "https://github.com/zizmorcore/zizmor-pre-commit"
+rev = "v1.22.0"
+hooks = [{ id = "zizmor" }]
+
+[[repos]]
 # prefer shellcheck-py to avoid dependence on Docker
 repo = "https://github.com/shellcheck-py/shellcheck-py"
 rev = "v0.11.0.1"

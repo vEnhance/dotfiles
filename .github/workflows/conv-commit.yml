@@ -2,7 +2,7 @@ name: "Conventional commits"
 
 on:
   workflow_call: {}
-  pull_request_target:
+  pull_request:
     types:
       - opened
       - edited
@@ -17,7 +17,7 @@ jobs:
     name: Validate PR title
     runs-on: ubuntu-latest
     steps:
-      - uses: amannn/action-semantic-pull-request@v5
+      - uses: amannn/action-semantic-pull-request@e32d7e603df1aa1ba07e981f2a23455dee596825 # v5
         id: lint_pr_title
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -37,42 +37,3 @@ jobs:
             revert
             style
             tests
-
-      - uses: marocchino/sticky-pull-request-comment@v2
-        # When the previous steps fails, the workflow would stop. By adding this
-        # condition you can continue the execution with the populated error message.
-        if: always() && (steps.lint_pr_title.outputs.error_message != null)
-        with:
-          header: pr-title-lint-error
-          message: |
-            Hey there and thank you for opening this pull request! 👋
-
-            *We require pull request titles to follow the [Conventional Commits specification](https://www.conventionalcommits.org/en/v1.0.0/).* This comment indicates a fix is needed to repair this.
-
-            ## How do I fix this?
-
-            For most of you, this means that the PR title should say either
-
-            - `fix: [short description here]` (if you are fixing an issue)
-            - `feat: [short description here]` (if you are introducing a new feature)
-
-            depending on whether you are fixing an issue or doing something new, respectively. But some other types might be suitable too, see the list below:
-
-            - `build`: build related
-            - `ci`: work related to CI
-            - `chore`: updating deps, etc.
-            - `docs`: documentation changes
-            - `drop`: deleting stuff or removing a feature
-            - `edit`: minor changes that don't constitute a new feature
-            - `perf`: performance improvements
-            - `polish`: copy editing or cleanup that doesn't affect functionality
-            - `refactor`: major rewriting or restructuring that doesn't fix bugs or affect functionality
-            - `revert`: revert commits
-            - `style`: code style changes
-            - `tests`: unit testing, etc.
-
-            Please adjust the proposed title and this check will resolve automatically!
-
-            ## Detailed error message
-
-            ${{ steps.lint_pr_title.outputs.error_message }}
