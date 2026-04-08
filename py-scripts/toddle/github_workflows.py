@@ -10,7 +10,6 @@ from jinja2 import Environment, FileSystemLoader
 from .utils import ansi
 
 TEMPLATES_DIR = Path(__file__).parent / "templates"
-WORKFLOWS_TEMPLATES_DIR = TEMPLATES_DIR / "workflows"
 
 
 def _normalize(name: str) -> str:
@@ -54,18 +53,14 @@ def detect_and_write_workflows(
     is_django = uv_lock_exists and _pyproject_has_dep(repo_root, "django")
 
     if django_deploy and not is_django:
-        print(
-            ansi(
-                "Error: -d/--django-deploy requires a Django project (django not found in pyproject.toml)",
-                "1;31",
-            )
-        )
+        print(ansi("Error: -d/--django-deploy but django not found", "1;31"))
         sys.exit(1)
 
-    workflows_dir = repo_root / ".github" / "workflows"
+    repo_wf_dir = repo_root / ".github" / "workflows"
+    repo_wf_dir.mkdir(parents=True, exist_ok=True)
 
     env = Environment(
-        loader=FileSystemLoader(WORKFLOWS_TEMPLATES_DIR),
+        loader=FileSystemLoader(TEMPLATES_DIR),
         trim_blocks=True,
         lstrip_blocks=True,
         keep_trailing_newline=True,
@@ -79,44 +74,24 @@ def detect_and_write_workflows(
         "has_pytest_cov": _pyproject_has_dep(repo_root, "pytest-cov"),
     }
 
+    def render(template: str, dest: Path) -> None:
+        dest.write_text(env.get_template(template).render(ctx))
+        print(f"Wrote {dest.relative_to(repo_root)}")
+
     if django_deploy:
-        top_env = Environment(
-            loader=FileSystemLoader(TEMPLATES_DIR),
-            trim_blocks=True,
-            lstrip_blocks=True,
-            keep_trailing_newline=True,
-        )
-        (repo_root / "Makefile").write_text(
-            top_env.get_template("Makefile.j2").render(ctx)
-        )
-        print("Wrote Makefile")
+        render("Makefile.j2", repo_root / "Makefile")
 
     if github_workflows:
-        workflows_dir.mkdir(parents=True, exist_ok=True)
-
         if is_django:
             django_filename = "django-deploy.yml" if django_deploy else "django.yml"
-            (workflows_dir / django_filename).write_text(
-                env.get_template("django.yml.j2").render(ctx)
-            )
-            print(f"Wrote .github/workflows/{django_filename}")
+            render("workflows/django.yml.j2", repo_wf_dir / django_filename)
         else:
             if (repo_root / "prek.toml").exists():
-                (workflows_dir / "prek.yml").write_text(
-                    env.get_template("prek.yml.j2").render(ctx)
-                )
-                print("Wrote .github/workflows/prek.yml")
-
+                render("workflows/prek.yml.j2", repo_wf_dir / "prek.yml")
             if uv_lock_exists and _pyproject_has_dep(repo_root, "pytest"):
-                (workflows_dir / "pytest.yml").write_text(
-                    env.get_template("pytest.yml.j2").render(ctx)
-                )
-                print("Wrote .github/workflows/pytest.yml")
+                render("workflows/pytest.yml.j2", repo_wf_dir / "pytest.yml")
 
     # conv-commit: overwrite if already present, or create if -c flag set
-    conv_commit_path = workflows_dir / "conv-commit.yml"
+    conv_commit_path = repo_wf_dir / "conv-commit.yml"
     if conv_commit_path.exists() or conv_commit:
-        workflows_dir.mkdir(parents=True, exist_ok=True)
-        content = env.get_template("conv-commit.yml.j2").render()
-        conv_commit_path.write_text(content)
-        print("Wrote .github/workflows/conv-commit.yml")
+        render("workflows/conv-commit.yml.j2", conv_commit_path)
