@@ -121,13 +121,18 @@ def main() -> None:
 
     write_prek_toml(repo_root)
 
-    detect_and_write_workflows(
-        repo_root=repo_root,
-        github_workflows=args.github_workflows,
-        django_deploy=args.django_deploy,
-        coveralls=args.coveralls,
-        conv_commit=args.conv_commit,
-    )
+    if args.github_workflows or args.conv_commit:
+        detect_and_write_workflows(
+            repo_root=repo_root,
+            github_workflows=args.github_workflows,
+            django_deploy=args.django_deploy,
+            coveralls=args.coveralls,
+            conv_commit=args.conv_commit,
+        )
+    if (repo_root / "prek.toml").exists() and not (
+        repo_root / ".github" / "workflows"
+    ).exists():
+        print(ansi("Note: prek.toml exists — pass -g to create workflows.", "33"))
 
 
 if __name__ == "__main__":
