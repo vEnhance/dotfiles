@@ -75,7 +75,7 @@ def detect_and_write_workflows(
     }
 
     def render(template: str, dest: Path) -> None:
-        dest.write_text(env.get_template(template).render(ctx))
+        dest.write_text(env.get_template(template).render(ctx).strip() + "\n")
         print(f"Wrote {dest.relative_to(repo_root)}")
 
     if django_deploy:
