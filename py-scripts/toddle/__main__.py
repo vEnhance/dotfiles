@@ -23,6 +23,7 @@ from toddle.utils import ansi  # noqa: E402
 
 DOTFILES_ROOT = Path(__file__).parent.parent.parent
 RUMDL_CONFIG = DOTFILES_ROOT / "config" / "rumdl" / "rumdl.toml"
+TEMPLATES_DIR = Path(__file__).parent / "templates"
 
 
 def main() -> None:
@@ -58,6 +59,12 @@ def main() -> None:
         "--init",
         action="store_true",
         help="Short for -ugrl (uv + github workflow + rumdl + license)",
+    )
+    parser.add_argument(
+        "-c",
+        "--conv-commit",
+        action="store_true",
+        help="Write .github/workflows/conv-commit.yml",
     )
     parser.add_argument(
         "--no-zizmor",
@@ -118,6 +125,13 @@ def main() -> None:
         print(
             "Note: no .github/workflows/ directory found; pass -g to create a prek workflow."
         )
+
+    if args.conv_commit:
+        workflows_dir.mkdir(parents=True, exist_ok=True)
+        (workflows_dir / "conv-commit.yml").write_text(
+            (TEMPLATES_DIR / "conv-commit.yml.j2").read_text()
+        )
+        print("Wrote .github/workflows/conv-commit.yml")
 
     # Write zizmor.yml if workflows dir exists (or was just created) and zizmor is absent
     zizmor_yml = workflows_dir / "zizmor.yml"
