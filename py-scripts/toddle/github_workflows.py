@@ -50,7 +50,11 @@ def detect_and_write_workflows(
 ) -> None:
     """Detect project type and write appropriate GitHub Actions workflows."""
     uv_lock_exists = (repo_root / "uv.lock").exists()
-    is_django = uv_lock_exists and _pyproject_has_dep(repo_root, "django")
+    is_django = (
+        uv_lock_exists
+        and _pyproject_has_dep(repo_root, "django")
+        and (repo_root / "manage.py").exists()
+    )
 
     if django_deploy and not is_django:
         print(ansi("Error: -d/--django-deploy but django not found", "1;31"))
