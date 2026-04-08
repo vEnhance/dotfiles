@@ -66,11 +66,6 @@ def main() -> None:
         action="store_true",
         help="Write .github/workflows/conv-commit.yml",
     )
-    parser.add_argument(
-        "--no-zizmor",
-        action="store_true",
-        help="Skip writing zizmor.yml even when a workflows directory is present",
-    )
     args = parser.parse_args()
 
     if args.init:
@@ -132,14 +127,6 @@ def main() -> None:
             (TEMPLATES_DIR / "conv-commit.yml.j2").read_text()
         )
         print("Wrote .github/workflows/conv-commit.yml")
-
-    # Write zizmor.yml if workflows dir exists (or was just created) and zizmor is absent
-    zizmor_yml = workflows_dir / "zizmor.yml"
-    if workflows_dir.exists() and not zizmor_yml.exists() and not args.no_zizmor:
-        zizmor_yml.write_text(
-            (DOTFILES_ROOT / ".github" / "workflows" / "zizmor.yml").read_text()
-        )
-        print("Wrote .github/workflows/zizmor.yml")
 
 
 if __name__ == "__main__":
