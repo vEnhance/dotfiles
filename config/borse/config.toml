@@ -4,3 +4,4 @@ single_letter_probability = 0.3
 morse_display_mode = "audio"
 morse_volume = 0.5
 braille_grade = 2
+semaphore_compact = false
