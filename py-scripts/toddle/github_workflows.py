@@ -82,7 +82,7 @@ def detect_and_write_workflows(
         dest.write_text(env.get_template(template).render(ctx).strip() + "\n")
         print(f"Wrote {dest.relative_to(repo_root)}")
 
-    if django_deploy:
+    if is_django:
         render("Makefile.j2", repo_root / "Makefile")
 
     if github_workflows:
