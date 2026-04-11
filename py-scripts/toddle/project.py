@@ -87,7 +87,7 @@ def add_license(repo_root: Path) -> None:
         loader=FileSystemLoader(TEMPLATES_DIR),
         keep_trailing_newline=True,
     )
-    license_text = env.get_template("LICENSE").render(year=date.today().year)
+    license_text = env.get_template("LICENSE.j2").render(year=date.today().year)
     (repo_root / "LICENSE").write_text(license_text)
     print("Wrote LICENSE")
 
