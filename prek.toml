@@ -90,13 +90,7 @@ hooks = [
 # uv not used by dotfiles, but doesn't hurt to have it
 repo = "https://github.com/astral-sh/uv-pre-commit"
 rev = "0.11.4"
-hooks = [
-  { id = "uv-lock" },
-  {
-    id = "pip-compile",
-    args = ["pyproject.toml", "-o", "requirements.txt"]
-  }
-]
+hooks = [{ id = "uv-lock" }, { id = "uv-export" }]
 
 [[repos]]
 repo = "https://github.com/Vimjas/vint"

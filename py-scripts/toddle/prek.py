@@ -33,20 +33,12 @@ def split_skeleton(text: str) -> tuple[str, list[tuple[str, str]]]:
     return header, blocks
 
 
-def strip_pip_compile(block: str) -> str:
-    """Remove the pip-compile hook entry from a uv-pre-commit block."""
-    block = re.sub(
-        r",\s*\n\s*\{[^{}]*id\s*=\s*\"pip-compile\"[^{}]*\}",
-        "",
-        block,
-        flags=re.DOTALL,
+def strip_uv_export(block: str) -> str:
+    """Remove the uv-export hook entry from a uv-pre-commit block."""
+    return block.replace(
+        r'[{ id = "uv-lock" }, { id = "uv-export" }]',
+        r'[{ id = "uv-lock" }]',
     )
-    block = re.sub(
-        r"hooks\s*=\s*\[\s*\n\s*(\{[^}]+\})\s*\n\s*\]",
-        r"hooks = [\1]",
-        block,
-    )
-    return block
 
 
 def find_preserved_blocks(
@@ -138,7 +130,7 @@ def write_prek_toml(repo_root: Path) -> None:
             continue
         print(f"{ansi('+ Using:', '32')} {repo_url}")
         if repo_url == UV_REPO and not has_requirements:
-            block = strip_pip_compile(block)
+            block = strip_uv_export(block)
         selected.append(block)
 
     for repo_url, block in preserved_blocks:
