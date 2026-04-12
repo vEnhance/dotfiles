@@ -21,17 +21,18 @@ from dotenv import load_dotenv
 
 from venueQ import Data, VenueQNode, VenueQRoot, logger
 
+# Load secrets
 load_dotenv(Path("~/secrets/otis.env").expanduser())
 OTIS_WEB_TOKEN = os.getenv("OTIS_WEB_TOKEN")
 APPLY_TOKEN = os.getenv("APPLY_TOKEN")
+EVANBOT_HEADER = os.getenv("EVANBOT_HEADER")
 assert OTIS_WEB_TOKEN is not None
 assert APPLY_TOKEN is not None
+assert EVANBOT_HEADER is not None
 AK = os.getenv("AK")
-
 OTIS_POSTMARK_USERNAME = os.getenv("OTIS_POSTMARK_USERNAME")
 OTIS_POSTMARK_PASSWORD = os.getenv("OTIS_POSTMARK_PASSWORD")
 
-assert OTIS_WEB_TOKEN is not None
 PRODUCTION = int(os.getenv("PRODUCTION", 0))
 if PRODUCTION:
     OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
@@ -140,7 +141,11 @@ def query_server(
     logger.info(payload)
     payload["token"] = token
     try:
-        resp = requests.post(target_url, json=payload)
+        resp = requests.post(
+            target_url,
+            json=payload,
+            headers={"x-evanbot-verify": EVANBOT_HEADER},
+        )
     except requests.exceptions.ConnectionError:
         logger.warning("Could not connect to server")
         return None
