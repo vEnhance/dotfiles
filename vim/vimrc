@@ -246,11 +246,10 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
 endif
 " }}}
 " ALE continued {{{
-if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
+if !empty(globpath(&runtimepath, 'plugin/ale.vim'))
   execute ale#fix#registry#Add('rumdl', 'ale#fixers#rumdl#Fix', ['markdown'], 'Fix markdown with rumdl')
+  execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ale#fixers#death_to_double_dollar_signs#Fix', ['tex'], 'wtf is wrong with people')
 endif
-
-execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ale#fixers#death_to_double_dollar_signs#Fix', ['tex'], 'wtf is wrong with people')
 " }}}
 
 " Arrow key shortcuts {{{
