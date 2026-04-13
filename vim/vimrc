@@ -507,6 +507,10 @@ set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 
 set backspace=indent,eol,start
+set t_BE=   " disable bracketed paste mode
+" Backspace key intermittently sends NUL (^@); remap to actual backspace
+" ^@ in insert mode normally means "insert last text + stop insert" (i_CTRL-@)
+inoremap <C-@> <BS>
 set backup     " keep a backup file
 set breakindent
 set colorcolumn=+1
