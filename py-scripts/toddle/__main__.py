@@ -37,12 +37,6 @@ def main() -> None:
         help="Write GitHub Actions workflows (auto-detects project type)",
     )
     parser.add_argument(
-        "-d",
-        "--django-deploy",
-        action="store_true",
-        help="Include deploy job in django.yml (requires Django project)",
-    )
-    parser.add_argument(
         "--coveralls",
         action="store_true",
         help="Include Coveralls upload in django.yml (requires Django project)",
@@ -125,7 +119,6 @@ def main() -> None:
         detect_and_write_workflows(
             repo_root=repo_root,
             github_workflows=args.github_workflows,
-            django_deploy=args.django_deploy,
             coveralls=args.coveralls,
             conv_commit=args.conv_commit,
         )

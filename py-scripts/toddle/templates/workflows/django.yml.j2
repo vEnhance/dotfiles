@@ -1,8 +1,4 @@
-{% if has_deploy %}
-name: Django and SSH Deploy
-{% else %}
 name: Django
-{% endif %}
 
 on:
   push:
@@ -56,39 +52,4 @@ jobs:
         with:
 {% raw %}          github-token: ${{ secrets.GITHUB_TOKEN }}
 {% endraw %}
-{% endif %}
-{% if has_deploy %}
-
-  deploy:
-    name: 🚢 Deploy to production
-    runs-on: ubuntu-latest
-    needs: ci
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    environment: deployment
-    permissions:
-      contents: read
-
-    steps:
-      - name: 🧾 Checkout code
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: 🔐 Set up SSH
-        run: |
-{% raw %}          mkdir -p ~/.ssh
-          echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ~/.ssh/id_github_actions
-          chmod 600 ~/.ssh/id_github_actions
-          ssh-keyscan -H ${{ secrets.PRODUCTION_SSH_HOSTNAME }} >> ~/.ssh/known_hosts
-{% endraw %}
-
-      - name: 🎯 Configure production remote
-        run: |
-{% raw %}          git config core.sshCommand "ssh -i ~/.ssh/id_github_actions"
-          git remote add production "${{ secrets.PRODUCTION_SSH_TARGET }}"
-{% endraw %}
-
-      - name: 🔥 Push to production
-        run: git push production main
 {% endif %}

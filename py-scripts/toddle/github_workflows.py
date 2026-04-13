@@ -1,13 +1,10 @@
 """GitHub Actions workflow detection and rendering."""
 
 import re
-import sys
 import tomllib
 from pathlib import Path
 
 from jinja2 import Environment, FileSystemLoader
-
-from .utils import ansi
 
 TEMPLATES_DIR = Path(__file__).parent / "templates"
 
@@ -44,7 +41,6 @@ def _pyproject_has_dep(repo_root: Path, package: str) -> bool:
 def detect_and_write_workflows(
     repo_root: Path,
     github_workflows: bool,
-    django_deploy: bool,
     coveralls: bool,
     conv_commit: bool,
 ) -> None:
@@ -55,10 +51,6 @@ def detect_and_write_workflows(
         and _pyproject_has_dep(repo_root, "django")
         and (repo_root / "manage.py").exists()
     )
-
-    if django_deploy and not is_django:
-        print(ansi("Error: -d/--django-deploy but django not found", "1;31"))
-        sys.exit(1)
 
     repo_wf_dir = repo_root / ".github" / "workflows"
     repo_wf_dir.mkdir(parents=True, exist_ok=True)
@@ -71,7 +63,6 @@ def detect_and_write_workflows(
     )
 
     ctx = {
-        "has_deploy": django_deploy,
         "has_coveralls": coveralls,
         "has_uv": uv_lock_exists,
         "has_pytest_xdist": _pyproject_has_dep(repo_root, "pytest-xdist"),
@@ -87,8 +78,7 @@ def detect_and_write_workflows(
 
     if github_workflows:
         if is_django:
-            django_filename = "django-deploy.yml" if django_deploy else "django.yml"
-            render("workflows/django.yml.j2", repo_wf_dir / django_filename)
+            render("workflows/django.yml.j2", repo_wf_dir / "django.yml")
         else:
             if (repo_root / "prek.toml").exists():
                 render("workflows/prek.yml.j2", repo_wf_dir / "prek.yml")
