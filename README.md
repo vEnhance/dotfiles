@@ -33,4 +33,4 @@ I (Evan) have the following allegiances:
 
 Keybindings are optimized for [Dvorak](https://en.wikipedia.org/wiki/Dvorak_Simplified_Keyboard).
 
-Some additional notes are in <misc/notes.md>.
+Some additional notes are in [`misc/notes.md`](misc/notes.md).
