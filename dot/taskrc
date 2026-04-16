@@ -13,6 +13,7 @@ alias.U=project:usamo
 alias.W=project:work
 
 alias.rr=recurring until: parent:
+alias.abandon=modify scheduled: due: status:done +abandoned
 alias.punt=modify scheduled:2050-12-31T00:00:00 due:2050-12-31T00:00:00
 
 urgency.user.project.idea.coefficient=-3.0
