@@ -21,17 +21,11 @@ urgency.waiting.coefficient=-4.0 # waiting task
 urgency.scheduled.coefficient=2
 urgency.active.coefficient=9
 
-alias.ne=priority:N # none, non-essential, negligible, etc.
 alias.lo=priority:L
 alias.md=priority:M
 alias.hi=priority:H
 
-# halted tasks
-alias.halted=all haltedon.any:
-alias.halt=modify haltedon:now wait:later
-alias.unhalt=modify haltedon: wait:
-
-uda.priority.values=H,M,,L,N
+uda.priority.values=H,M,,L
 recurrence.limit=0
 urgency.uda.priority.H.coefficient=4.2
 urgency.uda.priority.M.coefficient=2.1
@@ -73,38 +67,5 @@ report.rofi.filter=status:pending or status:waiting
 report.rofi.columns=id,urgency,due.relative,priority,description
 report.rofi.labels=ID,Urg,Due,P,Description
 report.rofi.sort=urgency-
-
-# Evan's UDA's
-uda.haltedon.type=date
-uda.haltedon.label=Halted On
-
-# Bugwarrior UDAs
-uda.githubtitle.type=string
-uda.githubtitle.label=Github Title
-uda.githubbody.type=string
-uda.githubbody.label=Github Body
-uda.githubcreatedon.type=date
-uda.githubcreatedon.label=Github Created
-uda.githubupdatedat.type=date
-uda.githubupdatedat.label=Github Updated
-uda.githubclosedon.type=date
-uda.githubclosedon.label=GitHub Closed
-uda.githubmilestone.type=string
-uda.githubmilestone.label=Github Milestone
-uda.githubrepo.type=string
-uda.githubrepo.label=Github Repo Slug
-uda.githuburl.type=string
-uda.githuburl.label=Github URL
-uda.githubtype.type=string
-uda.githubtype.label=Github Type
-uda.githubnumber.type=numeric
-uda.githubnumber.label=Github Issue/PR #
-uda.githubuser.type=string
-uda.githubuser.label=Github User
-uda.githubnamespace.type=string
-uda.githubnamespace.label=Github Namespace
-uda.githubstate.type=string
-uda.githubstate.label=GitHub State
-# END Bugwarrior UDAs
 
 news.version=3.4.2
