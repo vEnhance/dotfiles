@@ -80,8 +80,6 @@ alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
 alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
 
-alias dj='python (git rev-parse --show-toplevel)/manage.py runserver_plus'
-alias emacs='nvim'
 alias fixtrailspace='sed -i "s/[ \t]*\$//"'
 alias getclip="xsel --clipboard"
 alias gg="cd (git rev-parse --show-toplevel)"
