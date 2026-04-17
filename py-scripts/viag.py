@@ -1,28 +1,43 @@
 #!/usr/bin/env python3
 
-import collections
-import os
+"""
+Interactive sed via the silver searcher (ag).
+Takes ag results and puts them in a temporary output file in Vim.
+After editing, updates the corresponding line numbers
+Allows the -C switch in ag.
+
+Example usage: viag -C5 keyword .
+"""
+
+import re
 import subprocess
 import sys
 import tempfile
+from collections import defaultdict
 
-EDITOR = os.environ.get("EDITOR", "vim")
+GREPPRG = ["ag", "--numbers"]
+EDITOR = ["vim", "-c", "set filetype=silversearch"]
 
+# Get GREPPRG output for Vim to read
 with tempfile.NamedTemporaryFile() as tf:
-    tf.write("".join(sys.stdin.readlines()).encode("utf-8"))
-    tf.flush()
-    subprocess.call([EDITOR, tf.name], stdin=subprocess.DEVNULL)
+    subprocess.run(GREPPRG + sys.argv[1:], stdout=tf)
+    subprocess.call(EDITOR + [tf.name])
     tf.seek(0)
     directives = tf.read().decode("utf-8")
+if not directives.strip():
+    print("Aborting due to empty directives file.")
+    sys.exit(1)
 
-DDTYPE = collections.defaultdict[str, dict[int, str]]
-all_changes: DDTYPE = collections.defaultdict(dict)
+# Make the dictionary of changes
+RE_HIT = re.compile(r"(?P<filename>[^:]+):(?P<lineno>[0-9]+)[:-](?P<content>.*)")
+all_changes: defaultdict[str, dict[int, str]] = defaultdict(dict)
+for line in directives.splitlines():
+    if line == "--":
+        continue
+    assert (m := RE_HIT.match(line)) is not None
+    all_changes[m.group("filename")][int(m.group("lineno"))] = m.group("content") + "\n"
 
-for line in directives.splitlines(keepends=True):
-    filename, lineno_str, content = line.split(":", maxsplit=2)
-    lineno = int(lineno_str)
-    all_changes[filename][lineno] = content
-
+# Write the changes
 for filename, changes in all_changes.items():
     with open(filename, "r") as f:
         orig_lines = f.readlines()
