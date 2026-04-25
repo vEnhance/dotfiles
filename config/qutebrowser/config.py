@@ -60,6 +60,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://*.athemath.org/*",
     r"*://*.archlinux.org/*",
     r"*://*.bitwarden.com/*",
+    r"*://*.cloudflare.com/*",
     r"*://*.commonapp.org/*",
     r"*://*.crosserville.com/*",
     r"*://*.duckduckgo.com/*",
