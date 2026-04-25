@@ -180,14 +180,13 @@ def render_rankings(contest: ContestData, outfile: IO[str]) -> dict[int, int]:
 
 def render_histogram(contest: ContestData, outfile: IO[str]) -> None:
     assert contest.total_dist is not None
-    assert contest.num_problems is not None
     max_total = contest.max_total
     assert max_total is not None
     total_dist = contest.total_dist
     name = contest.name
 
     print(r"\section{Histogram for %s}" % name, file=outfile)
-    if contest.num_problems <= 6:
+    if max_total <= 42:
         yscale = 1
     else:
         yscale = 2
@@ -294,7 +293,7 @@ def render(
     if scores_total is not None and contest.max_total is not None:
         ranks = render_rankings(contest, outfile)
 
-    if contest.total_dist is not None and contest.num_problems is not None:
+    if contest.total_dist is not None:
         render_histogram(contest, outfile)
 
     if full:

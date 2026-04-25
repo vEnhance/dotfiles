@@ -66,19 +66,12 @@ def main():
         action="store_true",
         help="Output a complete LaTeX document instead of a fragment.",
     )
-    parser.add_argument(
-        "--num-problems",
-        action="store",
-        default=None,
-        type=int,
-        help="Number of problems (fallback when it cannot be inferred).",
-    )
     args = parser.parse_args()
 
     filenames = args.files
 
     if not filenames:
-        contest = parse_stdin(num_problems_override=args.num_problems)
+        contest = parse_stdin()
         contest.name = args.name or "competition"
         outfile = (
             sys.stdout
@@ -94,10 +87,7 @@ def main():
             standalone=args.standalone,
         )
     else:
-        parts = [
-            parse_file(Path(f), num_problems_override=args.num_problems)
-            for f in filenames
-        ]
+        parts = [parse_file(Path(f)) for f in filenames]
         contest = merge_contest_data(parts)
         contest.name = (
             args.name or contest.name or clean_name(os.path.basename(filenames[0]))

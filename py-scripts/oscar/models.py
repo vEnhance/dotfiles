@@ -23,6 +23,8 @@ class ContestData:
 
     @property
     def max_total(self) -> int | None:
+        if self.total_dist is not None:
+            return len(self.total_dist) - 1
         if self.num_problems is not None:
             return 7 * self.num_problems
         return None

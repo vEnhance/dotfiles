@@ -100,9 +100,7 @@ def parse_per_problem_dist(lines: list[str], delimiter: str) -> ContestData:
     )
 
 
-def parse_total_dist(
-    lines: list[str], delimiter: str, num_problems_override: int | None = None
-) -> ContestData:
+def parse_total_dist(lines: list[str], delimiter: str) -> ContestData:
     total_dist: list[int] = []
     for line in lines[1:]:
         if not line.strip():
@@ -117,29 +115,14 @@ def parse_total_dist(
 
     n = sum(total_dist)
 
-    # Infer num_problems from max nonzero index
-    num_problems = num_problems_override
-    if num_problems is None:
-        max_nonzero = max(i for i, c in enumerate(total_dist) if c > 0)
-        if max_nonzero % 7 == 0 and max_nonzero > 0:
-            num_problems = max_nonzero // 7
-        # else: leave as None, will need --num-problems or a per-problem file
-
-    # Pad total_dist to full length if num_problems is known
-    if num_problems is not None:
-        max_total = 7 * num_problems
-        while len(total_dist) <= max_total:
-            total_dist.append(0)
-
     return ContestData(
         name="",
-        num_problems=num_problems,
         n=n,
         total_dist=total_dist,
     )
 
 
-def parse_file(filepath: Path, num_problems_override: int | None = None) -> ContestData:
+def parse_file(filepath: Path) -> ContestData:
     delimiter = detect_delimiter(filepath)
     with open(filepath) as f:
         lines = f.readlines()
@@ -150,7 +133,7 @@ def parse_file(filepath: Path, num_problems_override: int | None = None) -> Cont
     elif fmt == "per_problem_dist":
         data = parse_per_problem_dist(lines, delimiter)
     elif fmt == "total_dist":
-        data = parse_total_dist(lines, delimiter, num_problems_override)
+        data = parse_total_dist(lines, delimiter)
     else:
         raise ValueError(f"Unknown format: {fmt}")
 
@@ -158,9 +141,7 @@ def parse_file(filepath: Path, num_problems_override: int | None = None) -> Cont
     return data
 
 
-def parse_stdin(
-    delimiter: str = "\t", num_problems_override: int | None = None
-) -> ContestData:
+def parse_stdin(delimiter: str = "\t") -> ContestData:
     lines = sys.stdin.readlines()
     fmt = detect_format(lines[0], delimiter)
     if fmt == "per_student":
@@ -168,7 +149,7 @@ def parse_stdin(
     elif fmt == "per_problem_dist":
         data = parse_per_problem_dist(lines, delimiter)
     elif fmt == "total_dist":
-        data = parse_total_dist(lines, delimiter, num_problems_override)
+        data = parse_total_dist(lines, delimiter)
     else:
         raise ValueError(f"Unknown format: {fmt}")
     data.name = "competition"
