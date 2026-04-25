@@ -15,12 +15,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from toddle.github_workflows import detect_and_write_workflows  # noqa: E402
-from toddle.prek import write_prek_toml  # noqa: E402
-from toddle.project import add_license, run_uv_init  # noqa: E402
-from toddle.utils import ansi  # noqa: E402
+from toddle.github_workflows import detect_and_write_workflows
+from toddle.prek import write_prek_toml
+from toddle.project import add_license, run_uv_init
+from toddle.utils import ansi
 
 DOTFILES_ROOT = Path(__file__).parent.parent.parent
 RUMDL_CONFIG = DOTFILES_ROOT / "config" / "rumdl" / "rumdl.toml"
