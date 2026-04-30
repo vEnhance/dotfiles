@@ -56,6 +56,11 @@ if [ "$(hostname)" = ArchSapphire ]; then
   # telegram-desktop &
 fi
 
+if [ "$(hostname)" = ArchMillie ]; then
+  dunst &
+  systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
+fi
+
 if [ "$(hostname)" = ArchDiamond ]; then
   picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
