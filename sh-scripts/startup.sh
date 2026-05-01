@@ -30,13 +30,11 @@ if [ "$(hostname)" = ArchAir ]; then
 fi
 
 if [ "$(hostname)" = ArchAngel ]; then
-  picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   dropbox-cli start
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
-  picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   dropbox-cli start
   systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
@@ -47,7 +45,6 @@ if [ "$(hostname)" = ArchScythe ]; then
 fi
 
 if [ "$(hostname)" = ArchSapphire ]; then
-  picom -b --no-fading-openclose
   dunst &
   syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
@@ -62,7 +59,6 @@ if [ "$(hostname)" = ArchMillie ]; then
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
-  picom -b --no-fading-openclose
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
   systemctl --user start anki-morning.timer
@@ -76,7 +72,6 @@ if [ "$(hostname)" = ArchDiamond ]; then
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
-  picom -b --no-fading-openclose
   if [ "$(whoami)" = "evan" ]; then
     ibus-daemon -d -r &
     dropbox-cli start
@@ -100,11 +95,9 @@ if [ "$(hostname)" = ArchBootes ]; then
   fi
   ~/dotfiles/sh-scripts/redshift.sh
   systemctl --user start evansync.timer
-  picom -G -b --no-fading-openclose --backend xrender
   xinput --set-prop 13 'libinput Accel Speed' -0.5
 fi
 
 if [ "$(hostname)" = dagobah ]; then
-  picom -b --no-fading-openclose
   syncthing-gtk -m &
 fi
