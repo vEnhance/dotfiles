@@ -4,13 +4,13 @@ unalternates *
 set folder=~/Mail/personal/
 set header_cache=~/.cache/mutt/personal
 
-set smtp_url = `echo smtps://$(cat ~/secrets/mailuser0)@gmail.com@smtp.gmail.com:465`
-set smtp_pass = `secret-tool lookup user $(cat ~/secrets/mailuser0) type gmail`
-set from = `echo $(cat ~/secrets/mailuser0)@gmail.com`
+set smtp_url = `echo smtps://$(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com@smtp.gmail.com:465`
+set smtp_pass = `secret-tool lookup user $(jq -r ".user0" ~/secrets/mail-users.json) type gmail`
+set from = `echo $(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com`
 unmy_hdr bcc
 
-set imap_user = `echo $(cat ~/secrets/mailuser0)@gmail.com`
-set imap_pass = `secret-tool lookup user $(cat ~/secrets/mailuser0) type gmail`
+set imap_user = `echo $(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com`
+set imap_pass = `secret-tool lookup user $(jq -r ".user0" ~/secrets/mail-users.json) type gmail`
 set spoolfile = +Inbox
 set postponed = +Drafts
 

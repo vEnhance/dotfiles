@@ -9,8 +9,8 @@ set smtp_pass = `secret-tool lookup type postmark key secret`
 set from = "evan@evanchen.cc"
 source ~/secrets/mailreceipts # set BCC header
 
-set imap_user = `echo $(cat ~/secrets/mailuser1)@gmail.com`
-set imap_pass = `secret-tool lookup user $(cat ~/secrets/mailuser1) type gmail`
+set imap_user = `echo $(jq -r ".user1" ~/secrets/mail-users.json)@gmail.com`
+set imap_pass = `secret-tool lookup user $(jq -r ".user1" ~/secrets/mail-users.json) type gmail`
 set spoolfile = +Inbox
 set postponed = +Drafts
 
