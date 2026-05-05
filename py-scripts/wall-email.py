@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
-import html
 import json
 import os
 from pathlib import Path
 
+import markdown
 import requests
 from dotenv import load_dotenv
 
@@ -24,10 +24,7 @@ TEXT_TEMPLATE = """\
 * To edit mail settings, visit: https://list.evanchen.cc/edit/{{token}}
 """
 
-HTML_TEMPLATE = """\
-<p><b><a href="https://wall.evanchen.cc/NUMBER/">#NUMBER.</a></b> POST_BODY</p>
-<p><i><a href="https://list.evanchen.cc/remove/{{token}}">Edit mail settings</a>.</i></p>
-"""
+HTML_SUFFIX = r'<p><i><a href="https://list.evanchen.cc/edit/{{token}}">Edit mail settings</a>.</i></p>'
 
 
 def main():
@@ -52,9 +49,8 @@ def main():
     subscribers = resp.json()["subscribers"]
 
     text_body = TEXT_TEMPLATE.replace("NUMBER", str(number)).replace("POST_BODY", body)
-    html_body = HTML_TEMPLATE.replace("NUMBER", str(number)).replace(
-        "POST_BODY", html.escape(body)
-    )
+    markdown_body = f"[**#{number}**](https://wall.evanchen.cc/{number}). " + body
+    html_body = markdown.markdown(markdown_body) + HTML_SUFFIX
 
     payload = {
         "From": "Evan Chen <evan@evanchen.cc>",
