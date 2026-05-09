@@ -1,22 +1,20 @@
 include ~/secrets/taskserver.taskrc
 
-alias.E=project:errand
-alias.G=project:github
-alias.I=project:idea
-alias.L=project:leisure
-alias.M=project:math
-alias.O=project:otis
-alias.P=project:personal
-alias.S=project:school
-alias.T=project:twitch
-alias.U=project:usamo
-alias.W=project:work
+alias.E=+errand
+alias.G=+github
+alias.L=+leisure
+alias.M=+math
+alias.O=+otis
+alias.P=+personal
+alias.S=+school
+alias.T=+twitch
+alias.U=+usamo
+alias.W=+work
 
 alias.rr=recurring until: parent:
 alias.abandon=modify scheduled: due: status:done +abandoned
 alias.punt=modify scheduled:2050-12-31T00:00:00 due:2050-12-31T00:00:00
 
-urgency.user.project.idea.coefficient=-3.0
 urgency.waiting.coefficient=-4.0 # waiting task
 urgency.scheduled.coefficient=2
 urgency.active.coefficient=9
@@ -41,6 +39,8 @@ color.due.today=rgb430
 color.overdue=rgb440
 color.scheduled=rgb033
 
+## Reports
+
 report.brief.columns=due.relative,id,description.truncated,urgency
 report.brief.filter=+READY
 report.brief.sort=urgency-
@@ -52,9 +52,15 @@ report.next.labels=ID,Deps,P,Project,Tag,R,S,Due,Until,Description,Urg
 report.ready.columns=id,start.age,depends.indicator,priority,project,tags,recur.indicator,scheduled.remaining,due.relative,until.remaining,description,urgency
 report.ready.labels=ID,Act,D,P,Project,Tags,R,S,Due,Until,Description,Urg
 
-report.recurring.columns=id,start.age,entry.age,depends.indicator,priority,parent.short,project,recur,due,until,description,urgency
-report.recurring.labels=ID,Active,Age,D,P,Parent,Project,Recur,Due,Until,Description,Urg
+report.recurring.columns=id,start.age,entry.age,depends.indicator,priority,parent.short,project,tags,recur,due,until,description,urgency
+report.recurring.labels=ID,Active,Age,D,P,Parent,Project,Tags,Recur,Due,Until,Description,Urg
 report.recurring.sort=until-,parent,recur-,due
+
+report.rofi.description=Tasks for Rofi
+report.rofi.filter=status:pending or status:waiting
+report.rofi.columns=id,urgency,due.relative,priority,description
+report.rofi.labels=ID,Urg,Due,P,Description
+report.rofi.sort=urgency-
 
 report.undone.description=List of tasks that are not done
 report.undone.filter=status:pending or status:waiting
@@ -62,10 +68,6 @@ report.undone.columns=id,wait.remaining,scheduled.remaining,due.relative,depends
 report.undone.labels=ID,Wait,Schd,Due,Dep,Description,Urgent,P,Proj,Tag
 report.undone.sort=urgency-
 
-report.rofi.description=Tasks for Rofi
-report.rofi.filter=status:pending or status:waiting
-report.rofi.columns=id,urgency,due.relative,priority,description
-report.rofi.labels=ID,Urg,Due,P,Description
-report.rofi.sort=urgency-
+## News
 
 news.version=3.4.2
