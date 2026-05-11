@@ -14,7 +14,7 @@ function serve
             return
         end
 
-        if test "$repo_name" = blog.evanchen.cc
+        if test "$repo_name" = blog.evanchen.cc -o "$repo_name" = blog.evanchen.cc-dev
             env -C $git_root ./scripts/recent.sh $argv
             return
         end
