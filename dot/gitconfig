@@ -50,7 +50,7 @@
 	cm = commit
 	co = checkout
 	ff = merge --ff-only
-	force = push --force-with-lease
+	force-push = push --force-with-lease --force-if-includes
 	mkroot = commit --allow-empty -m 'root: Initial commit'
 	rb = rebase -i
 	rba = rebase --abort
