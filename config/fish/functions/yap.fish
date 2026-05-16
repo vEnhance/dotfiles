@@ -8,12 +8,12 @@ function yap --description "Scribble on the wall at wall.evanchen.cc"
             if git push
                 jq "." latest.json
                 if python /home/evan/dotfiles/py-scripts/wall-announce.py
-                    nohup /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 2 >/dev/null
+                    /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 2 >/dev/null
                 else
-                    nohup /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 7 >/dev/null
+                    /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 7 >/dev/null
                 end
             else
-                nohup /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 7 >/dev/null
+                /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 7 >/dev/null
             end
             read -P "Press Enter to dismiss."
         end
