@@ -28,7 +28,7 @@ TEXT_TEMPLATE = """\
 
 HTML_SUFFIX = r'<p><i><a href="https://list.evanchen.cc/edit/{{token}}">Edit mail settings</a>.</i></p>'
 
-POLL_INTERVAL_FIRST = 15
+POLL_INTERVAL_FIRST = 30
 POLL_INTERVAL = 15
 POLL_TIMEOUT = 90
 
@@ -39,7 +39,7 @@ def unwrap(text: str) -> str:
 
 def wait_for_post(number: int) -> None:
     url = f"https://wall.evanchen.cc/{number}/"
-    print(f"Waiting for {url} to go live ...")
+    print(f"Waiting for {url} to go live…")
     deadline = time.monotonic() + POLL_TIMEOUT
     while time.monotonic() < deadline:
         r = requests.get(url, timeout=15)
@@ -48,7 +48,7 @@ def wait_for_post(number: int) -> None:
             return
         remaining = int(deadline - time.monotonic())
         print(
-            f"  Still 404, retrying in {POLL_INTERVAL}s ({remaining}s left before timeout) ..."
+            f"  Still 404, retrying in {POLL_INTERVAL}s ({remaining}s left before timeout)…"
         )
         time.sleep(POLL_INTERVAL)
     raise TimeoutError(f"Post #{number} never went live after {POLL_TIMEOUT}s")
@@ -63,7 +63,7 @@ def main():
         assert recent_data["sent"] is False, f"girl #{number} was already sent"
 
     # Step 2. Get subscriber list
-    print("Fetching subscriber list ...")
+    print("Fetching subscriber list…")
     resp = requests.get(
         LIST_API_URL,
         headers={"Authorization": f"Bearer {LIST_API_TOKEN}"},
@@ -82,6 +82,7 @@ def main():
     )
 
     # Step 4. Wait for post to go live
+    print("Waiting 30 seconds before starting polling…")
     time.sleep(POLL_INTERVAL_FIRST)
     wait_for_post(number)
 
@@ -102,7 +103,7 @@ def main():
             for sub in subscribers
         ],
     }
-    print(f"Sending #{number} via Postmark...")
+    print(f"Sending #{number} via Postmark…")
     resp = requests.post(
         POSTMARK_BULK_URL,
         json=payload,
@@ -116,7 +117,7 @@ def main():
     resp.raise_for_status()
 
     # Step 7. Send Discord
-    print("Sending Discord notification ...")
+    print("Sending Discord notification…")
     dresp = requests.post(
         WALL_VENHANCE_DISCORD_WEBHOOK,
         json={"content": discord_content},
