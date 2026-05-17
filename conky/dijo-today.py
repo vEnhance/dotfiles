@@ -11,6 +11,11 @@ with open(DIJO_DIR / "habit_record[auto].json") as f:
     data += json.load(f)
 
 for habit in data:
-    if today not in habit["stats"] and habit["name"] != "climb":
-        goal = int(habit.get("goal", 1))
-        print(f"[{goal}]  {habit['name']}")
+    if habit["type"] == "Count":
+        goal = habit.get("goal", 1)
+        progress = habit["stats"].get(today, 0)
+        if progress < goal:
+            print(f"[{goal - progress}]  {habit['name']}")
+    else:
+        if today not in habit["stats"]:
+            print(f"[*]  {habit['name']}")
