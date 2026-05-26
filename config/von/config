@@ -1,7 +1,7 @@
 name: "Evan Chen"
 
 base_path: "~/Sync/vondb"
-evil_path: "~/Sync/OTIS/Materials/dist/otis-evil-data/evil.json"
+evil_path: "~/Sync/OTIS/Materials/dist/evil-chin/evil.json"
 editor: null
 color: true
 
