@@ -264,6 +264,7 @@ def render(
     outfile: IO[str],
     *,
     full: bool,
+    terse: bool = False,
     a: int,
     b: int,
     standalone: bool = False,
@@ -290,10 +291,10 @@ def render(
         render_problem_stats(contest, outfile)
 
     ranks = None
-    if scores_total is not None and contest.max_total is not None:
+    if not terse and scores_total is not None and contest.max_total is not None:
         ranks = render_rankings(contest, outfile)
 
-    if contest.total_dist is not None:
+    if not terse and contest.total_dist is not None:
         render_histogram(contest, outfile)
 
     if full:

@@ -61,12 +61,21 @@ def main():
         help="First stat is top B; by default B = 12.",
     )
     parser.add_argument(
+        "-t",
+        "--terse",
+        action="store_true",
+        help="Only output summary and problem statistics, omitting rankings and histogram.",
+    )
+    parser.add_argument(
         "-s",
         "--standalone",
         action="store_true",
         help="Output a complete LaTeX document instead of a fragment.",
     )
     args = parser.parse_args()
+
+    if args.full and args.terse:
+        parser.error("--full and --terse are mutually exclusive")
 
     filenames = args.files
 
@@ -82,6 +91,7 @@ def main():
             contest,
             outfile,
             full=args.full,
+            terse=args.terse,
             a=args.a,
             b=args.b,
             standalone=args.standalone,
@@ -105,6 +115,7 @@ def main():
             contest,
             outfile,
             full=args.full,
+            terse=args.terse,
             a=args.a,
             b=args.b,
             standalone=args.standalone,
