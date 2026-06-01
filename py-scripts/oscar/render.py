@@ -278,7 +278,7 @@ def render(
         print(r"\begin{document}", file=outfile)
         print(file=outfile)
         print(r"\title{%s Statistics}" % contest.name, file=outfile)
-        print(r"\date{%s}" % date.today().isoformat(), file=outfile)
+        print(r"\date{%s}" % date.today().strftime("%B %-d, %Y"), file=outfile)
         print(r"\maketitle", file=outfile)
         print(file=outfile)
 
