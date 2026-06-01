@@ -31,7 +31,9 @@ def repr_str(dumper, data):
 
 yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
 
-ids = json.loads(Path("~/Sync/otis-evil-data/evil.json").expanduser().read_text())
+ids = json.loads(
+    Path("~/Sync/OTIS/Materials/dist/evil-chin/evil.json").expanduser().read_text()
+)
 choices = "\n".join(k + "\t" + v for k, v in ids.items())
 
 try:
