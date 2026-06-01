@@ -757,6 +757,8 @@ class JobCarrier(VenueQNode):
 
 
 class Application(VenueQNode):
+    homework_pdf_path: Optional[Path] = None
+
     def get_name(self, data: Data) -> str:
         return str(data["uuid"])
 
@@ -765,11 +767,26 @@ class Application(VenueQNode):
 
     def init_hook(self):
         self.data["percent_aid"] = self.data.pop("aid_percent_requested") or 0
+        if pdf_url := self.data.get("homework_pdf_path"):
+            path = OTIS_TMP_DOWNLOADS_PATH / f"apply_{self.data['uuid']}.pdf"
+            if path.exists():
+                logger.info(f"Already fetched {path}")
+            else:
+                logger.info(f"Trying to fetch {pdf_url}")
+                try:
+                    file_response = requests.get(url=pdf_url)
+                except Exception:
+                    logger.warning(f"Could not get {pdf_url}")
+                else:
+                    path.write_bytes(file_response.content)
+                    path.chmod(0o666)
+            self.homework_pdf_path = path
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
         webbrowser.open(f"https://apply.evanchen.cc/{data['uuid']}", new=1)
-        # TODO download the PDF in advance too
+        if self.homework_pdf_path is not None and self.homework_pdf_path.exists():
+            subprocess.Popen(["zathura", self.homework_pdf_path.absolute()])
         self.edit_temp(extension="md")
 
     def on_buffer_close(self, data: Data):
@@ -803,7 +820,10 @@ class Application(VenueQNode):
                 "by logging in to the account you used when you submitted."
             )
 
-            if data["email_on_decision"] is True:
+            if (
+                data["is_publish_immediately"] is True
+                and data["email_on_decision"] is True
+            ):
                 send_email(
                     subject=f"OTIS application for {name} was processed",
                     recipients=[data["email"]],
