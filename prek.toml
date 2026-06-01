@@ -43,7 +43,7 @@ hooks = [{ id = "check-useless-excludes" }]
 
 [[repos]]
 repo = "https://github.com/astral-sh/ruff-pre-commit"
-rev = "v0.15.14"
+rev = "v0.15.15"
 hooks = [{ id = "ruff-check" }, { id = "ruff-format" }]
 
 [[repos]]
@@ -58,7 +58,7 @@ hooks = [{ id = "prettier", types_or = ["css", "javascript", "json", "scss", "ts
 
 [[repos]]
 repo = "https://github.com/rvben/rumdl-pre-commit"
-rev = "v0.2.0"
+rev = "v0.2.5"
 hooks = [{ id = "rumdl" }, { id = "rumdl-fmt" }]
 
 [[repos]]
@@ -89,7 +89,7 @@ hooks = [
 [[repos]]
 # uv not used by dotfiles, but doesn't hurt to have it
 repo = "https://github.com/astral-sh/uv-pre-commit"
-rev = "0.11.16"
+rev = "0.11.18"
 hooks = [{ id = "uv-lock" }, { id = "uv-export" }]
 
 [[repos]]
