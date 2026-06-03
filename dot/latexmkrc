@@ -2,13 +2,15 @@
 # because it will work with latexmk -cd as well.
 # Unfortunately, I doubt it works on windows,
 # because dirname is a linux command.
+
+use File::Basename;
 sub run_asy {
-    return system("asy -o \$(dirname '$_[0]') '$_[0]'");
+    my ($base, $dir) = fileparse($_[0]);
+    return system("cd '$dir' && asy -tex pdflatex '$base'");
 }
 add_cus_dep("asy", "eps", 0, "run_asy");
 add_cus_dep("asy", "pdf", 0, "run_asy");
 add_cus_dep("asy", "tex", 0, "run_asy");
-
 
 # We always prefer lualatex to pdflatex by default.
 $pdf_mode = 4;
