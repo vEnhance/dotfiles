@@ -2,6 +2,7 @@
 
 import json
 import os
+import re
 import time
 from pathlib import Path
 
@@ -34,7 +35,25 @@ POLL_TIMEOUT = 90
 
 
 def unwrap(text: str) -> str:
-    return "\n\n".join(p.replace("\n", " ") for p in text.split("\n\n"))
+    r"""Join soft-wrapped lines within paragraphs, preserving code blocks.
+
+    >>> unwrap("hello world")
+    'hello world'
+    >>> unwrap("line one\nline two\n\nnew para")
+    'line one line two\n\nnew para'
+    >>> unwrap("before\n\n```\ncode\nhere\n```\n\nafter")
+    'before\n\n```\ncode\nhere\n```\n\nafter'
+    >>> unwrap("a\nb\n\n```python\nx = 1\ny = 2\n```\n\nc\nd")
+    'a b\n\n```python\nx = 1\ny = 2\n```\n\nc d'
+    """
+    parts = re.split(r"(```.*?```)", text, flags=re.DOTALL)
+    result = []
+    for i, part in enumerate(parts):
+        if i % 2 == 1:
+            result.append(part)
+        else:
+            result.append("\n\n".join(p.replace("\n", " ") for p in part.split("\n\n")))
+    return "".join(result)
 
 
 def wait_for_post(number: int) -> None:
