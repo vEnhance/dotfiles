@@ -25,9 +25,15 @@ TEXT_TEMPLATE = """\
 
 * Posted at https://wall.evanchen.cc/NUMBER/
 * To edit mail settings, visit: https://list.evanchen.cc/edit/{{token}}
+* Replies welcome
 """
 
-HTML_SUFFIX = r'<p><i><a href="https://list.evanchen.cc/edit/{{token}}">Edit mail settings</a>.</i></p>'
+HTML_SUFFIX = (
+    r"<p><i>"
+    r'<a href="https://list.evanchen.cc/edit/{{token}}">Edit mail settings</a>. '
+    r"Replies welcome."
+    r"</i></p>"
+)
 
 POLL_INTERVAL_FIRST = 30
 POLL_INTERVAL = 15
