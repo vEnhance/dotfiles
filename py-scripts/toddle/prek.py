@@ -77,7 +77,7 @@ def find_preserved_blocks(
 
 def has_templates_html(repo_root: Path) -> bool:
     for d in repo_root.rglob("templates"):
-        if d.is_dir() and any(d.rglob("*.html")):
+        if d.is_dir() and (any(d.rglob("*.html")) or any(d.rglob("*.html.j2"))):
             return True
     return False
 

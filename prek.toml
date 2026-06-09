@@ -82,8 +82,8 @@ hooks = [{ id = "shfmt", args = ["-i", "2", "-ci"], files = '\.sh$' }]
 repo = "https://github.com/djlint/djLint"
 rev = "v1.39.0"
 hooks = [
-  { id = "djlint-reformat", types = ["html"], files = "templates/" },
-  { id = "djlint", types = ["html"], files = "templates/" }
+  { id = "djlint-reformat", types_or = ["html", "jinja"], files = "templates/" },
+  { id = "djlint", types_or = ["html", "jinja"], files = "templates/" }
 ]
 
 [[repos]]
