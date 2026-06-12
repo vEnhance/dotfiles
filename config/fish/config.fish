@@ -39,6 +39,7 @@ end
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/py-scripts/"
 export PATH="$PATH:$HOME/dotfiles/bin/:$HOME/.cargo/bin"
 export HATCH_USE_ENV=1
+export RUMDL_CACHE_DIR="$HOME/.cache/rumdl-cache/"
 if test -d /opt/google-cloud-cli
     export CLOUDSDK_ROOT_DIR=/opt/google-cloud-cli
     export CLOUDSDK_PYTHON=/usr/bin/python
