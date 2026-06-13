@@ -8,7 +8,10 @@ import pytz
 import recurring_ical_events  # ty: ignore[unresolved-import]
 import requests
 import yaml
-from discord_webhook import DiscordEmbed, DiscordWebhook  # ty: ignore[unresolved-import]
+from discord_webhook import (  # ty: ignore[unresolved-import]
+    DiscordEmbed,
+    DiscordWebhook,
+)
 from icalendar import Calendar, Event  # ty: ignore[unresolved-import]
 
 parser = argparse.ArgumentParser()
