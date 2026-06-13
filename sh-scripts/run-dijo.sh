@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+if pgrep -x dijo >/dev/null; then
+  echo "Already running dijo. Not starting a new process."
+  read -r -p "Press any key to continue."
+  exit 0
+fi
+
 DATE="$(date +"%Y-%m-%d")"
 HAS_RUN_DIJO=$(jq ".[]|select(.name==\"dijo\")|.stats|.\"$DATE\"" <~/Sync/share/dijo/habit_record\[auto\].json)
 
