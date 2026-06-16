@@ -35,7 +35,7 @@ fi
 
 # Otherwise, unmute microphone and start dictation
 nerd-dictation begin --full-sentence --cookie "$COOKIE_PATH" &
-if ponymix is-muted --source; then
+if wpctl get-volume @DEFAULT_SOURCE@ | grep -q MUTED; then
   ~/dotfiles/sh-scripts/chvol.sh w
   touch "$OFF_MIC_FLAG"
 else

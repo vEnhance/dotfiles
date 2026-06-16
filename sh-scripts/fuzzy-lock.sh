@@ -42,7 +42,7 @@ if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
 fi
 
 # mute microphone so I'm not recorded while afk
-ponymix -t source mute >/dev/null
+wpctl set-mute @DEFAULT_SOURCE@ 1 >/dev/null
 
 # clear the clipboards for security reasons
 xsel --clipboard --delete

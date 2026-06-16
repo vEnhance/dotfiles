@@ -248,8 +248,8 @@ mode "config" {
 bindsym $mod+Escape exec --no-startup-id $HOME/dotfiles/config/i3/reminder-config.sh, mode "config"
 # }}}
 
-# Ponymix [o] {{{
-mode "ponymix" {
+# Audio [o] {{{
+mode "audio" {
   # volume
   bindsym u exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh u
   bindsym d exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh d
@@ -279,7 +279,7 @@ mode "ponymix" {
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }
-bindsym $mod+o exec --no-startup-id $HOME/dotfiles/config/i3/reminder-ponymix.sh, mode "ponymix"
+bindsym $mod+o exec --no-startup-id $HOME/dotfiles/config/i3/reminder-audio.sh, mode "audio"
 # }}}
 
 # executable [x] {{{
