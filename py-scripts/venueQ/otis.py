@@ -18,6 +18,7 @@ from typing import Any, Callable, List, Optional, Type
 import markdown
 import requests
 from dotenv import load_dotenv
+from lastlint import fix_text
 
 from venueQ import Data, VenueQNode, VenueQRoot, logger
 
@@ -586,8 +587,8 @@ class Suggestion(VenueQNode):
         }
 
     def init_hook(self):
-        self.statement = self.data.pop("statement")
-        self.solution = self.data.pop("solution")
+        self.statement = fix_text(self.data.pop("statement").replace("\r\n", "\n"))
+        self.solution = fix_text(self.data.pop("solution").replace("\r\n", "\n"))
         self.data["arch_puid"] = None
 
     def on_buffer_open(self, data: Data):
