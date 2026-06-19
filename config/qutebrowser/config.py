@@ -114,6 +114,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://arxiv.org/*",
     r"*://atcoder.jp/*",
     r"*://athemath.org/*",
+    r"*://aur.chaotic.cx/*",
     r"*://bitwarden.com/*",
     r"*://calendar.google.com/*",
     r"*://calendly.com/*",
