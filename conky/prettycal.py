@@ -84,7 +84,7 @@ class CalItem:
 
     def conky_repr(self, offset=None, needs_date=False, truncate=36):
         s = ""
-        s += r"${font Noto Sans CJK KR:normal:size=%d}" % FONT_SIZE
+        s += r"${font Noto Sans CJK KR:size=%d}" % FONT_SIZE
         if self.type == Type.DUE:
             s += r"${color ffbbbb}[마감] "
         elif self.type == Type.SCHEDULED:
