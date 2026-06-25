@@ -17,7 +17,7 @@ if pgrep -U "$(whoami)" stepmania >/dev/null; then
 fi
 
 # during twitch stream, disable laptop lock screen
-if { [ "$(hostname)" = ArchSapphire ] || [ "$(hostname)" = "ArchScythe" ]; } &&
+if { [ "$(hostname)" = "ArchUmi" ] || [ "$(hostname)" = "ArchScythe" ]; } &&
   [ "$(whoami)" = evan ] &&
   iwconfig | grep -E "Flying|Nydus" &&
   python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
@@ -55,15 +55,7 @@ dunstctl set-paused true
 # RUN THE LOCKER
 #################################################
 
-if [ "$(hostname)" = ArchAir ] && [ "$(whoami)" = evan ]; then
-  xset dpms force off
-  i3lock \
-    --beep \
-    --ignore-empty-password \
-    --show-failed-attempts \
-    --nofork \
-    --color=000000
-elif pacman -Q --quiet i3lock-color; then
+if pacman -Q --quiet i3lock-color; then
   export LANG=zh_TW.UTF-8
   i3lock \
     --insidever-color=0a220a66 \
