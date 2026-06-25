@@ -19,9 +19,9 @@ except locale.Error:
 
 NUM_ROWS = 15
 HOSTNAME = gethostname()
-if HOSTNAME in ("ArchScythe", "ArchUmi"):
+if HOSTNAME in ("ArchScythe",):
     NUM_COL = 2
-elif HOSTNAME in ("ArchMajestic", "ArchBootes"):
+elif HOSTNAME in ("ArchMajestic", "ArchBootes", "ArchUmi"):
     NUM_COL = 3
 elif HOSTNAME in ("ArchDiamond",):
     NUM_COL = 5
