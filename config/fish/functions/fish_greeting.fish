@@ -18,7 +18,7 @@ function fish_greeting
     if test (pwd) = "$HOME"
         if test $hostname = ArchScythe
             archey3 --config ~/dotfiles/misc/archey3.cfg --color=green 2>/dev/null
-        else if test $hostname = ArchSapphire
+        else if test $hostname = ArchUmi
             archey3 --config ~/dotfiles/misc/archey3.cfg --color=cyan 2>/dev/null
         else if test $hostname = ArchMajestic
             archey3 --config ~/dotfiles/misc/archey3.cfg --color=magenta 2>/dev/null

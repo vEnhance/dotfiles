@@ -6,7 +6,7 @@ if command -v numlockx; then
   numlockx on
 fi
 
-if [ "$(hostname)" = ArchScythe ] || [ "$(hostname)" = ArchSapphire ]; then
+if [ "$(hostname)" = ArchScythe ]; then
   synclient VertScrollDelta=-237
 fi
 
@@ -16,13 +16,6 @@ if [ "$(date +'%Z')" = "PDT" ] || [ "$(date +'%Z')" = "PST" ]; then
   if [ "$(hostname)" = ArchDiamond ] && grep "Logitech, Inc. Unifying Receiver" <<<"$usb_out"; then
     xmodmap -e "keycode  9 = grave asciitilde grave asciitilde dead_grave dead_tilde dead_grave"
   fi
-fi
-
-if [ "$(hostname)" = ArchSapphire ]; then
-  # replace the useless menu key with extra ctrl
-  xmodmap -e "remove Control = Control_R" &
-  xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R" &
-  xmodmap -e "add Control = Control_R" &
 fi
 
 # if caps lock is on, kill it
