@@ -7,17 +7,15 @@
 # dropbox does not have a desktop file anymore iirc
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
-
-# Always run
-if command -v conky; then ~/dotfiles/conky/run-conky.sh; fi
+command -v conky && ~/dotfiles/conky/run-conky.sh
 
 if [ "$(whoami)" = "evan" ]; then
   systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
-  if command -v dropbox-cli; then dropbox-cli start; fi
-  if command -v ibus-daemon; then ibus-daemon -d -r & fi
-  if command -v redshift-gtk; then ~/dotfiles/sh-scripts/redshift.sh; fi
-  if command -v signal-desktop; then signal-desktop --start-in-tray --use-tray-icon & fi
-  if command -v syncthing-gtk; then syncthing-gtk -m & fi
+  command -v dropbox-cli && dropbox-cli start
+  command -v ibus-daemon && ibus-daemon -d -r &
+  command -v redshift-gtk && ~/dotfiles/sh-scripts/redshift.sh
+  command -v signal-desktop && signal-desktop --start-in-tray --use-tray-icon &
+  command -v syncthing-gtk && syncthing-gtk -m &
 fi
 
 if [ "$(hostname)" = ArchBootes ]; then
