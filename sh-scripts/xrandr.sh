@@ -1,22 +1,14 @@
 #!/usr/bin/env bash
 
-if [ "$(hostname)" = ArchAngel ]; then
-  if xrandr | grep 1920x1080; then
-    xrandr --output "HDMI-2" --primary 1920x1080
-  else
-    xrandr --output "HDMI-2" --primary
-  fi
-fi
-
 if [ "$(hostname)" = ArchDiamond ]; then
   xrandr --output "DP-2" --mode 3840x2160 --primary \
     --output "DP-3" --mode 1920x1080 --below "DP-2" \
     --output "DP-1" --mode 2560x1440 --right-of "DP-2"
 fi
 
-if [ "$(hostname)" = ArchSapphire ]; then
-  xrandr --output "eDP1" --mode 2256x1504 --primary \
-    --output "HDMI2" --mode 1920x1080 --left-of "eDP1"
+if [ "$(hostname)" = ArchUmi ]; then
+  xrandr --output "eDP-1" --mode 2880x1800 --primary \
+    --output "DP-1" --mode 1920x1080 --left-of "eDP-1"
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
@@ -39,14 +31,6 @@ if [ "$(hostname)" = ArchBootes ]; then
     --output DP-2 --primary --mode 3840x2160 --pos 0x0 --rotate normal \
     --output DP-0 --mode 2560x1440 --pos 3840x0 --rotate normal \
     --output DP-4 --mode 2560x1440 --pos 7040x0 \
-    ;
-fi
-
-if [ "$(hostname)" = dagobah ]; then
-  xrandr \
-    --output "DP-2" --primary \
-    --output "DP-4" --right-of "DP-2" \
-    --output "HDMI-0" --left-of "DP-2" \
     ;
 fi
 

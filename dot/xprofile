@@ -54,16 +54,9 @@ if [ "$(hostname)" = ArchScythe ]; then
   # synclient RightButtonAreaRight=1560
 fi
 
-if [ "$(hostname)" = ArchSapphire ]; then
+if [ "$(hostname)" = ArchUmi ]; then
   xset s 900 30
   xset dpms 600 600 600
-  xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
-  synclient RightButtonAreaTop=0
-  synclient VertScrollDelta=-237 # Natural scroll for touchpads
-  # replace the useless menu key with extra ctrl
-  xmodmap -e "remove Control = Control_R"
-  xmodmap -e "keycode 135 = Control_R Control_R Control_R Control_R"
-  xmodmap -e "add Control = Control_R"
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
@@ -78,7 +71,7 @@ if [ "$(hostname)" = ArchDiamond ]; then
     xset dpms 1800 1800 1800
     ~/dotfiles/sh-scripts/chvol.sh r
   fi
-  # for big screet TV...
+  # for big screen TV...
   # export QT_SCALE_FACTOR=2
   # export QT_AUTO_SCREEN_SCALE_FACTOR=2
   # export GDK_SCALE=2

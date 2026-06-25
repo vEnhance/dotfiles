@@ -21,41 +21,22 @@ xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy
 
 ~/dotfiles/conky/run-conky.sh
 
-if [ "$(hostname)" = ArchAir ]; then
-  dunst &
-  synclient RightButtonAreaRight=1
-  synclient VertScrollDelta=-237
-  systemctl start --user evil-chin.service
-  systemctl start --user mosp-2021.service
-fi
-
-if [ "$(hostname)" = ArchAngel ]; then
-  ~/dotfiles/sh-scripts/redshift.sh
-  dropbox-cli start
-fi
-
 if [ "$(hostname)" = ArchScythe ]; then
   ~/dotfiles/sh-scripts/redshift.sh
   dropbox-cli start
   systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
-  dunst &
   syncthing-gtk -m &
   signal-desktop --start-in-tray --use-tray-icon &
   ibus-daemon -d -r &
-fi
-
-if [ "$(hostname)" = ArchSapphire ]; then
-  dunst &
-  syncthing-gtk -m &
-  signal-desktop --start-in-tray --use-tray-icon &
-  ibus-daemon -d -r &
-  ~/dotfiles/sh-scripts/redshift.sh
-  # telegram-desktop &
 fi
 
 if [ "$(hostname)" = ArchMillie ]; then
-  dunst &
-  systemctl --user start evansync.timer # idfk why systemctl enable doesn't work w/e
+  systemctl --user start evansync.timer
+fi
+
+if [ "$(hostname)" = ArchUmi ]; then
+  systemctl --user start evansync.timer
+  syncthing-gtk -m &
 fi
 
 if [ "$(hostname)" = ArchDiamond ]; then
