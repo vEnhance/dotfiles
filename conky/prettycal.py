@@ -19,7 +19,7 @@ except locale.Error:
 
 NUM_ROWS = 15
 HOSTNAME = gethostname()
-if HOSTNAME in ("ArchScythe", "ArchSapphire"):
+if HOSTNAME in ("ArchScythe", "ArchUmi"):
     NUM_COL = 2
 elif HOSTNAME in ("ArchMajestic", "ArchBootes"):
     NUM_COL = 3

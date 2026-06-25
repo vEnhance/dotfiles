@@ -5,7 +5,7 @@ if [ "$(hostname)" = ArchScythe ]; then
   conky -d -c ~/dotfiles/conky/summary-bar.conf
   conky -d -c ~/dotfiles/conky/cal.conf
 fi
-if [ "$(hostname)" = ArchSapphire ]; then
+if [ "$(hostname)" = ArchUmi ]; then
   conky -d -c ~/dotfiles/conky/summary-bar.conf
   conky -d -c ~/dotfiles/conky/cal.conf
 fi
