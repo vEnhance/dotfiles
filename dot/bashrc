@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 # .bashrc
 # Evan Chen
-#
 
 if [ -f ~/dotfiles/sh-scripts/git-completion.bash ]; then
   # Git magic / Sourcing
@@ -25,60 +24,17 @@ export SUDO_PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
 # Exports
 export EDITOR='vim'
 export TERM='xterm-256color'
-GPG_TTY=$(tty)
-export GPG_TTY
-if [ -d "$HOME"/.texmf ]; then
-  export TEXMFHOME="$HOME"/.texmf
-fi
-if [ -d "$HOME"/.sage ]; then
-  export DOT_SAGENB="$HOME"/.sage
-fi
-if [ -f /usr/bin/zathura ]; then
-  export PDFVIEWER='zathura'
-fi
-
 umask 007 # set umask
 
 # Aliases
-alias bcsum='paste -sd+ - | bc'
-alias dropcli='dropbox-cli'
-alias getclip="xsel --clipboard"
 alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
-alias kitty="cat"
-alias lisp='sbcl --script'
-alias putclip="xsel --clipboard"
 alias python='python3'
 alias trash='gio trash'
-alias voice='arecord -f S16_LE -c 2 -r 96000 -D hw:0,0'
-alias winf='wine winefile'
-alias winx='startx /bin/wine winefile --kiosk --'
-
-alias demacro='python3 ~/dotfiles/py-scripts/demacro.py'
-alias dragon='python3 ~/Sync/Projects/dragon/'
-alias odus='python3 ~/dotfiles/py-scripts/odus.py'
-alias oscar='python3 ~/dotfiles/py-scripts/oscar/'
-alias sparky='python3 ~/Sync/Projects/sparky/'
-alias tsq='python3 ~/dotfiles/py-scripts/tsq.py'
-alias wplatex='python3 ~/dotfiles/py-scripts/latex2wp.py'
-alias wpmd='python3 ~/dotfiles/py-scripts/markdown2wp.py'
-
-alias mu='neomutt'
-alias m1='neomutt -F ~/.config/mutt/neomuttrc.1'
-alias m2='neomutt -F ~/.config/mutt/neomuttrc.2'
-
 alias sudo='sudo ' # allows my aliases to get into sudo in bash
 
 export PYTHONPATH="$PYTHONPATH:$HOME/dotfiles/py-scripts"
 export PATH=$HOME/.local/bin:$PATH
 
-# Various functions
-function rot13() {
-  if [ -r "$1" ]; then
-    tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9' <"$1"
-  else
-    cat | tr 'N-ZA-Mn-za-m5-90-4' 'A-Za-z0-9'
-  fi
-}
 # Uses the locate utility to find a certain file
 function hunt() {
   python3 ~/dotfiles/py-scripts/hunt.py "${1}"
