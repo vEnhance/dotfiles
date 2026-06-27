@@ -18,7 +18,7 @@ fi
 # It's a program that'll read the next 14 days of my calendar
 # and output the results under ~/.cache/agenda.json
 # where it can be consumed by e.g. conky
-if command -v gcalendar >/dev/null; then
+if command -v gcalendar; then
   ~/dotfiles/sh-scripts/get-cal.sh
 fi
 
