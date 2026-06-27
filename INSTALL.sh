@@ -43,12 +43,9 @@ link_dot_path eslintrc.yaml
 link_dot_path gitconfig
 link_dot_path gvimrc
 link_dot_path latexmkrc
-link_dot_path lisprc
 link_dot_path mbsyncrc
-link_dot_path screenrc
 link_dot_path shellcheckrc
 link_dot_path taskrc
-link_dot_path tidyrc
 link_dot_path xinitrc
 link_dot_path xprofile
 
