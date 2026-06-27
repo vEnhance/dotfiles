@@ -77,8 +77,6 @@ alias toddle='/usr/bin/python3 ~/dotfiles/py-scripts/toddle/'
 alias viag='/usr/bin/python3 ~/dotfiles/py-scripts/viag.py'
 alias uclean='/usr/bin/python3 ~/dotfiles/py-scripts/uclean.py'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
-alias wplatex='/usr/bin/python3 ~/dotfiles/py-scripts/latex2wp.py'
-alias wpmd='/usr/bin/python3 ~/dotfiles/py-scripts/markdown2wp.py'
 alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
 
 alias fixtrailspace='sed -i "s/[ \t]*\$//"'
