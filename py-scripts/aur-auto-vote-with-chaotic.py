@@ -174,11 +174,7 @@ def unvote_package(session, package):
 # TODO: Handle split packages better
 def main(arguments):
     password = (
-        subprocess.run(
-            ["secret-tool", "lookup", "user", "vEnhance", "type", "aur"],
-            text=True,
-            capture_output=True,
-        ).stdout
+        subprocess.run(["pass", "show", "aur"], text=True, capture_output=True).stdout
         or os.environ.get("AUR_AUTO_VOTE_PASSWORD")
         or getpass.getpass("Password: ")
     )

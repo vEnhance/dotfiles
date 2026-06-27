@@ -40,6 +40,6 @@ fi
 
 ## MBSYNC + MUTT
 # Syncing mailboxes for use with mutt
-if command -v mbsync >/dev/null; then
+if command -v mbsync && command -v pass; then
   mbsync -q personal-inbox work-inbox records-inbox
 fi
