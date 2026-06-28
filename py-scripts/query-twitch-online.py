@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
+import subprocess
 import sys
-from pathlib import Path
 from pprint import pformat
 
 import requests
-from dotenv import load_dotenv
+
+
+def get_pass(s: str) -> str:
+    return subprocess.check_output(("pass", "show", s), text=True).strip()
+
 
 parser = argparse.ArgumentParser(description="Check Twitch status")
 parser.add_argument("username", type=str, help="Username to check")
@@ -28,9 +31,8 @@ parser.add_argument(
 
 args = parser.parse_args()
 
-load_dotenv(Path("~/secrets/twitch.env").expanduser())
-client_id = os.getenv("CLIENT_ID")
-client_secret = os.getenv("CLIENT_SECRET")
+client_id = get_pass("twitch/client_id")
+client_secret = get_pass("twitch/client_secret")
 streamer_name = args.username
 assert client_id is not None
 assert client_secret is not None

@@ -1,5 +1,4 @@
 import json
-import os
 import pprint
 import random
 import re
@@ -17,30 +16,26 @@ from typing import Any, Callable, List, Optional, Type
 
 import markdown
 import requests
-from dotenv import load_dotenv
 from lastlint import fix_text
 
 from venueQ import Data, VenueQNode, VenueQRoot, logger
 
-# Load secrets
-load_dotenv(Path("~/secrets/otis.env").expanduser())
-OTIS_WEB_TOKEN = os.getenv("OTIS_WEB_TOKEN")
-APPLY_TOKEN = os.getenv("APPLY_TOKEN")
-EVANBOT_HEADER = os.getenv("EVANBOT_HEADER")
-assert OTIS_WEB_TOKEN is not None
-assert APPLY_TOKEN is not None
-assert EVANBOT_HEADER is not None
-AK = os.getenv("AK")
-OTIS_POSTMARK_USERNAME = os.getenv("OTIS_POSTMARK_USERNAME")
-OTIS_POSTMARK_PASSWORD = os.getenv("OTIS_POSTMARK_PASSWORD")
 
-PRODUCTION = int(os.getenv("PRODUCTION", 0))
-if PRODUCTION:
-    OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
-else:
-    OTIS_API_URL = "http://127.0.0.1:8000/aincrad/api/"
+def get_pass(s: str) -> str:
+    return subprocess.check_output(("pass", "show", s), text=True).strip()
+
+
+PRODUCTION = True
+OTIS_WEB_TOKEN = get_pass("evanchen.cc/otis")
+APPLY_TOKEN = get_pass("evanchen.cc/apply")
+EVANBOT_HEADER = get_pass("evanchen.cc/header")
+AK = get_pass("codes/AK")
+OTIS_POSTMARK_USERNAME = get_pass("postmark/otis")
+OTIS_POSTMARK_PASSWORD = get_pass("postmark/otis")
+
+OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 APPLY_API_URL = "https://apply.evanchen.cc/api/"
-HEARTS_WARNING_THRESHOLD = int(os.getenv("HEARTS_WARNING_THRESHOLD", 96))
+HEARTS_WARNING_THRESHOLD = 90
 
 OTIS_TMP_DOWNLOADS_PATH = Path("/tmp/junk-for-otis")
 if not OTIS_TMP_DOWNLOADS_PATH.exists():
@@ -56,8 +51,6 @@ if find_spec("mdx_truly_sane_lists") is not None:
     MD_EXTENSIONS.append("mdx_truly_sane_lists")
 
 RE_EMAIL = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
-
-logger.info(f"PRODUCTION is {PRODUCTION}, posting to {OTIS_API_URL}")
 
 
 def linkify(url: str | None) -> str:
@@ -441,8 +434,7 @@ class ProblemSet(VenueQNode):
         if data["feedback"]:
             body += "\n\n"
             body += r"**Mini-survey response**:" + "\n"
-            if (s := os.getenv("MS_HEADER")) is not None:
-                body += "\n" + s + "\n\n"
+            body += "\n" + get_pass("codes/minisurvey") + "\n\n"
             body += f"```\n{data['feedback']}\n```"
         if data["special_notes"]:
             body += "\n\n"

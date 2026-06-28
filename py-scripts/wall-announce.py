@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 
 import json
-import os
 import re
+import subprocess
 import time
 from pathlib import Path
 
 import markdown
 import requests
-from dotenv import load_dotenv
+
+
+def get_pass(s: str) -> str:
+    return subprocess.check_output(("pass", "show", s), text=True).strip()
+
 
 WALL_RECENT_DATA = Path("~/Sync/Websites/wall.evanchen.cc/latest.json").expanduser()
 LIST_API_URL = "https://list.evanchen.cc/api/subs/wall/"
 POSTMARK_BULK_URL = "https://api.postmarkapp.com/email/bulk"
 
-load_dotenv(Path("~/secrets/broadcasts.env").expanduser())
-LIST_API_TOKEN = os.environ["LIST_API_TOKEN"]
-POSTMARK_SERVER_TOKEN = os.environ["POSTMARK_SERVER_TOKEN"]
-WALL_VENHANCE_DISCORD_WEBHOOK = os.environ["WALL_VENHANCE_DISCORD_WEBHOOK"]
+LIST_API_TOKEN = get_pass("evanchen.cc/list")
+POSTMARK_SERVER_TOKEN = get_pass("postmark/list")
+WALL_VENHANCE_DISCORD_WEBHOOK = get_pass("discord/wall")
 
 # POST_BODY and NUMBER are replaced by Python; {{token}} by Postmark.
 TEXT_TEMPLATE = """\

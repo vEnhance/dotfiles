@@ -11,12 +11,15 @@ from pathlib import Path
 import pyperclip
 import requests
 import yaml
-from dotenv import load_dotenv
 from von import api
 
-load_dotenv(Path("~/secrets/otis.env").expanduser())
+
+def get_pass(s: str) -> str:
+    return subprocess.check_output(("pass", "show", s), text=True).strip()
+
+
 OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
-OTIS_WEB_TOKEN = os.getenv("OTIS_WEB_TOKEN")
+OTIS_WEB_TOKEN = get_pass("evanchen.cc/otis")
 assert OTIS_WEB_TOKEN is not None
 
 setattr(yaml.SafeDumper, "orig_represent_str", yaml.SafeDumper.represent_str)
