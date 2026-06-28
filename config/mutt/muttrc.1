@@ -4,13 +4,13 @@ alternates '@evanchen\.cc' '^evanchen@alum.mit\.edu$'
 set folder=~/Mail/work/
 set header_cache=~/.cache/mutt/work
 
-set smtp_url=`echo smtp://$(pass show neomutt/pm-access)@smtp.postmarkapp.com:587`
-set smtp_pass = `pass show neomutt/pm-secret`
+set smtp_url = $my_smtp_url1
+set smtp_pass = $my_pm_secret
 set from = "evan@evanchen.cc"
 source ~/secrets/mailreceipts # set BCC header
 
-set imap_user = `echo $(jq -r ".user1" ~/secrets/mail-users.json)@gmail.com`
-set imap_pass = `pass show neomutt/key1`
+set imap_user = $my_user1
+set imap_pass = $my_key1
 set spoolfile = +Inbox
 set postponed = +Drafts
 

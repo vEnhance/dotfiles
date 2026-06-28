@@ -4,13 +4,13 @@ unalternates *
 set folder=~/Mail/personal/
 set header_cache=~/.cache/mutt/personal
 
-set smtp_url = `echo smtps://$(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com@smtp.gmail.com:465`
-set smtp_pass = `pass show neomutt/key0`
-set from = `echo $(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com`
+set smtp_url = $my_smtp_url0
+set smtp_pass = $my_key0
+set from = $my_user0
 unmy_hdr bcc
 
-set imap_user = `echo $(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com`
-set imap_pass = `pass show neomutt/key0`
+set imap_user = $my_user0
+set imap_pass = $my_key0
 set spoolfile = +Inbox
 set postponed = +Drafts
 

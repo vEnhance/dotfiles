@@ -1,3 +1,15 @@
+# PRE-LOAD ACCOUNT CREDENTIALS {{{
+set my_user0     = `echo $(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com`
+set my_user1     = `echo $(jq -r ".user1" ~/secrets/mail-users.json)@gmail.com`
+set my_user2     = `echo $(jq -r ".user2" ~/secrets/mail-users.json)@gmail.com`
+set my_key0      = `pass show neomutt/key0`
+set my_key1      = `pass show neomutt/key1`
+set my_key2      = `pass show neomutt/key2`
+set my_pm_secret = `pass show neomutt/pm-secret`
+set my_smtp_url0 = `echo smtps://$(jq -r ".user0" ~/secrets/mail-users.json)@gmail.com@smtp.gmail.com:465`
+set my_smtp_url1 = `echo smtp://$(pass show neomutt/pm-access)@smtp.postmarkapp.com:587`
+set my_smtp_url2 = `echo smtps://$(jq -r ".user2" ~/secrets/mail-users.json)@gmail.com@smtp.gmail.com:465`
+# }}}
 # MAILBOX + HOOK SETUP {{{
 mailboxes ~/Mail/personal/Inbox
 mailboxes ~/Mail/work/Inbox
