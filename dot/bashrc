@@ -24,6 +24,7 @@ export SUDO_PS1='\[\033[0;31m\]\u@\h \[\033[1;37m\]\w\n\[\033[0m\]\$ '
 # Exports
 export EDITOR='vim'
 export TERM='xterm-256color'
+export RCLONE_PASSWORD_COMMAND='pass show rclone'
 umask 007 # set umask
 
 # Aliases

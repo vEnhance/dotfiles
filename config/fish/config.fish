@@ -22,6 +22,7 @@ set __fish_git_prompt_color_upstream_behind red
 export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 export TERM='xterm-256color'
+export RCLONE_PASSWORD_COMMAND='pass show rclone'
 export GPG_TTY=(tty)
 # the auto prompt-edited detection is not enabled somehow
 export VIRTUAL_ENV_DISABLE_PROMPT=1
