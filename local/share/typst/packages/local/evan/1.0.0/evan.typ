@@ -98,7 +98,7 @@
 #let thm-args = (padding: (x: 0.5em, y: 0.6em), outset: 0.9em, counter: "thm", base-level: 1)
 #let thm = thm-plain("Theorem",  fill: rgb("#eeeeff"), ..thm-args)
 #let lem = thm-plain("Lemma", fill: rgb("#eeeeff"), ..thm-args)
-#let prop = thm-plain("Proposition", fill: rgb("#eeeeff"), ..thm-args)
+#let propn = thm-plain("Proposition", fill: rgb("#eeeeff"), ..thm-args)
 #let cor = thm-plain("Corollary", fill: rgb("#eeeeff"), ..thm-args)
 #let conj = thm-plain("Conjecture", fill: rgb("#eeeeff"), ..thm-args)
 #let ex = thm-def("Example", fill: rgb("#ffeeee"), ..thm-args)
