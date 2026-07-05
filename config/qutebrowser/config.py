@@ -141,6 +141,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://login.artofproblemsolving.com/*",
     r"*://mathoverflow.net/*",
     r"*://mit.edu/*",
+    r"*://orcid.org/*",
     r"*://poll.ma.pe/*",
     r"*://projecteuler.net/*",
     r"*://pypi.org/*",
