@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 
 if [ "$(hostname)" = ArchDiamond ]; then
-  xrandr --output "DP-2" --mode 3840x2160 --primary \
-    --output "DP-3" --mode 1920x1080 --below "DP-2" \
-    --output "DP-1" --mode 2560x1440 --right-of "DP-2"
+  xrandr --output "DP-2" --auto --primary \
+    --output "DP-3" --auto --below "DP-2" \
+    --output "DP-1" --auto --right-of "DP-2"
 fi
 
 if [ "$(hostname)" = ArchUmi ]; then
   xrandr --output "eDP-1" --mode 2880x1800 --primary \
-    --output "DP-1" --mode 1920x1080 --left-of "eDP-1"
+    --output "DP-1" --auto --left-of "eDP-1"
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
   xrandr --output "eDP1" --mode 1920x1080 --primary \
-    --output "HDMI1" --mode 1920x1080 --left-of "eDP1"
+    --output "HDMI1" --auto --left-of "eDP1"
 fi
 
 if [ "$(hostname)" = ArchMajestic ]; then
