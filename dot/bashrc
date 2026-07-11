@@ -26,6 +26,9 @@ export EDITOR='vim'
 export TERM='xterm-256color'
 export RCLONE_PASSWORD_COMMAND='pass show rclone'
 umask 007 # set umask
+if [ -d "$HOME"/.texmf ]; then
+  export TEXMFHOME="$HOME"/.texmf
+fi
 
 # Aliases
 alias gpg-loopback="gpg --clearsign --pinentry-mode loopback"
