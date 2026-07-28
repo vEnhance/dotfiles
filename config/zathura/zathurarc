@@ -12,6 +12,4 @@ map z exec "sh -c 'zathura \"$FILE\"'"
 map c exec "xfce4-terminal -e 'sh -c \"latexmk -cd $(echo $FILE | sed s/pdf\$/tex/)\"'"
 map p exec "xfce4-terminal -e 'sh -c \"latexmk -pvc -cd $(echo $FILE | sed s/pdf\$/tex/)\"'"
 
-set sandbox "normal"
-
 # vim: ft=config
