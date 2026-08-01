@@ -14,6 +14,7 @@ def get_pass(s: str) -> str:
     return subprocess.check_output(("pass", "show", s), text=True).strip()
 
 
+WALL_BASE_URL = "https://wall.evanchen.cc"
 WALL_RECENT_DATA = Path("~/Sync/Websites/wall.evanchen.cc/latest.json").expanduser()
 LIST_API_URL = "https://list.evanchen.cc/api/subs/wall/"
 POSTMARK_BULK_URL = "https://api.postmarkapp.com/email/bulk"
@@ -65,6 +66,37 @@ def unwrap(text: str) -> str:
     return "".join(result)
 
 
+def absolutize(text: str, base: str = WALL_BASE_URL) -> str:
+    r"""Prefix root-relative links with `base`, so they work outside the site.
+
+    >>> absolutize("see [link to post](/266) here")
+    'see [link to post](https://wall.evanchen.cc/266) here'
+    >>> absolutize("![fig](/static/x.png)")
+    '![fig](https://wall.evanchen.cc/static/x.png)'
+    >>> absolutize('[ref]: /266 "Title"')
+    '[ref]: https://wall.evanchen.cc/266 "Title"'
+    >>> absolutize('<a href="/266">x</a>')
+    '<a href="https://wall.evanchen.cc/266">x</a>'
+    >>> absolutize("[a](https://example.com/1), [b](//example.com/2), [c](266)")
+    '[a](https://example.com/1), [b](//example.com/2), [c](266)'
+    >>> absolutize("a\n\n```\n[x](/1)\n```\n\n[y](/2)")
+    'a\n\n```\n[x](/1)\n```\n\n[y](https://wall.evanchen.cc/2)'
+    """
+    # a leading `//` is protocol-relative, hence already absolute
+    patterns = (
+        r"(\]\(\s*<?)/(?!/)",  # [text](/266), ![fig](/x.png), [text](</266>)
+        r"(?m)^( {0,3}\[[^\]\n]+\]:\s*<?)/(?!/)",  # [ref]: /266
+        r"""((?:href|src)=["'])/(?!/)""",  # <a href="/266">
+    )
+    parts = re.split(r"(```.*?```)", text, flags=re.DOTALL)
+    for i, part in enumerate(parts):
+        if i % 2 == 0:
+            for pattern in patterns:
+                part = re.sub(pattern, lambda m: f"{m[1]}{base}/", part)
+            parts[i] = part
+    return "".join(parts)
+
+
 def wait_for_post(number: int) -> None:
     url = f"https://wall.evanchen.cc/{number}/"
     print(f"Waiting for {url} to go live…")
@@ -87,7 +119,7 @@ def main():
     with open(WALL_RECENT_DATA) as f:
         recent_data = json.load(f)
         number: int = recent_data["number"]
-        body: str = recent_data["body"]
+        body: str = absolutize(recent_data["body"])
         assert recent_data["sent"] is False, f"girl #{number} was already sent"
 
     # Step 2. Get subscriber list
@@ -103,11 +135,9 @@ def main():
 
     # Step 3. Render the post
     text_body = TEXT_TEMPLATE.replace("NUMBER", str(number)).replace("POST_BODY", body)
-    markdown_body = f"[**#{number}**](https://wall.evanchen.cc/{number}). " + body
+    markdown_body = f"[**#{number}**]({WALL_BASE_URL}/{number}). " + body
     html_body = markdown.markdown(markdown_body) + HTML_SUFFIX
-    discord_content = (
-        f"[**#{number}**](https://wall.evanchen.cc/{number}/). {unwrap(body)}"
-    )
+    discord_content = f"[**#{number}**]({WALL_BASE_URL}/{number}/). {unwrap(body)}"
 
     # Step 4. Wait for post to go live
     print("Waiting 30 seconds before starting polling…")
