@@ -528,44 +528,6 @@ class Inquiries(VenueQNode):
                 )
 
 
-class Registrations(VenueQNode):
-    def init_hook(self):
-        self.data["accept_all"] = False
-        for reg in self.data["registrations"]:
-            reg["name"] = (
-                f"{reg.pop('user__first_name')} {reg.pop('user__last_name')}"
-            ).strip()
-
-    def on_buffer_close(self, data: Data):
-        super().on_buffer_close(data)
-        if data["accept_all"]:
-            if query_otis_server(payload={"action": "accept_registrations"}):
-                body = (
-                    "Hello newly-registered otter,\n\n"
-                    "You are receiving this message because you checked the box "
-                    "asking to be notified once your decision form was processed.\n\n"
-                    "We're happy to confirm that your decision form\n"
-                    f"was processed on {datetime.now(timezone.utc).strftime('%-d %B %Y, %H:%M')} UTC "
-                    "and your account is now fully activated!"
-                    "You should be able to log in and pick your units now,\n"
-                    "and use the /register slash command in the Discord."
-                    "\n\n"
-                    f"Please check {linkify('https://otis.evanchen.cc/dash/announce')}\n"
-                    "for recent announcements to all students."
-                )
-                recipients = [
-                    reg["user__email"]
-                    for reg in data["registrations"]
-                    if reg["user__profile__email_on_registration_processed"] is True
-                ]
-                send_email(
-                    subject="OTIS account activated!",
-                    recipients=recipients,
-                    body=body,
-                    callback=self.delete,
-                )
-
-
 class Suggestion(VenueQNode):
     statement: str
     solution: str
@@ -848,8 +810,6 @@ class OTISRoot(VenueQRoot):
             return SuggestionCarrier
         elif data["_name"] == "Jobs":
             return JobCarrier
-        elif data["_name"] == "Regs":
-            return Registrations
         elif data["_name"] == "Applications":
             return ApplicationCarrier
         else:

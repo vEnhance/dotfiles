@@ -28,15 +28,6 @@ if inquiries_path.exists():
         for inquiry in inquiries["inquiries"]:
             inquiry_timestamps.append(inquiry["created_at"])
 
-# Regs
-reg_timestamps = []
-regs_path = OTIS_ROOT / "Regs.venueQ.yaml"
-if regs_path.exists():
-    with open(regs_path) as f:
-        regs = yaml.load(f, Loader=yaml.SafeLoader)
-        for reg in regs["registrations"]:
-            reg_timestamps.append(reg["created_at"])
-
 
 # Suggestions
 suggest_dir = OTIS_ROOT / "Suggestions"
@@ -99,6 +90,5 @@ def get_conky_presentation(s: str, x: List[str]) -> str:
 print(get_conky_presentation("요청", inquiry_timestamps))
 print(get_conky_presentation("숙제", pset_timestamps))
 print(get_conky_presentation("제안", suggestion_timestamps))
-print(get_conky_presentation("직업", job_timestamps))
-print(get_conky_presentation("등록", reg_timestamps))
 print(get_conky_presentation("지원", app_timestamps))
+print(get_conky_presentation("직업", job_timestamps))
