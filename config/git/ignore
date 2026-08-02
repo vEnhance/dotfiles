@@ -40,4 +40,4 @@ pythontex_data.pkl
 
 .envrc
 .faterc
-.claude/
+.claude/settings.local.json
