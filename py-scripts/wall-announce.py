@@ -44,6 +44,76 @@ POLL_INTERVAL = 15
 POLL_TIMEOUT = 90
 
 
+BLOCKQUOTE_MARKER = re.compile(r"^ {0,3}(?:>\s?)+")
+LIST_MARKER = re.compile(r"^ {0,3}(?:[-*+]|\d{1,9}[.)])(?:\s|$)")
+
+
+def join_lines(lines: list[str]) -> list[str]:
+    r"""Join soft-wrapped lines, starting a fresh line at each list item.
+
+    >>> join_lines(["one", "two"])
+    ['one two']
+    >>> join_lines(["- first item", "  wrapped", "- second item"])
+    ['- first item wrapped', '- second item']
+    >>> join_lines(["text", "*emph* is not a bullet"])
+    ['text *emph* is not a bullet']
+    """
+    joined: list[str] = []
+    for line in lines:
+        if not line.strip():
+            continue
+        if joined and not LIST_MARKER.match(line):
+            joined[-1] += " " + line.strip()
+        else:
+            joined.append(line.strip())
+    return joined
+
+
+def unwrap_paragraph(para: str) -> str:
+    r"""Join the soft-wrapped lines of a single paragraph.
+
+    Blockquotes keep exactly one `>` marker, on the front of the joined line,
+    instead of dragging one along per soft-wrapped line; list items stay on
+    their own lines instead of being run together.
+
+    >>> unwrap_paragraph("line one\nline two")
+    'line one line two'
+    >>> unwrap_paragraph("> quoted one\n> quoted two")
+    '> quoted one quoted two'
+    >>> unwrap_paragraph("> lazy quote\ncontinuation")
+    '> lazy quote continuation'
+    >>> unwrap_paragraph("> quote one\n>\n> quote two")
+    '> quote one\n> quote two'
+    >>> unwrap_paragraph("- one\n- two")
+    '- one\n- two'
+    >>> unwrap_paragraph("1. first\n2. second that is\n   wrapped")
+    '1. first\n2. second that is wrapped'
+    >>> unwrap_paragraph("intro:\n- one\n- two")
+    'intro:\n- one\n- two'
+    >>> unwrap_paragraph("> - quoted one\n> - quoted two")
+    '> - quoted one\n> - quoted two'
+    """
+    lines = para.split("\n")
+    lead = ""
+    while lines and not lines[0].strip():
+        lead += lines.pop(0) + "\n"
+    if not lines:
+        return para
+    if not BLOCKQUOTE_MARKER.match(lines[0]):
+        return lead + "\n".join(join_lines(lines))
+    # a `>`-only line separates paragraphs inside the quote; keep them apart
+    groups: list[list[str]] = [[]]
+    for line in lines:
+        content = BLOCKQUOTE_MARKER.sub("", line)
+        if content.strip():
+            groups[-1].append(content)
+        elif groups[-1]:
+            groups.append([])
+    return lead + "\n".join(
+        "> " + line for group in groups if group for line in join_lines(group)
+    )
+
+
 def unwrap(text: str) -> str:
     r"""Join soft-wrapped lines within paragraphs, preserving code blocks.
 
@@ -55,6 +125,12 @@ def unwrap(text: str) -> str:
     'before\n\n```\ncode\nhere\n```\n\nafter'
     >>> unwrap("a\nb\n\n```python\nx = 1\ny = 2\n```\n\nc\nd")
     'a b\n\n```python\nx = 1\ny = 2\n```\n\nc d'
+    >>> unwrap("intro\n\n> quote a\n> quote b\n\nafter")
+    'intro\n\n> quote a quote b\n\nafter'
+    >>> unwrap("a\n\n```\n> code\n> quote\n```\n\n> real\n> quote")
+    'a\n\n```\n> code\n> quote\n```\n\n> real quote'
+    >>> unwrap("intro\n\n- one\n- two that is\n  wrapped\n\nafter")
+    'intro\n\n- one\n- two that is wrapped\n\nafter'
     """
     parts = re.split(r"(```.*?```)", text, flags=re.DOTALL)
     result = []
@@ -62,7 +138,7 @@ def unwrap(text: str) -> str:
         if i % 2 == 1:
             result.append(part)
         else:
-            result.append("\n\n".join(p.replace("\n", " ") for p in part.split("\n\n")))
+            result.append("\n\n".join(unwrap_paragraph(p) for p in part.split("\n\n")))
     return "".join(result)
 
 
