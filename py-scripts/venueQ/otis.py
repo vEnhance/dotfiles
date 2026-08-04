@@ -747,18 +747,9 @@ class Application(VenueQNode):
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
         data["staff_public_comments"] = self.read_temp(extension="md").strip()
-        if data["status"] == "accepted":
-            query_otis_server(
-                payload={
-                    "action": "apply_uuid",
-                    "uuid": data["uuid"],
-                    "percent_aid": data["percent_aid"],
-                }
-            )
-
         if data["status"] in ("accepted", "blacklisted", "hard_reject", "soft_reject"):
 
-            def callback():
+            def update_apply_server():
                 if query_apply_server(payload=data) is not None:
                     self.delete()
                     self.erase_temp(extension="md")
@@ -775,19 +766,30 @@ class Application(VenueQNode):
                 "by logging in to the account you used when you submitted."
             )
 
-            if (
-                data["is_publish_immediately"] is True
-                and data["email_on_decision"] is True
-            ):
-                send_email(
-                    subject=f"OTIS application for {name} was processed",
-                    recipients=[data["email"]],
-                    body=body,
-                    callback=callback,
-                    include_email_settings_link=False,
-                )
+            # for live containers, immediately upload to OTIS-WEB (if accepted)
+            # and immediately send notification email (if wanted by student)
+            if data["is_publish_immediately"] is True:
+                if data["status"] == "accepted":
+                    query_otis_server(
+                        payload={
+                            "action": "apply_uuid",
+                            "uuid": data["uuid"],
+                            "percent_aid": data["percent_aid"],
+                        }
+                    )
+                if data["email_on_decision"] is True:
+                    send_email(
+                        subject=f"OTIS application for {name} was processed",
+                        recipients=[data["email"]],
+                        body=body,
+                        callback=update_apply_server,
+                        include_email_settings_link=False,
+                    )
+                else:
+                    update_apply_server()
+                    subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
             else:
-                callback()
+                update_apply_server()
                 subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
 
         else:
