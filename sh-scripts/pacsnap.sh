@@ -3,7 +3,12 @@ set -euo pipefail
 
 pacman -Qqtten >~/Sync/pacman/"$(hostname)".pacman.paclist
 pacman -Qqttem >~/Sync/pacman/"$(hostname)".aur.paclist
-paclist chaotic-aur | cut -d " " -f 1 | sort | comm -23 - ~/Sync/pacman/excluded.txt >~/Sync/pacman/"$(hostname)".vote.paclist
+if pacman-conf --repo-list | grep -qxF chaotic-aur; then
+  paclist chaotic-aur | cut -d " " -f 1 | sort | comm -23 - ~/Sync/pacman/excluded.txt >~/Sync/pacman/"$(hostname)".vote.paclist
+else
+  echo "pacsnap: chaotic-aur is not a configured repo, skipping its paclist" >&2
+  : >~/Sync/pacman/"$(hostname)".vote.paclist
+fi
 pacman -Qqem | sort | comm -23 - ~/Sync/pacman/excluded.txt >>~/Sync/pacman/"$(hostname)".vote.paclist
 if [ "$(hostname)" = "$(jq --raw-output .pacman ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
   cd ~/Sync/pacman/ || exit 1
