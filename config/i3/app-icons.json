@@ -51,7 +51,7 @@
   "vlc": "play",
   "x-terminal-emulator": "digital-tachograph",
   "xfce4-terminal": "fish",
-  "zathura": "book-reader",
+  ".*zathura": "book-reader",
   "zoom": "video",
   "_no_match": "question"
 }
