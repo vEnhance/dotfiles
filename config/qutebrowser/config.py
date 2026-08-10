@@ -144,6 +144,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://mit.edu/*",
     r"*://orcid.org/*",
     r"*://poll.ma.pe/*",
+    r"*://positron11.github.io/*",
     r"*://projecteuler.net/*",
     r"*://pypi.org/*",
     r"*://nightbot.tv/*",
