@@ -9,7 +9,7 @@ Work in progress
 import argparse
 import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 
 import yaml
 from colorama import Back, Fore, Style, init
@@ -119,7 +119,7 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
-    committers: List[str] = args.emails
+    committers: list[str] = args.emails
     repo = Repo(args.repo, search_parent_directories=True)
     assert isinstance(repo.git_dir, str)
     git_dir_path = Path(repo.git_dir)
@@ -134,7 +134,7 @@ if __name__ == "__main__":
 
     # read wah data
     needs_save = False
-    data: Dict[str, Any]
+    data: dict[str, Any]
     if save_path.exists():
         data = yaml.load(save_path.read_text(), Loader=yaml.SafeLoader)
     else:
@@ -166,7 +166,7 @@ if __name__ == "__main__":
     min_lpm: float = data["min_lpm"] if data["min_lpm"] is not None else 0.1
     max_lpm: float = data["max_lpm"] if data["max_lpm"] is not None else 1
 
-    decision: Dict[str, bool] = data.get("decision", {})  # hexsha -> true or false
+    decision: dict[str, bool] = data.get("decision", {})  # hexsha -> true or false
     time = datetime.timedelta(hours=0)
     if args.verbose:
         print(
@@ -218,7 +218,7 @@ if __name__ == "__main__":
                         " ",
                         a.authored_datetime - commits[i - 1].authored_datetime,
                     )
-                    print("")
+                    print()
                 print("The next few commits are:")
                 for j in range(i + 1, min(i + 5, len(commits))):
                     c = commits[j]

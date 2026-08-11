@@ -8,6 +8,7 @@ __version__ = "2025-04-25"
 import argparse
 import os
 import sys
+from contextlib import ExitStack
 from pathlib import Path
 
 from oscar.parsers import merge_contest_data, parse_file, parse_stdin
@@ -79,37 +80,28 @@ def main():
 
     filenames = args.files
 
-    if not filenames:
-        contest = parse_stdin()
-        contest.name = args.name or "competition"
-        outfile = (
-            sys.stdout
-            if args.output == "-"
-            else (open(args.output, "w") if args.output else sys.stdout)
-        )
-        render(
-            contest,
-            outfile,
-            full=args.full,
-            terse=args.terse,
-            a=args.a,
-            b=args.b,
-            standalone=args.standalone,
-        )
-    else:
-        parts = [parse_file(Path(f)) for f in filenames]
-        contest = merge_contest_data(parts)
-        contest.name = (
-            args.name or contest.name or clean_name(os.path.basename(filenames[0]))
-        )
-
-        if args.output == "-":
-            outfile = sys.stdout
-        elif args.output is not None:
-            outfile = open(args.output, "w")
+    with ExitStack() as stack:
+        if not filenames:
+            contest = parse_stdin()
+            contest.name = args.name or "competition"
+            if args.output and args.output != "-":
+                outfile = stack.enter_context(open(args.output, "w"))
+            else:
+                outfile = sys.stdout
         else:
-            base = os.path.splitext(filenames[0])[0]
-            outfile = open(base + ".oscar.tex", "w")
+            parts = [parse_file(Path(f)) for f in filenames]
+            contest = merge_contest_data(parts)
+            contest.name = (
+                args.name or contest.name or clean_name(os.path.basename(filenames[0]))
+            )
+
+            if args.output == "-":
+                outfile = sys.stdout
+            elif args.output is not None:
+                outfile = stack.enter_context(open(args.output, "w"))
+            else:
+                base = os.path.splitext(filenames[0])[0]
+                outfile = stack.enter_context(open(base + ".oscar.tex", "w"))
 
         render(
             contest,
@@ -120,9 +112,6 @@ def main():
             b=args.b,
             standalone=args.standalone,
         )
-
-        if outfile is not sys.stdout:
-            outfile.close()
 
 
 if __name__ == "__main__":

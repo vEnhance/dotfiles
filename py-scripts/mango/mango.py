@@ -13,7 +13,6 @@ import re
 import sys
 from enum import Enum
 from pathlib import Path
-from typing import List, Optional
 
 MIN_WIDTH = 30  # Minimum width for left part of break
 PREF_WIDTH = 80  # Target width when wrapping lines
@@ -152,9 +151,7 @@ def is_list_item(line: str) -> bool:
     if stripped and stripped[0] in "-*+" and len(stripped) > 1 and stripped[1] == " ":
         return True
     # Ordered lists: 1., 2., etc.
-    if re.match(r"^\d+\.\s", stripped):
-        return True
-    return False
+    return bool(re.match(r"^\d+\.\s", stripped))
 
 
 def get_indent(line: str) -> str:
@@ -191,7 +188,7 @@ def find_break_point(
     available_width: int,
     natural_only: bool = False,
     preferred_width: int | None = None,
-) -> Optional[int]:
+) -> int | None:
     """
     Find the optimal break point in text before available_width.
     Priority: sentence endings (. ! ?), then commas/semicolons, then spaces.
@@ -244,7 +241,7 @@ def wrap_paragraph(
     natural_only: bool = False,
     preferred_width: int | None = None,
     preserve_indent: bool = False,
-) -> List[str]:
+) -> list[str]:
     """
     Wrap a paragraph at natural break points.
     Returns a list of wrapped lines.
@@ -347,7 +344,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
     try:
         with open(filepath, "r", encoding="utf-8") as f:
             lines = f.readlines()
-    except Exception as e:
+    except (OSError, UnicodeDecodeError) as e:
         print(f"Error reading {filepath}: {e}", file=sys.stderr)
         return
 
@@ -432,9 +429,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
             if j == 0:
                 output_lines.append(prefix + wrapped_line + "\n")
             else:
-                if file_type == FileType.LATEX:
-                    continuation_prefix = prefix
-                elif line_stripped.startswith("> "):  # blockquote
+                if file_type == FileType.LATEX or line_stripped.startswith("> "):
                     continuation_prefix = prefix
                 else:
                     continuation_prefix = " " * len(prefix)
@@ -447,7 +442,7 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
         try:
             with open(filepath, "w", encoding="utf-8") as f:
                 f.writelines(output_lines)
-        except Exception as e:
+        except (OSError, UnicodeEncodeError) as e:
             print(f"Error writing {filepath}: {e}", file=sys.stderr)
 
 

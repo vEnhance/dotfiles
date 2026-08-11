@@ -7,12 +7,13 @@ import ssl
 import subprocess
 import time
 import webbrowser
-from datetime import datetime, timezone
+from collections.abc import Callable
+from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any, Callable, List, Optional, Type
+from typing import Any, ClassVar
 
 import markdown
 import requests
@@ -63,7 +64,7 @@ def linkify(url: str | None) -> str:
 
 def send_email(
     subject: str,
-    recipients: List[str],
+    recipients: list[str],
     body: str,
     callback: None | Callable[[], None] = None,
     include_email_settings_link=True,
@@ -99,7 +100,9 @@ def send_email(
 
         if len(recipients) == 0:
             logger.warning("No valid recipients at this point, so no email sent.")
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
+            subprocess.run(
+                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"], check=False
+            )
             if callback is not None:
                 callback()
             return
@@ -112,12 +115,18 @@ def send_email(
             session.starttls(context=ssl.create_default_context())
             session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
             session.sendmail("overlord@evanchen.cc", recipients, mail.as_string())
-        except Exception as e:
+        # Deliberately broad: a failed email must never take down the daemon,
+        # and this covers SMTP, TLS and the assertions above alike.
+        except Exception as e:  # noqa: BLE001
             logger.error(f"Email '{subject}' failed to send", exc_info=e)
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
+            subprocess.run(
+                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"], check=False
+            )
         else:
             logger.info(f"Email '{subject}' sent successfully!")
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "0"])
+            subprocess.run(
+                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "0"], check=False
+            )
             if callback is not None:
                 callback()
 
@@ -130,7 +139,7 @@ def send_email(
 
 def query_server(
     payload: Data, token: str, target_url: str
-) -> Optional[requests.Response]:
+) -> requests.Response | None:
     payload["token"] = "redacted"
     logger.info(payload)
     payload["token"] = token
@@ -152,23 +161,25 @@ def query_server(
                 f"{target_url} threw an exception with status code {resp.status_code}\n"
                 + resp.content.decode("utf-8")
             )
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"])
+            subprocess.run(
+                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"], check=False
+            )
             return None
 
 
-def query_otis_server(payload: Data) -> Optional[requests.Response]:
+def query_otis_server(payload: Data) -> requests.Response | None:
     assert OTIS_WEB_TOKEN is not None
     return query_server(payload, token=OTIS_WEB_TOKEN, target_url=OTIS_API_URL)
 
 
-def query_apply_server(payload: Data) -> Optional[requests.Response]:
+def query_apply_server(payload: Data) -> requests.Response | None:
     assert APPLY_TOKEN is not None
     return query_server(payload, token=APPLY_TOKEN, target_url=APPLY_API_URL)
 
 
 class ProblemSet(VenueQNode):
     EXTENSIONS = ("pdf", "txt", "tex", "jpg", "png")
-    HARDNESS_CHART = {
+    HARDNESS_CHART: ClassVar[dict[str, int]] = {
         "E": 2,
         "M": 3,
         "H": 5,
@@ -203,7 +214,7 @@ class ProblemSet(VenueQNode):
         "num_accepted_current",
     )
 
-    ext: Optional[str] = None
+    ext: str | None = None
 
     def get_initial_data(self) -> Data:
         return {
@@ -213,7 +224,7 @@ class ProblemSet(VenueQNode):
     def get_name(self, data: Data) -> str:
         return str(data["pk"])
 
-    def get_path(self, ext: Optional[str] = None):
+    def get_path(self, ext: str | None = None):
         if ext is None:
             assert self.ext is not None
             ext = self.ext
@@ -268,9 +279,9 @@ class ProblemSet(VenueQNode):
             num_problems = 0
             with open(handouts[0]) as f:
                 for line in f:
-                    if (m := ProblemSet.VON_RE.match(line)) is not None:
-                        d, *_ = m.groups()
-                    elif (m := ProblemSet.PROB_RE.match(line)) is not None:
+                    if (m := ProblemSet.VON_RE.match(line)) is not None or (
+                        m := ProblemSet.PROB_RE.match(line)
+                    ) is not None:
                         d, *_ = m.groups()
                     elif (m := ProblemSet.GOAL_RE.match(line)) is not None:
                         a, b = m.groups()
@@ -328,7 +339,7 @@ class ProblemSet(VenueQNode):
             logger.info(f"Trying to fetch {url}")
             try:
                 file_response = requests.get(url=url)
-            except Exception:
+            except requests.RequestException:
                 logger.warning(f"Could not get {url}")
             else:
                 self.get_path().write_bytes(file_response.content)
@@ -480,7 +491,9 @@ class ProblemSet(VenueQNode):
             else:
                 logger.warning("Server query failed, so no action taken")
         elif comments_to_email != "":
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"])
+            subprocess.run(
+                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"], check=False
+            )
             logger.info(
                 "Did not attempt to process submission "
                 f"because status was set to {data['status']}"
@@ -488,7 +501,7 @@ class ProblemSet(VenueQNode):
 
 
 class ProblemSetCarrier(VenueQNode):
-    def get_class_for_child(self, data: Data) -> Type[ProblemSet]:
+    def get_class_for_child(self, data: Data) -> type[ProblemSet]:
         del data
         return ProblemSet
 
@@ -508,24 +521,24 @@ class Inquiries(VenueQNode):
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
-        if data["accept_all"]:
-            if query_otis_server(payload={"action": "accept_inquiries"}):
-                body = "This is an automated message to notify you that your recent unit petition\n"
-                body += f"was processed on {datetime.now(timezone.utc).strftime('%-d %B %Y, %H:%M')} UTC."
-                body += "\n\n"
-                body += f"Have a nice {datetime.now(timezone.utc).strftime('%A')}."
-                recipients = [
-                    inquiry["student__user__email"]
-                    for inquiry in data["inquiries"]
-                    if inquiry["student__user__profile__email_on_inquiry_complete"]
-                    is True
-                ]
-                send_email(
-                    subject="OTIS unit petition processed",
-                    recipients=recipients,
-                    body=body,
-                    callback=self.delete,
-                )
+        if data["accept_all"] and query_otis_server(
+            payload={"action": "accept_inquiries"}
+        ):
+            body = "This is an automated message to notify you that your recent unit petition\n"
+            body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
+            body += "\n\n"
+            body += f"Have a nice {datetime.now(UTC).strftime('%A')}."
+            recipients = [
+                inquiry["student__user__email"]
+                for inquiry in data["inquiries"]
+                if inquiry["student__user__profile__email_on_inquiry_complete"] is True
+            ]
+            send_email(
+                subject="OTIS unit petition processed",
+                recipients=recipients,
+                body=body,
+                callback=self.delete,
+            )
 
 
 class Suggestion(VenueQNode):
@@ -560,14 +573,15 @@ class Suggestion(VenueQNode):
                     + "}.",
                     file=f,
                 )
-                print("", file=f)
+                print(file=f)
             print(self.solution, file=f)
         subprocess.run(
             args=[
                 "python",
                 Path("~/dotfiles/py-scripts/mango.py").expanduser(),
                 tmp_path,
-            ]
+            ],
+            check=False,
         )
         args = ["xfce4-terminal", "-x", "python", "-m"]
         args += ["von", "add", data["source"], "-f", tmp_path]
@@ -712,7 +726,7 @@ class JobCarrier(VenueQNode):
 
 
 class Application(VenueQNode):
-    homework_pdf_path: Optional[Path] = None
+    homework_pdf_path: Path | None = None
 
     def get_name(self, data: Data) -> str:
         return str(data["uuid"])
@@ -730,7 +744,7 @@ class Application(VenueQNode):
                 logger.info(f"Trying to fetch {pdf_url}")
                 try:
                     file_response = requests.get(url=pdf_url)
-                except Exception:
+                except requests.RequestException:
                     logger.warning(f"Could not get {pdf_url}")
                 else:
                     path.write_bytes(file_response.content)
@@ -760,7 +774,7 @@ class Application(VenueQNode):
                 "You are receiving this message because you checked the box "
                 "asking to be notified by email when your application was reviewed.\n\n"
                 "We're letting you know that your OTIS application was reviewed at "
-                f"{datetime.now(timezone.utc).strftime('%-d %B %Y, %H:%M')} UTC. "
+                f"{datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC. "
                 "You can see the decision (and comments if any) on the "
                 f"website {linkify('https://apply.evanchen.cc')} "
                 "by logging in to the account you used when you submitted."
@@ -787,13 +801,19 @@ class Application(VenueQNode):
                     )
                 else:
                     update_apply_server()
-                    subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
+                    subprocess.run(
+                        [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"], check=False
+                    )
             else:
                 update_apply_server()
-                subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"])
+                subprocess.run(
+                    [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"], check=False
+                )
 
         else:
-            subprocess.run([NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"])
+            subprocess.run(
+                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"], check=False
+            )
 
 
 class ApplicationCarrier(VenueQNode):

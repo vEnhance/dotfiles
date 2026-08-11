@@ -44,7 +44,7 @@ def get_table_cell(s: int, n: int, N: int) -> str:
         color = "green"
     else:
         raise ValueError(f"No color for s = {s}")
-    intensity = int(round((n / N) ** (0.6) * 100))
+    intensity = round((n / N) ** (0.6) * 100)
     return r"{\cellcolor{%s!%d!white} %d}" % (color, int(intensity), n)
 
 

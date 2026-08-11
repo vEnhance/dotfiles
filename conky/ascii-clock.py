@@ -2,7 +2,7 @@
 
 import datetime
 import sys
-from typing import Any, List
+from typing import Any
 
 now = datetime.datetime.now()
 
@@ -10,7 +10,7 @@ hour = now.hour % 12
 minute = now.minute
 second = now.second
 
-data: List[List[Any]] = [
+data: list[list[Any]] = [
     [52.5, 55, 57.5, 0, 2.5, 5, 7.5],
     [50, None, "E", "0", "1", None, 10],
     [47.5, "T", None, None, None, "2", 12.5],
@@ -46,7 +46,7 @@ for row in data:
             else:
                 s += r"${color #999999}"
                 s += x
-        elif isinstance(x, float) or isinstance(x, int):
+        elif isinstance(x, (float, int)):
             if (minute + second / 60) >= x:
                 s += r"${color #66DDDD}◘"
             else:

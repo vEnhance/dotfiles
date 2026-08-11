@@ -1,7 +1,7 @@
 import argparse
 import datetime
 from calendar import TextCalendar
-from typing import Any, List, Tuple
+from typing import Any
 
 import humanize  # ty: ignore[unresolved-import]
 import pytz
@@ -27,12 +27,12 @@ now = datetime.datetime.now(tz)
 interval_start = now + datetime.timedelta(hours=-options.get("past", 8))
 interval_end = now + datetime.timedelta(hours=options.get("future", 60))
 
-calendars: List[Tuple[str, Any]] = [
+calendars: list[tuple[str, Any]] = [
     (_["name"], Calendar.from_ical(requests.get(_["url"]).text))
     for _ in options["calendars"]
 ]
 
-events: List[Tuple[str, Event]] = []
+events: list[tuple[str, Event]] = []
 for calname, calendar in calendars:
     for component in recurring_ical_events.of(calendar).between(
         interval_start, interval_end

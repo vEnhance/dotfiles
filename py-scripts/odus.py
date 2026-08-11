@@ -9,7 +9,6 @@ import collections
 import glob
 import os
 import re
-from typing import DefaultDict, Dict, Tuple
 
 import von.api
 from von.model import VonCache, VonIndex
@@ -75,12 +74,12 @@ else:
     files = args.files
     detect_missing = False
 
-repeat_count_dict: DefaultDict[str, int] = collections.defaultdict(int)
-seen: DefaultDict[str, dict] = collections.defaultdict(
+repeat_count_dict: collections.defaultdict[str, int] = collections.defaultdict(int)
+seen: collections.defaultdict[str, dict] = collections.defaultdict(
     dict
 )  # only if detect_missing is False
 seen_set = set()  # only if detect_missing is True
-goals: Dict[str, Tuple[int, int]] = {}
+goals: dict[str, tuple[int, int]] = {}
 
 hardness_chart = {
     "E": 2,
@@ -141,7 +140,7 @@ if detect_missing is False:
             print(f"{status_string} {src_display:28} {desc}")
 
         if len(data) > 1:
-            for fn in data.keys():
+            for fn in data:
                 if data[fn][0] > 0:
                     repeat_count_dict[fn] += 1
 

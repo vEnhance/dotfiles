@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 ** ADAPTED FROM https://github.com/cryzed/bin **
 Original author: Chris Braun
@@ -24,8 +25,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 
-#!/usr/bin/env python3
-
 import argparse
 import collections
 import getpass
@@ -34,7 +33,6 @@ import re
 import subprocess
 import time
 from pathlib import Path
-from typing import List
 
 import bs4
 import requests
@@ -112,7 +110,7 @@ PATH_TO_VOTE = Path("~/Sync/pacman/").expanduser()
 
 
 def get_used_aur_packages() -> set[str]:
-    out: List[str] = []
+    out: list[str] = []
     for fname in PATH_TO_VOTE.glob("*.vote.paclist"):
         with open(fname) as f:
             for line in f:
@@ -125,13 +123,10 @@ def get_used_aur_packages() -> set[str]:
     ).splitlines()
     for line in normal_packages_lines:
         pkgname = line.split(" ")[0]
-        if pkgname in ret:
-            ret.remove(pkgname)
+        ret.discard(pkgname)
 
-    if "chaotic-mirrorlist" in ret:
-        ret.remove("chaotic-mirrorlist")
-    if "chaotic-keyring" in ret:
-        ret.remove("chaotic-keyring")
+    ret.discard("chaotic-mirrorlist")
+    ret.discard("chaotic-keyring")
     return ret
 
 
@@ -174,7 +169,9 @@ def unvote_package(session, package):
 # TODO: Handle split packages better
 def main(arguments):
     password = (
-        subprocess.run(["pass", "show", "aur"], text=True, capture_output=True).stdout
+        subprocess.run(
+            ["pass", "show", "aur"], text=True, capture_output=True, check=False
+        ).stdout
         or os.environ.get("AUR_AUTO_VOTE_PASSWORD")
         or getpass.getpass("Password: ")
     )
@@ -183,12 +180,12 @@ def main(arguments):
     if not login(session, arguments.username, password):
         argument_parser.exit(EXIT_FAILURE, "Could not login.\n")
 
-    voted_packages = set(tuple(p.name for p in sorted(get_voted_packages(session))))
+    voted_packages = {p.name for p in sorted(get_voted_packages(session))}
 
     # Unvote all packages and return immediately if --unvote-all was passed
     if arguments.unvote_all:
         for package in voted_packages:
-            print("Unvoting package: %s... " % package, end="", flush=True)
+            print(f"Unvoting package: {package}... ", end="", flush=True)
             if unvote_package(session, package):
                 print("done.")
             else:
@@ -203,7 +200,7 @@ def main(arguments):
             print("Not voting for ignored package:", package)
             continue
 
-        print("Voting for package: %s... " % package, end="", flush=True)
+        print(f"Voting for package: {package}... ", end="", flush=True)
         if vote_package(session, package):
             print("done.")
         else:
@@ -220,7 +217,7 @@ def main(arguments):
             print("Not unvoting ignored package:", package)
             continue
 
-        print("Unvoting removed package: %s... " % package, end="", flush=True)
+        print(f"Unvoting removed package: {package}... ", end="", flush=True)
         if unvote_package(session, package):
             print("done.")
         else:

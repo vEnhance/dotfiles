@@ -14,7 +14,8 @@ parser.add_argument(
 parser.add_argument("input", nargs="?", default="-")
 
 opts = parser.parse_args()
-stream = sys.stdin if opts.input == "-" else open(opts.input)  # input stream
+# Lives for the whole program; no point wrapping the entire solution in a `with`
+stream = sys.stdin if opts.input == "-" else open(opts.input)  # noqa: SIM115
 
 
 def debug(*args: Any):

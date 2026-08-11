@@ -1,0 +1,22 @@
+# Repo-local overrides layered on top of the global config in config/ruff/.
+extend = "config/ruff/ruff.toml"
+
+# Third-party submodule; not ours to lint or reformat.
+extend-exclude = ["config/i3/3kon"]
+
+[lint]
+ignore = [
+  # These are personal desktop/conky scripts run on one machine, where naive
+  # local time is the intent, not an oversight.
+  "DTZ002",
+  "DTZ005",
+  "DTZ011",
+]
+
+[lint.per-file-ignores]
+# These emit brace-heavy template markup -- LaTeX for oscar, conky's ${...} for
+# prettycal -- where percent-formatting avoids doubling every brace in the file.
+"py-scripts/oscar/*.py" = ["UP031"]
+"conky/prettycal.py" = ["UP031"]
+# Package name is fixed by the upstream venueQ project.
+"py-scripts/venueQ/*.py" = ["N999"]

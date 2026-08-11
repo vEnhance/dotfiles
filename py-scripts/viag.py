@@ -20,7 +20,7 @@ EDITOR = ["vim", "-c", "set filetype=silversearch"]
 
 # Get GREPPRG output for Vim to read
 with tempfile.NamedTemporaryFile() as tf:
-    subprocess.run(GREPPRG + sys.argv[1:], stdout=tf)
+    subprocess.run(GREPPRG + sys.argv[1:], stdout=tf, check=False)
     subprocess.call(EDITOR + [tf.name])
     tf.seek(0)
     directives = tf.read().decode("utf-8")
@@ -34,7 +34,8 @@ all_changes: defaultdict[str, dict[int, str]] = defaultdict(dict)
 for line in directives.splitlines():
     if line == "--":
         continue
-    assert (m := RE_HIT.match(line)) is not None
+    m = RE_HIT.match(line)
+    assert m is not None
     all_changes[m.group("filename")][int(m.group("lineno"))] = m.group("content") + "\n"
 
 # Write the changes

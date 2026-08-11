@@ -163,11 +163,11 @@ if opts.alice is True:
         p = generate_n_bit_prime(N)
         Y = [pow(m + i, d, n) for i in range(MAX)]
         Z = [y % p for y in Y]
-        sortedZ = list(sorted(Z))
+        sortedZ = sorted(Z)
         if all(sortedZ[i] - sortedZ[i - 1] >= 3 for i in range(1, MAX)):
             break
     with open(PAYLOAD_FILENAME, "w") as f:
-        W = tuple((Z[i] + int(i > SI) - int(i < SI)) % p for i in range(0, MAX))
+        W = tuple((Z[i] + int(i > SI) - int(i < SI)) % p for i in range(MAX))
         json.dump(
             {"m": m, "p": p, "stream": W},
             fp=f,

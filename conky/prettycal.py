@@ -8,7 +8,6 @@ from enum import IntEnum
 from itertools import chain
 from pathlib import Path
 from socket import gethostname
-from typing import Dict, List, Optional
 
 from dateutil.parser import isoparse
 
@@ -48,7 +47,7 @@ class Type(IntEnum):
 
 @functools.total_ordering
 class CalItem:
-    def __init__(self, text: str, when: datetime, t: Type, color: Optional[str] = None):
+    def __init__(self, text: str, when: datetime, t: Type, color: str | None = None):
         self.text = text
         self.when = when
         self.type = t
@@ -115,11 +114,13 @@ class CalItem:
         return s
 
 
-all_items: Dict[Optional[date], List[CalItem]] = defaultdict(list)
+all_items: dict[date | None, list[CalItem]] = defaultdict(list)
 
 # Get taskwarrior stuff
-task_cmd_args = "task status:pending or status:waiting export".split(" ")
-tasks_json = subprocess.run(task_cmd_args, capture_output=True).stdout.decode("utf-8")
+task_cmd_args = ["task", "status:pending", "or", "status:waiting", "export"]
+tasks_json = subprocess.run(
+    task_cmd_args, capture_output=True, check=False
+).stdout.decode("utf-8")
 tasks_dicts = json.loads(tasks_json)
 for t in tasks_dicts:
     text = t["description"]

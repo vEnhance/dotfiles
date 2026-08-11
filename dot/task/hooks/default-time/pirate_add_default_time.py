@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-from __future__ import print_function
 
 from datetime import time
 from zoneinfo import ZoneInfo

@@ -22,14 +22,14 @@ OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 OTIS_WEB_TOKEN = get_pass("evanchen.cc/otis")
 assert OTIS_WEB_TOKEN is not None
 
-setattr(yaml.SafeDumper, "orig_represent_str", yaml.SafeDumper.represent_str)
+yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str
 
 
 def repr_str(dumper, data):
     if "\n" in data:
         data = data.replace("\r", "")
         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
-    return getattr(dumper, "orig_represent_str")(data)
+    return dumper.orig_represent_str(data)
 
 
 yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
@@ -77,7 +77,7 @@ if resp.status_code != 200:
 
 # hack to get the dictionary keys in the order we want
 OLD_HINT_KEYS = ("number", "keywords", "content", "pk")
-old_hints = [dict([(k, d[k]) for k in OLD_HINT_KEYS]) for d in resp.json()["hints"]]
+old_hints = [{k: d[k] for k in OLD_HINT_KEYS} for d in resp.json()["hints"]]
 
 initial_message = yaml.dump(
     {

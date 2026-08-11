@@ -76,18 +76,18 @@ elif "/" not in target:
             else:
                 break
 
-    directories = set(x[: x.rfind("/")] for x in locations)
+    directories = {x[: x.rfind("/")] for x in locations}
     if len(directories) > 1:
         for i, place in enumerate(locations):
             print(i, "\t" + place)
         try:
             user_input = input("Please enter an index: ")
-        except (KeyboardInterrupt, EOFError):
+        except KeyboardInterrupt, EOFError:
             user_input = ""
-            print("")
+            print()
         if not user_input:
             with open(HUNT_OUT_PATH, "w") as f:
-                print("", file=f)
+                print(file=f)
                 sys.exit(65)
         j = int(user_input)
     else:

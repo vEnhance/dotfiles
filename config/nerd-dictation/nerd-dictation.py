@@ -102,7 +102,7 @@ def nerd_dictation_process(text):
     # Stop dictation if the stop sequence appears
     if tuple(x.upper() for x in words[-len(STOP_SEQUENCE) :]) == STOP_SEQUENCE:
         words = words[: -len(STOP_SEQUENCE)]
-        subprocess.run([DICTATION_LAUNCHER_PATH, "stop"])
+        subprocess.run([DICTATION_LAUNCHER_PATH, "stop"], check=False)
 
     text = " ".join(words)
 

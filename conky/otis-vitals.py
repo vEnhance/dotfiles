@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import List, Tuple
 
 import yaml
 
@@ -12,7 +11,7 @@ OTIS_ROOT = Path("/tmp/queue-for-otis/") / "Root"
 
 # Problem sets
 pset_dir = OTIS_ROOT / "Problem sets"
-pset_timestamps: List[str] = []
+pset_timestamps: list[str] = []
 if pset_dir.exists():
     for pset_file in pset_dir.glob("*.venueQ.yaml"):
         with open(pset_file) as f:
@@ -31,7 +30,7 @@ if inquiries_path.exists():
 
 # Suggestions
 suggest_dir = OTIS_ROOT / "Suggestions"
-suggestion_timestamps: List[str] = []
+suggestion_timestamps: list[str] = []
 if suggest_dir.exists():
     for suggest_file in suggest_dir.glob("*.venueQ.yaml"):
         with open(suggest_file) as f:
@@ -40,7 +39,7 @@ if suggest_dir.exists():
 
 # Jobs
 job_dir = OTIS_ROOT / "Jobs"
-job_timestamps: List[str] = []
+job_timestamps: list[str] = []
 if job_dir.exists():
     for job_file in job_dir.glob("*.venueQ.yaml"):
         with open(job_file) as f:
@@ -49,7 +48,7 @@ if job_dir.exists():
 
 # Applications
 app_dir = OTIS_ROOT / "Applications"
-app_timestamps: List[str] = []
+app_timestamps: list[str] = []
 if app_dir.exists():
     for app_file in app_dir.glob("*.venueQ.yaml"):
         with open(app_file) as f:
@@ -57,7 +56,7 @@ if app_dir.exists():
             app_timestamps.append(yaml_data["created_at"])
 
 
-def get_stats(x: List[str]) -> Tuple[timedelta, int]:
+def get_stats(x: list[str]) -> tuple[timedelta, int]:
     n = len(x)
     if n == 0:
         return (timedelta(0), 0)
@@ -68,10 +67,10 @@ def get_stats(x: List[str]) -> Tuple[timedelta, int]:
             m = f"{m[:10]}T{m[11:13]}:{m[13:15]}:{m[15:17]}Z"
         m = m.rstrip("Z")  # take out the trailing Z
         m = m[:19] + "+00:00"  # set in UTC time
-        return (datetime.now(timezone.utc) - datetime.fromisoformat(m), n)
+        return (datetime.now(UTC) - datetime.fromisoformat(m), n)
 
 
-def get_conky_presentation(s: str, x: List[str]) -> str:
+def get_conky_presentation(s: str, x: list[str]) -> str:
     m, n = get_stats(x)
     hours = int(m.total_seconds() / 3600)
     if hours > 96:

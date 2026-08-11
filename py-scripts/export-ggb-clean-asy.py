@@ -73,13 +73,12 @@ try:
         if line == "" or r"/* draw figures */" in line:  # end preamble
             # print(r'/* end preamble */', file=output_buffer)
             break
-        elif "real labelscalefactor" in line:
-            continue
-        elif "pen dps" in line:
-            continue
-        elif "pen dotstyle" in line:
-            continue
-        elif "real xmin" in line:
+        elif (
+            "real labelscalefactor" in line
+            or "pen dps" in line
+            or "pen dotstyle" in line
+            or "real xmin" in line
+        ):
             continue
         elif line.startswith("pair "):
             # collect the coordinates of all the points
@@ -97,9 +96,7 @@ try:
         line = replace_numbers(line).strip()
         if r"dots and labels" in line:  # end figures
             break
-        elif r"draw figures" in line:  # ignore this line
-            continue
-        elif r"grid" in line:  # delete grid
+        elif r"draw figures" in line or r"grid" in line:  # ignore this line
             continue
         line = line.replace("linewidth(2.)", "linewidth(0.6)")
         print(line.strip(), file=output_buffer)
@@ -173,7 +170,7 @@ try:
     else:
         print(output)
 
-except Exception:
+except Exception:  # noqa: BLE001  # top-level handler: dump input and traceback, then bail
     print(input_contents[0:500])
     print("-" * 50)
     traceback.print_exc()

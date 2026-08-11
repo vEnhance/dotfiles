@@ -10,9 +10,9 @@ for use with blink.cmp in Neovim.
 
 import json
 import re
+import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, List
 
 
 @dataclass
@@ -21,7 +21,7 @@ class Snippet:
 
     trigger: str
     description: str
-    body: List[str]
+    body: list[str]
     flags: str = ""
 
 
@@ -33,7 +33,7 @@ class UltiSnipsParser:
             r'^snippet\s+(\S+)(?:\s+"([^"]*)")?\s*([iAwb]*)\s*$'
         )
 
-    def parse_file(self, file_path: Path) -> List[Snippet]:
+    def parse_file(self, file_path: Path) -> list[Snippet]:
         """Parse a single UltiSnips file and return list of snippets."""
         snippets = []
 
@@ -111,7 +111,7 @@ class VSCodeConverter:
 
         return text
 
-    def convert_snippet(self, snippet: Snippet) -> Dict:
+    def convert_snippet(self, snippet: Snippet) -> dict:
         """Convert a single snippet to VSCode format."""
         # Convert body lines
         converted_body = []
@@ -125,7 +125,7 @@ class VSCodeConverter:
             "description": snippet.description,
         }
 
-    def convert_snippets(self, snippets: List[Snippet]) -> Dict:
+    def convert_snippets(self, snippets: list[Snippet]) -> dict:
         """Convert a list of snippets to VSCode JSON format."""
         result = {}
 
@@ -169,7 +169,7 @@ class SnippetConverter:
             # File is in root, use filename without extension
             return file_path.stem
 
-    def collect_snippet_files(self) -> Dict[str, List[Path]]:
+    def collect_snippet_files(self) -> dict[str, list[Path]]:
         """Collect all snippet files grouped by language."""
         files_by_language = {}
 
@@ -182,7 +182,7 @@ class SnippetConverter:
 
         return files_by_language
 
-    def convert_language(self, language: str, file_paths: List[Path]) -> Dict:
+    def convert_language(self, language: str, file_paths: list[Path]) -> dict:
         """Convert all snippets for a given language."""
         all_snippets = []
 
@@ -193,7 +193,7 @@ class SnippetConverter:
 
         return self.converter.convert_snippets(all_snippets)
 
-    def create_package_json(self, languages: List[str]) -> Dict:
+    def create_package_json(self, languages: list[str]) -> dict:
         """Create package.json for VSCode snippets."""
         snippets_config = []
 
@@ -261,4 +261,4 @@ def main():
 
 
 if __name__ == "__main__":
-    exit(main())
+    sys.exit(main())

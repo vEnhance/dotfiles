@@ -4,18 +4,18 @@ import subprocess
 import time
 from pathlib import Path
 from pprint import pformat
-from typing import TYPE_CHECKING, Any, Dict, List, Optional
+from typing import TYPE_CHECKING, Any
 
 import yaml
 
-setattr(yaml.SafeDumper, "orig_represent_str", yaml.SafeDumper.represent_str)
+yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str
 
 
 def repr_str(dumper: yaml.SafeDumper, data: str) -> yaml.ScalarNode:
     if "\n" in data:
         data = data.replace("\r", "")
         return dumper.represent_scalar("tag:yaml.org,2002:str", data, style="|")
-    return getattr(dumper, "orig_represent_str")(data)
+    return dumper.orig_represent_str(data)
 
 
 yaml.add_representer(str, repr_str, Dumper=yaml.SafeDumper)
@@ -43,7 +43,7 @@ else:
 
 VENUE_NAME_FIELD = "_name"
 VENUE_CHILDREN_FIELD = "_children"
-Data = Dict[str, Any]
+Data = dict[str, Any]
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -58,7 +58,7 @@ if VIM_ENABLED:
             VIM_LOG_BUFFER = b
             break
     else:
-        raise Exception("Couldn't find the venueQ log buffer")
+        raise RuntimeError("Couldn't find the venueQ log buffer")
 
     class VimLogHandler(logging.Handler):
         level = 0
@@ -84,12 +84,12 @@ if VIM_ENABLED:
 
 class VenueQNode:
     name: str = ""  # name must be unique
-    parent: Optional["VenueQNode"]
-    root: "VenueQRoot"
+    parent: VenueQNode | None
+    root: VenueQRoot
     is_directory = False
     is_root = False
 
-    def __init__(self, data: Data, parent: Optional["VenueQNode"] = None):
+    def __init__(self, data: Data, parent: VenueQNode | None = None):
         self.name = self.get_name(data)
         if parent is None:
             self.parent = self
@@ -136,7 +136,7 @@ class VenueQNode:
             vim.command(f":split {p}")
             vim.command(r":filetype detect")
         else:
-            subprocess.run(["vim", p], shell=True)
+            subprocess.run(["vim", p], shell=True, check=False)
 
     def read_temp(self, extension: str, name: str | None = None):
         if self.temp_path(extension, name).exists():
@@ -186,8 +186,8 @@ class VenueQNode:
         return self.path.read_text()
 
     @property
-    def debug_dict(self) -> Dict[str, Any]:
-        d: Dict[str, Any] = self.data
+    def debug_dict(self) -> dict[str, Any]:
+        d: dict[str, Any] = self.data
         d["CLASS"] = type(self)
         d["PATH"] = self.path
         return d
@@ -206,11 +206,9 @@ class VenueQNode:
 
     def init_hook(self):
         """Hook called just before saving data each time the node is initialized"""
-        pass
 
     def process_data(self):
         """ "Post update hook called each time this node has its dictionary updated"""
-        pass
 
     def get_extension(self) -> str:
         """Returns the file extension for these venueQ nodes"""
@@ -238,26 +236,26 @@ class VenueQNode:
         """This method is called when the buffer is loaded.
         This is called with an argument data = self.load().
         Override this to perform actions."""
-        logging.info(f"Opened buffer {self.path}")
+        logger.info(f"Opened buffer {self.path}")
 
     def on_buffer_close(self, data: Data):
         """This method is called when the disk data is edited and saved.
         This is called with an argument data = self.load().
         Override this to perform actions."""
-        logging.info(f"Closed buffer {self.path}")
+        logger.info(f"Closed buffer {self.path}")
         self.data.update(data)
 
 
 class VenueQRoot(VenueQNode):
     is_root = True
-    lookup: Dict[str, "VenueQNode"]
+    lookup: dict[str, VenueQNode]
 
-    def __init__(self, data: Data, root_dir: Path, shelf_life: Optional[float] = None):
+    def __init__(self, data: Data, root_dir: Path, shelf_life: float | None = None):
         if not root_dir.exists():
             root_dir.mkdir()
         root_dir = root_dir.resolve()
         self.lookup = {}
-        self.wipe_queue: List[int] = []
+        self.wipe_queue: list[int] = []
         self.root = self
         self.root_dir = root_dir
         self.shelf_life = shelf_life  # in hours: redownload any nodes older than this
@@ -298,7 +296,7 @@ class VenueQRoot(VenueQNode):
                 try:
                     vim.command(f"bdelete! {bn}")
                 except vim.error:
-                    logging.warning(
+                    logger.warning(
                         f"Could not delete buffer {bn}, maybe it was deleted already."
                     )
             self.wipe_queue = []

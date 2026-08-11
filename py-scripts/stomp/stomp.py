@@ -110,7 +110,7 @@ if __name__ == "__main__":
                 print(cargo_toml_content.strip(), file=f)
         sys.exit(0)
     elif not main_path.exists():
-        raise Exception(f"{main_path} doesn't exist")
+        raise FileNotFoundError(f"{main_path} doesn't exist")
 
     if PROGRAM_TYPE == "C++":
         print("⏳ Compiling C++ code...")
@@ -132,6 +132,7 @@ if __name__ == "__main__":
             ],
             stdout=sys.stdout,
             stderr=sys.stderr,
+            check=False,
         )
         if compile_process.returncode != 0:
             print(
@@ -153,6 +154,7 @@ if __name__ == "__main__":
             ],
             stdout=sys.stdout,
             stderr=sys.stderr,
+            check=False,
         )
         if compile_process.returncode != 0:
             print(
@@ -196,6 +198,7 @@ if __name__ == "__main__":
                         stdout=gen_input_file,
                         stderr=sys.stderr,
                         text=True,
+                        check=False,
                     )
                 if input_gen_process.returncode == 0:
                     print(
@@ -222,19 +225,13 @@ if __name__ == "__main__":
             open(stdout_path, "w") as stdout_file,
             open(stderr_path, "w") as stderr_file,
         ):
-            if PROGRAM_TYPE == "C++":
+            if PROGRAM_TYPE == "C++" or PROGRAM_TYPE == "RUST":
                 process = subprocess.run(
                     [binary_output_path],
                     stdin=input_file,
                     stdout=stdout_file,
                     stderr=stderr_file,
-                )
-            elif PROGRAM_TYPE == "RUST":
-                process = subprocess.run(
-                    [binary_output_path],
-                    stdin=input_file,
-                    stdout=stdout_file,
-                    stderr=stderr_file,
+                    check=False,
                 )
             elif PROGRAM_TYPE == "PYTHON":
                 process = subprocess.run(
@@ -242,6 +239,7 @@ if __name__ == "__main__":
                     stdin=input_file,
                     stdout=stdout_file,
                     stderr=stderr_file,
+                    check=False,
                 )
             else:
                 raise ValueError(f"Invalid program type {PROGRAM_TYPE}")
@@ -276,6 +274,7 @@ if __name__ == "__main__":
             diff_process = subprocess.run(
                 ["delta", "-s", stdout_path, answer_path],
                 capture_output=True,
+                check=False,
             )
             if diff_process.returncode == 0:
                 print(

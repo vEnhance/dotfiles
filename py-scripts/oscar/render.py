@@ -76,7 +76,7 @@ def render_problem_stats(contest: ContestData, outfile: IO[str]) -> None:
         file=outfile,
     )
     print(r"\\ \hline", file=outfile)
-    for s in range(0, 8):
+    for s in range(8):
         print(
             str(s)
             + " & "
