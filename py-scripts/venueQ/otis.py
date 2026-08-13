@@ -856,28 +856,28 @@ if __name__ == "__main__":
         logger.debug(
             f"ITEMS: {pprint.pformat(otis_json['_children'], indent=0, width=100)}"
         )
-        otis_json["_children"].append(
+        final_json = otis_json
+        final_json["_children"].append(
             {"_name": "Applications", "_children": apply_json["applications"]}
         )
-
         with open(JSON_SAVED, "w") as f:
-            json.dump(otis_json, f, indent=2)
+            json.dump(final_json, f, indent=2)
     elif JSON_SAVED.exists():
         with open(JSON_SAVED) as f:
-            otis_json = json.load(f)
+            final_json = json.load(f)
         logger.info("Using saved JSON file...")
-        assert otis_json is not None
+        assert final_json is not None
     else:
         raise ValueError("o no")
 
     if PRODUCTION:
-        otis_dir = QUEUE_FOLDER
+        root_dir = QUEUE_FOLDER
     else:
-        otis_dir = Path("/tmp/otis-debug")
-    if not otis_dir.exists():
-        otis_dir.mkdir()
+        root_dir = Path("/tmp/otis-debug")
+    if not root_dir.exists():
+        root_dir.mkdir()
     ROOT_NODE = OTISRoot(
-        data=otis_json,
-        root_dir=otis_dir,
+        data=final_json,
+        root_dir=root_dir,
         shelf_life=12,
     )
