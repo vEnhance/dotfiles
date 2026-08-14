@@ -14,5 +14,5 @@ for k in {1..12}; do
 done
 
 if [ -d ~/.local/share/dijo ]; then
-  echo "\${color7}$(python ~/dotfiles/conky/dijo-today.py)"
+  echo "\${color7}$(/usr/bin/python3 ~/dotfiles/conky/dijo-today.py)"
 fi

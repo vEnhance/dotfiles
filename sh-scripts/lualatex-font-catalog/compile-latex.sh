@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
-python make-latex-document.py >samples.tex
+/usr/bin/python3 make-latex-document.py >samples.tex
 latexmk

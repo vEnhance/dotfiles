@@ -18,4 +18,4 @@ gcalendar --no-of-days 14 --output json \
   "evan@evanchen.cc" \
   "twitch.tv" \
   "evanchen.records" \
-  "evan@axiommath.ai" | python ~/dotfiles/py-scripts/get-cal-helper.py
+  "evan@axiommath.ai" | /usr/bin/python3 ~/dotfiles/py-scripts/get-cal-helper.py

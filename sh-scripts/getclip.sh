@@ -7,10 +7,10 @@ if [[ $contents == "qute://pdfjs/web/viewer.html?filename="* ]]; then
   contents=$(echo "$contents" |
     grep -Eo "source=.*" |
     cut -d "=" -f 2- |
-    python -c "import urllib.parse, sys; print(urllib.parse.unquote(sys.stdin.readline()))")
+    /usr/bin/python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(sys.stdin.readline()))")
 fi
 
 mkdir -p /tmp/clipboard/
-echo "$contents" | python ~/dotfiles/py-scripts/uclean.py | tee "/tmp/clipboard/$(date --iso-8601=seconds)" | xsel --clipboard
+echo "$contents" | /usr/bin/python3 ~/dotfiles/py-scripts/uclean.py | tee "/tmp/clipboard/$(date --iso-8601=seconds)" | xsel --clipboard
 
 notify-send -u low -i "xclipboard" "xsel --clipboard" "${contents:0:160}"

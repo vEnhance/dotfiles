@@ -20,7 +20,7 @@ fi
 if { [ "$(hostname)" = "ArchUmi" ] || [ "$(hostname)" = "ArchScythe" ]; } &&
   [ "$(whoami)" = evan ] &&
   iwconfig | grep -E "Flying|Nydus" &&
-  python ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
+  /usr/bin/python3 ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
   notify-send -i "gnome-twitch" \
     "Won't lock" "You're currently streaming on Twitch!"
   exit

@@ -153,7 +153,7 @@ bind compose D noop
 bind compose \043 detach-file
 bind compose v view-attach
 macro compose <Space> "<first-entry>\
-<pipe-entry>python ~/.config/mutt/mutt-markdown.py<enter>\
+<pipe-entry>/usr/bin/python3 ~/.config/mutt/mutt-markdown.py<enter>\
 <attach-file>/tmp/neomutt-alternative.html<enter>\
 <toggle-unlink><toggle-disposition>\
 <tag-entry><first-entry><tag-entry><group-alternatives>\
