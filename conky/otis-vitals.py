@@ -55,6 +55,15 @@ if app_dir.exists():
             yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
             app_timestamps.append(yaml_data["created_at"])
 
+# Notifications
+notifications_path = OTIS_ROOT / "Notifications.venueQ.yaml"
+notification_timestamps: list[str] = []
+if notifications_path.exists():
+    with open(notifications_path) as f:
+        notifications = yaml.load(f, Loader=yaml.SafeLoader)
+        for notification in notifications["notifications"]:
+            notification_timestamps.append(notification["updated_at"])
+
 
 def get_stats(x: list[str]) -> tuple[timedelta, int]:
     n = len(x)
@@ -91,3 +100,4 @@ print(get_conky_presentation("숙제", pset_timestamps))
 print(get_conky_presentation("제안", suggestion_timestamps))
 print(get_conky_presentation("지원", app_timestamps))
 print(get_conky_presentation("직업", job_timestamps))
+print(get_conky_presentation("알림", notification_timestamps))

@@ -822,6 +822,16 @@ class ApplicationCarrier(VenueQNode):
         return Application
 
 
+class Notifications(VenueQNode):
+    def init_hook(self):
+        self.data["resolved"] = False
+
+    def on_buffer_close(self, data: Data):
+        super().on_buffer_close(data)
+        if self.data["resolved"] is True:
+            self.delete()
+
+
 class OTISRoot(VenueQRoot):
     def get_class_for_child(self, data: Data):
         if data["_name"] == "Problem sets":
@@ -834,6 +844,8 @@ class OTISRoot(VenueQRoot):
             return JobCarrier
         elif data["_name"] == "Applications":
             return ApplicationCarrier
+        elif data["_name"] == "Notifications":
+            return Notifications
         else:
             raise ValueError(f"wtf is {data['_name']}")
 
@@ -857,8 +869,9 @@ if __name__ == "__main__":
             f"ITEMS: {pprint.pformat(otis_json['_children'], indent=0, width=100)}"
         )
         final_json = otis_json
-        final_json["_children"].append(
-            {"_name": "Applications", "_children": apply_json["applications"]}
+        final_json["_children"] += (
+            {"_name": "Applications", "_children": apply_json["applications"]},
+            {"_name": "Notifications", "notifications": apply_json["notifications"]},
         )
         with open(JSON_SAVED, "w") as f:
             json.dump(final_json, f, indent=2)
