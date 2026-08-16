@@ -146,6 +146,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://poll.ma.pe/*",
     r"*://positron11.github.io/*",
     r"*://projecteuler.net/*",
+    r"*://puzzlehuntcalendar.com/*",
     r"*://pypi.org/*",
     r"*://nightbot.tv/*",
     r"*://regex101.com/*",
