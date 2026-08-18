@@ -21,7 +21,7 @@ def find_hooks(file_prefix):
         # Load the module
         module_dir = os.path.dirname(module_path)
         module_filename = os.path.basename(module_path)
-        module_name = "pirate_{0}_{1}".format(module_dir, module_filename)
+        module_name = f"pirate_{module_dir}_{module_filename}"
         module_name = module_name.replace(".", "_")
         loader = SourceFileLoader(module_name, module_path)
         spec = ModuleSpec(module_name, loader, origin=module_path)
