@@ -16,3 +16,4 @@ headings = false
 
 [MD060] # Table alignment
 enabled = true
+style = "aligned"
