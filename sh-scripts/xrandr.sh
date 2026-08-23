@@ -1,9 +1,26 @@
 #!/usr/bin/env bash
 
+# Checks whether $1 (an xrandr output name) lists $2 (a resolution like
+# 3840x2160) among its supported modes.
+xrandr_output_supports_mode() {
+  xrandr --query | awk -v out="$1" -v mode="$2" '
+    $0 ~ "^"out" " { found=1; next }
+    /^[A-Za-z]/ { found=0 }
+    found && $1 == mode { ok=1 }
+    END { exit !ok }
+  '
+}
+
 if [ "$(hostname)" = ArchDiamond ]; then
-  xrandr --output "DP-2" --auto --primary \
-    --output "DP-3" --auto --below "DP-2" \
-    --output "DP-1" --auto --right-of "DP-2"
+  if xrandr_output_supports_mode DP-2 3840x2160; then
+    xrandr --output "DP-2" --mode 3840x2160 --primary \
+      --output "DP-3" --mode 1920x1080 --below "DP-2" \
+      --output "DP-1" --mode 2560x1440 --right-of "DP-2"
+  else
+    xrandr --output "DP-2" --auto --primary \
+      --output "DP-3" --auto --below "DP-2" \
+      --output "DP-1" --auto --right-of "DP-2"
+  fi
 fi
 
 if [ "$(hostname)" = ArchUmi ]; then
