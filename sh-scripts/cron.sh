@@ -8,7 +8,7 @@ if ! wget -q --spider https://web.evanchen.cc; then
   exit 0
 fi
 
-# This command grabs all the OTIS stuff: problem sets, inquiries, suggestions
+# This command grabs all the OTIS stuff: problem sets, petitions, suggestions
 # and processes all of them through venueQ
 if [ "$(hostname)" = "$(jq --raw-output .otis ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
   /usr/bin/python3 ~/dotfiles/py-scripts/venueQ/otis.py

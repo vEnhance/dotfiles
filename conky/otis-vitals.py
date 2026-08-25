@@ -18,14 +18,14 @@ if pset_dir.exists():
             yaml_data = yaml.load(f, Loader=yaml.SafeLoader)
             pset_timestamps.append(yaml_data["upload__content"].split("/")[2])
 
-# Inquiries
-inquiry_timestamps = []
-inquiries_path = OTIS_ROOT / "Inquiries.venueQ.yaml"
-if inquiries_path.exists():
-    with open(inquiries_path) as f:
-        inquiries = yaml.load(f, Loader=yaml.SafeLoader)
-        for inquiry in inquiries["inquiries"]:
-            inquiry_timestamps.append(inquiry["created_at"])
+# Petitions
+petition_timestamps = []
+petitions_path = OTIS_ROOT / "Petitions.venueQ.yaml"
+if petitions_path.exists():
+    with open(petitions_path) as f:
+        petitions = yaml.load(f, Loader=yaml.SafeLoader)
+        for petition in petitions["petitions"]:
+            petition_timestamps.append(petition["created_at"])
 
 
 # Suggestions
@@ -95,7 +95,7 @@ def get_conky_presentation(s: str, x: list[str]) -> str:
 
 
 # print(r'${alignr}${color4}OTIS Vital Signs')
-print(get_conky_presentation("요청", inquiry_timestamps))
+print(get_conky_presentation("요청", petition_timestamps))
 print(get_conky_presentation("숙제", pset_timestamps))
 print(get_conky_presentation("제안", suggestion_timestamps))
 print(get_conky_presentation("지원", app_timestamps))

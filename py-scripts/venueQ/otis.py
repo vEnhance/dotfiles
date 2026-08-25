@@ -506,32 +506,33 @@ class ProblemSetCarrier(VenueQNode):
         return ProblemSet
 
 
-class Inquiries(VenueQNode):
+class Petitions(VenueQNode):
     def init_hook(self):
         self.data["accept_all"] = False
-        for inquiry in self.data["inquiries"] + self.data["reading"]:
-            inquiry["name"] = (
-                inquiry.pop("student__user__first_name")
+        for petition in self.data["petitions"] + self.data["reading"]:
+            petition["name"] = (
+                petition.pop("student__user__first_name")
                 + " "
-                + inquiry.pop("student__user__last_name")
+                + petition.pop("student__user__last_name")
             ).strip()
-            inquiry["unit"] = (
-                inquiry.pop("unit__code") + " " + inquiry.pop("unit__group__name")
+            petition["unit"] = (
+                petition.pop("unit__code") + " " + petition.pop("unit__group__name")
             )
 
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
         if data["accept_all"] and query_otis_server(
-            payload={"action": "accept_inquiries"}
+            payload={"action": "accept_petitions"}
         ):
             body = "This is an automated message to notify you that your recent unit petition\n"
             body += f"was processed on {datetime.now(UTC).strftime('%-d %B %Y, %H:%M')} UTC."
             body += "\n\n"
             body += f"Have a nice {datetime.now(UTC).strftime('%A')}."
             recipients = [
-                inquiry["student__user__email"]
-                for inquiry in data["inquiries"]
-                if inquiry["student__user__profile__email_on_inquiry_complete"] is True
+                petition["student__user__email"]
+                for petition in data["petitions"]
+                if petition["student__user__profile__email_on_petition_complete"]
+                is True
             ]
             send_email(
                 subject="OTIS unit petition processed",
@@ -836,8 +837,8 @@ class OTISRoot(VenueQRoot):
     def get_class_for_child(self, data: Data):
         if data["_name"] == "Problem sets":
             return ProblemSetCarrier
-        elif data["_name"] == "Inquiries":
-            return Inquiries
+        elif data["_name"] == "Petitions":
+            return Petitions
         elif data["_name"] == "Suggestions":
             return SuggestionCarrier
         elif data["_name"] == "Jobs":
