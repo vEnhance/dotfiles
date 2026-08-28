@@ -43,9 +43,12 @@ if not OTIS_TMP_DOWNLOADS_PATH.exists():
     OTIS_TMP_DOWNLOADS_PATH.mkdir()
     OTIS_TMP_DOWNLOADS_PATH.chmod(0o777)
 HANDOUTS_PATH = Path("~/Sync/OTIS/Materials").expanduser()
-NOISEMAKER_SOUND_PATH = Path(
-    "~/dotfiles/sh-scripts/noisemaker/noisemaker.sh"
-).expanduser()
+NOISEMAKER_SH = (
+    Path("~/dotfiles/sh-scripts/noisemaker/noisemaker.sh")
+    .expanduser()
+    .absolute()
+    .as_posix()
+)
 
 MD_EXTENSIONS = ["extra", "sane_lists", "smarty", "footnotes"]
 if find_spec("mdx_truly_sane_lists") is not None:
@@ -100,9 +103,7 @@ def send_email(
 
         if len(recipients) == 0:
             logger.warning("No valid recipients at this point, so no email sent.")
-            subprocess.run(
-                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"], check=False
-            )
+            subprocess.run([NOISEMAKER_SH, "4"], check=False)
             if callback is not None:
                 callback()
             return
@@ -119,14 +120,10 @@ def send_email(
         # and this covers SMTP, TLS and the assertions above alike.
         except Exception as e:  # noqa: BLE001
             logger.error(f"Email '{subject}' failed to send", exc_info=e)
-            subprocess.run(
-                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"], check=False
-            )
+            subprocess.run([NOISEMAKER_SH, "7"], check=False)
         else:
             logger.info(f"Email '{subject}' sent successfully!")
-            subprocess.run(
-                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "0"], check=False
-            )
+            subprocess.run([NOISEMAKER_SH, "0"], check=False)
             if callback is not None:
                 callback()
 
@@ -161,9 +158,7 @@ def query_server(
                 f"{target_url} threw an exception with status code {resp.status_code}\n"
                 + resp.content.decode("utf-8")
             )
-            subprocess.run(
-                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "7"], check=False
-            )
+            subprocess.run([NOISEMAKER_SH, "7"], check=False)
             return None
 
 
@@ -491,9 +486,7 @@ class ProblemSet(VenueQNode):
             else:
                 logger.warning("Server query failed, so no action taken")
         elif comments_to_email != "":
-            subprocess.run(
-                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"], check=False
-            )
+            subprocess.run([NOISEMAKER_SH, "6"], check=False)
             logger.info(
                 "Did not attempt to process submission "
                 f"because status was set to {data['status']}"
@@ -762,7 +755,7 @@ class Application(VenueQNode):
     def on_buffer_close(self, data: Data):
         super().on_buffer_close(data)
         data["staff_public_comments"] = self.read_temp(extension="md").strip()
-        if data["status"] in ("accepted", "blacklisted", "hard_reject", "soft_reject"):
+        if data["status"] != "submitted":
 
             def update_apply_server():
                 if query_apply_server(payload=data) is not None:
@@ -792,7 +785,9 @@ class Application(VenueQNode):
                             "percent_aid": data["percent_aid"],
                         }
                     )
-                if data["email_on_decision"] is True:
+                if data["email_on_decision"] is True and (
+                    data["status"] in ("accepted", "hard_reject", "soft_reject")
+                ):
                     send_email(
                         subject=f"OTIS application for {name} was processed",
                         recipients=[data["email"]],
@@ -802,19 +797,13 @@ class Application(VenueQNode):
                     )
                 else:
                     update_apply_server()
-                    subprocess.run(
-                        [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"], check=False
-                    )
+                    subprocess.run([NOISEMAKER_SH, "4"], check=False)
             else:
                 update_apply_server()
-                subprocess.run(
-                    [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "4"], check=False
-                )
+                subprocess.run([NOISEMAKER_SH, "4"], check=False)
 
         else:
-            subprocess.run(
-                [NOISEMAKER_SOUND_PATH.absolute().as_posix(), "6"], check=False
-            )
+            subprocess.run([NOISEMAKER_SH, "6"], check=False)
 
 
 class ApplicationCarrier(VenueQNode):
