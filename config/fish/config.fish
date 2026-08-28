@@ -65,6 +65,7 @@ alias fgrep='fgrep --color=auto' # show differences in color
 # }}}
 
 # Aliases {{{
+alias chaotic='/usr/bin/python3 ~/dotfiles/py-scripts/chaotic.py'
 alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
 alias mango='/usr/bin/python3 ~/dotfiles/py-scripts/mango/mango.py'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
