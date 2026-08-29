@@ -1,4 +1,4 @@
-progress_file = "/home/evan/.local/share/borse/progress.json"
+progress_file = "~/.local/share/borse/progress.json"
 words_per_game = 15
 single_letter_probability = 0.3
 morse_display_mode = "audio"
