@@ -307,6 +307,23 @@ def find_commit(repo: Path, version: str) -> tuple[str | None, bool]:
     return loose, False
 
 
+def delta(diff: str) -> str:
+    """Run a plain (uncolored) diff through `delta` for syntax-aware coloring.
+
+    --color-only leaves the diff structurally untouched (no side-by-side,
+    no line-number gutter) and pulls colors from the terminal even though
+    output is being captured rather than written to a tty.
+    """
+    p = subprocess.run(
+        ["delta", "--color-only", "--paging=never"],
+        input=diff,
+        text=True,
+        capture_output=True,
+        check=False,
+    )
+    return p.stdout if p.returncode == 0 else diff
+
+
 def audit(name: str, pkgbase: str, old: str | None, new: str) -> str:
     """Render the PKGBUILD audit for one package."""
     head = f"{bold(name)} {dim(old or '(not installed)')} {cyan('->')} {bold(new)}"
@@ -377,7 +394,8 @@ def audit(name: str, pkgbase: str, old: str | None, new: str) -> str:
         )
         return "\n".join(lines)
 
-    color = ["-c", "color.ui=always"] if COLOR else []
+    use_delta = COLOR and shutil.which("delta") is not None
+    color = [] if use_delta else (["-c", "color.ui=always"] if COLOR else [])
     # .SRCINFO is generated from PKGBUILD, so its diff is pure duplication.
     diff = out(
         [
@@ -393,6 +411,8 @@ def audit(name: str, pkgbase: str, old: str | None, new: str) -> str:
         ],
         check=False,
     )
+    if use_delta:
+        diff = delta(diff)
     lines.append(dim(f"  {old_sha[:9]}..{new_sha[:9]}"))
     lines.append(
         diff.rstrip() if diff.strip() else f"  {green('no change outside .SRCINFO')}"
