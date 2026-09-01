@@ -61,7 +61,7 @@
 \hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
 \par\nointerlineskip \vspace{\baselineskip}}
 
-%%% Optional colored theorems
+%%% Optional colored theorem styles
 \usepackage{keytheorems}
 \usepackage{tcolorbox}
 \tcbuselibrary{skins,breakable,hooks}
@@ -69,36 +69,22 @@
 \makeatletter
 \AddToHook{env/tcolorbox/after}{\@doendpe}
 \makeatother
-
 \tcbset{
-  bluebox/.style={
-    enhanced,
-    arc=9pt, outer arc=10pt,
+  bluebox/.style={enhanced, arc=9pt, outer arc=10pt,
     colframe=blue, colback=TealBlue!5, boxrule=1pt,
-    before skip=12pt, after skip=2pt,
-    left=10pt, right=10pt, top=6pt, bottom=9pt,
+    before skip=12pt, after skip=2pt, left=10pt, right=10pt, top=6pt, bottom=9pt,
   },
-  redbox/.style={
-    enhanced, sharp corners,
-    colframe=RawSienna, colback=Salmon!5, boxrule=0.5pt,
-    before skip=12pt, after skip=2pt,
-    left=10pt, right=10pt, top=4pt, bottom=8pt,
+  redbox/.style={enhanced, sharp corners,
+    boxrule=0.5pt, colframe=RawSienna, colback=Salmon!5,
+    before skip=12pt, after skip=2pt, left=10pt, right=10pt, top=4pt, bottom=8pt,
   },
-  greenbox/.style={
-    enhanced, breakable, sharp corners,
-    boxrule=0pt, frame hidden,
-    borderline west={2pt}{0pt}{ForestGreen},
-    colback=ForestGreen!5,
-    before skip=8pt, after skip=0pt,
-    left=10pt, right=10pt,
+  greenbox/.style={enhanced, breakable, sharp corners,
+    boxrule=0pt, frame hidden, borderline west={2pt}{0pt}{ForestGreen},
+    colback=ForestGreen!5, before skip=8pt, after skip=0pt, left=10pt, right=10pt,
   },
-  blackbox/.style={
-    enhanced, breakable, sharp corners,
-    boxrule=0pt, frame hidden,
+  blackbox/.style={enhanced, breakable, sharp corners, boxrule=0pt, frame hidden,
     borderline west={3pt}{0pt}{black},
-    colback=RedViolet!5!gray!5,
-    before skip=8pt,
-    left=10pt, right=10pt,
+    colback=RedViolet!5!gray!5, before skip=8pt, left=10pt, right=10pt,
   },
 }
 \declarekeytheoremstyle{thmbluebox}{
@@ -126,7 +112,7 @@
   bodyfont=\normalfont\small,
   tcolorbox-no-titlebar={blackbox},
 }
-
+%%% \newkeytheorem
 \newkeytheorem{theorem}[style=thmbluebox,name=Theorem,parent=section]
 \newkeytheorem{theorem*}[style=thmbluebox,name=Theorem,numbered=no]
 \newkeytheorem{algorithm*}[style=thmgreenbox,name=Algorithm,numbered=no]
@@ -158,4 +144,3 @@
 \newtheorem{fact}[theorem]{Fact}
 \newtheorem{problem}[theorem]{Problem}
 \newtheorem{ques}[theorem]{Question}
-%% END PREAMBLE
