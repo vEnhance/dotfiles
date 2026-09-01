@@ -95,10 +95,6 @@
 \DeclareOption{sexy}{\evansecthmtrue\evanboxthmtrue\evancolorsectrue} % for longer docs
 \DeclareOption{american}{\evanbritishfalse} % alias for nobritish
 
-\newif\ifevantitlemark\evantitlemarktrue
-\DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
-\DeclareOption{sectionmark}{\evantitlemarkfalse} % Uses \rightmark not title in ohead
-
 % mdthm/nomdthm are the pre-2026 spelling, from when the boxes were mdframed
 \newcommand{\evan@warn@mdthm}{\PackageWarning{evan}{%
   Options `mdthm' and `nomdthm' are deprecated\MessageBreak
