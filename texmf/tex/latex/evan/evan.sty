@@ -75,34 +75,29 @@
   \DeclareOption{#1}{\csname evan#1true\endcsname}%
   \DeclareOption{no#1}{\csname evan#1false\endcsname}%
 }
-\evan@boolopt{fancy}{true}
-\evan@boolopt{hdr}{true}
-\evan@boolopt{href}{true}
-\evan@boolopt{setup}{true}
-\evan@boolopt{thm}{true}
-\evan@boolopt{secthm}{false}
-\evan@boolopt{pkg}{true}
-\evan@boolopt{author}{true}
-\evan@boolopt{chinese}{false} % Chinese support
-\evan@boolopt{boxthm}{false}
-\evan@boolopt{patchasy}{false}
-\evan@boolopt{hints}{false}
-\evan@boolopt{asy}{true}
-\evan@boolopt{colorsec}{false}
-\evan@boolopt{von}{false}
-\evan@boolopt{bib}{false}
+\evan@boolopt{asy}{true}        % Enable Asympote package
+\evan@boolopt{author}{true}     % Set author to "Evan Chen"
+\evan@boolopt{bib}{false}       % BibLaTeX
+\evan@boolopt{british}{true}    % Use British dates (e.g. 1 September 2026)
+\evan@boolopt{boxthm}{false}    % Use tcolorbox-styled theorems
+\evan@boolopt{chinese}{false}   % Chinese support
+\evan@boolopt{colorsec}{false}  % Colorful section numbers
+\evan@boolopt{fancy}{true}      % Page margin control
+\evan@boolopt{hdr}{true}        % Page header control
+\evan@boolopt{hints}{false}     % Enable hint support
+\evan@boolopt{href}{true}       % Load hyperref package
+\evan@boolopt{patchasy}{false}  % Patches the Asymptote package for Evan (patchasy.sty)
+\evan@boolopt{pkg}{true}        % Disable to turn off most packages
+\evan@boolopt{secthm}{false}    % Label theorems within section
+\evan@boolopt{setup}{true}      % Disable to turn off almost everything
+\evan@boolopt{thm}{true}        % Whether to _define_ theorem environments
+\evan@boolopt{von}{false}       % Enables the von package
+\DeclareOption{sexy}{\evansecthmtrue\evanboxthmtrue\evancolorsectrue} % for longer docs
+\DeclareOption{american}{\evanbritishfalse} % alias for nobritish
 
-% Options which don't follow the name/noname pattern
 \newif\ifevantitlemark\evantitlemarktrue
-\newif\ifevanbritish\evanbritishtrue
-
-\DeclareOption{sexy}{\evansecthmtrue\evanboxthmtrue\evancolorsectrue} % long docs
-
 \DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
 \DeclareOption{sectionmark}{\evantitlemarkfalse} % Uses \rightmark not title in ohead
-
-\DeclareOption{british}{\evanbritishtrue}
-\DeclareOption{american}{\evanbritishfalse}
 
 % mdthm/nomdthm are the pre-2026 spelling, from when the boxes were mdframed
 \newcommand{\evan@warn@mdthm}{\PackageWarning{evan}{%
@@ -111,18 +106,12 @@
   Use `boxthm' and `noboxthm' instead}}
 \DeclareOption{mdthm}{\evanboxthmtrue\evan@warn@mdthm}
 \DeclareOption{nomdthm}{\evanboxthmfalse\evan@warn@mdthm}
-
 \ProcessOptions\relax
-
 % if packages not loaded, turn off boxthm and asy
 \ifevanpkg\else\evanboxthmfalse\evanasyfalse\fi
-
 % If no setup, turn off theorems
 \ifevansetup\else\evanthmfalse\fi
-
 % keytheorems is needed by boxthm too, even if no theorems are declared here.
-% (This \newif has to live outside \ifevansetup, or skipped conditionals in the
-% main setup below no longer balance.)
 \newif\ifevan@thmpkg
 \ifevanthm\evan@thmpkgtrue\fi
 \ifevanboxthm\evan@thmpkgtrue\fi
