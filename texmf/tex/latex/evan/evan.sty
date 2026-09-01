@@ -395,7 +395,6 @@
   %%fakesection New theorem styles
   % Refactored in 2026 to use keytheorems + tcolorbox (from thmtools + mdframed)
   \ifevanthm
-    \usepackage{amsthm}
     \usepackage{keytheorems}
     \hypersetup{hypertexnames=false}
   \fi
@@ -403,7 +402,6 @@
     \ifevanthm
       %% theorem packages loaded already
     \else
-      \usepackage{amsthm}
       \usepackage{keytheorems}
       \hypersetup{hypertexnames=false}
     \fi
@@ -496,7 +494,6 @@
 
   %%fakesection Theorem setup
   \ifevanthm
-    \theoremstyle{definition}
     %Branching here: the option secthm changes theorems to be labelled by section
     \ifevanboxthm
       \ifevansecthm
@@ -530,6 +527,7 @@
       \newkeytheorem{assume*}[name=Assumption,numbered=no]
     \fi
 
+    \theoremstyle{definition}
     \ifevanboxthm
       \newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
       \newkeytheorem{algorithm*}[style=thmgreenbox,name=Algorithm,numbered=no]
