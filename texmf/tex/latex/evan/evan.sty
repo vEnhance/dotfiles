@@ -87,7 +87,7 @@
 \evan@boolopt{hints}{false}     % Enable hint support
 \evan@boolopt{href}{true}       % Load hyperref package
 \evan@boolopt{patchasy}{false}  % Patches the Asymptote package for Evan (patchasy.sty)
-\evan@boolopt{pkg}{true}        % Loads some convenience / QoL packages
+\evan@boolopt{pkg}{true}        % If disabled, stops loading all non-essential pkg's
 \evan@boolopt{secthm}{false}    % Label theorems within section
 \evan@boolopt{setup}{true}      % Disable to turn off almost everything
 \evan@boolopt{thm}{true}        % Whether to _define_ theorem environments
@@ -120,10 +120,6 @@
 % Small commands
 \usepackage{amsmath,amssymb}
 \usepackage{iftex}
-\ifevanpkg
-  \usepackage[minimal]{yhmath}
-  \usepackage{derivative}
-\fi
 \newcommand{\cbrt}[1]{\sqrt[3]{#1}}
 \newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
 \newcommand{\ceiling}[1]{\left\lceil #1 \right\rceil}
@@ -539,6 +535,8 @@
     \ifevanvon
       \IfFileExists{von.sty}{\usepackage{von}}{}
     \fi
+    \usepackage[minimal]{yhmath}
+    \usepackage{derivative}
     \usepackage{listings}
     \usepackage{mathrsfs}
     \usepackage{textcomp}
