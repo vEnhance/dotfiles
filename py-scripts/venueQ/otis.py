@@ -783,6 +783,7 @@ class Application(VenueQNode):
                             "action": "apply_uuid",
                             "uuid": data["uuid"],
                             "percent_aid": data["percent_aid"],
+                            "applicant_name": data["name"],
                         }
                     )
                 if data["email_on_decision"] is True and (
