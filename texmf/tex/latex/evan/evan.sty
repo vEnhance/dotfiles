@@ -492,21 +492,21 @@
 
   %%fakesection Theorem setup
   \ifevanthm
-    %Branching here: the option secthm changes theorems to be labelled by section
+    % Branching here: the option secthm changes theorems to be labelled by section
     \ifevanboxthm
       \ifevansecthm
         \newkeytheorem{theorem}[style=thmbluebox,name=Theorem,parent=section]
       \else
         \newkeytheorem{theorem}[style=thmbluebox,name=Theorem]
       \fi
-      \newkeytheorem{lemma}[style=thmbluebox,name=Lemma,sibling=theorem]
-      \newkeytheorem{proposition}[style=thmbluebox,name=Proposition,sibling=theorem]
-      \newkeytheorem{corollary}[style=thmbluebox,name=Corollary,sibling=theorem]
-      \newkeytheorem{assume}[style=thmbluebox,name=Assumption,sibling=theorem]
       \newkeytheorem{theorem*}[style=thmbluebox,name=Theorem,numbered=no]
+      \newkeytheorem{lemma}[style=thmbluebox,name=Lemma,sibling=theorem]
       \newkeytheorem{lemma*}[style=thmbluebox,name=Lemma,numbered=no]
+      \newkeytheorem{proposition}[style=thmbluebox,name=Proposition,sibling=theorem]
       \newkeytheorem{proposition*}[style=thmbluebox,name=Proposition,numbered=no]
+      \newkeytheorem{corollary}[style=thmbluebox,name=Corollary,sibling=theorem]
       \newkeytheorem{corollary*}[style=thmbluebox,name=Corollary,numbered=no]
+      \newkeytheorem{assume}[style=thmbluebox,name=Assumption,sibling=theorem]
       \newkeytheorem{assume*}[style=thmbluebox,name=Assumption,numbered=no]
     \else
       \ifevansecthm
@@ -514,17 +514,16 @@
       \else
         \newkeytheorem{theorem}[name=Theorem]
       \fi
-      \newkeytheorem{lemma}[name=Lemma,sibling=theorem]
-      \newkeytheorem{proposition}[name=Proposition,sibling=theorem]
-      \newkeytheorem{corollary}[name=Corollary,sibling=theorem]
-      \newkeytheorem{assume}[name=Assumption,sibling=theorem]
       \newkeytheorem{theorem*}[name=Theorem,numbered=no]
+      \newkeytheorem{lemma}[name=Lemma,sibling=theorem]
       \newkeytheorem{lemma*}[name=Lemma,numbered=no]
+      \newkeytheorem{proposition}[name=Proposition,sibling=theorem]
       \newkeytheorem{proposition*}[name=Proposition,numbered=no]
+      \newkeytheorem{corollary}[name=Corollary,sibling=theorem]
       \newkeytheorem{corollary*}[name=Corollary,numbered=no]
+      \newkeytheorem{assume}[name=Assumption,sibling=theorem]
       \newkeytheorem{assume*}[name=Assumption,numbered=no]
     \fi
-
     \theoremstyle{definition}
     \ifevanboxthm
       \newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
@@ -537,7 +536,6 @@
       \newkeytheorem{claim}[name=Claim,sibling=theorem]
       \newkeytheorem{claim*}[name=Claim,numbered=no]
     \fi
-
     \ifevanboxthm
       \newkeytheorem{example}[style=thmredbox,name=Example,sibling=theorem]
       \newkeytheorem{example*}[style=thmredbox,name=Example,numbered=no]
@@ -545,7 +543,6 @@
       \newkeytheorem{example}[name=Example,sibling=theorem]
       \newkeytheorem{example*}[name=Example,numbered=no]
     \fi
-
     % Remark-style theorems
     \ifevanboxthm
       \newkeytheorem{remark}[style=thmblackbox,name=Remark,sibling=theorem]
