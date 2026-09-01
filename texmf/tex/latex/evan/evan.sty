@@ -77,7 +77,7 @@
 \newif\ifevanpdf\evanpdftrue
 \newif\ifevanauthor\evanauthortrue
 \newif\ifevanchinese\evanchinesefalse
-\newif\ifevanmdthm\evanmdthmfalse
+\newif\ifevanboxthm\evanboxthmfalse
 \newif\ifevanpatchasy\evanpatchasyfalse
 \newif\ifevanhints\evanhintsfalse
 \newif\ifevanasy\evanasytrue
@@ -91,7 +91,7 @@
 \DeclareOption{chinese}{\evanchinesetrue} % Chinese support
 % allow href to override this one
 
-\DeclareOption{sexy}{\evansecthmtrue\evanmdthmtrue\evancolorsectrue} % long docs
+\DeclareOption{sexy}{\evansecthmtrue\evanboxthmtrue\evancolorsectrue} % long docs
 
 \DeclareOption{fancy}{\evanfancytrue}
 \DeclareOption{nofancy}{\evanfancyfalse}
@@ -112,8 +112,15 @@
 \DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
 \DeclareOption{sectionmark}{\evantitlemarkfalse} % Uses \rightmark not title in ohead
 
-\DeclareOption{mdthm}{\evanmdthmtrue}
-\DeclareOption{nomdthm}{\evanmdthmfalse}
+\DeclareOption{boxthm}{\evanboxthmtrue}
+\DeclareOption{noboxthm}{\evanboxthmfalse}
+% mdthm/nomdthm are the pre-2026 spelling, from when the boxes were mdframed
+\newcommand{\evan@warn@mdthm}{\PackageWarning{evan}{%
+  Options `mdthm' and `nomdthm' are deprecated\MessageBreak
+  (the boxes are tcolorbox now, not mdframed).\MessageBreak
+  Use `boxthm' and `noboxthm' instead}}
+\DeclareOption{mdthm}{\evanboxthmtrue\evan@warn@mdthm}
+\DeclareOption{nomdthm}{\evanboxthmfalse\evan@warn@mdthm}
 \DeclareOption{colorsec}{\evancolorsectrue}
 \DeclareOption{nocolorsec}{\evancolorsecfalse}
 
@@ -129,8 +136,8 @@
 
 \ProcessOptions\relax
 
-% if packages not loaded, turn off mdthm and asy
-\ifevanpkg\else\evanmdthmfalse\fi
+% if packages not loaded, turn off boxthm and asy
+\ifevanpkg\else\evanboxthmfalse\fi
 \ifevanpkg\else\evanasyfalse\fi
 
 % If no setup, turn off theorems
@@ -393,7 +400,7 @@
     \usepackage{keytheorems}
     \hypersetup{hypertexnames=false}
   \fi
-  \ifevanmdthm
+  \ifevanboxthm
     \ifevanthm
       %% theorem packages loaded already
     \else
@@ -450,7 +457,7 @@
         before skip=12pt, after skip=12pt,
         left=10pt, right=10pt, top=6pt, bottom=6pt,
       },
-      % a box with no personality, used by the \begin{mdframed} shim below
+      % a box with no personality, for when you just want a frame
       plainbox/.style={
         enhanced, breakable, sharp corners,
         colframe=black, colback=white, boxrule=0.4pt,
@@ -492,7 +499,7 @@
   \ifevanthm
     \theoremstyle{definition}
     %Branching here: the option secthm changes theorems to be labelled by section
-    \ifevanmdthm
+    \ifevanboxthm
       \ifevansecthm
         \newkeytheorem{theorem}[style=thmbluebox,name=Theorem,parent=section]
       \else
@@ -524,7 +531,7 @@
       \newkeytheorem{assume*}[name=Assumption,numbered=no]
     \fi
 
-    \ifevanmdthm
+    \ifevanboxthm
       \newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
       \newkeytheorem{algorithm*}[style=thmgreenbox,name=Algorithm,numbered=no]
       \newkeytheorem{claim}[style=thmgreenbox,name=Claim,sibling=theorem]
@@ -536,7 +543,7 @@
       \newkeytheorem{claim*}[name=Claim,numbered=no]
     \fi
 
-    \ifevanmdthm
+    \ifevanboxthm
       \newkeytheorem{example}[style=thmredbox,name=Example,sibling=theorem]
       \newkeytheorem{example*}[style=thmredbox,name=Example,numbered=no]
     \else
@@ -545,7 +552,7 @@
     \fi
 
     % Remark-style theorems
-    \ifevanmdthm
+    \ifevanboxthm
       \newkeytheorem{remark}[style=thmblackbox,name=Remark,sibling=theorem]
       \newkeytheorem{remark*}[style=thmblackbox,name=Remark,numbered=no]
     \else
@@ -553,7 +560,7 @@
       \newkeytheorem{remark*}[name=Remark,numbered=no]
     \fi
 
-    \ifevanmdthm
+    \ifevanboxthm
       \declarekeytheoremstyle{basehead}{
         headfont=\color{blue!40!black}\normalfont\bfseries,
         spaceabove=8pt,
