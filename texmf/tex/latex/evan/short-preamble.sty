@@ -12,12 +12,9 @@
 \usepackage{microtype}
 
 %%% Colored sections
-\renewcommand*{\sectionformat}%
-  {\color{purple}\S\thesection\enskip}
-\renewcommand*{\subsectionformat}%
-  {\color{purple}\S\thesubsection\enskip}
-\renewcommand*{\subsubsectionformat}%
-  {\color{purple}\S\thesubsubsection\enskip}
+\renewcommand*{\sectionformat}{\color{purple}\S\thesection\enskip}
+\renewcommand*{\subsectionformat}{\color{purple}\S\thesubsection\enskip}
+\renewcommand*{\subsubsectionformat}{\color{purple}\S\thesubsubsection\enskip}
 \addtokomafont{paragraph}{\color{orange!35!black}\P\ }
 \KOMAoptions{numbers=noenddot}
 
@@ -131,36 +128,34 @@
 }
 
 \newkeytheorem{theorem}[style=thmbluebox,name=Theorem,parent=section]
-\newkeytheorem{lemma}[style=thmbluebox,name=Lemma,sibling=theorem]
-\newkeytheorem{proposition}[style=thmbluebox,name=Proposition,sibling=theorem]
-\newkeytheorem{corollary}[style=thmbluebox,name=Corollary,sibling=theorem]
 \newkeytheorem{theorem*}[style=thmbluebox,name=Theorem,numbered=no]
-\newkeytheorem{lemma*}[style=thmbluebox,name=Lemma,numbered=no]
-\newkeytheorem{proposition*}[style=thmbluebox,name=Proposition,numbered=no]
-\newkeytheorem{corollary*}[style=thmbluebox,name=Corollary,numbered=no]
-\newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
 \newkeytheorem{algorithm*}[style=thmgreenbox,name=Algorithm,numbered=no]
-\newkeytheorem{claim}[style=thmgreenbox,name=Claim,sibling=theorem]
+\newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
 \newkeytheorem{claim*}[style=thmgreenbox,name=Claim,numbered=no]
-\newkeytheorem{example}[style=thmredbox,name=Example,sibling=theorem]
+\newkeytheorem{claim}[style=thmgreenbox,name=Claim,sibling=theorem]
+\newkeytheorem{corollary*}[style=thmbluebox,name=Corollary,numbered=no]
+\newkeytheorem{corollary}[style=thmbluebox,name=Corollary,sibling=theorem]
 \newkeytheorem{example*}[style=thmredbox,name=Example,numbered=no]
-\newkeytheorem{remark}[style=thmblackbox,name=Remark,sibling=theorem]
+\newkeytheorem{example}[style=thmredbox,name=Example,sibling=theorem]
+\newkeytheorem{lemma*}[style=thmbluebox,name=Lemma,numbered=no]
+\newkeytheorem{lemma}[style=thmbluebox,name=Lemma,sibling=theorem]
+\newkeytheorem{proposition*}[style=thmbluebox,name=Proposition,numbered=no]
+\newkeytheorem{proposition}[style=thmbluebox,name=Proposition,sibling=theorem]
 \newkeytheorem{remark*}[style=thmblackbox,name=Remark,numbered=no]
-
+\newkeytheorem{remark}[style=thmblackbox,name=Remark,sibling=theorem]
 \theoremstyle{definition}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{fact}[theorem]{Fact}
-\newtheorem{answer}[theorem]{Answer}
-\newtheorem{ques}[theorem]{Question}
-\newtheorem{exercise}[theorem]{Exercise}
-\newtheorem{problem}[theorem]{Problem}
+\newtheorem*{answer*}{Answer}
 \newtheorem*{conjecture*}{Conjecture}
 \newtheorem*{definition*}{Definition}
-\newtheorem*{fact*}{Fact}
-\newtheorem*{answer*}{Answer}
-\newtheorem*{ques*}{Question}
 \newtheorem*{exercise*}{Exercise}
+\newtheorem*{fact*}{Fact}
 \newtheorem*{problem*}{Problem}
-
+\newtheorem*{ques*}{Question}
+\newtheorem{answer}[theorem]{Answer}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{fact}[theorem]{Fact}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{ques}[theorem]{Question}
 %% END PREAMBLE
