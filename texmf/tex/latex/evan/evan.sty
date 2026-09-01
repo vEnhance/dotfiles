@@ -67,51 +67,43 @@
 % Default Arguments
 % We include "Evan" in all of these to make sure
 % that they don't collide with anything in external packages
-\newif\ifevanfancy\evanfancytrue
-\newif\ifevanhdr\evanhdrtrue
-\newif\ifevanhref\evanhreftrue
-\newif\ifevansetup\evansetuptrue
-\newif\ifevanthm\evanthmtrue
-\newif\ifevansecthm\evansecthmfalse
-\newif\ifevanpkg\evanpkgtrue
-\newif\ifevanauthor\evanauthortrue
-\newif\ifevanchinese\evanchinesefalse
-\newif\ifevanboxthm\evanboxthmfalse
-\newif\ifevanpatchasy\evanpatchasyfalse
-\newif\ifevanhints\evanhintsfalse
-\newif\ifevanasy\evanasytrue
-\newif\ifevancolorsec\evancolorsecfalse
-\newif\ifevantitlemark\evantitlemarktrue
-\newif\ifevanvonenabled\evanvonenabledfalse
-\newif\ifevanbritish\evanbritishtrue
-\newif\ifevanbib\evanbibfalse
+% \evan@boolopt{name}{true|false} declares the switch \ifevanNAME with the
+% given default, plus the options `name' and `noname' to toggle it.
+\newcommand{\evan@boolopt}[2]{%
+  \expandafter\newif\csname ifevan#1\endcsname
+  \csname evan#1#2\endcsname
+  \DeclareOption{#1}{\csname evan#1true\endcsname}%
+  \DeclareOption{no#1}{\csname evan#1false\endcsname}%
+}
+\evan@boolopt{fancy}{true}
+\evan@boolopt{hdr}{true}
+\evan@boolopt{href}{true}
+\evan@boolopt{setup}{true}
+\evan@boolopt{thm}{true}
+\evan@boolopt{secthm}{false}
+\evan@boolopt{pkg}{true}
+\evan@boolopt{author}{true}
+\evan@boolopt{chinese}{false} % Chinese support
+\evan@boolopt{boxthm}{false}
+\evan@boolopt{patchasy}{false}
+\evan@boolopt{hints}{false}
+\evan@boolopt{asy}{true}
+\evan@boolopt{colorsec}{false}
+\evan@boolopt{von}{false}
+\evan@boolopt{bib}{false}
 
-%Receive Arguments
-\DeclareOption{chinese}{\evanchinesetrue} % Chinese support
-% allow href to override this one
+% Options which don't follow the name/noname pattern
+\newif\ifevantitlemark\evantitlemarktrue
+\newif\ifevanbritish\evanbritishtrue
 
 \DeclareOption{sexy}{\evansecthmtrue\evanboxthmtrue\evancolorsectrue} % long docs
 
-\DeclareOption{fancy}{\evanfancytrue}
-\DeclareOption{nofancy}{\evanfancyfalse}
-\DeclareOption{hdr}{\evanhdrtrue}
-\DeclareOption{nohdr}{\evanhdrfalse}
-\DeclareOption{href}{\evanhreftrue}
-\DeclareOption{nohref}{\evanhreffalse}
-
-\DeclareOption{nosetup}{\evansetupfalse}
-\DeclareOption{thm}{\evanthmtrue}
-\DeclareOption{nothm}{\evanthmfalse}
-\DeclareOption{secthm}{\evansecthmtrue}
-\DeclareOption{nosecthm}{\evansecthmfalse}
-
-\DeclareOption{nopkg}{\evanpkgfalse}
-\DeclareOption{noauthor}{\evanauthorfalse}
 \DeclareOption{titlemark}{\evantitlemarktrue} % Sets title in ohead, not \rightmark
 \DeclareOption{sectionmark}{\evantitlemarkfalse} % Uses \rightmark not title in ohead
 
-\DeclareOption{boxthm}{\evanboxthmtrue}
-\DeclareOption{noboxthm}{\evanboxthmfalse}
+\DeclareOption{british}{\evanbritishtrue}
+\DeclareOption{american}{\evanbritishfalse}
+
 % mdthm/nomdthm are the pre-2026 spelling, from when the boxes were mdframed
 \newcommand{\evan@warn@mdthm}{\PackageWarning{evan}{%
   Options `mdthm' and `nomdthm' are deprecated\MessageBreak
@@ -119,27 +111,21 @@
   Use `boxthm' and `noboxthm' instead}}
 \DeclareOption{mdthm}{\evanboxthmtrue\evan@warn@mdthm}
 \DeclareOption{nomdthm}{\evanboxthmfalse\evan@warn@mdthm}
-\DeclareOption{colorsec}{\evancolorsectrue}
-\DeclareOption{nocolorsec}{\evancolorsecfalse}
-
-\DeclareOption{patchasy}{\evanpatchasytrue}
-\DeclareOption{noasy}{\evanasyfalse}
-\DeclareOption{hints}{\evanhintstrue}
-\DeclareOption{von}{\evanvonenabledtrue}
-
-\DeclareOption{british}{\evanbritishtrue}
-\DeclareOption{american}{\evanbritishfalse}
-
-\DeclareOption{bib}{\evanbibtrue}
 
 \ProcessOptions\relax
 
 % if packages not loaded, turn off boxthm and asy
-\ifevanpkg\else\evanboxthmfalse\fi
-\ifevanpkg\else\evanasyfalse\fi
+\ifevanpkg\else\evanboxthmfalse\evanasyfalse\fi
 
 % If no setup, turn off theorems
 \ifevansetup\else\evanthmfalse\fi
+
+% keytheorems is needed by boxthm too, even if no theorems are declared here.
+% (This \newif has to live outside \ifevansetup, or skipped conditionals in the
+% main setup below no longer balance.)
+\newif\ifevan@thmpkg
+\ifevanthm\evan@thmpkgtrue\fi
+\ifevanboxthm\evan@thmpkgtrue\fi
 
 %%fakesection Some macros
 %Small commands
@@ -162,8 +148,8 @@
 \providecommand{\alert}{\vocab}
 \providecommand{\half}{\frac{1}{2}}
 \newcommand{\catname}{\mathsf}
-\newcommand{\hrulebar}{
-  \par\hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
+\newcommand{\hrulebar}{\par
+  \hspace{\fill}\rule{0.95\linewidth}{.7pt}\hspace{\fill}
   \par\nointerlineskip \vspace{\baselineskip}
 }
 \providecommand{\arc}[1]{\wideparen{#1}}
@@ -179,7 +165,6 @@
 
 %Convenient Environments
 \newenvironment{soln}{\begin{proof}[Solution]}{\end{proof}}
-\newenvironment{parlist}{\begin{inparaenum}[(i)]}{\end{inparaenum}}
 \newenvironment{gobble}{\setbox\z@\vbox\bgroup}{\egroup}
 
 %Inequalities
@@ -202,7 +187,7 @@
 \DeclareMathOperator{\Gal}{Gal}
 \DeclareMathOperator{\GL}{GL} % General linear group
 \DeclareMathOperator{\SL}{SL} % Special linear group
-\DeclareMathOperator{\Vol}{Vol} % Special linear group
+\DeclareMathOperator{\Vol}{Vol} % Volume
 
 %From Kiran Kedlaya's "Geometry Unbound"
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
@@ -346,6 +331,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+% \evan@ifkoma{if KOMA class}{if not}
+\newcommand{\evan@ifkoma}[2]{\@ifundefined{KOMAClassName}{#2}{#1}}
+
 \ifevansetup
   %%fakesection Set up author and date
   \ifevanauthor
@@ -384,82 +372,77 @@
     \fi
     \ifevanhref
       \usepackage[colorlinks=true,pdfusetitle]{hyperref}
-      \hypersetup{pdfkeywords={evan.sty},pdfsubject={web.evanchen.cc}}
-      \hypersetup{urlcolor=RubineRed,linkcolor=RoyalBlue,citecolor=ForestGreen}
+      \hypersetup{
+        pdfkeywords={evan.sty},pdfsubject={web.evanchen.cc},
+        urlcolor=RubineRed,linkcolor=RoyalBlue,citecolor=ForestGreen,
+      }
     \fi
     \usepackage[nameinlink]{cleveref}
   \fi
 
   %%fakesection New theorem styles
   % Refactored in 2026 to use keytheorems + tcolorbox (from thmtools + mdframed)
-  \ifevanthm
+  \ifevan@thmpkg
     \usepackage{keytheorems}
     \usepackage{mfirstuc}
-    \hypersetup{hypertexnames=false}
+    \@ifpackageloaded{hyperref}{\hypersetup{hypertexnames=false}}{}
   \fi
   \ifevanboxthm
-    \ifevanthm
-      %% theorem packages loaded already
-    \else
-      \usepackage{keytheorems}
-      \usepackage{mfirstuc}
-      \hypersetup{hypertexnames=false}
-    \fi
     \usepackage{tcolorbox}
     \tcbuselibrary{skins,breakable,hooks}
     % Text right after \end{theorem} should continue the same paragraph
     \AddToHook{env/tcolorbox/after}{\@doendpe}
 
     \tcbset{
-      bluebox/.style={
-        enhanced,
-        arc=9pt, outer arc=10pt,
-        colframe=blue, colback=TealBlue!5, boxrule=1pt,
-        colbacktitle=TealBlue!5, coltitle=black, fonttitle=\bfseries,
-        before skip=12pt, after skip=12pt,
+      % look shared by every box below
+      evanbox/.style={
+        enhanced, coltitle=black, fonttitle=\bfseries,
         left=8pt, right=8pt, top=6pt, bottom=6pt,
+      },
+      % the title background always matches the body background
+      evanbg/.style={colback=#1, colbacktitle=#1},
+      % boxes wearing a colored bar on the left instead of a frame
+      evansidebar/.style={
+        evanbox, breakable, sharp corners,
+        boxrule=0pt, frame hidden,
+        before skip=8pt, left=10pt, right=10pt,
+      },
+      bluebox/.style={
+        evanbox, evanbg=TealBlue!5,
+        arc=9pt, outer arc=10pt,
+        colframe=blue, boxrule=1pt,
+        before skip=12pt, after skip=12pt,
       },
       redbox/.style={
-        enhanced, sharp corners,
-        colframe=RawSienna, colback=Salmon!5, boxrule=0.5pt,
-        colbacktitle=Salmon!5, coltitle=black, fonttitle=\bfseries,
+        evanbox, evanbg=Salmon!5, sharp corners,
+        colframe=RawSienna, boxrule=0.5pt,
         before skip=12pt, after skip=12pt,
-        left=8pt, right=8pt, top=6pt, bottom=6pt,
       },
       greenbox/.style={
-        enhanced, breakable, sharp corners,
-        boxrule=0pt, frame hidden,
+        evansidebar, evanbg=ForestGreen!5,
         borderline west={2pt}{0pt}{ForestGreen},
-        colback=ForestGreen!5,
-        colbacktitle=ForestGreen!5, coltitle=black, fonttitle=\bfseries,
-        before skip=8pt, after skip=0pt,
-        left=10pt, right=10pt, top=6pt, bottom=6pt
+        after skip=0pt,
       },
       blackbox/.style={
-        enhanced, breakable, sharp corners,
-        boxrule=0pt, frame hidden,
+        evansidebar, evanbg=RedViolet!5!gray!5,
         borderline west={3pt}{0pt}{black},
-        colback=RedViolet!5!gray!5,
-        colbacktitle=RedViolet!5!gray!5, coltitle=black, fonttitle=\bfseries,
-        before skip=8pt,
-        left=10pt, right=10pt, top=3pt, bottom=2pt
+        top=3pt, bottom=2pt,
       },
       purplebox/.style={
-        enhanced,
+        evanbox,
         arc=9pt, outer arc=10pt,
         colframe=black, colback=Orchid!10, boxrule=1pt,
         colbacktitle=Violet!50!black, coltitle=white,
         fonttitle=\bfseries\sffamily,
         drop shadow=black!30,
         before skip=12pt, after skip=12pt,
-        left=10pt, right=10pt, top=6pt, bottom=6pt,
+        left=10pt, right=10pt,
       },
       % a box with no personality, for when you just want a frame
       plainbox/.style={
-        enhanced, breakable, sharp corners,
-        colframe=black, colback=white, boxrule=0.4pt,
-        colbacktitle=white, coltitle=black, fonttitle=\bfseries,
-        left=10pt, right=10pt, top=6pt, bottom=6pt,
+        evanbox, evanbg=white, breakable, sharp corners,
+        colframe=black, boxrule=0.4pt,
+        left=10pt, right=10pt,
       },
     }
     \declarekeytheoremstyle{thmbluebox}{
@@ -546,7 +529,7 @@
 
   %%fakesection Fancy section and chapter heads
   \ifevancolorsec
-    \@ifundefined{KOMAClassName}{}{
+    \evan@ifkoma{
       \@ifundefined{chapter}{}{
         \addtokomafont{partprefix}{\rmfamily}
         \renewcommand*{\partformat}{\color{purple}
@@ -567,7 +550,7 @@
 
   %%fakesection Loads a bunch of useful packages (but allow disabling)
   \ifevanpkg
-    \ifevanvonenabled
+    \ifevanvon
       \IfFileExists{von.sty}{\usepackage{von}}{}
     \fi
     \usepackage{listings}
@@ -579,11 +562,9 @@
       breaklines=true,
       columns=fullflexible,
       commentstyle=\color{red!70!black},
-      frame=shadowbox,
       frame=single,
       framerule=1pt,
       identifierstyle=\color{green!40!black},
-      keywordstyle=\bfseries,
       keywordstyle=\bfseries\color{blue!80!black},
       numbers=left,
       numbersep=8pt,
@@ -631,13 +612,15 @@
     \newlist{walk}{enumerate}{3}
     \setlist[walk]{label=\bfseries (\alph*)}
     % list item for MO style rubrics
-    \newcommand{\worth}[1]{\def\hfill{\hskip 20pt plus 1fill}\dotfill%
-      \IfEq{#1}{0}{\textbf{0~points}}%
-      {\textbf{\color{blue}#1~point\IfEndWith{#1}{1}{}{s}}}%
+    \newcommand{\evan@worthdots}{\def\hfill{\hskip 20pt plus 1fill}\dotfill}
+    \newcommand{\evan@points}[1]{#1~point\IfEndWith{#1}{1}{}{s}}
+    \newcommand{\worth}[1]{\evan@worthdots
+      \IfEq{#1}{0}{\textbf{\evan@points{#1}}}%
+      {\textbf{\color{blue}\evan@points{#1}}}%
       \par}
-    \newcommand{\subworth}[1]{\def\hfill{\hskip 20pt plus 1fill}\dotfill%
-      \IfEq{#1}{0}{{\footnotesize0~points}}%
-      {\textbf{\footnotesize#1~point\IfEndWith{#1}{1}{}{s}}}%
+    \newcommand{\subworth}[1]{\evan@worthdots
+      \IfEq{#1}{0}{{\footnotesize\evan@points{#1}}}%
+      {\textbf{\footnotesize\evan@points{#1}}}%
       \par}
     \newlist{rubric}{enumerate}{2}
     \setlist[rubric,1]{label=\Roman*.}
@@ -645,27 +628,43 @@
   \fi
 
   %%fakesection \maketitle configuration
-  \@ifundefined{KOMAClassName}%
-    {} % do nothing outside KOMA class
+  \evan@ifkoma
     {% If KOMA exists. . .
     \addtokomafont{subtitle}{\Large}
     \setkomafont{author}{\Large\scshape}
     \setkomafont{date}{\Large\normalsize}
     }
+    {} % do nothing outside KOMA class
   \providecommand{\thetitle}{\@title}
   \providecommand{\theauthor}{\@author}
   \providecommand{\thedate}{\@date}
 
   %%fakesection Page setup
   \ifevanfancy
-    \@ifundefined{KOMAClassName}
+    \setlength{\headsep}{10pt}
+    \evan@ifkoma
+    {
+      \usepackage[headsepline]{scrlayer-scrpage}
+      \renewcommand{\headfont}{}
+      \addtolength{\textheight}{3.14cm}
+      \setlength{\footskip}{0.5in}
+      \ifevanhdr
+        \ihead{\footnotesize\textbf{\theauthor} --- \thedate}
+        \automark{section}
+        \chead{}
+        \ohead{\footnotesize\textbf{\thetitle}}
+        \cfoot{\pagemark}
+      \else
+        % keep just the page number, as the non-KOMA branch does
+        \pagestyle{plain}
+      \fi
+    }
     {
       \usepackage{fancyhdr}
       \setlength{\headheight}{0.75in}
       \setlength{\oddsidemargin}{0in}
       \setlength{\evensidemargin}{0in}
       \setlength{\voffset}{-1.0in}
-      \setlength{\headsep}{10pt}
       \setlength{\textwidth}{6.5in}
       \setlength{\headwidth}{6.5in}
       \setlength{\textheight}{8.75in}
@@ -682,18 +681,6 @@
         \cfoot{\thepage}
         \rfoot{}
       \fi
-    }
-    {
-      \usepackage[headsepline]{scrlayer-scrpage}
-      \renewcommand{\headfont}{}
-      \addtolength{\textheight}{3.14cm}
-      \setlength{\footskip}{0.5in}
-      \setlength{\headsep}{10pt}
-      \ihead{\footnotesize\textbf{\theauthor} --- \thedate}
-      \automark{section}
-      \chead{}
-      \ohead{\footnotesize\textbf{\thetitle}}
-      \cfoot{\pagemark}
     }
   \fi
 
