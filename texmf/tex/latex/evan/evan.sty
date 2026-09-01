@@ -86,7 +86,6 @@
 \newif\ifevanvonenabled\evanvonenabledfalse
 \newif\ifevanbritish\evanbritishtrue
 \newif\ifevanbib\evanbibfalse
-\newif\ifevancompat\evancompattrue
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanchinesetrue} % Chinese support
@@ -127,15 +126,6 @@
 \DeclareOption{american}{\evanbritishfalse}
 
 \DeclareOption{bib}{\evanbibtrue}
-
-% Shims for documents written against the old thmtools + mdframed evan.sty;
-% see the "Backwards compatibility" section further down
-\DeclareOption{compat}{\evancompattrue}
-\DeclareOption{nocompat}{\evancompatfalse}
-
-% legacy diagrams option, for backwards compatibility
-\DeclareOption{diagrams}{}
-\DeclareOption{nodiagrams}{}
 
 \ProcessOptions\relax
 
@@ -602,91 +592,6 @@
       \Crefname{fact}{Fact}{Facts}
       \Crefname{problem}{Problem}{Problems}
       \Crefname{ques}{Question}{Questions}
-    \fi
-  \fi
-
-  %%fakesection Backwards compatibility with the old theorem setup
-  % Until 2026 the theorems here were built on thmtools + mdframed rather than
-  % keytheorems + tcolorbox. Both of those are dead ends: thmtools breaks on
-  % recent LaTeX kernels (muzimuzhi/thmtools#75) and mdframed is unmaintained.
-  % The shims below keep documents written against the old spellings working.
-  % Pass the "nocompat" option to turn them off and find the stragglers.
-  %
-  %   \declaretheoremstyle[KEYS]{name}  ->  \declarekeytheoremstyle{name}{KEYS}
-  %   \declaretheorem[KEYS]{env}        ->  \newkeytheorem{env}[KEYS]
-  %   \begin{mdframed}[style=mdpurplebox,frametitle={Foo}]
-  %                                     ->  \begin{tcolorbox}[purplebox,title={Foo}]
-  %
-  % NB we deliberately do *not* use keytheorems' own "thmtools-compat" option,
-  % because it also redefines \newtheorem, which chokes on names containing a
-  % brace group (e.g. \newtheorem*{probSurvey}{\clubs{1} {\color{blue}Survey}}).
-  \ifevancompat
-    \@ifundefined{newkeytheorem}{}{
-      \ProvideDocumentCommand{\declaretheoremstyle}{+O{}m}{
-        \declarekeytheoremstyle{#2}{#1}}
-      \ProvideDocumentCommand{\declaretheorem}{+O{}m}{\newkeytheorem{#2}[#1]}
-      \ProvideDocumentCommand{\listoftheorems}{}{\listofkeytheorems}
-    }
-    \ifevanmdthm
-      % legacy names for the box styles
-      \tcbset{
-        mdbluebox/.style={bluebox},
-        mdredbox/.style={redbox},
-        mdgreenbox/.style={greenbox},
-        mdblackbox/.style={blackbox},
-        mdpurplebox/.style={purplebox},
-      }
-      % Only "style" and "frametitle" are understood; mdframed's other keys
-      % have no general translation into tcolorbox, so they are dropped loudly.
-      \ExplSyntaxOn
-      \msg_new:nnn { evan } { mdframed-key }
-        {
-          mdframed~key~'#1'~is~not~supported~by~evan.sty's~tcolorbox~shim;~
-          ignored.~Rewrite~the~box~as~a~tcolorbox.
-        }
-      \msg_new:nnn { evan } { mdfdefinestyle }
-        {
-          \iow_char:N \\ mdfdefinestyle~cannot~be~translated~to~tcolorbox;~
-          style~'#1'~will~render~as~a~plain~box.~
-          Use~\iow_char:N \\ tcbset{#1/.style={...}}~instead.
-        }
-      \tl_new:N \l__evan_mdf_keys_tl
-      \bool_new:N \l__evan_mdf_styled_bool
-      \cs_new_protected:Npn \__evan_mdf_begin:n #1 { \tcolorbox[#1] }
-      \keys_define:nn { evan / mdframed }
-        {
-          style      .code:n =
-            {
-              \bool_set_true:N \l__evan_mdf_styled_bool
-              \tl_put_right:Nn \l__evan_mdf_keys_tl { #1 , }
-            },
-          frametitle .code:n =
-            { \tl_put_right:Nn \l__evan_mdf_keys_tl { title={#1} , } },
-          unknown    .code:n =
-            { \msg_warning:nne { evan } { mdframed-key } { \l_keys_key_str } },
-        }
-      \ProvideDocumentEnvironment { mdframed } { O{} }
-        {
-          \tl_clear:N \l__evan_mdf_keys_tl
-          \bool_set_false:N \l__evan_mdf_styled_bool
-          \keys_set:nn { evan / mdframed } { #1 }
-          \bool_if:NF \l__evan_mdf_styled_bool
-            { \tl_put_left:Nn \l__evan_mdf_keys_tl { plainbox , } }
-          \exp_args:NV \__evan_mdf_begin:n \l__evan_mdf_keys_tl
-        }
-        { \endtcolorbox }
-      \ProvideDocumentCommand \mdfdefinestyle { m +m }
-        {
-          \msg_warning:nnn { evan } { mdfdefinestyle } { #1 }
-          \tcbset { #1 /.style = { plainbox } }
-        }
-      \ExplSyntaxOff
-      % If someone really wants the genuine article, get out of its way
-      \AddToHook{package/mdframed/before}{
-        \let\mdframed\@undefined
-        \let\endmdframed\@undefined
-        \let\mdfdefinestyle\@undefined
-      }
     \fi
   \fi
 
