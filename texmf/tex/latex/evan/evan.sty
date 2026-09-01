@@ -33,8 +33,8 @@
 %
 % BOOST SOFTWARE LICENSE - VERSION 1.0 - 17 AUGUST 2003
 %
-% Copyright (c) 2025 Evan Chen [evan at evanchen.cc]
-% https://web.evanchen.cc/ || github.com/vEnhance
+% Copyright (c) 2026 Evan Chen [evan at evanchen.cc]
+% https://web.evanchen.cc/ || https://github.com/vEnhance
 %
 % Available for download at:
 % https://github.com/vEnhance/dotfiles/blob/main/texmf/tex/latex/evan/evan.sty
@@ -86,6 +86,7 @@
 \newif\ifevanvonenabled\evanvonenabledfalse
 \newif\ifevanbritish\evanbritishtrue
 \newif\ifevanbib\evanbibfalse
+\newif\ifevancompat\evancompattrue
 
 %Receive Arguments
 \DeclareOption{chinese}{\evanchinesetrue} % Chinese support
@@ -126,6 +127,11 @@
 \DeclareOption{american}{\evanbritishfalse}
 
 \DeclareOption{bib}{\evanbibtrue}
+
+% Shims for documents written against the old thmtools + mdframed evan.sty;
+% see the "Backwards compatibility" section further down
+\DeclareOption{compat}{\evancompattrue}
+\DeclareOption{nocompat}{\evancompatfalse}
 
 % legacy diagrams option, for backwards compatibility
 \DeclareOption{diagrams}{}
@@ -391,9 +397,10 @@
   \fi
 
   %%fakesection New theorem styles
+  % Refactored in 2026 to use keytheorems + tcolorbox (from thmtools + mdframed)
   \ifevanthm
     \usepackage{amsthm}
-    \usepackage{thmtools}
+    \usepackage{keytheorems}
     \hypersetup{hypertexnames=false}
   \fi
   \ifevanmdthm
@@ -401,113 +408,93 @@
       %% theorem packages loaded already
     \else
       \usepackage{amsthm}
-      \usepackage{thmtools}
+      \usepackage{keytheorems}
       \hypersetup{hypertexnames=false}
     \fi
-    \usepackage[framemethod=TikZ]{mdframed}
-    \usetikzlibrary{shadows}
-    % https://tex.stackexchange.com/a/292090/76888
-    % https://github.com/marcodaniel/mdframed/issues/12
-    \usepackage{xpatch}
-    \xpatchcmd{\endmdframed}
-      {\aftergroup\endmdf@trivlist\color@endgroup}
-      {\endmdf@trivlist\color@endgroup\@doendpe}
-      {}{}
+    \usepackage{tcolorbox}
+    \tcbuselibrary{skins,breakable,hooks}
+    % Text right after \end{theorem} should continue the same paragraph
+    \AddToHook{env/tcolorbox/after}{\@doendpe}
 
-    \mdfdefinestyle{mdbluebox}{%
-      roundcorner=10pt,
-      linewidth=1pt,
-      skipabove=12pt,
-      innerbottommargin=9pt,
-      skipbelow=2pt,
-      linecolor=blue,
-      nobreak=true,
-      backgroundcolor=TealBlue!5,
+    \tcbset{
+      bluebox/.style={
+        enhanced,
+        arc=9pt, outer arc=10pt,
+        colframe=blue, colback=TealBlue!5, boxrule=1pt,
+        colbacktitle=TealBlue!5, coltitle=black, fonttitle=\bfseries,
+        before skip=12pt, after skip=12pt,
+        left=8pt, right=8pt, top=6pt, bottom=6pt,
+      },
+      redbox/.style={
+        enhanced, sharp corners,
+        colframe=RawSienna, colback=Salmon!5, boxrule=0.5pt,
+        colbacktitle=Salmon!5, coltitle=black, fonttitle=\bfseries,
+        before skip=12pt, after skip=12pt,
+        left=8pt, right=8pt, top=6pt, bottom=6pt,
+      },
+      greenbox/.style={
+        enhanced, breakable, sharp corners,
+        boxrule=0pt, frame hidden,
+        borderline west={2pt}{0pt}{ForestGreen},
+        colback=ForestGreen!5,
+        colbacktitle=ForestGreen!5, coltitle=black, fonttitle=\bfseries,
+        before skip=8pt, after skip=0pt,
+        left=10pt, right=10pt, top=6pt, bottom=6pt
+      },
+      blackbox/.style={
+        enhanced, breakable, sharp corners,
+        boxrule=0pt, frame hidden,
+        borderline west={3pt}{0pt}{black},
+        colback=RedViolet!5!gray!5,
+        colbacktitle=RedViolet!5!gray!5, coltitle=black, fonttitle=\bfseries,
+        before skip=8pt,
+        left=10pt, right=10pt, top=3pt, bottom=2pt
+      },
+      purplebox/.style={
+        enhanced,
+        arc=9pt, outer arc=10pt,
+        colframe=black, colback=Orchid!10, boxrule=1pt,
+        colbacktitle=Violet!50!black, coltitle=white,
+        fonttitle=\bfseries\sffamily,
+        drop shadow=black!30,
+        before skip=12pt, after skip=12pt,
+        left=10pt, right=10pt, top=6pt, bottom=6pt,
+      },
+      % a box with no personality, used by the \begin{mdframed} shim below
+      plainbox/.style={
+        enhanced, breakable, sharp corners,
+        colframe=black, colback=white, boxrule=0.4pt,
+        colbacktitle=white, coltitle=black, fonttitle=\bfseries,
+        left=10pt, right=10pt, top=6pt, bottom=6pt,
+      },
     }
-    \declaretheoremstyle[
+
+    \declarekeytheoremstyle{thmbluebox}{
       headfont=\sffamily\bfseries\color{MidnightBlue},
-      mdframed={style=mdbluebox},
-      headpunct={\\[3pt]},
-      postheadspace={0pt}
-    ]{thmbluebox}
-
-    \mdfdefinestyle{mdredbox}{%
-      linewidth=0.5pt,
-      skipabove=12pt,
-      frametitleaboveskip=5pt,
-      frametitlebelowskip=0pt,
-      skipbelow=2pt,
-      frametitlefont=\bfseries,
-      innertopmargin=4pt,
-      innerbottommargin=8pt,
-      nobreak=true,
-      backgroundcolor=Salmon!5,
-      linecolor=RawSienna,
-    }
-    \declaretheoremstyle[
-      headfont=\bfseries\color{RawSienna},
-      mdframed={style=mdredbox},
+      bodyfont=\normalfont,
+      tcolorbox-no-titlebar={bluebox},
       headpunct={\\[3pt]},
       postheadspace={0pt},
-    ]{thmredbox}
-
-    \mdfdefinestyle{mdgreenbox}{%
-      skipabove=8pt,
-      skipbelow=0pt,
-      linewidth=2pt,
-      rightline=false,
-      leftline=true,
-      topline=false,
-      bottomline=false,
-      linecolor=ForestGreen,
-      backgroundcolor=ForestGreen!5,
     }
-    \declaretheoremstyle[
+    \declarekeytheoremstyle{thmredbox}{
+      headfont=\bfseries\color{RawSienna},
+      bodyfont=\normalfont,
+      tcolorbox-no-titlebar={redbox},
+      headpunct={\\[3pt]},
+      postheadspace={0pt},
+    }
+    \declarekeytheoremstyle{thmgreenbox}{
       headfont=\bfseries\sffamily\color{ForestGreen!70!black},
       bodyfont=\normalfont,
-      spaceabove=2pt,
-      spacebelow=1pt,
-      mdframed={style=mdgreenbox},
+      tcolorbox-no-titlebar={greenbox},
       headpunct={ --- },
-    ]{thmgreenbox}
-
-    \mdfdefinestyle{mdblackbox}{%
-      skipabove=8pt,
-      linewidth=3pt,
-      rightline=false,
-      leftline=true,
-      topline=false,
-      bottomline=false,
-      linecolor=black,
-      backgroundcolor=RedViolet!5!gray!5,
     }
-    \declaretheoremstyle[
+    \declarekeytheoremstyle{thmblackbox}{
       headfont=\bfseries,
       bodyfont=\normalfont\small,
-      spaceabove=0pt,
-      spacebelow=0pt,
-      mdframed={style=mdblackbox}
-    ]{thmblackbox}
-
-    \mdfdefinestyle{mdpurplebox}{%
-      roundcorner=10pt,
-      linewidth=1pt,
-      skipabove=12pt,
-      skipbelow=12pt,
-      innertopmargin=9pt,
-      innerbottommargin=9pt,
-      linecolor=black,
-      nobreak=true,
-      backgroundcolor=Orchid!10,
-      shadow=true,
-      shadowsize=6pt,
-      shadowcolor=black!30,
-      frametitleaboveskip=8pt,
-      frametitlebelowskip=8pt,
-      frametitlebackgroundcolor=Violet!50!black,
-      frametitlefont=\bfseries\sffamily\color{white},
-      frametitlerule=true,
+      tcolorbox-no-titlebar={blackbox},
     }
+
     \newcommand{\listhack}{$\empty$\vspace{-2em}}
   \fi
 
@@ -517,90 +504,94 @@
     %Branching here: the option secthm changes theorems to be labelled by section
     \ifevanmdthm
       \ifevansecthm
-        \declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
+        \newkeytheorem{theorem}[style=thmbluebox,name=Theorem,parent=section]
       \else
-        \declaretheorem[style=thmbluebox,name=Theorem]{theorem}
+        \newkeytheorem{theorem}[style=thmbluebox,name=Theorem]
       \fi
-      \declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
-      \declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
-      \declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
-      \declaretheorem[style=thmbluebox,name=Assumption,sibling=theorem]{assume}
-      \declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
-      \declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
-      \declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
-      \declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
-      \declaretheorem[style=thmbluebox,name=Assumption,numbered=no]{assume*}
+      \newkeytheorem{lemma}[style=thmbluebox,name=Lemma,sibling=theorem]
+      \newkeytheorem{proposition}[style=thmbluebox,name=Proposition,sibling=theorem]
+      \newkeytheorem{corollary}[style=thmbluebox,name=Corollary,sibling=theorem]
+      \newkeytheorem{assume}[style=thmbluebox,name=Assumption,sibling=theorem]
+      \newkeytheorem{theorem*}[style=thmbluebox,name=Theorem,numbered=no]
+      \newkeytheorem{lemma*}[style=thmbluebox,name=Lemma,numbered=no]
+      \newkeytheorem{proposition*}[style=thmbluebox,name=Proposition,numbered=no]
+      \newkeytheorem{corollary*}[style=thmbluebox,name=Corollary,numbered=no]
+      \newkeytheorem{assume*}[style=thmbluebox,name=Assumption,numbered=no]
     \else
       \ifevansecthm
-        \declaretheorem[name=Theorem,numberwithin=section]{theorem}
+        \newkeytheorem{theorem}[name=Theorem,parent=section]
       \else
-        \declaretheorem[name=Theorem]{theorem}
+        \newkeytheorem{theorem}[name=Theorem]
       \fi
-      \declaretheorem[name=Lemma,sibling=theorem]{lemma}
-      \declaretheorem[name=Proposition,sibling=theorem]{proposition}
-      \declaretheorem[name=Corollary,sibling=theorem]{corollary}
-      \declaretheorem[name=Assumption,sibling=theorem]{assume}
-      \declaretheorem[name=Theorem,numbered=no]{theorem*}
-      \declaretheorem[name=Lemma,numbered=no]{lemma*}
-      \declaretheorem[name=Proposition,numbered=no]{proposition*}
-      \declaretheorem[name=Corollary,numbered=no]{corollary*}
-      \declaretheorem[name=Assumption,numbered=no]{assume*}
+      \newkeytheorem{lemma}[name=Lemma,sibling=theorem]
+      \newkeytheorem{proposition}[name=Proposition,sibling=theorem]
+      \newkeytheorem{corollary}[name=Corollary,sibling=theorem]
+      \newkeytheorem{assume}[name=Assumption,sibling=theorem]
+      \newkeytheorem{theorem*}[name=Theorem,numbered=no]
+      \newkeytheorem{lemma*}[name=Lemma,numbered=no]
+      \newkeytheorem{proposition*}[name=Proposition,numbered=no]
+      \newkeytheorem{corollary*}[name=Corollary,numbered=no]
+      \newkeytheorem{assume*}[name=Assumption,numbered=no]
     \fi
 
     \ifevanmdthm
-      \declaretheorem[style=thmgreenbox,name=Algorithm,sibling=theorem]{algorithm}
-      \declaretheorem[style=thmgreenbox,name=Algorithm,numbered=no]{algorithm*}
-      \declaretheorem[style=thmgreenbox,name=Claim,sibling=theorem]{claim}
-      \declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
+      \newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
+      \newkeytheorem{algorithm*}[style=thmgreenbox,name=Algorithm,numbered=no]
+      \newkeytheorem{claim}[style=thmgreenbox,name=Claim,sibling=theorem]
+      \newkeytheorem{claim*}[style=thmgreenbox,name=Claim,numbered=no]
     \else
-      \declaretheorem[name=Algorithm,sibling=theorem]{algorithm}
-      \declaretheorem[name=Algorithm,numbered=no]{algorithm*}
-      \declaretheorem[name=Claim,sibling=theorem]{claim}
-      \declaretheorem[name=Claim,numbered=no]{claim*}
+      \newkeytheorem{algorithm}[name=Algorithm,sibling=theorem]
+      \newkeytheorem{algorithm*}[name=Algorithm,numbered=no]
+      \newkeytheorem{claim}[name=Claim,sibling=theorem]
+      \newkeytheorem{claim*}[name=Claim,numbered=no]
     \fi
 
     \ifevanmdthm
-      \declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
-      \declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
+      \newkeytheorem{example}[style=thmredbox,name=Example,sibling=theorem]
+      \newkeytheorem{example*}[style=thmredbox,name=Example,numbered=no]
     \else
-      \declaretheorem[name=Example,sibling=theorem]{example}
-      \declaretheorem[name=Example,numbered=no]{example*}
+      \newkeytheorem{example}[name=Example,sibling=theorem]
+      \newkeytheorem{example*}[name=Example,numbered=no]
     \fi
 
     % Remark-style theorems
     \ifevanmdthm
-      \declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
-      \declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+      \newkeytheorem{remark}[style=thmblackbox,name=Remark,sibling=theorem]
+      \newkeytheorem{remark*}[style=thmblackbox,name=Remark,numbered=no]
     \else
-      \declaretheorem[name=Remark,sibling=theorem]{remark}
-      \declaretheorem[name=Remark,numbered=no]{remark*}
+      \newkeytheorem{remark}[name=Remark,sibling=theorem]
+      \newkeytheorem{remark*}[name=Remark,numbered=no]
     \fi
 
     \ifevanmdthm
-      \declaretheoremstyle[
+      \declarekeytheoremstyle{basehead}{
         headfont=\color{blue!40!black}\normalfont\bfseries,
         spaceabove=8pt,
         spacebelow=8pt,
-        bodyfont=\normalfont
-      ]{basehead}
+        bodyfont=\normalfont,
+      }
     \else
-      \declaretheoremstyle[spaceabove=6pt,spacebelow=6pt]{basehead}
+      \declarekeytheoremstyle{basehead}{
+        spaceabove=6pt,
+        spacebelow=6pt,
+        bodyfont=\normalfont,
+      }
     \fi
 
-    \declaretheorem[style=basehead,name=Answer,sibling=theorem]{answer}
-    \declaretheorem[style=basehead,name=Answer,numbered=no]{answer*}
-    \declaretheorem[style=basehead,name=Conjecture,sibling=theorem]{conjecture}
-    \declaretheorem[style=basehead,name=Conjecture,numbered=no]{conjecture*}
-    \declaretheorem[style=basehead,name=Definition,sibling=theorem]{definition}
-    \declaretheorem[style=basehead,name=Definition,numbered=no]{definition*}
-    \declaretheorem[style=basehead,name=Exercise,sibling=theorem]{exercise}
-    \declaretheorem[style=basehead,name=Exercise,numbered=no]{exercise*}
-    \declaretheorem[style=basehead,name=Fact,sibling=theorem]{fact}
-    \declaretheorem[style=basehead,name=Fact,numbered=no]{fact*}
-    \declaretheorem[style=basehead,name=Problem,sibling=theorem]{problem}
-    \declaretheorem[style=basehead,name=Problem,numbered=no]{problem*}
-    \declaretheorem[style=basehead,name=Question,sibling=theorem]{ques}
-    \declaretheorem[style=basehead,name=Question,numbered=no]{ques*}
+    \newkeytheorem{answer}[style=basehead,name=Answer,sibling=theorem]
+    \newkeytheorem{answer*}[style=basehead,name=Answer,numbered=no]
+    \newkeytheorem{conjecture}[style=basehead,name=Conjecture,sibling=theorem]
+    \newkeytheorem{conjecture*}[style=basehead,name=Conjecture,numbered=no]
+    \newkeytheorem{definition}[style=basehead,name=Definition,sibling=theorem]
+    \newkeytheorem{definition*}[style=basehead,name=Definition,numbered=no]
+    \newkeytheorem{exercise}[style=basehead,name=Exercise,sibling=theorem]
+    \newkeytheorem{exercise*}[style=basehead,name=Exercise,numbered=no]
+    \newkeytheorem{fact}[style=basehead,name=Fact,sibling=theorem]
+    \newkeytheorem{fact*}[style=basehead,name=Fact,numbered=no]
+    \newkeytheorem{problem}[style=basehead,name=Problem,sibling=theorem]
+    \newkeytheorem{problem*}[style=basehead,name=Problem,numbered=no]
+    \newkeytheorem{ques}[style=basehead,name=Question,sibling=theorem]
+    \newkeytheorem{ques*}[style=basehead,name=Question,numbered=no]
 
     \ifevanpkg
       \Crefname{answer}{Answer}{Answers}
@@ -611,6 +602,91 @@
       \Crefname{fact}{Fact}{Facts}
       \Crefname{problem}{Problem}{Problems}
       \Crefname{ques}{Question}{Questions}
+    \fi
+  \fi
+
+  %%fakesection Backwards compatibility with the old theorem setup
+  % Until 2026 the theorems here were built on thmtools + mdframed rather than
+  % keytheorems + tcolorbox. Both of those are dead ends: thmtools breaks on
+  % recent LaTeX kernels (muzimuzhi/thmtools#75) and mdframed is unmaintained.
+  % The shims below keep documents written against the old spellings working.
+  % Pass the "nocompat" option to turn them off and find the stragglers.
+  %
+  %   \declaretheoremstyle[KEYS]{name}  ->  \declarekeytheoremstyle{name}{KEYS}
+  %   \declaretheorem[KEYS]{env}        ->  \newkeytheorem{env}[KEYS]
+  %   \begin{mdframed}[style=mdpurplebox,frametitle={Foo}]
+  %                                     ->  \begin{tcolorbox}[purplebox,title={Foo}]
+  %
+  % NB we deliberately do *not* use keytheorems' own "thmtools-compat" option,
+  % because it also redefines \newtheorem, which chokes on names containing a
+  % brace group (e.g. \newtheorem*{probSurvey}{\clubs{1} {\color{blue}Survey}}).
+  \ifevancompat
+    \@ifundefined{newkeytheorem}{}{
+      \ProvideDocumentCommand{\declaretheoremstyle}{+O{}m}{
+        \declarekeytheoremstyle{#2}{#1}}
+      \ProvideDocumentCommand{\declaretheorem}{+O{}m}{\newkeytheorem{#2}[#1]}
+      \ProvideDocumentCommand{\listoftheorems}{}{\listofkeytheorems}
+    }
+    \ifevanmdthm
+      % legacy names for the box styles
+      \tcbset{
+        mdbluebox/.style={bluebox},
+        mdredbox/.style={redbox},
+        mdgreenbox/.style={greenbox},
+        mdblackbox/.style={blackbox},
+        mdpurplebox/.style={purplebox},
+      }
+      % Only "style" and "frametitle" are understood; mdframed's other keys
+      % have no general translation into tcolorbox, so they are dropped loudly.
+      \ExplSyntaxOn
+      \msg_new:nnn { evan } { mdframed-key }
+        {
+          mdframed~key~'#1'~is~not~supported~by~evan.sty's~tcolorbox~shim;~
+          ignored.~Rewrite~the~box~as~a~tcolorbox.
+        }
+      \msg_new:nnn { evan } { mdfdefinestyle }
+        {
+          \iow_char:N \\ mdfdefinestyle~cannot~be~translated~to~tcolorbox;~
+          style~'#1'~will~render~as~a~plain~box.~
+          Use~\iow_char:N \\ tcbset{#1/.style={...}}~instead.
+        }
+      \tl_new:N \l__evan_mdf_keys_tl
+      \bool_new:N \l__evan_mdf_styled_bool
+      \cs_new_protected:Npn \__evan_mdf_begin:n #1 { \tcolorbox[#1] }
+      \keys_define:nn { evan / mdframed }
+        {
+          style      .code:n =
+            {
+              \bool_set_true:N \l__evan_mdf_styled_bool
+              \tl_put_right:Nn \l__evan_mdf_keys_tl { #1 , }
+            },
+          frametitle .code:n =
+            { \tl_put_right:Nn \l__evan_mdf_keys_tl { title={#1} , } },
+          unknown    .code:n =
+            { \msg_warning:nne { evan } { mdframed-key } { \l_keys_key_str } },
+        }
+      \ProvideDocumentEnvironment { mdframed } { O{} }
+        {
+          \tl_clear:N \l__evan_mdf_keys_tl
+          \bool_set_false:N \l__evan_mdf_styled_bool
+          \keys_set:nn { evan / mdframed } { #1 }
+          \bool_if:NF \l__evan_mdf_styled_bool
+            { \tl_put_left:Nn \l__evan_mdf_keys_tl { plainbox , } }
+          \exp_args:NV \__evan_mdf_begin:n \l__evan_mdf_keys_tl
+        }
+        { \endtcolorbox }
+      \ProvideDocumentCommand \mdfdefinestyle { m +m }
+        {
+          \msg_warning:nnn { evan } { mdfdefinestyle } { #1 }
+          \tcbset { #1 /.style = { plainbox } }
+        }
+      \ExplSyntaxOff
+      % If someone really wants the genuine article, get out of its way
+      \AddToHook{package/mdframed/before}{
+        \let\mdframed\@undefined
+        \let\endmdframed\@undefined
+        \let\mdfdefinestyle\@undefined
+      }
     \fi
   \fi
 

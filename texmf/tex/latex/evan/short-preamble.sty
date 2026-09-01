@@ -65,95 +65,87 @@
 \par\nointerlineskip \vspace{\baselineskip}}
 
 %%% Optional colored theorems
-\usepackage{thmtools}
-\usepackage[framemethod=TikZ]{mdframed}
-\mdfdefinestyle{mdbluebox}{%
-  roundcorner=10pt,
-  linewidth=1pt,
-  skipabove=12pt,
-  innerbottommargin=9pt,
-  skipbelow=2pt,
-  linecolor=blue,
-  nobreak=true,
-  backgroundcolor=TealBlue!5,
+\usepackage{keytheorems}
+\usepackage{tcolorbox}
+\tcbuselibrary{skins,breakable,hooks}
+% text right after \end{theorem} continues the same paragraph, i.e. no indent
+\makeatletter
+\AddToHook{env/tcolorbox/after}{\@doendpe}
+\makeatother
+
+\tcbset{
+  bluebox/.style={
+    enhanced,
+    arc=9pt, outer arc=10pt,
+    colframe=blue, colback=TealBlue!5, boxrule=1pt,
+    before skip=12pt, after skip=2pt,
+    left=10pt, right=10pt, top=6pt, bottom=9pt,
+  },
+  redbox/.style={
+    enhanced, sharp corners,
+    colframe=RawSienna, colback=Salmon!5, boxrule=0.5pt,
+    before skip=12pt, after skip=2pt,
+    left=10pt, right=10pt, top=4pt, bottom=8pt,
+  },
+  greenbox/.style={
+    enhanced, breakable, sharp corners,
+    boxrule=0pt, frame hidden,
+    borderline west={2pt}{0pt}{ForestGreen},
+    colback=ForestGreen!5,
+    before skip=8pt, after skip=0pt,
+    left=10pt, right=10pt,
+  },
+  blackbox/.style={
+    enhanced, breakable, sharp corners,
+    boxrule=0pt, frame hidden,
+    borderline west={3pt}{0pt}{black},
+    colback=RedViolet!5!gray!5,
+    before skip=8pt,
+    left=10pt, right=10pt,
+  },
 }
-\declaretheoremstyle[
+\declarekeytheoremstyle{thmbluebox}{
   headfont=\sffamily\bfseries\color{MidnightBlue},
-  mdframed={style=mdbluebox},
-  headpunct={\\[3pt]},
-  postheadspace={0pt}
-]{thmbluebox}
-\mdfdefinestyle{mdredbox}{%
-  linewidth=0.5pt,
-  skipabove=12pt,
-  frametitleaboveskip=5pt,
-  frametitlebelowskip=0pt,
-  skipbelow=2pt,
-  frametitlefont=\bfseries,
-  innertopmargin=4pt,
-  innerbottommargin=8pt,
-  nobreak=true,
-  backgroundcolor=Salmon!5,
-  linecolor=RawSienna,
-}
-\declaretheoremstyle[
-  headfont=\bfseries\color{RawSienna},
-  mdframed={style=mdredbox},
+  bodyfont=\normalfont,
+  tcolorbox-no-titlebar={bluebox},
   headpunct={\\[3pt]},
   postheadspace={0pt},
-]{thmredbox}
-\mdfdefinestyle{mdgreenbox}{%
-  skipabove=8pt,
-  linewidth=2pt,
-  rightline=false,
-  leftline=true,
-  topline=false,
-  bottomline=false,
-  linecolor=ForestGreen,
-  backgroundcolor=ForestGreen!5,
 }
-\declaretheoremstyle[
+\declarekeytheoremstyle{thmredbox}{
+  headfont=\bfseries\color{RawSienna},
+  bodyfont=\normalfont,
+  tcolorbox-no-titlebar={redbox},
+  headpunct={\\[3pt]},
+  postheadspace={0pt},
+}
+\declarekeytheoremstyle{thmgreenbox}{
   headfont=\bfseries\sffamily\color{ForestGreen!70!black},
   bodyfont=\normalfont,
-  spaceabove=2pt,
-  spacebelow=1pt,
-  mdframed={style=mdgreenbox},
+  tcolorbox-no-titlebar={greenbox},
   headpunct={ --- },
-]{thmgreenbox}
-\mdfdefinestyle{mdblackbox}{%
-  skipabove=8pt,
-  linewidth=3pt,
-  rightline=false,
-  leftline=true,
-  topline=false,
-  bottomline=false,
-  linecolor=black,
-  backgroundcolor=RedViolet!5!gray!5,
 }
-\declaretheoremstyle[
+\declarekeytheoremstyle{thmblackbox}{
   headfont=\bfseries,
   bodyfont=\normalfont\small,
-  spaceabove=0pt,
-  spacebelow=0pt,
-  mdframed={style=mdblackbox}
-]{thmblackbox}
+  tcolorbox-no-titlebar={blackbox},
+}
 
-\declaretheorem[style=thmbluebox,name=Theorem,numberwithin=section]{theorem}
-\declaretheorem[style=thmbluebox,name=Lemma,sibling=theorem]{lemma}
-\declaretheorem[style=thmbluebox,name=Proposition,sibling=theorem]{proposition}
-\declaretheorem[style=thmbluebox,name=Corollary,sibling=theorem]{corollary}
-\declaretheorem[style=thmbluebox,name=Theorem,numbered=no]{theorem*}
-\declaretheorem[style=thmbluebox,name=Lemma,numbered=no]{lemma*}
-\declaretheorem[style=thmbluebox,name=Proposition,numbered=no]{proposition*}
-\declaretheorem[style=thmbluebox,name=Corollary,numbered=no]{corollary*}
-\declaretheorem[style=thmgreenbox,name=Algorithm,sibling=theorem]{algorithm}
-\declaretheorem[style=thmgreenbox,name=Algorithm,numbered=no]{algorithm*}
-\declaretheorem[style=thmgreenbox,name=Claim,sibling=theorem]{claim}
-\declaretheorem[style=thmgreenbox,name=Claim,numbered=no]{claim*}
-\declaretheorem[style=thmredbox,name=Example,sibling=theorem]{example}
-\declaretheorem[style=thmredbox,name=Example,numbered=no]{example*}
-\declaretheorem[style=thmblackbox,name=Remark,sibling=theorem]{remark}
-\declaretheorem[style=thmblackbox,name=Remark,numbered=no]{remark*}
+\newkeytheorem{theorem}[style=thmbluebox,name=Theorem,parent=section]
+\newkeytheorem{lemma}[style=thmbluebox,name=Lemma,sibling=theorem]
+\newkeytheorem{proposition}[style=thmbluebox,name=Proposition,sibling=theorem]
+\newkeytheorem{corollary}[style=thmbluebox,name=Corollary,sibling=theorem]
+\newkeytheorem{theorem*}[style=thmbluebox,name=Theorem,numbered=no]
+\newkeytheorem{lemma*}[style=thmbluebox,name=Lemma,numbered=no]
+\newkeytheorem{proposition*}[style=thmbluebox,name=Proposition,numbered=no]
+\newkeytheorem{corollary*}[style=thmbluebox,name=Corollary,numbered=no]
+\newkeytheorem{algorithm}[style=thmgreenbox,name=Algorithm,sibling=theorem]
+\newkeytheorem{algorithm*}[style=thmgreenbox,name=Algorithm,numbered=no]
+\newkeytheorem{claim}[style=thmgreenbox,name=Claim,sibling=theorem]
+\newkeytheorem{claim*}[style=thmgreenbox,name=Claim,numbered=no]
+\newkeytheorem{example}[style=thmredbox,name=Example,sibling=theorem]
+\newkeytheorem{example*}[style=thmredbox,name=Example,numbered=no]
+\newkeytheorem{remark}[style=thmblackbox,name=Remark,sibling=theorem]
+\newkeytheorem{remark*}[style=thmblackbox,name=Remark,numbered=no]
 
 \theoremstyle{definition}
 \newtheorem{conjecture}[theorem]{Conjecture}

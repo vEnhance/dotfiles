@@ -66,13 +66,13 @@
 \ifTSTsols
   \usepackage[sexy]{evan}
   \newcommand{\TSTpvon}[1]{%
-    \begin{mdframed}[style=mdpurplebox,frametitle={Problem statement}]
+    \begin{tcolorbox}[purplebox,title={Problem statement}]
     \voninclude[0]{#1}
-    \end{mdframed}}
+    \end{tcolorbox}}
   \newcommand{\TSTpsvon}[1]{%
-    \begin{mdframed}[style=mdpurplebox,frametitle={Problem statement}]
+    \begin{tcolorbox}[purplebox,title={Problem statement}]
     \voninclude[0]{#1}
-    \end{mdframed}
+    \end{tcolorbox}
     \voninclude[1]{#1}
     \pagebreak}
   \newcommand{\TST}[2]{\subsection{#2}\TSTpsvon{#1}}

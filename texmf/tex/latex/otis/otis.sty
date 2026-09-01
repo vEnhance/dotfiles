@@ -29,16 +29,16 @@
   \renewcommand{\logopath}{otis-logo-med.png}
   \logo{\includegraphics[width=12em]{\logopath}}
 
-  \declaretheoremstyle[
+  \declarekeytheoremstyle{olystyle}{
     headfont=\color{blue!40!black}\normalfont\bfseries,
     spaceabove=8pt,
     spacebelow=24pt,
-    bodyfont=\normalfont
-  ]{olystyle}
-  \declaretheorem[style=olystyle,name=JMO]{jprob}
-  \declaretheorem[style=olystyle,name=USAMO]{uprob}
-  \declaretheorem[style=olystyle,name=TST]{tprob}
-  \declaretheorem[style=olystyle,name=Question]{quiz}
+    bodyfont=\normalfont,
+  }
+  \newkeytheorem{jprob}[style=olystyle,name=JMO]
+  \newkeytheorem{uprob}[style=olystyle,name=USAMO]
+  \newkeytheorem{tprob}[style=olystyle,name=TST]
+  \newkeytheorem{quiz}[style=olystyle,name=Question]
 
   \cfoot{}
   \ihead{\thelogo}
