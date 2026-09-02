@@ -41,5 +41,9 @@ fi
 ## MBSYNC + MUTT
 # Syncing mailboxes for use with mutt
 if command -v mbsync && command -v pass; then
-  mbsync -q personal-inbox work-inbox records-inbox
+  if PASSWORD_STORE_GPG_OPTS="--pinentry-mode error" pass show hello >/dev/null 2>&1; then
+    mbsync -q personal-inbox work-inbox records-inbox
+  else
+    echo "GPG key locked, skipping mbsync"
+  fi
 fi
