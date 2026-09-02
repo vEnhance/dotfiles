@@ -60,6 +60,7 @@ ALLOW_JAVASCRIPT_WEBSITES = (
     r"*://100.100.100.100/*",
     r"*://*.0xparc.org/*",
     r"*://*.amazon.com/*",
+    r"*://*.anserena.com/*",
     r"*://*.athemath.org/*",
     r"*://*.archlinux.org/*",
     r"*://*.bitwarden.com/*",
