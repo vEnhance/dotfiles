@@ -1,5 +1,5 @@
 [Unit]
-Description=Runs a custom cron script
+Description=Runs a custom periodic sync script
 
 [Service]
-ExecStart=/home/evan/dotfiles/sh-scripts/cron.sh
+ExecStart=/home/evan/dotfiles/sh-scripts/evansync.sh

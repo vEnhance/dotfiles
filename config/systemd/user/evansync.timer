@@ -1,5 +1,5 @@
 [Unit]
-Description=Periodically run a "cron" script
+Description=Periodically run the evansync script
 
 [Timer]
 OnBootSec=15min
