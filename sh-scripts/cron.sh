@@ -7,10 +7,15 @@ if ! wget -q --spider https://web.evanchen.cc; then
   echo "No Internet"
   exit 0
 fi
+if PASSWORD_STORE_GPG_OPTS="--pinentry-mode error" pass show hello >/dev/null 2>&1; then
+  PASS_UNLOCKED=1
+else
+  PASS_UNLOCKED=0
+fi
 
 # This command grabs all the OTIS stuff: problem sets, petitions, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "$(jq --raw-output .otis ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(jq --raw-output .otis ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ] && [ "$PASS_UNLOCKED" = 1 ]; then
   /usr/bin/python3 ~/dotfiles/py-scripts/venueQ/otis.py
 fi
 
@@ -40,10 +45,6 @@ fi
 
 ## MBSYNC + MUTT
 # Syncing mailboxes for use with mutt
-if command -v mbsync && command -v pass; then
-  if PASSWORD_STORE_GPG_OPTS="--pinentry-mode error" pass show hello >/dev/null 2>&1; then
-    mbsync -q personal-inbox work-inbox records-inbox
-  else
-    echo "GPG key locked, skipping mbsync"
-  fi
+if command -v mbsync && command -v pass && [ "$PASS_UNLOCKED" = 1 ]; then
+  mbsync -q personal-inbox work-inbox records-inbox
 fi
