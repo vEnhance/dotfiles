@@ -110,9 +110,7 @@ def send_email(
 
         session = smtplib.SMTP("smtp.postmarkapp.com", 587)
         try:
-            assert OTIS_POSTMARK_USERNAME is not None
-            assert OTIS_POSTMARK_PASSWORD is not None
-
+            assert OTIS_POSTMARK_USERNAME and OTIS_POSTMARK_PASSWORD
             session.starttls(context=ssl.create_default_context())
             session.login(OTIS_POSTMARK_USERNAME, OTIS_POSTMARK_PASSWORD)
             session.sendmail("overlord@evanchen.cc", recipients, mail.as_string())
