@@ -6,7 +6,7 @@ notify-send "i3: exec mode" -i "emblem-documents" \
   "<b>=</b>: screenshot      <b>a</b>: Asy
 <b>b</b>: Borse            <b>c</b>: Card vault
 <b>f</b>: Firefox          <b>g</b>: Geogebra
-<b>h</b>: cHromium         <b>i</b>: ankI
+<b>h</b>: HQ               <b>i</b>: ankI
 <b>k</b>: miqin            <b>l</b>: Lock
 <b>m</b>: gnucash          <b>n</b>: vit
 <b>o</b>: OBS              <b>p</b>: Pass vault

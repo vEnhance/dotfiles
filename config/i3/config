@@ -290,8 +290,7 @@ mode "exec" {
   bindsym d exec discord &, mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
-  # short for hanabi
-  bindsym h exec chromium &, mode "default"
+  bindsym h exec i3-sensible-terminal -e "bash -c 'cd $HOME/Sync/HQ && vim Projects.md'", mode "default"
   bindsym i exec anki &, mode "default"
   bindsym k exec xfce4-terminal --zoom=4 -e "python3 $HOME/Sync/Projects/miqin/miqin.py" &, mode "default"
   bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
