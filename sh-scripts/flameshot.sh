@@ -31,7 +31,8 @@ flameshot screen -n "${idx:-0}" --edit
 # actually in fact that happens a ton
 # so on using flameshot, in case that happens, just write it to /tmp
 
-out="/tmp/flameshot.png"
+out="/tmp/clipboard/flameshot.png"
+mkdir -p "/tmp/clipboard/"
 
 if xclip -selection clipboard -t TARGETS -o | grep -qx "image/png"; then
   if xclip -selection clipboard -t image/png -o >"$out"; then
