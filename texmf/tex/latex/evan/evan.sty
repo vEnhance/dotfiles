@@ -391,37 +391,35 @@
       evanbg/.style={colback=#1, colbacktitle=#1},
       evansidebar/.style={
         evanbox, breakable, sharp corners, boxrule=0pt, frame hidden,
-        before skip=8pt, left=10pt, right=10pt,
+        left=10pt, right=10pt,
       },
       % --------------------------------------------------------
       bluebox/.style={
-        evanbox, evanbg=TealBlue!5, arc=9pt, outer arc=10pt,
-        colframe=blue, boxrule=1pt, before skip=12pt, after skip=12pt,
+        evanbox, evanbg=TealBlue!5, arc=9pt, outer arc=10pt, colframe=blue, boxrule=1pt,
       },
       redbox/.style={
-        evanbox, evanbg=Salmon!5, sharp corners,
-        colframe=RawSienna, boxrule=0.5pt, before skip=12pt, after skip=12pt,
+        evanbox, evanbg=Salmon!5, sharp corners, colframe=RawSienna, boxrule=0.5pt,
       },
       greenbox/.style={
-        evansidebar, evanbg=ForestGreen!5,
-        borderline west={2pt}{0pt}{ForestGreen}, after skip=8pt,
+        evansidebar, evanbg=ForestGreen!5, borderline west={2pt}{0pt}{ForestGreen},
       },
       blackbox/.style={
-        evansidebar, evanbg=RedViolet!5!gray!5,
-        borderline west={3pt}{0pt}{black}, top=3pt, bottom=2pt,
+        evansidebar, evanbg=RedViolet!5!gray!5, borderline west={3pt}{0pt}{black},
+        top = 4pt, bottom = 4pt % smaller font size, so shrink padding a bit too
       },
       purplebox/.style={
         evanbox, arc=9pt, outer arc=10pt, colframe=black, colback=Orchid!10,
         boxrule=1pt, colbacktitle=Violet!50!black, coltitle=white,
         fonttitle=\bfseries\sffamily, drop shadow=black!30,
-        before skip=12pt, after skip=12pt, left=10pt, right=10pt,
+        after skip = 12pt % bit of extra space after the drop shadow
       },
       % --------------------------------------------------------
       plainbox/.style={ % just a plain box, for a border
         evanbox, evanbg=white, breakable, sharp corners,
-        colframe=black, boxrule=0.4pt, left=10pt, right=10pt,
+        colframe=black, boxrule=0.4pt,
       },
     }
+
     \declarekeytheoremstyle{thmbluebox}{
       headfont=\sffamily\bfseries\color{MidnightBlue},
       bodyfont=\normalfont,
