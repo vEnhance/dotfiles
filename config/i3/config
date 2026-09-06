@@ -284,24 +284,24 @@ bindsym $mod+o exec --no-startup-id $HOME/dotfiles/config/i3/reminder-audio.sh, 
 
 # executable [x] {{{
 mode "exec" {
-  bindsym a exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/ggb-to-asy.sh", mode "default"
-  bindsym b exec ghostty --font-size=42 -e "borse" &, mode "default"
-  bindsym c exec i3-sensible-terminal -e $HOME/dotfiles/sh-scripts/grab-password-from-vault.sh cards, mode "default"
+  bindsym a exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/ggb-to-asy.sh", mode "default"
+  bindsym b exec xfce4-terminal --zoom=6 -e "borse" &, mode "default"
+  bindsym c exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh cards", mode "default"
   bindsym d exec discord &, mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
   bindsym h exec i3-sensible-terminal -e bash -c 'cd $HOME/Sync/HQ && vim Projects.md', mode "default"
   bindsym i exec anki &, mode "default"
-  bindsym k exec ghostty --font-size=29 -e python3 $HOME/Sync/Projects/miqin/miqin.py &, mode "default"
+  bindsym k exec xfce4-terminal --zoom=4 -e "python3 $HOME/Sync/Projects/miqin/miqin.py" &, mode "default"
   bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
   # short for money
   bindsym m exec gnucash &, mode "default"
   # short for next
-  bindsym n exec i3-sensible-terminal --title="VIMTODO" -e "vit", mode "default"
+  bindsym n exec xfce4-terminal --title="VIMTODO" -e "vit", mode "default"
   bindsym o exec obs &, mode "default"
-  bindsym p exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh", exec "sleep 600 && xsel --secondary --delete", mode "default"
+  bindsym p exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh", exec "sleep 600 && xsel --secondary --delete", mode "default"
   bindsym q exec --no-startup-id $HOME/dotfiles/sh-scripts/nerd-dictate.sh, mode "default"
-  bindsym r exec i3-sensible-terminal --title="OTIS-ARCH" -e "$HOME/dotfiles/py-scripts/orch.py", mode "default"
+  bindsym r exec xfce4-terminal --title="OTIS-ARCH" -e "$HOME/dotfiles/py-scripts/orch.py", mode "default"
   bindsym s exec spotify &, mode "default"
   bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/py-scripts/venueQ/otis.py'" -c ":source ~/dotfiles/py-scripts/venueQ/venueQ.vim", mode "default"
   bindsym w exec --no-startup-id fish -c pomodoro, mode "default"
@@ -358,9 +358,9 @@ bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh
 bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
 
 bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
-bindsym $mod+d exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh"
+bindsym $mod+d exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh"
 bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/calendar/u/0/r/customday" :"mode-enter passthrough"
-bindsym $mod+y exec i3-sensible-terminal -e fish --login --command yap
+bindsym $mod+y exec xfce4-terminal -e "fish --login --command yap"
 # }}}
 
 include ~/dotfiles/config/i3/extras.`hostname`
