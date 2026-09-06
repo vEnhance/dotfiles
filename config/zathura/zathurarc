@@ -1,8 +1,6 @@
 set default-bg "#001337"
 set dbus-service true
 set synctex true
-# set synctex-editor-command "gvim --servername GVIM --remote +%{line} %{input}"
-set synctex-editor-command "evans-synctex-wrapper %{line} '%{input}'"
 
 map , set "first-page-column 1:1"
 map . set "first-page-column 1:2"
