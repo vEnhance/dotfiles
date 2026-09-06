@@ -31,17 +31,6 @@ palette = 13=#ff55ff
 palette = 14=#55ffff
 palette = 15=#ffffff
 
-# Ask for server-side decorations: Ghostty draws no GTK4 header bar, and i3 still
-# draws its own title bar. Do NOT use "none" here -- that sets _MOTIF_WM_HINTS
-# decorations=0, which i3 honors by forcing the window's border to "none", so the
-# title bar vanishes except in stacked/tabbed containers.
 window-decoration = server
-window-width = 80
-window-height = 24
-gtk-tabs-location = top
 
-# i3 already owns fullscreen; "unbind" (not "ignore") so the key still reaches
-# the running program instead of being swallowed.
 keybind = ctrl+enter=unbind
-
-# vim: ft=conf fdm=marker
