@@ -18,6 +18,9 @@ export CM_LAUNCHER=rofi
 # Use Fish as shell
 export SHELL='/usr/bin/fish'
 
+# Use Ghostty as terminal; this is what i3-sensible-terminal checks first
+export TERMINAL=ghostty
+
 # For OBS
 export QT_QPA_PLATFORMTHEME='qt5ct'
 

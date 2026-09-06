@@ -1,0 +1,43 @@
+# Ghostty configuration
+
+command = /usr/bin/fish
+shell-integration = fish
+font-family = Hack Nerd Font Mono
+font-size = 14
+
+background = "#121212"
+foreground = "#e3e3e3"
+background-opacity = 0.85
+
+bold-color = bright
+palette = 0=#000000
+palette = 1=#aa0000
+palette = 2=#00aa00
+palette = 3=#aa5500
+palette = 4=#4e4ef1
+palette = 5=#aa00aa
+palette = 6=#00aaaa
+palette = 7=#aaaaaa
+palette = 8=#555555
+palette = 9=#ff5555
+palette = 10=#55ff55
+palette = 11=#ffff55
+palette = 12=#838ee4
+palette = 13=#ff55ff
+palette = 14=#55ffff
+palette = 15=#ffffff
+
+# Ask for server-side decorations: Ghostty draws no GTK4 header bar, and i3 still
+# draws its own title bar. Do NOT use "none" here -- that sets _MOTIF_WM_HINTS
+# decorations=0, which i3 honors by forcing the window's border to "none", so the
+# title bar vanishes except in stacked/tabbed containers.
+window-decoration = server
+window-width = 80
+window-height = 24
+gtk-tabs-location = top
+
+# i3 already owns fullscreen; "unbind" (not "ignore") so the key still reaches
+# the running program instead of being swallowed.
+keybind = ctrl+enter=unbind
+
+# vim: ft=conf fdm=marker
