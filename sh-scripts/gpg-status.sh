@@ -44,7 +44,7 @@ warm_entry() {
 }
 
 conky=0
-if [[ "${1:-}" == --conky ]]; then
+if [[ ${1:-} == --conky ]]; then
   conky=1
   shift
 fi
@@ -75,11 +75,10 @@ for entry in "${entries[@]}"; do
   cached=$(is_cached "$grip")
   label="$email ($(cap_label "$cap"))"
   if [[ $conky == 1 ]]; then
-    # color7 (bright green) for unlocked, color3 (dim purple) for locked
     if [[ $cached == "1" ]]; then
       line+="\${color7}+$i "
     else
-      line+="\${color3}-$i "
+      line+="\${color0}-$i "
     fi
   elif [[ $cached == "1" ]]; then
     echo -e "[$i] $label: ${BOLD_GREEN}unlocked${RESET} (cached)"
