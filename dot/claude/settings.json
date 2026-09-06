@@ -6,5 +6,6 @@
     "defaultMode": "plan"
   },
   "model": "opus",
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "tui": "fullscreen"
 }
