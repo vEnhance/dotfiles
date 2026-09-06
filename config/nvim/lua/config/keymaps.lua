@@ -17,8 +17,9 @@ vim.keymap.set("n", "<C-Up>", "<Plug>(VM-Add-Cursor-Up)")
 vim.keymap.set("n", "<C-Down>", "<Plug>(VM-Add-Cursor-Down)")
 
 vim.keymap.set("n", "<Space>t", function()
-  vim.cmd("silent !xfce4-terminal --working-directory='" .. vim.fn.expand("%:p:h") .. "' &")
-end, { noremap = true, silent = true, desc = "Open an xfce4-terminal" })
+  -- ghostty logs ~30 lines to stderr on startup; without the redirect they land in the buffer
+  vim.cmd("silent !i3-sensible-terminal --working-directory='" .. vim.fn.expand("%:p:h") .. "' >/dev/null 2>&1 &")
+end, { noremap = true, silent = true, desc = "Open a terminal" })
 
 vim.keymap.set("n", "-o", "<C-w>o", { noremap = true, silent = true, desc = "Maximize window" })
 vim.keymap.set("n", "-h", "<C-w>h", { noremap = true, silent = true, desc = "Move one window left" })

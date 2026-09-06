@@ -2,8 +2,12 @@
 
 command = /usr/bin/fish
 shell-integration = fish
-font-family = Hack Nerd Font Mono
+
+# fallback chain of fonts
 font-size = 14
+font-family = Hack Nerd Font Mono
+font-family = DejaVu Sans Mono
+font-family = Noto Sans Mono CJK TC
 
 background = "#121212"
 foreground = "#e3e3e3"
