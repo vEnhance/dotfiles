@@ -43,6 +43,12 @@ warm_entry() {
   keychain --quiet add "$prefix:$fingerprint"
 }
 
+conky=0
+if [[ "${1:-}" == --conky ]]; then
+  conky=1
+  shift
+fi
+
 mapfile -t emails < <(get_emails)
 
 entries=()
@@ -60,6 +66,7 @@ if [[ "${1:-}" ]]; then
 fi
 
 i=1
+line=""
 for entry in "${entries[@]}"; do
   email="${entry%%:*}"
   cap="${entry##*:}"
@@ -67,10 +74,21 @@ for entry in "${entries[@]}"; do
 
   cached=$(is_cached "$grip")
   label="$email ($(cap_label "$cap"))"
-  if [[ $cached == "1" ]]; then
+  if [[ $conky == 1 ]]; then
+    # color7 (bright green) for unlocked, color3 (dim purple) for locked
+    if [[ $cached == "1" ]]; then
+      line+="\${color7}+$i "
+    else
+      line+="\${color3}-$i "
+    fi
+  elif [[ $cached == "1" ]]; then
     echo -e "[$i] $label: ${BOLD_GREEN}unlocked${RESET} (cached)"
   else
     echo -e "[$i] $label: ${BOLD_RED}locked${RESET}"
   fi
   ((i++))
 done
+
+if [[ $conky == 1 ]]; then
+  echo "${line% }"
+fi
