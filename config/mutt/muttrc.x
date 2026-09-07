@@ -80,7 +80,7 @@ set sidebar_new_mail_only = no
 set sidebar_non_empty_mailbox_only = no
 set sidebar_next_new_wrap = no
 set sidebar_on_right = no
-set sidebar_divider_char = '∥'
+set sidebar_divider_char = '║'
 set sidebar_indent_string = ' ➤'
 set mail_check_stats
 # Display the Sidebar mailboxes using this format string.
