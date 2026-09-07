@@ -155,7 +155,8 @@ if detect_missing is False:
         num_problems = sum(
             1 for data in seen.values() if fn in data and data[fn][0] > 0
         )
-        num_points = sum(
+        # we add an extra point for the mini-survey
+        num_points = 1 + sum(
             data[fn][0] for data in seen.values() if fn in data and data[fn][0] > 0
         )
         separator = "   "
