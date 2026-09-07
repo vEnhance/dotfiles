@@ -11,5 +11,5 @@ function pomodoro
     touch "/tmp/pomodoro/$now.md"
 
     i3-msg split h
-    i3-sensible-terminal -e nvim "/tmp/pomodoro/$now.md" >/dev/null 2>&1 &
+    xfce4-terminal -e "nvim /tmp/pomodoro/$now.md" &
 end

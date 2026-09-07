@@ -290,7 +290,7 @@ mode "exec" {
   bindsym d exec discord &, mode "default"
   bindsym f exec firefox &, mode "default"
   bindsym g exec geogebra &, mode "default"
-  bindsym h exec i3-sensible-terminal -e bash -c 'cd $HOME/Sync/HQ && vim Projects.md', mode "default"
+  bindsym h exec xfce4-terminal -e "bash -c 'cd $HOME/Sync/HQ && vim Projects.md'", mode "default"
   bindsym i exec anki &, mode "default"
   bindsym k exec xfce4-terminal --zoom=4 -e "python3 $HOME/Sync/Projects/miqin/miqin.py" &, mode "default"
   bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
@@ -307,7 +307,7 @@ mode "exec" {
   bindsym w exec --no-startup-id fish -c pomodoro, mode "default"
   bindsym x exec qutebrowser &, mode "default"
   # Open latest chapter of diary
-  bindsym y exec i3-sensible-terminal -e bash -c 'cd $HOME/diary && vim $(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | cut -d " " -f 1 | sed s/\}/.tex/)', mode "default"
+  bindsym y exec xfce4-terminal -e "bash -c 'cd $HOME/diary && vim $(ag include ~/diary/diary.tex | tail -n 1 | cut -d \{ -f 2 | cut -d " " -f 1 | sed s/\}/.tex/)'", mode "default"
   bindsym z exec slack &, mode "default"
   bindsym space exec loginctl lock-session, mode "default"
   bindsym equal exec dunstctl close-all; exec sleep 0.1s; exec $HOME/dotfiles/sh-scripts/flameshot.sh &, mode "default"
@@ -345,7 +345,7 @@ exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 exec_always --no-startup-id exec $HOME/dotfiles/config/i3/3kon/i3_workspace_names_daemon.py -n -d " " -l 12
 
 # Misc commands {{{
-bindsym $mod+Return exec ghostty
+bindsym $mod+Return exec i3-sensible-terminal
 bindsym $mod+semicolon exec $HOME/dotfiles/sh-scripts/tw-rofi.sh
 bindsym $mod+space exec --no-startup-id rofi -modi drun#run -show drun -show-icons
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
@@ -357,7 +357,7 @@ bindsym $mod+Shift+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh --
 bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh
 bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
 
-bindsym $mod+c exec i3-sensible-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
+bindsym $mod+c exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
 bindsym $mod+d exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh"
 bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/calendar/u/0/r/customday" :"mode-enter passthrough"
 bindsym $mod+y exec xfce4-terminal -e "fish --login --command yap"

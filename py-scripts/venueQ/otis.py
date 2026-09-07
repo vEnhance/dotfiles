@@ -575,7 +575,7 @@ class Suggestion(VenueQNode):
             ],
             check=False,
         )
-        args = ["i3-sensible-terminal", "-e", "python", "-m"]
+        args = ["xfce4-terminal", "-x", "python", "-m"]
         args += ["von", "add", data["source"], "-f", tmp_path]
         if data["hyperlink"]:
             args += ["--url", data["hyperlink"]]
