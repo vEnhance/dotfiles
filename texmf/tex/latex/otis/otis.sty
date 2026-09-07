@@ -79,11 +79,14 @@
   \ifotishandout
     \usepackage{von}
     \renewcommand{\vonenvname}{example}
+    \newcounter{clubcounter}
+    \setcounter{clubcounter}{0}
+
     \newcommand{\club}[2]{\bgroup\color{#1}[$#2\clubsuit$]\egroup}
-    \newcommand{\clubs}[1]{\club{blue!70!black}{#1}}
-    \newcommand{\clubr}[1]{\club{red!80!black}{#1}}
+    \newcommand{\clubs}[1]{\club{blue!70!black}{#1}\addtocounter{clubcounter}{#1}}
+    \newcommand{\clubr}[1]{\club{red!80!black}{#1}\addtocounter{clubcounter}{#1}}
     \newcommand{\clubg}[1]{\club{green!40!black}{#1}}
-    \newcommand{\clubc}[1]{\club{cyan}{#1}}
+    \newcommand{\clubc}[1]{\club{cyan}{#1}\addtocounter{clubcounter}{#1}}
     %\newcommand{\goal}[1]{Solve at least \clubg{#1} (more if you have time),
     %  including any problem marked in {\color{red} red}.}
     \newcommand{\goals}[2]{\bgroup
@@ -93,8 +96,6 @@
       \egroup\par}
     \newtheorem{probOTIS}{Problem}
 
-    \newcounter{clubcounter}
-    \setcounter{clubcounter}{1} % for mini-survey
     \newtheorem{probE}[probOTIS]{\clubs{2} \color{blue!20!black}Problem}
     \newtheorem{probM}[probOTIS]{\clubs{3} \color{blue!20!black}Problem}
     \newtheorem{probH}[probOTIS]{\clubs{5} \color{blue!20!black}Problem}
@@ -103,22 +104,22 @@
     \newtheorem{probMR}[probOTIS]{\clubr{3} \color{purple!20!black}Required Problem}
     \newtheorem{probHR}[probOTIS]{\clubr{5} \color{purple!20!black}Required Problem}
     \newtheorem{probZR}[probOTIS]{\clubr{9} \color{purple!20!black}Required Problem}
-    \newtheorem*{probSurvey}{\clubs{1} {\color{blue!20!black}Mini Survey}}
+    \newtheorem*{probSurvey}{\clubs{1} \color{blue!20!black}Mini Survey}
     \newtheorem{probJ}[probOTIS]{\clubc{17} \color{blue!20!black}Problem}
     \newtheorem{probK}[probOTIS]{\clubc{33} \color{blue!20!black}Problem}
     \newtheorem{probL}[probOTIS]{\clubc{65} \color{blue!20!black}Problem}
 
-    \newcommand{\vonE}{\addtocounter{clubcounter}{2} \renewcommand{\vonenvname}{probE}\von}
-    \newcommand{\vonM}{\addtocounter{clubcounter}{3} \renewcommand{\vonenvname}{probM}\von}
-    \newcommand{\vonH}{\addtocounter{clubcounter}{5} \renewcommand{\vonenvname}{probH}\von}
-    \newcommand{\vonZ}{\addtocounter{clubcounter}{9} \renewcommand{\vonenvname}{probZ}\von}
-    \newcommand{\vonER}{\addtocounter{clubcounter}{2} \renewcommand{\vonenvname}{probER}\von}
-    \newcommand{\vonMR}{\addtocounter{clubcounter}{3} \renewcommand{\vonenvname}{probMR}\von}
-    \newcommand{\vonHR}{\addtocounter{clubcounter}{5} \renewcommand{\vonenvname}{probHR}\von}
-    \newcommand{\vonZR}{\addtocounter{clubcounter}{9} \renewcommand{\vonenvname}{probZR}\von}
-    \newcommand{\vonJ}{\addtocounter{clubcounter}{17} \renewcommand{\vonenvname}{probJ}\von}
-    \newcommand{\vonK}{\addtocounter{clubcounter}{33} \renewcommand{\vonenvname}{probK}\von}
-    \newcommand{\vonL}{\addtocounter{clubcounter}{65} \renewcommand{\vonenvname}{probL}\von}
+    \newcommand{\vonE}{\renewcommand{\vonenvname}{probE}\von}
+    \newcommand{\vonM}{\renewcommand{\vonenvname}{probM}\von}
+    \newcommand{\vonH}{\renewcommand{\vonenvname}{probH}\von}
+    \newcommand{\vonZ}{\renewcommand{\vonenvname}{probZ}\von}
+    \newcommand{\vonER}{\renewcommand{\vonenvname}{probER}\von}
+    \newcommand{\vonMR}{\renewcommand{\vonenvname}{probMR}\von}
+    \newcommand{\vonHR}{\renewcommand{\vonenvname}{probHR}\von}
+    \newcommand{\vonZR}{\renewcommand{\vonenvname}{probZR}\von}
+    \newcommand{\vonJ}{\renewcommand{\vonenvname}{probJ}\von}
+    \newcommand{\vonK}{\renewcommand{\vonenvname}{probK}\von}
+    \newcommand{\vonL}{\renewcommand{\vonenvname}{probL}\von}
 
     \reversemarginpar
     % Walkthroughs to examples
@@ -185,7 +186,7 @@
     }
     \newcommand{\conclusion}{%
       \printsurvey
-      \noindent The maximum number of \clubs{} for this unit is \clubg{\theclubcounter}, including the mini-survey.
+      \noindent The maximum number of clubs for this unit is \clubg{\theclubcounter}, including the mini-survey.
       \newpage
       \py{r'\section{Solutions to the walkthroughs}' if solution_text else ''}
       \py{solution_text}
