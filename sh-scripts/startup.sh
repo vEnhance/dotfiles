@@ -7,6 +7,8 @@
 # dropbox does not have a desktop file anymore iirc
 
 xss-lock -n ~/dotfiles/sh-scripts/lock-warning.sh -- ~/dotfiles/sh-scripts/fuzzy-lock.sh &
+
+picom -b || true # ensure picom is running before conky goes
 command -v conky && ~/dotfiles/conky/run-conky.sh
 
 if [ "$(whoami)" = "evan" ]; then
