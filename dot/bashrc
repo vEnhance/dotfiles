@@ -82,11 +82,6 @@ alias qqqqqqqqqqqqqqqqq="echo QQ!"
 alias qqqqqqqqqqqqqqqqqq="echo QQ!"
 alias qqqqqqqqqqqqqqqqqqq="echo QQ!"
 
-# Interactive operation...
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-
 # Misc :)
 alias less='less -R'             # raw control characters
 alias diff='diff --color'        # show differences in color

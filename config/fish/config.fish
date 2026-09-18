@@ -59,9 +59,6 @@ if test -f /usr/bin/delta
 else
     alias diff='diff --color' # show differences in color
 end
-alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
 alias less='less -R' # less should detect colors correctly
 alias egrep='egrep --color=auto' # show differences in color
 alias fgrep='fgrep --color=auto' # show differences in color
