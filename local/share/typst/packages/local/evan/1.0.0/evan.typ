@@ -1,5 +1,5 @@
 #import "@preview/gentle-clues:1.2.0": *
-#import "theorems.typ": *
+#import "@preview/ctheorems:2.0.0": *
 
 #let fonts = (
   text: ("Libertinus Serif", "Noto Serif CJK TC", "Noto Color Emoji"),
@@ -28,6 +28,7 @@
   )
 }
 
+// Displayed equations are unnumbered by default; we introduce #eqn[...] to number them.
 #let eqn(s) = {
   set math.equation(numbering: "(1)")
   s
@@ -95,48 +96,68 @@
 )
 
 // Theorem environments
-#let thm-args = (padding: (x: 0.5em, y: 0.6em), outset: 0.9em, counter: "thm", base-level: 1)
-#let thm = thm-plain("Theorem",  fill: rgb("#eeeeff"), ..thm-args)
-#let lem = thm-plain("Lemma", fill: rgb("#eeeeff"), ..thm-args)
-#let propn = thm-plain("Proposition", fill: rgb("#eeeeff"), ..thm-args)
-#let cor = thm-plain("Corollary", fill: rgb("#eeeeff"), ..thm-args)
-#let conj = thm-plain("Conjecture", fill: rgb("#eeeeff"), ..thm-args)
-#let ex = thm-def("Example", fill: rgb("#ffeeee"), ..thm-args)
-#let algo = thm-def("Algorithm", fill: rgb("#ddffdd"), ..thm-args)
-#let claim = thm-def("Claim", fill: rgb("#ddffdd"), ..thm-args)
-#let rmk = thm-def("Remark", fill: rgb("#eeeeee"), ..thm-args)
-#let defn = thm-def("Definition", fill: rgb("#ffffdd"), ..thm-args)
-#let prob = thm-def("Problem", fill: rgb("#eeeeee"), ..thm-args)
-#let exer = thm-def("Exercise", fill: rgb("#eeeeee"), ..thm-args)
-#let exerstar = thm-def("Exercise", fill: rgb("#eeeeee"),
-  title-fmt: (x) => { strong(x + " (*)") },
-  ..thm-args)
-#let ques = thm-def("Question", fill: rgb("#eeeeee"), ..thm-args)
-#let fact = thm-def("Fact", fill: rgb("#eeeeee"), ..thm-args)
+#let thm-args = (counter: "thm", base-level: 1, inset: 0.9em, above: 0.6em, below: 0.6em)
+#let thm-style-plain = thm.with(..thm-args)
+#let thm-style-def = thm.with(..thm-args, body-fmt: x => x) // non-italic
 
-#let todo = thm-plain("TODO", fill: rgb("#ddaa77"), padding: (x: 0.2em, y: 0.2em), outset: 0.4em).with(numbering: none)
-#let proof = thm-proof("Proof")
-#let soln = thm-proof("Solution")
+#let thm       = thm-style-plain.with(supplement: "Theorem", fill: rgb("#eeeeff"))
+#let lem       = thm-style-plain.with(supplement: "Lemma", fill: rgb("#eeeeff"))
+#let propn     = thm-style-plain.with(supplement: "Proposition", fill: rgb("#eeeeff"))
+#let cor       = thm-style-plain.with(supplement: "Corollary", fill: rgb("#eeeeff"))
+#let conj      = thm-style-plain.with(supplement: "Conjecture", fill: rgb("#eeeeff"))
+#let ex        = thm-style-def.with(supplement: "Example", fill: rgb("#ffeeee"))
+#let algo      = thm-style-def.with(supplement: "Algorithm", fill: rgb("#ddffdd"))
+#let claim     = thm-style-def.with(supplement: "Claim", fill: rgb("#ddffdd"))
+#let rmk       = thm-style-def.with(supplement: "Remark", fill: rgb("#eeeeee"))
+#let defn      = thm-style-def.with(supplement: "Definition", fill: rgb("#ffffdd"))
+#let prob      = thm-style-def.with(supplement: "Problem", fill: rgb("#eeeeee"))
+#let exer      = thm-style-def.with(supplement: "Exercise", fill: rgb("#eeeeee"))
+#let exerstar  = exer.with(title-fmt: (x) => { strong(x + " (*)") })
+#let ques      = thm-style-def.with(supplement: "Question", fill: rgb("#eeeeee"))
+#let fact      = thm-style-def.with(supplement: "Fact", fill: rgb("#eeeeee"))
 
-// i have no idea how this works but it seems to work ¯\_(ツ)_/¯
+#let todo = thm-style-plain.with(
+  supplement: "TODO",
+  numbering: none,
+  fill: rgb("#ddaa77"),
+  inset: 0.4em,
+)
+#let soln = proof.with(supplement: "Solution")
+
+// Restate an environment stated earlier, e.g. in an answer key.
 #let recall-thm(target-label) = {
   context {
-    let el = query(target-label).first()
-    let loc = el.location()
+    let loc = query(target-label).first().location()
     let thms = query(selector(<meta:thm-env-counter>).after(loc))
     let thmloc = thms.first().location()
-    let thm = thm-stored.at(thmloc).last()
-    (thm.fmt)(
-      thm.name, link(target-label, str(thm.number)), thm.body, ..thm.args.named(),
-    )
+    let thm = thm-state.thm-stored.at(thmloc).last()
+    (thm.fmt)(thm + (number: link(target-label, thm.number)))
   }
 }
 
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
-#let boxed(x) = rect(stroke: rgb("#003300") + 1.5pt,
+
+/*
+  HACK: thm-rules numbers every block equation (to place #qedhere and #tag).
+  We need to hack it with a separate boxed-numbering, so that #qedhere doesn't invade the box;
+  this _also_ increments the equation counter, which #evan fixes later.
+  Also, we have to recompute the dimensions properly, ignoring the gutter from thm-rules.
+  We hack this by simulating a non-block equation for the box measurement
+*/
+#let boxed-numbering = _ => none
+#let boxed(x) = context rect(stroke: rgb("#003300") + 1.5pt,
   fill: rgb("#eeffee"),
-  inset: 5pt, text(fill: rgb("#000000"), x))
+  inset: 5pt, box(
+    width: measure({
+      show math.equation.where(block: true): eq => math.equation(block: false, math.display(eq.body))
+      x
+    }).width,
+    text(fill: rgb("#000000"), {
+      set math.equation(numbering: boxed-numbering)
+      x
+    }),
+  ))
 
 // Some shorthands
 #let pm = sym.plus.minus
@@ -144,15 +165,10 @@
 #let detmat(..args) = math.mat(delim: "|", ..args)
 #let ee = $bold(upright(e))$
 #let dang = sym.angle.arc
-
-#let url(s) = {
-  link(s, text(font:fonts.mono, s))
-}
+#let url(s) = { link(s, text(font:fonts.mono, s)) }
 
 // Ersatz part command (similar to Koma-Script part in scrartcl)
-#let part(s) = {
-  heading(numbering: none, text(size: 1.4em, fill: colors.partfill, s))
-}
+#let part(s) = { heading(numbering: none, text(size: 1.4em, fill: colors.partfill, s)) }
 
 // Unnumbered heading commands
 #let h1(..args) = heading(level: 1, outlined: false, numbering: none, ..args)
@@ -249,6 +265,15 @@
 
   // Theorem environments
   show: thm-rules.with(qed-symbol: $square$)
+  /*
+    HACK: thm-rules numbers every block equation (to place #qedhere and #tag).
+    We thus need to undo the change to math.equation to compensate.
+  */
+  show math.equation.where(numbering: none, block: true)
+    .or(math.equation.where(numbering: boxed-numbering, block: true)): eq => {
+    eq
+    counter(math.equation).update(v => v - 1)
+  }
 
   // Change quote display
   set quote(block: true)
