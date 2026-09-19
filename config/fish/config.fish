@@ -64,6 +64,12 @@ alias egrep='egrep --color=auto' # show differences in color
 alias fgrep='fgrep --color=auto' # show differences in color
 # }}}
 
+# Use an abbr to add -i automatically to rm/cp/mv {{{
+abbr -a rm --position command 'rm -i'
+abbr -a cp --position command 'cp -i'
+abbr -a mv --position command 'mv -i'
+# }}}
+
 # Aliases {{{
 alias chaotic='/usr/bin/python3 ~/dotfiles/py-scripts/chaotic.py'
 alias hs='/usr/bin/python3 ~/dotfiles/py-scripts/solvertools-search.py'
