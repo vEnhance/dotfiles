@@ -3,7 +3,7 @@ function pomodoro
 
     i3-msg workspace 8
     xterm -bg black -fg white -fa "Inconsolata Condensed ExtraBold" -fs 14 \
-        -e "termdown 25m -b -t END --exec-cmd \"if [ '{0}' == '1' ]; then sleep 1 && $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh B; fi\"" &
+        -e "termdown 25m -b -t END --exec-cmd \"if [ '{1}' == '1' ]; then sleep 1 && $HOME/dotfiles/sh-scripts/noisemaker/noisemaker.sh B; fi\"" &
 
     ~/dotfiles/sh-scripts/noisemaker/noisemaker.sh H
     set now (date +%Y%m%d-%H%M%S)
