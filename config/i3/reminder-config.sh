@@ -7,6 +7,6 @@ notify-send "i3: config mode" -i system-config-keyboard \
 <b>h/l</b>: left-hand/right-hand mouse
 <b>n/s</b>: normal/SC2 mode
 <b>p</b>: present mode
-<b>c</b>: trigger caps lock
+<b>c</b>: calendar sync
 <b>g</b>: gaps
 <b>t</b>: toggle notif"
