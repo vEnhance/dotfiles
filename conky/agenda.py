@@ -70,6 +70,17 @@ def progress(start: datetime.datetime, end: datetime.datetime) -> str:
     return f"({100 * (now - start) // (end - start)}% 진행)"
 
 
+def countdown(start: datetime.datetime) -> str:
+    if start <= now:
+        return ""
+    hours, minutes = divmod(int((start - now).total_seconds()) // 60, 60)
+    if hours == 0:
+        return f" ({minutes}분 후)"
+    if minutes == 0:
+        return f" ({hours}시간 후)"
+    return f" ({hours}시간 {minutes}분 후)"
+
+
 now = datetime.datetime.now()
 today = now.date()
 
@@ -98,7 +109,7 @@ for data in load_events():
         if all_day:
             today_lines.append(f"지금!  {summary}")
         else:
-            today_lines.append(f"{start_time}  {summary}")
+            today_lines.append(f"{start_time}  {summary}{countdown(start)}")
     elif all_day:
         future_lines.append(f"{start_date.strftime('%a%_d')}    {summary}")
     else:
