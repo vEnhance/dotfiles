@@ -27,7 +27,7 @@ fi
 # and output the results under ~/.cache/agenda.json
 # where it can be consumed by e.g. conky
 if command -v gcalendar >/dev/null; then
-  ~/dotfiles/sh-scripts/get-cal.sh
+  ~/dotfiles/sh-scripts/get-cal.sh &
 fi
 
 ## SYNC TASKWARRIOR
