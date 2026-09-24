@@ -19,6 +19,7 @@ set __fish_git_prompt_color_upstream_behind red
 # }}}
 
 # Exports {{{
+export LC_ALL="ko_KR.UTF-8"
 export SHELL='/usr/bin/fish'
 export EDITOR='vim'
 # let Ghostty keep its own terminfo (kitty keyboard protocol, undercurl, ...)
