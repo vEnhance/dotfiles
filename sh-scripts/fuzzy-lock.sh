@@ -16,6 +16,11 @@ if pgrep -U "$(whoami)" stepmania >/dev/null; then
   exit
 fi
 
+if [ "$(whoami)" = star ] && pgrep -U star -x obs >/dev/null; then
+  echo "OBS running"
+  exit
+fi
+
 # during twitch stream, disable laptop lock screen
 if { [ "$(hostname)" = "ArchUmi" ] || [ "$(hostname)" = "ArchScythe" ]; } &&
   [ "$(whoami)" = evan ] &&

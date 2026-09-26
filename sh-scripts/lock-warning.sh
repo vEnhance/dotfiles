@@ -10,6 +10,10 @@ if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
   fi
 fi
 
+if [ "$(whoami)" = star ] && pgrep -U star -x obs >/dev/null; then
+  exit
+fi
+
 notify-send -i "alarm-timer" -t 30000 \
   "Lock warning" \
   "The session will automatically lock shortly. Do literally anything to cancel."
