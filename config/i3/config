@@ -302,7 +302,7 @@ mode "exec" {
   bindsym p exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh", exec "sleep 600 && xsel --secondary --delete", mode "default"
   bindsym q exec --no-startup-id $HOME/dotfiles/sh-scripts/nerd-dictate.sh, mode "default"
   bindsym r exec xfce4-terminal --title="OTIS-ARCH" -e "$HOME/dotfiles/py-scripts/orch.py", mode "default"
-  bindsym s exec spotify &, mode "default"
+  bindsym s exec ghostty -e "spotify_player" &, mode "default"
   bindsym t exec gvim -c ":let g:venue_entry='~/dotfiles/py-scripts/venueQ/otis.py'" -c ":source ~/dotfiles/py-scripts/venueQ/venueQ.vim", mode "default"
   bindsym w exec --no-startup-id fish -c pomodoro, mode "default"
   bindsym x exec qutebrowser &, mode "default"
