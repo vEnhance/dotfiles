@@ -5,6 +5,10 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": false
+  },
   "model": "opus",
   "alwaysThinkingEnabled": true,
   "tui": "fullscreen",
