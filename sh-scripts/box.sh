@@ -1,22 +1,24 @@
 #!/bin/bash
 set -euo pipefail
 
-src=.
-while getopts C:n opt; do
+src=
+while getopts C: opt; do
   case $opt in
   C) src=$OPTARG ;;
-  n) src= ;;
-  *) exit 2 ;;
+  *)
+    echo "usage: ${0##*/} [-C dir] [command [args...]]" >&2
+    exit 2
+    ;;
   esac
 done
 shift $((OPTIND - 1))
 if [ $# -eq 0 ]; then
-  echo "usage: ${0##*/} [-C dir | -n] command [args...]" >&2
-  exit 2
+  set -- "${SHELL:-/bin/bash}"
 fi
 
 # $HOME/box is where this infrastructure lives
 box=$HOME/box
+dotfiles=$(realpath "$(dirname "$(realpath "$0")")/..")
 mkdir -p "$box"
 echo "Entering $box via bubble-wrap!"
 
@@ -54,7 +56,8 @@ exec bwrap \
   --tmpfs /tmp \
   --bind "$box" "$HOME" \
   "${project[@]}" \
-  --ro-bind-try "$HOME/dotfiles/misc/claude-settings.json" "$HOME/.claude/settings.json" \
+  --ro-bind "$dotfiles/misc/claude-settings.json" "$HOME/.claude/settings.json" \
+  --ro-bind "$dotfiles/sh-scripts/claude-statusline.sh" "$HOME/.claude/statusline.sh" \
   --ro-bind-try "$HOME/.virtualenvs/" "$HOME/.virtualenvs/" \
   --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
   --ro-bind-try "$HOME/.config/git/" "$HOME/.config/git/" \
@@ -62,6 +65,7 @@ exec bwrap \
   --die-with-parent \
   --clearenv \
   --setenv HOME "$HOME" \
+  --setenv BOX_ACTIVE 1 \
   --setenv PATH "$HOME/.local/bin:/usr/bin" \
   --setenv TERM "${TERM:-xterm-256color}" \
   --setenv LANG "${LANG:-C.UTF-8}" \

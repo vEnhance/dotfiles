@@ -3,9 +3,13 @@
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
   "permissions": {
-    "defaultMode": "plan"
+    "defaultMode": "auto"
   },
   "model": "opus",
   "alwaysThinkingEnabled": true,
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.sh"
+  }
 }
