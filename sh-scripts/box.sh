@@ -20,13 +20,13 @@ fi
 box=$HOME/box
 dotfiles=$(realpath "$(dirname "$(realpath "$0")")/..")
 mkdir -p "$box"
-echo "Entering $box via bubble-wrap!"
+echo -e "📦 Entering \033[1;34m$box\033[;m via bubble-wrap!"
 
 if [ -n "$src" ]; then
   src=$(realpath "$src")
   case "$HOME/" in
   "${src%/}"/*)
-    echo "refusing to box $src: it contains \$HOME" >&2
+    echo -e "☠️ Refusing to box \033[1;34m$src\033[m: it contains \$HOME" >&2
     exit 1
     ;;
   esac
@@ -36,11 +36,11 @@ if [ -n "$src" ]; then
     --ro-bind-try "$src/.git/config" "$src/.git/config"
     --chdir "$src"
   )
-  echo "Binding the project $src into the box."
+  echo -e "🍻 Binding the project \033[1;34m$src\033[m into the box."
 else
   project=(--chdir "$HOME")
-  echo "No project binding was done, entering the box now."
 fi
+echo -e "💨 Executing \033[1;34m$*\033[;m...\n"
 
 exec bwrap \
   --ro-bind /usr /usr \
