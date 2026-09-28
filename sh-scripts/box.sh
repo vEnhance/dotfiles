@@ -10,11 +10,15 @@ while getopts C:n opt; do
   esac
 done
 shift $((OPTIND - 1))
-
 if [ $# -eq 0 ]; then
   echo "usage: ${0##*/} [-C dir | -n] command [args...]" >&2
   exit 2
 fi
+
+# $HOME/box is where this infrastructure lives
+box=$HOME/box
+mkdir -p "$box"
+echo "Entering $box via bubble-wrap!"
 
 if [ -n "$src" ]; then
   src=$(realpath "$src")
@@ -30,12 +34,11 @@ if [ -n "$src" ]; then
     --ro-bind-try "$src/.git/config" "$src/.git/config"
     --chdir "$src"
   )
+  echo "Binding the project $src into the box."
 else
   project=(--chdir "$HOME")
+  echo "No project binding was done, entering the box now."
 fi
-
-box=$HOME/box
-mkdir -p "$box"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -52,8 +55,9 @@ exec bwrap \
   --bind "$box" "$HOME" \
   "${project[@]}" \
   --ro-bind-try "$HOME/dotfiles/misc/claude-settings.json" "$HOME/.claude/settings.json" \
-  --ro-bind-try "$HOME/.virtualenvs" "$HOME/.virtualenvs" \
+  --ro-bind-try "$HOME/.virtualenvs/" "$HOME/.virtualenvs/" \
   --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
+  --ro-bind-try "$HOME/.config/git/" "$HOME/.config/git/" \
   --unshare-all --share-net \
   --die-with-parent \
   --clearenv \
