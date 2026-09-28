@@ -87,6 +87,7 @@ alias uclean='/usr/bin/python3 ~/dotfiles/py-scripts/uclean.py'
 alias wah='/usr/bin/python3 ~/dotfiles/py-scripts/wah.py'
 alias yao='/usr/bin/python3 ~/dotfiles/py-scripts/yao.py'
 
+alias box='~/dotfiles/sh-scripts/box.sh'
 alias fixtrailspace='sed -i "s/[ \t]*\$//"'
 alias getclip="xsel --clipboard"
 alias gg="cd (git rev-parse --show-toplevel)"

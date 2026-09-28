@@ -50,7 +50,6 @@ link_dot_path xinitrc
 link_dot_path xprofile
 
 link_dot_path abook
-link_dot_path claude/settings.json
 link_dot_path jupyter/jupyter_notebook_config.py
 link_dot_path vit
 

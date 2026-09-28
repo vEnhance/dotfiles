@@ -357,7 +357,7 @@ bindsym $mod+Shift+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh --
 bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh
 bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
 
-bindsym $mod+c exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/claude-sandbox.sh"
+bindsym $mod+c exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/ro-claude.sh"
 bindsym $mod+d exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/run-dijo.sh"
 bindsym $mod+g exec qutebrowser --target=window "https://calendar.google.com/calendar/u/0/r/customday" :"mode-enter passthrough"
 bindsym $mod+y exec xfce4-terminal -e "fish --login --command yap"
