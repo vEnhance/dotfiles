@@ -1,6 +1,11 @@
 #!/bin/bash
 set -euo pipefail
 
+if [ -n "${BOX_ACTIVE:-}" ]; then
+  echo -e "☠️ Box is already active, seems like an error." >&2
+  exit 1
+fi
+
 src=
 while getopts C: opt; do
   case $opt in
@@ -31,7 +36,13 @@ if [ -n "$src" ]; then
   src=$(realpath "$src")
   case "$HOME/" in
   "${src%/}"/*)
-    echo -e "☠️ Refusing to box \033[1;34m$src\033[m: it contains \$HOME" >&2
+    echo -e "☠️ Refusing to bind \033[1;34m$src\033[m: it contains \$HOME" >&2
+    exit 1
+    ;;
+  esac
+  case "$src/" in
+  "$box"/*)
+    echo -e "☠️ Refusing to bind \033[1;34m$src\033[m: too much inception" >&2
     exit 1
     ;;
   esac
