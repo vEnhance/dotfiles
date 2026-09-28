@@ -2,26 +2,37 @@
 set -euo pipefail
 
 src=.
-while getopts C: opt; do
+while getopts C:n opt; do
   case $opt in
   C) src=$OPTARG ;;
+  n) src= ;;
   *) exit 2 ;;
   esac
 done
 shift $((OPTIND - 1))
-src=$(realpath "$src")
 
 if [ $# -eq 0 ]; then
-  echo "usage: ${0##*/} [-C dir] command [args...]" >&2
+  echo "usage: ${0##*/} [-C dir | -n] command [args...]" >&2
   exit 2
 fi
 
-case "$HOME/" in
-"${src%/}"/*)
-  echo "refusing to box $src: it contains \$HOME" >&2
-  exit 1
-  ;;
-esac
+if [ -n "$src" ]; then
+  src=$(realpath "$src")
+  case "$HOME/" in
+  "${src%/}"/*)
+    echo "refusing to box $src: it contains \$HOME" >&2
+    exit 1
+    ;;
+  esac
+  project=(
+    --bind "$src" "$src"
+    --ro-bind-try "$src/.git/hooks" "$src/.git/hooks"
+    --ro-bind-try "$src/.git/config" "$src/.git/config"
+    --chdir "$src"
+  )
+else
+  project=(--chdir "$HOME")
+fi
 
 box=$HOME/box
 mkdir -p "$box"
@@ -39,12 +50,10 @@ exec bwrap \
   --dev /dev \
   --tmpfs /tmp \
   --bind "$box" "$HOME" \
-  --bind "$src" "$src" \
-  --ro-bind-try "$src/.git/hooks" "$src/.git/hooks" \
-  --ro-bind-try "$src/.git/config" "$src/.git/config" \
+  "${project[@]}" \
   --ro-bind-try "$HOME/dotfiles/misc/claude-settings.json" "$HOME/.claude/settings.json" \
   --ro-bind-try "$HOME/.virtualenvs" "$HOME/.virtualenvs" \
-  --chdir "$src" \
+  --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
   --unshare-all --share-net \
   --die-with-parent \
   --clearenv \
