@@ -12,6 +12,12 @@ while getopts C: opt; do
   esac
 done
 shift $((OPTIND - 1))
+if [ -z "$src" ]; then
+  # Default to the current directory if it's strictly under $HOME
+  case "$(realpath .)" in
+  "$HOME"/?*) src=. ;;
+  esac
+fi
 if [ $# -eq 0 ]; then
   set -- "${SHELL:-/bin/bash}"
 fi
@@ -20,7 +26,6 @@ fi
 box=$HOME/box
 dotfiles=$(realpath "$(dirname "$(realpath "$0")")/..")
 mkdir -p "$box"
-echo -e "📦 Entering \033[1;34m$box\033[;m via bubble-wrap!"
 
 if [ -n "$src" ]; then
   src=$(realpath "$src")
@@ -36,11 +41,12 @@ if [ -n "$src" ]; then
     --ro-bind-try "$src/.git/config" "$src/.git/config"
     --chdir "$src"
   )
-  echo -e "🍻 Binding the project \033[1;34m$src\033[m into the box."
+  echo -e "🍻 Binding project \033[1;34m$src\033[m into the box."
 else
+  echo "🛖 Entering the box'ed home directly (no project)."
   project=(--chdir "$HOME")
 fi
-echo -e "💨 Executing \033[1;34m$*\033[;m...\n"
+echo -e "📦 Now executing $* inside $box...\n"
 
 exec bwrap \
   --ro-bind /usr /usr \
@@ -58,7 +64,6 @@ exec bwrap \
   "${project[@]}" \
   --ro-bind "$dotfiles/misc/claude-settings.json" "$HOME/.claude/settings.json" \
   --ro-bind "$dotfiles/sh-scripts/claude-statusline.sh" "$HOME/.claude/statusline.sh" \
-  --ro-bind-try "$HOME/.virtualenvs/" "$HOME/.virtualenvs/" \
   --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
   --ro-bind-try "$HOME/.config/git/" "$HOME/.config/git/" \
   --unshare-all --share-net \
