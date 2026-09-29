@@ -21,6 +21,15 @@ def get_pass(s: str) -> str:
 OTIS_API_URL = "https://otis.evanchen.cc/aincrad/api/"
 OTIS_WEB_TOKEN = get_pass("evanchen.cc/otis")
 assert OTIS_WEB_TOKEN is not None
+session = requests.Session()
+session.headers["Authorization"] = f"Bearer {OTIS_WEB_TOKEN}"
+
+
+def explain_status(status_code: int) -> str:
+    if status_code == 418:
+        return " (418: the server did not accept the token)"
+    return ""
+
 
 yaml.SafeDumper.orig_represent_str = yaml.SafeDumper.represent_str
 
@@ -63,16 +72,18 @@ puid, source = chosen.strip().split("\t")
 
 EDITOR = os.environ.get("EDITOR", "vim")
 
-resp = requests.post(
+resp = session.post(
     OTIS_API_URL,
     json={
         "action": "get_hints",
         "puid": puid,
-        "token": OTIS_WEB_TOKEN,
     },
 )
 if resp.status_code != 200:
-    print(f"ARCH gave a return code of {resp.status_code} when asked for hints.")
+    print(
+        f"ARCH gave a return code of {resp.status_code} when asked for hints."
+        + explain_status(resp.status_code)
+    )
     sys.exit(75)
 
 # hack to get the dictionary keys in the order we want
@@ -151,20 +162,22 @@ if isinstance(result, dict):
 
     data = {
         "action": "add_many_hints",
-        "token": OTIS_WEB_TOKEN,
         "puid": puid,
         "new_hints": new_hint_dicts,
         "old_hints": result["old_hints"],
         "allow_delete_hints": result["allow_delete_hints"],
     }
-    resp = requests.post(OTIS_API_URL, json=data)
+    resp = session.post(OTIS_API_URL, json=data)
 
     if resp.status_code == 200:
         url = r"https://otis.evanchen.cc/arch/" + puid
         print(f"Added {len(resp.json()['pks'])} new hints; see {url}.")
         pyperclip.copy(url)
     else:
-        print(f"Got a reply of {resp.status_code} from server when adding hints.")
+        print(
+            f"Got a reply of {resp.status_code} from server when adding hints."
+            + explain_status(resp.status_code)
+        )
 else:
     print("Aborting because no content.")
     sys.exit(65)

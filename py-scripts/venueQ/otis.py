@@ -135,14 +135,15 @@ def send_email(
 def query_server(
     payload: Data, token: str, target_url: str
 ) -> requests.Response | None:
-    payload["token"] = "redacted"
     logger.info(payload)
-    payload["token"] = token
     try:
         resp = requests.post(
             target_url,
             json=payload,
-            headers={"x-evanbot-verify": EVANBOT_HEADER},
+            headers={
+                "x-evanbot-verify": EVANBOT_HEADER,
+                "Authorization": f"Bearer {token}",
+            },
         )
     except requests.exceptions.ConnectionError:
         logger.warning("Could not connect to server")
@@ -152,6 +153,8 @@ def query_server(
             logger.info("Got a 200 response back from server")
             return resp
         else:
+            if resp.status_code == 418:
+                logger.error(f"{target_url} did not accept the token")
             logger.error(
                 f"{target_url} threw an exception with status code {resp.status_code}\n"
                 + resp.content.decode("utf-8")
