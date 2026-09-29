@@ -512,6 +512,7 @@ set t_BE=   " disable bracketed paste mode
 " ^@ in insert mode normally means "insert last text + stop insert" (i_CTRL-@)
 inoremap <C-@> <BS>
 set backup     " keep a backup file
+set backupcopy=yes
 set breakindent
 set colorcolumn=+1
 if exists('+cryptmethod')
