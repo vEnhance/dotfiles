@@ -7,7 +7,20 @@
   },
   "sandbox": {
     "enabled": true,
-    "autoAllowBashIfSandboxed": false
+    "autoAllowBashIfSandboxed": false,
+    "filesystem": {
+      "allowWrite": [
+        "~/.cache",
+        "~/.npm",
+        "~/.cargo/registry",
+        "~/.cargo/git",
+        "~/go/pkg/mod"
+      ],
+      "denyWrite": [
+        "~/.cache/claude-cli-nodejs",
+        "~/.cache/claude-statusline.json"
+      ]
+    }
   },
   "model": "opus",
   "alwaysThinkingEnabled": true,
