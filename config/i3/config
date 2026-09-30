@@ -298,7 +298,7 @@ mode "exec" {
   bindsym m exec gnucash &, mode "default"
   # short for next
   bindsym n exec xfce4-terminal --title="VIMTODO" -e "vit", mode "default"
-  bindsym o exec obs &, mode "default"
+  bindsym o exec --no-startup-id $HOME/dotfiles/sh-scripts/obs.sh, mode "default"
   bindsym p exec xfce4-terminal -e "$HOME/dotfiles/sh-scripts/grab-password-from-vault.sh", exec "sleep 600 && xsel --secondary --delete", mode "default"
   bindsym q exec --no-startup-id $HOME/dotfiles/sh-scripts/nerd-dictate.sh, mode "default"
   bindsym r exec xfce4-terminal --title="OTIS-ARCH" -e "$HOME/dotfiles/py-scripts/orch.py", mode "default"
