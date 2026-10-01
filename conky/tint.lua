@@ -2,11 +2,11 @@
 -- own_window_transparent, the window starts each frame as a copy of the
 -- wallpaper; painting a translucent colour over it before the text is drawn
 -- gives the same look as the old ARGB window, without needing picom.
--- Hook it up with: lua_draw_hook_pre = "tint"
+-- window-bg.lua hooks this up when no compositor is running.
 require("cairo")
 pcall(require, "cairo_xlib") -- split out of 'cairo' in newer conky
 
--- #140418 at 200/255, matching the old own_window_colour = "#c8140418".
+-- #140418 at 200/255, matching own_window_colour in window-bg.lua.
 local R, G, B, A = 0x14 / 255, 0x04 / 255, 0x18 / 255, 200 / 255
 
 function conky_tint()
