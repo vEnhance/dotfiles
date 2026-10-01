@@ -5,7 +5,7 @@
 # when OBS exits (including crashes), but only if it was running beforehand.
 #
 # conky picks its window background based on whether picom is running when it
-# starts (see conky/window-bg.lua), so it's restarted after each picom change.
+# starts (see conky/common.lua), so it's restarted after each picom change.
 set -uo pipefail
 
 me=$(whoami)
@@ -14,14 +14,15 @@ had_picom=false
 restart_conky() {
   pgrep -U "$me" -x conky >/dev/null || return 0
   pkill -U "$me" -x conky
-  while pgrep -U "$me" -x conky >/dev/null; do sleep 0.1; done
   "$HOME/dotfiles/conky/run-conky.sh" >/dev/null
 }
 
 if pgrep -U "$me" -x picom >/dev/null; then
   had_picom=true
   pkill -U "$me" -x picom
-  while pgrep -U "$me" -x picom >/dev/null; do sleep 0.1; done
+  # common.lua checks for picom as conky starts, so let picom finish exiting.
+  # pidwait (unlike a pgrep loop) returns for zombies; the timeout is a backstop.
+  timeout 2 pidwait -U "$me" -x picom
   restart_conky
 fi
 

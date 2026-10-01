@@ -2,6 +2,8 @@
 # One-line GPU load readout for conky, portable across the Arch boxes sharing
 # these dotfiles. Probes in order: AMD, NVIDIA, Intel i915, Intel xe. Prints
 # "n/a" rather than failing when none match (VMs, unsupported drivers).
+# Also appends whether picom is running, since conky's pseudo-transparency
+# (see common.lua) makes that hard to tell by eye.
 #
 # Emits conky colour markup, so call it with execpi (not execi):
 #   ${execpi 3 ~/dotfiles/conky/gpu-load.sh}
@@ -25,8 +27,17 @@ OK='${color7}'
 HOT='${color ff9999}' # same alert colour as "[Muted!]" in star-bar.conf
 # shellcheck disable=SC2016
 NONE='${color0}'
+# shellcheck disable=SC2016
+OFF='${color6}' # darkest palette blue, for "picom off"
 
 STATE="${XDG_RUNTIME_DIR:-/tmp}/conky-gpu-load.$(id -u)"
+
+# Same per-user check as common.lua, so another user's picom doesn't count.
+if pgrep -u "$(id -u)" -x picom >/dev/null; then
+	PICOM="$NONE | ${OK}picom on"
+else
+	PICOM="$NONE | ${OFF}picom off"
+fi
 
 # $1 = current, $2 = ceiling, $3 = text to print. Highlights at >=90% of ceiling.
 emit() {
@@ -34,7 +45,7 @@ emit() {
 	if [ "$ceil" -gt 0 ] 2>/dev/null && [ $((cur * 100 / ceil)) -ge 90 ] 2>/dev/null; then
 		colour=$HOT
 	fi
-	printf '%s%s\n' "$colour" "$text"
+	printf '%s%s%s\n' "$colour" "$text" "$PICOM"
 	exit 0
 }
 
@@ -88,7 +99,7 @@ for f in /sys/class/drm/card*/power/rc6_residency_ms; do
 	if pct=$(busy_from_idle_counter "$f"); then
 		emit "$pct" 100 "${pct}% busy"
 	fi
-	printf '%s--\n' "$NONE" # first run: baseline recorded, no delta yet
+	printf '%s--%s\n' "$NONE" "$PICOM" # first run: baseline recorded, no delta yet
 	exit 0
 done
 
@@ -98,8 +109,8 @@ for f in /sys/class/drm/card*/device/tile*/gt*/gtidle/idle_residency_ms; do
 	if pct=$(busy_from_idle_counter "$f"); then
 		emit "$pct" 100 "${pct}% busy"
 	fi
-	printf '%s--\n' "$NONE"
+	printf '%s--%s\n' "$NONE" "$PICOM"
 	exit 0
 done
 
-printf '%sn/a\n' "$NONE"
+printf '%sn/a%s\n' "$NONE" "$PICOM"
