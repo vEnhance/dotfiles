@@ -5,7 +5,10 @@
   "permissions": {
     "defaultMode": "auto",
     "allow": ["Read(//tmp/**)", "Edit(//tmp/**)"],
-    "deny": ["Edit(//tmp/claude-1000/**)"]
+    "deny": [
+      "Edit(//tmp/claude-1000/bash-edit-diff)",
+      "Edit(//tmp/claude-1000/*/*/tasks/**)"
+    ]
   },
   "sandbox": {
     "enabled": true,
@@ -16,8 +19,7 @@
         "~/.npm",
         "~/.cargo/registry",
         "~/.cargo/git",
-        "~/go/pkg/mod",
-        "/tmp"
+        "~/go/pkg/mod"
       ],
       "denyWrite": [
         "~/.cache/claude-cli-nodejs",

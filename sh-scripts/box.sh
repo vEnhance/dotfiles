@@ -73,8 +73,9 @@ exec bwrap \
   --tmpfs /tmp \
   --bind "$box" "$HOME" \
   "${project[@]}" \
-  --ro-bind "$dotfiles/misc/claude-settings.json" "$HOME/.claude/settings.json" \
-  --ro-bind "$dotfiles/sh-scripts/claude-statusline.sh" "$HOME/.claude/statusline.sh" \
+  --ro-bind "$dotfiles/boxed-claude/settings.json" "$HOME/.claude/settings.json" \
+  --ro-bind "$dotfiles/boxed-claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md" \
+  --ro-bind "$dotfiles/boxed-claude/statusline.sh" "$HOME/.claude/statusline.sh" \
   --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
   --ro-bind-try "$HOME/.config/git/" "$HOME/.config/git/" \
   --unshare-all --share-net \
