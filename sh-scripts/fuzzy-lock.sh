@@ -25,6 +25,7 @@ fi
 if { [ "$(hostname)" = "ArchUmi" ] || [ "$(hostname)" = "ArchScythe" ]; } &&
   [ "$(whoami)" = evan ] &&
   iwconfig | grep -E "Flying|Nydus" &&
+  PASSWORD_STORE_GPG_OPTS="--pinentry-mode error" pass show twitch/client_id >/dev/null 2>&1 &&
   /usr/bin/python3 ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
   notify-send -i "gnome-twitch" \
     "Won't lock" "You're currently streaming on Twitch!"
