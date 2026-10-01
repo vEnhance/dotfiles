@@ -3,7 +3,9 @@
     "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
   },
   "permissions": {
-    "defaultMode": "auto"
+    "defaultMode": "auto",
+    "allow": ["Read(//tmp/**)", "Edit(//tmp/**)"],
+    "deny": ["Edit(//tmp/claude-1000/**)"]
   },
   "sandbox": {
     "enabled": true,
@@ -14,7 +16,8 @@
         "~/.npm",
         "~/.cargo/registry",
         "~/.cargo/git",
-        "~/go/pkg/mod"
+        "~/go/pkg/mod",
+        "/tmp"
       ],
       "denyWrite": [
         "~/.cache/claude-cli-nodejs",
