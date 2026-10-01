@@ -27,7 +27,7 @@ except locale.Error:
 
 
 def header(title: str) -> str:
-    return f"${{font1}}${{color1}}[ {title} ] ${{voffset 2}}${{hr 2}}${{font4}}"
+    return f"${{font1}}${{color1}}[ {title} ] ${{voffset 2}}${{hr 2}}${{font3}}"
 
 
 def section(title: str, lines: list[str], colors: tuple[int, ...]) -> list[str]:
@@ -119,7 +119,7 @@ out: list[str] = []
 
 if active_lines:
     out.append(header("Active"))
-    out += [f"${{font6}}{line}" for line in active_lines]
+    out += [f"${{font5}}{line}" for line in active_lines]
     out.append("${voffset 5}")
 
 out += section("Today", today_lines, TODAY_COLORS)
