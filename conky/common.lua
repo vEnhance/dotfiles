@@ -44,6 +44,7 @@ local common = {
 	color8 = "b4ebff", -- light blue
 	color9 = "dedede", -- white
 	color0 = "777777", -- gray
+	font5 = "Exo 2:semibold", -- section headers
 }
 
 -- Window background.

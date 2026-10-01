@@ -20,6 +20,9 @@ FUTURE_COLORS = (8, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6)
 # stands in for the contents of a section with nothing in it
 EMPTY_NOTE = "${color0}일정 없음"
 
+# large bold font for the events happening right now
+ACTIVE_FONT = "${font Noto Sans Mono CJK KR:size=18:bold}"
+
 try:
     locale.setlocale(locale.LC_ALL, "ko_KR.utf8")
 except locale.Error:
@@ -119,7 +122,7 @@ out: list[str] = []
 
 if active_lines:
     out.append(header("Active"))
-    out += [f"${{font5}}{line}" for line in active_lines]
+    out += [ACTIVE_FONT + line for line in active_lines]
     out.append("${voffset 5}")
 
 out += section("Today", today_lines, TODAY_COLORS)
