@@ -20,8 +20,8 @@ FUTURE_COLORS = (8, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 6)
 # stands in for the contents of a section with nothing in it
 EMPTY_NOTE = "${color0}일정 없음"
 
-# large bold font for the events happening right now
-ACTIVE_FONT = "${font Noto Sans Mono CJK KR:size=18:bold}"
+# large bold font for the events happening right now; summary-bar.conf sizes it
+ACTIVE_FONT = "${font6}"
 
 try:
     locale.setlocale(locale.LC_ALL, "ko_KR.utf8")
