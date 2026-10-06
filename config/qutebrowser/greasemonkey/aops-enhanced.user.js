@@ -10,6 +10,11 @@
 // @icon        https://artofproblemsolving.com/online-favicon.ico?v=2
 // ==/UserScript==
 
+if (typeof AoPS === "undefined") {
+  console.warn("AoPS Enhanced: AoPS is not defined, skipping");
+  return;
+}
+
 // Functions for settings UI elements
 const settings_ui = {
   toggle: (label) => (name, value, settings_manager) => {

@@ -14,11 +14,9 @@ config.load_autoconfig()
 c.backend = "webengine"
 c.colors.downloads.stop.bg = r"#00cca7"
 c.content.blocking.method = "both"
-c.content.headers.user_agent = (
-    "Mozilla/5.0 (X11; Linux x86_64; rv:154.0) Gecko/20100101 Firefox/154.0"
-)
 c.content.javascript.enabled = False
 c.content.pdfjs = True
+c.content.site_specific_quirks.enabled = True
 c.downloads.position = "bottom"
 c.downloads.remove_finished = 5000
 c.fonts.default_size = "16pt"
@@ -40,8 +38,6 @@ c.url.searchengines = {
 }
 c.url.start_pages = c.url.default_page
 c.zoom.default = 100
-
-c.qt.force_software_rendering = "chromium"  # QT grief :')
 
 config.bind(r"<Backspace>", "config-source")
 config.bind(r"<Ctrl-W>", "tab-close")
