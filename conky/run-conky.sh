@@ -10,7 +10,7 @@ if [ "$(hostname)" = ArchUmi ]; then
   conky -d -c ~/dotfiles/conky/cal.conf
 fi
 if [ "$(hostname)" = ArchMillie ]; then
-  conky -d -c ~/dotfiles/conky/summary-bar.conf
+  conky -d -c ~/dotfiles/conky/star-bar.conf
 fi
 
 # Conky setup for ArchDiamond
