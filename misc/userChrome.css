@@ -15,6 +15,11 @@
 #urlbar:not([focused], [open]) {
   top: -100px !important;
 }
+/* Only the results view is a top-layer popover now, so lift the toolbox
+ * above the content area (z-index 2) while the bar is in use */
+#navigator-toolbox:has(#urlbar:is([focused], [open])) {
+  z-index: 10 !important;
+}
 
 /* Make the buttons in the toolbar much closer together */
 toolbar .toolbarbutton-1 {
