@@ -9,8 +9,6 @@ font-family = Hack Nerd Font Mono
 font-family = DejaVu Sans Mono
 font-family = Noto Sans Mono CJK TC
 
-background = "#121212"
-foreground = "#e3e3e3"
 background-opacity = 0.85
 
 bold-color = bright
@@ -30,7 +28,5 @@ palette = 12=#838ee4
 palette = 13=#ff55ff
 palette = 14=#55ffff
 palette = 15=#ffffff
-
-window-decoration = server
 
 keybind = ctrl+enter=unbind
