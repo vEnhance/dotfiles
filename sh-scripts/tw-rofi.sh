@@ -11,7 +11,9 @@ elif [ "$chosen" = "$default" ]; then
 elif [[ $lines == *"$chosen"* ]]; then
   taskid=$(echo "$chosen" | sed -r "s/[^ 0-9]//g" | awk '{print $1}')
   echo "$taskid"
-  task "$taskid" "done"
+  if task "$taskid" "done"; then
+    ~/dotfiles/sh-scripts/noisemaker/noisemaker.sh 5
+  fi
   killall -s USR1 py3status
 else
   task add "$chosen"
