@@ -119,9 +119,7 @@ elif [ "$USER" = "star" ]; then
   ln -sf "$HOME/dotfiles/py3status/py3status.star.conf" "$HOME"/.config/py3status/config
 fi
 
-# Set default browser to qutebrowser
 if [ "$USER" = "evan" ]; then
-  xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
-  xdg-settings set default-url-scheme-handler https org.qutebrowser.qutebrowser.desktop
-  # xfconf-query -c xfce4-session -p /general/LockCommand -s "loginctl lock-session"
+  xdg-settings set default-web-browser firefox.desktop
+  xdg-settings set default-url-scheme-handler https firefox.desktop
 fi
