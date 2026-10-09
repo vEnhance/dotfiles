@@ -5,7 +5,8 @@ set -euo pipefail
 export LANG="ko_KR.UTF-8"
 export LC_ALL="ko_KR.UTF-8"
 case "$(hostname)" in
-ArchDiamond | ArchBootes | ArchMajestic) export QT_SCALE_FACTOR=3 ;;
+ArchDiamond) export QT_SCALE_FACTOR=3 ;;
+ArchBootes | ArchMajestic) export QT_SCALE_FACTOR=2.5 ;;
 ArchScythe | ArchUmi) export QT_SCALE_FACTOR=2 ;;
 esac
 
