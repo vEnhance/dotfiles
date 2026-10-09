@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 time=2000
-stime=4000
 
 vol_pct() { wpctl get-volume "$1" | awk '{printf "%d", $2*100}'; }
 mic_inc() { wpctl set-volume @DEFAULT_SOURCE@ 5%+; vol_pct @DEFAULT_SOURCE@; }
@@ -98,37 +97,6 @@ if [ "$1" = h ]; then
   notify-send -i "audio-headphones" \
     "Switched to headphones" \
     "Microphone volume is $(vol_pct @DEFAULT_SINK@)%" -t "$time"
-fi
-
-# Spotify stuff
-spotify_ids() {
-  pactl -f json list sink-inputs |
-    jq -r '.[] | select(.properties["application.name"]=="Spotify") | .index'
-}
-function kill_extra_spotify() {
-  while [ "$(spotify_ids | wc -l)" -ge 2 ]; do
-    notify-send -i "spotify" "Spotify stream killed" -u low -t "$stime"
-    pactl kill-sink-input "$(spotify_ids | head -1)"
-  done
-}
-spotify_vol() {
-  local id="$1" delta="$2"
-  pactl set-sink-input-volume "$id" "$delta"
-  pactl -f json list sink-inputs |
-    jq -r ".[] | select(.index==$id) | .volume[] | .value_percent" |
-    head -1 | tr -d '%'
-}
-if [ "$1" = K ]; then
-  kill_extra_spotify
-  notify-send -i "audio-speaker-center-back-testing" \
-    "Spotify volume up" \
-    "Spotify volume $(spotify_vol "$(spotify_ids | head -1)" +5%)%" -t "$stime"
-fi
-if [ "$1" = J ]; then
-  kill_extra_spotify
-  notify-send -i "audio-speaker-center-testing" \
-    "Spotify volume down" \
-    "Spotify volume $(spotify_vol "$(spotify_ids | head -1)" -5%)%" -t "$stime"
 fi
 
 # playerctl play/pause prev next

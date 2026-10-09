@@ -272,10 +272,6 @@ mode "audio" {
   bindsym p exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh p
   bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh n
 
-  # control Spotify volume
-  bindsym Shift+k exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh K
-  bindsym Shift+j exec --no-startup-id $HOME/dotfiles/sh-scripts/chvol.sh J
-
   bindsym Return mode "default"
   bindsym Escape mode "default"
 }

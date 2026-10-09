@@ -12,6 +12,5 @@ notify-send "i3: audio mode" -i "media-cdrom" \
 <b>r</b>: return to desk (mic unmute, headset)
 <b>s</b>: switch to speakers
 <b>h</b>: switch to headset
-<b>K/J</b>: spotify volume up/down
 <b>space</b>: play/pause
 <b>p/n</b>: prev/next"
