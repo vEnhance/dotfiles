@@ -18,6 +18,18 @@ term() {
   exec xfce4-terminal "${opts[@]}" -x "$@"
 }
 
+# Run the rest of the arguments in ghostty with a big font.
+# SIZE is tuned for ArchDiamond and scaled down on smaller setups.
+bigterm() {
+  local size=$1
+  shift
+  case "$(hostname)" in
+    ArchMajestic) size=$((size * 85 / 100)) ;;
+    ArchScythe | ArchUmi) size=$((size * 60 / 100)) ;;
+  esac
+  exec ghostty --font-size="$size" -e "$@"
+}
+
 case "${1:-}" in
   anki)
     export LANG="ko_KR.UTF-8"
@@ -33,7 +45,7 @@ case "${1:-}" in
     term sh -c "/usr/bin/python3 ~/dotfiles/py-scripts/export-ggb-clean-asy.py --speedy && ~/dotfiles/sh-scripts/getclip.sh"
     ;;
   borse)
-    term --zoom=6 borse
+    bigterm 42 borse
     ;;
   cards)
     term ~/dotfiles/sh-scripts/grab-password-from-vault.sh cards
@@ -52,7 +64,7 @@ case "${1:-}" in
     term --working-directory="$HOME/Sync/HQ" vim Projects.md
     ;;
   miqin)
-    term --zoom=4 python3 ~/Sync/Projects/miqin/miqin.py
+    bigterm 29 python3 ~/Sync/Projects/miqin/miqin.py
     ;;
   orch)
     term --title=OTIS-ARCH ~/dotfiles/py-scripts/orch.py
