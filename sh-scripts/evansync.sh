@@ -2,6 +2,18 @@
 
 set -u
 
+# Snapshot the dijo/pyjo habit data at most once a day.
+# This is local-only, so it runs before the Internet check.
+if [ "$(hostname)" = "$(jq --raw-output .dijo ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+  (
+    cd ~/.local/share/dijo/ || exit 1
+    if [ "$(git log -1 --format=%cd --date=short)" != "$(date +%Y-%m-%d)" ] &&
+      ! git diff --exit-code --quiet; then
+      git commit -a -m "$(date), snapshot taken on $(hostname)"
+    fi
+  )
+fi
+
 # Check if we have Internet connection
 # as this command is kind of pointless without it
 if ! wget -q --spider https://web.evanchen.cc; then

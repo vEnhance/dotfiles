@@ -355,7 +355,7 @@ bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh
 bindsym $mod+m exec --no-startup-id $HOME/dotfiles/sh-scripts/redo-keys.sh
 
 bindsym $mod+c exec $launch claude
-bindsym $mod+d exec $launch dijo
+bindsym $mod+d exec $launch pyjo
 bindsym $mod+g exec firefox --new-window "https://calendar.google.com/calendar/u/0/r/customday"
 bindsym $mod+y exec $launch yap
 # }}}

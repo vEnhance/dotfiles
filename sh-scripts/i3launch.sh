@@ -57,9 +57,6 @@ case "${1:-}" in
     latest="$(python ~/diary/scripts/latest.py)"
     term --working-directory="$HOME/diary" vim "$latest"
     ;;
-  dijo)
-    term ~/dotfiles/sh-scripts/run-dijo.sh
-    ;;
   hq)
     term --working-directory="$HOME/Sync/HQ" vim Projects.md
     ;;
@@ -80,6 +77,9 @@ case "${1:-}" in
     xfce4-terminal -x ~/dotfiles/sh-scripts/grab-password-from-vault.sh &
     sleep 600
     xsel --secondary --delete
+    ;;
+  pyjo)
+    bigterm 29 /usr/bin/python3 ~/dotfiles/py-scripts/pyjo.py
     ;;
   spotify)
     exec ghostty -e spotify_player
