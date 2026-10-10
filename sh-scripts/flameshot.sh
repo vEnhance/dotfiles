@@ -5,6 +5,10 @@
 
 set -euo pipefail
 
+# Get notifications out of the shot first.
+dunstctl close-all
+sleep 0.1
+
 eval "$(xdotool getmouselocation --shell)" # sets X and Y
 
 # Find the flameshot/xrandr screen index whose rectangle contains the cursor.
