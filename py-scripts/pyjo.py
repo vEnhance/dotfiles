@@ -123,15 +123,12 @@ class PyjoTUI:
         self.day = datetime.date.today()
         self.view_start = self.day - datetime.timedelta(days=DEFAULT_COLS - 1)
         self.message = ""
-        # (habit name, day) pairs that went from not done to done this session
-        self.completed: set[tuple[str, datetime.date]] = set()
 
     @property
     def habits(self) -> list[Habit]:
         return self.store.habits
 
-    def run(self) -> bool:
-        """Run until quit; returns whether anything completed is still done."""
+    def run(self) -> None:
         curses.curs_set(0)
         curses.use_default_colors()
         curses.init_pair(C_REACHED, curses.COLOR_GREEN, -1)
@@ -148,7 +145,7 @@ class PyjoTUI:
             except curses.error:
                 continue
             if not self.handle(key):
-                return self.still_completed()
+                return
 
     def draw(self) -> None:
         scr = self.scr
@@ -294,14 +291,6 @@ class PyjoTUI:
             self.edit(key)
         return True
 
-    def still_completed(self) -> bool:
-        self.store.refresh()
-        by_name = {h["name"]: h for h in self.habits}
-        return any(
-            name in by_name and reached(by_name[name], day)
-            for name, day in self.completed
-        )
-
     def edit(self, key: str | int) -> None:
         if not self.habits:
             return
@@ -334,8 +323,19 @@ class PyjoTUI:
         else:
             stats[date] = value is not True
         self.store.save()
-        if not was_reached and reached(habit, self.day):
-            self.completed.add((habit["name"], self.day))
+        if (
+            self.day == datetime.date.today()
+            and not was_reached
+            and reached(habit, self.day)
+        ):
+            # Own session, so the sound outlives the terminal closing on quit.
+            subprocess.run(
+                [NOISEMAKER_SH, "5"],
+                check=False,
+                start_new_session=True,
+                stdout=subprocess.DEVNULL,
+                stderr=subprocess.DEVNULL,
+            )
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -348,10 +348,7 @@ def main(argv: list[str] | None = None) -> None:
     store = Store(args.file)
     locale.setlocale(locale.LC_ALL, "ko_KR.UTF-8")
     os.environ.setdefault("ESCDELAY", "25")
-    still_done = curses.wrapper(lambda scr: PyjoTUI(scr, store).run())
-    if still_done:
-        # Own session, so the sound outlives the terminal closing behind us.
-        subprocess.run([NOISEMAKER_SH, "5"], check=False, start_new_session=True)
+    curses.wrapper(lambda scr: PyjoTUI(scr, store).run())
 
 
 if __name__ == "__main__":
