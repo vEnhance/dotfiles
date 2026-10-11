@@ -4,7 +4,7 @@ set -u
 
 # Snapshot the dijo/pyjo habit data at most once a day.
 # This is local-only, so it runs before the Internet check.
-if [ "$(hostname)" = "$(jq --raw-output .dijo ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(cat ~/secrets/active-host)" ] && [ "$(whoami)" = "evan" ]; then
   (
     cd ~/.local/share/dijo/ || exit 1
     if [ "$(git log -1 --format=%cd --date=short)" != "$(date +%Y-%m-%d)" ] &&
@@ -30,7 +30,7 @@ echo "PASS_UNLOCKED = $PASS_UNLOCKED"
 
 # This command grabs all the OTIS stuff: problem sets, petitions, suggestions
 # and processes all of them through venueQ
-if [ "$(hostname)" = "$(jq --raw-output .otis ~/secrets/host-config.json)" ] && [ "$PASS_UNLOCKED" = 1 ]; then
+if [ "$(hostname)" = "$(cat ~/secrets/active-host)" ] && [ "$PASS_UNLOCKED" = 1 ]; then
   /usr/bin/python3 ~/dotfiles/py-scripts/venueQ/otis.py
 fi
 
@@ -45,7 +45,7 @@ fi
 ## SYNC TASKWARRIOR
 if [ "$(whoami)" = "evan" ]; then
   task sync
-  if [ "$(hostname)" = "$(jq --raw-output .task ~/secrets/host-config.json)" ]; then
+  if [ "$(hostname)" = "$(cat ~/secrets/active-host)" ]; then
     task rc.recurrence.limit=1 list >/dev/null
     task sync
   fi

@@ -10,7 +10,7 @@ else
   : >~/Sync/pacman/"$(hostname)".vote.paclist
 fi
 pacman -Qqem | sort | comm -23 - ~/Sync/pacman/excluded.txt >>~/Sync/pacman/"$(hostname)".vote.paclist
-if [ "$(hostname)" = "$(jq --raw-output .pacman ~/secrets/host-config.json)" ] && [ "$(whoami)" = "evan" ]; then
+if [ "$(hostname)" = "$(cat ~/secrets/active-host)" ] && [ "$(whoami)" = "evan" ]; then
   cd ~/Sync/pacman/ || exit 1
   if ! git diff --exit-code; then
     git commit -a -m "$(date), snapshot taken on $(hostname)"
