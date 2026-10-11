@@ -6,7 +6,6 @@ import smtplib
 import ssl
 import subprocess
 import time
-import webbrowser
 from collections.abc import Callable
 from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
@@ -748,7 +747,7 @@ class Application(VenueQNode):
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
-        webbrowser.open(f"https://apply.evanchen.cc/{data['uuid']}", new=1)
+        subprocess.Popen(["qutebrowser", f"https://apply.evanchen.cc/{data['uuid']}"])
         if self.homework_pdf_path is not None and self.homework_pdf_path.exists():
             subprocess.Popen(["zathura", self.homework_pdf_path.absolute()])
         self.edit_temp(extension="md")
