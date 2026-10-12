@@ -1,66 +1,35 @@
 #!/usr/bin/env bash
 
-if [ -f /usr/bin/mpg321 ]; then
-  PLAYER=mpg321
-else
-  PLAYER=mpg123
-fi
-
 DIR="$(dirname "$0")"
 
-if pactl list sinks short | grep soundboard_mix >/dev/null; then
-  export PULSE_SINK=soundboard_router
-fi
+# play <file> [volume]
+play() {
+  pw-play --latency 20ms --volume "${2:-1}" "$DIR/$1" &
+}
 
-if pgrep -U "$(whoami)" "$PLAYER" >/dev/null; then
+if pgrep -U "$(whoami)" pw-play >/dev/null; then
   if [ "$1" = a ]; then
-    "$PLAYER" -o pulse -q -f -18000 "$DIR"/Sa-horn.mp3 &
+    play Sa-horn.mp3 0.549
     exit
   else
-    pkill "$PLAYER"
+    pkill -U "$(whoami)" pw-play
   fi
 fi
 
-if [ "$1" = 1 ]; then
-  "$PLAYER" -o pulse -q "$DIR"/S1-applause.mp3 &
-fi
-if [ "$1" = 2 ]; then
-  "$PLAYER" -o pulse -q -f -9000 "$DIR"/S2-success.mp3 &
-fi
-if [ "$1" = 3 ]; then
-  "$PLAYER" -o pulse -q -f 15000 "$DIR"/S3-fanfare.mp3 &
-fi
-if [ "$1" = 4 ]; then
-  "$PLAYER" -o pulse -q "$DIR"/S4-correct.mp3 &
-fi
-if [ "$1" = 5 ]; then
-  "$PLAYER" -o pulse -q "$DIR"/S5-cashreg.mp3 &
-fi
-if [ "$1" = 6 ]; then
-  "$PLAYER" -o pulse -q -f -13000 "$DIR"/S6-metal.mp3 &
-fi
-if [ "$1" = 7 ]; then
-  "$PLAYER" -o pulse -q "$DIR"/S7-drum.mp3 &
-fi
-if [ "$1" = 8 ]; then
-  "$PLAYER" -o pulse -q "$DIR"/S8-boo.mp3 &
-fi
-if [ "$1" = 9 ]; then
-  "$PLAYER" -o pulse -q -f -18000 "$DIR"/S9-taratata.mp3 &
-fi
-if [ "$1" = 0 ]; then
-  "$PLAYER" -o pulse -q "$DIR"/S0-success.mp3 &
-fi
-
-if [ "$1" = a ]; then
-  "$PLAYER" -o pulse -q -f -18000 "$DIR"/Sa-horn.mp3 &
-fi
-if [ "$1" = B ]; then
-  "$PLAYER" -o pulse -q -f -80000 "$DIR"/SB-buzz.mp3 &
-fi
-if [ "$1" = N ]; then
-  "$PLAYER" -o pulse -q -f -80000 "$DIR"/SN-nooo.mp3 &
-fi
-if [ "$1" = H ]; then
-  "$PLAYER" -o pulse -q -f -80000 "$DIR"/SH-holy.mp3 &
-fi
+case "$1" in
+  1) play S1-applause.mp3 ;;
+  2) play S2-success.mp3 0.275 ;;
+  3) play S3-fanfare.mp3 0.458 ;;
+  4) play S4-correct.mp3 ;;
+  5) play S5-cashreg.mp3 ;;
+  6) play S6-metal.mp3 0.397 ;;
+  7) play S7-drum.mp3 ;;
+  8) play S8-boo.mp3 ;;
+  9) play S9-taratata.mp3 0.549 ;;
+  0) play S0-success.mp3 ;;
+  a) play Sa-horn.mp3 0.549 ;;
+  B) play SB-buzz.mp3 2.441 ;;
+  N) play SN-nooo.mp3 2.441 ;;
+  H) play SH-holy.mp3 2.441 ;;
+  g) ;; # just stop whatever is playing (done above)
+esac
