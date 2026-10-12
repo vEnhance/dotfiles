@@ -48,7 +48,6 @@ pactl set-default-sink "$sink"
 pactl --format json list sink-inputs |
   jq '.[]|(.index|tostring)+"\t"+(.properties."device.description"|tostring)' -r |
   grep -v 'loopback' |
-  grep -vi 'soundboard' |
   grep -oE '^[0-9]+' |
   while read -r input; do
     pactl move-sink-input "$input" "$sink"
