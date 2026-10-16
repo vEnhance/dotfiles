@@ -323,11 +323,7 @@ class PackTUI:
         if item.status == PACKED:
             mark, tag, attr = "[x]", "", curses.color_pair(C_PACKED)
         elif item.status == SKIP:
-            mark, tag, attr = (
-                "[-]",
-                "not needed",
-                curses.color_pair(C_SKIP) | curses.A_DIM,
-            )
+            mark, tag, attr = "[-]", "", curses.color_pair(C_SKIP) | curses.A_DIM
         elif item.status == WAIT:
             due = self.trip.wait_due(item)
             if now >= due:
