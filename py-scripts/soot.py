@@ -108,30 +108,6 @@ def parse_base(text: str) -> list[Item]:
     return items
 
 
-def append_to_base(item: Item) -> None:
-    """Add an item under its category in base.md, creating the heading if needed."""
-    ensure_base()
-    lines = BASE_PATH.read_text().splitlines()
-    heading = f"## {item.category}"
-    bullet = f"- {item.name}"
-    try:
-        start = next(i for i, ln in enumerate(lines) if ln.strip() == heading)
-    except StopIteration:
-        while lines and not lines[-1].strip():
-            lines.pop()
-        lines += ["", heading, "", bullet]
-    else:
-        # Insert after the last bullet in this section.
-        insert_at = start + 1
-        for i in range(start + 1, len(lines)):
-            if lines[i].startswith("## "):
-                break
-            if lines[i].strip().startswith(("- ", "* ")):
-                insert_at = i + 1
-        lines.insert(insert_at, bullet)
-    BASE_PATH.write_text("\n".join(lines) + "\n")
-
-
 def parse_time(s: str) -> datetime.datetime:
     """Accept ISO-ish times, falling back to GNU `date -d` for things like 'fri 8am'."""
     try:
@@ -193,8 +169,8 @@ HELP = [
     ("x", "skip"),
     ("u", "unmark"),
     ("n", "note"),
-    ("a", "add"),
-    ("D", "delete"),
+    ("a/A", "add item/sect"),
+    ("d/D", "del item/sect"),
     ("t", "departure"),
     ("q", "quit"),
 ]
@@ -442,6 +418,8 @@ class PackTUI:
             self.jump_category(-1)
         elif key == "a":
             self.add_item()
+        elif key == "A":
+            self.add_section()
         elif key == "t":
             self.edit_departure()
         elif item is None:
@@ -472,9 +450,11 @@ class PackTUI:
             answer = self.prompt("Note: ", item.note)
             if answer is not None:
                 item.note = answer
-        elif key == "D":
+        elif key == "d":
             if self.confirm(f"Delete {item.name!r} from this trip?"):
                 self.trip.items.remove(item)
+        elif key == "D":
+            self.delete_section(item.category)
         else:
             return True
         self.trip.save()
@@ -498,25 +478,46 @@ class PackTUI:
         if not name:
             return
         sel = self.selected()
-        default_cat = sel.category if sel else "Misc"
-        cats = self.trip.categories()
-        self.message = "Categories: " + ", ".join(cats)
-        self.draw()
-        category = self.prompt("Category: ", default_cat)
-        self.message = ""
-        if category is None:
-            return
-        category = category or default_cat
-        # Reuse existing capitalization if the user typed a near match.
-        category = next((c for c in cats if c.lower() == category.lower()), category)
-        item = Item(name=name, category=category)
+        item = Item(name=name, category=sel.category if sel else "Misc")
         self.trip.items.append(item)
         self.select(item)
-        if self.confirm("Also add to base.md for future trips?"):
-            append_to_base(item)
-            self.message = f"Added {name!r} to this trip and base.md"
-        else:
-            self.message = f"Added {name!r} to this trip"
+        self.message = f"Added {name!r} to {item.category}"
+
+    def add_section(self) -> None:
+        """Add a section below the current one; it needs at least one item to exist."""
+        category = self.prompt("New section: ")
+        if not category:
+            return
+        if any(c.lower() == category.lower() for c in self.trip.categories()):
+            self.message = f"Section {category!r} already exists"
+            return
+        # Normalize order so the new section can be spliced in after the current one.
+        self.trip.items = self.trip.sorted_items()
+        sel = self.selected()
+        at = len(self.trip.items)
+        if sel:
+            at = 1 + max(
+                i for i, it in enumerate(self.trip.items) if it.category == sel.category
+            )
+        added: list[Item] = []
+        while name := self.prompt(f"Item in {category} (blank to finish): "):
+            item = Item(name=name, category=category)
+            self.trip.items.insert(at + len(added), item)
+            added.append(item)
+            self.select(item)
+            self.draw()
+        if added:
+            self.message = f"Added section {category!r}"
+
+    def delete_section(self, category: str) -> None:
+        members = [it for it in self.trip.sorted_items() if it.category == category]
+        if not self.confirm(
+            f"Delete section {category!r} ({len(members)} items) from this trip?"
+        ):
+            return
+        self.cursor = self.trip.sorted_items().index(members[0])
+        self.trip.items = [it for it in self.trip.items if it.category != category]
+        self.message = f"Deleted section {category!r}"
 
     def edit_departure(self) -> None:
         answer = self.prompt("Departure: ", f"{self.trip.departure:%Y-%m-%d %H:%M}")
