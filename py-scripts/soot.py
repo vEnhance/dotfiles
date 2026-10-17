@@ -7,6 +7,7 @@ Data lives in ~/.local/share/soot/ (override with --dir):
 
 Usage:
     soot init [NAME] -d 2026-10-12   start a new trip from base.md
+    soot dupe [NAME] -d 2026-10-19   start a new trip from the active trip's items
     soot [pack [NAME]]               open the packing TUI
     soot list                        list trips
     soot use NAME                    switch the active trip
@@ -20,7 +21,7 @@ import json
 import os
 import subprocess
 import sys
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from pathlib import Path
 
 DATA_DIR = Path.home() / ".local" / "share" / "soot"
@@ -501,6 +502,17 @@ class PackTUI:
 
 def cmd_init(args: argparse.Namespace) -> None:
     ensure_base()
+    create_trip(args, parse_base(BASE_PATH.read_text()))
+
+
+def cmd_dupe(args: argparse.Namespace) -> None:
+    """Start a trip (e.g. the return leg) from everything not skipped in another."""
+    source = Trip.load(args.source or current_trip_name())
+    items = [replace(it, status=TODO) for it in source.items if it.status != SKIP]
+    create_trip(args, items)
+
+
+def create_trip(args: argparse.Namespace, items: list[Item]) -> None:
     try:
         departure = parse_date(args.departure)
     except ValueError as e:
@@ -508,7 +520,7 @@ def cmd_init(args: argparse.Namespace) -> None:
     name = f"{departure:%Y-%m-%d}"
     if args.name:
         name += f"-{args.name}"
-    trip = Trip(name=name, departure=departure, items=parse_base(BASE_PATH.read_text()))
+    trip = Trip(name=name, departure=departure, items=items)
     if trip.path.exists() and not args.force:
         sys.exit(f"Trip {name!r} already exists. Use --force to overwrite.")
     trip.save()
@@ -566,18 +578,32 @@ def main(argv: list[str] | None = None) -> None:
     )
     sub = parser.add_subparsers(dest="command")
 
-    p = sub.add_parser("init", help="start a new trip from base.md")
-    p.add_argument(
+    new_trip = argparse.ArgumentParser(add_help=False)
+    new_trip.add_argument(
         "name", nargs="?", help="trip name, prefixed with the departure date"
     )
-    p.add_argument(
+    new_trip.add_argument(
         "-d",
         "--departure",
         required=True,
         help="departure date, e.g. '2026-10-12' or 'fri'",
     )
-    p.add_argument("-f", "--force", action="store_true", help="overwrite existing trip")
+    new_trip.add_argument(
+        "-f", "--force", action="store_true", help="overwrite existing trip"
+    )
+
+    p = sub.add_parser("init", parents=[new_trip], help="start a new trip from base.md")
     p.set_defaults(func=cmd_init)
+
+    p = sub.add_parser(
+        "dupe",
+        parents=[new_trip],
+        help="start a new trip from another trip's non-skipped items",
+    )
+    p.add_argument(
+        "--from", dest="source", help="trip to copy from (default: active trip)"
+    )
+    p.set_defaults(func=cmd_dupe)
 
     p = sub.add_parser("pack", help="open the packing TUI")
     p.add_argument("name", nargs="?", help="trip name (default: active trip)")
