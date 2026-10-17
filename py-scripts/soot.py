@@ -1,16 +1,16 @@
 """soot: suitcase packing tracker.
 
-Data lives in ~/.local/share/soot/:
+Data lives in ~/.local/share/soot/ (override with --dir):
     base.md          master packing list (## Category headings, - item bullets)
     trips/<name>.json  per-trip state
     current          name of the active trip
 
 Usage:
-    soot init [NAME] -d "2026-10-12 08:00"   start a new trip from base.md
-    soot [pack [NAME]]                       open the packing TUI
-    soot list                                list trips
-    soot use NAME                            switch the active trip
-    soot base                                edit base.md in $EDITOR
+    soot init [NAME] -d 2026-10-12   start a new trip from base.md
+    soot [pack [NAME]]               open the packing TUI
+    soot list                        list trips
+    soot use NAME                    switch the active trip
+    soot base                        edit base.md in $EDITOR
 """
 
 import argparse
@@ -28,6 +28,15 @@ BASE_PATH = DATA_DIR / "base.md"
 TRIPS_DIR = DATA_DIR / "trips"
 CURRENT_PATH = DATA_DIR / "current"
 
+
+def set_data_dir(path: Path) -> None:
+    global DATA_DIR, BASE_PATH, TRIPS_DIR, CURRENT_PATH
+    DATA_DIR = path
+    BASE_PATH = DATA_DIR / "base.md"
+    TRIPS_DIR = DATA_DIR / "trips"
+    CURRENT_PATH = DATA_DIR / "current"
+
+
 DEFAULT_BASE = ""
 
 TODO = "todo"
@@ -41,14 +50,13 @@ class Item:
     name: str
     category: str
     status: str = TODO
-    wait_hours: float = 0.0
     note: str = ""
 
 
 @dataclass
 class Trip:
     name: str
-    departure: datetime.datetime
+    departure: datetime.date
     items: list[Item]
 
     @property
@@ -59,7 +67,7 @@ class Trip:
         TRIPS_DIR.mkdir(parents=True, exist_ok=True)
         data = {
             "name": self.name,
-            "departure": self.departure.isoformat(timespec="minutes"),
+            "departure": self.departure.isoformat(),
             "items": [asdict(item) for item in self.items],
         }
         tmp = self.path.with_suffix(".json.tmp")
@@ -74,12 +82,9 @@ class Trip:
         data = json.loads(path.read_text())
         return cls(
             name=data["name"],
-            departure=datetime.datetime.fromisoformat(data["departure"]),
+            departure=datetime.date.fromisoformat(data["departure"]),
             items=[Item(**d) for d in data["items"]],
         )
-
-    def wait_due(self, item: Item) -> datetime.datetime:
-        return self.departure - datetime.timedelta(hours=item.wait_hours)
 
     def categories(self) -> list[str]:
         """Categories in order of first appearance."""
@@ -108,44 +113,37 @@ def parse_base(text: str) -> list[Item]:
     return items
 
 
-def parse_time(s: str) -> datetime.datetime:
-    """Accept ISO-ish times, falling back to GNU `date -d` for things like 'fri 8am'."""
+def parse_date(s: str) -> datetime.date:
+    """Accept ISO dates, falling back to GNU `date -d` for things like 'fri'."""
     try:
-        return datetime.datetime.fromisoformat(s).replace(tzinfo=None)
+        return datetime.date.fromisoformat(s)
     except ValueError:
         pass
     result = subprocess.run(
-        ["date", "-d", s, "+%Y-%m-%dT%H:%M"],
+        ["date", "-d", s, "+%Y-%m-%d"],
         capture_output=True,
         text=True,
         check=False,
     )
     if result.returncode != 0:
-        raise ValueError(f"Can't parse time {s!r}")
-    return datetime.datetime.fromisoformat(result.stdout.strip())
+        raise ValueError(f"Can't parse date {s!r}")
+    return datetime.date.fromisoformat(result.stdout.strip())
 
 
-def fmt_delta(delta: datetime.timedelta) -> str:
-    secs = int(delta.total_seconds())
-    sign = "-" if secs < 0 else ""
-    secs = abs(secs)
-    days, secs = divmod(secs, 86400)
-    hours, secs = divmod(secs, 3600)
-    mins = secs // 60
-    if days:
-        return f"{sign}{days}d {hours}h"
-    if hours:
-        return f"{sign}{hours}h {mins}m"
-    return f"{sign}{mins}m"
-
-
-def fmt_hours(h: float) -> str:
-    return f"{h:g}h"
+def fmt_days_until(date: datetime.date) -> str:
+    days = (date - datetime.date.today()).days
+    if days == 0:
+        return "today"
+    if days == 1:
+        return "tomorrow"
+    if days > 0:
+        return f"in {days} days"
+    return f"{-days} days ago"
 
 
 def current_trip_name() -> str:
     if not CURRENT_PATH.exists():
-        sys.exit("No active trip. Start one with `soot init -d TIME`.")
+        sys.exit("No active trip. Start one with `soot init -d DATE`.")
     return CURRENT_PATH.read_text().strip()
 
 
@@ -161,7 +159,7 @@ def counts(trip: Trip) -> dict[str, int]:
     return out
 
 
-C_HEADER, C_CATEGORY, C_PACKED, C_WAIT, C_DUE, C_SKIP, C_NOTE, C_TODO = range(1, 9)
+C_HEADER, C_CATEGORY, C_PACKED, C_WAIT, C_SKIP, C_NOTE, C_TODO = range(1, 8)
 
 HELP = [
     ("spc/p", "pack"),
@@ -236,7 +234,6 @@ class PackTUI:
         curses.init_pair(C_CATEGORY, curses.COLOR_MAGENTA, -1)
         curses.init_pair(C_PACKED, curses.COLOR_GREEN, -1)
         curses.init_pair(C_WAIT, curses.COLOR_BLUE, -1)
-        curses.init_pair(C_DUE, curses.COLOR_RED, -1)
         curses.init_pair(C_SKIP, 8 if curses.COLORS > 8 else curses.COLOR_WHITE, -1)
         curses.init_pair(C_NOTE, curses.COLOR_YELLOW, -1)
         curses.init_pair(C_TODO, -1, -1)
@@ -252,14 +249,13 @@ class PackTUI:
         scr = self.scr
         scr.erase()
         height, width = scr.getmaxyx()
-        now = datetime.datetime.now()
         trip = self.trip
 
         c = counts(trip)
         needed = len(trip.items) - c[SKIP]
         title = (
-            f" {trip.name} · leaving {trip.departure:%a %b %d %H:%M}"
-            f" (in {fmt_delta(trip.departure - now)})"
+            f" {trip.name} · leaving {trip.departure:%a %b %d}"
+            f" ({fmt_days_until(trip.departure)})"
         )
         tally = f"{c[PACKED]}/{needed} packed · {c[WAIT]} waiting · {c[TODO]} todo "
         self.put(0, 0, title, curses.color_pair(C_HEADER) | curses.A_BOLD)
@@ -282,7 +278,7 @@ class PackTUI:
                 self.put(body_top + y, 1, f"{num} {row}", attr)
             else:
                 self.put(body_top + y, 3, num, curses.A_DIM)
-                self.draw_item(body_top + y, row, now, selected=row is sel)
+                self.draw_item(body_top + y, row, selected=row is sel)
 
         self.put(height - 2, 0, self.message, curses.color_pair(C_NOTE))
         x = 0
@@ -293,25 +289,13 @@ class PackTUI:
             x += len(desc) + 4
         scr.refresh()
 
-    def draw_item(
-        self, y: int, item: Item, now: datetime.datetime, *, selected: bool
-    ) -> None:
-        if item.status == PACKED:
-            mark, tag, attr = "[✓]", "", curses.color_pair(C_PACKED)
-        elif item.status == SKIP:
-            mark, tag, attr = "[✗]", "", curses.color_pair(C_SKIP)
-        elif item.status == WAIT:
-            due = self.trip.wait_due(item)
-            if now >= due:
-                mark = "[!]"
-                tag = f"PACK NOW (wait {fmt_hours(item.wait_hours)} before)"
-                attr = curses.color_pair(C_DUE) | curses.A_BOLD
-            else:
-                mark = "[~]"
-                tag = f"pack {due:%a %H:%M} (in {fmt_delta(due - now)})"
-                attr = curses.color_pair(C_WAIT)
-        else:
-            mark, tag, attr = "[ ]", "", curses.color_pair(C_TODO)
+    def draw_item(self, y: int, item: Item, *, selected: bool) -> None:
+        mark, attr = {
+            PACKED: ("[✓]", curses.color_pair(C_PACKED)),
+            SKIP: ("[✗]", curses.color_pair(C_SKIP)),
+            WAIT: ("[!]", curses.color_pair(C_WAIT)),
+            TODO: ("[ ]", curses.color_pair(C_TODO)),
+        }[item.status]
 
         if selected:
             attr |= curses.A_REVERSE
@@ -320,9 +304,6 @@ class PackTUI:
         text = f"{mark} {item.name:<{name_width}}"
         self.put(y, x, text, attr)
         x += len(text) + 2
-        if tag:
-            self.put(y, x, tag, attr & ~curses.A_REVERSE | curses.A_ITALIC)
-            x += len(tag) + 2
         if item.note:
             self.put(y, x, f"# {item.note}", curses.color_pair(C_NOTE))
 
@@ -433,19 +414,8 @@ class PackTUI:
         elif key == "u":
             item.status = TODO
         elif key == "w":
-            initial = (
-                fmt_hours(item.wait_hours).rstrip("h") if item.status == WAIT else ""
-            )
-            answer = self.prompt("Pack how many hours before leaving? ", initial)
-            if answer:
-                try:
-                    hours = float(answer.rstrip("hH"))
-                except ValueError:
-                    self.message = f"Not a number: {answer!r}"
-                else:
-                    item.status = WAIT
-                    item.wait_hours = hours
-                    self.advance_if(True)
+            item.status = TODO if item.status == WAIT else WAIT
+            self.advance_if(item.status == WAIT)
         elif key == "n":
             answer = self.prompt("Note: ", item.note)
             if answer is not None:
@@ -520,11 +490,11 @@ class PackTUI:
         self.message = f"Deleted section {category!r}"
 
     def edit_departure(self) -> None:
-        answer = self.prompt("Departure: ", f"{self.trip.departure:%Y-%m-%d %H:%M}")
+        answer = self.prompt("Departure: ", self.trip.departure.isoformat())
         if not answer:
             return
         try:
-            self.trip.departure = parse_time(answer)
+            self.trip.departure = parse_date(answer)
         except ValueError as e:
             self.message = str(e)
 
@@ -532,7 +502,7 @@ class PackTUI:
 def cmd_init(args: argparse.Namespace) -> None:
     ensure_base()
     try:
-        departure = parse_time(args.departure)
+        departure = parse_date(args.departure)
     except ValueError as e:
         sys.exit(str(e))
     name = f"{departure:%Y-%m-%d}"
@@ -544,7 +514,7 @@ def cmd_init(args: argparse.Namespace) -> None:
     trip.save()
     set_current(name)
     print(
-        f"Created trip {name!r} leaving {departure:%a %b %d %H:%M} with {len(trip.items)} items."
+        f"Created trip {name!r} leaving {departure:%a %b %d} with {len(trip.items)} items."
     )
     print("Run `soot pack` to start packing.")
 
@@ -569,7 +539,7 @@ def cmd_list(_args: argparse.Namespace) -> None:
         c = counts(trip)
         star = "*" if trip.name == current else " "
         print(
-            f"{star} {trip.name:20} {trip.departure:%Y-%m-%d %H:%M}  "
+            f"{star} {trip.name:20} {trip.departure}  "
             f"{c[PACKED]}/{len(trip.items) - c[SKIP]} packed"
         )
 
@@ -591,6 +561,9 @@ def main(argv: list[str] | None = None) -> None:
         prog="soot", description="Suitcase packing tracker."
     )
     parser.set_defaults(func=cmd_pack, name=None)  # bare `soot` = `soot pack`
+    parser.add_argument(
+        "--dir", type=Path, help=f"data directory (default: {DATA_DIR})"
+    )
     sub = parser.add_subparsers(dest="command")
 
     p = sub.add_parser("init", help="start a new trip from base.md")
@@ -601,7 +574,7 @@ def main(argv: list[str] | None = None) -> None:
         "-d",
         "--departure",
         required=True,
-        help="departure time, e.g. '2026-10-12 08:00' or 'fri 8am'",
+        help="departure date, e.g. '2026-10-12' or 'fri'",
     )
     p.add_argument("-f", "--force", action="store_true", help="overwrite existing trip")
     p.set_defaults(func=cmd_init)
@@ -621,6 +594,8 @@ def main(argv: list[str] | None = None) -> None:
     p.set_defaults(func=cmd_base)
 
     args = parser.parse_args(argv)
+    if args.dir:
+        set_data_dir(args.dir)
     args.func(args)
 
 
