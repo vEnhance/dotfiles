@@ -22,6 +22,7 @@ import os
 import subprocess
 import sys
 from dataclasses import asdict, dataclass, replace
+from itertools import groupby
 from pathlib import Path
 
 DATA_DIR = Path.home() / ".local" / "share" / "soot"
@@ -37,8 +38,6 @@ def set_data_dir(path: Path) -> None:
     TRIPS_DIR = DATA_DIR / "trips"
     CURRENT_PATH = DATA_DIR / "current"
 
-
-DEFAULT_BASE = ""
 
 TODO = "todo"
 PACKED = "packed"
@@ -99,7 +98,7 @@ class Trip:
 def ensure_base() -> None:
     if not BASE_PATH.exists():
         DATA_DIR.mkdir(parents=True, exist_ok=True)
-        BASE_PATH.write_text(DEFAULT_BASE)
+        BASE_PATH.touch()
 
 
 def parse_base(text: str) -> list[Item]:
@@ -162,6 +161,13 @@ def counts(trip: Trip) -> dict[str, int]:
 
 C_HEADER, C_CATEGORY, C_PACKED, C_WAIT, C_SKIP, C_NOTE, C_TODO = range(1, 8)
 
+MARKS = {
+    PACKED: ("[✓]", C_PACKED),
+    SKIP: ("[✗]", C_SKIP),
+    WAIT: ("[!]", C_WAIT),
+    TODO: ("[ ]", C_TODO),
+}
+
 HELP = [
     ("spc/p", "pack"),
     ("w", "wait"),
@@ -187,12 +193,11 @@ class PackTUI:
     # Rows are either a category heading (str) or an Item.
     def rows(self) -> list[str | Item]:
         out: list[str | Item] = []
-        last = None
-        for item in self.trip.sorted_items():
-            if item.category != last:
-                out.append(item.category)
-                last = item.category
-            out.append(item)
+        for category, items in groupby(
+            self.trip.sorted_items(), lambda it: it.category
+        ):
+            out.append(category)
+            out.extend(items)
         return out
 
     def selected(self) -> Item | None:
@@ -216,12 +221,16 @@ class PackTUI:
                 out.append(str(item) if section <= 9 and item <= 9 else " ")
         return out
 
+    def section_indices(self, category: str) -> list[int]:
+        """Cursor positions of the items in a section."""
+        items = self.trip.sorted_items()
+        return [i for i, it in enumerate(items) if it.category == category]
+
     def jump_to_number(self, section: int, item: int = 0) -> None:
         cats = self.trip.categories()
         if section >= len(cats):
             return
-        items = self.trip.sorted_items()
-        in_section = [i for i, it in enumerate(items) if it.category == cats[section]]
+        in_section = self.section_indices(cats[section])
         if item < len(in_section):
             self.cursor = in_section[item]
 
@@ -291,13 +300,8 @@ class PackTUI:
         scr.refresh()
 
     def draw_item(self, y: int, item: Item, *, selected: bool) -> None:
-        mark, attr = {
-            PACKED: ("[✓]", curses.color_pair(C_PACKED)),
-            SKIP: ("[✗]", curses.color_pair(C_SKIP)),
-            WAIT: ("[!]", curses.color_pair(C_WAIT)),
-            TODO: ("[ ]", curses.color_pair(C_TODO)),
-        }[item.status]
-
+        mark, color = MARKS[item.status]
+        attr = curses.color_pair(color)
         if selected:
             attr |= curses.A_REVERSE
         x = 5
@@ -407,16 +411,13 @@ class PackTUI:
         elif item is None:
             pass
         elif key in (" ", "p", "\n"):
-            item.status = TODO if item.status == PACKED else PACKED
-            self.advance_if(item.status == PACKED)
+            self.toggle(item, PACKED)
         elif key in ("x", "s"):
-            item.status = TODO if item.status == SKIP else SKIP
-            self.advance_if(item.status == SKIP)
+            self.toggle(item, SKIP)
+        elif key == "w":
+            self.toggle(item, WAIT)
         elif key == "u":
             item.status = TODO
-        elif key == "w":
-            item.status = TODO if item.status == WAIT else WAIT
-            self.advance_if(item.status == WAIT)
         elif key == "n":
             answer = self.prompt("Note: ", item.note)
             if answer is not None:
@@ -431,18 +432,21 @@ class PackTUI:
         self.trip.save()
         return True
 
-    def advance_if(self, cond: bool) -> None:
-        if cond:
+    def toggle(self, item: Item, status: str) -> None:
+        """Flip between `status` and todo, moving on to the next item when set."""
+        if item.status == status:
+            item.status = TODO
+        else:
+            item.status = status
             self.cursor = min(len(self.trip.items) - 1, self.cursor + 1)
 
     def jump_category(self, direction: int) -> None:
-        items = self.trip.sorted_items()
-        if not items:
+        sel = self.selected()
+        if sel is None:
             return
         cats = self.trip.categories()
-        cur = cats.index(items[self.cursor].category)
-        target = cats[(cur + direction) % len(cats)]
-        self.cursor = next(i for i, it in enumerate(items) if it.category == target)
+        target = cats[(cats.index(sel.category) + direction) % len(cats)]
+        self.cursor = self.section_indices(target)[0]
 
     def add_item(self) -> None:
         name = self.prompt("New item: ")
@@ -465,28 +469,23 @@ class PackTUI:
         # Normalize order so the new section can be spliced in after the current one.
         self.trip.items = self.trip.sorted_items()
         sel = self.selected()
-        at = len(self.trip.items)
-        if sel:
-            at = 1 + max(
-                i for i, it in enumerate(self.trip.items) if it.category == sel.category
-            )
-        added: list[Item] = []
+        at = self.section_indices(sel.category)[-1] + 1 if sel else 0
         while name := self.prompt(f"Item in {category} (blank to finish): "):
             item = Item(name=name, category=category)
-            self.trip.items.insert(at + len(added), item)
-            added.append(item)
+            self.trip.items.insert(at, item)
+            at += 1
             self.select(item)
             self.draw()
-        if added:
+        if category in self.trip.categories():
             self.message = f"Added section {category!r}"
 
     def delete_section(self, category: str) -> None:
-        members = [it for it in self.trip.sorted_items() if it.category == category]
+        indices = self.section_indices(category)
         if not self.confirm(
-            f"Delete section {category!r} ({len(members)} items) from this trip?"
+            f"Delete section {category!r} ({len(indices)} items) from this trip?"
         ):
             return
-        self.cursor = self.trip.sorted_items().index(members[0])
+        self.cursor = indices[0]
         self.trip.items = [it for it in self.trip.items if it.category != category]
         self.message = f"Deleted section {category!r}"
 
@@ -538,7 +537,6 @@ def cmd_pack(args: argparse.Namespace) -> None:
         set_current(name)
     os.environ.setdefault("ESCDELAY", "25")
     curses.wrapper(lambda scr: PackTUI(scr, trip).run())
-    trip.save()
 
 
 def cmd_list(_args: argparse.Namespace) -> None:
