@@ -297,9 +297,9 @@ class PackTUI:
         self, y: int, item: Item, now: datetime.datetime, *, selected: bool
     ) -> None:
         if item.status == PACKED:
-            mark, tag, attr = "[x]", "", curses.color_pair(C_PACKED)
+            mark, tag, attr = "[✓]", "", curses.color_pair(C_PACKED)
         elif item.status == SKIP:
-            mark, tag, attr = "[-]", "", curses.color_pair(C_SKIP) | curses.A_DIM
+            mark, tag, attr = "[✗]", "", curses.color_pair(C_SKIP)
         elif item.status == WAIT:
             due = self.trip.wait_due(item)
             if now >= due:
