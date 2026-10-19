@@ -159,6 +159,8 @@ def counts(trip: Trip) -> dict[str, int]:
     return out
 
 
+JUMP_KEYS = "0123456789abcdef"
+
 C_HEADER, C_CATEGORY, C_PACKED, C_WAIT, C_SKIP, C_NOTE, C_TODO = range(1, 8)
 
 MARKS = {
@@ -171,11 +173,11 @@ MARKS = {
 HELP = [
     ("spc/p", "pack"),
     ("w", "wait"),
-    ("x", "skip"),
+    ("s", "skip"),
     ("u", "unmark"),
     ("n", "note"),
-    ("a/A", "add item/sect"),
-    ("d/D", "del item/sect"),
+    ("o/O", "add item/sect"),
+    ("x/X", "del item/sect"),
     ("t", "departure"),
     ("q", "quit"),
 ]
@@ -188,7 +190,7 @@ class PackTUI:
         self.cursor = 0
         self.scroll = 0
         self.message = ""
-        self.pending_section: int | None = None  # first digit of a 2-digit jump
+        self.pending_section: int | None = None  # first key of a 2-key jump
 
     # Rows are either a category heading (str) or an Item.
     def rows(self) -> list[str | Item]:
@@ -209,16 +211,17 @@ class PackTUI:
 
     @staticmethod
     def row_numbers(rows: list[str | Item]) -> list[str]:
-        """Digit labels for each row: sections 0-9, items 0-9 within a section."""
+        """Jump-key labels for each row: sections 0-f, items 0-f within a section."""
         out: list[str] = []
         section = item = -1
+        n = len(JUMP_KEYS)
         for row in rows:
             if isinstance(row, str):
                 section, item = section + 1, -1
-                out.append(str(section) if section <= 9 else " ")
+                out.append(JUMP_KEYS[section] if section < n else " ")
             else:
                 item += 1
-                out.append(str(item) if section <= 9 and item <= 9 else " ")
+                out.append(JUMP_KEYS[item] if section < n and item < n else " ")
         return out
 
     def section_indices(self, category: str) -> list[int]:
@@ -376,12 +379,13 @@ class PackTUI:
         item = self.selected()
 
         pending, self.pending_section = self.pending_section, None
-        if isinstance(key, str) and key in "0123456789":
+        if isinstance(key, str) and len(key) == 1 and key in JUMP_KEYS:
+            num = JUMP_KEYS.index(key)
             if pending is None:
-                self.jump_to_number(int(key))
-                self.pending_section = int(key)
+                self.jump_to_number(num)
+                self.pending_section = num
             else:
-                self.jump_to_number(pending, int(key))
+                self.jump_to_number(pending, num)
             return True
 
         if key in ("q", "Q"):
@@ -402,9 +406,9 @@ class PackTUI:
             self.jump_category(+1)
         elif key in ("{", "["):
             self.jump_category(-1)
-        elif key == "a":
+        elif key == "o":
             self.add_item()
-        elif key == "A":
+        elif key == "O":
             self.add_section()
         elif key == "t":
             self.edit_departure()
@@ -412,7 +416,7 @@ class PackTUI:
             pass
         elif key in (" ", "p", "\n"):
             self.toggle(item, PACKED)
-        elif key in ("x", "s"):
+        elif key == "s":
             self.toggle(item, SKIP)
         elif key == "w":
             self.toggle(item, WAIT)
@@ -422,10 +426,10 @@ class PackTUI:
             answer = self.prompt("Note: ", item.note)
             if answer is not None:
                 item.note = answer
-        elif key == "d":
+        elif key == "x":
             if self.confirm(f"Delete {item.name!r} from this trip?"):
                 self.trip.items.remove(item)
-        elif key == "D":
+        elif key == "X":
             self.delete_section(item.category)
         else:
             return True
