@@ -1,8 +1,9 @@
+#!/usr/bin/python3
 # hunt.py
 # Written by Evan Chen
 #
 # Usage:
-# python hunt.py [file]
+# hunt.py [file]
 # If file is a filename, then hunt will open the first
 # locate place, then output that directory to /tmp/hunt.user
 # If there is more than one target, it will prompt the user to choose one.

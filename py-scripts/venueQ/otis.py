@@ -571,8 +571,7 @@ class Suggestion(VenueQNode):
             print(self.solution, file=f)
         subprocess.run(
             args=[
-                "python",
-                Path("~/dotfiles/py-scripts/mango.py").expanduser(),
+                Path("~/dotfiles/py-scripts/mango/mango.py").expanduser(),
                 tmp_path,
             ],
             check=False,

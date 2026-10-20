@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """soot: suitcase packing tracker.
 
 Data lives in ~/.local/share/soot/ (override with --dir):

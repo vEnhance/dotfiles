@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """pyjo: list-view TUI for dijo habits.
 
 Reads and writes ~/.local/share/dijo/habit_record.json in the same format as

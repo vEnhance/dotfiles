@@ -2,7 +2,7 @@
 
 Yes, really.
 
-This is designed to be used with the judge `py-scripts/stomp.py`.
+This is designed to be used with the judge `py-scripts/stomp/stomp.py`.
 Invoke it with `stomp -n taskname.cpp`, for example.
 
 You can see <https://github.com/vEnhance/evan-learns-ioi>

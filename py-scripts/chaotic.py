@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """Audit and apply chaotic-aur package changes, separately from `pacman -Syu`.
 
 /etc/pacman.conf declares the repo with a deliberately narrow usage:

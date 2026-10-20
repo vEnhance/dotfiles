@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 UltiSnips to VSCode snippets converter for blink.cmp
 

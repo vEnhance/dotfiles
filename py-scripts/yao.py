@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Implements https://zoo.cs.yale.edu/classes/cs461/2009/lectures/ln21.pdf
 # Definitely not a good use of my time.
 

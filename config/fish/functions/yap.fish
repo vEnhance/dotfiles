@@ -7,7 +7,7 @@ function yap --description "Scribble on the wall at wall.evanchen.cc"
         if test "$push_response" = y -o "$push_response" = yes
             if git push
                 jq "." latest.json
-                if /usr/bin/python3 /home/evan/dotfiles/py-scripts/wall-announce.py
+                if /home/evan/dotfiles/py-scripts/wall-announce.py
                     /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 2 >/dev/null
                 else
                     /home/evan/dotfiles/sh-scripts/noisemaker/noisemaker.sh 7 >/dev/null

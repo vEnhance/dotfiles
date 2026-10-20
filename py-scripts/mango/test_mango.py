@@ -1,4 +1,4 @@
-"""Tests for py-scripts/mango.py"""
+"""Tests for py-scripts/mango/mango.py"""
 
 import sys
 from pathlib import Path

@@ -4,11 +4,11 @@ function bw-new
         bw-unlock
     end
 
-    set password0 (/usr/bin/python3 ~/dotfiles/py-scripts/gen-password.py)
-    set password1 (/usr/bin/python3 ~/dotfiles/py-scripts/gen-password.py)
-    set password2 (/usr/bin/python3 ~/dotfiles/py-scripts/gen-password.py)
-    set password3 (/usr/bin/python3 ~/dotfiles/py-scripts/gen-password.py)
-    set password4 (/usr/bin/python3 ~/dotfiles/py-scripts/gen-password.py)
+    set password0 (~/dotfiles/py-scripts/gen-password.py)
+    set password1 (~/dotfiles/py-scripts/gen-password.py)
+    set password2 (~/dotfiles/py-scripts/gen-password.py)
+    set password3 (~/dotfiles/py-scripts/gen-password.py)
+    set password4 (~/dotfiles/py-scripts/gen-password.py)
     echo "0. $password0"
     echo "1. $password1"
     echo "2. $password2"

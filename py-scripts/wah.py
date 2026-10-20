@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Work-A-Holic (WAH)
 for that feeling of "WAH, how did I spend 200 hours on this?"
 

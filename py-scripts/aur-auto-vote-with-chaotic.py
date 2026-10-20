@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """
 ** ADAPTED FROM https://github.com/cryzed/bin **
 Original author: Chris Braun

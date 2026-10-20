@@ -1,5 +1,5 @@
 function hunt
-    /usr/bin/python3 ~/dotfiles/py-scripts/hunt.py "$argv"
+    ~/dotfiles/py-scripts/hunt.py "$argv"
     if test $status -eq 0
         if test -n (cat /tmp/hunt.(whoami))
             cd (cat /tmp/hunt.(whoami))
