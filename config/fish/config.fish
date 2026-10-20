@@ -75,7 +75,7 @@ abbr -a mv --position command 'mv -i'
 # Aliases {{{
 alias chaotic='~/dotfiles/py-scripts/chaotic.py'
 alias hs='~/dotfiles/py-scripts/solvertools-search.py'
-alias mango='~/dotfiles/py-scripts/mango/mango.py'
+alias mango='~/dotfiles/py-scripts/mango.py'
 alias md='/usr/bin/python3 ~/dotfiles/py-scripts/sane_markdown.py'
 alias odus='~/dotfiles/py-scripts/odus.py'
 alias orch='~/dotfiles/py-scripts/orch.py'

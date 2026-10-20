@@ -9,6 +9,7 @@ and other special constructs.
 """
 
 import argparse
+import io
 import re
 import sys
 from enum import Enum
@@ -136,7 +137,15 @@ def get_latex_indent(line: str) -> str:
 
 
 def is_indented_code(line: str) -> bool:
-    """Check if line is indented code (4+ spaces at start)."""
+    r"""Check if line is indented code (4+ spaces at start).
+
+    >>> is_indented_code("    code here"), is_indented_code("        deeper")
+    (True, True)
+    >>> is_indented_code("   only three"), is_indented_code("plain text")
+    (False, False)
+    >>> is_indented_code(""), is_indented_code("   \n")
+    (False, False)
+    """
     if not line or line.isspace():
         return False
     # Count leading spaces
@@ -145,7 +154,13 @@ def is_indented_code(line: str) -> bool:
 
 
 def is_list_item(line: str) -> bool:
-    """Check if line is a list item."""
+    """Check if line is a list item.
+
+    >>> [is_list_item(s) for s in ["- a", "* a", "+ a", "1. a", "42. a", "  - a"]]
+    [True, True, True, True, True, True]
+    >>> [is_list_item(s) for s in ["just text", "-no space", "*no space"]]
+    [False, False, False]
+    """
     stripped = line.lstrip()
     # Unordered lists: -, *, +
     if stripped and stripped[0] in "-*+" and len(stripped) > 1 and stripped[1] == " ":
@@ -201,6 +216,26 @@ def find_break_point(
         preferred_width: Preferred position for space fallback (defaults to available_width)
 
     Returns the position after the punctuation/space, or None if no break found.
+
+    Sentence endings win, as long as the break is at least MIN_WIDTH in:
+
+    >>> t = "First part of a longer sentence here. And this continues on for a while."
+    >>> t[: find_break_point(t, 60)]
+    'First part of a longer sentence here. '
+
+    A comma before MIN_WIDTH is ignored, so this falls back to a space:
+
+    >>> t = "First part, second part that goes on and on and on forever."
+    >>> t[: find_break_point(t, 50)]
+    'First part, second part that goes on and on and on '
+
+    >>> find_break_point("Short line.", 100) is None
+    True
+    >>> t = "a" * 50 + " " + "b" * 50
+    >>> find_break_point(t, 80, natural_only=True) is None
+    True
+    >>> find_break_point(t, 80)
+    51
     """
     if len(text) <= available_width:
         return None
@@ -253,6 +288,21 @@ def wrap_paragraph(
         natural_only: If True, only break at natural points (sentences/punctuation), not arbitrary spaces
         preferred_width: Preferred width for space fallback when force-wrapping
         preserve_indent: If True, preserve indent on continuation lines (for LaTeX)
+
+    >>> wrap_paragraph("Short line.")
+    ['Short line.']
+    >>> for line in wrap_paragraph("This is a sentence. " * 6):
+    ...     print(line)
+    This is a sentence. This is a sentence. This is a sentence. This is a sentence. This is a sentence.
+    This is a sentence.
+
+    The indent goes on every line in LaTeX mode, but only the first in Markdown:
+
+    >>> text = " ".join(["word"] * 30)
+    >>> [line[:6] for line in wrap_paragraph(text, 80, "  ", preserve_indent=True)]
+    ['  word', '  word']
+    >>> [line[:6] for line in wrap_paragraph(text, 80, "  ")]
+    ['  word', 'word w']
     """
     if not text or text.isspace():
         return [text] if text else [""]
@@ -307,6 +357,17 @@ def extract_prefix_and_content(
 
     Returns:
         Tuple of (content, prefix)
+
+    >>> extract_prefix_and_content("- hello world", FileType.MARKDOWN)
+    ('hello world', '- ')
+    >>> extract_prefix_and_content("1. hello world", FileType.MARKDOWN)
+    ('hello world', '1. ')
+    >>> extract_prefix_and_content("> quoted text", FileType.MARKDOWN)
+    ('quoted text', '> ')
+    >>> extract_prefix_and_content("plain text here", FileType.MARKDOWN)
+    ('plain text here', '')
+    >>> extract_prefix_and_content("  latex text", FileType.LATEX)
+    ('latex text', '  ')
     """
     if file_type == FileType.LATEX:
         # LaTeX: only preserve indentation
@@ -337,17 +398,41 @@ def extract_prefix_and_content(
         return content, prefix
 
 
-def process_file(filepath: Path, dry_run: bool = False) -> None:
-    """Process a single file (Markdown or LaTeX)."""
-    file_type = detect_file_type(filepath)
+def wrap_text(text: str, file_type: FileType) -> str:
+    r"""Wrap the long lines of a whole document (Markdown or LaTeX).
 
-    try:
-        with open(filepath, "r", encoding="utf-8") as f:
-            lines = f.readlines()
-    except (OSError, UnicodeDecodeError) as e:
-        print(f"Error reading {filepath}: {e}", file=sys.stderr)
-        return
+    Continuation lines line up under list items and repeat blockquote markers:
 
+    >>> print(wrap_text("- " + "Item text, with commas. " * 5, FileType.MARKDOWN), end="")
+    - Item text, with commas. Item text, with commas. Item text, with commas. Item text, with commas.
+      Item text, with commas.
+    >>> print(wrap_text("> " + "Quoted text, with commas. " * 5, FileType.MARKDOWN), end="")
+    > Quoted text, with commas. Quoted text, with commas. Quoted text, with commas. Quoted text, with commas.
+    > Quoted text, with commas.
+
+    ``key: value`` lines in the header zone at the top are left alone, even
+    past ``---`` delimiters and blank lines:
+
+    >>> s = "title: " + "x" * 200 + "\ndate: 2024-01-01\n\nNormal paragraph.\n"
+    >>> wrap_text(s, FileType.MARKDOWN) == s
+    True
+    >>> s = "---\ntitle: " + "x" * 200 + "\n---\n\nBody text.\n"
+    >>> wrap_text(s, FileType.MARKDOWN) == s
+    True
+    >>> s = "\n\ntitle: " + "x" * 200 + "\n"
+    >>> wrap_text(s, FileType.MARKDOWN) == s
+    True
+
+    The header zone ends at the first ordinary line, so later ones get wrapped:
+
+    >>> s = "Ends the header zone.\n\nAnswer: " + " ".join(["word"] * 25) + "\n"
+    >>> print(wrap_text(s, FileType.MARKDOWN), end="")
+    Ends the header zone.
+    <BLANKLINE>
+    Answer: word word word word word word word word word word word word word word
+    word word word word word word word word word word word
+    """
+    lines = io.StringIO(text).readlines()
     output_lines = []
     env_tracker = EnvironmentTracker(file_type)
     in_header_zone = (
@@ -435,13 +520,27 @@ def process_file(filepath: Path, dry_run: bool = False) -> None:
                     continuation_prefix = " " * len(prefix)
                 output_lines.append(continuation_prefix + wrapped_line + "\n")
 
+    return "".join(output_lines)
+
+
+def process_file(filepath: Path, dry_run: bool = False) -> None:
+    """Process a single file (Markdown or LaTeX)."""
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            text = f.read()
+    except (OSError, UnicodeDecodeError) as e:
+        print(f"Error reading {filepath}: {e}", file=sys.stderr)
+        return
+
+    output = wrap_text(text, detect_file_type(filepath))
+
     if dry_run:
         print(f"=== {filepath} ===")
-        print("".join(output_lines))
+        print(output)
     else:
         try:
             with open(filepath, "w", encoding="utf-8") as f:
-                f.writelines(output_lines)
+                f.write(output)
         except (OSError, UnicodeEncodeError) as e:
             print(f"Error writing {filepath}: {e}", file=sys.stderr)
 
