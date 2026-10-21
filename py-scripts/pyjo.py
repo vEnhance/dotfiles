@@ -11,8 +11,10 @@ scrolls, and the view only scrolls back right once the cursor hits that edge.
 Keys:
     j/k        move between habits          0-9, a-f   jump to row 0..15,
                                                        marking bits done
-    h/l        move one day back/forward    t          jump back to today
-    enter      toggle (bit) or +1 (count)   n / p      +1 / -1 (count)
+    h/l        move one day back/forward    g0-gf      jump to row, no marking
+    gg / G     first / last habit           t          jump back to today
+    enter      toggle (bit) or +1 (count)   n / p      +1 / -1 (count),
+                                                       ✔ / x (bit)
     u          clear the cell entirely      q          quit
 """
 
@@ -49,7 +51,8 @@ HELP = [
     ("n/p", "+1/-1"),
     ("u", "clear"),
     ("t", "today"),
-    ("0-f", "jump"),
+    ("0-f", "jump+done"),
+    ("g0-f", "jump"),
     ("q", "quit"),
 ]
 
@@ -124,6 +127,7 @@ class PyjoTUI:
         self.day = datetime.date.today()
         self.view_start = self.day - datetime.timedelta(days=DEFAULT_COLS - 1)
         self.message = ""
+        self.pending_g = False
 
     @property
     def habits(self) -> list[Habit]:
@@ -266,6 +270,16 @@ class PyjoTUI:
         n = len(self.habits)
         today = datetime.date.today()
 
+        if self.pending_g:
+            self.pending_g = False
+            if isinstance(key, str) and key in SHORTCUTS:
+                row = SHORTCUTS.index(key)
+                if row < n:
+                    self.cursor = row
+                return True
+            if key == "g":
+                self.cursor = 0
+                return True
         if key in ("q", "Q"):
             return False
         if isinstance(key, str) and key in SHORTCUTS:
@@ -277,7 +291,9 @@ class PyjoTUI:
             self.cursor = min(n - 1, self.cursor + 1)
         elif key in ("k", curses.KEY_UP):
             self.cursor = max(0, self.cursor - 1)
-        elif key in ("g", curses.KEY_HOME):
+        elif key == "g":
+            self.pending_g = True
+        elif key == curses.KEY_HOME:
             self.cursor = 0
         elif key in ("G", curses.KEY_END):
             self.cursor = n - 1
@@ -318,9 +334,11 @@ class PyjoTUI:
                 stats[date] = value - 1
             else:
                 stats[date] = (value or 0) + 1
-        elif key == "n" or key == "p":
-            self.message = "n/p only apply to count habits; use enter to toggle"
-            return
+        elif key in ("n", "p"):
+            new = key == "n"
+            if value is new:
+                return
+            stats[date] = new
         else:
             stats[date] = value is not True
         self.store.save()
