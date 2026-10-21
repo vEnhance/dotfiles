@@ -1,9 +1,6 @@
 theme = "dracula"
 client_id_command = { command = "pass", args = ["show", "spotify/client_id"] }
-ncspot_only_get_endpoints = [
-    "me/playlists",
-    "playlists/",
-]
+ncspot_only_get_endpoints = []
 client_port = 8080
 login_redirect_uri = "http://127.0.0.1:8989/login"
 playback_format = """
