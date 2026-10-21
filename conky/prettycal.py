@@ -110,7 +110,8 @@ class CalItem:
                 s += r"${voffset 1}"
         s += r"${voffset -2}${font Noto Sans CJK KR:size=%d}" % (int(0.9 * FONT_SIZE))
         s += r"${color " + (self.color or "dddddd") + r"}"
-        s += f"{self.text[:truncate]}"
+        # escape conky's comment character and variable sigil
+        s += self.text[:truncate].replace("$", "$$").replace("#", r"\#")
         return s
 
 
