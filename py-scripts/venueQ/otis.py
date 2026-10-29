@@ -64,12 +64,34 @@ def linkify(url: str | None) -> str:
         return f"[{url}]({url})"
 
 
+def is_last_item(node: VenueQNode) -> bool:
+    """Whether processing node leaves nothing else in the queue."""
+    for other in node.root.lookup.values():
+        if other == node:
+            continue
+        if isinstance(other, (ProblemSet, Suggestion, Job, Application)):
+            return False
+        if isinstance(other, Petitions) and other.data["petitions"]:
+            return False
+        if isinstance(other, Notifications) and other.data["notifications"]:
+            return False
+    return True
+
+
+def play_success_sound(sound: str, node: VenueQNode | None) -> None:
+    """Plays sound, or sound 2 instead if node was the last item in the queue."""
+    if node is not None and is_last_item(node):
+        sound = "2"
+    subprocess.run([NOISEMAKER_SH, sound], check=False)
+
+
 def send_email(
     subject: str,
     recipients: list[str],
     body: str,
     callback: None | Callable[[], None] = None,
     include_email_settings_link=True,
+    node: VenueQNode | None = None,
 ):
     mail = MIMEMultipart("alternative")
     mail["From"] = "OTIS Overlord <overlord@evanchen.cc>"
@@ -102,7 +124,7 @@ def send_email(
 
         if len(recipients) == 0:
             logger.warning("No valid recipients at this point, so no email sent.")
-            subprocess.run([NOISEMAKER_SH, "4"], check=False)
+            play_success_sound("4", node)
             if callback is not None:
                 callback()
             return
@@ -120,7 +142,7 @@ def send_email(
             subprocess.run([NOISEMAKER_SH, "7"], check=False)
         else:
             logger.info(f"Email '{subject}' sent successfully!")
-            subprocess.run([NOISEMAKER_SH, "0"], check=False)
+            play_success_sound("0", node)
             if callback is not None:
                 callback()
 
@@ -482,6 +504,7 @@ class ProblemSet(VenueQNode):
                     recipients=([recipient] if should_email else []),
                     body=body,
                     callback=callback,
+                    node=self,
                 )
             else:
                 logger.warning("Server query failed, so no action taken")
@@ -532,6 +555,7 @@ class Petitions(VenueQNode):
                 recipients=recipients,
                 body=body,
                 callback=self.delete,
+                node=self,
             )
 
 
@@ -611,7 +635,7 @@ class Suggestion(VenueQNode):
             elif status == "SUGG_NOK":
                 subject += "Processed"
             elif status == "SUGG_REJ":
-                subject += "Rejected"
+                subject += "Declined"
             elif status == "SUGG_EDIT":
                 subject += "REVISIONS REQUESTED"
                 body += f"*You can submit your revisions at the following URL: {sugg_link}*."
@@ -648,6 +672,7 @@ class Suggestion(VenueQNode):
                     recipients=([recipient] if should_email else []),
                     body=body,
                     callback=callback,
+                    node=self,
                 )
 
 
@@ -709,6 +734,7 @@ class Job(VenueQNode):
                 recipients=[recipient],
                 body=body,
                 callback=callback,
+                node=self,
             )
 
 
@@ -794,13 +820,14 @@ class Application(VenueQNode):
                         body=body,
                         callback=update_apply_server,
                         include_email_settings_link=False,
+                        node=self,
                     )
                 else:
                     update_apply_server()
-                    subprocess.run([NOISEMAKER_SH, "4"], check=False)
+                    play_success_sound("4", self)
             else:
                 update_apply_server()
-                subprocess.run([NOISEMAKER_SH, "4"], check=False)
+                play_success_sound("4", self)
 
         else:
             subprocess.run([NOISEMAKER_SH, "6"], check=False)
