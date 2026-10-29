@@ -8,10 +8,10 @@ sentences_per_session = 20
 
 # List of paths to apkg files
 apkg_files = [
-    "~/Sync/Personal/korean/apkg-sentences/HTSK Unit 1 Sentences.apkg",
-    "~/Sync/Personal/korean/apkg-sentences/HTSK Unit 2 Sentences.apkg",
-    "~/Sync/Personal/korean/apkg-sentences/HTSK Unit 3 Sentences.apkg",
-    "~/Sync/Personal/korean/apkg-sentences/HTSK Unit 4 Sentences.apkg",
-    "~/Sync/Personal/korean/apkg-sentences/HTSK Unit 5 Sentences.apkg",
-    "~/Sync/Personal/korean/apkg-sentences/HTSK Unit 6 Sentences.apkg",
+    "~/Sync/Personal/korean/apkgs/HTSK Unit 1 Sentences.apkg",
+    "~/Sync/Personal/korean/apkgs/HTSK Unit 2 Sentences.apkg",
+    "~/Sync/Personal/korean/apkgs/HTSK Unit 3 Sentences.apkg",
+    "~/Sync/Personal/korean/apkgs/HTSK Unit 4 Sentences.apkg",
+    "~/Sync/Personal/korean/apkgs/HTSK Unit 5 Sentences.apkg",
+    "~/Sync/Personal/korean/apkgs/HTSK Unit 6 Sentences.apkg",
 ]
