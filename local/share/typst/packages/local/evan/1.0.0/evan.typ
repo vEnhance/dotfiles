@@ -138,6 +138,15 @@
 #let pmod(x) = $space (mod #x)$
 #let bf(x) = $bold(upright(#x))$
 
+#let epigraph(quote_text, attribution: none) = {
+  set text(size: 10pt)
+  pad(left: 35%)[
+    #emph(quote_text)
+    #line(length: 100%)
+    #if attribution != none { align(right)[--- #attribution] }
+  ]
+}
+
 /*
   HACK: thm-rules numbers every block equation (to place #qedhere and #tag).
   We need to hack it with a separate boxed-numbering, so that #qedhere doesn't invade the box;
