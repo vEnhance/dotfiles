@@ -5,7 +5,10 @@ disable = [
   "MD033", # Permit inline HTML
   "MD041", # Allow first line to be anything (not just h1)
 ]
-extend-enable = ["MD060"] # Table alignment
+extend-enable = [
+  "MD060", # Table alignment
+  "MD088", # Insist on ASCII quotes
+]
 respect-gitignore = true
 
 [MD013] # Line length
@@ -17,3 +20,8 @@ headings = false
 [MD060] # Table alignment
 enabled = true
 style = "aligned"
+
+[MD088] # Insist on ASCII quotes
+enabled = true
+normalize-quotes = true
+normalize-dashes = false
