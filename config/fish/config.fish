@@ -87,6 +87,7 @@ alias stomp='~/dotfiles/py-scripts/stomp/stomp.py'
 alias toddle='/usr/bin/python3 ~/dotfiles/py-scripts/toddle/'
 alias viag='~/dotfiles/py-scripts/viag.py'
 alias uclean='~/dotfiles/py-scripts/uclean.py'
+alias uv-nudge='~/dotfiles/py-scripts/uv-nudge.py'
 alias wah='~/dotfiles/py-scripts/wah.py'
 alias yao='~/dotfiles/py-scripts/yao.py'
 
