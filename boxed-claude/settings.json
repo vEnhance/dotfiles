@@ -16,6 +16,7 @@
     "filesystem": {
       "allowWrite": [
         "~/.cache",
+        "~/.texlive",
         "~/.npm",
         "~/.cargo/registry",
         "~/.cargo/git",
