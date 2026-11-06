@@ -321,7 +321,8 @@
   // Hyperlinks should be pretty
   show link: it => {
     set text(fill:
-      if (type(it.dest) == label) { colors.label } else { colors.hyperlink }
+      // Internal links (including ctheorems' nested number links) use label color
+      if (type(it.dest) in (label, location)) { colors.label } else { colors.hyperlink }
     )
     it
   }
