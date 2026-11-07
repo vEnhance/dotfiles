@@ -436,6 +436,8 @@ def main() -> int:
         print("Nothing to nudge.")
     elif args.dry_run:
         print("\n(dry run, nothing written)")
+    else:
+        print("\nYou should run `uv lock` now to update the lockfile as well.")
     return 0
 
 
