@@ -350,7 +350,7 @@ class PyjoTUI:
             all_done = all(reached(h, self.day) for h in self.habits)
             # Own session, so the sound outlives the terminal closing on quit.
             subprocess.run(
-                [NOISEMAKER_SH, "3" if all_done else "5"],
+                [NOISEMAKER_SH, "2" if all_done else "5"],
                 check=False,
                 start_new_session=True,
                 stdout=subprocess.DEVNULL,

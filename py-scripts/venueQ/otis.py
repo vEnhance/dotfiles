@@ -79,9 +79,9 @@ def is_last_item(node: VenueQNode) -> bool:
 
 
 def play_success_sound(sound: str, node: VenueQNode | None) -> None:
-    """Plays sound, or sound 2 instead if node was the last item in the queue."""
+    """Plays sound, or sound 3 instead if node was the last item in the queue."""
     if node is not None and is_last_item(node):
-        sound = "2"
+        sound = "3"
     subprocess.run([NOISEMAKER_SH, sound], check=False)
 
 
