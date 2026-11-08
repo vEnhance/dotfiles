@@ -1,16 +1,10 @@
 #!/usr/bin/env bash
 
 set -euo pipefail
-contents="$(xsel --clipboard)"
 
-if [[ $contents == "qute://pdfjs/web/viewer.html?filename="* ]]; then
-  contents=$(echo "$contents" |
-    grep -Eo "source=.*" |
-    cut -d "=" -f 2- |
-    /usr/bin/python3 -c "import urllib.parse, sys; print(urllib.parse.unquote(sys.stdin.readline()))")
-fi
+contents="$(xsel --clipboard | ~/dotfiles/py-scripts/uclean.py)"
 
 mkdir -p /tmp/clipboard/
-echo "$contents" | ~/dotfiles/py-scripts/uclean.py | tee "/tmp/clipboard/$(date --iso-8601=seconds)" | xsel --clipboard
+printf '%s\n' "$contents" | tee "/tmp/clipboard/$(date --iso-8601=seconds)" | xsel --clipboard
 
 notify-send -u low -i "xclipboard" "xsel --clipboard" "${contents:0:160}"
