@@ -6,6 +6,9 @@
 #
 # conky picks its window background based on whether picom is running when it
 # starts (see conky/common.lua), so it's restarted after each picom change.
+#
+# Also runs py-scripts/obs-frame-watch.py alongside OBS, which sends a critical
+# notification when OBS reports dropped frames (needs obs-websocket enabled).
 set -uo pipefail
 
 me=$(whoami)
@@ -26,12 +29,17 @@ if pgrep -U "$me" -x picom >/dev/null; then
   restart_conky
 fi
 
+watch_pid=
 restore() {
+  [ -n "$watch_pid" ] && kill "$watch_pid" 2>/dev/null
   if $had_picom && ! pgrep -U "$me" -x picom >/dev/null; then
     picom -b
     restart_conky
   fi
 }
 trap restore EXIT
+
+"$HOME/dotfiles/py-scripts/obs-frame-watch.py" &
+watch_pid=$!
 
 obs "$@"
