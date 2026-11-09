@@ -297,7 +297,6 @@ mode "exec" {
   bindsym n exec $launch vit, mode "default"
   bindsym o exec --no-startup-id $HOME/dotfiles/sh-scripts/obs.sh, mode "default"
   bindsym p exec $launch password, mode "default"
-  bindsym q exec --no-startup-id $HOME/dotfiles/sh-scripts/nerd-dictate.sh, mode "default"
   bindsym r exec $launch orch, mode "default"
   bindsym s exec $launch spotify, mode "default"
   bindsym t exec $launch otis, mode "default"

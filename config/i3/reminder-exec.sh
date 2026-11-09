@@ -10,7 +10,6 @@ notify-send "i3: exec mode" -i "emblem-documents" \
 <b>k</b>: miqin            <b>l</b>: Lock
 <b>m</b>: gnucash          <b>n</b>: vit
 <b>o</b>: OBS              <b>p</b>: Pass vault
-<b>q</b>: nerd dictation
 <b>r</b>: oRch             <b>s</b>: Spotify
 <b>t</b>: oTis             <b>x</b>: qutebrowser
 <b>y</b>: diarY            <b>z</b>: slack

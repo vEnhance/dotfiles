@@ -50,7 +50,6 @@ link_hidden_path config/zathura
 
 link_hidden_path config/gh/config.yml
 link_hidden_path config/gtk-3.0/settings.ini
-link_hidden_path config/nerd-dictation/nerd-dictation.py
 link_hidden_path config/picom.conf
 link_hidden_path config/vale/.vale.ini
 link_hidden_path config/vale/vale-styles
