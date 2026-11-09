@@ -37,6 +37,7 @@ link_hidden_path config/git
 link_hidden_path config/hyprwhspr
 link_hidden_path config/i3
 link_hidden_path config/miqin
+link_hidden_path config/mpd
 link_hidden_path config/mutt
 link_hidden_path config/ncdu
 link_hidden_path config/nvim

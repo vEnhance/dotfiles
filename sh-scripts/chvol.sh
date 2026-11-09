@@ -3,15 +3,42 @@
 time=2000
 
 vol_pct() { wpctl get-volume "$1" | awk '{printf "%d", $2*100}'; }
-mic_inc() { wpctl set-volume @DEFAULT_SOURCE@ 5%+; vol_pct @DEFAULT_SOURCE@; }
-mic_dec() { wpctl set-volume @DEFAULT_SOURCE@ 5%-; vol_pct @DEFAULT_SOURCE@; }
-mic_set() { wpctl set-volume @DEFAULT_SOURCE@ "$1%"; vol_pct @DEFAULT_SOURCE@; }
-mic_mute() { vol_pct @DEFAULT_SOURCE@; wpctl set-mute @DEFAULT_SOURCE@ 1; }
-mic_unmute() { wpctl set-mute @DEFAULT_SOURCE@ 0; vol_pct @DEFAULT_SOURCE@; }
-spk_inc() { wpctl set-volume @DEFAULT_SINK@ 5%+; vol_pct @DEFAULT_SINK@; }
-spk_dec() { wpctl set-volume @DEFAULT_SINK@ 5%-; vol_pct @DEFAULT_SINK@; }
-spk_mute() { vol_pct @DEFAULT_SINK@; wpctl set-mute @DEFAULT_SINK@ 1; }
-spk_unmute() { wpctl set-mute @DEFAULT_SINK@ 0; vol_pct @DEFAULT_SINK@; }
+mic_inc() {
+  wpctl set-volume @DEFAULT_SOURCE@ 5%+
+  vol_pct @DEFAULT_SOURCE@
+}
+mic_dec() {
+  wpctl set-volume @DEFAULT_SOURCE@ 5%-
+  vol_pct @DEFAULT_SOURCE@
+}
+mic_set() {
+  wpctl set-volume @DEFAULT_SOURCE@ "$1%"
+  vol_pct @DEFAULT_SOURCE@
+}
+mic_mute() {
+  vol_pct @DEFAULT_SOURCE@
+  wpctl set-mute @DEFAULT_SOURCE@ 1
+}
+mic_unmute() {
+  wpctl set-mute @DEFAULT_SOURCE@ 0
+  vol_pct @DEFAULT_SOURCE@
+}
+spk_inc() {
+  wpctl set-volume @DEFAULT_SINK@ 5%+
+  vol_pct @DEFAULT_SINK@
+}
+spk_dec() {
+  wpctl set-volume @DEFAULT_SINK@ 5%-
+  vol_pct @DEFAULT_SINK@
+}
+spk_mute() {
+  vol_pct @DEFAULT_SINK@
+  wpctl set-mute @DEFAULT_SINK@ 1
+}
+spk_unmute() {
+  wpctl set-mute @DEFAULT_SINK@ 0
+  vol_pct @DEFAULT_SINK@
+}
 
 # Mic volume control
 if [ "$1" = u ]; then
@@ -99,19 +126,24 @@ if [ "$1" = h ]; then
     "Microphone volume is $(vol_pct @DEFAULT_SINK@)%" -t "$time"
 fi
 
-# playerctl play/pause prev next
-# wait a bit after playerctl to update py3status; race condition i think
-if [ "$1" = space ]; then
-  playerctl play-pause
+# play/pause prev next: prefer MPRIS players via playerctl, else fall back to mpd
+# wait a bit afterwards to update py3status; race condition i think
+media_action() {
+  if [ -n "$(playerctl -l 2>/dev/null)" ]; then
+    playerctl "$1"
+  elif mpc status >/dev/null 2>&1; then
+    mpc -q "$2"
+  fi
   sleep 0.1
+}
+if [ "$1" = space ]; then
+  media_action play-pause toggle
 fi
 if [ "$1" = p ]; then
-  playerctl previous
-  sleep 0.1
+  media_action previous prev
 fi
 if [ "$1" = n ]; then
-  playerctl next
-  sleep 0.1
+  media_action next next
 fi
 
 killall -s USR1 py3status
