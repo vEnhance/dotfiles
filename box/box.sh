@@ -32,6 +32,12 @@ box=$HOME/box
 dotfiles=$(realpath "$(dirname "$(realpath "$0")")/..")
 mkdir -p "$box"
 
+# Claude's Bash sandbox can only grant writes to paths that already exist,
+# so pre-create the ~/ entries of allowWrite inside the box's home.
+jq -r '.sandbox.filesystem.allowWrite[] | select(startswith("~/")) | ltrimstr("~/")' \
+  "$dotfiles/box/claude/settings.json" |
+  while read -r dir; do mkdir -p "$box/$dir"; done
+
 if [ -n "$src" ]; then
   src=$(realpath "$src")
   case "$HOME/" in
@@ -75,18 +81,18 @@ exec bwrap \
   --tmpfs /tmp \
   --bind "$box" "$HOME" \
   "${project[@]}" \
-  --ro-bind "$dotfiles/boxed-claude/settings.json" "$HOME/.claude/settings.json" \
-  --ro-bind "$dotfiles/boxed-claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md" \
-  --ro-bind "$dotfiles/boxed-claude/statusline.sh" "$HOME/.claude/statusline.sh" \
-  --ro-bind "$dotfiles/boxed-claude/vimrc" "$HOME/.vimrc" \
+  --ro-bind "$dotfiles/box/claude/settings.json" "$HOME/.claude/settings.json" \
+  --ro-bind "$dotfiles/box/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md" \
+  --ro-bind "$dotfiles/box/claude/statusline.sh" "$HOME/.claude/statusline.sh" \
+  --ro-bind "$dotfiles/box/vimrc" "$HOME/.vimrc" \
   --ro-bind-try "$dotfiles/texmf" "$HOME/texmf" \
   --ro-bind-try "$dotfiles/local/share/typst/packages/local" "$HOME/.local/share/typst/packages/local" \
   --ro-bind-try "$dotfiles/dot/latexmkrc" "$HOME/.latexmkrc" \
   --ro-bind-try "$dotfiles/dot/shellcheckrc" "$HOME/.shellcheckrc" \
-  --ro-bind-try "$dotfiles/config/ruff" "$HOME/.config/ruff" \
-  --ro-bind-try "$dotfiles/config/rumdl" "$HOME/.config/rumdl" \
+  --ro-bind-try "$dotfiles/config/ruff/ruff.toml" "$HOME/.config/ruff/ruff.toml" \
+  --ro-bind-try "$dotfiles/config/rumdl/rumdl.toml" "$HOME/.config/rumdl/rumdl.toml" \
   --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
-  --ro-bind-try "$HOME/.config/git/" "$HOME/.config/git/" \
+  --ro-bind-try "$dotfiles/config/git/ignore" "$HOME/.config/git/ignore" \
   --unshare-all --share-net \
   --die-with-parent \
   --clearenv \

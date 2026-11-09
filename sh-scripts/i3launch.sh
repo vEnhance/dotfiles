@@ -50,7 +50,7 @@ cards)
   term ~/dotfiles/sh-scripts/grab-password-from-vault.sh cards
   ;;
 claude)
-  term ~/dotfiles/boxed-claude/ro-claude.sh
+  term ~/dotfiles/box/ro-claude.sh
   ;;
 diary)
   latest="$(python ~/diary/scripts/latest.py)"

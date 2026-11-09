@@ -91,7 +91,7 @@ alias uv-nudge='~/dotfiles/py-scripts/uv-nudge.py'
 alias wah='~/dotfiles/py-scripts/wah.py'
 alias yao='~/dotfiles/py-scripts/yao.py'
 
-alias box='~/dotfiles/sh-scripts/box.sh'
+alias box='~/dotfiles/box/box.sh'
 alias fixtrailspace='sed -i "s/[ \t]*\$//"'
 alias getclip="xsel --clipboard"
 alias gg="cd (git rev-parse --show-toplevel)"

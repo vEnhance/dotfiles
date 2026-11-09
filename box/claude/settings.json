@@ -21,6 +21,7 @@
         "~/.npm",
         "~/.cargo/registry",
         "~/.cargo/git",
+        "~/.virtualenvs",
         "~/go/pkg/mod"
       ],
       "denyWrite": [
