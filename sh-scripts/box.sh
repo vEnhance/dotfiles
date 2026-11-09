@@ -68,6 +68,8 @@ exec bwrap \
   --ro-bind /etc /etc \
   --ro-bind /opt /opt \
   --ro-bind-try /run/systemd/resolve /run/systemd/resolve \
+  --ro-bind-try /var/lib/texmf /var/lib/texmf \
+  --ro-bind-try /var/cache/fontconfig /var/cache/fontconfig \
   --proc /proc \
   --dev /dev \
   --tmpfs /tmp \
@@ -76,6 +78,13 @@ exec bwrap \
   --ro-bind "$dotfiles/boxed-claude/settings.json" "$HOME/.claude/settings.json" \
   --ro-bind "$dotfiles/boxed-claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md" \
   --ro-bind "$dotfiles/boxed-claude/statusline.sh" "$HOME/.claude/statusline.sh" \
+  --ro-bind "$dotfiles/boxed-claude/vimrc" "$HOME/.vimrc" \
+  --ro-bind-try "$dotfiles/texmf" "$HOME/texmf" \
+  --ro-bind-try "$dotfiles/local/share/typst/packages/local" "$HOME/.local/share/typst/packages/local" \
+  --ro-bind-try "$dotfiles/dot/latexmkrc" "$HOME/.latexmkrc" \
+  --ro-bind-try "$dotfiles/dot/shellcheckrc" "$HOME/.shellcheckrc" \
+  --ro-bind-try "$dotfiles/config/ruff" "$HOME/.config/ruff" \
+  --ro-bind-try "$dotfiles/config/rumdl" "$HOME/.config/rumdl" \
   --ro-bind-try "$HOME/.local/share/uv/python/" "$HOME/.local/share/uv/python/" \
   --ro-bind-try "$HOME/.config/git/" "$HOME/.config/git/" \
   --unshare-all --share-net \
