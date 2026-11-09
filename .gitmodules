@@ -1,3 +1,0 @@
-[submodule "i3-workspace-names-daemon"]
-	path = config/i3/3kon
-	url = https://github.com/cboddy/i3-workspace-names-daemon

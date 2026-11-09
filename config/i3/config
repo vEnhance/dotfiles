@@ -339,7 +339,7 @@ exec --no-startup-id $HOME/dotfiles/sh-scripts/startup.sh &
 
 # vvv workspace setup
 # NOTE: requires i3ipc installed via pip to run
-exec_always --no-startup-id exec $HOME/dotfiles/config/i3/3kon/i3_workspace_names_daemon.py -n -d " " -l 12
+exec_always --no-startup-id exec $HOME/dotfiles/config/i3/i3_workspace_names_daemon.py -n -d " " -l 12
 
 # Misc commands {{{
 bindsym $mod+Return exec i3-sensible-terminal

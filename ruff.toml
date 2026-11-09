@@ -1,9 +1,6 @@
 # Repo-local overrides layered on top of the global config in config/ruff/.
 extend = "config/ruff/ruff.toml"
 
-# Third-party submodule; not ours to lint or reformat.
-extend-exclude = ["config/i3/3kon"]
-
 [lint]
 ignore = [
   # These are personal desktop/conky scripts run on one machine, where naive

@@ -2,4 +2,4 @@ extends = "config/rumdl/rumdl.toml"
 
 [global]
 cache-dir = "/tmp/rumdl_cache"
-exclude = ["LICENSE.md", "local/share/gh/extensions", "config/i3/3kon"]
+exclude = ["LICENSE.md"]
