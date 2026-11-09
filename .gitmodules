@@ -1,12 +1,3 @@
 [submodule "i3-workspace-names-daemon"]
 	path = config/i3/3kon
 	url = https://github.com/cboddy/i3-workspace-names-daemon
-[submodule "gh-extensions/gh-done"]
-	path = local/share/gh/extensions/gh-done
-	url = https://github.com/vEnhance/gh-done
-[submodule "gh-extensions/gh-markdown-preview"]
-	path = local/share/gh/extensions/gh-markdown-preview
-	url = https://github.com/yusukebe/gh-markdown-preview
-[submodule "gh-extensions/gh-link"]
-	path = local/share/gh/extensions/gh-link
-	url = https://github.com/vEnhance/gh-link
