@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
   "recording_mode": "continuous",
-  "continuous_silence_seconds": 0.4,
+  "continuous_silence_seconds": 0.5,
   "external_bindings": true,
   "post_transcription_hook": "~/dotfiles/py-scripts/dictate.py hook",
   "transcription_backend": "onnx-asr",
