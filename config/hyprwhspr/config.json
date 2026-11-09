@@ -1,0 +1,27 @@
+{
+  "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
+  "recording_mode": "continuous",
+  "continuous_silence_seconds": 0.4,
+  "external_bindings": true,
+  "post_transcription_hook": "~/dotfiles/py-scripts/dictate.py hook",
+  "transcription_backend": "onnx-asr",
+  "tray_icon_enabled": true,
+  "filter_filler_words": true,
+  "filler_words": [
+    "uh",
+    "um",
+    "er",
+    "ah",
+    "eh",
+    "hmm",
+    "hm",
+    "mm",
+    "mhm",
+    "yeah"
+  ],
+  "word_overrides": {
+    "hyper whisper": "hyprwhspr",
+    "new paragraph": "¶¶",
+    "new line": "¶"
+  }
+}

@@ -34,6 +34,7 @@ link_hidden_path config/flameshot
 link_hidden_path config/fish
 link_hidden_path config/ghostty
 link_hidden_path config/git
+link_hidden_path config/hyprwhspr
 link_hidden_path config/i3
 link_hidden_path config/miqin
 link_hidden_path config/mutt

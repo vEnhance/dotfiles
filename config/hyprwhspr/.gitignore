@@ -1,0 +1,2 @@
+# temp file hyprwhspr writes while atomically saving config.json
+.config.json.*.tmp

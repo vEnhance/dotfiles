@@ -90,6 +90,11 @@ bindsym $mod+Shift+z split h
 bindsym $mod+Shift+v split v
 # }}}
 
+# Dictation (hyprwhspr)
+bindsym $mod+v exec --no-startup-id $HOME/dotfiles/py-scripts/dictate.py send
+bindsym $mod+u exec --no-startup-id $HOME/dotfiles/py-scripts/dictate.py undo
+bindsym $mod+z exec --no-startup-id $HOME/dotfiles/py-scripts/dictate.py stop
+
 bindsym $mod+minus move scratchpad; exec --no-startup-id killall -s USR1 py3status
 bindsym $mod+Shift+minus scratchpad show; exec --no-startup-id killall -s USR1 py3status
 
