@@ -81,8 +81,13 @@ def dim(t: str) -> str:
 
 
 def out(cmd: list[str], check: bool = True) -> str:
-    """Run cmd, return stdout. Raises on failure unless check=False."""
-    p = subprocess.run(cmd, text=True, capture_output=True, check=False)
+    """Run cmd, return stdout. Raises on failure unless check=False.
+
+    Forces the C locale: we parse markers like pacman's "[ignored]", which
+    are translated otherwise.
+    """
+    env = {**os.environ, "LC_ALL": "C"}
+    p = subprocess.run(cmd, text=True, capture_output=True, check=False, env=env)
     if check and p.returncode != 0:
         die(f"{' '.join(cmd)} failed:\n{p.stderr.strip()}")
     return p.stdout
@@ -495,10 +500,12 @@ def confirm(prompt: str) -> bool:
         return False
 
 
-def install(names: list[str], noconfirm: bool) -> int:
+def install(names: list[str], noconfirm: bool, reinstall: bool = False) -> int:
     conf = write_conf(chaotic_only=False)
     try:
-        cmd = ["sudo", "pacman", "-S", "--needed", "--config", str(conf)]
+        cmd = ["sudo", "pacman", "-S", "--config", str(conf)]
+        if not reinstall:
+            cmd.append("--needed")
         if noconfirm:
             cmd.append("--noconfirm")
         return subprocess.run([*cmd, *names], check=False).returncode
@@ -567,7 +574,7 @@ def cmd_install(args: argparse.Namespace) -> int:
     if not args.noconfirm and not confirm(f"Install {len(args.packages)} package(s)?"):
         print("Aborted.")
         return 1
-    return install(args.packages, args.noconfirm)
+    return install(args.packages, args.noconfirm, args.reinstall)
 
 
 def cmd_diff(args: argparse.Namespace) -> int:
@@ -590,6 +597,56 @@ def cmd_diff(args: argparse.Namespace) -> int:
 
     bases = pkgbases([n for n, _, _ in targets])
     page("\n\n".join(audit(n, bases.get(n, n), old, new) for n, old, new in targets))
+    return 0
+
+
+def packagers(query: str, names: list[str]) -> dict[str, str]:
+    """name -> packager, from the local db (query='Q') or sync dbs ('S')."""
+    if not names:
+        return {}
+    if query == "S":
+        names = [f"{REPO}/{n}" for n in names]
+    result = {}
+    for line in out(["expac", f"-{query}", "%n\t%p", *names], check=False).splitlines():
+        name, _, packager = line.partition("\t")
+        if name:
+            result[name] = packager
+    return result
+
+
+def cmd_list(args: argparse.Namespace) -> int:
+    """Installed packages that came from chaotic-aur.
+
+    pacman doesn't record which repo a package was installed from, so match
+    on name and then on packager: a same-named package that was built locally
+    or installed from elsewhere carries a different Packager field.
+    """
+    chaotic = chaotic_versions()
+    installed = installed_versions()
+    names = sorted(n for n in installed if n in chaotic)
+    local, sync = packagers("Q", names), packagers("S", names)
+
+    ours = [n for n in names if local.get(n) == sync.get(n)]
+    foreign = [n for n in names if n not in ours]
+
+    if args.quiet:
+        print("\n".join(ours))
+        return 0
+
+    for n in ours:
+        old, new = installed[n], chaotic[n]
+        line = f"{bold(n)} {green(old)}"
+        if vercmp(new, old) > 0:
+            line += f" {cyan('->')} {yellow(new)}"
+        print(line)
+    if foreign:
+        print(
+            dim(
+                f"\nalso in {REPO} but not installed from it: "
+                + ", ".join(f"{n} ({local.get(n, '?')})" for n in foreign)
+            ),
+            file=sys.stderr,
+        )
     return 0
 
 
@@ -616,6 +673,12 @@ def main() -> int:
 
     p_install = sub.add_parser("install", help="install new packages from chaotic-aur")
     p_install.add_argument("packages", nargs="+")
+    p_install.add_argument(
+        "--reinstall",
+        action="store_true",
+        help="reinstall even if the same version is already installed "
+        "(e.g. to replace a local AUR build with chaotic's)",
+    )
     add_common(p_install)
     p_install.set_defaults(func=cmd_install)
 
@@ -625,6 +688,10 @@ def main() -> int:
     p_diff.add_argument("packages", nargs="*", help="default: everything pending")
     p_diff.add_argument("--no-refresh", action="store_true")
     p_diff.set_defaults(func=cmd_diff)
+
+    p_list = sub.add_parser("list", help="list installed packages from chaotic-aur")
+    p_list.add_argument("-q", "--quiet", action="store_true", help="print names only")
+    p_list.set_defaults(func=cmd_list)
 
     args = parser.parse_args()
     if args.command is None:
