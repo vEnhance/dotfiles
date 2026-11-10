@@ -151,6 +151,10 @@ def run(*cmd: str | Path) -> str:
     return subprocess.run(cmd, capture_output=True, text=True, check=False).stdout
 
 
+def complain(problem: str) -> None:
+    run("notify-send", "-u", "critical", "Dictation didn't start", problem)
+
+
 def is_recording() -> bool:
     try:
         return RECORDING_STATUS.read_text().strip() == "true"
@@ -439,6 +443,7 @@ def run_overlay() -> None:
 
     shown: str | None = None
     last_recording = time.monotonic()
+    started = False
 
     def show(text: str) -> None:
         nonlocal shown
@@ -454,11 +459,14 @@ def run_overlay() -> None:
         root.update_idletasks()  # recompute size before re-placing
 
     def poll() -> None:
-        nonlocal last_recording
+        nonlocal last_recording, started
         if is_recording():
             last_recording = time.monotonic()
+            started = True
         elif time.monotonic() - last_recording > OVERLAY_IDLE_EXIT_SECONDS:
-            # hyprwhspr stopped by itself (tray, silent mic)
+            # hyprwhspr stopped by itself (tray, silent mic), or never started
+            if not started:
+                complain("hyprwhspr didn't start recording")
             with locked():
                 flush()
             end_session()
@@ -493,10 +501,13 @@ def run_overlay() -> None:
 
 
 def start() -> int:
+    if run("systemctl", "--user", "is-active", "hyprwhspr").strip() != "active":
+        complain("hyprwhspr isn't running")
+        return 1
     try:
         IBusCursor()  # the overlay needs it to know where to sit
     except ConnectionError as e:
-        run("notify-send", "-u", "critical", "Dictation didn't start", str(e))
+        complain(str(e))
         return 1
     # Unmute first, or hyprwhspr cancels on a silent mic
     if "MUTED" in run("wpctl", "get-volume", "@DEFAULT_SOURCE@"):
