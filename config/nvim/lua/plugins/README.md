@@ -20,15 +20,15 @@ aka notes to self because omg i'm so confused right now
 
 ## Mason (`mason.lua`)
 
-This controls **home installation of LSP, linter, and formatters**.
+Mason is **disabled entirely**. Every LSP server, linter, formatter,
+and debug adapter comes from system packages (`installers/packages.txt`).
 
-- `mason-lspconfig` will automatically tell Mason to install LSP's
-  requested by `nvim-lspconfig`.
-- But we've configured Mason to not install something if system already has it.
-  - To avoid version hell where Mason's version might be behind.
-  - Also, it's just wasteful… I have so many copies of Ruff now…
-- The `never_install` lists packages that Mason should NOT install.
-  - For tools we don't use at all, if blocking in `coding.lua` is enough, do that.
+- To avoid version hell and a dozen copies of Ruff in `~/.local/share`.
+- LazyVim enables servers directly when `mason-lspconfig` is absent.
+- `coding.lua` auto-disables any server whose binary isn't on `$PATH`,
+  so a missing optional package just means no LSP for that filetype.
+- To get a new server, install it with pacman and (if no extra covers it)
+  list it under `servers` in `coding.lua`.
 
 ## LazyVim
 
@@ -37,4 +37,3 @@ that I might want to revert.
 
 - LSP's: Disable with `enabled = false`.
 - Linters and formatters: Override `linters_by_ft` or `formatters_by_ft`.
-- Mason `ensure_installed` entries: Add to `never_install`.

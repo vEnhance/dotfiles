@@ -156,7 +156,6 @@ languagetool?          # ALE linter, fish j-langtool
 lm_sensors?            # py3status lm_sensors
 xf86-input-wacom?      # xsetwacom in mouse-buttons.sh
 xf86-input-synaptics?  # synclient on ArchScythe
-npm?                   # for mason.nvim
 numlockx?
 
 ## AUR but not optional
@@ -174,3 +173,15 @@ djlint?                # ALE fixer for HTML templates (AUR)
 dropbox?               # startup.sh, py3status (chaotic-aur)
 dropbox-cli?           # (AUR)
 syncthingctl?          # (AUR)
+
+## Optional Neovim LSP servers and tools
+bash-language-server?  # bashls, LazyVim util.dot
+fish-lsp?              # fish_lsp (AUR)
+lua-language-server?   # lua_ls, LazyVim core
+python-debugpy?        # LazyVim dap.core + lang.python
+stylua?                # Lua formatter, LazyVim core
+texlab?                # LazyVim lang.tex
+tinymist?              # Typst
+vscode-js-debug?       # LazyVim dap.core + lang.typescript (AUR)
+vtsls?                 # LazyVim lang.typescript (AUR)
+yaml-language-server?  # yamlls, LazyVim lang.yaml

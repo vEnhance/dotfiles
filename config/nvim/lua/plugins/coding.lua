@@ -39,12 +39,15 @@ return {
     "neovim/nvim-lspconfig",
     opts = function(_, opts)
       -- For every server registered by any plugin (LazyVim extras, etc.),
-      -- skip Mason if the system already provides the binary.
+      -- disable it if the system doesn't provide the binary, so a missing
+      -- optional package doesn't cause "failed to spawn" errors.
+      -- (opts.servers can also hold non-server keys like "*", which have
+      -- no lsp/ file and are left alone.)
       for server_name, server_opts in pairs(opts.servers or {}) do
-        if server_opts.enabled ~= false and server_opts.mason ~= false then
+        if type(server_opts) == "table" and server_opts.enabled ~= false then
           local cmd = server_cmd(server_name)
-          if cmd and vim.fn.executable(cmd[1]) == 1 then
-            server_opts.mason = false
+          if cmd and vim.fn.executable(cmd[1]) ~= 1 then
+            server_opts.enabled = false
           end
         end
       end
