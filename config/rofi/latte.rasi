@@ -38,7 +38,7 @@
     grey: #9ca0b0;
 
     width: 1680;
-    font: "JetBrainsMono Nerd Font 18";
+    font: "Sarasa Mono K 18";
 }
 
 element-text, element-icon , mode-switcher {

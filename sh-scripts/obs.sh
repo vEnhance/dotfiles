@@ -11,6 +11,11 @@
 # notification when OBS reports dropped frames (needs obs-websocket enabled).
 set -uo pipefail
 
+if ! command -v obs >/dev/null; then
+  notify-send -u critical -i dialog-error "obs.sh: obs not found" "Install obs-studio to use this binding."
+  exit 1
+fi
+
 me=$(whoami)
 had_picom=false
 

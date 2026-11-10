@@ -1,0 +1,177 @@
+# Arch packages checked by installers/check-packages.sh.
+# vim: ft=conf
+# (i guess, so comments look commented out)
+# Doesn't include packages in pacman group base
+
+## X session and i3
+conky
+dex                    # i3 autostart
+dunst
+feh
+flameshot
+ghostty
+i3-wm
+i3lock-color           # (chaotic-aur)
+i3status               # backs the py3status battery/disk/wireless/... modules
+ibus
+ibus-hangul
+inetutils              # `hostname` all over the place
+keychain
+libnotify              # notify-send everywhere
+networkmanager
+numlockx
+picom
+py3status
+python-i3ipc           # config/i3/i3_workspace_names_daemon.py
+redshift
+rofi
+snixembed              # dot/xprofile tray
+usbutils               # lsusb in redo-keys.sh
+xclip
+xdg-utils              # xdg-open, installers/set-xdg-defaults.sh
+xdotool
+xfce4-terminal
+xorg-server
+xorg-setxkbmap         # dot/xprofile, redo-keys.sh (Dvorak)
+xorg-xinit             # dot/xinitrc (startx)
+xorg-xinput            # startup.sh on ArchBootes
+xorg-xmodmap           # left-hand mouse, hangul.sh --remap
+xorg-xrandr            # sh-scripts/xrandr.sh, flameshot.sh
+xorg-xset              # lock/timeouts.sh, redo-keys.sh
+xprintidle             # lock/countdown.sh
+xsel
+xss-lock               # startup.sh
+xterm                  # fish pomodoro/countdown
+
+## Fonts
+noto-fonts
+noto-fonts-cjk         # ghostty
+otf-font-awesome       # i3 workspace icons
+ttf-dejavu
+ttf-exo-2              # conky (AUR)
+ttf-hack-nerd          # ghostty, xfce4-terminal
+ttf-inconsolata        # i3 bar, xterm
+ttf-sarasa-gothic      # conky, rofi
+
+## Audio and music
+libpulse               # pactl in paswitch.sh
+mpc                    # chvol.sh, nowplaying.sh
+mpd
+pipewire
+pipewire-pulse
+playerctl              # chvol.sh, nowplaying.sh
+wireplumber            # wpctl in chvol.sh, lock.sh, conky
+
+## Shell and command line
+archey3                # fish_greeting (AUR)
+bat                    # fzf.fish preview, fish lt
+bc                     # fish bcsum
+direnv
+expac                  # py-scripts/chaotic.py
+fd                     # fzf.fish
+fish
+fisher                 # config/fish/fish_plugins
+fzf                    # fzf.fish, grab-password-from-vault.sh
+ghostscript            # shrinkpdf.sh
+git
+git-delta              # git pager, fish diff alias, stomp.py, chaotic.py
+github-cli             # installers/install-gh-ext.sh, fish gist
+ipython                # fish py alias
+jq
+pacman-contrib         # paclist in pacsnap.sh
+pandoc                 # fish panmd2pdf
+plocate                # locate in hunt.py
+prek                   # prek.toml
+qpdf                   # fish pdfenc
+rclone
+termdown               # fish pomodoro/countdown
+the_silver_searcher    # ag in viag.py
+thunar
+uv
+virtualfish            # (AUR)
+wget                   # evansync.sh
+zola                   # fish serve
+zoxide
+
+## Editors
+gvim                   # also provides vim
+neovim
+npm                    # mason.nvim
+
+## Mail, passwords, sync
+bitwarden-cli          # grab-password-from-vault.sh, fish bw-*
+gcalendar              # sh-scripts/get-cal.sh (AUR)
+gnome-keyring          # secret service for libsecret
+gnupg
+isync                  # mbsync
+libsecret              # secret-tool, git credential helper
+neomutt
+pass
+syncthing
+syncthing-gtk          # startup.sh (chaotic-aur)
+task                   # taskwarrior: conky, tw-rofi.sh, py3status, evansync.sh
+urlscan                # muttrc
+vit
+zerotier-one           # zerotier-one.service: network so the devices can talk to each other
+
+## TeX and friends
+texlive-basic
+texlive-binextra       # latexmk, latexdiff, chktex, pythontex
+texlive-latexextra
+texlive-luatex         # luaotfload-tool
+asymptote              # latexmkrc, vim asy ftplugin
+biber
+bibclean               # ALE fixer (AUR)
+languagetool           # ALE linter, fish j-langtool
+hunspell-ko            # fish kspell (AUR)
+typst
+zathura                # latexmkrc, vimtex, fish pdf, venueQ/otis.py
+zathura-pdf-poppler
+
+## Linters and formatters (ALE, LazyVim, prek)
+codespell
+eslint
+prettier
+pyright
+ruff
+rumdl
+shellcheck
+shfmt
+vale
+vint
+
+## Python modules for scripts run with /usr/bin/python3
+python
+python-dateutil        # conky/prettycal.py
+python-gobject         # py-scripts/dictate.py
+python-jinja           # py-scripts/toddle
+python-mdit_py_plugins # py-scripts/sane_markdown.py
+python-packaging       # py-scripts/uv-nudge.py
+python-pyperclip
+python-pytz
+python-requests
+python-tasklib         # dot/task/hooks
+python-websockets      # py-scripts/obs-frame-watch.py
+python-yaml
+tk                     # tkinter in py-scripts/dictate.py
+
+## Optional but in mainline
+lm_sensors?            # py3status lm_sensors
+xf86-input-wacom?      # xsetwacom in mouse-buttons.sh
+xf86-input-synaptics?  # synclient on ArchScythe
+
+## AUR but not optional
+fate                   # (AUR)
+lastlint               # py-scripts/venueQ/otis.py (AUR)
+python-types-pyyaml    # (AUR)
+python-types-requests  # (AUR)
+python-vondb           # von: orch.py, odus.py, otis.py (AUR)
+tsqx                   # (AUR)
+
+## Optional AUR dependencies
+hyprwhspr?             # (AUR)
+solvertools-git?       # py-scripts/solvertools-search.py (AUR)
+djlint?                # ALE fixer for HTML templates (AUR)
+dropbox?               # startup.sh, py3status (chaotic-aur)
+dropbox-cli?           # (AUR)
+syncthingctl?          # (AUR)

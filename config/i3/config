@@ -102,18 +102,18 @@ bindsym $mod+Shift+minus scratchpad show; exec --no-startup-id killall -s USR1 p
 bindsym $mod+r exec --no-startup-id killall -s USR1 py3status
 
 # switch to workspace 0-11 {{{
-bindsym $mod+grave workspace number 0; exec --no-startup-id find-cursor -f -t -c '#aaaaaa'
-bindsym $mod+1 workspace number 1; exec --no-startup-id find-cursor -f -t -c '#ff9999'
-bindsym $mod+2 workspace number 2; exec --no-startup-id find-cursor -f -t -c '#fffd96'
-bindsym $mod+3 workspace number 3; exec --no-startup-id find-cursor -f -t -c '#99fda7'
-bindsym $mod+4 workspace number 4; exec --no-startup-id find-cursor -f -t -c '#99ecfc'
-bindsym $mod+5 workspace number 5; exec --no-startup-id find-cursor -f -t -c '#dd97fc'
-bindsym $mod+6 workspace number 6; exec --no-startup-id find-cursor -f -t -c '#cc0000'
-bindsym $mod+7 workspace number 7; exec --no-startup-id find-cursor -f -t -c '#cccc00'
-bindsym $mod+8 workspace number 8; exec --no-startup-id find-cursor -f -t -c '#00cc22'
-bindsym $mod+9 workspace number 9; exec --no-startup-id find-cursor -f -t -c '#00aacc'
-bindsym $mod+0 workspace number 10; exec --no-startup-id find-cursor -f -t -c '#8800cc'
-bindsym $mod+apostrophe workspace number 11; exec --no-startup-id find-cursor -f -t -c '#aa33ff'
+bindsym $mod+grave workspace number 0
+bindsym $mod+1 workspace number 1
+bindsym $mod+2 workspace number 2
+bindsym $mod+3 workspace number 3
+bindsym $mod+4 workspace number 4
+bindsym $mod+5 workspace number 5
+bindsym $mod+6 workspace number 6
+bindsym $mod+7 workspace number 7
+bindsym $mod+8 workspace number 8
+bindsym $mod+9 workspace number 9
+bindsym $mod+0 workspace number 10
+bindsym $mod+apostrophe workspace number 11
 bindsym $mod+Shift+grave move container to workspace number 0; workspace number 0
 bindsym $mod+Shift+1 move container to workspace number 1; workspace number 1
 bindsym $mod+Shift+2 move container to workspace number 2; workspace number 2
@@ -287,15 +287,15 @@ mode "exec" {
   bindsym a exec $launch asy, mode "default"
   bindsym b exec $launch borse, mode "default"
   bindsym c exec $launch cards, mode "default"
-  bindsym d exec discord &, mode "default"
-  bindsym f exec firefox &, mode "default"
-  bindsym g exec geogebra &, mode "default"
+  bindsym d exec $launch app discord, mode "default"
+  bindsym f exec $launch app firefox, mode "default"
+  bindsym g exec $launch app geogebra, mode "default"
   bindsym h exec $launch hq, mode "default"
   bindsym i exec $launch anki, mode "default"
   bindsym k exec $launch miqin, mode "default"
   bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/lock/lock.sh, mode "default"
   # short for money
-  bindsym m exec gnucash &, mode "default"
+  bindsym m exec $launch app gnucash, mode "default"
   # short for next
   bindsym n exec $launch vit, mode "default"
   bindsym o exec --no-startup-id $HOME/dotfiles/sh-scripts/obs.sh, mode "default"
@@ -304,10 +304,10 @@ mode "exec" {
   bindsym s exec $launch spotify, mode "default"
   bindsym t exec $launch otis, mode "default"
   bindsym w exec --no-startup-id fish -c pomodoro, mode "default"
-  bindsym x exec qutebrowser &, mode "default"
+  bindsym x exec $launch app qutebrowser, mode "default"
   # Open latest chapter of diary
   bindsym y exec $launch diary, mode "default"
-  bindsym z exec slack &, mode "default"
+  bindsym z exec $launch app slack, mode "default"
   bindsym space exec loginctl lock-session, mode "default"
   bindsym equal exec $HOME/dotfiles/sh-scripts/flameshot.sh, mode "default"
 
@@ -350,7 +350,6 @@ bindsym $mod+space exec --no-startup-id rofi -modi drun#run -show drun -show-ico
 bindsym $mod+w exec --no-startup-id rofi -modi window -show window
 bindsym $mod+braceleft exec --no-startup-id dunstctl history-pop
 bindsym $mod+braceright exec --no-startup-id dunstctl close-all
-bindsym $mod+slash exec --no-startup-id find-cursor -r 1 -f -t -c '#00cca7'
 
 bindsym $mod+Shift+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh --remap
 bindsym $mod+a exec --no-startup-id $HOME/dotfiles/sh-scripts/hangul.sh

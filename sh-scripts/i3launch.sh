@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 # Usage: i3launch.sh SLUG
+#        i3launch.sh app COMMAND [ARGS...]
 #
-# Things bound in i3/config that need more than a bare command.
-# Plain one-command launches (e.g. `discord &`) stay inline in i3/config;
-# anything that needs a terminal with custom settings, several steps,
-# or a small amount of logic lives here instead.
+# Launches for i3/config. `app` runs a plain GUI program; the other slugs
+# need a terminal with custom settings, several steps, or a bit of logic.
+# These apps aren't in installers/packages.txt: instead, if a program is
+# missing, we send a critical notification saying so and give up.
 set -euo pipefail
+
+# Complain and exit unless $1 is an executable command or path.
+need() {
+  if ! command -v "$1" >/dev/null; then
+    notify-send -u critical -i dialog-error \
+      "i3launch.sh: $1 not found" "Install it to use this binding."
+    exit 1
+  fi
+}
 
 # Run the rest of the arguments inside xfce4-terminal.
 # Terminal options (--title, --zoom, --working-directory, ...) go first.
@@ -15,6 +25,7 @@ term() {
     opts+=("$1")
     shift
   done
+  need "$1"
   exec xfce4-terminal "${opts[@]}" -x "$@"
 }
 
@@ -23,6 +34,7 @@ term() {
 bigterm() {
   local size=$1
   shift
+  need "$1"
   case "$(hostname)" in
   ArchMajestic) size=$((size * 85 / 100)) ;;
   ArchScythe | ArchUmi) size=$((size * 60 / 100)) ;;
@@ -31,6 +43,11 @@ bigterm() {
 }
 
 case "${1:-}" in
+app)
+  shift
+  need "$1"
+  exec "$@"
+  ;;
 anki)
   export LANG="ko_KR.UTF-8"
   export LC_ALL="ko_KR.UTF-8"
@@ -38,6 +55,7 @@ anki)
   ArchDiamond | ArchBootes | ArchMajestic) export QT_SCALE_FACTOR=2 ;;
   ArchScythe | ArchUmi) export QT_SCALE_FACTOR=1.5 ;;
   esac
+  need anki
   exec anki
   ;;
 asy)
@@ -66,6 +84,7 @@ orch)
   term --title=OTIS-ARCH ~/dotfiles/py-scripts/orch.py
   ;;
 otis)
+  need gvim
   exec gvim \
     -c ":let g:venue_entry='~/dotfiles/py-scripts/venueQ/otis.py'" \
     -c ":source ~/dotfiles/py-scripts/venueQ/venueQ.vim"
@@ -81,6 +100,7 @@ pyjo)
   bigterm 29 ~/dotfiles/py-scripts/pyjo.py
   ;;
 spotify)
+  need spotify_player
   exec ghostty -e spotify_player
   ;;
 vit)

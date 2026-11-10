@@ -87,7 +87,6 @@
 	colorMoved = plain
 	mnemonicPrefix = true
 	rename = true
-	tool = meld
 	submodule = log
 [fetch]
 	prune = true
