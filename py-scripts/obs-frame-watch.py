@@ -3,9 +3,10 @@
 Watch a running OBS for dropped frames and raise a critical notification.
 
 Started in the background by sh-scripts/obs.sh. Polls obs-websocket's GetStats
-every few seconds and alerts when OBS's render-lag or encoder-lag counters go
-up. These counters are OBS's own count of dropped frames, which is more reliable
-than GPU-busy % (on Intel, conky/gpu-load.sh can read 100% with headroom left).
+every few seconds and alerts when OBS's render-lag plus encoder-lag drops over
+the last WINDOW_SECONDS reach DROP_THRESHOLD, then says when it recovers.
+These counters are OBS's own count of dropped frames, more reliable than
+GPU-busy % (on Intel, conky/gpu-load.sh can read 100% with headroom left).
 
 Needs obs-websocket enabled (Tools -> WebSocket Server Settings). The port and
 password come from OBS's own config, so no secret lives in these dotfiles.
@@ -19,6 +20,7 @@ import subprocess
 import sys
 import time
 import uuid
+from collections import deque
 from pathlib import Path
 
 from websockets.exceptions import ConnectionClosed
@@ -26,16 +28,23 @@ from websockets.sync.client import connect
 
 CONFIG = Path.home() / ".config/obs-studio/plugin_config/obs-websocket/config.json"
 POLL_SECONDS = 2
+# A stray dropped frame is normal; alert only once drops pile up. Render and
+# encoder drops are added together and summed over a rolling window.
+WINDOW_SECONDS = 10
+DROP_THRESHOLD = 10  # frames per window; ~1.7% at 60 fps over 10 s
+RECOVERED_TIMEOUT_MS = 10_000
 CONNECT_TIMEOUT = 30  # OBS takes a few seconds to bring its server up
-COOLDOWN_SECONDS = 30
 
 
-def notify(urgency: str, summary: str, body: str) -> None:
+def notify(urgency: str, summary: str, body: str, timeout_ms: int = -1) -> None:
+    """timeout_ms -1 means "use dunst's default for this urgency"."""
     subprocess.run(
         (
             "notify-send",
             "-u",
             urgency,
+            "-t",
+            str(timeout_ms),
             "-a",
             "OBS",
             # Same tag, so a newer alert replaces the old one instead of stacking.
@@ -79,7 +88,11 @@ def identify(ws, password: str) -> None:
     assert identified["op"] == 2, identified
 
 
-def get_stats(ws) -> dict:
+NOT_READY = 207  # obs-websocket's RequestStatus while OBS is still loading
+
+
+def get_stats(ws) -> dict | None:
+    """GetStats' responseData, or None if OBS hasn't finished starting up."""
     request_id = str(uuid.uuid4())
     ws.send(
         json.dumps({"op": 6, "d": {"requestType": "GetStats", "requestId": request_id}})
@@ -87,7 +100,20 @@ def get_stats(ws) -> dict:
     while True:
         msg = json.loads(ws.recv())
         if msg["op"] == 7 and msg["d"]["requestId"] == request_id:
-            return msg["d"]["responseData"]
+            break
+    status = msg["d"]["requestStatus"]
+    if status["result"]:
+        return msg["d"]["responseData"]
+    if status["code"] == NOT_READY:
+        return None
+    raise RuntimeError(f"GetStats failed: {status}")
+
+
+def ratio(stats: dict, kind: str) -> str:
+    """e.g. "12/34567 (0.03%)" for kind "render" or "output"."""
+    skipped, total = stats[f"{kind}SkippedFrames"], stats[f"{kind}TotalFrames"]
+    pct = 100 * skipped / total if total else 0
+    return f"{skipped}/{total} ({pct:.2f}%)"
 
 
 def main() -> int:
@@ -110,7 +136,9 @@ def main() -> int:
 
     debug = "--debug" in sys.argv
     prev = None
-    last_alert = -COOLDOWN_SECONDS
+    alerting = False
+    # (render, encoder) drops per poll, covering the last WINDOW_SECONDS
+    window: deque[tuple[int, int]] = deque(maxlen=WINDOW_SECONDS // POLL_SECONDS)
     with ws:
         try:
             identify(ws, config.get("server_password", ""))
@@ -120,21 +148,41 @@ def main() -> int:
         try:
             while True:
                 stats = get_stats(ws)
+                if stats is None:
+                    if debug:
+                        print("OBS not ready yet", flush=True)
+                    time.sleep(POLL_SECONDS)
+                    continue
                 cur = (stats["renderSkippedFrames"], stats["outputSkippedFrames"])
                 if debug:
                     print(cur, f"{stats['activeFps']:.1f} fps", flush=True)
                 if prev is not None:
-                    render, output = cur[0] - prev[0], cur[1] - prev[1]
-                    now = time.monotonic()
-                    if (render > 0 or output > 0) and (
-                        now - last_alert >= COOLDOWN_SECONDS
-                    ):
-                        last_alert = now
+                    window.append((cur[0] - prev[0], cur[1] - prev[1]))
+                    render = sum(r for r, _ in window)
+                    output = sum(o for _, o in window)
+                    totals = (
+                        f"Missed: Render {ratio(stats, 'render')}\n"
+                        f"Missed: Encoder {ratio(stats, 'output')}\n"
+                        f"Frame render time: "
+                        f"{stats['averageFrameRenderTime']:.1f} ms "
+                        f"at {stats['activeFps']:.1f} fps\n"
+                        f"In last {WINDOW_SECONDS}s: "
+                        f"{render} render-lag, {output} encoder-lag"
+                    )
+                    # Re-sent every poll while over threshold; the stack tag
+                    # makes each one replace the last with fresh numbers.
+                    if render + output >= DROP_THRESHOLD:
+                        alerting = True
+                        notify("critical", "OBS dropping frames", totals)
+                    elif alerting:
+                        # Back under threshold: swap the sticky critical alert
+                        # for one that expires by itself.
+                        alerting = False
                         notify(
-                            "critical",
-                            "OBS dropping frames",
-                            f"{render} render-lag, {output} encoder-lag "
-                            f"in last {POLL_SECONDS}s",
+                            "normal",
+                            "OBS recovered",
+                            totals,
+                            timeout_ms=RECOVERED_TIMEOUT_MS,
                         )
                 prev = cur
                 time.sleep(POLL_SECONDS)
