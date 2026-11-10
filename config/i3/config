@@ -22,7 +22,7 @@ bar {
   font pango:Inconsolata,Font Awesome 7 Free 14
   strip_workspace_numbers yes
   tray_output primary
-  status_command py3status
+  status_command ~/dotfiles/py3status/run.sh
 
   colors {
     background #121212
@@ -244,9 +244,6 @@ mode "config" {
 
   bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
 
-  # toggle gaps
-  bindsym g exec --no-startup-id $HOME/dotfiles/config/i3/toggle-horizontal-gaps.sh, mode "default"
-
   # back to normal: Enter or Escape
   bindsym Return mode "default"
   bindsym Escape mode "default"
@@ -365,5 +362,7 @@ bindsym $mod+y exec $launch yap
 # }}}
 
 include ~/dotfiles/config/i3/extras.`hostname`
+# i3 skips includes whose file doesn't exist
+include ~/dotfiles/config/i3/extras.`hostname`.`whoami`
 
 # vim: ft=i3config fdm=marker textwidth=0

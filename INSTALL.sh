@@ -7,7 +7,7 @@ set -euo pipefail
 
 dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/installers"
 
-for name in make-symlinks build-py3status set-xdg-defaults install-gh-ext; do
+for name in make-symlinks set-xdg-defaults install-gh-ext; do
   echo -e "\033[1;35m==>\033[0m $name"
   "$dir/$name.sh"
 done
