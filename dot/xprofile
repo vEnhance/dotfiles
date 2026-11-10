@@ -32,6 +32,10 @@ export XDG_DATA_DIRS=/usr/local/share/:/usr/share/
 export SIGNAL_USE_TRAY_ICON=True
 export SIGNAL_START_IN_TRAY=True
 
+# Talk to mpd over the per-user socket (see config/mpd/mpd.conf)
+# otherwise users would fight over localhost:6600
+export MPD_HOST="$XDG_RUNTIME_DIR/mpd.sock"
+
 source ~/dotfiles/sh-scripts/xrandr.sh
 
 if command -v snixembed; then
