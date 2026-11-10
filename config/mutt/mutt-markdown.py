@@ -8,10 +8,10 @@ Takes a plaintext email and
 """
 
 import sys
-from importlib.util import find_spec
 from pathlib import Path
 
-import markdown
+sys.path.append(str(Path("~/dotfiles/py-scripts").expanduser()))
+from sane_markdown import markdown
 
 signature_lines = 0
 signature_found = False
@@ -31,12 +31,10 @@ for line in sys.stdin:
     elif line.startswith(">>>>") and signature_found:
         break
     else:
-        content += line.strip() + "\n"
+        # rstrip only: leading indentation is what makes nested lists work
+        content += line.rstrip() + "\n"
 
-MD_EXTENSIONS = ["extra", "sane_lists", "smarty", "footnotes"]
-if find_spec("mdx_truly_sane_lists") is not None:
-    MD_EXTENSIONS.append("mdx_truly_sane_lists")
-output_html = markdown.markdown(content, extensions=MD_EXTENSIONS)
+output_html = markdown(content)
 
 output_path = Path("/tmp/neomutt-alternative.html")
 if output_path.exists():

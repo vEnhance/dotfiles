@@ -13,8 +13,6 @@
 
 ## via AUR, written by others
 
-- `python-mdx_truly_sane_lists`
-- `python-types-markdown`
 - `python-types-pyyaml`
 - `python-types-requests`
 

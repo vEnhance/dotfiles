@@ -6,8 +6,8 @@ import subprocess
 import time
 from pathlib import Path
 
-import markdown
 import requests
+from sane_markdown import markdown
 
 
 def get_pass(s: str) -> str:
@@ -212,7 +212,7 @@ def main():
     # Step 3. Render the post
     text_body = TEXT_TEMPLATE.replace("NUMBER", str(number)).replace("POST_BODY", body)
     markdown_body = f"[**#{number}**]({WALL_BASE_URL}/{number}). " + body
-    html_body = markdown.markdown(markdown_body) + HTML_SUFFIX
+    html_body = markdown(markdown_body) + HTML_SUFFIX
     discord_content = f"[**#{number}**]({WALL_BASE_URL}/{number}/). {unwrap(body)}"
 
     # Step 4. Wait for post to go live

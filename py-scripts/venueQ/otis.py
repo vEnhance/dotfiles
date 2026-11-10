@@ -5,20 +5,22 @@ import re
 import smtplib
 import ssl
 import subprocess
+import sys
 import time
 from collections.abc import Callable
 from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from importlib.util import find_spec
 from pathlib import Path
 from typing import Any, ClassVar
 
-import markdown
 import requests
 from lastlint import fix_text
 
 from venueQ import Data, VenueQNode, VenueQRoot, logger
+
+sys.path.append(str(Path("~/dotfiles/py-scripts").expanduser()))
+from sane_markdown import markdown
 
 
 def get_pass(s: str) -> str:
@@ -48,10 +50,6 @@ NOISEMAKER_SH = (
     .absolute()
     .as_posix()
 )
-
-MD_EXTENSIONS = ["extra", "sane_lists", "smarty", "footnotes"]
-if find_spec("mdx_truly_sane_lists") is not None:
-    MD_EXTENSIONS.append("mdx_truly_sane_lists")
 
 RE_EMAIL = re.compile(r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$")
 
@@ -107,7 +105,7 @@ def send_email(
     if include_email_settings_link:
         plain_msg += "\n" * 2
         plain_msg += "To update your email settings for OTIS, go to [OTIS Settings](https://otis.evanchen.cc/core/prefs/)."
-    html_msg = markdown.markdown(plain_msg, extensions=MD_EXTENSIONS)
+    html_msg = markdown(plain_msg)
     mail.attach(MIMEText(plain_msg, "plain"))
     mail.attach(MIMEText(html_msg, "html"))
 

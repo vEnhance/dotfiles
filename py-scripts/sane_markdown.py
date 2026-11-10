@@ -1,7 +1,18 @@
-import sys
-from importlib.util import find_spec
+"""CommonMark rendering shared by my scripts (md alias, mutt, otis, wall-announce).
 
-from markdown import markdown as _m
+Uses markdown-it-py, so lists nest by content column (2 spaces is fine),
+don't need a blank line before them, and keep their start number.
+"""
+
+import re
+import sys
+
+from markdown_it import MarkdownIt
+from markdown_it.common.utils import escapeHtml
+from markdown_it.rules_core import StateCore
+from mdit_py_plugins.deflist import deflist_plugin
+from mdit_py_plugins.dollarmath import dollarmath_plugin
+from mdit_py_plugins.footnote import footnote_plugin
 
 PREAMBLE = r"""<!DOCTYPE html>
 <html>
@@ -44,11 +55,51 @@ MathJax = {
 <div id="content">"""
 
 
-def markdown(content):
-    extensions = ["extra", "sane_lists", "smarty"]
-    if find_spec("mdx_truly_sane_lists") is not None:
-        extensions.append("mdx_truly_sane_lists")
-    return _m(content, extensions=extensions)
+_SMARTY_SUBS = (
+    (re.compile(r"---"), "\u2014"),
+    (re.compile(r"--"), "\u2013"),
+    (re.compile(r"\.\.\."), "\u2026"),
+)
+
+
+def _smart_punctuation(state: StateCore) -> None:
+    """Dashes and ellipses only, like Python-Markdown's smarty.
+
+    The stock "replacements" rule also turns (c) into a copyright sign,
+    which wrecks problem parts labelled (a), (b), (c).
+    """
+    for block in state.tokens:
+        if block.type != "inline" or not block.children:
+            continue
+        in_autolink = False
+        for token in block.children:
+            if token.type == "link_open" and token.info == "auto":
+                in_autolink = True
+            elif token.type == "link_close" and token.info == "auto":
+                in_autolink = False
+            elif token.type == "text" and not in_autolink:
+                for pattern, repl in _SMARTY_SUBS:
+                    token.content = pattern.sub(repl, token.content)
+
+
+def _keep_tex(content: str, opts: dict) -> str:
+    """Pass math through verbatim (protected from emphasis parsing) for MathJax."""
+    tex = escapeHtml(content)
+    return f"\\[{tex}\\]" if opts["display_mode"] else f"${tex}$"
+
+
+_md = (
+    MarkdownIt("commonmark", {"html": True, "typographer": True})
+    .enable(["table", "strikethrough", "smartquotes"])
+    .use(footnote_plugin)
+    .use(deflist_plugin)
+    .use(dollarmath_plugin, allow_space=False, allow_digits=False, renderer=_keep_tex)
+)
+_md.core.ruler.before("smartquotes", "smart_punctuation", _smart_punctuation)
+
+
+def markdown(content: str) -> str:
+    return _md.render(content)
 
 
 if __name__ == "__main__":
