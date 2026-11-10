@@ -12,7 +12,12 @@ xrandr_output_supports_mode() {
 }
 
 if [ "$(hostname)" = ArchDiamond ]; then
-  if xrandr_output_supports_mode DP-2 3840x2160; then
+  if [ "$(whoami)" = star ]; then
+    # when gaming, we use 1080 (what the viewers see anyway)
+    xrandr --output "DP-2" --mode 1920x1080 --primary \
+      --output "DP-3" --mode 1920x1080 --below "DP-2" \
+      --output "DP-1" --mode 1920x1080 --right-of "DP-2"
+  elif xrandr_output_supports_mode DP-2 3840x2160; then
     xrandr --output "DP-2" --mode 3840x2160 --primary \
       --output "DP-3" --mode 1920x1080 --below "DP-2" \
       --output "DP-1" --mode 2560x1440 --right-of "DP-2"
