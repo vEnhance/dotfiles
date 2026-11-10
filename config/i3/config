@@ -243,6 +243,7 @@ mode "config" {
   bindsym n exec --no-startup-id $HOME/dotfiles/sh-scripts/mouse-buttons.sh n, mode "default"
 
   bindsym t exec dunstctl set-paused toggle; exec killall -s USR1 py3status, mode "default"
+  bindsym k exec --no-startup-id $HOME/dotfiles/sh-scripts/lock/timeouts.sh toggle, mode "default"
 
   # back to normal: Enter or Escape
   bindsym Return mode "default"
@@ -292,7 +293,7 @@ mode "exec" {
   bindsym h exec $launch hq, mode "default"
   bindsym i exec $launch anki, mode "default"
   bindsym k exec $launch miqin, mode "default"
-  bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/fuzzy-lock.sh, mode "default"
+  bindsym l exec --no-startup-id $HOME/dotfiles/sh-scripts/lock/lock.sh, mode "default"
   # short for money
   bindsym m exec gnucash &, mode "default"
   # short for next

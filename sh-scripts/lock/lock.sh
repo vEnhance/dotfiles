@@ -10,37 +10,26 @@ if pgrep -U "$(whoami)" i3lock >/dev/null; then
   exit 0
 fi
 
-if pgrep -U "$(whoami)" stepmania >/dev/null; then
-  echo "Stepmania running"
-  # xset s off -dpms # don't blank screen if stepmania is running
+# StepMania, Zoom, streaming, ... (the bar's lock countdown shows the reason)
+if reason=$(~/dotfiles/sh-scripts/lock/blocker.sh); then
+  echo "Not locking: $reason"
   exit
 fi
 
-if [ "$(whoami)" = star ] && pgrep -U star -x obs >/dev/null; then
-  echo "OBS running"
-  exit
-fi
-
-# during twitch stream (run from another machine), don't lock the laptop
-if ~/dotfiles/sh-scripts/is-streaming.sh; then
-  notify-send -i "gnome-twitch" \
-    "Won't lock" "You're currently streaming on Twitch!"
-  exit
-fi
+# desktops: turn the screen off 10s after locking
+case "$(hostname)" in
+ArchMajestic | ArchBootes | ArchDiamond)
+  [ "$(whoami)" = evan ] && xset dpms 10 0 0
+  ;;
+esac
 
 if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
-  xset dpms 10 0 0
   ~/dotfiles/sh-scripts/paswitch.sh speakers
   killall picom
 fi
 
 if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
-  xset dpms 10 0 0
   ~/dotfiles/sh-scripts/paswitch.sh speakers
-fi
-
-if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
-  xset dpms 10 0 0
 fi
 
 # mute microphone so I'm not recorded while afk
@@ -113,16 +102,8 @@ fi
 
 dunstctl set-paused false
 
-if [ "$(hostname)" = ArchMajestic ] && [ "$(whoami)" = evan ]; then
-  xset dpms 900 900 900
-fi
-if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
-  xset dpms 900 900 900
-fi
-if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
-  xset s 14400 60
-  xset dpms 14400 14400 14400
-fi
+# back to normal idle timeouts (also ends an `timeouts.sh extend`)
+~/dotfiles/sh-scripts/lock/timeouts.sh apply
 
 if [ "$(hostname)" = ArchMajestic ]; then
   ~/dotfiles/sh-scripts/paswitch.sh speakers

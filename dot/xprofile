@@ -38,13 +38,14 @@ export MPD_HOST="$XDG_RUNTIME_DIR/mpd.sock"
 
 source ~/dotfiles/sh-scripts/xrandr.sh
 
+# idle auto-lock timeouts (per host, defined in timeouts.sh)
+~/dotfiles/sh-scripts/lock/timeouts.sh apply
+
 if command -v snixembed; then
   snixembed --fork
 fi
 
 if [ "$(hostname)" = ArchScythe ]; then
-  xset s 540 60
-  xset dpms 600 600 600
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
   synclient TapButton1=0                   # Disable tap to click
   synclient VertScrollDelta=-237           # Natural scroll for touchpads
@@ -54,21 +55,12 @@ if [ "$(hostname)" = ArchScythe ]; then
   # synclient RightButtonAreaRight=1560
 fi
 
-if [ "$(hostname)" = ArchUmi ]; then
-  xset s 540 60
-  xset dpms 600 600 600
-fi
-
 if [ "$(hostname)" = ArchDiamond ]; then
   # Note: check Xft.dpi in ~/.Xresources
   if [ "$(whoami)" = "evan" ]; then
-    xset s 840 60
-    xset dpms 900 900 900
     ~/dotfiles/sh-scripts/chvol.sh l
   fi
   if [ "$(whoami)" = "star" ]; then
-    xset s 1740 60
-    xset dpms 1800 1800 1800
     ~/dotfiles/sh-scripts/chvol.sh r
   fi
   # for big screen TV...
@@ -82,13 +74,9 @@ if [ "$(hostname)" = ArchMajestic ]; then
   pactl set-default-source alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
   wpctl set-volume @DEFAULT_SOURCE@ 80%
   if [ "$(whoami)" = "evan" ]; then
-    xset s 840 60
-    xset dpms 900 900 900
     ~/dotfiles/sh-scripts/chvol.sh l
   fi
   if [ "$(whoami)" = "star" ]; then
-    xset s 1740 60
-    xset dpms 1800 1800 1800
     ~/dotfiles/sh-scripts/chvol.sh r
   fi
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
@@ -98,13 +86,7 @@ if [ "$(hostname)" = ArchBootes ]; then
   pactl set-default-source alsa_input.usb-C-Media_Electronics_Inc._USB_Audio_Device-00.mono-fallback
   wpctl set-volume @DEFAULT_SOURCE@ 80%
   if [ "$(whoami)" = "evan" ]; then
-    xset s 840 60
-    xset dpms 900 900 900
     ~/dotfiles/sh-scripts/paswitch.sh speakers
-  fi
-  if [ "$(whoami)" = "star" ]; then
-    xset s 1740 60
-    xset dpms 1800 1800 1800
   fi
   xmodmap -e "pointer = 3 2 1" &>/dev/null # left-hand mouse
 fi

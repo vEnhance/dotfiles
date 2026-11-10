@@ -9,4 +9,5 @@ notify-send "i3: config mode" -i system-config-keyboard \
 <b>p</b>: present mode
 <b>c</b>: calendar sync
 <b>g</b>: gaps
-<b>t</b>: toggle notif"
+<b>t</b>: toggle notif
+<b>k</b>: auto-lock after 3h (toggle)"
