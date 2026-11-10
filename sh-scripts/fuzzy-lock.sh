@@ -21,12 +21,8 @@ if [ "$(whoami)" = star ] && pgrep -U star -x obs >/dev/null; then
   exit
 fi
 
-# during twitch stream, disable laptop lock screen
-if { [ "$(hostname)" = "ArchUmi" ] || [ "$(hostname)" = "ArchScythe" ]; } &&
-  [ "$(whoami)" = evan ] &&
-  iwconfig | grep -E "Flying|Nydus" &&
-  PASSWORD_STORE_GPG_OPTS="--pinentry-mode error" pass show twitch/client_id >/dev/null 2>&1 &&
-  ~/dotfiles/py-scripts/query-twitch-online.py vEnhance -s -q; then
+# during twitch stream (run from another machine), don't lock the laptop
+if ~/dotfiles/sh-scripts/is-streaming.sh; then
   notify-send -i "gnome-twitch" \
     "Won't lock" "You're currently streaming on Twitch!"
   exit
@@ -124,7 +120,7 @@ if [ "$(hostname)" = ArchBootes ] && [ "$(whoami)" = evan ]; then
   xset dpms 900 900 900
 fi
 if [ "$(hostname)" = ArchDiamond ] && [ "$(whoami)" = evan ]; then
-  xset set 14400 14400
+  xset s 14400 60
   xset dpms 14400 14400 14400
 fi
 

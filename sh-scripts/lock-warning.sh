@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
 
-if [ "$(hostname)" = ArchScythe ] && [ "$(whoami)" = evan ]; then
-  # during twitch stream, disable laptop lock screen
-  if [ "$(date +%u)" -eq 5 ] && [ "$(date +%H)" -ge 20 ]; then
-    exit
-  fi
-  if [ "$(date +%u)" -eq 6 ] && [ "$(date +%H)" -le 2 ]; then
-    exit
-  fi
+# fuzzy-lock.sh won't lock during a stream, so don't warn either
+if ~/dotfiles/sh-scripts/is-streaming.sh; then
+  exit
 fi
 
 if [ "$(whoami)" = star ] && pgrep -U star -x obs >/dev/null; then
