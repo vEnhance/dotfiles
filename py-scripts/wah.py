@@ -9,24 +9,95 @@ Work in progress
 
 import argparse
 import datetime
+import subprocess
+import sys
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 import yaml
-from colorama import Back, Fore, Style, init
-from git.objects.commit import Commit  # for typing
-from git.repo import Repo
 
 DATE_STRING = "%a %b%d %H:%M"
 
-init()
+
+def sgr(code: int) -> str:
+    """ANSI color escape, or nothing when not writing to a terminal."""
+    return f"\033[{code}m" if sys.stdout.isatty() else ""
+
+
+class Fore:
+    RED = sgr(31)
+    GREEN = sgr(32)
+    YELLOW = sgr(33)
+    WHITE = sgr(37)
+    CYAN = sgr(36)
+    LIGHTGREEN_EX = sgr(92)
+    LIGHTYELLOW_EX = sgr(93)
+    LIGHTMAGENTA_EX = sgr(95)
+
+
+class Back:
+    RED = sgr(41)
+    GREEN = sgr(42)
+
+
+class Style:
+    BRIGHT = sgr(1)
+    RESET_ALL = sgr(0)
+
+
+@dataclass
+class Commit:
+    hexsha: str
+    authored_datetime: datetime.datetime
+    committer_email: str
+    summary: str
+    insertions: int = 0
+    deletions: int = 0
+
+    @property
+    def lines(self) -> int:
+        return self.insertions + self.deletions
+
+
+def git(repo: str, *args: str) -> str:
+    return subprocess.run(
+        ["git", "-C", repo, *args], check=True, capture_output=True, text=True
+    ).stdout
+
+
+def read_commits(repo: str, rev: str) -> list[Commit]:
+    """Every commit reachable from rev, with line counts like `git diff --numstat`
+    against its first parent (so merges count what they brought in)."""
+    out = git(
+        repo,
+        "log",
+        rev,
+        "--numstat",
+        "--no-renames",
+        "--diff-merges=first-parent",
+        "--format=%x1e%H%x1f%aI%x1f%ce%x1f%s",
+    )
+    commits = []
+    for record in out.split("\x1e")[1:]:
+        header, *numstat = record.splitlines()
+        hexsha, date, email, summary = header.split("\x1f")
+        commit = Commit(hexsha, datetime.datetime.fromisoformat(date), email, summary)
+        for line in numstat:
+            if line:
+                added, removed, _ = line.split("\t", 2)
+                # binary files show "-"; count them as zero lines
+                commit.insertions += int(added) if added != "-" else 0
+                commit.deletions += int(removed) if removed != "-" else 0
+        commits.append(commit)
+    return commits
 
 
 def pretty_print_commit(
     commit: Commit, time_color: str, time_symbol: str, time_delta: datetime.timedelta
 ):
-    num_insertions = commit.stats.total["insertions"]
-    num_deletions = commit.stats.total["deletions"]
+    num_insertions = commit.insertions
+    num_deletions = commit.deletions
     if time_delta > datetime.timedelta(hours=10):
         time_symbol = ""
     print(
@@ -63,18 +134,28 @@ if __name__ == "__main__":
         help="The list of emails to use (filter by a committer).",
     )
     parser.add_argument(
-        "-t", "--min-time", help="Assume any interval less than this counts."
+        "-t",
+        "--min-time",
+        type=float,
+        help="Assume any interval less than this counts.",
     )
     parser.add_argument(
-        "-T", "--max-time", help="Assume any interval more than this doesn't count."
+        "-T",
+        "--max-time",
+        type=float,
+        help="Assume any interval more than this doesn't count.",
     )
     parser.add_argument(
         "-l",
         "--min-lpm",
+        type=float,
         help="The minimum lines/minute expected when working over min_time.",
     )
     parser.add_argument(
-        "-L", "--max-lpm", help="Assume that any lines/minutes exceeding this counts."
+        "-L",
+        "--max-lpm",
+        type=float,
+        help="Assume that any lines/minutes exceeding this counts.",
     )
     parser.add_argument(
         "-w",
@@ -121,15 +202,13 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     committers: list[str] = args.emails
-    repo = Repo(args.repo, search_parent_directories=True)
-    assert isinstance(repo.git_dir, str)
-    git_dir_path = Path(repo.git_dir)
+    git_dir_path = Path(git(args.repo, "rev-parse", "--absolute-git-dir").strip())
     save_path = git_dir_path / "wah"
 
     commits = [
         commit
-        for commit in repo.iter_commits("main")
-        if (not committers) or (commit.committer.email in committers)
+        for commit in read_commits(args.repo, "main")
+        if (not committers) or (commit.committer_email in committers)
     ]
     commits.sort(key=lambda commit: commit.authored_datetime)
 
@@ -151,12 +230,12 @@ if __name__ == "__main__":
         data["min_hours"] = args.min_time
         needs_save = True
     if args.max_time is not None:
-        data["max_hours"] = args.max_hours
+        data["max_hours"] = args.max_time
         needs_save = True
-    if args.min_time is not None:
+    if args.min_lpm is not None:
         data["min_lpm"] = args.min_lpm
         needs_save = True
-    if args.min_time is not None:
+    if args.max_lpm is not None:
         data["max_lpm"] = args.max_lpm
         needs_save = True
     if needs_save is True:
@@ -179,7 +258,7 @@ if __name__ == "__main__":
         delta: datetime.timedelta = b.authored_datetime - a.authored_datetime
         hours = max(delta.total_seconds() / 3600, 1.0 / 3600)
         minutes = hours * 60
-        lines_per_minute = b.stats.total["lines"] / minutes
+        lines_per_minute = b.lines / minutes
 
         if b.hexsha in decision:
             if decision[b.hexsha] is True:

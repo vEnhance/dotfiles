@@ -32,9 +32,9 @@ import os
 import re
 import subprocess
 import time
+from html.parser import HTMLParser
 from pathlib import Path
 
-import bs4
 import requests
 
 EXIT_FAILURE = 1
@@ -95,15 +95,64 @@ def login(session, username, password):
         {"user": username, "passwd": password, "next": "/"},
         headers={"referer": "https://aur.archlinux.org/login"},
     )
-    soup = bs4.BeautifulSoup(response.text, "html5lib")
-    navbar = soup.select_one("#archdev-navbar")
-    assert navbar is not None
-    return bool(
-        navbar.find(
-            "form",
-            action=lambda h: h and h.rstrip("/").endswith("/logout"),
-        )
+    # Logged in iff the navbar has a logout button (a form posting to /logout)
+    return (
+        re.search(r"<form\b[^>]*\baction=\"[^\"]*/logout/?\"", response.text)
+        is not None
     )
+
+
+class ResultsTableParser(HTMLParser):
+    """Collects the stripped text of each <td> in each <tbody> row of
+    <table class="results">, i.e. `.results > tbody > tr > td` in CSS."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.rows: list[list[str]] = []
+        self.in_results = False
+        self.in_tbody = False
+        self.cell: list[str] | None = None
+
+    def handle_starttag(self, tag, attrs):
+        if tag == "table" and "results" in (dict(attrs).get("class") or "").split():
+            self.in_results = True
+        elif not self.in_results:
+            return
+        elif tag == "tbody":
+            self.in_tbody = True
+        elif self.in_tbody and tag == "tr":
+            self.rows.append([])
+            self.cell = None
+        elif self.in_tbody and tag == "td" and self.rows:
+            self._close_cell()
+            self.cell = []
+
+    def handle_endtag(self, tag):
+        if not self.in_results:
+            return
+        if tag in ("td", "tr"):
+            self._close_cell()
+        elif tag == "tbody":
+            self.in_tbody = False
+        elif tag == "table":
+            self.in_results = False
+
+    def handle_data(self, data):
+        if self.cell is not None:
+            self.cell.append(data)
+
+    def _close_cell(self) -> None:
+        if self.cell is not None:
+            # like bs4 get_text(strip=True): strip each piece, then join
+            self.rows[-1].append("".join(t.strip() for t in self.cell))
+            self.cell = None
+
+
+def parse_results_table(html: str) -> list[list[str]]:
+    parser = ResultsTableParser()
+    parser.feed(html)
+    parser.close()
+    return parser.rows
 
 
 PATH_TO_VOTE = Path("~/Sync/pacman/").expanduser()
@@ -135,11 +184,8 @@ def get_voted_packages(session):
 
     while True:
         response = session.get(SEARCH_URL_TEMPLATE % offset)
-        soup = bs4.BeautifulSoup(response.text, "html5lib")
-        for row in soup.select(".results > tbody > tr"):
-            package = Package(
-                *(c.get_text(strip=True) for c in row.select(":scope > td")[1:])
-            )
+        for cells in parse_results_table(response.text):
+            package = Package(*cells[1:])
             if not package.voted:
                 return
 
