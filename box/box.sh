@@ -75,6 +75,7 @@ exec bwrap \
   --ro-bind /opt /opt \
   --ro-bind-try /run/systemd/resolve /run/systemd/resolve \
   --ro-bind-try /var/lib/texmf /var/lib/texmf \
+  --ro-bind-try /var/lib/pacman /var/lib/pacman \
   --ro-bind-try /var/cache/fontconfig /var/cache/fontconfig \
   --proc /proc \
   --dev /dev \
