@@ -19,7 +19,6 @@ inetutils              # `hostname` all over the place
 keychain
 libnotify              # notify-send everywhere
 networkmanager
-numlockx
 picom
 py3status
 python-i3ipc           # config/i3/i3_workspace_names_daemon.py
@@ -41,7 +40,6 @@ xorg-xset              # lock/timeouts.sh, redo-keys.sh
 xprintidle             # lock/countdown.sh
 xsel
 xss-lock               # startup.sh
-xterm                  # fish pomodoro/countdown
 
 ## Fonts
 noto-fonts
@@ -50,7 +48,7 @@ otf-font-awesome       # i3 workspace icons
 ttf-dejavu
 ttf-exo-2              # conky (AUR)
 ttf-hack-nerd          # ghostty, xfce4-terminal
-ttf-inconsolata        # i3 bar, xterm
+ttf-inconsolata
 ttf-sarasa-gothic      # conky, rofi
 
 ## Audio and music
@@ -96,7 +94,6 @@ zoxide
 ## Editors
 gvim                   # also provides vim
 neovim
-npm                    # mason.nvim
 
 ## Mail, passwords, sync
 bitwarden-cli          # grab-password-from-vault.sh, fish bw-*
@@ -122,11 +119,10 @@ texlive-luatex         # luaotfload-tool
 asymptote              # latexmkrc, vim asy ftplugin
 biber
 bibclean               # ALE fixer (AUR)
-languagetool           # ALE linter, fish j-langtool
 hunspell-ko            # fish kspell (AUR)
 typst
 zathura                # latexmkrc, vimtex, fish pdf, venueQ/otis.py
-zathura-pdf-poppler
+zathura-pdf-mupdf
 
 ## Linters and formatters (ALE, LazyVim, prek)
 codespell
@@ -156,9 +152,12 @@ python-yaml
 tk                     # tkinter in py-scripts/dictate.py
 
 ## Optional but in mainline
+languagetool?          # ALE linter, fish j-langtool
 lm_sensors?            # py3status lm_sensors
 xf86-input-wacom?      # xsetwacom in mouse-buttons.sh
 xf86-input-synaptics?  # synclient on ArchScythe
+npm?                   # for mason.nvim
+numlockx?
 
 ## AUR but not optional
 fate                   # (AUR)
