@@ -97,26 +97,25 @@
 
 // Theorem environments
 #let thm-args = (counter: "thm", base-level: 1, inset: 0.9em, above: 0.6em, below: 0.6em)
-#let thm-style-plain = thm.with(..thm-args)
-#let thm-style-def = thm.with(..thm-args, body-fmt: x => x) // non-italic
+#let thm-sty = thm.with(..thm-args, body-fmt: x => x)
 
-#let thm       = thm-style-plain.with(supplement: "Theorem", fill: rgb("#eeeeff"))
-#let lem       = thm-style-plain.with(supplement: "Lemma", fill: rgb("#eeeeff"))
-#let propn     = thm-style-plain.with(supplement: "Proposition", fill: rgb("#eeeeff"))
-#let cor       = thm-style-plain.with(supplement: "Corollary", fill: rgb("#eeeeff"))
-#let conj      = thm-style-plain.with(supplement: "Conjecture", fill: rgb("#eeeeff"))
-#let ex        = thm-style-def.with(supplement: "Example", fill: rgb("#eef5ee"))
-#let algo      = thm-style-def.with(supplement: "Algorithm", fill: rgb("#ddffdd"))
-#let claim     = thm-style-def.with(supplement: "Claim", fill: rgb("#ddffdd"))
-#let rmk       = thm-style-def.with(supplement: "Remark", fill: rgb("#eeeeee"))
-#let defn      = thm-style-def.with(supplement: "Definition", fill: rgb("#ffeeee"))
-#let prob      = thm-style-def.with(supplement: "Problem", fill: rgb("#eeeeee"))
-#let exer      = thm-style-def.with(supplement: "Exercise", fill: rgb("#eeeeee"))
+#let thm       = thm-sty.with(supplement: "Theorem", fill: rgb("#eeeeff"))
+#let lem       = thm-sty.with(supplement: "Lemma", fill: rgb("#eeeeff"))
+#let propn     = thm-sty.with(supplement: "Proposition", fill: rgb("#eeeeff"))
+#let cor       = thm-sty.with(supplement: "Corollary", fill: rgb("#eeeeff"))
+#let conj      = thm-sty.with(supplement: "Conjecture", fill: rgb("#eeeeff"))
+#let ex        = thm-sty.with(supplement: "Example", fill: rgb("#eef5ee"))
+#let algo      = thm-sty.with(supplement: "Algorithm", fill: rgb("#ddffdd"))
+#let claim     = thm-sty.with(supplement: "Claim", fill: rgb("#ddffdd"))
+#let rmk       = thm-sty.with(supplement: "Remark", fill: rgb("#eeeeee"))
+#let defn      = thm-sty.with(supplement: "Definition", fill: rgb("#ffeeee"))
+#let prob      = thm-sty.with(supplement: "Problem", fill: rgb("#eeeeee"))
+#let exer      = thm-sty.with(supplement: "Exercise", fill: rgb("#eeeeee"))
 #let exerstar  = exer.with(title-fmt: (x) => { strong(x + " (*)") })
-#let ques      = thm-style-def.with(supplement: "Question", fill: rgb("#eeeeee"))
-#let fact      = thm-style-def.with(supplement: "Fact", fill: rgb("#eeeeee"))
+#let ques      = thm-sty.with(supplement: "Question", fill: rgb("#eeeeee"))
+#let fact      = thm-sty.with(supplement: "Fact", fill: rgb("#eeeeee"))
 
-#let todo = thm-style-plain.with(
+#let todo = thm-sty.with(
   supplement: "TODO",
   numbering: none,
   fill: rgb("#ddaa77"),
