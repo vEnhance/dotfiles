@@ -8,7 +8,10 @@
 #   timeouts.sh normal   print the normal lock-after seconds
 #
 # xss-lock runs warning.sh at the screensaver timeout and lock.sh
-# one cycle (WARN seconds) later; the screen turns off when it locks.
+# one cycle (WARN seconds) later. DPMS turns the screen off one more WARN
+# later, as a fallback only: it must not coincide with the lock, or the screen
+# goes dark without locking. (lock.sh turns desktops' screens off 10s after
+# locking anyway.) If a lock fails, the screen stays on, so it's noticeable.
 set -euo pipefail
 
 WARN=60
@@ -24,7 +27,7 @@ normal() {
 
 set_lock_after() {
   xset s $(($1 - WARN)) "$WARN"
-  xset dpms "$1" "$1" "$1"
+  xset dpms $(($1 + WARN)) $(($1 + WARN)) $(($1 + WARN))
 }
 
 notify() {
