@@ -163,6 +163,7 @@ fate                   # (AUR)
 lastlint               # py-scripts/venueQ/otis.py (AUR)
 python-vondb           # von: orch.py, odus.py, otis.py (AUR)
 tsqx                   # (AUR)
+gcalendar              # (AUR) sh-scripts/get-cal.sh
 
 ## Optional AUR dependencies
 hyprwhspr?             # (AUR)

@@ -9,8 +9,7 @@ set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
 TOOLS=(
-  djlint    # conform.nvim formatter for htmldjango
-  gcalendar # sh-scripts/get-cal.sh
+  djlint # conform.nvim formatter for htmldjango
 )
 
 if ! command -v uv >/dev/null; then
@@ -30,6 +29,6 @@ done
 
 bin_dir="$(uv tool dir --bin)"
 case ":$PATH:" in
-  *":$bin_dir:"*) ;;
-  *) echo -e "${BOLD_YLW}WARNING:${RESET} $bin_dir is not on PATH" ;;
+*":$bin_dir:"*) ;;
+*) echo -e "${BOLD_YLW}WARNING:${RESET} $bin_dir is not on PATH" ;;
 esac
