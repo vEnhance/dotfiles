@@ -54,23 +54,19 @@ BREAK_RE = re.compile(r"\s*(¶)[.!?,;:]*\s*")
 PUNCTUATION_RUN_RE = re.compile(r"([.!?,;:])[.!?,;:]+")
 
 # WM_CLASS (lowercased) of apps that get wrapped text, pasted from the primary
-# selection with these keys. A paste goes in as-is, where typed newlines would
+# selection with Shift+Insert. A paste goes in as-is, where typed newlines would
 # be Enter: (n)vim would autoindent or accept a completion, Claude Code / bash
 # would submit. Everything else gets it typed, unwrapped.
-SHIFT_INSERT = ("shift+Insert",)
-# Insert mode: put in register * literally, without autoindent. A trailing
-# newline would make it linewise (put above the line), so those are typed.
-GVIM_PASTE = ("ctrl+r", "ctrl+o", "asterisk")
-PASTE_KEYS = {
-    "xfce4-terminal": SHIFT_INSERT,
-    "com.mitchellh.ghostty": SHIFT_INSERT,
-    "ghostty": SHIFT_INSERT,
-    "kitty": SHIFT_INSERT,
-    "alacritty": SHIFT_INSERT,
-    "org.wezfurlong.wezterm": SHIFT_INSERT,
-    "xterm": SHIFT_INSERT,
-    "urxvt": SHIFT_INSERT,
-    "gvim": GVIM_PASTE,
+PASTE_APPS = {
+    "xfce4-terminal",
+    "com.mitchellh.ghostty",
+    "ghostty",
+    "kitty",
+    "alacritty",
+    "org.wezfurlong.wezterm",
+    "xterm",
+    "urxvt",
+    "gvim",
 }
 
 # Overlay look
@@ -180,9 +176,8 @@ def focused_window_middle() -> tuple[int, int]:
     return x + w // 2, y + h // 2
 
 
-def paste_keys(window: str) -> tuple[str, ...] | None:
-    """How to paste into the window, if it's one that gets pasted text."""
-    return PASTE_KEYS.get(run("xdotool", "getwindowclassname", window).strip().lower())
+def gets_pasted(window: str) -> bool:
+    return run("xdotool", "getwindowclassname", window).strip().lower() in PASTE_APPS
 
 
 def wait_for_modifiers() -> None:
@@ -198,30 +193,23 @@ def wait_for_modifiers() -> None:
         time.sleep(0.02)
 
 
-def insert(text: str, keys: tuple[str, ...] | None) -> None:
-    """Paste text with keys (from the primary selection), or type it if None."""
+def insert(text: str, *, paste: bool) -> None:
+    """Paste text with Shift+Insert (from the primary selection), or type it."""
     wait_for_modifiers()
-    if keys is None:
+    if not paste:
         run("xdotool", "type", "--delay", str(TYPE_DELAY_MS), "--", text)
         return
-    newlines = ""
-    if keys == GVIM_PASTE:
-        body = text.rstrip("\n")
-        text, newlines = body, text[len(body) :]
-    if text:
-        # Primary selection, so the clipboard is left alone. xclip stays alive
-        # to own it; keep it off hyprwhspr's stdio pipes.
-        subprocess.run(
-            ["xclip", "-selection", "primary"],
-            input=text,
-            text=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-            check=False,
-        )
-        run("xdotool", "key", *keys)
-    if newlines:
-        run("xdotool", "key", *["Return"] * len(newlines))
+    # Primary selection, so the clipboard is left alone. xclip stays alive to
+    # own it; keep it off hyprwhspr's stdio pipes.
+    subprocess.run(
+        ["xclip", "-selection", "primary"],
+        input=text,
+        text=True,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+        check=False,
+    )
+    run("xdotool", "key", "shift+Insert")
 
 
 def load_json(path: Path) -> dict:
@@ -260,9 +248,9 @@ def flush() -> None:
     window = active_window()
     state = load_json(STATE_FILE)
     line = state.get("line", "") if state.get("window") == window else ""
-    keys = paste_keys(window)
-    inserted, line = compose(text, line, wrapped=keys is not None)
-    insert(inserted, keys)
+    paste = gets_pasted(window)
+    inserted, line = compose(text, line, wrapped=paste)
+    insert(inserted, paste=paste)
     write_box([])
     STATE_FILE.write_text(json.dumps({"window": window, "line": line}))
 
