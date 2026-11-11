@@ -5,6 +5,10 @@ set -euo pipefail
 # where conky/agenda.py consumes them.
 # Pass --notify to get desktop notifications when the sync starts and ends.
 
+# gcalendar is a uv tool (installers/install-uv-tools.sh), and i3 keybindings
+# may not have ~/.local/bin on PATH.
+export PATH="$HOME/.local/bin:$PATH"
+
 notify=false
 if [[ ${1:-} == "--notify" ]]; then
   notify=true

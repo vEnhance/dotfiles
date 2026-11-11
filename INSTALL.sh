@@ -7,7 +7,7 @@ set -euo pipefail
 
 dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/installers"
 
-for name in make-symlinks set-xdg-defaults install-gh-ext check-packages; do
+for name in make-symlinks set-xdg-defaults install-gh-ext install-uv-tools check-packages; do
   echo -e "\033[1;35m==>\033[0m $name"
   "$dir/$name.sh"
 done

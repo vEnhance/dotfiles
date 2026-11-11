@@ -97,7 +97,6 @@ neovim
 
 ## Mail, passwords, sync
 bitwarden-cli          # grab-password-from-vault.sh, fish bw-*
-gcalendar              # sh-scripts/get-cal.sh (AUR)
 gnome-keyring          # secret service for libsecret
 gnupg
 isync                  # mbsync
@@ -161,15 +160,12 @@ numlockx?
 ## AUR but not optional
 fate                   # (AUR)
 lastlint               # py-scripts/venueQ/otis.py (AUR)
-python-types-pyyaml    # (AUR)
-python-types-requests  # (AUR)
 python-vondb           # von: orch.py, odus.py, otis.py (AUR)
 tsqx                   # (AUR)
 
 ## Optional AUR dependencies
 hyprwhspr?             # (AUR)
 solvertools-git?       # py-scripts/solvertools-search.py (AUR)
-djlint?                # ALE fixer for HTML templates (AUR)
 dropbox?               # startup.sh, py3status (chaotic-aur)
 dropbox-cli?           # (AUR)
 syncthingctl?          # (AUR)
