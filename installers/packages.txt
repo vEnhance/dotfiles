@@ -94,6 +94,7 @@ zoxide
 ## Editors
 gvim                   # also provides vim
 neovim
+tree-sitter-cli        # for treesitter support
 
 ## Mail, passwords, sync
 bitwarden-cli          # grab-password-from-vault.sh, fish bw-*
