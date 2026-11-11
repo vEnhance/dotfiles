@@ -9,9 +9,9 @@
 hyprwhspr (continuous mode) transcribes each stretch of speech up to a pause
 into a piece. Pieces collect in a box under the text cursor, and go into the
 focused window after FLUSH_AFTER_SECONDS without a new one, on "new line" /
-"new paragraph", on Super+V, or on stop. Terminals and gvim get them wrapped
-with mango.py and pasted; other apps get them typed. Every piece is also logged
-to ~/.local/state/hyprwhspr/history.txt.
+"new paragraph", on Super+V, or on stop, pasted with Shift+Insert. Terminals
+and gvim get them wrapped with mango.py first. Every piece is also logged to
+~/.local/state/hyprwhspr/history.txt.
 """
 
 import contextlib
@@ -44,7 +44,6 @@ CHVOL = Path(__file__).resolve().parent.parent / "sh-scripts" / "chvol.sh"
 
 FLUSH_AFTER_SECONDS = 2  # quiet time (no new piece) before the box goes in
 MODIFIER_WAIT_SECONDS = 2  # e.g. a held Super, before sending keys
-TYPE_DELAY_MS = 4  # between typed keys (xdotool's default of 12 is slow)
 
 # "new line" / "new paragraph" become ¶ / ¶¶ through hyprwhspr's word_overrides
 # (config/hyprwhspr/config.json): unlike a real newline, ¶ survives hyprwhspr
@@ -53,11 +52,8 @@ BREAK_RE = re.compile(r"\s*(¶)[.!?,;:]*\s*")
 # The model sometimes punctuates after punctuation it already gave ("and?.")
 PUNCTUATION_RUN_RE = re.compile(r"([.!?,;:])[.!?,;:]+")
 
-# WM_CLASS (lowercased) of apps that get wrapped text, pasted from the primary
-# selection with Shift+Insert. A paste goes in as-is, where typed newlines would
-# be Enter: (n)vim would autoindent or accept a completion, Claude Code / bash
-# would submit. Everything else gets it typed, unwrapped.
-PASTE_APPS = {
+# WM_CLASS (lowercased) of apps whose text gets hard-wrapped
+WRAP_APPS = {
     "xfce4-terminal",
     "com.mitchellh.ghostty",
     "ghostty",
@@ -176,8 +172,8 @@ def focused_window_middle() -> tuple[int, int]:
     return x + w // 2, y + h // 2
 
 
-def gets_pasted(window: str) -> bool:
-    return run("xdotool", "getwindowclassname", window).strip().lower() in PASTE_APPS
+def gets_wrapped(window: str) -> bool:
+    return run("xdotool", "getwindowclassname", window).strip().lower() in WRAP_APPS
 
 
 def wait_for_modifiers() -> None:
@@ -193,12 +189,14 @@ def wait_for_modifiers() -> None:
         time.sleep(0.02)
 
 
-def insert(text: str, *, paste: bool) -> None:
-    """Paste text with Shift+Insert (from the primary selection), or type it."""
+def insert(text: str) -> None:
+    """Paste text with Shift+Insert, from the primary selection.
+
+    Not typed: typed newlines are Enter ((n)vim would autoindent or accept a
+    completion, Claude Code / bash would submit), and fast typing drops keys in
+    some apps (qutebrowser).
+    """
     wait_for_modifiers()
-    if not paste:
-        run("xdotool", "type", "--delay", str(TYPE_DELAY_MS), "--", text)
-        return
     # Primary selection, so the clipboard is left alone. xclip stays alive to
     # own it; keep it off hyprwhspr's stdio pipes.
     subprocess.run(
@@ -248,9 +246,8 @@ def flush() -> None:
     window = active_window()
     state = load_json(STATE_FILE)
     line = state.get("line", "") if state.get("window") == window else ""
-    paste = gets_pasted(window)
-    inserted, line = compose(text, line, wrapped=paste)
-    insert(inserted, paste=paste)
+    inserted, line = compose(text, line, wrapped=gets_wrapped(window))
+    insert(inserted)
     write_box([])
     STATE_FILE.write_text(json.dumps({"window": window, "line": line}))
 
