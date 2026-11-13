@@ -31,6 +31,9 @@ fi
 box=$HOME/box
 dotfiles=$(realpath "$(dirname "$(realpath "$0")")/..")
 mkdir -p "$box"
+# Python's user site-packages.
+# Includes boxweb.py (Playwright helpers) for /usr/bin/python3.
+usersite=$(/usr/bin/python3 -c 'import site; print(site.getusersitepackages())')
 
 # Claude's Bash sandbox can only grant writes to paths that already exist,
 # so pre-create the ~/ entries of allowWrite inside the box's home.
@@ -86,6 +89,7 @@ exec bwrap \
   --ro-bind "$dotfiles/box/claude/CLAUDE.md" "$HOME/.claude/CLAUDE.md" \
   --ro-bind "$dotfiles/box/claude/statusline.sh" "$HOME/.claude/statusline.sh" \
   --ro-bind "$dotfiles/box/vimrc" "$HOME/.vimrc" \
+  --ro-bind "$dotfiles/box/boxweb.py" "$usersite/boxweb.py" \
   --ro-bind-try "$dotfiles/texmf" "$HOME/texmf" \
   --ro-bind-try "$dotfiles/local/share/typst/packages/local" "$HOME/.local/share/typst/packages/local" \
   --ro-bind-try "$dotfiles/dot/latexmkrc" "$HOME/.latexmkrc" \
@@ -103,6 +107,7 @@ exec bwrap \
   --setenv TERM "${TERM:-xterm-256color}" \
   --setenv LANG "${LANG:-C.UTF-8}" \
   --setenv COLORTERM "${COLORTERM:-}" \
+  --setenv PLAYWRIGHT_DISABLE_FORCED_CHROMIUM_PROXIED_LOOPBACK 1 \
   --setenv VIRTUAL_ENV "${VIRTUAL_ENV:-}" \
   --setenv UV_PROJECT_ENVIRONMENT "${UV_PROJECT_ENVIRONMENT:-}" \
   "$@"

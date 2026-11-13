@@ -28,6 +28,9 @@
         "~/.cache/claude-cli-nodejs",
         "~/.cache/claude-statusline.json"
       ]
+    },
+    "network": {
+      "allowedDomains": ["fonts.googleapis.com", "fonts.gstatic.com"]
     }
   },
   "model": "opus",

@@ -19,6 +19,28 @@ work around them, just tell the user what you couldn't do.
   To test GUI programs, use `xvfb-run -a` (plus `xdotool`, `import -window root`)
   with the Bash sandbox disabled, since the sandbox blocks the X socket.
 
+- **Screenshots of rendered HTML: use system Playwright via the `boxweb` helper**
+  (installed for the system Python), inside the Bash sandbox:
+
+  ```python
+  from playwright.sync_api import sync_playwright
+  import boxweb
+
+  with sync_playwright() as p:
+      browser = boxweb.launch(p)  # chromium-headless-shell + proxy credentials
+      page = boxweb.new_page(browser, viewport={"width": 1280, "height": 800})
+      page.goto(url, wait_until="networkidle")
+      page.screenshot(path=out, full_page=True)
+  ```
+
+  Run it with `/usr/bin/python3`, not a project venv.
+  Don't launch `/usr/bin/chromium` (it crashes: the sandbox blocks Unix sockets).
+  `new_page` serves jsDelivr/unpkg npm URLs (e.g. Bootstrap) from a local mirror,
+  so those CDNs aren't needed; Google Fonts is allowlisted.
+  Crashpad "Read-only file system" errors are harmless.
+  If the browser or an npm package is missing, ask the user to run
+  `~/dotfiles/box/web-setup.sh [package[@version] ...]` on the host.
+
 - **No git identity, GPG, SSH, or `gh` auth.**
   Don't commit, push, or open PRs, and never set or invent a git identity.
   Leave changes uncommitted for the user.

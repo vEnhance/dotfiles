@@ -143,6 +143,7 @@ python-gobject         # py-scripts/dictate.py
 python-jinja           # py-scripts/toddle
 python-mdit_py_plugins # py-scripts/sane_markdown.py
 python-packaging       # py-scripts/uv-nudge.py
+python-playwright      # playwright access in box
 python-pyperclip
 python-pytz
 python-requests
