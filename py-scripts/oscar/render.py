@@ -213,11 +213,11 @@ def render_histogram(contest: ContestData, outfile: IO[str]) -> None:
         if (hist[i] > 0) {
             label("$\mathsf{" + (string) hist[i] + "}$",((i - 0.5)*x,(hist[i])*y), dir(90), blue+fontsize(8pt));
         }
-        if (i-i#7*7 == 0) {
+        if (fmod(i,7) == 0) {
             label((string) i, ((i-0.5)*x,0), 3*dir(-90), black+fontsize(8pt));
         }
         else {
-            label((string) (i-i#10*10), ((i-0.5)*x,0), dir(-90), grey+fontsize(7pt));
+            label((string) fmod(i,10), ((i-0.5)*x,0), dir(-90), grey+fontsize(7pt));
         }
     }"""
         % (max_total, max_total),
