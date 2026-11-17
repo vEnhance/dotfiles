@@ -95,5 +95,6 @@ fi
 
 if [ ${#missing_opt[@]} -gt 0 ]; then
   echo ""
-  echo -e "OPTIONAL: not installed: ${missing_opt[*]}"
+  echo "OPTIONAL: not installed: "
+  echo -e "${missing_opt[*]}"
 fi
