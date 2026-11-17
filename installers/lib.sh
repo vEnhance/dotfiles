@@ -8,6 +8,8 @@ BOLD_CYN="\033[1;36m"
 BOLD_GRN="\033[1;32m"
 BOLD_YLW="\033[1;33m"
 BOLD_RED="\033[1;31m"
+# shellcheck disable=SC2034 # used by INSTALL.sh and UPGRADE.sh
+BOLD_MAG="\033[1;35m"
 RESET="\033[0m"
 
 do_link() {
