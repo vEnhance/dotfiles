@@ -2,7 +2,7 @@
 # Install Python CLI tools with `uv tool` that aren't already installed.
 # These are PyPI apps whose AUR packages I don't maintain and that lag behind,
 # so uv gets them from PyPI in isolated venvs under ~/.local/share/uv/tools.
-# To upgrade later: uv tool upgrade --all
+# To upgrade later: ./UPGRADE.sh
 
 set -euo pipefail
 # shellcheck source=installers/lib.sh
