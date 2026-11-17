@@ -6,7 +6,7 @@
 # don't know.
 
 # This script takes a single argument, the sink name, index, or alias (defined
-# below).
+# below). Pass -q first to skip the notification (e.g. if the caller sends its own).
 # To make this work, you will need to:
 #   - In /etc/pulse/default.pa:
 #       change "load-module module-stream-restore"
@@ -20,6 +20,12 @@
 #     The format is '[alias]=device_name'. The sink names can be found with:
 #       $ pacmd list-sinks | grep '^\s*name'
 #     , and are the monstrosities between the angle brackets.
+
+quiet=
+if [ "$1" = -q ]; then
+  quiet=1
+  shift
+fi
 
 # eventually split this
 if [ "$(hostname)" = ArchMajestic ]; then
@@ -54,6 +60,6 @@ pactl --format json list sink-inputs |
   done
 
 # if dunst running, send a notification
-if pgrep -U "$(whoami)" dunst >/dev/null; then
+if [ -z "$quiet" ] && pgrep -U "$(whoami)" dunst >/dev/null; then
   notify-send -i audio-card "Sink changed" "Sound now on sink $sink"
 fi
