@@ -76,3 +76,13 @@ link_hidden_path vim/doc
 link_hidden_path vim/snips
 link_hidden_path vim/spell
 link_hidden_path vim/vimrc
+
+if [ -d "$HOME"/Sync/share ]; then
+  link_share_path borse
+  link_share_path dolphin-emu
+  link_share_path dijo
+  link_share_path miqin
+  link_share_path soot
+else
+  echo "$HOME/Sync/share doesn't exist, not setting up ~/.local/share/."
+fi

@@ -37,6 +37,11 @@ link_hidden_path() {
   do_link "$DOTFILES/$1" "$HOME/.$1"
 }
 
+# link_share_path ~/Sync/share/foo  =>  ~/.local/share/foo
+link_share_path() {
+  do_link "$HOME/Sync/share/$1" "$HOME/.local/share/$1"
+}
+
 warn() {
   echo -e "${BOLD_YLW}SKIPPED:${RESET} $*"
 }
