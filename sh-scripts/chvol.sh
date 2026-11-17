@@ -19,6 +19,7 @@ mic_mute() {
   vol_pct @DEFAULT_SOURCE@
   wpctl set-mute @DEFAULT_SOURCE@ 1
 }
+mic_is_muted() { wpctl get-volume @DEFAULT_SOURCE@ | grep -q MUTED; }
 mic_unmute() {
   wpctl set-mute @DEFAULT_SOURCE@ 0
   vol_pct @DEFAULT_SOURCE@
@@ -66,16 +67,26 @@ if [ "$1" = w ]; then
     "Microphone unmuted" \
     "Microphone volume is $(mic_unmute)%" -t "$time"
 fi
-# Temporary mute for 30 seconds
+# Mute but nag 30sec later if it's still muted
 if [ "$1" = t ]; then
-  notify-send -i "status/appointment-soon" \
-    "Microphone muted for 30 seconds..." \
-    "Once was volume $(mic_mute)%" -t "$time"
+  if mic_is_muted; then
+    notify-send -i "dialog-error" -u critical \
+      "Microphone was already muted!" \
+      "Not starting temporary mute; check your mic state."
+    exit 1
+  fi
+  mic_mute >/dev/null
+  notify-send -i "microphone-sensitivity-muted" \
+    "Microphone temporarily muted" \
+    "Unmute once you're ready to keep vibing." -t "$time"
   killall -s USR1 py3status
-  sleep 30
-  notify-send -i "microphone-sensitivity-high" \
-    "Microphone unmuted again!" \
-    "Microphone volume is $(mic_unmute)%" -t "$time" -u low
+  for _ in $(seq 30); do
+    sleep 1
+    mic_is_muted || exit 0
+  done
+  notify-send -i "microphone-sensitivity-muted" -u critical \
+    "Microphone still muted!" \
+    "Please double check you didn't forget to unmute."
 fi
 
 # Global volume control
