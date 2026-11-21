@@ -1,0 +1,13 @@
+"$schema" = "https://jj-vcs.github.io/jj/latest/config-schema.json"
+
+[user]
+name = "Evan Chen"
+email = "evan@evanchen.cc"
+
+[signing]
+behavior = "own"
+backend = "gpg"
+backends.gpg.program = "gpg2"
+
+[ui]
+default-command = "log"

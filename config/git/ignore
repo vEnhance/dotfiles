@@ -5,12 +5,13 @@
 
 .DS_Store
 .vscode/
-node_modules
+.jj
 
 **.pyc
 .mypy_cache/
 .venv
 __pycache__
+node_modules
 
 pythontex_data.pkl
 **.aux
