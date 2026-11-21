@@ -16,3 +16,6 @@ pager = "delta"
 
 [merge-tools]
 delta.diff-expected-exit-codes = [0, 1]
+
+[aliases]
+ls = ["log", "-r", "::@", "-n", "16"]
