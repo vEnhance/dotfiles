@@ -11,3 +11,8 @@ backends.gpg.program = "gpg2"
 
 [ui]
 default-command = "log"
+diff-formatter = "delta"
+pager = "delta"
+
+[merge-tools]
+delta.diff-expected-exit-codes = [0, 1]
