@@ -22,6 +22,7 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'cespare/vim-toml',             { 'for' : 'toml' }
   Plug 'chrisbra/csv.vim'
   Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
+  Plug 'd2lang/d2-vim',                { 'for' : 'd2' }
   Plug 'dag/vim-fish',                 { 'for' : 'fish' }
   Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
   Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
@@ -251,7 +252,6 @@ endif
 " }}}
 " ALE continued {{{
 if !empty(globpath(&runtimepath, 'plugin/ale.vim'))
-  execute ale#fix#registry#Add('rumdl', 'ale#fixers#rumdl#Fix', ['markdown'], 'Fix markdown with rumdl')
   execute ale#fix#registry#Add('death_to_double_dollar_signs', 'ale#fixers#death_to_double_dollar_signs#Fix', ['tex'], 'wtf is wrong with people')
 endif
 " }}}

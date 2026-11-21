@@ -69,7 +69,6 @@ link_hidden_path local/share/typst
 
 mkdir -p "$HOME"/.vim/tmp/
 link_hidden_path vim/after
-link_hidden_path vim/ale_linters
 link_hidden_path vim/autoload
 link_hidden_path vim/colors
 link_hidden_path vim/doc

@@ -1,5 +1,11 @@
-syntax on
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
 set number
 set cursorline
 set cursorlineopt=number
-set mouse=a
+set laststatus=2
+set linebreak breakindent
+set ignorecase smartcase
+set signcolumn=yes
+set updatetime=100
+colorscheme retrobox

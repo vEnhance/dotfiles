@@ -21,6 +21,7 @@ from venueQ import Data, VenueQNode, VenueQRoot, logger
 
 sys.path.append(str(Path("~/dotfiles/py-scripts").expanduser()))
 from sane_markdown import markdown
+from uclean import clean_url
 
 
 def get_pass(s: str) -> str:
@@ -573,6 +574,8 @@ class Suggestion(VenueQNode):
         self.statement = fix_text(self.data.pop("statement").replace("\r\n", "\n"))
         self.solution = fix_text(self.data.pop("solution").replace("\r\n", "\n"))
         self.data["arch_puid"] = None
+        if hyperlink := self.data.get("hyperlink"):
+            self.data["hyperlink"] = clean_url(hyperlink.strip())
 
     def on_buffer_open(self, data: Data):
         super().on_buffer_open(data)
