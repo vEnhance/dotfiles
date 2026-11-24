@@ -534,7 +534,7 @@ set incsearch  " do incremental searching
 set laststatus=2
 set linebreak
 set list
-set listchars=tab:\|\ ,trail:_
+set listchars=tab:\|\ ,leadmultispace:┊\ ,trail:_
 set mouse=a    " mouse enabled
 set noautoindent
 set nohlsearch
