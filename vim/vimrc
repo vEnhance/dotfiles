@@ -17,50 +17,50 @@ endif
 " {{{ Plugins
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call plug#begin('~/.vim/plugged')
-  Plug 'alunny/pegjs-vim',             { 'for' : 'pegjs' }
-  Plug 'avakhov/vim-yaml',             { 'for' : 'yaml' }
-  Plug 'cespare/vim-toml',             { 'for' : 'toml' }
-  Plug 'chrisbra/csv.vim'
-  Plug 'chutzpah/icalendar.vim',       { 'for' : 'icalendar' }
-  Plug 'd2lang/d2-vim',                { 'for' : 'd2' }
-  Plug 'dag/vim-fish',                 { 'for' : 'fish' }
-  Plug 'farseer90718/vim-taskwarrior', { 'for' : 'taskedit' }
-  Plug 'hura/vim-asymptote',           { 'for' : 'asy' }
-  Plug 'kaarmu/typst.vim',             { 'for' : 'typst' }
-  Plug 'kchmck/vim-coffee-script',     { 'for' : 'coffee' }
-  Plug 'kovisoft/slimv',               { 'for' : 'lisp' }
-  Plug 'mboughaba/i3config.vim',       { 'for' : 'i3config' }
-  Plug 'neoclide/jsonc.vim',           { 'for' : 'json' }
-  Plug 'petRUShka/vim-sage',           { 'for' : 'sage' }
-  Plug 'plasticboy/vim-markdown',      { 'for' : 'markdown' }
-  Plug 'lervag/vimtex'
-  Plug 'vim-python/python-syntax',     { 'for' : 'python' }
+  Plug 'alunny/pegjs-vim',                { 'for': 'pegjs', 'commit': '1747d7afa12e1245c80ae9cb65dc87a4e8261595' }
+  Plug 'avakhov/vim-yaml',                { 'for': 'yaml', 'commit': '4b37a4fa8a91c44b517e3fb6de3ebba5e02ec9fb' }
+  Plug 'cespare/vim-toml',                { 'for': 'toml', 'commit': 'da051b7c23bad3c52d18886203c594739780ec09' }
+  Plug 'chrisbra/csv.vim',                { 'commit': '375c1a81a4f186ce8949824f3b87ddc6727a63af' }
+  Plug 'chutzpah/icalendar.vim',          { 'for': 'icalendar', 'commit': '0cbeecae4dc4c5632f382bda11c2064cf082453d' }
+  Plug 'd2lang/d2-vim',                   { 'for': 'd2', 'commit': 'a950f1a276506ac4bbc274dd65ba98b15a1d490d' }
+  Plug 'dag/vim-fish',                    { 'for': 'fish', 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
+  Plug 'farseer90718/vim-taskwarrior',    { 'for': 'taskedit', 'commit': '8ae6c5ee2ed54d759a58a8d9f67bc76430e3bd25' }
+  Plug 'hura/vim-asymptote',              { 'for': 'asy', 'commit': '2c59b7d173bf3837c1378e60b0c51d911cdbe15c' }
+  Plug 'kaarmu/typst.vim',                { 'for': 'typst', 'commit': '1d5436c0f55490893892441c0eca55e6cdf4916c' }
+  Plug 'kchmck/vim-coffee-script',        { 'for': 'coffee', 'commit': '28421258a8dde5a50deafbfc19cd9873cacfaa79' }
+  Plug 'kovisoft/slimv',                  { 'for': 'lisp', 'commit': 'cec820c8796c9274ba69f62a47dae0d33979f1b5' }
+  Plug 'mboughaba/i3config.vim',          { 'for': 'i3config', 'commit': '5c753c56c033d3b17e5005a67cdb9653bbb88ba7' }
+  Plug 'neoclide/jsonc.vim',              { 'for': 'json', 'commit': '6fb92460f9e50505c9b93181a00f27d10c9b383f' }
+  Plug 'petRUShka/vim-sage',              { 'for': 'sage', 'commit': '4b036eead948e3ae1d414efdeefe11f7543fc366' }
+  Plug 'plasticboy/vim-markdown',         { 'for': 'markdown', 'commit': '1bc9d0cd8e1cc3e901b0a49c2b50a843f1c89397' }
+  Plug 'lervag/vimtex',                   { 'commit': '90cd6619728df9f6161e5691ac247f0fe3437462' }
+  Plug 'vim-python/python-syntax',        { 'for': 'python', 'commit': '2cc00ba72929ea5f9456a26782db57fb4cc56a65' }
 
-  Plug 'honza/vim-snippets'
-  Plug 'SirVer/ultisnips'
+  Plug 'honza/vim-snippets',              { 'commit': 'ededcf7581962ee616cadab360d5966f3307f11a' }
+  Plug 'SirVer/ultisnips',                { 'commit': '0ca6a21386021e74a91034365809dcca56ed13f0' }
 
-  Plug 'airblade/vim-gitgutter'
-  Plug 'aymericbeaumet/vim-symlink'
-  Plug 'ciaranm/detectindent'
-  Plug 'dense-analysis/ale'
-  Plug 'junegunn/fzf'
-  Plug 'junegunn/fzf.vim'
-  Plug 'mg979/vim-visual-multi'
+  Plug 'airblade/vim-gitgutter',          { 'commit': '90b75207bd9b55d8ac4af15f72b4e935462014d0' }
+  Plug 'aymericbeaumet/vim-symlink',      { 'commit': '5a3dd1b2d561b588fb83ac4792b049f38ff72f6c' }
+  Plug 'ciaranm/detectindent',            { 'commit': 'c09ab6effc29ef913c531816eb980460f8dc9ed2' }
+  Plug 'dense-analysis/ale',              { 'commit': '422c0e8ef42e2315a5b58dc281fccc59b816c37a' }
+  Plug 'junegunn/fzf',                    { 'commit': '9a0705815cc690552ac5e2c0a6b51fd4ed3e831a' }
+  Plug 'junegunn/fzf.vim',                { 'commit': 'fe5f1fd45418c1a4d905f44a59357008058cc789' }
+  Plug 'mg979/vim-visual-multi',          { 'commit': 'a6975e7c1ee157615bbc80fc25e4392f71c344d4' }
   " there's a neovim version of this that might be neat
-  Plug 'svermeulen/vim-yoink'
-  Plug 'tpope/vim-fugitive'
-  Plug 'vim-airline/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
-  Plug 'vim-ctrlspace/vim-ctrlspace'
+  Plug 'svermeulen/vim-yoink',            { 'commit': '89ed6934679fdbc3c20f552b50b1f869f624cd22' }
+  Plug 'tpope/vim-fugitive',              { 'commit': '3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0' }
+  Plug 'vim-airline/vim-airline',         { 'commit': '00f4a8fca9eca8c5dbdf182dd698364c75a71f71' }
+  Plug 'vim-airline/vim-airline-themes',  { 'commit': '77aab8c6cf7179ddb8a05741da7e358a86b2c3ab' }
+  Plug 'vim-ctrlspace/vim-ctrlspace',     { 'commit': '959e4c1f7ad5df1ee824057c124844b3ffe5aa5c' }
   " ingo-library is a dependency for syntaxrange
-  Plug 'vim-scripts/ingo-library'
-  Plug 'vim-scripts/SyntaxRange'
-  Plug 'ypcrts/securemodelines'
+  Plug 'vim-scripts/ingo-library',        { 'commit': '558132e2221db3af26dc2f2c6756d092d48a459f' }
+  Plug 'vim-scripts/SyntaxRange',         { 'commit': '74894260c0d1c281b5141df492495aa9c43fd620' }
+  Plug 'ypcrts/securemodelines',          { 'commit': '53227da8bb2e286501969d3e6180c2b5b21b27e0' }
 
-  Plug 'ryanoasis/vim-devicons'
-  Plug 'nathanaelkane/vim-indent-guides'
-  Plug 'preservim/nerdtree',          { 'on': 'NERDTreeToggle' }
-  Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' }
+  Plug 'ryanoasis/vim-devicons',          { 'commit': '71f239af28b7214eebb60d4ea5bd040291fb7e33' }
+  Plug 'nathanaelkane/vim-indent-guides', { 'commit': 'a1e1390c0136e63e813d051de2003bf0ee18ae30' }
+  Plug 'preservim/nerdtree',              { 'on': 'NERDTreeToggle', 'commit': '690d061b591525890f1471c6675bcb5bdc8cdff9' }
+  Plug 'Xuyuanp/nerdtree-git-plugin',     { 'on': 'NERDTreeToggle', 'commit': 'e1fe727127a813095854a5b063c15e955a77eafb' }
 endif
 " }}}
 
