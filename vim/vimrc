@@ -1,16 +1,15 @@
 " Evan Chen's .vimrc
 
-" vint: -ProhibitSetNoCompatible
-set nocompatible
 scriptencoding 'utf-8'
 
 colorscheme reclipse
 filetype plugin indent on
+packadd! matchit
 syntax on
 let mapleader='='
 let maplocalleader = ','
 
-if has('python3') && !has('nvim')
+if has('python3')
   set pythonthreehome=/usr
 endif
 
@@ -156,12 +155,12 @@ let g:vimtex_syntax_custom_envs = [
       \   },
       \ }
       \]
-
-
-let grepprg = 'ag --nogroup --nocolor'
+let g:vimtex_syntax_custom_cmds = [
+      \ {'name': 'vocab', 'argstyle': 'bold'},
+      \ {'name': 'alert', 'argstyle': 'bold'},
+      \]
 
 let g:airline#extensions#ctrlspace#enabled = 1
-let g:airline#extensions#fugitive#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
 let g:airline#extensions#tabline#current_first = 0
@@ -178,7 +177,7 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme='wombat'
 function! AirlineSetup()
   let g:airline_section_a = airline#section#create_left(['mode', 'readonly',])
-  let g:airline_section_b = airline#section#create_left(['branch', 'hunks'])
+  let g:airline_section_b = airline#section#create_left(['hunks'])
   let g:airline_section_c = airline#section#create_left(['file', ])
   let g:airline_section_gutter = airline#section#create(['%<', 'tagbar', '%='])
   let g:airline_section_x = airline#section#create_right(['crypt', 'paste', 'iminsert', ' %v'])
@@ -389,37 +388,13 @@ nnoremap <Space>qq :qa<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 nnoremap <Space>t :let $VIM_DIR=expand('%:p:h')<CR>:silent !i3-sensible-terminal --working-directory="$VIM_DIR" >/dev/null 2>&1 &<CR>:redraw!<CR>
 nnoremap <Space>uw :set wrap!<CR>
-if has('nvim')
-  nnoremap <Space>y :Inspect<CR>
-else
-  nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-  \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-  \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-endif
-
-" git status
-nnoremap <Space>gg :Git<CR>
-nnoremap <Space>gb :Git blame -w<CR>
-nnoremap <Space>gd :Gdiffsplit<CR>
-nnoremap <Space>g<CR> :Gwrite<CR>
-" git commit
-nnoremap <Space>gc :Git commit<CR>
-" git commit (current file)
-nnoremap <Space>gw :Git commit %<CR>
-" git commit all
-nnoremap <Space>ga :Git commit --all<CR>
-" git create commit --amend [edit commit]
-nnoremap <Space>gC :Git commit --amend<CR>
-" git commit --amend current file [edit write]
-nnoremap <Space>gW :Git commit % --amend<CR>
-" git commit --amend all [edit all]
-nnoremap <Space>gA :Git commit --all --amend<CR>
-" git undo (really git read)
-nnoremap <Space>gu :Gread<CR>
+nnoremap <Space>y :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Smart window close replacement for :q
 function! EvanClose()
-  if (winnr('$') == 1 || (winnr('$') == 2 && winnr() == 2 && (bufname('NvimTree') !=# '' || bufname('NERD_Tree') !=# '')))
+  if (winnr('$') == 1 || (winnr('$') == 2 && winnr() == 2 && bufname('NERD_Tree') !=# ''))
     if tabpagenr('$') == 1
       bdelete
       if expand('%:p') ==# ''
@@ -495,7 +470,6 @@ nnoremap <expr> <Space>9 EvanSwitchBufNum(9)
 set backupdir=~/.vim/tmp
 set directory=~/.vim/tmp
 
-set backspace=indent,eol,start
 set t_BE=   " disable bracketed paste mode
 " Backspace key intermittently sends NUL (^@); remap to actual backspace
 " ^@ in insert mode normally means "insert last text + stop insert" (i_CTRL-@)
@@ -510,16 +484,12 @@ endif
 set completeopt=menuone,noselect,preview
 set conceallevel=2
 set cursorline
-if exists('+cursorlineopt')
-  set cursorlineopt=number
-endif
+set cursorlineopt=number
 set expandtab
 set formatoptions-=t
 set foldlevelstart=3
 set guicursor+=n-v-c:blinkon0
 set hidden
-set history=50 " keep 50 lines of command line history
-set hlsearch
 set ignorecase
 set incsearch  " do incremental searching
 set laststatus=2
@@ -534,51 +504,32 @@ set nowrap
 set number
 set numberwidth=3
 set omnifunc=ale#completion#OmniFunc
-set ruler      " show the cursor position all the time
-set runtimepath+=/usr/local/lilypond/usr/share/lilypond/current/vim/
 set scrolloff=5
 set shell=/bin/fish
-set shellslash
 set shiftwidth=2
 set shortmess=aItT
 set showbreak=_
-set showcmd    " display incomplete commands
 set smartcase
 set spell
 set spelllang=en
 set splitright
-set t_Co=256 " number of colors
 set tabstop=2
 set textwidth=80 " default textwidth = 80
 set updatetime=100
-set wrapmargin=0
-if exists('+winbar')
-  set winbar=%n:\ %f%m%h%w%q
-endif
 " }}}
 " {{{ Auto commands
 " ------------------------------------------
 augroup vimrc
   autocmd!
 augroup END
-autocmd vimrc BufNewFile,BufRead *.asy setfiletype asy
-autocmd vimrc BufNewFile,BufRead *.lean setfiletype lean
-autocmd vimrc BufNewFile,BufRead *.ly setfiletype lilypond
-autocmd vimrc BufNewFile,BufRead *.less setfiletype css
-autocmd vimrc BufNewFile,BufRead *.ics setfiletype icalendar
-autocmd vimrc BufNewFile,BufRead *.pegjs setfiletype pegjs
-autocmd vimrc BufNewFile,BufRead *.otl setfiletype votl
 autocmd vimrc BufNewFile,BufRead *.slither setfiletype slither
 autocmd vimrc BufNewFile,BufRead *.tex syntax spell toplevel
 autocmd vimrc BufNewFile,BufRead *.tsq setfiletype tsq
 autocmd vimrc BufNewFile,BufRead *.tsqx setfiletype tsqx
 autocmd vimrc BufNewFile,BufRead *.tsv setlocal noexpandtab copyindent preserveindent softtabstop=0 shiftwidth=4 tabstop=4
-autocmd vimrc BufNewFile,BufRead *.typ setfiletype typst
 autocmd vimrc BufNewFile,BufRead faterc setfiletype toml
 autocmd vimrc BufNewFile,BufRead .faterc setfiletype toml
 autocmd vimrc User AirlineAfterTheme call AirlineSetup()
-autocmd vimrc BufNewFile,BufRead *.tex set spell
-autocmd vimrc VimEnter .git/COMMIT_EDITMSG set filetype=gitcommit
 
 function! DetectVonTemp()
   if stridx(expand('%:p'), '/vondb') != -1

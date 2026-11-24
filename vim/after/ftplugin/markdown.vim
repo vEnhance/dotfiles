@@ -1,8 +1,5 @@
 scriptencoding utf-8
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set textwidth=80
+setlocal softtabstop=2
 
 " markdown should allow double trailing space
 " unfortunately, right now this variable apparently has to be global

@@ -36,6 +36,4 @@ nnoremap <silent> <localleader>f :%s/\$\$/\\\[/<CR>:%s/\$\$/\\\]/<CR>
 " Wrap in dollar signs
 nnoremap <localleader>w i$<Esc>ea$<Esc>
 
-set conceallevel=2
-
-set textwidth=88 " LaTeX can be a bit wider, follow Black
+setlocal textwidth=88 " LaTeX can be a bit wider, follow Black

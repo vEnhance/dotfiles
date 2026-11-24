@@ -39,11 +39,4 @@ syntax match texMathSymbol "\\kq\>" contained conceal cchar=𝖖
 syntax match texMathSymbol "\\ku\>" contained conceal cchar=𝖚
 syntax match texMathSymbol "\\kz\>" contained conceal cchar=𝖟
 
-" Include cleverref as a ref in highlighting.
-syn region texRefZone    matchgroup=texStatement start="\\cref{"  end="}\|%stopzone\>"  contains=@texRefGroup
-syn region texRefZone    matchgroup=texStatement start="\\Cref{"  end="}\|%stopzone\>"  contains=@texRefGroup
-
-syn region texStyleBold  matchgroup=Identifier start="\\vocab{"  end="}\|%stopzone\>"  contains=@texGroup
-syn region texStyleBold  matchgroup=Identifier start="\\alert{"  end="}\|%stopzone\>"  contains=@texGroup
-
 syntax match texCmdItem "\\ii\>" conceal cchar=•

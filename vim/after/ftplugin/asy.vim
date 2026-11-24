@@ -1,6 +1,6 @@
 scriptencoding utf-8
 " Spell
-set nospell
+setlocal nospell
 
 " asy compile and open
 nnoremap <localleader>p :update<CR>:silent !asy % -f pdf -V &<CR>:redraw<CR>

@@ -1,7 +1,6 @@
 scriptencoding utf-8
-let b:detctindent_preferred_expandtab = 0
-set nospell
-set noexpandtab
+setlocal nospell
+setlocal noexpandtab
 nnoremap <LocalLeader>a :%ArrangeColumn<CR>
 nnoremap <LocalLeader>d :DeleteColumn<CR>
 nnoremap <LocalLeader>c :Column +

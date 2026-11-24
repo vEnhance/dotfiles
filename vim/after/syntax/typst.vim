@@ -11,4 +11,3 @@ syn match typstMathSymbol '\zsiiint\ze[,_^ ]' contained conceal cchar=∭
 syn match typstMathSymbol '\zsoint\ze[,_^ ]' contained conceal cchar=∮
 syn match typstMathSymbol '\zsoiint\ze[,_^ ]' contained conceal cchar=∯
 syn match typstMathSymbol '\zsoiiint\ze[,_^ ]' contained conceal cchar=∰
-hi link Conceal typstMathSymbol

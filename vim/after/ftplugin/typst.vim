@@ -10,4 +10,4 @@ let b:ale_linters = ['vale']
 nnoremap <silent> <localleader>p :update<CR>:TypstWatch<CR>
 nnoremap <silent> <localleader>c :update<CR>:!typst compile %<CR>:redraw<CR>
 
-set textwidth=96
+setlocal textwidth=96

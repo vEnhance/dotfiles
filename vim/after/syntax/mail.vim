@@ -1,12 +1,10 @@
 scriptencoding utf-8
 call SyntaxRange#Include('```bash', '```', 'bash', 'PreProc')
 call SyntaxRange#Include('```c', '```', 'c', 'PreProc')
-call SyntaxRange#Include('```coffee', '```', 'coffee', 'PreProc')
 call SyntaxRange#Include('```cpp', '```', 'cpp', 'PreProc')
 call SyntaxRange#Include('```css', '```', 'css', 'PreProc')
 call SyntaxRange#Include('```diff', '```', 'diff', 'PreProc')
 call SyntaxRange#Include('```html', '```', 'html', 'PreProc')
-call SyntaxRange#Include('```jjavascript', '```', 'javascript', 'PreProc')
 call SyntaxRange#Include('```js', '```', 'javascript', 'PreProc')
 call SyntaxRange#Include('```json', '```', 'json', 'PreProc')
 call SyntaxRange#Include('```jsonc', '```', 'jsonc', 'PreProc')
