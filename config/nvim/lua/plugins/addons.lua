@@ -1,23 +1,12 @@
 return {
   {
     "mg979/vim-visual-multi",
-    "tpope/vim-fugitive",
     {
       "brglng/vim-im-select",
       init = function()
         vim.g.im_select_default = "xkb:us:dvorak:eng"
         vim.g.im_select_enable_focus_events = 0
       end,
-    },
-    {
-      "Julian/lean.nvim",
-      event = { "BufReadPre *.lean", "BufNewFile *.lean" },
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-      },
-      opts = {
-        mappings = true,
-      },
     },
     {
       "kaarmu/typst.vim",
@@ -96,12 +85,6 @@ return {
           },
         }
       end,
-    },
-    {
-      "ravsii/tree-sitter-d2",
-      dependencies = { "nvim-treesitter/nvim-treesitter" },
-      version = "*", -- use the latest git tag instead of main
-      build = "make nvim-install",
     },
   },
 }

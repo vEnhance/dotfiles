@@ -17,19 +17,12 @@ endif
 " {{{ Plugins
 if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   call plug#begin('~/.vim/plugged')
-  Plug 'avakhov/vim-yaml',                { 'for': 'yaml', 'commit': '4b37a4fa8a91c44b517e3fb6de3ebba5e02ec9fb' }
-  Plug 'cespare/vim-toml',                { 'for': 'toml', 'commit': 'da051b7c23bad3c52d18886203c594739780ec09' }
   Plug 'chrisbra/csv.vim',                { 'commit': '375c1a81a4f186ce8949824f3b87ddc6727a63af' }
   Plug 'd2lang/d2-vim',                   { 'for': 'd2', 'commit': 'a950f1a276506ac4bbc274dd65ba98b15a1d490d' }
-  Plug 'dag/vim-fish',                    { 'for': 'fish', 'commit': '50b95cbbcd09c046121367d49039710e9dc9c15f' }
-  Plug 'hura/vim-asymptote',              { 'for': 'asy', 'commit': '2c59b7d173bf3837c1378e60b0c51d911cdbe15c' }
   Plug 'kaarmu/typst.vim',                { 'for': 'typst', 'commit': '1d5436c0f55490893892441c0eca55e6cdf4916c' }
-  Plug 'mboughaba/i3config.vim',          { 'for': 'i3config', 'commit': '5c753c56c033d3b17e5005a67cdb9653bbb88ba7' }
-  Plug 'neoclide/jsonc.vim',              { 'for': 'json', 'commit': '6fb92460f9e50505c9b93181a00f27d10c9b383f' }
   Plug 'petRUShka/vim-sage',              { 'for': 'sage', 'commit': '4b036eead948e3ae1d414efdeefe11f7543fc366' }
   Plug 'plasticboy/vim-markdown',         { 'for': 'markdown', 'commit': '1bc9d0cd8e1cc3e901b0a49c2b50a843f1c89397' }
   Plug 'lervag/vimtex',                   { 'commit': '90cd6619728df9f6161e5691ac247f0fe3437462' }
-  Plug 'vim-python/python-syntax',        { 'for': 'python', 'commit': '2cc00ba72929ea5f9456a26782db57fb4cc56a65' }
 
   Plug 'honza/vim-snippets',              { 'commit': 'ededcf7581962ee616cadab360d5966f3307f11a' }
   Plug 'SirVer/ultisnips',                { 'commit': '0ca6a21386021e74a91034365809dcca56ed13f0' }
@@ -37,12 +30,10 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'airblade/vim-gitgutter',          { 'commit': '90b75207bd9b55d8ac4af15f72b4e935462014d0' }
   Plug 'aymericbeaumet/vim-symlink',      { 'commit': '5a3dd1b2d561b588fb83ac4792b049f38ff72f6c' }
   Plug 'dense-analysis/ale',              { 'commit': '422c0e8ef42e2315a5b58dc281fccc59b816c37a' }
-  Plug 'junegunn/fzf',                    { 'commit': '9a0705815cc690552ac5e2c0a6b51fd4ed3e831a' }
   Plug 'junegunn/fzf.vim',                { 'commit': 'fe5f1fd45418c1a4d905f44a59357008058cc789' }
   Plug 'mg979/vim-visual-multi',          { 'commit': 'a6975e7c1ee157615bbc80fc25e4392f71c344d4' }
   " there's a neovim version of this that might be neat
   Plug 'svermeulen/vim-yoink',            { 'commit': '89ed6934679fdbc3c20f552b50b1f869f624cd22' }
-  Plug 'tpope/vim-fugitive',              { 'commit': '3b753cf8c6a4dcde6edee8827d464ba9b8c4a6f0' }
   Plug 'tpope/vim-sleuth',                { 'commit': 'be69bff86754b1aa5adcbb527d7fcd1635a84080' }
   Plug 'vim-airline/vim-airline',         { 'commit': '00f4a8fca9eca8c5dbdf182dd698364c75a71f71' }
   Plug 'vim-airline/vim-airline-themes',  { 'commit': '77aab8c6cf7179ddb8a05741da7e358a86b2c3ab' }
