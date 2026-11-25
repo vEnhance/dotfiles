@@ -134,9 +134,6 @@
   }
 }
 
-#let pmod(x) = $space (mod #x)$
-#let bf(x) = $bold(upright(#x))$
-
 #let epigraph(quote_text, attribution: none) = {
   set text(size: 10pt)
   pad(left: 35%)[
@@ -174,6 +171,9 @@
 #let ee = $bold(upright(e))$
 #let dang = sym.angle.arc
 #let url(s) = { link(s, text(font:fonts.mono, s)) }
+#let pmod(x) = $space (mod #x)$
+#let bf(x) = $bold(upright(#x))$
+#let rank = math.op("rank")
 
 // Ersatz part command (similar to Koma-Script part in scrartcl)
 #let part(s) = { heading(numbering: none, text(size: 1.4em, fill: colors.partfill, s)) }
