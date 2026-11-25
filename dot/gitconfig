@@ -137,4 +137,4 @@
 	navigate = true
 	zero-style = dim
 
-# vim: ft=gitconfig
+# vim: ft=gitconfig noexpandtab
