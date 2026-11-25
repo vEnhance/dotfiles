@@ -40,6 +40,9 @@ xsel --clipboard --delete
 xsel --primary --delete
 xsel --secondary --delete
 
+# expire SSH agent
+ssh-add -D
+
 dunstctl set-paused true
 
 #################################################
