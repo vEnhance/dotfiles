@@ -36,7 +36,6 @@ if !empty(globpath(&runtimepath, 'autoload/plug.vim'))
   Plug 'tpope/vim-sleuth',                { 'commit': 'be69bff86754b1aa5adcbb527d7fcd1635a84080' }
   Plug 'vim-airline/vim-airline',         { 'commit': '00f4a8fca9eca8c5dbdf182dd698364c75a71f71' }
   Plug 'vim-airline/vim-airline-themes',  { 'commit': '77aab8c6cf7179ddb8a05741da7e358a86b2c3ab' }
-  Plug 'vim-ctrlspace/vim-ctrlspace',     { 'commit': '959e4c1f7ad5df1ee824057c124844b3ffe5aa5c' }
   " ingo-library is a dependency for syntaxrange
   Plug 'vim-scripts/ingo-library',        { 'commit': '558132e2221db3af26dc2f2c6756d092d48a459f' }
   Plug 'vim-scripts/SyntaxRange',         { 'commit': '74894260c0d1c281b5141df492495aa9c43fd620' }
@@ -52,11 +51,6 @@ endif
 " A million settings for addons {{{
 " https://github.com/junegunn/fzf.vim/issues/374
 let $FZF_DEFAULT_OPTS="--ansi --preview-window 'up:40%' --layout reverse --margin=1,4 --preview 'bat --color=always --style=header,grid --line-range :300 {}'"
-let g:CtrlSpaceHeight = 5
-let g:CtrlSpaceSaveWorkspaceOnExit = 0
-let g:CtrlSpaceSetDefaultMapping = 0
-let g:CtrlSpaceStatuslineFunction ='airline#extensions#ctrlspace#statusline()'
-let g:CtrlSpaceUseTabline = 0
 let g:csv_highlight_column = 'y'
 let g:csv_no_conceal = 1
 let g:csv_nomap_bs = 1
@@ -160,9 +154,7 @@ let g:vimtex_syntax_custom_cmds = [
       \ {'name': 'alert', 'argstyle': 'bold'},
       \]
 
-let g:airline#extensions#ctrlspace#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline#extensions#tabline#ctrlspace_show_tab_nr = 0
 let g:airline#extensions#tabline#current_first = 0
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
@@ -322,8 +314,8 @@ nnoremap <silent> <C-j> :call MarkSnipJump(0)<cr>
 inoremap <silent> <C-j> <Esc>:call MarkSnipJump(1)<cr>
 
 " Navigate buffers with backspace
-nnoremap <Backspace> :CtrlSpaceGoUp<CR>
-nnoremap <S-Backspace> :CtrlSpaceGoDown<CR>
+nnoremap <Backspace> :bprevious<CR>
+nnoremap <S-Backspace> :bnext<CR>
 " Disable ex mode entirely
 nmap Q <nop>
 " Save command
@@ -380,10 +372,10 @@ endfunction
 
 nnoremap <Space>/ :FzfAg<CR>
 nnoremap <Space>a :ALEDetail<CR>
+nnoremap <Space>b :FzfBuffers<CR>
 nnoremap <Space>e :NERDTreeToggle<CR>
 nnoremap <Space>l :lcd %:p:h<CR>
 nnoremap <Space>o :FzfFiles<CR>
-nnoremap <Space>p :CtrlSpace<CR>
 nnoremap <Space>qq :qa<CR>
 nnoremap <Space>r :call UltiSnips#RefreshSnippets()<CR>
 nnoremap <Space>t :let $VIM_DIR=expand('%:p:h')<CR>:silent !i3-sensible-terminal --working-directory="$VIM_DIR" >/dev/null 2>&1 &<CR>:redraw!<CR>
