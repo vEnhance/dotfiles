@@ -537,6 +537,13 @@ function! DetectVonTemp()
   endif
 endfunction
 autocmd vimrc BufReadPre *.tex call DetectVonTemp()
+
+" leadmultispace guides every shiftwidth() columns
+function! UpdateLeadMultispace()
+  let &l:listchars = 'tab:| ,trail:_,leadmultispace:┊' . repeat(' ', shiftwidth() - 1)
+endfunction
+autocmd vimrc OptionSet tabstop,shiftwidth call UpdateLeadMultispace()
+autocmd vimrc BufWinEnter,FileType * call UpdateLeadMultispace()
 " }}}
 
 " vim: ft=vim fdm=marker
